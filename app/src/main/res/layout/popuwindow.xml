@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/color_454444"
+    android:alpha="0.8"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:layout_weight="20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="色彩"
+            android:textSize="13sp"
+            android:textColor="#ffffff"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <SeekBar
+            android:id="@+id/seekbarbaohe"
+            android:layout_width="0dp"
+            android:layout_weight="15"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/rotate"
+            android:src="@mipmap/ic_feed_follow"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:padding="2dp"
+            android:layout_height="20dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="20"
+        android:layout_gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="饱和度"
+            android:textSize="13sp"
+            android:textColor="#ffffff"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <SeekBar
+            android:id="@+id/seekbarlight"
+            android:layout_weight="17"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

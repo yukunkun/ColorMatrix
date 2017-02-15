@@ -1,0 +1,701 @@
+package com.matrix.yukun.matrix;
+
+import android.Manifest;
+import android.animation.ValueAnimator;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.net.Uri;
+import android.os.Environment;
+import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.BounceInterpolator;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.matrix.yukun.matrix.adapter.RecAdapter;
+import com.matrix.yukun.matrix.anims.MyEvaluator;
+import com.matrix.yukun.matrix.bean.EventByte;
+import com.matrix.yukun.matrix.bean.EventPos;
+import com.matrix.yukun.matrix.camera_module.CameraActivity;
+import com.matrix.yukun.matrix.camera_module.CorpActivity;
+import com.matrix.yukun.matrix.image_module.activity.ListDetailActivity;
+import com.matrix.yukun.matrix.image_module.activity.PhotoListActivity;
+import com.matrix.yukun.matrix.image_module.bean.EventDetail;
+import com.matrix.yukun.matrix.selfview.BitmapView;
+import com.matrix.yukun.matrix.selfview.squareprogressbar.SquareProgressBar;
+import com.matrix.yukun.matrix.selfview.view.MyRelativeLayout;
+import com.matrix.yukun.matrix.setting_module.SettingActivity;
+import com.matrix.yukun.matrix.util.BitmapUtil;
+import com.matrix.yukun.matrix.util.DeskMapUtil;
+import com.matrix.yukun.matrix.util.FileUtil;
+import com.matrix.yukun.matrix.util.ImageUtils;
+import com.matrix.yukun.matrix.util.Noticefication;
+import com.matrix.yukun.matrix.util.ScreenUtils;
+import com.matrix.yukun.matrix.util.SpacesItemDecoration;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class MainActivity extends BaseActivity implements View.OnClickListener {
+
+    private ImageView imageLoad;
+    private ImageView imageShare;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
+    private RecAdapter recAdapter;
+    private boolean check=false;
+    private LinearLayout layout;
+    private ImageView imageViewMore;
+    private ImageView imageViewPhoto;
+    private String path;
+    private String photoName;
+    private SquareProgressBar imageViewTest;
+    private PopupWindow mPopupWindow;
+    private SeekBar seekBarBaoHe;
+    private SeekBar seekBarLight;
+    private Bitmap mTempBmp;
+    private Bitmap mOriginBmp;
+    private int pos;
+    private Bitmap bitmapOri;
+    private Bitmap seekBitmap;
+    private RelativeLayout textViewTiShi;
+    private int rotate=0;
+    private ImageView textRotate;
+    private Bitmap bitmapRoate;
+    private ImageView imageViewRoate;
+    private int roate=0;
+    private LinearLayout layoutMore;
+    private TextView textViewMatrix;
+    private TextView textViewShare;
+    private ValueAnimator animator;
+    private ArrayList<String> lists=new ArrayList<>();
+    private MyRelativeLayout layoutContain;
+    private Random random = new Random();
+    private boolean flag=true;
+    private int count=0;
+    private boolean isShow=false;
+    private BitmapFactory.Options options = new BitmapFactory.Options();
+    private Handler handler=new Handler();
+    private int []ranColor ={Color.RED,Color.BLUE,Color.GRAY,Color.DKGRAY,Color.GREEN,Color.LTGRAY,
+            R.color.color_44fc2c,R.color.color_44fc2c,R.color.color_b450fc,R.color.color_fc2c5d, R.color.color_fc2cd2,
+            R.color.color_000000_alpha,R.color.color_57f733,R.color.color_f733d6,R.color.colorPrimaryDark,R.color.color_3575ff};
+    private TextView textViewRoate;
+    private ImageView imageViewCamera;
+    private ImageView imageViewCrop;
+    private RelativeLayout reaContain;
+    private Bitmap bitmap;
+    private TextView textViewTag;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        EventBus.getDefault().register(this);
+        init();
+        setAdapter();
+        setListener();
+        judgeTishi();
+        getPermission();
+    }
+
+    private void init() {
+        imageViewTest = (SquareProgressBar)findViewById(R.id.squareProgressBar);
+        imageViewTest.setImage(R.mipmap.beijing_1);
+//        imageViewTest.setImage(R.drawable.yuanjing);
+
+        imageViewTest.setWidth(2);
+        setColor();
+
+        imageLoad = (ImageView) findViewById(R.id.loadimage);
+        imageShare = (ImageView) findViewById(R.id.shareimage);
+        layout = (LinearLayout) findViewById(R.id.linfuntion);
+        imageViewMore = (ImageView) findViewById(R.id.imagemore);
+        imageViewPhoto = (ImageView) findViewById(R.id.imagephoto);
+        imageViewRoate = (ImageView) findViewById(R.id.imagerotate);
+        imageViewCamera = (ImageView) findViewById(R.id.imagecameras);
+        imageViewCrop = (ImageView) findViewById(R.id.imagecrop);
+        layoutMore = (LinearLayout) findViewById(R.id.morefunction);
+        textViewMatrix = (TextView) findViewById(R.id.loadmaterial);
+        textViewShare = (TextView) findViewById(R.id.textviewshare);
+        textViewRoate = (TextView) findViewById(R.id.tishi);
+        textViewTag = (TextView) findViewById(R.id.tishitag);
+
+        layoutContain = (MyRelativeLayout) findViewById(R.id.rea_contain);
+        textViewTiShi = (RelativeLayout) findViewById(R.id.texttishi);
+        reaContain = (RelativeLayout) findViewById(R.id.contain);
+        linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        setConLayout();
+        startNoticefication();
+    }
+
+    private void startNoticefication() {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Noticefication.start(getApplicationContext());
+//            }
+//        }).start();
+    }
+
+    //计算高度
+    private void setConLayout() {
+        int height=ScreenUtils.instance().getHeight(this);
+        ViewGroup.LayoutParams layoutParams =reaContain.getLayoutParams();
+        layoutParams.height= (int) (height*0.55);
+        reaContain.setLayoutParams(layoutParams);
+    }
+
+    private void setAdapter() {
+        recAdapter = new RecAdapter(getApplicationContext(),check);
+        recyclerView.setAdapter(recAdapter);
+        recyclerView.addItemDecoration(new SpacesItemDecoration(20));
+    }
+
+    @Subscribe(threadMode=ThreadMode.MAIN)
+    public void getPos(EventPos event){
+        pos = event.position;
+        recAdapter.notifyDataSetChanged();
+        setBitmapColor(pos);
+    }
+
+    private void setBitmapColor(int pos) {
+        if(bitmapOri==null){
+            Toast.makeText(MainActivity.this, "请选择图片", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //得到不同的ColorMatrix,并且返回回来
+        ColorMatrix colorMatrix = BitmapUtil.matrixTrans(pos);
+        handleColorRotateBmp(colorMatrix, bitmapOri) ;
+    }
+
+    @Subscribe(threadMode=ThreadMode.MAIN)
+    public void getDetail(EventDetail event){
+        path = event.path;
+        photoName = event.photoName;
+        if(path==null||path.length()==0){
+            return;
+        }
+
+        imageViewCrop.setVisibility(View.VISIBLE);
+        imageViewRoate.setVisibility(View.VISIBLE);
+        textViewTiShi.setVisibility(View.GONE);
+        layout.setVisibility(View.VISIBLE);
+        imageViewMore.setVisibility(View.VISIBLE);
+        detailImage();
+    }
+
+    private void detailImage() {
+
+        if(mOriginBmp!=null){
+            mOriginBmp.recycle();
+        }
+        //压缩大小
+        Bitmap bitmapCopy=BitmapFactory.decodeFile(path,options).copy(Bitmap.Config.ARGB_4444,true);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmapCopy.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+//        Log.i("-----M",baos.toByteArray().length / 1024/1024+"");
+        if(baos.toByteArray().length / 1024/1024>15){
+            Toast.makeText(MainActivity.this, "图片过大,请选择较小图片", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(bitmapCopy.getWidth()>2048){
+            //裁剪尺寸
+            Bitmap bitmap = FileUtil.compressImage(bitmapCopy).copy(Bitmap.Config.ARGB_8888,true);
+            int height = (int) ( bitmap.getHeight() * (1024.0 / bitmap.getWidth()) );
+            Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 1024, height, true);
+            mOriginBmp=scaled;
+        }else {
+            mOriginBmp=bitmapCopy;
+        }
+        mTempBmp = Bitmap.createBitmap(mOriginBmp.getWidth(), mOriginBmp.getHeight(),
+                Bitmap.Config.ARGB_4444);
+        bitmapOri=Bitmap.createBitmap(mOriginBmp.getWidth(), mOriginBmp.getHeight(),
+                Bitmap.Config.ARGB_4444);
+        seekBitmap=mOriginBmp;
+        bitmapRoate=mOriginBmp;
+        //得到第一个原图
+        ColorMatrix colorMatrix = BitmapUtil.matrixTrans(0);
+        handleColorRotateBmp(colorMatrix, bitmapOri) ;
+    }
+
+    @Subscribe(threadMode=ThreadMode.MAIN)
+    public void getCrop(EventByte event){
+        mOriginBmp=event.bitmap;
+        mTempBmp = Bitmap.createBitmap(mOriginBmp.getWidth(), mOriginBmp.getHeight(),
+                Bitmap.Config.ARGB_4444);
+        bitmapOri=event.bitmap;
+        seekBitmap=mOriginBmp;
+        bitmapRoate=mOriginBmp;
+        //得到第一个原图
+        ColorMatrix colorMatrix = BitmapUtil.matrixTrans(0);
+        handleColorRotateBmp(colorMatrix, bitmapOri) ;
+    }
+
+    //从新绘制
+    private void handleColorRotateBmp(ColorMatrix colorMatrix,Bitmap bitmaps){
+        Bitmap bitmap = BitmapUtil.handleColorRotateBmp(colorMatrix, mOriginBmp, bitmaps);
+        imageViewTest.setImageBitmap(bitmap);
+        seekBitmap=bitmap;//进度的Bitmap
+        bitmapRoate=bitmap;//旋转的Bitmap
+        mTempBmp= BitmapUtil.mTempBit(bitmap);
+    }
+    //旋转
+    private void handleColorRoate(int progress){
+        Bitmap bitmap = BitmapUtil.rotateBitmap(bitmapRoate, progress);
+        imageViewTest.setImageBitmap(null);
+        imageViewTest.setImageBitmap(bitmap);
+        mTempBmp= BitmapUtil.mTempBit(bitmap);
+        seekBitmap=bitmap;//进度的Bitmap
+    }
+
+    private void setListener() {
+        imageViewPhoto.setOnClickListener(this);
+        imageViewMore.setOnClickListener(this);
+        textViewTiShi.setOnClickListener(this);
+        imageShare.setOnClickListener(this);
+        imageLoad.setOnClickListener(this);
+        imageViewRoate.setOnClickListener(this);
+        textViewMatrix.setOnClickListener(this);
+        textViewShare.setOnClickListener(this);
+        textViewRoate.setOnClickListener(this);
+        textViewTag.setOnClickListener(this);
+        imageViewCamera.setOnClickListener(this);
+        imageViewCrop.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id){
+            case R.id.imagephoto:
+                Intent intent=new Intent(MainActivity.this, PhotoListActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.right_in,R.anim.left_out);
+            break;
+            case R.id.imagemore:
+                //popuwindow的展示
+                if(!isShow){
+                    showMore();
+                    isShow=true;
+                }else {
+                    mPopupWindow.dismiss();
+                    isShow=false;
+                }
+                break;
+            case R.id.texttishi:
+                Intent intent_1=new Intent(MainActivity.this, PhotoListActivity.class);
+                startActivity(intent_1);
+                overridePendingTransition(R.anim.right_in,R.anim.left_out);
+                break;
+            case R.id.imagecameras:
+                startCamera();
+                break;
+            case R.id.shareimage:
+                //分享
+                File destDir=FileUtil.createFile();
+                if(photoName==null||photoName.length()==0){
+                    Toast.makeText(MainActivity.this, "请先选择图片", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                final File f = new File(destDir, photoName);
+
+                    Toast.makeText(MainActivity.this, "正在下载...", Toast.LENGTH_SHORT).show();
+                    flag=false;
+                    imageViewTest.setProgress(0);
+                    bitmap = ImageUtils.createViewBitmap(layoutContain, layoutContain.getWidth(), layoutContain.getHeight());
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            FileUtil.loadImage(bitmap,photoName);
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(MainActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
+                                    share(f.getPath());
+                                    flag=true;
+                                    setColor();
+                                }
+                            });
+                        }
+                    }).start();
+                share(f.getPath());
+                break;
+            case R.id.loadimage:
+                layoutMore.setVisibility(View.GONE);
+                flag=false;
+                imageViewTest.setProgress(0);
+                //load
+                if(path==null){
+                    if(photoName==null||photoName.length()==0){
+                        Toast.makeText(MainActivity.this, "请先选择图片", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+
+                bitmap = ImageUtils.createViewBitmap(layoutContain, layoutContain.getWidth(), layoutContain.getHeight());
+                Toast.makeText(MainActivity.this, "正在下载...", Toast.LENGTH_SHORT).show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        FileUtil.loadImage(bitmap, photoName);
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
+                                flag=true;
+                                setColor();
+                            }
+                        });
+                    }
+                }).start();
+                break;
+            case R.id.imagerotate:
+                handleColorRoate(roate);
+                roate++;
+                break;
+            case R.id.loadmaterial:
+                File destDi = new File(Environment.getExternalStorageDirectory()+"/yukun");
+                if (!destDi.exists()) {
+                    destDi.mkdirs();
+                }
+                lists.clear();
+                File[] files=destDi.listFiles();
+                for (int i = 0; i < files.length; i++) {
+                    lists.add(files[i]+"");
+                }
+                //打开Matria图库
+                Intent intent_map=new Intent(MainActivity.this,ListDetailActivity.class);
+                intent_map.putStringArrayListExtra("photo",lists);
+                startActivity(intent_map);
+                overridePendingTransition(R.anim.right_in,R.anim.left_out);
+                break;
+            case R.id.textviewshare:
+                //下载分享的动画
+                if(layoutMore.getVisibility()==View.GONE){
+                    //下载分享的动画
+                    layoutMore.setVisibility(View.VISIBLE);
+                    addAnimation();
+                }else {
+                    layoutMore.setVisibility(View.GONE);
+                }
+                break;
+            case R.id.tishi:
+                saveSharePreferrence();
+                textViewRoate.setVisibility(View.GONE);
+                textViewTag.setVisibility(View.GONE);
+                break;
+            case R.id.tishitag:
+                saveSharePreferrence();
+                textViewRoate.setVisibility(View.GONE);
+                textViewTag.setVisibility(View.GONE);
+                break;
+            case R.id.imagecrop:
+                Intent intent2=new Intent(this,CorpActivity.class);
+                intent2.putExtra("imagepath",path);
+                startActivity(intent2);
+                overridePendingTransition(R.anim.right_in,R.anim.left_out);
+                break;
+        }
+    }
+
+    //打开相机
+    private void startCamera() {
+        Intent intent=new Intent(this, CameraActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.right_in,R.anim.left_out);
+    }
+
+    private void saveSharePreferrence() {
+        SharedPreferences sp = getSharedPreferences("share", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("tishi",true);
+        editor.commit();
+    }
+    private void judgeTishi() {
+        SharedPreferences preferences=getSharedPreferences("share", Context.MODE_PRIVATE);
+        boolean auto = preferences.getBoolean("tishi", false);
+        if(auto){
+            textViewRoate.setVisibility(View.GONE);
+            textViewTag.setVisibility(View.GONE);
+        }
+    }
+
+    private void judgeDesk() {
+        SharedPreferences preferences=getSharedPreferences("desk", Context.MODE_PRIVATE);
+        boolean auto = preferences.getBoolean("desk", false);
+        if(!auto){
+            //创建快捷图标
+            DeskMapUtil.createShortCut(getApplicationContext());
+            //保存图标tag
+            SharedPreferences sp = getSharedPreferences("desk", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putBoolean("desk",true);
+            editor.commit();
+        }
+    }
+
+    private void share(String filePath){
+        Intent intentShare = FileUtil.shareMsg(filePath);
+        startActivity(Intent.createChooser(intentShare, "分享图片"));
+    }
+    //share的动画
+    private void addAnimation() {
+        animator = ValueAnimator.ofInt(0,-600,0);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                int animatedValue = (int) valueAnimator.getAnimatedValue();
+                layoutMore.layout(layoutMore.getLeft(),animatedValue,layoutMore.getRight(),layoutMore.getHeight()+animatedValue);
+            }
+        });
+
+        animator.setDuration(1000);
+        animator.setInterpolator(new BounceInterpolator());
+        animator.setEvaluator(new MyEvaluator());
+        animator.start();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if(layoutMore.getVisibility()==View.VISIBLE){
+            layoutMore.setVisibility(View.GONE);
+        }
+        return super.onTouchEvent(event);
+    }
+
+    private void showMore() {
+        View view = View.inflate(MainActivity.this,R.layout.popuwindow,null);
+        mPopupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        seekBarBaoHe = (SeekBar) view.findViewById(R.id.seekbarbaohe);
+        seekBarLight = (SeekBar) view.findViewById(R.id.seekbarlight);
+        textRotate = (ImageView) view.findViewById(R.id.rotate);
+        seekBarBaoHe.setMax(200);
+        seekBarBaoHe.setProgress(100);
+        seekBarLight.setMax(20);
+        seekBarLight.setProgress(1);
+        mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.color.color_000000_alpha));
+
+        if (mPopupWindow !=null&&!mPopupWindow.isShowing()) {
+            int width = ScreenUtils.instance().getWidth(getApplicationContext());
+            mPopupWindow.showAsDropDown(imageViewMore,-width,0);
+        }
+        seekBarListener();
+    }
+
+    private void seekBarListener() {
+        seekBarBaoHe.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                if(b){
+                    if(bitmapOri!=null){
+                        Bitmap bitmap = BitmapUtil.handleColorBmp(mTempBmp, seekBitmap, progress, rotate);
+                        imageViewTest.setImageBitmap(bitmap);
+                        bitmapRoate=bitmap;
+                    }
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        seekBarLight.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                if(b){
+                    if(bitmapOri!=null){
+                        Bitmap bitmap = BitmapUtil.handleColorMatrixBmp(mTempBmp, seekBitmap, progress);
+                        imageViewTest.setImageBitmap(bitmap);
+                        bitmapRoate=bitmap;
+                    }
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+        //色彩的变化
+        textRotate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(rotate==2){
+                    rotate=0;
+                }else {
+                    rotate++;
+                }
+                //toast
+                FileUtil.showToast(MainActivity.this,rotate);
+            }
+        });
+    }
+
+    private void setColor() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (flag){
+                    if(count==100){
+                        final int randomcolor =random.nextInt(ranColor.length);
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                imageViewTest.setColorRGB(ranColor[randomcolor]);
+                            }
+                        });
+                        count=0;
+                    }else {
+                        count++;
+                    }
+                    try {
+                        Thread.sleep(20);
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                imageViewTest.setProgress(count);
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
+
+    public void Back(View view) {
+        Intent intent=new Intent(this, SettingActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.left_in,R.anim.right_out);
+    }
+
+    private void getPermission() {
+
+        if (ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        }else{
+//            //快捷图标
+//            judgeDesk();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    //6.0权限访问
+                    //快捷图标
+//                    judgeDesk();
+
+                } else { //权限被拒绝
+                    AlertDialog dialog = new AlertDialog.Builder(this)
+                            .setMessage("需要赋予访问存储的权限，不开启将无法正常工作！且可能被强制退出登录")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+                            }).create();
+                    dialog.show();
+                }
+                return;
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        flag=false;
+        EventBus.getDefault().unregister(this);
+    }
+
+    //两次退出
+    private static Boolean isQuit = false;
+    private Timer timer = new Timer();
+    @Override
+    public void onBackPressed() {
+        if (isQuit == false) {
+            isQuit = true;
+            Toast.makeText(getBaseContext(), "再按一次退出*_*", Toast.LENGTH_SHORT).show();
+            TimerTask task = null;
+            task = new TimerTask() {
+                @Override
+                public void run() {
+                    isQuit = false;
+                }
+            };
+            timer.schedule(task, 2000);
+        } else {
+            finish();
+//            System.exit(0);
+//            android.os.Process.killProcess(android.os.Process.myPid());
+        }
+    }
+}

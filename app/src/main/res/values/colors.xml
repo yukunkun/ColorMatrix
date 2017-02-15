@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="color_252525">#181818</color>
+    <color name="color_000000">#000000</color>
+    <color name="color_000000_alpha">#a34d4c4c</color>
+    <color name="color_282828">#1a1a1a</color>
+    <color name="color_454444">#810b0b0b</color>
+    <color name="color_202020">#0a0a0a</color>
+    <color name="color_810b0b">#a80b0b0b</color>
+    <color name="color_44fc2c">#44fc2c</color>
+    <color name="color_b450fc">#b450fc</color>
+    <color name="color_fc2c5d">#ff013d</color>
+    <color name="color_fc2cd2">#fc2cd2</color>
+    <color name="color_3575ff">#3575ff</color>
+
+    <color name="color_57f733">#57f733</color>
+    <color name="color_f733d6">#f733d6</color>
+    <color name="color_eaffd9">#353535</color>
+
+
+    <color name="gplus_color_1">#44fc2c</color>
+    <color name="gplus_color_2">#f4b400</color>
+    <color name="gplus_color_3">#427fed</color>
+    <color name="gplus_color_4">#b23424</color>
+
+    <integer-array name="gplus_colors">
+        <item>@color/gplus_color_1</item>
+        <item>@color/gplus_color_2</item>
+        <item>@color/gplus_color_3</item>
+        <item>@color/gplus_color_4</item>
+    </integer-array>
+</resources>

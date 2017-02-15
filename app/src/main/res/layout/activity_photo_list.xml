@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_000000"
+    android:orientation="vertical"
+    tools:context="com.matrix.yukun.matrix.image_module.activity.PhotoListActivity">
+    <RelativeLayout
+        android:background="@color/color_252525"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_60">
+        <TextView
+            android:text="选择图片"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:padding="15dp"
+            android:onClick="ListBack"
+            android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
+            android:layout_width="@dimen/dimens_60"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="#363636"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+    </RelativeLayout>
+    <GridView
+        android:layout_marginTop="10dp"
+        android:id="@+id/grideview"
+        android:columnWidth="25dp"
+        android:numColumns="3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

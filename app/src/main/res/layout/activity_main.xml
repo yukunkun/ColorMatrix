@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_000000">
+
+    <RelativeLayout
+        android:background="@color/color_252525"
+        android:id="@+id/titilebar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titlebar">
+        <ImageView
+            android:id="@+id/back"
+            android:padding="15dp"
+            android:onClick="Back"
+            android:src="@mipmap/ic_settings_dark"
+            android:layout_width="@dimen/dimens_60"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/imagemore"
+            android:padding="4dp"
+            android:visibility="visible"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_shuffle_white"
+            android:layout_width="@dimen/dimens_40"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/imagephoto"
+            android:padding="3dp"
+            android:layout_toLeftOf="@+id/imagemore"
+            android:src="@mipmap/ic_explore_wallpaper_pressed"
+            android:layout_width="@dimen/dimens_40"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/imagecameras"
+            android:padding="3dp"
+            android:layout_toLeftOf="@+id/imagephoto"
+            android:src="@mipmap/abc_ic_menu_selectall_mtrl_alpha"
+            android:layout_width="@dimen/dimens_40"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/imagerotate"
+            android:padding="3dp"
+            android:visibility="gone"
+            android:layout_toLeftOf="@+id/imagecameras"
+            android:src="@mipmap/ic_refresh_dark"
+            android:layout_width="@dimen/dimens_40"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/imagecrop"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:layout_toLeftOf="@+id/imagerotate"
+            android:src="@mipmap/abc_ic_menu_cut_mtrl_alpha"
+            android:layout_width="@dimen/dimens_40"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/contain"
+        android:layout_width="match_parent"
+        android:layout_height="320dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="match_parent">
+    <com.matrix.yukun.matrix.selfview.view.MyRelativeLayout
+        android:id="@+id/rea_contain"
+        android:gravity="center"
+        android:background="@color/color_eaffd9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.matrix.yukun.matrix.selfview.squareprogressbar.SquareProgressBar
+            android:id="@+id/squareProgressBar"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </com.matrix.yukun.matrix.selfview.squareprogressbar.SquareProgressBar>
+    </com.matrix.yukun.matrix.selfview.view.MyRelativeLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/texttishi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tishi"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentRight="true"
+                android:text="图库和编辑栏在上面呦     "
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tishitag"
+                android:layout_below="@+id/tishi"
+                android:layout_marginTop="15dp"
+                android:layout_alignParentRight="true"
+                android:text="点击图片可添加文字呦     "
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/morefunction"
+            android:weightSum="2"
+            android:alpha="1"
+            android:visibility="gone"
+            android:layout_width="@dimen/dimens_50"
+            android:orientation="vertical"
+            android:background="@color/color_810b0b"
+            android:layout_alignParentRight="true"
+            android:layout_height="match_parent">
+            <View
+                android:background="#363636"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+            <ImageView
+                android:id="@+id/loadimage"
+                android:layout_weight="1"
+                android:padding="18dp"
+                android:src="@mipmap/ic_install_dark"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+            <View
+                android:background="#363636"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+            <ImageView
+                android:id="@+id/shareimage"
+                android:layout_weight="1"
+                android:padding="18dp"
+                android:src="@mipmap/abc_ic_menu_share_mtrl_alpha"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+        </LinearLayout>
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <View
+                android:background="#363636"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+            <LinearLayout
+                android:id="@+id/linfuntion"
+                android:weightSum="2"
+                android:visibility="visible"
+                android:background="@color/color_282828"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_50">
+                <TextView
+                    android:id="@+id/loadmaterial"
+                    android:layout_weight="1"
+                    android:padding="18dp"
+                    android:textColor="#ffffff"
+                    android:text="Matrix 图库"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+                <View
+                    android:background="#363636"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"/>
+                <TextView
+                    android:id="@+id/textviewshare"
+                    android:layout_weight="1"
+                    android:padding="18dp"
+                    android:text="分享"
+                    android:textColor="#ffffff"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <View
+                android:background="#363636"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_130"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

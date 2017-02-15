@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.matrix.yukun.matrix.camera_module.CorpActivity">
+    <RelativeLayout
+        android:id="@+id/real"
+        android:background="@color/color_252525"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_60">
+        <TextView
+            android:text="裁剪图片"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:padding="15dp"
+            android:onClick="CropBack"
+            android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
+            android:layout_width="@dimen/dimens_60"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="#363636"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@+id/real"
+        android:layout_marginBottom="@dimen/dimens_50"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <com.edmodo.cropper.CropImageView
+            android:id="@+id/cropimageview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            custom:aspectRatioX="1" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_30">
+        <TextView
+            android:text="比例"
+            android:paddingLeft="2dp"
+            android:background="@color/color_000000_alpha"
+            android:textColor="#ffffff"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+            <SeekBar
+                android:background="@color/color_000000_alpha"
+                android:layout_alignParentTop="true"
+                android:id="@+id/cropseekbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_30" />
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+        <View
+            android:id="@+id/line"
+            android:background="#363636"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_height="@dimen/dimens_50">
+            <ImageView
+                android:id="@+id/cameraok"
+                android:layout_width="0dp"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@mipmap/abc_ic_menu_cut_mtrl_alpha"
+                android:layout_height="match_parent" />
+            <View
+                android:background="#363636"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+            <ImageView
+                android:id="@+id/cameracancler"
+                android:layout_width="0dp"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@mipmap/abc_ic_clear_mtrl_alpha"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

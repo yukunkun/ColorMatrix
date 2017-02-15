@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="270dp"
+    android:background="@color/color_252525"
+    android:layout_height="wrap_content">
+        <TextView
+        android:textSize="17sp"
+        android:textColor="#ffffff"
+        android:text="反馈"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_40"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:hint="反馈消息"
+        android:layout_margin="5dp"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:textColorHint="#ffffff"
+        android:layout_height="wrap_content" />
+        <View
+            android:layout_width="270dp"
+            android:layout_height="0.5dp"
+            android:background="@color/color_000000"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/comment_dialog_grade_cancel"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:text="取消"
+                android:textColor="#ffffff"/>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_000000"/>
+
+            <Button
+                android:id="@+id/comment_dialog_grade_ok"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:text="确定"
+                android:textColor="#ffffff"/>
+        </LinearLayout>
+</LinearLayout>

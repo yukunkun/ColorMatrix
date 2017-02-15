@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "24.0.0"
+    defaultConfig {
+        applicationId "com.matrix.yukun.matrix"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 4
+        versionName "2.0.1 beta"
+    }
+    /*sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }*/
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+    compile 'com.android.support:recyclerview-v7:23.2.1'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'cn.jiguang.sdk:jcore:1.1.0'
+    compile files('libs/GDTUnionSDK.4.9.542.min.jar')
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    compile 'com.edmodo:cropper:1.0.1'
+    compile 'com.github.castorflex.smoothprogressbar:library-circular:1.0.1'
+}
