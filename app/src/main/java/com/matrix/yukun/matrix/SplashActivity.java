@@ -39,7 +39,6 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
         getPermiss();
     }
 
-
     private void init() {
         relativeLayout = (RelativeLayout) findViewById(R.id.container);
     }
