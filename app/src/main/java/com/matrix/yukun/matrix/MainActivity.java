@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -19,6 +20,7 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
@@ -40,6 +42,7 @@ import android.widget.Toast;
 
 import com.matrix.yukun.matrix.adapter.RecAdapter;
 import com.matrix.yukun.matrix.anims.MyEvaluator;
+import com.matrix.yukun.matrix.bean.AppConstants;
 import com.matrix.yukun.matrix.bean.EventByte;
 import com.matrix.yukun.matrix.bean.EventPos;
 import com.matrix.yukun.matrix.camera_module.CameraActivity;
@@ -124,6 +127,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private RelativeLayout reaContain;
     private Bitmap bitmap;
     private TextView textViewTag;
+    private File destDirs;
+    private long newName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -259,12 +264,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         handleColorRotateBmp(colorMatrix, bitmapOri) ;
     }
 
-    @Subscribe(threadMode=ThreadMode.MAIN)
-    public void getCrop(EventByte event){
-        mOriginBmp=event.bitmap;
+
+    public void getCrop(Bitmap bitmap){
+        mOriginBmp=bitmap;
         mTempBmp = Bitmap.createBitmap(mOriginBmp.getWidth(), mOriginBmp.getHeight(),
                 Bitmap.Config.ARGB_4444);
-        bitmapOri=event.bitmap;
+        bitmapOri=bitmap;
         seekBitmap=mOriginBmp;
         bitmapRoate=mOriginBmp;
         //得到第一个原图
@@ -431,11 +436,48 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 textViewTag.setVisibility(View.GONE);
                 break;
             case R.id.imagecrop:
-                Intent intent2=new Intent(this,CorpActivity.class);
-                intent2.putExtra("imagepath",path);
-                startActivity(intent2);
+
+                Intent intent1 = new Intent("com.android.camera.action.CROP");
+                intent1.setDataAndType(Uri.fromFile(new File(path)), "image/*");
+                intent1.putExtra("crop", "true");
+                newName = System.currentTimeMillis();
+                destDirs = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+ AppConstants.PATH+"/"+newName);
+                intent1.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(destDirs));//
+//                intent1.putExtra("aspectX", 1);
+//                intent1.putExtra("aspectY", 1);
+                intent1.putExtra("outputFormat", Bitmap.CompressFormat.JPEG);
+                intent1.putExtra("outputX", 720);
+                intent1.putExtra("outputY", 720);
+                intent1.putExtra("scale", true);
+                intent1.putExtra("scaleUpIfNeeded", true);
+                intent1.putExtra("return-data", false);
+                startActivityForResult(intent1, 1);
+
                 overridePendingTransition(R.anim.right_in,R.anim.left_out);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i("---",requestCode+"=="+resultCode);
+        if(requestCode==1){
+            Uri uri = data.getData();
+            if(data.getData()==null||getContentResolver().query(uri, null, null, null,null)==null){
+                imageViewCamera.setImageResource(R.mipmap.beijing_1);
+                Toast.makeText(MainActivity.this, "获取图片失败，请从相册选择！", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Cursor cursor = getContentResolver().query(uri, null, null, null,null);
+            if (cursor != null && cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+                cursor.close();
+            }
+
+            Bundle bundle = data.getExtras();
+            Bitmap bitmap = (Bitmap) bundle.get("data");// 获取相机返回的数据，并转换为Bitmap图片格式
+            getCrop(bitmap);
         }
     }
 
