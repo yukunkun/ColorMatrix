@@ -18,6 +18,7 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -61,6 +62,7 @@ import com.matrix.yukun.matrix.util.ImageUtils;
 import com.matrix.yukun.matrix.util.Noticefication;
 import com.matrix.yukun.matrix.util.ScreenUtils;
 import com.matrix.yukun.matrix.util.SpacesItemDecoration;
+import com.matrix.yukun.matrix.util.UriToPath;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -266,10 +268,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     public void getCrop(Bitmap bitmap){
+        if(mOriginBmp!=null){
+            mOriginBmp.recycle();
+        }
         mOriginBmp=bitmap;
         mTempBmp = Bitmap.createBitmap(mOriginBmp.getWidth(), mOriginBmp.getHeight(),
                 Bitmap.Config.ARGB_4444);
-        bitmapOri=bitmap;
+        bitmapOri=Bitmap.createBitmap(mOriginBmp.getWidth(), mOriginBmp.getHeight(),
+                Bitmap.Config.ARGB_4444);
         seekBitmap=mOriginBmp;
         bitmapRoate=mOriginBmp;
         //得到第一个原图
@@ -319,7 +325,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             break;
             case R.id.imagemore:
                 //popuwindow的展示
-                if(!isShow){
+                if(!isShow){        Bitmap bitmapCopy=BitmapFactory.decodeFile(path,options).copy(Bitmap.Config.ARGB_4444,true);
+
                     showMore();
                     isShow=true;
                 }else {
@@ -446,8 +453,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                intent1.putExtra("aspectX", 1);
 //                intent1.putExtra("aspectY", 1);
                 intent1.putExtra("outputFormat", Bitmap.CompressFormat.JPEG);
-                intent1.putExtra("outputX", 720);
-                intent1.putExtra("outputY", 720);
+//                intent1.putExtra("outputX", 720);
+//                intent1.putExtra("outputY", 720);
                 intent1.putExtra("scale", true);
                 intent1.putExtra("scaleUpIfNeeded", true);
                 intent1.putExtra("return-data", false);
@@ -461,23 +468,39 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("---",requestCode+"=="+resultCode);
         if(requestCode==1){
-            Uri uri = data.getData();
-            if(data.getData()==null||getContentResolver().query(uri, null, null, null,null)==null){
-                imageViewCamera.setImageResource(R.mipmap.beijing_1);
-                Toast.makeText(MainActivity.this, "获取图片失败，请从相册选择！", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            Cursor cursor = getContentResolver().query(uri, null, null, null,null);
-            if (cursor != null && cursor.moveToFirst()) {
-                path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
-                cursor.close();
+            Bundle extras = data.getExtras();
+            Bitmap photo=null;
+            if(extras!=null){
+                photo = (Bitmap) extras.get("data");
             }
 
-            Bundle bundle = data.getExtras();
-            Bitmap bitmap = (Bitmap) bundle.get("data");// 获取相机返回的数据，并转换为Bitmap图片格式
-            getCrop(bitmap);
+            if (photo!=null&&!photo.equals("null")) {
+                getCrop(photo);
+            }else if(data.getData()!=null){
+                Uri uri = data.getData();
+                if((data.getData()+"").startsWith("file")){
+                    Bitmap bitmapCopy=BitmapFactory.decodeFile((data.getData()+"").substring(8,(data.getData()+"").length()),options).copy(Bitmap.Config.ARGB_4444,true);
+                    getCrop(bitmapCopy);
+                    FileUtil.deleteFile((data.getData()+"").substring(8,(data.getData()+"").length()));
+                    return;
+                }else {
+                    if(data.getData()==null||getContentResolver().query(uri, null, null, null,null)==null){
+                        imageViewCamera.setImageResource(R.mipmap.beijing_1);
+                        Toast.makeText(MainActivity.this, "获取图片失败，请从相册选择！", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    String imagePath = null;
+                    Cursor cursor = getContentResolver().query(uri, null, null, null,null);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+                        cursor.close();
+                    }
+                    Bitmap bitmapCopy=BitmapFactory.decodeFile(imagePath,options).copy(Bitmap.Config.ARGB_4444,true);
+                    getCrop(bitmapCopy);
+                    FileUtil.deleteFile(imagePath);
+                }
+            }
         }
     }
 
