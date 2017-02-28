@@ -237,24 +237,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if(mOriginBmp!=null){
             mOriginBmp.recycle();
         }
-        //压缩大小
-        Bitmap bitmapCopy=BitmapFactory.decodeFile(path,options).copy(Bitmap.Config.ARGB_4444,true);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmapCopy.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
-//        Log.i("-----M",baos.toByteArray().length / 1024/1024+"");
-        if(baos.toByteArray().length / 1024/1024>15){
-            Toast.makeText(MainActivity.this, "图片过大,请选择较小图片", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(bitmapCopy.getWidth()>2048){
-            //裁剪尺寸
-            Bitmap bitmap = FileUtil.compressImage(bitmapCopy).copy(Bitmap.Config.ARGB_8888,true);
-            int height = (int) ( bitmap.getHeight() * (1024.0 / bitmap.getWidth()) );
-            Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 1024, height, true);
-            mOriginBmp=scaled;
-        }else {
-            mOriginBmp=bitmapCopy;
-        }
+//        //压缩大小
+//        Bitmap bitmapCopy=BitmapFactory.decodeFile(path,options).copy(Bitmap.Config.ARGB_4444,true);
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        bitmapCopy.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+////        Log.i("-----M",baos.toByteArray().length / 1024/1024+"");
+//        if(baos.toByteArray().length / 1024/1024>15){
+//            Toast.makeText(MainActivity.this, "图片过大,请选择较小图片", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        if(bitmapCopy.getWidth()>2048){
+//            //裁剪尺寸
+//            Bitmap bitmap = FileUtil.compressImage(bitmapCopy).copy(Bitmap.Config.ARGB_8888,true);
+//            int height = (int) ( bitmap.getHeight() * (1024.0 / bitmap.getWidth()) );
+//            Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 1024, height, true);
+//            mOriginBmp=scaled;
+//        }else {
+//            mOriginBmp=bitmapCopy;
+//        }
+
+        Bitmap bitmap=ImageUtils.getSmallBitmap(path);
+        mOriginBmp=bitmap;
         mTempBmp = Bitmap.createBitmap(mOriginBmp.getWidth(), mOriginBmp.getHeight(),
                 Bitmap.Config.ARGB_4444);
         bitmapOri=Bitmap.createBitmap(mOriginBmp.getWidth(), mOriginBmp.getHeight(),

@@ -504,4 +504,40 @@ public class ImageUtils {
         isBm = new ByteArrayInputStream(baos.toByteArray());
         return BitmapFactory.decodeStream(isBm, null, options);
     }
+
+    public static Bitmap getSmallBitmap(String path){
+        //new 出来一个bitmap的参数
+        BitmapFactory.Options options=new BitmapFactory.Options();
+        //设置为true，不会生成bitmao对象，只是读取尺寸和类型信息
+        options.inJustDecodeBounds=true;
+        BitmapFactory.decodeFile(path, options);
+        //得到这个比例   并赋予option里面的inSampleSize
+        options.inSampleSize = calculateInSampleSizes(options, 320, 480);
+        //设置为false，即将要生成bitmap对象啦
+        options.inJustDecodeBounds = false;
+        //有了这个option，我们可以生成bitmap对象了
+        Bitmap bitmap=BitmapFactory.decodeFile(path, options);
+
+        return bitmap;
+
+    }
+    public static int calculateInSampleSizes(BitmapFactory.Options options,int reqHeight,int reqWidth){
+        //得到原始图片宽高
+        int height=options.outHeight;
+        int width=options.outWidth;
+        //默认设置为1，即不缩放
+        int inSampleSize=1;
+        //如果图片原始的高大于我们期望的高，或者图片的原始宽大于我们期望的宽，换句话意思就是，我们想让它变小一点
+        if (height > reqHeight || width > reqWidth) {
+            //原始的高除以期望的高，得到一个比例
+            final int heightRatio = Math.round((float) height/ (float) reqHeight);
+            //原始的宽除以期望的宽，得到一个比例
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+            //取上面两个比例中小的一个，返回这个比例
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+        return inSampleSize;
+
+    }
+
 }
