@@ -256,7 +256,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //            mOriginBmp=bitmapCopy;
 //        }
 
-        Bitmap bitmap=ImageUtils.getSmallBitmap(path);
+        Bitmap bitmap=ImageUtils.getSmallBitmap(path);//图片处理,压缩大小
         mOriginBmp=bitmap;
         mTempBmp = Bitmap.createBitmap(mOriginBmp.getWidth(), mOriginBmp.getHeight(),
                 Bitmap.Config.ARGB_4444);
@@ -328,8 +328,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             break;
             case R.id.imagemore:
                 //popuwindow的展示
-                if(!isShow){        Bitmap bitmapCopy=BitmapFactory.decodeFile(path,options).copy(Bitmap.Config.ARGB_4444,true);
-
+                if(!isShow){
                     showMore();
                     isShow=true;
                 }else {
@@ -453,11 +452,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 newName = System.currentTimeMillis();
                 destDirs = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+ AppConstants.PATH+"/"+newName);
                 intent1.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(destDirs));//
-//                intent1.putExtra("aspectX", 1);
-//                intent1.putExtra("aspectY", 1);
                 intent1.putExtra("outputFormat", Bitmap.CompressFormat.JPEG);
-//                intent1.putExtra("outputX", 720);
-//                intent1.putExtra("outputY", 720);
                 intent1.putExtra("scale", true);
                 intent1.putExtra("scaleUpIfNeeded", true);
                 intent1.putExtra("return-data", false);
@@ -471,7 +466,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1){
+        if(requestCode==1&&data!=null){
             Bundle extras = data.getExtras();
             Bitmap photo=null;
             if(extras!=null){
