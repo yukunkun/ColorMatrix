@@ -123,14 +123,12 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("=====",/*path1+*/"--"+requestCode);
         imageViewCamera.setImageResource(R.mipmap.beijing_1);
         if (requestCode == 1) {
             Bitmap bitmapCopy=BitmapFactory.decodeFile(path1,options).copy(Bitmap.Config.ARGB_4444,true);
             imageViewCamera.setImageBitmap(bitmapCopy);// 将图片显示在ImageView里
 
         }
-        else {
-        }
+
     }
 }

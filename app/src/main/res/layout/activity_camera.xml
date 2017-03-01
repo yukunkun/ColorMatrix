@@ -31,7 +31,6 @@
     </RelativeLayout>
     <ImageView
         android:id="@+id/cameraimageview"
-        android:scaleType="centerCrop"
         android:layout_marginBottom="56dp"
         android:layout_below="@+id/title"
         android:layout_width="match_parent"

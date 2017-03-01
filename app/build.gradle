@@ -33,7 +33,7 @@ dependencies {
     compile 'cn.jiguang.sdk:jcore:1.1.0'
     compile files('libs/GDTUnionSDK.4.9.542.min.jar')
     compile 'com.tencent.bugly:crashreport:latest.release'
-    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.0.0
+//    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.0.0
     compile 'com.edmodo:cropper:1.0.1'
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.0.1'
 }

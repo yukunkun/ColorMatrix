@@ -63,13 +63,12 @@
         <service
             android:name="com.qq.e.comm.DownloadService"
             android:exported="false" />
-        <activity android:name="com.tencent.bugly.beta.ui.BetaActivity"
-            android:theme="@android:style/Theme.Translucent" />
 
         <activity android:name=".setting_module.IntroduceActivity" />
         <activity android:name=".setting_module.AgreeActivity" />
         <activity android:name=".camera_module.CorpActivity" />
-        <activity android:name=".camera_module.CameraActivity"></activity>
+        <activity android:name=".camera_module.CameraActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
