@@ -1,5 +1,7 @@
 package com.matrix.yukun.matrix.image_module.activity;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +17,7 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.image_module.adapter.GlideViewAdapter;
 import com.matrix.yukun.matrix.image_module.bean.EventDetail;
 import com.matrix.yukun.matrix.image_module.bean.EventList;
+import com.matrix.yukun.matrix.util.FileUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -29,6 +32,7 @@ public class ListDetailActivity extends BaseActivity {
     private GridView gridView;
     private TextView textView;
     private RelativeLayout layout;
+    private GlideViewAdapter glideViewAdapter;
 
     private void init() {
         gridView = (GridView) findViewById(R.id.grideview);
@@ -37,6 +41,7 @@ public class ListDetailActivity extends BaseActivity {
         if(lists.size()==0){
             textView.setVisibility(View.VISIBLE);
         }
+        Toast.makeText(ListDetailActivity.this, "长按可删除图片", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -50,7 +55,7 @@ public class ListDetailActivity extends BaseActivity {
     }
 
     private void setAdapter() {
-        GlideViewAdapter glideViewAdapter=new GlideViewAdapter(getApplicationContext(),lists);
+        glideViewAdapter = new GlideViewAdapter(getApplicationContext(),lists);
         gridView.setAdapter(glideViewAdapter);
     }
     private void setListener() {
@@ -74,10 +79,36 @@ public class ListDetailActivity extends BaseActivity {
                             }
                         }
                     }).start();
-
                 }
             }
         });
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                setAlert(position);
+                return true;
+            }
+        });
+    }
+
+    private void setAlert(final int position) {
+        new AlertDialog.Builder(this).setMessage("确认删除吗?")
+                .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        boolean b = FileUtil.deleteFile(lists.get(position));
+                        lists.remove(position);
+                        glideViewAdapter.notifyDataSetChanged();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .create()
+                .show();
     }
 
     @Override
