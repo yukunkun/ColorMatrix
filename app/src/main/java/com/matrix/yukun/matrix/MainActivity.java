@@ -11,24 +11,17 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.net.Uri;
-import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,14 +37,12 @@ import android.widget.Toast;
 import com.matrix.yukun.matrix.adapter.RecAdapter;
 import com.matrix.yukun.matrix.anims.MyEvaluator;
 import com.matrix.yukun.matrix.bean.AppConstants;
-import com.matrix.yukun.matrix.bean.EventByte;
 import com.matrix.yukun.matrix.bean.EventPos;
 import com.matrix.yukun.matrix.camera_module.CameraActivity;
-import com.matrix.yukun.matrix.camera_module.CorpActivity;
 import com.matrix.yukun.matrix.image_module.activity.ListDetailActivity;
 import com.matrix.yukun.matrix.image_module.activity.PhotoListActivity;
 import com.matrix.yukun.matrix.image_module.bean.EventDetail;
-import com.matrix.yukun.matrix.selfview.BitmapView;
+import com.matrix.yukun.matrix.movie_module.MovieActivity;
 import com.matrix.yukun.matrix.selfview.squareprogressbar.SquareProgressBar;
 import com.matrix.yukun.matrix.selfview.view.MyRelativeLayout;
 import com.matrix.yukun.matrix.setting_module.SettingActivity;
@@ -59,23 +50,16 @@ import com.matrix.yukun.matrix.util.BitmapUtil;
 import com.matrix.yukun.matrix.util.DeskMapUtil;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.util.ImageUtils;
-import com.matrix.yukun.matrix.util.Noticefication;
 import com.matrix.yukun.matrix.util.ScreenUtils;
 import com.matrix.yukun.matrix.util.SpacesItemDecoration;
-import com.matrix.yukun.matrix.util.UriToPath;
+import com.matrix.yukun.matrix.weather_module.WeatherActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -121,8 +105,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private BitmapFactory.Options options = new BitmapFactory.Options();
     private Handler handler=new Handler();
     private int []ranColor ={Color.RED,Color.BLUE,Color.GRAY,Color.DKGRAY,Color.GREEN,Color.LTGRAY,
-            R.color.color_44fc2c,R.color.color_44fc2c,R.color.color_b450fc,R.color.color_fc2c5d, R.color.color_fc2cd2,
-            R.color.color_000000_alpha,R.color.color_57f733,R.color.color_f733d6,R.color.colorPrimaryDark,R.color.color_3575ff};
+            R.color.color_44fc2c, R.color.color_44fc2c, R.color.color_b450fc, R.color.color_fc2c5d, R.color.color_fc2cd2,
+            R.color.color_000000_alpha, R.color.color_57f733, R.color.color_f733d6, R.color.colorPrimaryDark, R.color.color_3575ff};
     private TextView textViewRoate;
     private ImageView imageViewCamera;
     private ImageView imageViewCrop;
@@ -131,6 +115,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView textViewTag;
     private File destDirs;
     private long newName;
+    private TextView textViewMov;
+    private TextView textViewWea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,11 +151,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         textViewShare = (TextView) findViewById(R.id.textviewshare);
         textViewRoate = (TextView) findViewById(R.id.tishi);
         textViewTag = (TextView) findViewById(R.id.tishitag);
+        textViewMov = (TextView)findViewById(R.id.textmovie);
+        textViewWea = (TextView)findViewById(R.id.textweather);
 
         layoutContain = (MyRelativeLayout) findViewById(R.id.rea_contain);
         textViewTiShi = (RelativeLayout) findViewById(R.id.texttishi);
         reaContain = (RelativeLayout) findViewById(R.id.contain);
-        linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(linearLayoutManager);
         setConLayout();
@@ -187,7 +175,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     //计算高度
     private void setConLayout() {
-        int height=ScreenUtils.instance().getHeight(this);
+        int height= ScreenUtils.instance().getHeight(this);
         ViewGroup.LayoutParams layoutParams =reaContain.getLayoutParams();
         layoutParams.height= (int) (height*0.55);
         reaContain.setLayoutParams(layoutParams);
@@ -256,7 +244,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //            mOriginBmp=bitmapCopy;
 //        }
 
-        Bitmap bitmap=ImageUtils.getSmallBitmap(path);//图片处理,压缩大小
+        Bitmap bitmap= ImageUtils.getSmallBitmap(path);//图片处理,压缩大小
         mOriginBmp=bitmap;
         mTempBmp = Bitmap.createBitmap(mOriginBmp.getWidth(), mOriginBmp.getHeight(),
                 Bitmap.Config.ARGB_4444);
@@ -316,6 +304,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         textViewTag.setOnClickListener(this);
         imageViewCamera.setOnClickListener(this);
         imageViewCrop.setOnClickListener(this);
+        textViewMov.setOnClickListener(this);
+        textViewWea.setOnClickListener(this);
+
     }
     @Override
     public void onClick(View view) {
@@ -324,7 +315,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.imagephoto:
                 Intent intent=new Intent(MainActivity.this, PhotoListActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.right_in,R.anim.left_out);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
             break;
             case R.id.imagemore:
                 //popuwindow的展示
@@ -339,14 +330,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.texttishi:
                 Intent intent_1=new Intent(MainActivity.this, PhotoListActivity.class);
                 startActivity(intent_1);
-                overridePendingTransition(R.anim.right_in,R.anim.left_out);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 break;
             case R.id.imagecameras:
                 startCamera();
                 break;
+            case R.id.textmovie:
+                Intent intentMov=new Intent(MainActivity.this, MovieActivity.class);
+                startActivity(intentMov);
+                break;
+            case R.id.textweather:
+                Intent intentWea=new Intent(MainActivity.this, WeatherActivity.class);
+                startActivity(intentWea);
+                break;
             case R.id.shareimage:
                 //分享
-                File destDir=FileUtil.createFile();
+                File destDir= FileUtil.createFile();
                 if(photoName==null||photoName.length()==0){
                     Toast.makeText(MainActivity.this, "请先选择图片", Toast.LENGTH_SHORT).show();
                     return;
@@ -422,7 +421,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Intent intent_map=new Intent(MainActivity.this,ListDetailActivity.class);
                 intent_map.putStringArrayListExtra("photo",lists);
                 startActivity(intent_map);
-                overridePendingTransition(R.anim.right_in,R.anim.left_out);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 break;
             case R.id.textviewshare:
                 //下载分享的动画
@@ -458,7 +457,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 intent1.putExtra("return-data", false);
                 startActivityForResult(intent1, 1);
 
-                overridePendingTransition(R.anim.right_in,R.anim.left_out);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 break;
         }
     }
@@ -506,7 +505,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void startCamera() {
         Intent intent=new Intent(this, CameraActivity.class);
         startActivity(intent);
-        overridePendingTransition(R.anim.right_in,R.anim.left_out);
+        overridePendingTransition(R.anim.right_in, R.anim.left_out);
     }
 
     private void saveSharePreferrence() {
@@ -568,7 +567,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void showMore() {
-        View view = View.inflate(MainActivity.this,R.layout.popuwindow,null);
+        View view = View.inflate(MainActivity.this, R.layout.popuwindow,null);
         mPopupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         seekBarBaoHe = (SeekBar) view.findViewById(R.id.seekbarbaohe);
         seekBarLight = (SeekBar) view.findViewById(R.id.seekbarlight);
@@ -682,7 +681,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void Back(View view) {
         Intent intent=new Intent(this, SettingActivity.class);
         startActivity(intent);
-        overridePendingTransition(R.anim.left_in,R.anim.right_out);
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 
     private void getPermission() {

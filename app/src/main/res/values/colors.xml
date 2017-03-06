@@ -16,10 +16,11 @@
     <color name="color_fc2c5d">#ff013d</color>
     <color name="color_fc2cd2">#fc2cd2</color>
     <color name="color_3575ff">#3575ff</color>
+    <color name="color_eaffd9">#696969</color>
+    <color name="color_54fa3e">#54fa3e</color>
 
     <color name="color_57f733">#57f733</color>
     <color name="color_f733d6">#f733d6</color>
-    <color name="color_eaffd9">#353535</color>
 
 
     <color name="gplus_color_1">#44fc2c</color>
@@ -33,4 +34,10 @@
         <item>@color/gplus_color_3</item>
         <item>@color/gplus_color_4</item>
     </integer-array>
+    <!--movie-->
+    <color name="color_lines">#363636</color>
+    <color name="color_bfbfbf">#9c9c9c</color>
+    <color name="color_whit">#FFFFFF</color>
+
+
 </resources>

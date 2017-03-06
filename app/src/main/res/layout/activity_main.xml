@@ -13,11 +13,38 @@
         android:layout_height="@dimen/titlebar">
         <ImageView
             android:id="@+id/back"
-            android:padding="15dp"
+            android:padding="2dp"
             android:onClick="Back"
             android:src="@mipmap/ic_settings_dark"
-            android:layout_width="@dimen/dimens_60"
+            android:layout_width="@dimen/dimens_40"
             android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/textmovie"
+            android:layout_toRightOf="@id/back"
+            android:text="电影精选"
+            android:layout_centerInParent="true"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:background="@drawable/movieshape"
+            android:textColor="@color/color_54fa3e"
+            android:layout_width="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_height="@dimen/dimens_25" />
+        <TextView
+            android:id="@+id/textweather"
+            android:layout_toRightOf="@id/textmovie"
+            android:text="天气提醒"
+            android:layout_centerInParent="true"
+            android:textSize="13sp"
+            android:layout_marginLeft="-2dp"
+            android:gravity="center"
+            android:background="@drawable/movieshape"
+            android:textColor="@color/color_54fa3e"
+            android:layout_width="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_height="@dimen/dimens_25" />
         <ImageView
             android:id="@+id/imagemore"
             android:padding="4dp"
@@ -162,9 +189,10 @@
                     android:id="@+id/loadmaterial"
                     android:layout_weight="1"
                     android:padding="18dp"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/color_44fc2c"
                     android:text="Matrix 图库"
                     android:gravity="center"
+                    android:textStyle="bold"
                     android:layout_width="0dp"
                     android:layout_height="match_parent" />
                 <View
@@ -176,7 +204,8 @@
                     android:layout_weight="1"
                     android:padding="18dp"
                     android:text="分享"
-                    android:textColor="#ffffff"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_44fc2c"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent" />

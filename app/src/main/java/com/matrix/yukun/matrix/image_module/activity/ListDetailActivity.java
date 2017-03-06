@@ -58,6 +58,7 @@ public class ListDetailActivity extends BaseActivity {
         glideViewAdapter = new GlideViewAdapter(getApplicationContext(),lists);
         gridView.setAdapter(glideViewAdapter);
     }
+
     private void setListener() {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

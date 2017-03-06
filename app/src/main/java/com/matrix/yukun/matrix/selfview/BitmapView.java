@@ -29,7 +29,7 @@ public class BitmapView extends ImageView {
 
     public BitmapView(Context context) {
         super(context);
-        mOriginBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.aa_video_back);
+        mOriginBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.abc_ic_ab_back_mtrl_am_alpha);
     }
 
     public BitmapView(Context context, AttributeSet attrs) {

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.image_module.bean.ImageBean;
 
@@ -53,11 +54,16 @@ public class GlideViewAdapter extends BaseAdapter {
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
         viewHolder.mImageView.setImageBitmap(null);
-        Glide.with(context).load(mImageBean).into(viewHolder.mImageView);
+        Glide.with(context).load(mImageBean).
+                diskCacheStrategy( DiskCacheStrategy.NONE )//禁用磁盘缓存
+                .skipMemoryCache( true )//跳过内存缓存
+                .into(viewHolder.mImageView);
 
         return convertView;
     }
+
     public static class ViewHolder{
         public ImageView mImageView;
     }

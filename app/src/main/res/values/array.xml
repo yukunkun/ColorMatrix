@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="movie_array">
+        <item>Top250</item>
+        <item>正在上映</item>
+        <item>即将上映</item>
+    </array>
+
+</resources>

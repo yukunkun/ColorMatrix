@@ -97,7 +97,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimens_50">
         <TextView
-            android:text="下载评分"
+            android:text="版本升级"
             android:layout_marginLeft="10dp"
             android:gravity="center"
             android:textSize="15sp"

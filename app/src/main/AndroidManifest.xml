@@ -16,10 +16,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COASE_UPDATES" />
     <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
-    <uses-permission android:name="android.permission.READ_SETTINGS"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     // 极光推送
     // AppKey 0c7613d6df2ec04de1521110
     // Master Secret 5b24a25afcdff0d132af6b75
@@ -28,13 +28,12 @@
     <application
         android:name=".MyApp"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/tool_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:hardwareAccelerated="true"
         tools:replace="android:icon, android:theme">
-        <activity android:name=".MainActivity" />
         <activity
             android:name=".SplashActivity"
             android:launchMode="singleInstance">
@@ -55,6 +54,7 @@
         <activity android:name=".image_module.activity.PhotoListActivity" />
         <activity android:name=".image_module.activity.ListDetailActivity" />
         <activity android:name=".BaseActivity" />
+        <activity android:name=".MainActivity"/>
         <activity android:name=".setting_module.SettingActivity" />
         <activity
             android:name="com.qq.e.ads.ADActivity"
@@ -67,8 +67,14 @@
         <activity android:name=".setting_module.IntroduceActivity" />
         <activity android:name=".setting_module.AgreeActivity" />
         <activity android:name=".camera_module.CorpActivity" />
-        <activity android:name=".camera_module.CameraActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".camera_module.CameraActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".movie_module.MovieActivity" />
+        <activity android:name=".movie_module.activity.TopDetailActivity" />
+        <activity android:name=".movie_module.MovieBaseActivity"/>
+        <activity android:name=".weather_module.WeatherActivity"></activity>
+
     </application>
 
 </manifest>

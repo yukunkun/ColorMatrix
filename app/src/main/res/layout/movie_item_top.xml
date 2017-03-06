@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/movie_cover"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="150dp"
+            android:layout_height="220dp" />
+        <TextView
+            android:id="@+id/movie_name"
+            android:maxLines="1"
+            android:layout_toRightOf="@id/movie_cover"
+            android:layout_marginTop="20dp"
+            android:text="name"
+            android:layout_marginLeft="10sp"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/movie_genres"
+            android:text="genres"
+            android:layout_marginLeft="10sp"
+            android:layout_toRightOf="@id/movie_cover"
+            android:layout_below="@id/movie_name"
+            android:layout_marginTop="15dp"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/movie_director"
+            android:text="dir"
+            android:layout_marginLeft="10sp"
+            android:layout_toRightOf="@id/movie_cover"
+            android:layout_below="@id/movie_genres"
+            android:layout_marginTop="15dp"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/movie_rating"
+            android:layout_alignParentRight="true"
+            android:textSize="25sp"
+            android:textColor="@color/color_fc2c5d"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/movie_actor"
+            android:text="actor"
+            android:maxLines="3"
+            android:layout_marginLeft="10sp"
+            android:layout_toRightOf="@id/movie_cover"
+            android:layout_below="@id/movie_director"
+            android:layout_marginTop="18dp"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_marginTop="10dp"
+            android:background="@color/color_lines"
+            android:layout_below="@id/movie_cover"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+    </RelativeLayout>
+</LinearLayout>
