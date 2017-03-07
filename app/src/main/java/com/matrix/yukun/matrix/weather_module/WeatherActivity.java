@@ -2,48 +2,161 @@ package com.matrix.yukun.matrix.weather_module;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.util.GetCity;
+import com.matrix.yukun.matrix.weather_module.fragment.TodayWeathFrag;
+import com.matrix.yukun.matrix.weather_module.fragment.TomorrowWeathFrag;
+import com.matrix.yukun.matrix.weather_module.present.WeatherPreImpl;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-public class WeatherActivity extends AppCompatActivity/* implements LocationListener*/ {
+import java.util.ArrayList;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
+
+public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl {
 
     protected Context context;
-    private TextView textView;
+    private RadioGroup radioGroup;
+    private ArrayList<Fragment> fragments;
+    private int lastPos=0;
+    GestureDetector detector;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
-//        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
 //        GetCity.getInstance(this).getCity();
-        textView = (TextView) findViewById(R.id.textview);
-
-    }
-//    @Subscribe(threadMode=ThreadMode.MAIN)
-//    public void getCity(OnEventpos onEventpos){
-//        String city = onEventpos.city;
-//        textView.setText(city+"");
-//        GetCity.getInstance(this).endGPS();
-//    }
-
-    public void WeaBack(View view) {
-        finish();
+        init();
+        getInfo();
+        detector = new GestureDetector(this, new listener());
+        setListener();
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//        EventBus.getDefault().unregister(this);
+    public void init() {
+        radioGroup = (RadioGroup) findViewById(R.id.group);
+        Glide.with(this).load(R.mipmap.wea_xiaoyu)
+                .bitmapTransform(new BlurTransformation(this,1))
+                .into((ImageView) findViewById(R.id.back_image));
+        ((RadioButton)(radioGroup.getChildAt(0))).setChecked(true);
 
     }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        detector.onTouchEvent(ev);
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public void getInfo() {
+        fragments = new ArrayList<>();
+        TodayWeathFrag todayWeathFrag=new TodayWeathFrag();
+        TomorrowWeathFrag tomorrowWeathFrag=new TomorrowWeathFrag();
+        fragments.add(todayWeathFrag);
+        fragments.add(tomorrowWeathFrag);
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.contains,todayWeathFrag).commit();
+    }
+
+    @Override
+    public void setListener() {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                    if(checkedId==R.id.today){
+                        show(0);
+                    }else if(checkedId==R.id.tomorrow){
+                        show(1);
+                    }
+            }
+        });
+    }
+    //fragment
+    @Override
+    public void show(int pos) {
+        Fragment fragment=fragments.get(pos);
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.hide(fragments.get(lastPos));
+        if(fragment.isAdded()){
+            fragmentTransaction.show(fragment);
+        }else {
+            fragmentTransaction.add(R.id.contains,fragment);
+        }
+        fragmentTransaction.commit();
+        lastPos=pos;
+    }
+
+    @Subscribe(threadMode=ThreadMode.MAIN)
+    public void getCity(OnEventpos onEventpos){
+
+        int pos = onEventpos.pos;
+        if(pos==0){
+            finish();
+        }
+    }
+    class listener implements GestureDetector.OnGestureListener{
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return false;
+        }
+
+        @Override
+        public void onShowPress(MotionEvent e) {
+
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            return false;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            return false;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if(e1!=null){
+                float beginY = e1.getY();
+                float endY = e2.getY();
+                if(beginY-endY>60&&Math.abs(velocityY)>0){   //上滑
+                    EventBus.getDefault().post(new OnEventpos(1));
+                }else if(endY-beginY>60&&Math.abs(velocityY)>0){   //下滑
+                    EventBus.getDefault().post(new OnEventpos(2));
+
+                }
+            }
+            return false;
+        }
+    }
+
 }

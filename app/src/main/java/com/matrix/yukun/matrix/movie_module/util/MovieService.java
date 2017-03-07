@@ -3,6 +3,10 @@ package com.matrix.yukun.matrix.movie_module.util;
 
 import com.matrix.yukun.matrix.movie_module.bean.HttpResult;
 import com.matrix.yukun.matrix.movie_module.bean.Subjects;
+import com.matrix.yukun.matrix.weather_module.bean.WeaDestory;
+import com.matrix.yukun.matrix.weather_module.bean.WeaHours;
+import com.matrix.yukun.matrix.weather_module.bean.WeaLifePoint;
+import com.matrix.yukun.matrix.weather_module.bean.WeaNow;
 import com.matrix.yukun.matrix.weather_module.bean.WeaTomorrow;
 
 import retrofit2.http.GET;
@@ -25,12 +29,12 @@ public interface MovieService {
     @GET("forecast")
     Observable<WeaTomorrow> getTomorrow(@Query("city") String city, @Query("key") String key);
     @GET("now")
-    Observable<WeaTomorrow> getNow(@Query("city") String city, @Query("key") String key);
+    Observable<WeaNow> getNow(@Query("city") String city, @Query("key") String key);
     @GET("hourly")
-    Observable<WeaTomorrow> getHourly(@Query("city") String city, @Query("key") String key);
+    Observable<WeaHours> getHourly(@Query("city") String city, @Query("key") String key);
     @GET("suggestion")
-    Observable<WeaTomorrow> getLife(@Query("city") String city, @Query("key") String key);
+    Observable<WeaLifePoint> getLife(@Query("city") String city, @Query("key") String key);
     @GET("alarm")
-    Observable<WeaTomorrow> getAlarm(@Query("city") String city, @Query("key") String key);
+    Observable<WeaDestory> getAlarm(@Query("city") String city, @Query("key") String key);
 
 }

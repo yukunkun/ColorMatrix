@@ -78,6 +78,8 @@ public class WeaNow {
             private String id;
             private String lat;
             private String lon;
+            private String prov;
+
             /**
              * loc : 2017-03-05 21:49
              * utc : 2017-03-05 13:49
@@ -99,6 +101,14 @@ public class WeaNow {
 
             public void setCnty(String cnty) {
                 this.cnty = cnty;
+            }
+
+            public String getProv() {
+                return prov;
+            }
+
+            public void setProv(String prov) {
+                this.prov = prov;
             }
 
             public String getId() {
@@ -152,6 +162,26 @@ public class WeaNow {
                 public void setUtc(String utc) {
                     this.utc = utc;
                 }
+
+                @Override
+                public String toString() {
+                    return "UpdateBean{" +
+                            "loc='" + loc + '\'' +
+                            ", utc='" + utc + '\'' +
+                            '}';
+                }
+            }
+
+            @Override
+            public String toString() {
+                return "BasicBean{" +
+                        "city='" + city + '\'' +
+                        ", cnty='" + cnty + '\'' +
+                        ", id='" + id + '\'' +
+                        ", lat='" + lat + '\'' +
+                        ", lon='" + lon + '\'' +
+                        ", update=" + update +
+                        '}';
             }
         }
 
@@ -260,6 +290,14 @@ public class WeaNow {
                 public void setTxt(String txt) {
                     this.txt = txt;
                 }
+
+                @Override
+                public String toString() {
+                    return "CondBean{" +
+                            "code='" + code + '\'' +
+                            ", txt='" + txt + '\'' +
+                            '}';
+                }
             }
 
             public static class WindBean {
@@ -299,7 +337,40 @@ public class WeaNow {
                 public void setSpd(String spd) {
                     this.spd = spd;
                 }
+
+                @Override
+                public String toString() {
+                    return "WindBean{" +
+                            "deg='" + deg + '\'' +
+                            ", dir='" + dir + '\'' +
+                            ", sc='" + sc + '\'' +
+                            ", spd='" + spd + '\'' +
+                            '}';
+                }
             }
+
+            @Override
+            public String toString() {
+                return "NowBean{" +
+                        "cond=" + cond +
+                        ", fl='" + fl + '\'' +
+                        ", hum='" + hum + '\'' +
+                        ", pcpn='" + pcpn + '\'' +
+                        ", pres='" + pres + '\'' +
+                        ", tmp='" + tmp + '\'' +
+                        ", vis='" + vis + '\'' +
+                        ", wind=" + wind +
+                        '}';
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "HeWeather5Bean{" +
+                    "basic=" + basic +
+                    ", now=" + now +
+                    ", status='" + status + '\'' +
+                    '}';
         }
     }
 }

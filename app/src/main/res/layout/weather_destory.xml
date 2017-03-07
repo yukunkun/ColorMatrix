@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/color_back_more"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <View
+        android:layout_marginTop="20dp"
+        android:background="@color/color_whit"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+    <TextView
+        android:textSize="20sp"
+        android:text="自然灾害提示:"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_whit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_40" />
+    <View
+        android:background="@color/color_whit"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+    <TextView
+        android:id="@+id/today_destory_alarm"
+        android:textSize="20sp"
+        android:text="type:"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_whit"
+        android:layout_width="match_parent"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:layout_height="wrap_content" />
+    <View
+        android:background="@color/color_whit"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+    <TextView
+        android:textSize="20sp"
+        android:paddingTop="2dp"
+        android:paddingLeft="10dp"
+        android:paddingBottom="5dp"
+        android:paddingRight="10dp"
+        android:gravity="center_vertical"
+        android:id="@+id/today_destory_text"
+        android:textColor="@color/color_whit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:background="@color/color_whit"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+</LinearLayout>

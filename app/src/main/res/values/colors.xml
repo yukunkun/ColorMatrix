@@ -38,6 +38,18 @@
     <color name="color_lines">#363636</color>
     <color name="color_bfbfbf">#9c9c9c</color>
     <color name="color_whit">#FFFFFF</color>
+    <!--weather-->
+    <color name="color_82181818">#82181818</color>
+    <color name="color_82ffffff">#b4ffffff</color>
+    <color name="color_back">#5e838383</color>
+    <color name="color_back_all">#5f878787</color>
+    <color name="color_back_more">#ab535353</color>
+    <color name="color_line">#363636</color>
+    <color name="color_text">#292929</color>
+    <color name="color_00ffffff">#00ffffff</color>
+
+
+
 
 
 </resources>

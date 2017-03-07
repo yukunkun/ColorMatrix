@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="titlebar">60dp</dimen>
+    <dimen name="dimens_10">10dp</dimen>
     <dimen name="dimens_20">20dp</dimen>
     <dimen name="dimens_25">25dp</dimen>
     <dimen name="dimens_30">30dp</dimen>
