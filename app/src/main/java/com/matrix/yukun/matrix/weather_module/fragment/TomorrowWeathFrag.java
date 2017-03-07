@@ -23,12 +23,22 @@ import butterknife.ButterKnife;
 public class TomorrowWeathFrag extends BaseFrag {
 
     private TomorrowPresent tomorrowPresent;
+    private String city;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        city = getArguments().getString("city");
         tomorrowPresent = new TomorrowPresent(this);
         this.basePresent= tomorrowPresent;
         super.onCreate(savedInstanceState);
+    }
+
+    public static TomorrowWeathFrag newInstance(String arg){
+        TomorrowWeathFrag fragment = new TomorrowWeathFrag();
+        Bundle bundle = new Bundle();
+        bundle.putString( "city", arg);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Nullable

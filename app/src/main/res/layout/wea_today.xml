@@ -23,7 +23,7 @@
             android:textSize="17sp"
             android:gravity="center"
             android:layout_centerInParent="true"
-            android:text="today"
+            android:text="今日天气"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
@@ -41,7 +41,7 @@
                 android:visibility="visible"
                 android:layout_marginTop="@dimen/dimens_10"
                 android:layout_width="match_parent"
-                android:layout_height="420dp">
+                android:layout_height="380dp">
                 <TextView
                     android:id="@+id/today_city"
                     android:textSize="25sp"

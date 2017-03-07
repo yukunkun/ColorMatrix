@@ -3,6 +3,7 @@ package com.matrix.yukun.matrix.weather_module.fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.movie_module.BaseFrag;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
+import com.matrix.yukun.matrix.weather_module.bean.EventDay;
 import com.matrix.yukun.matrix.weather_module.bean.WeaDestory;
 import com.matrix.yukun.matrix.weather_module.bean.WeaHours;
 import com.matrix.yukun.matrix.weather_module.bean.WeaNow;
@@ -92,18 +94,29 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
     private ProgressDialog progressDialog;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerAdapter recyclerAdapter;
+    private String city;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        topPresent = new TodayPresent(this);
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("刷新中...");
         progressDialog.show();
+        Bundle arguments = getArguments();
+        city = arguments.getString("city");
+        topPresent = new TodayPresent(this,city);
         linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         this.basePresent = topPresent;
         super.onCreate(savedInstanceState);
+    }
+
+    public static TodayWeathFrag newInstance(String arg){
+        TodayWeathFrag fragment = new TodayWeathFrag();
+        Bundle bundle = new Bundle();
+        bundle.putString( "city", arg);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Nullable
@@ -115,15 +128,14 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         getViews(inflate);
         setListener();
         return inflate;
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getColor(OnEventpos onEventpos) {
         int pos = onEventpos.pos;
-        if (pos == 1) {
+        if (pos == 2) {
             todayTitile.setBackgroundColor(getResources().getColor(R.color.color_82181818));
-        } else if (pos == 2) {
+        } else if (pos == 3) {
             todayTitile.setBackgroundColor(getResources().getColor(R.color.color_00ffffff));
         }
     }
@@ -195,6 +207,7 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         todayDestory.setOnClickListener(this);
         todayLife.setOnClickListener(this);
         todayBack.setOnClickListener(this);
+
     }
 
     @Override
@@ -213,17 +226,17 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
                 topPresent.getInfo();
                 break;
             case R.id.today_tomorrow:
+                EventBus.getDefault().post(new EventDay("tomorrow"));
                 break;
             case R.id.today_destory:
                 scrollview.fullScroll(ScrollView.FOCUS_DOWN);
                 break;
             //生活指数
             case R.id.today_life:
-                scrollview.smoothScrollTo(0, 0);
-                scrollview.clearFocus();
+                EventBus.getDefault().post(new EventDay("life"));
                 break;
             case R.id.today_back:
-                EventBus.getDefault().post(new OnEventpos(0));
+                EventBus.getDefault().post(new OnEventpos(1));
                 break;
         }
     }

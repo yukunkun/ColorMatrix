@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.util.GetCity;
+import com.matrix.yukun.matrix.weather_module.bean.EventDay;
 import com.matrix.yukun.matrix.weather_module.fragment.TodayWeathFrag;
 import com.matrix.yukun.matrix.weather_module.fragment.TomorrowWeathFrag;
 import com.matrix.yukun.matrix.weather_module.present.WeatherPreImpl;
@@ -38,7 +39,8 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
     private int lastPos=0;
     GestureDetector detector;
     private ImageView imageView;
-
+    private String  city="成都";;
+    private FragmentTransaction fragmentTransaction;
 
 
     @Override
@@ -69,11 +71,11 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
     @Override
     public void getInfo() {
         fragments = new ArrayList<>();
-        TodayWeathFrag todayWeathFrag=new TodayWeathFrag();
-        TomorrowWeathFrag tomorrowWeathFrag=new TomorrowWeathFrag();
+        TodayWeathFrag todayWeathFrag=TodayWeathFrag.newInstance(city);
+        TomorrowWeathFrag tomorrowWeathFrag=TomorrowWeathFrag.newInstance(city);
         fragments.add(todayWeathFrag);
         fragments.add(tomorrowWeathFrag);
-        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.contains,todayWeathFrag).commit();
     }
 
@@ -93,6 +95,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
     //fragment
     @Override
     public void show(int pos) {
+
         Fragment fragment=fragments.get(pos);
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
         fragmentTransaction.hide(fragments.get(lastPos));
@@ -107,12 +110,22 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
 
     @Subscribe(threadMode=ThreadMode.MAIN)
     public void getCity(OnEventpos onEventpos){
-
         int pos = onEventpos.pos;
-        if(pos==0){
+        if(pos==1){
             finish();
         }else if(pos>=100){
             setBackImage(pos);
+        }
+    }
+
+    @Subscribe(threadMode=ThreadMode.MAIN)
+    public void getDay(EventDay eventDay){
+        String fragmentTag = eventDay.day;
+
+        if(fragmentTag.equals("tomorrow")){
+            ((RadioButton)findViewById(R.id.tomorrow)).setChecked(true);
+        }else if(fragmentTag.equals("life")){
+//            ((RadioButton)(radioGroup.getChildAt(2))).setChecked(true);
         }
     }
 
@@ -120,13 +133,13 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
         if(pos<102) {
             Glide.with(this).load(R.mipmap.wea_chuqing)
                     .into(imageView);
-        }else if(pos<=103){
+        }else if(pos<=104){
                 Glide.with(this).load(R.mipmap.chuntian)
                         .into(imageView);
-        }/*else if(pos<=206){
-            Glide.with(this).load(R.mipmap.wea_chuqing)
+        }else if(pos<=205){
+            Glide.with(this).load(R.mipmap.feng1)
                     .into(imageView);
-        }*/else if(pos<=213){
+        }else if(pos<=213){
             Glide.with(this).load(R.mipmap.feng)
                     .into(imageView);
         }else if(pos<=313) {
@@ -180,9 +193,9 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
                 float beginY = e1.getY();
                 float endY = e2.getY();
                 if(beginY-endY>60&&Math.abs(velocityY)>0){   //上滑
-                    EventBus.getDefault().post(new OnEventpos(1));
-                }else if(endY-beginY>60&&Math.abs(velocityY)>0){   //下滑
                     EventBus.getDefault().post(new OnEventpos(2));
+                }else if(endY-beginY>60&&Math.abs(velocityY)>0){   //下滑
+                    EventBus.getDefault().post(new OnEventpos(3));
 
                 }
             }
