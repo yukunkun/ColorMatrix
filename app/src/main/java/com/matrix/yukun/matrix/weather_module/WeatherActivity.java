@@ -19,6 +19,7 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.util.GetCity;
 import com.matrix.yukun.matrix.weather_module.bean.EventDay;
+import com.matrix.yukun.matrix.weather_module.fragment.ConfortableFragment;
 import com.matrix.yukun.matrix.weather_module.fragment.TodayWeathFrag;
 import com.matrix.yukun.matrix.weather_module.fragment.TomorrowWeathFrag;
 import com.matrix.yukun.matrix.weather_module.present.WeatherPreImpl;
@@ -73,8 +74,10 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
         fragments = new ArrayList<>();
         TodayWeathFrag todayWeathFrag=TodayWeathFrag.newInstance(city);
         TomorrowWeathFrag tomorrowWeathFrag=TomorrowWeathFrag.newInstance(city);
+        ConfortableFragment confortableFragment=ConfortableFragment.newInstance(city);
         fragments.add(todayWeathFrag);
         fragments.add(tomorrowWeathFrag);
+        fragments.add(confortableFragment);
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.contains,todayWeathFrag).commit();
     }
@@ -88,6 +91,8 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
                         show(0);
                     }else if(checkedId==R.id.tomorrow){
                         show(1);
+                    }else if(checkedId==R.id.life){
+                        show(2);
                     }
             }
         });
@@ -125,7 +130,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
         if(fragmentTag.equals("tomorrow")){
             ((RadioButton)findViewById(R.id.tomorrow)).setChecked(true);
         }else if(fragmentTag.equals("life")){
-//            ((RadioButton)(radioGroup.getChildAt(2))).setChecked(true);
+            ((RadioButton)(radioGroup.getChildAt(2))).setChecked(true);
         }
     }
 

@@ -18,7 +18,7 @@ public class TodayPresent implements TodayPresentImpl{
     CompositeSubscription compositeSubscription = new CompositeSubscription();
     String city;
     @Override
-    public void getInfo() {
+    public void getInfo(String city) {
         Subscription subscription = WeatherNet.getNow(city).subscribe(new Subscriber<WeaNow>() {
             @Override
             public void onCompleted() {
@@ -88,7 +88,7 @@ public class TodayPresent implements TodayPresentImpl{
 
     @Override
     public void onsubscriber() {
-        getInfo();
+        getInfo(city);
         getDestory();
         getHours();
     }

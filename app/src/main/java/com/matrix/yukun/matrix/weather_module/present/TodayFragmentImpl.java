@@ -14,8 +14,8 @@ import java.util.List;
  */
 public interface TodayFragmentImpl {
 
-    void showMessage(String msg);
     void getInfo(WeaNow weatherNet);
+    void showMessage(String msg);
     void dismissDialogs();
     void setListener();
     void getViews(View view);

@@ -19,5 +19,6 @@
     <dimen name="dimens_130">130dp</dimen>
     <dimen name="dimens_140">140dp</dimen>
     <dimen name="dimens_150">150dp</dimen>
+    <dimen name="dimens_240">240dp</dimen>
 
 </resources>

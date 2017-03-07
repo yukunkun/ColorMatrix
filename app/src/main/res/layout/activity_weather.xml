@@ -26,7 +26,7 @@
         android:id="@+id/group"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:weightSum="2"
+        android:weightSum="3"
         android:background="@color/color_82181818"
         android:orientation="horizontal"
         android:layout_height="@dimen/dimens_50">
@@ -34,10 +34,10 @@
             android:id="@+id/today"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="Today 今天"
+            android:text="今天"
             android:gravity="center"
             android:button="@null"
-            android:textColor="@color/color_44fc2c"
+            android:textColor="@drawable/text_check_color"
             android:layout_height="match_parent" />
         <View
             android:background="@color/color_bfbfbf"
@@ -47,10 +47,23 @@
             android:id="@+id/tomorrow"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="Tomorrow 明天"
+            android:text="明天"
             android:gravity="center"
             android:button="@null"
-            android:textColor="@color/color_44fc2c"
+            android:textColor="@drawable/text_check_color"
+            android:layout_height="match_parent" />
+        <View
+            android:background="@color/color_bfbfbf"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"/>
+        <RadioButton
+            android:id="@+id/life"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="舒适度"
+            android:gravity="center"
+            android:button="@null"
+            android:textColor="@drawable/text_check_color"
             android:layout_height="match_parent" />
     </RadioGroup>
 

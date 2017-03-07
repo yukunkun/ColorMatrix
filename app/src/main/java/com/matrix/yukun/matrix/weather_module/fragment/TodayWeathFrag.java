@@ -1,14 +1,17 @@
 package com.matrix.yukun.matrix.weather_module.fragment;
 
+import android.animation.ValueAnimator;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.anims.MyEvaluator;
 import com.matrix.yukun.matrix.movie_module.BaseFrag;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.weather_module.bean.EventDay;
@@ -90,11 +94,14 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
     ScrollView scrollview;
     @BindView(R.id.recyclerViews)
     RecyclerView recyclerViews;
+    @BindView(R.id.search)
+    ImageView search;
     private TodayPresent topPresent;
     private ProgressDialog progressDialog;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerAdapter recyclerAdapter;
     private String city;
+    private ValueAnimator animator;
 
 
     @Override
@@ -104,17 +111,17 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         progressDialog.show();
         Bundle arguments = getArguments();
         city = arguments.getString("city");
-        topPresent = new TodayPresent(this,city);
+        topPresent = new TodayPresent(this, city);
         linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         this.basePresent = topPresent;
         super.onCreate(savedInstanceState);
     }
 
-    public static TodayWeathFrag newInstance(String arg){
+    public static TodayWeathFrag newInstance(String arg) {
         TodayWeathFrag fragment = new TodayWeathFrag();
         Bundle bundle = new Bundle();
-        bundle.putString( "city", arg);
+        bundle.putString("city", arg);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -165,7 +172,7 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
     @Override
     public void getHoursInfo(WeaHours weaHours) {
         recyclerViews.setLayoutManager(linearLayoutManager);
-        recyclerAdapter = new RecyclerAdapter(getContext(),weaHours.getHeWeather5().get(0).getHourly_forecast());
+        recyclerAdapter = new RecyclerAdapter(getContext(), weaHours.getHeWeather5().get(0).getHourly_forecast());
         recyclerViews.setAdapter(recyclerAdapter);
 
     }
@@ -181,6 +188,7 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         //天气
         todayClass.setText(now.getCond().getTxt());
         todayWendu.setText(now.getFl() + "℃");
+//        addAnimation();
         today1.setText("体感温度:" + now.getFl() + "℃");
         today2.setText("相对湿度:" + now.getHum() + "%");
         today3.setText("降水量:" + now.getPcpn() + "mm");
@@ -207,6 +215,7 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         todayDestory.setOnClickListener(this);
         todayLife.setOnClickListener(this);
         todayBack.setOnClickListener(this);
+        search.setOnClickListener(this);
 
     }
 
@@ -217,13 +226,13 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
                 if (progressDialog != null) {
                     progressDialog.show();
                 }
-                topPresent.getInfo();
+                topPresent.getInfo(city);
                 break;
             case R.id.today_refreshs:
                 if (progressDialog != null) {
                     progressDialog.show();
                 }
-                topPresent.getInfo();
+                topPresent.getInfo(city);
                 break;
             case R.id.today_tomorrow:
                 EventBus.getDefault().post(new EventDay("tomorrow"));
@@ -238,12 +247,55 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
             case R.id.today_back:
                 EventBus.getDefault().post(new OnEventpos(1));
                 break;
+            case R.id.search:
+                getSearchCity();
+                break;
         }
+    }
+
+    private void getSearchCity() {
+        View inflate = LayoutInflater.from(getContext()).inflate(R.layout.search, null);
+        final EditText editText= (EditText) inflate.findViewById(R.id.search);
+        new AlertDialog.Builder(getContext())
+                .setTitle("城市搜索:")
+                .setView(inflate)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(editText.getText().toString()!=null){
+                            city=editText.getText().toString().trim();
+                            topPresent.getInfo(city);
+                            if (progressDialog != null) {
+                                progressDialog.show();
+                            }
+                        }
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).show();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    private void addAnimation() {
+        animator = ValueAnimator.ofInt(0, 20, 0);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                int animatedValue = (int) valueAnimator.getAnimatedValue();
+                todayWendu.layout(todayWendu.getLeft() + animatedValue, todayWendu.getTop(), todayWendu.getRight() + animatedValue, todayWendu.getBottom());
+            }
+        });
+
+        animator.setDuration(500);
+        animator.setEvaluator(new MyEvaluator());
+        animator.start();
     }
 }

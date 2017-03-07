@@ -11,6 +11,7 @@ import com.matrix.yukun.matrix.movie_module.util.RetrofitApi;
 import com.matrix.yukun.matrix.weather_module.bean.WeaDestory;
 import com.matrix.yukun.matrix.weather_module.bean.WeaHours;
 import com.matrix.yukun.matrix.weather_module.bean.WeaNow;
+import com.matrix.yukun.matrix.weather_module.bean.WeaTomorrow;
 
 import java.util.List;
 
@@ -102,6 +103,34 @@ public class WeatherNet {
                         return Observable.create(new Observable.OnSubscribe<WeaHours>() {
                             @Override
                             public void call(Subscriber<? super WeaHours> subscriber) {
+                                subscriber.onNext(weaHours);
+                                subscriber.onCompleted();
+                            }
+                        });
+                    }
+                }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public  static Observable<WeaTomorrow> getTomorrow(String city){
+
+        Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
+        return retrofit.create(MovieService.class).getTomorrow(city, AppConstants.HEWEATHER_KEY)
+                .filter(new Func1<WeaTomorrow, Boolean>() {
+                    @Override
+                    public Boolean call(WeaTomorrow weaHours) {
+                        if(weaHours.getHeWeather5().get(0).getStatus().equals("ok")){
+                            return true;
+                        }else {
+                            throw new ApiException(1);
+                        }
+                    }
+                }).flatMap(new Func1<WeaTomorrow, Observable<WeaTomorrow>>() {
+                    @Override
+                    public Observable<WeaTomorrow> call(final WeaTomorrow weaHours) {
+                        return Observable.create(new Observable.OnSubscribe<WeaTomorrow>() {
+                            @Override
+                            public void call(Subscriber<? super WeaTomorrow> subscriber) {
                                 subscriber.onNext(weaHours);
                                 subscriber.onCompleted();
                             }
