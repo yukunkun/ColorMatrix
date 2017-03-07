@@ -1,14 +1,11 @@
 package com.matrix.yukun.matrix.weather_module.fragment;
 
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.GestureDetector;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,6 +19,7 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.movie_module.BaseFrag;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.weather_module.bean.WeaDestory;
+import com.matrix.yukun.matrix.weather_module.bean.WeaHours;
 import com.matrix.yukun.matrix.weather_module.bean.WeaNow;
 import com.matrix.yukun.matrix.weather_module.present.TodayFragmentImpl;
 import com.matrix.yukun.matrix.weather_module.present.TodayPresent;
@@ -88,8 +86,12 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
     TextView todayDestoryText;
     @BindView(R.id.scrollview)
     ScrollView scrollview;
+    @BindView(R.id.recyclerViews)
+    RecyclerView recyclerViews;
     private TodayPresent topPresent;
     private ProgressDialog progressDialog;
+    private LinearLayoutManager linearLayoutManager;
+    private RecyclerAdapter recyclerAdapter;
 
 
     @Override
@@ -98,6 +100,8 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("刷新中...");
         progressDialog.show();
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         this.basePresent = topPresent;
         super.onCreate(savedInstanceState);
     }
@@ -113,17 +117,16 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         return inflate;
 
     }
-    @Subscribe(threadMode= ThreadMode.MAIN)
-    public void getColor(OnEventpos onEventpos){
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getColor(OnEventpos onEventpos) {
         int pos = onEventpos.pos;
-        if(pos==1){
+        if (pos == 1) {
             todayTitile.setBackgroundColor(getResources().getColor(R.color.color_82181818));
-        }else if(pos==2){
+        } else if (pos == 2) {
             todayTitile.setBackgroundColor(getResources().getColor(R.color.color_00ffffff));
         }
     }
-
-
 
     @Override
     public void getViews(View view) {
@@ -138,13 +141,21 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
     @Override
     public void getDestory(WeaDestory weaDestory) {
         List<WeaDestory.HeWeather5Bean.AlarmsBean> alarms = weaDestory.getHeWeather5().get(0).getAlarms();
-        if(alarms!=null){
-            todayDestoryAlarm.setText("type:"+alarms.get(0).getLevel()+","+alarms.get(0).getTitle());
-            todayDestoryText.setText("预警内容:"+alarms.get(0).getTxt());
-        }else {
+        if (alarms != null) {
+            todayDestoryAlarm.setText("type:" + alarms.get(0).getLevel() + "," + alarms.get(0).getTitle());
+            todayDestoryText.setText("预警内容:" + alarms.get(0).getTxt());
+        } else {
             todayDestoryAlarm.setText("无任何自然灾害预警");
             todayDestoryText.setText("预警内容:无");
         }
+    }
+
+    @Override
+    public void getHoursInfo(WeaHours weaHours) {
+        recyclerViews.setLayoutManager(linearLayoutManager);
+        recyclerAdapter = new RecyclerAdapter(getContext(),weaHours.getHeWeather5().get(0).getHourly_forecast());
+        recyclerViews.setAdapter(recyclerAdapter);
+
     }
 
     @Override
@@ -157,17 +168,18 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         todayTime.setText(loc);
         //天气
         todayClass.setText(now.getCond().getTxt());
-        todayWendu.setText(now.getFl()+"℃");
-        today1.setText("体感温度:"+now.getFl()+"℃");
-        today2.setText("相对湿度:"+now.getHum()+"%");
-        today3.setText("降水量:"+now.getPcpn()+"mm");
-        today4.setText("气压:"+now.getPres());
-        today5.setText("温度:"+now.getTmp());
-        today6.setText("能见度:"+now.getVis()+"km");
-        todayPower1.setText("风向:"+now.getWind().getDir());
-        todayPower2.setText("风力:"+now.getWind().getSc());
-        todayPower3.setText("风速:"+now.getWind().getSpd()+"kmph");
-
+        todayWendu.setText(now.getFl() + "℃");
+        today1.setText("体感温度:" + now.getFl() + "℃");
+        today2.setText("相对湿度:" + now.getHum() + "%");
+        today3.setText("降水量:" + now.getPcpn() + "mm");
+        today4.setText("气压:" + now.getPres());
+        today5.setText("温度:" + now.getTmp());
+        today6.setText("能见度:" + now.getVis() + "km");
+        todayPower1.setText("风向:" + now.getWind().getDir());
+        todayPower2.setText("风力:" + now.getWind().getSc());
+        todayPower3.setText("风速:" + now.getWind().getSpd() + "kmph");
+        String code = now.getCond().getCode();
+        EventBus.getDefault().post(new OnEventpos(Integer.valueOf(code)));
     }
 
     @Override
@@ -187,15 +199,15 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.today_refresh:
-                if(progressDialog!=null){
+                if (progressDialog != null) {
                     progressDialog.show();
                 }
                 topPresent.getInfo();
                 break;
             case R.id.today_refreshs:
-                if(progressDialog!=null){
+                if (progressDialog != null) {
                     progressDialog.show();
                 }
                 topPresent.getInfo();

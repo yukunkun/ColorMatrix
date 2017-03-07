@@ -2,6 +2,7 @@ package com.matrix.yukun.matrix.weather_module.present;
 
 
 import com.matrix.yukun.matrix.weather_module.bean.WeaDestory;
+import com.matrix.yukun.matrix.weather_module.bean.WeaHours;
 import com.matrix.yukun.matrix.weather_module.bean.WeaNow;
 import com.matrix.yukun.matrix.weather_module.fragment.TodayWeathFrag;
 
@@ -39,7 +40,7 @@ public class TodayPresent implements TodayPresentImpl{
 
     @Override
     public void getDestory() {
-        WeatherNet.getDestory("成都").subscribe(new Subscriber<WeaDestory>() {
+        Subscription subscribe = WeatherNet.getDestory("成都").subscribe(new Subscriber<WeaDestory>() {
             @Override
             public void onCompleted() {
 
@@ -55,9 +56,30 @@ public class TodayPresent implements TodayPresentImpl{
                 mView.getDestory(weaDestory);
             }
         });
+        compositeSubscription.add(subscribe);
 
     }
 
+    @Override
+    public void getHours() {
+        Subscription subscription = WeatherNet.getHours("成都").subscribe(new Subscriber<WeaHours>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mView.showMessage(e.toString());
+            }
+
+            @Override
+            public void onNext(WeaHours weaHours) {
+                mView.getHoursInfo(weaHours);
+            }
+        });
+        compositeSubscription.add(subscription);
+    }
 
     public TodayPresent(TodayWeathFrag mView) {
         this.mView = mView;
@@ -68,6 +90,7 @@ public class TodayPresent implements TodayPresentImpl{
     public void onsubscriber() {
         getInfo();
         getDestory();
+        getHours();
     }
 
     @Override

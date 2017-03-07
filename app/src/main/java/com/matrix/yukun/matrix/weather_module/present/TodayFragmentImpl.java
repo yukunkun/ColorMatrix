@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.matrix.yukun.matrix.movie_module.bean.Subjects;
 import com.matrix.yukun.matrix.weather_module.bean.WeaDestory;
+import com.matrix.yukun.matrix.weather_module.bean.WeaHours;
 import com.matrix.yukun.matrix.weather_module.bean.WeaNow;
 
 import java.util.List;
@@ -19,5 +20,6 @@ public interface TodayFragmentImpl {
     void setListener();
     void getViews(View view);
     void getDestory(WeaDestory weaDestory);
+    void getHoursInfo(WeaHours weaHours);
 
 }

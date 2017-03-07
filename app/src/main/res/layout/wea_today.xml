@@ -86,7 +86,7 @@
                         android:id="@+id/today_class"
                         android:text=""
                         android:layout_below="@+id/today_time"
-                        android:textColor="@color/color_whit"
+                        android:textColor="@color/color_57f733"
                         android:textSize="40sp"
                         android:gravity="center"
                         android:layout_width="match_parent"
@@ -131,6 +131,7 @@
             </RelativeLayout>
             <include layout="@layout/weather_detail"/>
             <include layout="@layout/weather_power"/>
+            <include layout="@layout/weather_hours"/>
             <include layout="@layout/weather_destory"/>
 
         </LinearLayout>

@@ -37,6 +37,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
     private ArrayList<Fragment> fragments;
     private int lastPos=0;
     GestureDetector detector;
+    private ImageView imageView;
 
 
 
@@ -55,11 +56,8 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
     @Override
     public void init() {
         radioGroup = (RadioGroup) findViewById(R.id.group);
-        Glide.with(this).load(R.mipmap.wea_xiaoyu)
-                .bitmapTransform(new BlurTransformation(this,1))
-                .into((ImageView) findViewById(R.id.back_image));
+        imageView=(ImageView) findViewById(R.id.back_image);
         ((RadioButton)(radioGroup.getChildAt(0))).setChecked(true);
-
     }
 
     @Override
@@ -84,7 +82,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-
                     if(checkedId==R.id.today){
                         show(0);
                     }else if(checkedId==R.id.tomorrow){
@@ -114,8 +111,42 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
         int pos = onEventpos.pos;
         if(pos==0){
             finish();
+        }else if(pos>=100){
+            setBackImage(pos);
         }
     }
+
+    private void setBackImage(int pos) {
+        if(pos<102) {
+            Glide.with(this).load(R.mipmap.wea_chuqing)
+                    .into(imageView);
+        }else if(pos<=103){
+                Glide.with(this).load(R.mipmap.chuntian)
+                        .into(imageView);
+        }/*else if(pos<=206){
+            Glide.with(this).load(R.mipmap.wea_chuqing)
+                    .into(imageView);
+        }*/else if(pos<=213){
+            Glide.with(this).load(R.mipmap.feng)
+                    .into(imageView);
+        }else if(pos<=313) {
+            Glide.with(this).load(R.mipmap.yu2)
+                    .into(imageView);
+        }else if(pos<=406){
+            Glide.with(this).load(R.mipmap.xue2)
+                    .into(imageView);
+        }else if(pos<=406){
+            Glide.with(this).load(R.mipmap.xue2)
+                    .into(imageView);
+        }else if(pos<=502){
+            Glide.with(this).load(R.mipmap.wea_wu)
+                    .into(imageView);
+        }else {
+            Glide.with(this).load(R.mipmap.wea_chuqing)
+                    .into(imageView);
+        }
+    }
+
     class listener implements GestureDetector.OnGestureListener{
 
         @Override

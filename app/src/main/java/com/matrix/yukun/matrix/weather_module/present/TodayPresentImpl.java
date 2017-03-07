@@ -8,4 +8,6 @@ import com.matrix.yukun.matrix.movie_module.present.BasePresentImpl;
 public interface TodayPresentImpl extends BasePresentImpl {
     void getInfo();
     void getDestory();
+    void getHours();
+
 }

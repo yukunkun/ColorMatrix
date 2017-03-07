@@ -11,8 +11,11 @@ import com.matrix.yukun.matrix.movie_module.BaseFrag;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.weather_module.present.TomorrowPresent;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import butterknife.ButterKnife;
 
 /**
  * Created by yukun on 17-3-6.
@@ -32,6 +35,8 @@ public class TomorrowWeathFrag extends BaseFrag {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View inflate = LayoutInflater.from(getContext()).inflate(R.layout.wea_tomorrow, null);
+        ButterKnife.bind(this, inflate);
+        EventBus.getDefault().register(this);
         return inflate;
     }
 
@@ -43,5 +48,11 @@ public class TomorrowWeathFrag extends BaseFrag {
         }else if(pos==2){
 //            todayTitile.setBackgroundColor(getResources().getColor(R.color.color_00ffffff));
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

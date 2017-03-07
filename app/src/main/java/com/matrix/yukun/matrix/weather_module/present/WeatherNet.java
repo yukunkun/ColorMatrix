@@ -9,6 +9,7 @@ import com.matrix.yukun.matrix.movie_module.util.ApiException;
 import com.matrix.yukun.matrix.movie_module.util.MovieService;
 import com.matrix.yukun.matrix.movie_module.util.RetrofitApi;
 import com.matrix.yukun.matrix.weather_module.bean.WeaDestory;
+import com.matrix.yukun.matrix.weather_module.bean.WeaHours;
 import com.matrix.yukun.matrix.weather_module.bean.WeaNow;
 
 import java.util.List;
@@ -53,9 +54,6 @@ public class WeatherNet {
                 }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
 
-
-
-
     }
     public  static Observable<WeaDestory> getDestory(String city){
 
@@ -83,9 +81,33 @@ public class WeatherNet {
                     }
                 }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
 
+    public  static Observable<WeaHours> getHours(String city){
 
-
-
+        Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
+        return retrofit.create(MovieService.class).getHourly(city, AppConstants.HEWEATHER_KEY)
+                .filter(new Func1<WeaHours, Boolean>() {
+                    @Override
+                    public Boolean call(WeaHours weaHours) {
+                        if(weaHours.getHeWeather5().get(0).getStatus().equals("ok")){
+                            return true;
+                        }else {
+                            throw new ApiException(1);
+                        }
+                    }
+                }).flatMap(new Func1<WeaHours, Observable<WeaHours>>() {
+                    @Override
+                    public Observable<WeaHours> call(final WeaHours weaHours) {
+                        return Observable.create(new Observable.OnSubscribe<WeaHours>() {
+                            @Override
+                            public void call(Subscriber<? super WeaHours> subscriber) {
+                                subscriber.onNext(weaHours);
+                                subscriber.onCompleted();
+                            }
+                        });
+                    }
+                }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }
