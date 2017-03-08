@@ -26,6 +26,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+
 public class TopDetailActivity extends /*MovieBase*/Activity implements TopPresentImpl {
     private TopPresent topPresent;
     private RecyclerView recyclerView;
@@ -147,6 +149,8 @@ public class TopDetailActivity extends /*MovieBase*/Activity implements TopPrese
         }
         detailAdapter = new TopDetailAdapter(this, topMovieBeens,topPresent);
         recyclerView.setAdapter(detailAdapter);
+        // Horizontal
+        OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
         getInfo(0);
         detailAdapter.getSelectPosition(0);
 

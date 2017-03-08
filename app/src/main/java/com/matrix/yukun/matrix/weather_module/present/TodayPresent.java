@@ -39,7 +39,7 @@ public class TodayPresent implements TodayPresentImpl{
     }
 
     @Override
-    public void getDestory() {
+    public void getDestory(String city) {
         Subscription subscribe = WeatherNet.getDestory(city).subscribe(new Subscriber<WeaDestory>() {
             @Override
             public void onCompleted() {
@@ -61,7 +61,7 @@ public class TodayPresent implements TodayPresentImpl{
     }
 
     @Override
-    public void getHours() {
+    public void getHours(String city) {
         Subscription subscription = WeatherNet.getHours(city).subscribe(new Subscriber<WeaHours>() {
             @Override
             public void onCompleted() {
@@ -89,8 +89,8 @@ public class TodayPresent implements TodayPresentImpl{
     @Override
     public void onsubscriber() {
         getInfo(city);
-        getDestory();
-        getHours();
+        getDestory(city);
+        getHours(city);
     }
 
     @Override

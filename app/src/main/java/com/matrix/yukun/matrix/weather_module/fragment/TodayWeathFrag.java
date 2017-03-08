@@ -23,6 +23,7 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.anims.MyEvaluator;
 import com.matrix.yukun.matrix.movie_module.BaseFrag;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
+import com.matrix.yukun.matrix.util.Notifications;
 import com.matrix.yukun.matrix.weather_module.bean.EventDay;
 import com.matrix.yukun.matrix.weather_module.bean.WeaDestory;
 import com.matrix.yukun.matrix.weather_module.bean.WeaHours;
@@ -38,6 +39,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 /**
  * Created by yukun on 17-3-6.
@@ -96,6 +98,12 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
     RecyclerView recyclerViews;
     @BindView(R.id.search)
     ImageView search;
+    @BindView(R.id.power_lin)
+    LinearLayout powerLin;
+    @BindView(R.id.images)
+    ImageView images;
+    @BindView(R.id.real)
+    RelativeLayout real;
     private TodayPresent topPresent;
     private ProgressDialog progressDialog;
     private LinearLayoutManager linearLayoutManager;
@@ -133,6 +141,7 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         ButterKnife.bind(this, inflate);
         EventBus.getDefault().register(this);
         getViews(inflate);
+        OverScrollDecoratorHelper.setUpOverScroll(scrollview);
         setListener();
         return inflate;
     }
@@ -174,7 +183,8 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         recyclerViews.setLayoutManager(linearLayoutManager);
         recyclerAdapter = new RecyclerAdapter(getContext(), weaHours.getHeWeather5().get(0).getHourly_forecast());
         recyclerViews.setAdapter(recyclerAdapter);
-
+        // Horizontal
+        OverScrollDecoratorHelper.setUpOverScroll(recyclerViews, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
     }
 
     @Override
@@ -187,6 +197,11 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         todayTime.setText(loc);
         //天气
         todayClass.setText(now.getCond().getTxt());
+        if (now.getCond().getTxt().length() <= 4 && now.getCond().getTxt().length() >= 3) {
+            todayClass.setTextSize(34);
+        } else if (now.getCond().getTxt().length() > 4) {
+            todayClass.setTextSize(30);
+        }
         todayWendu.setText(now.getFl() + "℃");
 //        addAnimation();
         today1.setText("体感温度:" + now.getFl() + "℃");
@@ -200,6 +215,7 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         todayPower3.setText("风速:" + now.getWind().getSpd() + "kmph");
         String code = now.getCond().getCode();
         EventBus.getDefault().post(new OnEventpos(Integer.valueOf(code)));
+        Notifications.start(getContext(),basic.getCity()+":"+now.getFl() + "℃");
     }
 
     @Override
@@ -227,12 +243,16 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
                     progressDialog.show();
                 }
                 topPresent.getInfo(city);
+                topPresent.getDestory(city);
+                topPresent.getHours(city);
                 break;
             case R.id.today_refreshs:
                 if (progressDialog != null) {
                     progressDialog.show();
                 }
                 topPresent.getInfo(city);
+                topPresent.getDestory(city);
+                topPresent.getHours(city);
                 break;
             case R.id.today_tomorrow:
                 EventBus.getDefault().post(new EventDay("tomorrow"));
@@ -255,15 +275,15 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
 
     private void getSearchCity() {
         View inflate = LayoutInflater.from(getContext()).inflate(R.layout.search, null);
-        final EditText editText= (EditText) inflate.findViewById(R.id.search);
+        final EditText editText = (EditText) inflate.findViewById(R.id.search);
         new AlertDialog.Builder(getContext())
                 .setTitle("城市搜索:")
                 .setView(inflate)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(editText.getText().toString()!=null){
-                            city=editText.getText().toString().trim();
+                        if (editText.getText().toString() != null) {
+                            city = editText.getText().toString().trim();
                             topPresent.getInfo(city);
                             if (progressDialog != null) {
                                 progressDialog.show();
@@ -271,8 +291,8 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
                         }
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
             }
         }).show();

@@ -38,7 +38,7 @@ public class Noticefication {
          mBuilder.setContentIntent(pIntent);
         //添加震动
          Notification notification=mBuilder.build();
-        // notification.defaults=Notification.DEFAULT_VIBRATE;
+        // notification.defaults=Notifications.DEFAULT_VIBRATE;
          notification.flags |= Notification.FLAG_AUTO_CANCEL;
         //将notification传递给manner
          nm.notify(1, notification);

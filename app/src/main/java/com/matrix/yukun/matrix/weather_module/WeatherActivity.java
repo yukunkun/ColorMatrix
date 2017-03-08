@@ -1,23 +1,35 @@
 package com.matrix.yukun.matrix.weather_module;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.GestureDetector;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.util.GetCity;
+import com.matrix.yukun.matrix.util.ScreenUtils;
 import com.matrix.yukun.matrix.weather_module.bean.EventDay;
 import com.matrix.yukun.matrix.weather_module.fragment.ConfortableFragment;
 import com.matrix.yukun.matrix.weather_module.fragment.TodayWeathFrag;
@@ -28,8 +40,11 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.TimerTask;
 
+import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl {
@@ -42,12 +57,14 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
     private ImageView imageView;
     private String  city="成都";;
     private FragmentTransaction fragmentTransaction;
+    private PopupWindow popupWindow;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
+        ButterKnife.bind(this);
         EventBus.getDefault().register(this);
 //        GetCity.getInstance(this).getCity();
         init();
@@ -61,6 +78,8 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
         radioGroup = (RadioGroup) findViewById(R.id.group);
         imageView=(ImageView) findViewById(R.id.back_image);
         ((RadioButton)(radioGroup.getChildAt(0))).setChecked(true);
+        ((RadioButton)findViewById(R.id.today)).setTextSize(18);
+
     }
 
     @Override
@@ -89,10 +108,19 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                     if(checkedId==R.id.today){
                         show(0);
+                        ((RadioButton)findViewById(R.id.today)).setTextSize(18);
+                        ((RadioButton)findViewById(R.id.tomorrow)).setTextSize(15);
+                        ((RadioButton)findViewById(R.id.life)).setTextSize(15);
                     }else if(checkedId==R.id.tomorrow){
                         show(1);
+                        ((RadioButton)findViewById(R.id.today)).setTextSize(15);
+                        ((RadioButton)findViewById(R.id.tomorrow)).setTextSize(18);
+                        ((RadioButton)findViewById(R.id.life)).setTextSize(15);
                     }else if(checkedId==R.id.life){
                         show(2);
+                        ((RadioButton)findViewById(R.id.today)).setTextSize(15);
+                        ((RadioButton)findViewById(R.id.tomorrow)).setTextSize(15);
+                        ((RadioButton)findViewById(R.id.life)).setTextSize(18);
                     }
             }
         });
@@ -130,8 +158,9 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
         if(fragmentTag.equals("tomorrow")){
             ((RadioButton)findViewById(R.id.tomorrow)).setChecked(true);
         }else if(fragmentTag.equals("life")){
-            ((RadioButton)(radioGroup.getChildAt(2))).setChecked(true);
-        }
+            ((RadioButton)findViewById(R.id.life)).setChecked(true);
+        }else if(fragmentTag.equals("today")){
+            ((RadioButton)findViewById(R.id.today)).setChecked(true);        }
     }
 
     private void setBackImage(int pos) {
@@ -150,11 +179,11 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
         }else if(pos<=313) {
             Glide.with(this).load(R.mipmap.yu2)
                     .into(imageView);
-        }else if(pos<=406){
-            Glide.with(this).load(R.mipmap.xue2)
+        }else if(pos<=402){
+            Glide.with(this).load(R.mipmap.xue)
                     .into(imageView);
         }else if(pos<=406){
-            Glide.with(this).load(R.mipmap.xue2)
+            Glide.with(this).load(R.mipmap.xue1)
                     .into(imageView);
         }else if(pos<=502){
             Glide.with(this).load(R.mipmap.wea_wu)
@@ -206,6 +235,73 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
             }
             return false;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        showPopu();
+    }
+
+    private void showPopu() {
+        View inflate = LayoutInflater.from(this).inflate(R.layout.popuwindow_layout, null);
+        popupWindow =new PopupWindow(inflate, ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+//        popupWindow.setContentView(inflate);
+        inflate.findViewById(R.id.tuichu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        inflate.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(true);
+        ColorDrawable dw = new ColorDrawable(0xb0000000);
+        //设置SelectPicPopupWindow弹出窗体的背景
+        popupWindow.setBackgroundDrawable(dw);
+        popupWindow.setAnimationStyle(R.style.popwindow_anim_style);
+        popupWindow.showAtLocation(this.findViewById(R.id.group), Gravity.CENTER,0,0);
+    }
+
+    //获取虚拟菜单高度
+    public int getBottomStatusHeight(Context context){
+        int totalHeight = getDpi(context);
+
+        int contentHeight = getScreenHeight(this);
+
+        return totalHeight  - contentHeight;
+    }
+
+    public int getDpi(Context context){
+        int dpi = 0;
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        @SuppressWarnings("rawtypes")
+        Class c;
+        try {
+            c = Class.forName("android.view.Display");
+            @SuppressWarnings("unchecked")
+            Method method = c.getMethod("getRealMetrics",DisplayMetrics.class);
+            method.invoke(display, displayMetrics);
+            dpi=displayMetrics.heightPixels;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return dpi;
+    }
+
+    public  int getScreenHeight(Context context) {
+        WindowManager wm = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics.heightPixels;
     }
 
 }

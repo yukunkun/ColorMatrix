@@ -53,6 +53,6 @@ dependencies {
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     compile 'com.contrarywind:Android-PickerView:3.0.7'
     compile 'cn.qqtheme.framework:WheelPicker:1.4.3'
-
+    compile 'me.everything:overscroll-decor-android:1.0.4'
 
 }

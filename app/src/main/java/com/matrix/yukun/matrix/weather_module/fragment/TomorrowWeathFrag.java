@@ -32,6 +32,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 /**
  * Created by yukun on 17-3-6.
@@ -76,6 +77,8 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
     RelativeLayout tomorrowTitle;
     @BindView(R.id.recyclerViews)
     RecyclerView recyclerViews;
+    @BindView(R.id.power_lin)
+    LinearLayout powerLin;
     private TomorrowPresent tomorrowPresent;
     private String city;
     private ProgressDialog progressDialog;
@@ -109,6 +112,8 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
         linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         EventBus.getDefault().register(this);
+        OverScrollDecoratorHelper.setUpOverScroll(scrollView);
+        // Horizontal
         setListener();
         return inflate;
     }
@@ -129,7 +134,7 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
         EventBus.getDefault().unregister(this);
     }
 
-    @OnClick({R.id.tomorrow_back, R.id.today_refresh, R.id.today_refreshs,R.id.search})
+    @OnClick({R.id.tomorrow_back, R.id.today_refresh, R.id.today_refreshs, R.id.search})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tomorrow_back:
@@ -169,20 +174,27 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
         todayTime.setText(loc);
         //天气
         todayClass.setText(castBean.getCond().getTxt_d());
+        if (castBean.getCond().getTxt_d().length() <= 4 && castBean.getCond().getTxt_d().length() >= 3) {
+            todayClass.setTextSize(34);
+        } else if (castBean.getCond().getTxt_d().length() > 4) {
+            todayClass.setTextSize(30);
+        }
         todayWendu.setText((Integer.valueOf(castBean.getTmp().getMax()) + Integer.valueOf(castBean.getTmp().getMin())) / 2 + "℃");
         todayPower1.setText("风向:" + castBean.getWind().getDir());
         todayPower2.setText("风力:" + castBean.getWind().getSc());
         todayPower3.setText("风速:" + castBean.getWind().getSpd() + "kmph");
         String code = castBean.getCond().getCode_d();
         EventBus.getDefault().post(new OnEventpos(Integer.valueOf(code)));
-        tomorrowYue.setText("月出:" + castBean.getAstro().getMr() + "h,月落:" + castBean.getAstro().getMs()+"h");
-        tomorrowRi.setText("日出:" + castBean.getAstro().getSr() + "h,日落:" + castBean.getAstro().getSs()+"h");
+        tomorrowYue.setText("月出:" + castBean.getAstro().getMr() + "h,月落:" + castBean.getAstro().getMs() + "h");
+        tomorrowRi.setText("日出:" + castBean.getAstro().getSr() + "h,日落:" + castBean.getAstro().getSs() + "h");
         tomorrowBai.setText("白天:" + castBean.getCond().getTxt_d());
         tomorrowHei.setText("晚上:" + castBean.getCond().getTxt_n());
 
         recyclerViews.setLayoutManager(linearLayoutManager);
-        recyclerTomorrowAdapter = new RecyclerTomorrowAdapter(getContext(),weaTomorrow.getHeWeather5().get(0).getDaily_forecast());
+        recyclerTomorrowAdapter = new RecyclerTomorrowAdapter(getContext(), weaTomorrow.getHeWeather5().get(0).getDaily_forecast());
         recyclerViews.setAdapter(recyclerTomorrowAdapter);
+        OverScrollDecoratorHelper.setUpOverScroll(recyclerViews, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
+
     }
 
     private void getSearchCity() {

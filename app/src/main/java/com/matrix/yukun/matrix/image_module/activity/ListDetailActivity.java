@@ -26,6 +26,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+
 public class ListDetailActivity extends BaseActivity {
 
     private ArrayList<String> lists;
@@ -57,6 +59,7 @@ public class ListDetailActivity extends BaseActivity {
     private void setAdapter() {
         glideViewAdapter = new GlideViewAdapter(getApplicationContext(),lists);
         gridView.setAdapter(glideViewAdapter);
+        OverScrollDecoratorHelper.setUpOverScroll(gridView);
     }
 
     private void setListener() {

@@ -30,6 +30,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+
 public class PhotoListActivity extends BaseActivity {
     GridView gridView;
     private HashMap<String, List<String>> mGruopMap = new HashMap<String, List<String>>();
@@ -59,6 +61,8 @@ public class PhotoListActivity extends BaseActivity {
 //                    mProgressDialog.dismiss();
                     GroupAdapter adapter = new GroupAdapter(PhotoListActivity.this, list = subGroupOfImage(mGruopMap), gridView);
                     gridView.setAdapter(adapter);
+                    OverScrollDecoratorHelper.setUpOverScroll(gridView);
+
                     break;
             }
         }
@@ -102,7 +106,6 @@ public class PhotoListActivity extends BaseActivity {
                 } else {
                     mGruopMap.get(parentName).add(path);
                 }
-
             }
 
             //通知Handler扫描图片完成

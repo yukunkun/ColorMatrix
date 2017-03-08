@@ -50,7 +50,7 @@
                 android:layout_height="400dp">
                 <TextView
                     android:id="@+id/today_city"
-                    android:textSize="25sp"
+                    android:textSize="32sp"
                     android:text="成都"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/color_whit"
@@ -70,6 +70,7 @@
                     android:layout_below="@+id/today_city"
                     android:textSize="20sp"
                     android:layout_marginTop="18dp"
+                    android:layout_marginLeft="2dp"
                     android:textColor="@color/color_whit"
                     android:text="刷新"
                     android:layout_width="wrap_content"
@@ -79,7 +80,7 @@
                     android:layout_width="100dp"
                     android:layout_marginRight="10dp"
                     android:background="@color/color_back"
-                    android:layout_height="120dp">
+                    android:layout_height="130dp">
                     <TextView
                         android:id="@+id/today_time"
                         android:text=""
@@ -115,7 +116,7 @@
                         android:layout_below="@+id/today_image"
                         android:layout_width="match_parent"
                         android:gravity="center"
-                        android:text="℃"
+                        android:text=""
                         android:shadowColor="@color/color_bfbfbf"
                         android:textStyle="italic"
                         android:shadowRadius="1"

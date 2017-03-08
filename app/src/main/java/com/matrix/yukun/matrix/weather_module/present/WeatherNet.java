@@ -10,6 +10,7 @@ import com.matrix.yukun.matrix.movie_module.util.MovieService;
 import com.matrix.yukun.matrix.movie_module.util.RetrofitApi;
 import com.matrix.yukun.matrix.weather_module.bean.WeaDestory;
 import com.matrix.yukun.matrix.weather_module.bean.WeaHours;
+import com.matrix.yukun.matrix.weather_module.bean.WeaLifePoint;
 import com.matrix.yukun.matrix.weather_module.bean.WeaNow;
 import com.matrix.yukun.matrix.weather_module.bean.WeaTomorrow;
 
@@ -26,7 +27,7 @@ import rx.schedulers.Schedulers;
  * Created by yukun on 17-3-6.
  */
 public class WeatherNet {
-
+    //now天气
     public  static Observable<WeaNow> getNow(String city){
 
         Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
@@ -56,6 +57,7 @@ public class WeatherNet {
                 .observeOn(AndroidSchedulers.mainThread());
 
     }
+    //自然灾害
     public  static Observable<WeaDestory> getDestory(String city){
 
         Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
@@ -84,6 +86,7 @@ public class WeatherNet {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    //实时天气
     public  static Observable<WeaHours> getHours(String city){
 
         Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
@@ -112,6 +115,7 @@ public class WeatherNet {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    //未来几日天气
     public  static Observable<WeaTomorrow> getTomorrow(String city){
 
         Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
@@ -131,6 +135,34 @@ public class WeatherNet {
                         return Observable.create(new Observable.OnSubscribe<WeaTomorrow>() {
                             @Override
                             public void call(Subscriber<? super WeaTomorrow> subscriber) {
+                                subscriber.onNext(weaHours);
+                                subscriber.onCompleted();
+                            }
+                        });
+                    }
+                }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+    //人体舒适度
+    public  static Observable<WeaLifePoint> getConfortable(String city){
+
+        Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
+        return retrofit.create(MovieService.class).getLife(city, AppConstants.HEWEATHER_KEY)
+                .filter(new Func1<WeaLifePoint, Boolean>() {
+                    @Override
+                    public Boolean call(WeaLifePoint weaHours) {
+                        if(weaHours.getHeWeather5().get(0).getStatus().equals("ok")){
+                            return true;
+                        }else {
+                            throw new ApiException(1);
+                        }
+                    }
+                }).flatMap(new Func1<WeaLifePoint, Observable<WeaLifePoint>>() {
+                    @Override
+                    public Observable<WeaLifePoint> call(final WeaLifePoint weaHours) {
+                        return Observable.create(new Observable.OnSubscribe<WeaLifePoint>() {
+                            @Override
+                            public void call(Subscriber<? super WeaLifePoint> subscriber) {
                                 subscriber.onNext(weaHours);
                                 subscriber.onCompleted();
                             }

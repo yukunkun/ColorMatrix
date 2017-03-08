@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="@color/color_back_all"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="250dp"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/confshape"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_150">
+            <TextView
+                android:textColor="@color/color_whit"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:text="确定要退出吗"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_100" />
+            <LinearLayout
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_50">
+                <TextView
+                    android:id="@+id/tuichu"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="退出"
+                    android:background="@drawable/tuichushape"
+                    android:textColor="@color/color_whit"
+                    android:gravity="center"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/cancel"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="取消"
+                    android:background="@drawable/cancelshape"
+                    android:textColor="@color/color_whit"
+                    android:gravity="center"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

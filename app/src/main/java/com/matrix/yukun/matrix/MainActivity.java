@@ -64,6 +64,8 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView imageLoad;
@@ -184,6 +186,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void setAdapter() {
         recAdapter = new RecAdapter(getApplicationContext(),check);
         recyclerView.setAdapter(recAdapter);
+        // Horizontal
+        OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
         recyclerView.addItemDecoration(new SpacesItemDecoration(20));
     }
 

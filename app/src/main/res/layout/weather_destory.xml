@@ -9,14 +9,24 @@
         android:background="@color/color_whit"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"/>
-    <TextView
-        android:textSize="20sp"
-        android:text="自然灾害提示:"
-        android:paddingLeft="10dp"
-        android:gravity="center_vertical"
-        android:textColor="@color/color_whit"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_40" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/images"
+            android:src="@mipmap/aa_app_detail_warn_strong"
+            android:layout_width="@dimen/dimens_30"
+            android:layout_height="@dimen/dimens_40" />
+        <TextView
+            android:layout_toRightOf="@+id/images"
+            android:textSize="20sp"
+            android:text="自然灾害提示:"
+            android:paddingLeft="1dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_whit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_40" />
+    </RelativeLayout>
     <View
         android:background="@color/color_whit"
         android:layout_width="match_parent"

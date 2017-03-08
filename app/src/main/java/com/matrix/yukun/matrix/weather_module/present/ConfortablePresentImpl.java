@@ -11,6 +11,6 @@ import com.matrix.yukun.matrix.weather_module.bean.WeaLifePoint;
  * Created by yukun on 17-3-7.
  */
 public interface ConfortablePresentImpl extends BasePresentImpl {
-    void getInfo();
+    void getInfo(String city);
 
 }

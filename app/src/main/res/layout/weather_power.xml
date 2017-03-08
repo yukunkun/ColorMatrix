@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
+        android:id="@+id/power_lin"
         android:layout_marginTop="@dimen/dimens_20"
         android:layout_weight="3"
         android:layout_width="match_parent"

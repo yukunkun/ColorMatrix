@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 /**
  * Created by Administrator on 2017/3/5.
@@ -66,6 +67,8 @@ public class SoonMoiveFragment extends BaseFrag implements PresentImpl{
         mSwipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.mSwipeRefreshLayout);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(movieTopAdapter);
+        OverScrollDecoratorHelper.setUpOverScroll(mRecyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
+
     }
     @Override
     public void showMessage(String msg) {
