@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="141dp"
+    android:background="@color/color_back_all"
+    android:layout_height="wrap_content">
+    <View
+        android:background="@color/color_81e9e9e9"
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="@dimen/dimens_140"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/today_time"
+            android:text="20:15"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:textColor="@color/color_whit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_30" />
+        <View
+            android:background="@color/color_81e9e9e9"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+        <TextView
+            android:id="@+id/today_tianqi"
+            android:text="晴天"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/color_whit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_40" />
+        <View
+            android:background="@color/color_81e9e9e9"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+        <TextView
+            android:id="@+id/today_wendu"
+            android:text=""
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/color_whit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_40" />
+        <View
+            android:background="@color/color_81e9e9e9"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+        <TextView
+            android:id="@+id/today_shidu"
+            android:text="shi度"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:textColor="@color/color_whit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_40" />
+        <TextView
+            android:id="@+id/today_jiangshui"
+            android:text="将水"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:textColor="@color/color_whit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_40" />
+        <TextView
+            android:id="@+id/today_qiya"
+            android:text="气压"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:textColor="@color/color_whit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_40" />
+        <TextView
+            android:id="@+id/today_fengxiang"
+            android:text="东北风"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:textColor="@color/color_whit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_40" />
+        <View
+            android:background="@color/color_81e9e9e9"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+    </LinearLayout>
+    <View
+        android:background="@color/color_81e9e9e9"
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

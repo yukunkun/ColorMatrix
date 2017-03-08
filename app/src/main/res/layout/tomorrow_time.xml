@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tomorrow_ri"
+        android:textSize="18sp"
+        android:text=""
+        android:padding="5dp"
+        android:background="@drawable/tomorrowshape"
+        android:textColor="@color/color_b9b9b9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_below="@+id/tomorrow_ri"
+        android:id="@+id/tomorrow_yue"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:text=""
+        android:padding="4dp"
+        android:background="@drawable/tomorrowshape"
+        android:textColor="@color/color_b9b9b9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tomorrow_bai"
+            android:textSize="18sp"
+            android:background="@drawable/tomorrowshape"
+            android:text=""
+            android:padding="5dp"
+            android:textColor="@color/color_b9b9b9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_below="@+id/tomorrow_ri"
+            android:id="@+id/tomorrow_hei"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/tomorrowshape"
+            android:text=""
+            android:padding="5dp"
+            android:textColor="@color/color_b9b9b9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</RelativeLayout>

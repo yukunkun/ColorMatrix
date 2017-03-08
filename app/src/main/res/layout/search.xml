@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/search"
+        android:hint="请输入城市,如:成都"
+        android:textColorHint="@color/color_back_all"
+        android:paddingLeft="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_50" />
+</LinearLayout>
