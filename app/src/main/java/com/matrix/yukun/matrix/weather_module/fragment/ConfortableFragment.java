@@ -8,6 +8,9 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.movie_module.BaseFrag;
+import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.selfview.MyListView;
 import com.matrix.yukun.matrix.weather_module.bean.EventDay;
 import com.matrix.yukun.matrix.weather_module.bean.WeaLifePoint;
@@ -25,6 +29,8 @@ import com.matrix.yukun.matrix.weather_module.present.ConforableFragImpl;
 import com.matrix.yukun.matrix.weather_module.present.ConfortablePresent;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,6 +74,9 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
     private String city;
     private ProgressDialog progressDialog;
     private MyListAdapter myListAdapter;
+    private Animation operatingAnim;
+    private Animation operatingAnim1;
+    private Animation operatingRefresh;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,6 +102,7 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View inflate = LayoutInflater.from(getContext()).inflate(R.layout.wea_conforable, null);
         ButterKnife.bind(this, inflate);
+        EventBus.getDefault().register(this);
         todayDestory.setVisibility(View.GONE);
         todayTomorrow.setText("今日天气");
         todayLife.setText("明日天气");
@@ -118,6 +128,39 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
     public void setListener() {
 
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getColor(OnEventpos onEventpos) {
+        int pos = onEventpos.pos;
+        if (pos == 2) {
+            setBackAnim();
+        } else if (pos == 3) {
+            setBackAnimBack();
+        }
+    }
+
+
+    private void setBackAnim() {
+        operatingAnim = AnimationUtils.loadAnimation(getContext(), R.anim.back_anim);
+        LinearInterpolator lin = new LinearInterpolator();
+        operatingAnim.setInterpolator(lin);
+        operatingAnim.setFillAfter(true);
+        tomorrowBack.startAnimation(operatingAnim);
+    }
+
+    private void setBackAnimBack() {
+        operatingAnim1 = AnimationUtils.loadAnimation(getContext(), R.anim.back_anim_back);
+        LinearInterpolator lin = new LinearInterpolator();
+        operatingAnim1.setInterpolator(lin);
+        operatingAnim1.setFillAfter(true);
+        tomorrowBack.startAnimation(operatingAnim1);
+    }
+    private void setFreshAnimBack() {
+        operatingRefresh = AnimationUtils.loadAnimation(getContext(), R.anim.refresh_anim);
+        LinearInterpolator lin = new LinearInterpolator();
+        operatingRefresh.setInterpolator(lin);
+        operatingRefresh.setFillAfter(true);
+        todayRefresh.startAnimation(operatingRefresh);
+    }
 
     @Override
     public void getLifeInfo(WeaLifePoint weaLifePoint) {
@@ -129,7 +172,7 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
         scrollView.fullScroll(ScrollView.FOCUS_UP);
     }
 
-    @OnClick({R.id.today_refresh, R.id.today_refreshs, R.id.today_tomorrow, R.id.today_life,R.id.search})
+    @OnClick({R.id.tomorrow_back,R.id.today_refresh, R.id.today_refreshs, R.id.today_tomorrow, R.id.today_life,R.id.search})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.today_refresh:
@@ -152,6 +195,9 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
                 break;
             case R.id.search:
                 getSearchCity();
+                break;
+            case R.id.tomorrow_back:
+                EventBus.getDefault().post(new OnEventpos(1));
                 break;
         }
     }
@@ -180,4 +226,16 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
         }).show();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        if(operatingAnim!=null){
+            operatingAnim.cancel();
+        }
+        if(operatingAnim1!=null){
+            operatingAnim1.cancel();
+        }
+//        operatingRefresh.cancel();
+    }
 }

@@ -53,6 +53,7 @@ import com.matrix.yukun.matrix.util.ImageUtils;
 import com.matrix.yukun.matrix.util.ScreenUtils;
 import com.matrix.yukun.matrix.util.SpacesItemDecoration;
 import com.matrix.yukun.matrix.weather_module.WeatherActivity;
+import com.tencent.bugly.beta.Beta;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -130,6 +131,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setListener();
         judgeTishi();
         getPermission();
+        Beta.checkUpgrade();
     }
 
     private void init() {
@@ -155,7 +157,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         textViewTag = (TextView) findViewById(R.id.tishitag);
         textViewMov = (TextView)findViewById(R.id.textmovie);
         textViewWea = (TextView)findViewById(R.id.textweather);
-
         layoutContain = (MyRelativeLayout) findViewById(R.id.rea_contain);
         textViewTiShi = (RelativeLayout) findViewById(R.id.texttishi);
         reaContain = (RelativeLayout) findViewById(R.id.contain);

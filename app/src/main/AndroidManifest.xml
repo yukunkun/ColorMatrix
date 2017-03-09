@@ -20,6 +20,12 @@
     <uses-permission android:name="android.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <!--保存资源到SD卡-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
+
     // 极光推送
     // AppKey 0c7613d6df2ec04de1521110
     // Master Secret 5b24a25afcdff0d132af6b75
@@ -50,6 +56,9 @@
         <meta-data
             android:name="IFLYTEK_CHANNEL"
             android:value="应用宝" />
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:theme="@android:style/Theme.Translucent" />
 
         <activity android:name=".image_module.activity.PhotoListActivity" />
         <activity android:name=".image_module.activity.ListDetailActivity" />

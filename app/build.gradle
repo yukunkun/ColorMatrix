@@ -12,12 +12,17 @@ android {
         targetSdkVersion 23
         versionCode 5
         versionName "2.2.1 版"
-    }
-    /*sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
-    }*/
+        multiDexEnabled true
+    }
+//    sourceSets {
+//        main {
+//            jniLibs.srcDirs = ['libs']
+//        }
+//    }
     buildTypes {
         release {
             minifyEnabled false
@@ -37,8 +42,9 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'cn.jiguang.sdk:jcore:1.1.0'
     compile files('libs/GDTUnionSDK.4.9.542.min.jar')
-    compile 'com.tencent.bugly:crashreport:latest.release'
-//    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.0.0
+    //bugly
+//    compile 'com.tencent.bugly:crashreport:latest.release'
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
     compile 'com.edmodo:cropper:1.0.1'
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.0.1'
 // rxjava的相关

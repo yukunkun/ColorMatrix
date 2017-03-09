@@ -8,11 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.bean.AppConstants;
+import com.matrix.yukun.matrix.movie_module.MovieActivity;
+import com.matrix.yukun.matrix.weather_module.WeatherActivity;
+
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -22,6 +27,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private RelativeLayout layout_pingfen;
     private RelativeLayout layout_banben;
     private TextView textViewBanben;
+    private RelativeLayout layout_movie;
+    private RelativeLayout layout_wea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +45,18 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         layout_pingfen = (RelativeLayout) findViewById(R.id.rea_pingfen);
         layout_banben = (RelativeLayout) findViewById(R.id.rea_fankui);
         textViewBanben = (TextView) findViewById(R.id.textview_banben);
+        layout_banben = (RelativeLayout) findViewById(R.id.rea_fankui);
+        layout_movie = (RelativeLayout) findViewById(R.id.rea_movie);
+        layout_wea = (RelativeLayout) findViewById(R.id.rea_wea);
         layout_jianjie.setOnClickListener(this);
         layout_fankui.setOnClickListener(this);
         layout_xieyi.setOnClickListener(this);
         layout_pingfen.setOnClickListener(this);
+        layout_movie.setOnClickListener(this);
+        layout_wea.setOnClickListener(this);
+        //弹簧效果
+        OverScrollDecoratorHelper.setUpOverScroll((ScrollView)findViewById(R.id.scrollview));
     }
-
-
 
     private void getVersion() {
         // 获取packagemanager的实例
@@ -94,6 +106,16 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 Uri  uri = Uri.parse(AppConstants.YINGYONGBAOPATH);
                 Intent  intents = new  Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intents);
+                break;
+            case R.id.rea_movie:
+                Intent intent2=new Intent(this,MovieActivity.class);
+                startActivity(intent2);
+                overridePendingTransition(R.anim.right_in,R.anim.left_out);
+                break;
+            case R.id.rea_wea:
+                Intent intent3=new Intent(this,WeatherActivity.class);
+                startActivity(intent3);
+                overridePendingTransition(R.anim.right_in,R.anim.left_out);
                 break;
 
         }

@@ -3,6 +3,8 @@ package com.matrix.yukun.matrix;
 import android.app.Application;
 import android.widget.Toast;
 
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
 
 /**
@@ -13,7 +15,10 @@ public class MyApp extends Application {
     @Override
     public void onCreate() {
         myApp=this;
-        CrashReport.initCrashReport(getApplicationContext(), "884e2d9286", false);
+//        Beta.autoCheckUpgrade = false;//设置不自动检查
+        Bugly.init(getApplicationContext(), "884e2d9286", false);
+
+//        CrashReport.initCrashReport(getApplicationContext(), "884e2d9286", false);
         super.onCreate();
     }
     public static Application getInstance(){

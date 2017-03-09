@@ -30,7 +30,6 @@ public class Notifications {
 //        mBuilder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.tool_icon));
         //显示在小图标左侧的数字
 //        mBuilder.setNumber(6);
-
         mBuilder.setCategory(wendu);
         //设置为不可清除模式
         mBuilder.setOngoing(false);

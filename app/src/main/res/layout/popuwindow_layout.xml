@@ -15,14 +15,14 @@
             android:background="@drawable/confshape"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimens_150">
+            android:layout_height="@dimen/dimens_130">
             <TextView
                 android:textColor="@color/color_whit"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:gravity="center"
                 android:text="确定要退出吗"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimens_100" />
+                android:layout_height="@dimen/dimens_80" />
             <LinearLayout
                 android:weightSum="2"
                 android:orientation="horizontal"

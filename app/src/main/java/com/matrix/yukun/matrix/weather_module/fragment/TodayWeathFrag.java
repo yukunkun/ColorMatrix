@@ -11,6 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -110,6 +113,9 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
     private RecyclerAdapter recyclerAdapter;
     private String city;
     private ValueAnimator animator;
+    private Animation operatingAnim;
+    private Animation operatingAnim1;
+    private Animation operatingRefresh;
 
 
     @Override
@@ -151,9 +157,33 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         int pos = onEventpos.pos;
         if (pos == 2) {
             todayTitile.setBackgroundColor(getResources().getColor(R.color.color_82181818));
+            setBackAnim();
         } else if (pos == 3) {
             todayTitile.setBackgroundColor(getResources().getColor(R.color.color_00ffffff));
+            setBackAnimBack();
         }
+    }
+
+    private void setBackAnim() {
+        operatingAnim = AnimationUtils.loadAnimation(getContext(), R.anim.back_anim);
+        LinearInterpolator lin = new LinearInterpolator();
+        operatingAnim.setInterpolator(lin);
+        operatingAnim.setFillAfter(true);
+        todayBack.startAnimation(operatingAnim);
+    }
+    private void setBackAnimBack() {
+        operatingAnim1 = AnimationUtils.loadAnimation(getContext(), R.anim.back_anim_back);
+        LinearInterpolator lin = new LinearInterpolator();
+        operatingAnim1.setInterpolator(lin);
+        operatingAnim1.setFillAfter(true);
+        todayBack.startAnimation(operatingAnim1);
+    }
+    private void setFreshAnimBack() {
+        operatingRefresh = AnimationUtils.loadAnimation(getContext(), R.anim.refresh_anim);
+        LinearInterpolator lin = new LinearInterpolator();
+        operatingRefresh.setInterpolator(lin);
+        operatingRefresh.setFillAfter(true);
+        todayRefresh.startAnimation(operatingRefresh);
     }
 
     @Override
@@ -232,7 +262,6 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         todayLife.setOnClickListener(this);
         todayBack.setOnClickListener(this);
         search.setOnClickListener(this);
-
     }
 
     @Override
@@ -302,6 +331,13 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        if(operatingAnim!=null){
+            operatingAnim.cancel();
+        }
+        if(operatingAnim1!=null){
+            operatingAnim1.cancel();
+        }
+//        operatingRefresh.cancel();
     }
 
     private void addAnimation() {
