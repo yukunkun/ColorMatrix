@@ -60,9 +60,10 @@ public class PhotoListActivity extends BaseActivity {
                     //关闭进度条
 //                    mProgressDialog.dismiss();
                     GroupAdapter adapter = new GroupAdapter(PhotoListActivity.this, list = subGroupOfImage(mGruopMap), gridView);
-                    gridView.setAdapter(adapter);
+                    if(subGroupOfImage(mGruopMap)!=null){
+                        gridView.setAdapter(adapter);
+                    }
                     OverScrollDecoratorHelper.setUpOverScroll(gridView);
-
                     break;
             }
         }

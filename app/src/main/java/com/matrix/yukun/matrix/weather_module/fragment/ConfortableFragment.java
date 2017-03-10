@@ -23,6 +23,10 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.movie_module.BaseFrag;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.selfview.MyListView;
+import com.matrix.yukun.matrix.task.AddressInitTask;
+import com.matrix.yukun.matrix.weather_module.animutils.AnimUtils;
+import com.matrix.yukun.matrix.weather_module.bean.CityPickerFragment;
+import com.matrix.yukun.matrix.weather_module.bean.EventCity;
 import com.matrix.yukun.matrix.weather_module.bean.EventDay;
 import com.matrix.yukun.matrix.weather_module.bean.WeaLifePoint;
 import com.matrix.yukun.matrix.weather_module.present.ConforableFragImpl;
@@ -74,9 +78,7 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
     private String city;
     private ProgressDialog progressDialog;
     private MyListAdapter myListAdapter;
-    private Animation operatingAnim;
-    private Animation operatingAnim1;
-    private Animation operatingRefresh;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -132,34 +134,17 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
     public void getColor(OnEventpos onEventpos) {
         int pos = onEventpos.pos;
         if (pos == 2) {
-            setBackAnim();
+            AnimUtils.setBackUp(getContext(),tomorrowBack);
         } else if (pos == 3) {
-            setBackAnimBack();
+            AnimUtils.setBackDown(getContext(),tomorrowBack);
+
         }
     }
-
-
-    private void setBackAnim() {
-        operatingAnim = AnimationUtils.loadAnimation(getContext(), R.anim.back_anim);
-        LinearInterpolator lin = new LinearInterpolator();
-        operatingAnim.setInterpolator(lin);
-        operatingAnim.setFillAfter(true);
-        tomorrowBack.startAnimation(operatingAnim);
-    }
-
-    private void setBackAnimBack() {
-        operatingAnim1 = AnimationUtils.loadAnimation(getContext(), R.anim.back_anim_back);
-        LinearInterpolator lin = new LinearInterpolator();
-        operatingAnim1.setInterpolator(lin);
-        operatingAnim1.setFillAfter(true);
-        tomorrowBack.startAnimation(operatingAnim1);
-    }
-    private void setFreshAnimBack() {
-        operatingRefresh = AnimationUtils.loadAnimation(getContext(), R.anim.refresh_anim);
-        LinearInterpolator lin = new LinearInterpolator();
-        operatingRefresh.setInterpolator(lin);
-        operatingRefresh.setFillAfter(true);
-        todayRefresh.startAnimation(operatingRefresh);
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getCity(EventCity onEventpos) {
+        String pos = onEventpos.city;
+        MyApp.showToast(pos);
+        mPresent.getInfo(pos);
     }
 
     @Override
@@ -194,48 +179,16 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
                 EventBus.getDefault().post(new EventDay("tomorrow"));
                 break;
             case R.id.search:
-                getSearchCity();
+                new AddressInitTask(getActivity(), true).execute("四川省", "成都市", "成华区");
                 break;
             case R.id.tomorrow_back:
                 EventBus.getDefault().post(new OnEventpos(1));
                 break;
         }
     }
-    private void getSearchCity() {
-        View inflate = LayoutInflater.from(getContext()).inflate(R.layout.search, null);
-        final EditText editText= (EditText) inflate.findViewById(R.id.search);
-        new AlertDialog.Builder(getContext())
-                .setTitle("城市搜索:")
-                .setView(inflate)
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(editText.getText().toString()!=null){
-                            city=editText.getText().toString().trim();
-                            mPresent.getInfo(city);
-                            if (progressDialog != null) {
-                                progressDialog.show();
-                            }
-                        }
-                    }
-                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        }).show();
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        if(operatingAnim!=null){
-            operatingAnim.cancel();
-        }
-        if(operatingAnim1!=null){
-            operatingAnim1.cancel();
-        }
-//        operatingRefresh.cancel();
     }
 }

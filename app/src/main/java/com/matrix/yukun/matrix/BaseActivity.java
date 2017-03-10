@@ -12,12 +12,16 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
+//        RefWatcher refWatcher = MyApp.getRefWatcher(this);
+//        refWatcher.watch(this);
+
     }
     @Override
     protected void onResume() {
         super.onResume();
         FlowerCollector.onResume(this);
     }
+
     @Override
     protected void onPause() {
         super.onPause();

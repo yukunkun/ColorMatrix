@@ -10,8 +10,8 @@ android {
         applicationId "com.matrix.yukun.matrix"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 5
-        versionName "2.2.1 版"
+        versionCode 6
+        versionName "2.3.1 版"
         ndk {
             //设置支持的SO库架构
             abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
@@ -57,8 +57,9 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'jp.wasabeef:glide-transformations:2.0.1'
-    compile 'com.contrarywind:Android-PickerView:3.0.7'
-    compile 'cn.qqtheme.framework:WheelPicker:1.4.3'
     compile 'me.everything:overscroll-decor-android:1.0.4'
+
+//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+//    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 
 }

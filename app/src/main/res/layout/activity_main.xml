@@ -167,6 +167,7 @@
         </LinearLayout>
     </RelativeLayout>
     <ScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
@@ -188,7 +189,7 @@
                 <TextView
                     android:id="@+id/loadmaterial"
                     android:layout_weight="1"
-                    android:padding="18dp"
+                    android:textSize="18sp"
                     android:textColor="@color/color_44fc2c"
                     android:text="Matrix 图库"
                     android:gravity="center"
@@ -202,8 +203,8 @@
                 <TextView
                     android:id="@+id/textviewshare"
                     android:layout_weight="1"
-                    android:padding="18dp"
-                    android:text="分享"
+                    android:textSize="18sp"
+                    android:text="分 享"
                     android:textStyle="bold"
                     android:textColor="@color/color_44fc2c"
                     android:gravity="center"

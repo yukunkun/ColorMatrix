@@ -1,5 +1,6 @@
 package com.matrix.yukun.matrix.weather_module.fragment;
 
+import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -27,6 +28,7 @@ import com.matrix.yukun.matrix.anims.MyEvaluator;
 import com.matrix.yukun.matrix.movie_module.BaseFrag;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.util.Notifications;
+import com.matrix.yukun.matrix.weather_module.animutils.AnimUtils;
 import com.matrix.yukun.matrix.weather_module.bean.EventDay;
 import com.matrix.yukun.matrix.weather_module.bean.WeaDestory;
 import com.matrix.yukun.matrix.weather_module.bean.WeaHours;
@@ -107,16 +109,13 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
     ImageView images;
     @BindView(R.id.real)
     RelativeLayout real;
+    @BindView(R.id.rea)
+    RelativeLayout rea;
     private TodayPresent topPresent;
     private ProgressDialog progressDialog;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerAdapter recyclerAdapter;
     private String city;
-    private ValueAnimator animator;
-    private Animation operatingAnim;
-    private Animation operatingAnim1;
-    private Animation operatingRefresh;
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -151,39 +150,25 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         setListener();
         return inflate;
     }
-
+    private boolean animTag=true; //控制动画的tag
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getColor(OnEventpos onEventpos) {
         int pos = onEventpos.pos;
         if (pos == 2) {
-            todayTitile.setBackgroundColor(getResources().getColor(R.color.color_82181818));
-            setBackAnim();
+            //动画
+            if(animTag){
+                animTag=false;
+                AnimUtils.setTitleUp(getContext(),todayTitile);
+            }
+            AnimUtils.setBackUp(getContext(),todayBack);
         } else if (pos == 3) {
-            todayTitile.setBackgroundColor(getResources().getColor(R.color.color_00ffffff));
-            setBackAnimBack();
+            //动画
+            if(animTag==false){
+                animTag=true;
+                AnimUtils.setTitleDown(getContext(),todayTitile);
+            }
+            AnimUtils.setBackDown(getContext(),todayBack);
         }
-    }
-
-    private void setBackAnim() {
-        operatingAnim = AnimationUtils.loadAnimation(getContext(), R.anim.back_anim);
-        LinearInterpolator lin = new LinearInterpolator();
-        operatingAnim.setInterpolator(lin);
-        operatingAnim.setFillAfter(true);
-        todayBack.startAnimation(operatingAnim);
-    }
-    private void setBackAnimBack() {
-        operatingAnim1 = AnimationUtils.loadAnimation(getContext(), R.anim.back_anim_back);
-        LinearInterpolator lin = new LinearInterpolator();
-        operatingAnim1.setInterpolator(lin);
-        operatingAnim1.setFillAfter(true);
-        todayBack.startAnimation(operatingAnim1);
-    }
-    private void setFreshAnimBack() {
-        operatingRefresh = AnimationUtils.loadAnimation(getContext(), R.anim.refresh_anim);
-        LinearInterpolator lin = new LinearInterpolator();
-        operatingRefresh.setInterpolator(lin);
-        operatingRefresh.setFillAfter(true);
-        todayRefresh.startAnimation(operatingRefresh);
     }
 
     @Override
@@ -233,7 +218,7 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
             todayClass.setTextSize(30);
         }
         todayWendu.setText(now.getFl() + "℃");
-//        addAnimation();
+//        AnimUtils.setTempAnim(todayWendu);
         today1.setText("体感温度:" + now.getFl() + "℃");
         today2.setText("相对湿度:" + now.getHum() + "%");
         today3.setText("降水量:" + now.getPcpn() + "mm");
@@ -331,27 +316,7 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        if(operatingAnim!=null){
-            operatingAnim.cancel();
-        }
-        if(operatingAnim1!=null){
-            operatingAnim1.cancel();
-        }
-//        operatingRefresh.cancel();
+
     }
 
-    private void addAnimation() {
-        animator = ValueAnimator.ofInt(0, 20, 0);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int animatedValue = (int) valueAnimator.getAnimatedValue();
-                todayWendu.layout(todayWendu.getLeft() + animatedValue, todayWendu.getTop(), todayWendu.getRight() + animatedValue, todayWendu.getBottom());
-            }
-        });
-
-        animator.setDuration(500);
-        animator.setEvaluator(new MyEvaluator());
-        animator.start();
-    }
 }

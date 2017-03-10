@@ -5,5 +5,14 @@
         <item>正在上映</item>
         <item>即将上映</item>
     </array>
+    <array name="setting">
+        <item>简介</item>
+        <item>电影推荐</item>
+        <item>天气预报</item>
+        <item>用户协议</item>
+        <item>反馈</item>
+        <item>版本升级</item>
+        <item>版本号</item>
+    </array>
 
 </resources>

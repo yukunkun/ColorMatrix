@@ -15,4 +15,8 @@
         <!-- 指定显示的动画xml -->
         <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
     </style>
+    <style name="Animation.Popup" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
 </resources>

@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -165,6 +166,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         recyclerView.setLayoutManager(linearLayoutManager);
         setConLayout();
         startNoticefication();
+        OverScrollDecoratorHelper.setUpOverScroll((ScrollView)findViewById(R.id.scrollview));
     }
 
     private void startNoticefication() {
@@ -741,6 +743,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onDestroy();
         flag=false;
         EventBus.getDefault().unregister(this);
+
     }
 
     //两次退出
@@ -750,9 +753,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onBackPressed() {
         if (isQuit == false) {
             isQuit = true;
-            Toast.makeText(getBaseContext(), "再按一次退出*_*", Toast.LENGTH_SHORT).show();
-            TimerTask task = null;
-            task = new TimerTask() {
+            MyApp.showToast("再按一次退出*_*");
+            TimerTask task = new TimerTask() {
                 @Override
                 public void run() {
                     isQuit = false;
@@ -762,7 +764,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         } else {
             finish();
 //            System.exit(0);
-//            android.os.Process.killProcess(android.os.Process.myPid());
+            android.os.Process.killProcess(android.os.Process.myPid());
         }
     }
 }

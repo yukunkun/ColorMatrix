@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.movie_module.present.BasePresentImpl;
 
 /**
@@ -16,6 +17,8 @@ public class BaseFrag extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         basePresent.onsubscriber();
+//        RefWatcher refWatcher = MyApp.getRefWatcher(getActivity());
+//        refWatcher.watch(this);
     }
 
     @Override

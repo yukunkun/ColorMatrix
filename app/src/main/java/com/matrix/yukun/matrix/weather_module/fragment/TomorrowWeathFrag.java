@@ -24,6 +24,7 @@ import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.movie_module.BaseFrag;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
+import com.matrix.yukun.matrix.weather_module.animutils.AnimUtils;
 import com.matrix.yukun.matrix.weather_module.bean.WeaTomorrow;
 import com.matrix.yukun.matrix.weather_module.present.TomorrowFragmentImpl;
 import com.matrix.yukun.matrix.weather_module.present.TomorrowPresent;
@@ -87,9 +88,6 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
     private ProgressDialog progressDialog;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerTomorrowAdapter recyclerTomorrowAdapter;
-    private Animation operatingAnim;
-    private Animation operatingAnim1;
-    private Animation operatingRefresh;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -123,40 +121,26 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
         setListener();
         return inflate;
     }
-
+    private boolean animTag=true;
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getColor(OnEventpos onEventpos) {
         int pos = onEventpos.pos;
         if (pos == 2) {
-            setBackAnim();
-            tomorrowTitle.setBackgroundColor(getResources().getColor(R.color.color_82181818));
+            //动画
+            if(animTag){
+                animTag=false;
+                AnimUtils.setTitleUp(getContext(),tomorrowTitle);
+            }
+            AnimUtils.setBackUp(getContext(),tomorrowBack);
         } else if (pos == 3) {
-            setBackAnimBack();
-            tomorrowTitle.setBackgroundColor(getResources().getColor(R.color.color_00ffffff));
+            //动画
+            if(animTag==false){
+                animTag=true;
+                AnimUtils.setTitleDown(getContext(),tomorrowTitle);
+            }
+            AnimUtils.setBackDown(getContext(),tomorrowBack);
         }
     }
-    private void setBackAnim() {
-        operatingAnim = AnimationUtils.loadAnimation(getContext(), R.anim.back_anim);
-        LinearInterpolator lin = new LinearInterpolator();
-        operatingAnim.setInterpolator(lin);
-        operatingAnim.setFillAfter(true);
-        tomorrowBack.startAnimation(operatingAnim);
-    }
-    private void setBackAnimBack() {
-        operatingAnim1 = AnimationUtils.loadAnimation(getContext(), R.anim.back_anim_back);
-        LinearInterpolator lin = new LinearInterpolator();
-        operatingAnim1.setInterpolator(lin);
-        operatingAnim1.setFillAfter(true);
-        tomorrowBack.startAnimation(operatingAnim1);
-    }
-    private void setFreshAnimBack() {
-        operatingRefresh = AnimationUtils.loadAnimation(getContext(), R.anim.refresh_anim);
-        LinearInterpolator lin = new LinearInterpolator();
-        operatingRefresh.setInterpolator(lin);
-        operatingRefresh.setFillAfter(true);
-        todayRefresh.startAnimation(operatingRefresh);
-    }
-
 
     @OnClick({R.id.tomorrow_back, R.id.today_refresh, R.id.today_refreshs, R.id.search})
     public void onClick(View view) {
@@ -255,13 +239,6 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        if(operatingAnim!=null){
-            operatingAnim.cancel();
-        }
-        if(operatingAnim1!=null){
-            operatingAnim1.cancel();
-        }
-//        operatingRefresh.cancel();
     }
 
     @Override
