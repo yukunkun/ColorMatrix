@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -38,6 +39,8 @@ public class SoonMoiveFragment extends BaseFrag implements PresentImpl{
     private SoonMoviePresent present;
     private int pi=1;
     private List<Subjects> subjectsList=new ArrayList<>();
+    private boolean mIsRefreshing=false;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,7 +70,7 @@ public class SoonMoiveFragment extends BaseFrag implements PresentImpl{
         mSwipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.mSwipeRefreshLayout);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(movieTopAdapter);
-        OverScrollDecoratorHelper.setUpOverScroll(mRecyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
+//        OverScrollDecoratorHelper.setUpOverScroll(mRecyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
 
     }
     @Override
@@ -80,6 +83,7 @@ public class SoonMoiveFragment extends BaseFrag implements PresentImpl{
         subjectsList.addAll(list);
         mSwipeRefreshLayout.setRefreshing(false);
         movieTopAdapter.notifyDataSetChanged();
+        mIsRefreshing=false;
     }
 
     @Override
@@ -113,11 +117,24 @@ public class SoonMoiveFragment extends BaseFrag implements PresentImpl{
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                mIsRefreshing=true;
                 subjectsList.clear();
                 pi=0;
                 present.getInfo(pi);
             }
         });
+
+        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+                 @Override
+                 public boolean onTouch(View v, MotionEvent event) {
+                     if (mIsRefreshing) {
+                         return true;
+                     } else {
+                         return false;
+                     }
+                 }
+             }
+        );
     }
 }
 

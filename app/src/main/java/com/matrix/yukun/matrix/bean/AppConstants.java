@@ -14,4 +14,7 @@ public class AppConstants {
     //和风天气 1163459047@qq.com
     //密码 :123456789ykk
     public static final String HEWEATHER_KEY = "449354b040d04805a3737fbcdb3c1339";
+
+    public static final String APPID="1105962710";
+    public static final String BANNER_ADID="3040126180953688\n";
 }

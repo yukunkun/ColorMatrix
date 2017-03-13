@@ -60,7 +60,7 @@
             android:textSize="15sp"
             android:background="@drawable/confsshape"
             android:textColor="@color/color_whit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
@@ -104,7 +104,7 @@
             android:paddingRight="10dp"
             android:background="@drawable/confsshape"
             android:textColor="@color/color_whit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
@@ -147,7 +147,7 @@
         android:paddingRight="10dp"
         android:background="@drawable/confsshape"
         android:textColor="@color/color_whit"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>
     <LinearLayout
@@ -190,7 +190,7 @@
         android:paddingRight="10dp"
         android:background="@drawable/confsshape"
         android:textColor="@color/color_whit"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>
 
@@ -234,7 +234,7 @@
             android:paddingRight="10dp"
             android:background="@drawable/confsshape"
             android:textColor="@color/color_whit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
@@ -278,7 +278,7 @@
             android:paddingRight="10dp"
             android:background="@drawable/confsshape"
             android:textColor="@color/color_whit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
@@ -321,7 +321,7 @@
             android:paddingRight="10dp"
             android:background="@drawable/confsshape"
             android:textColor="@color/color_whit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>

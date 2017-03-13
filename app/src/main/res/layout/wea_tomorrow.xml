@@ -139,7 +139,12 @@
             </RelativeLayout>
             <include layout="@layout/weather_power_tomorrow"/>
             <include layout="@layout/tomorrow_tomorrow"/>
-
+            <RelativeLayout
+                android:layout_marginTop="@dimen/dimens_10"
+                android:layout_marginBottom="3dp"
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
     </ScrollView>

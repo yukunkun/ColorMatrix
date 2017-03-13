@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +23,16 @@ import android.widget.TextView;
 
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.bean.AppConstants;
 import com.matrix.yukun.matrix.movie_module.BaseFrag;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.weather_module.animutils.AnimUtils;
 import com.matrix.yukun.matrix.weather_module.bean.WeaTomorrow;
 import com.matrix.yukun.matrix.weather_module.present.TomorrowFragmentImpl;
 import com.matrix.yukun.matrix.weather_module.present.TomorrowPresent;
+import com.qq.e.ads.banner.ADSize;
+import com.qq.e.ads.banner.AbstractBannerADListener;
+import com.qq.e.ads.banner.BannerView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -83,11 +88,14 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
     RecyclerView recyclerViews;
     @BindView(R.id.power_lin)
     LinearLayout powerLin;
+    @BindView(R.id.banner)
+    RelativeLayout mBanner;
     private TomorrowPresent tomorrowPresent;
     private String city;
     private ProgressDialog progressDialog;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerTomorrowAdapter recyclerTomorrowAdapter;
+    private BannerView mBannerView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,7 +127,28 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
         OverScrollDecoratorHelper.setUpOverScroll(scrollView);
         // Horizontal
         setListener();
+        getBanner();
         return inflate;
+    }
+
+    private void getBanner() {
+        mBannerView = new BannerView(getActivity(), ADSize.BANNER, AppConstants.APPID,
+                AppConstants.BANNER_ADID);
+        mBannerView.setRefresh(30);
+        mBannerView.setADListener(new AbstractBannerADListener() {
+            @Override
+            public void onNoAD(int i) {
+                Log.i("---onNoAD",i+"");
+            }
+
+            @Override
+            public void onADReceiv() {
+                Log.i("---onNoAD","onNoAD");
+
+            }
+        });
+        mBanner.addView(mBannerView);// 把banner加载到容器
+        mBannerView.loadAD();
     }
     private boolean animTag=true;
     @Subscribe(threadMode = ThreadMode.MAIN)

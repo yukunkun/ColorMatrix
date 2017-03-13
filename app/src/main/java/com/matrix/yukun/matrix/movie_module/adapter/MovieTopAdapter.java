@@ -66,10 +66,9 @@ public class MovieTopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-
+                if(subjectsList.size()==0){
+                    return;
+                }
                 final ArrayList<Subjects.DirectorsBean> directorpos = (ArrayList<Subjects.DirectorsBean>) subjectsList.get(position).getDirectors();
                 dirAvatar = new ArrayList<>();
                 for (int i = 0; i < directorpos.size(); i++) {
@@ -86,8 +85,6 @@ public class MovieTopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 intent.putStringArrayListExtra("actAvatar",actAvatar);
                 intent.putStringArrayListExtra("dirAvatar",dirAvatar);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                actAvatar.clear();
-//                dirAvatar.clear();
                 context.startActivity(intent);
             }
         });
