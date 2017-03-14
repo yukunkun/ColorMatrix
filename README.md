@@ -22,6 +22,8 @@
 #### 使用了一些简单的属性动画   动画使用的类 ValueAnimator 和 BounceInterpolator
 #### 颜色的渐变使用了ArgbEvaluator 属于动画的部分，在weather_module/Animutils里有使用的部分动画，有需要的可以试用一下
 ####  ---------------------------------------------------------------------------------------------------------
+####     compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
+#### 第三方的path动画，一个很酷炫的path动画。
 ####  使用的第三方主要为:
 ####    compile 'com.android.support:appcompat-v7:23.2.1'
 ####    compile 'com.github.bumptech.glide:glide:3.5.2'
@@ -49,6 +51,7 @@
 ####    compile 'cn.qqtheme.framework:WheelPicker:1.4.3'
 ####    compile 'me.everything:overscroll-decor-android:1.0.4'
 ####    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+####  compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
 
 #### [下载](http://app.qq.com/#id=detail&appid=1105962710)
 ![](http://upload-images.jianshu.io/upload_images/3001453-7fc76659461b6b8e.png)
