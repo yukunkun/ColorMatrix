@@ -18,15 +18,16 @@
                 android:layout_width="@dimen/dimens_30"
                 android:layout_height="match_parent" />
         </LinearLayout>
-        <TextView
-            android:textColor="@color/color_whit"
-            android:textSize="17sp"
-            android:gravity="center"
+        <RelativeLayout
             android:layout_centerInParent="true"
-            android:text="今日天气"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_width="70dp"
+            android:layout_height="match_parent">
+            <com.mcxtzhang.pathanimlib.StoreHouseAnimView
+                android:id="@+id/pathAnimView1"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:paddingTop="18dp"/>
+        </RelativeLayout>
         <ImageView
             android:id="@+id/search"
             android:layout_alignParentRight="true"
@@ -83,6 +84,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@color/color_back"
                     android:layout_height="130dp">
+
                     <TextView
                         android:id="@+id/today_time"
                         android:text=""

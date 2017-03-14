@@ -3,6 +3,7 @@ package com.matrix.yukun.matrix.weather_module.fragment;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -31,6 +32,10 @@ import com.matrix.yukun.matrix.weather_module.bean.EventDay;
 import com.matrix.yukun.matrix.weather_module.bean.WeaLifePoint;
 import com.matrix.yukun.matrix.weather_module.present.ConforableFragImpl;
 import com.matrix.yukun.matrix.weather_module.present.ConfortablePresent;
+import com.mcxtzhang.pathanimlib.PathAnimView;
+import com.mcxtzhang.pathanimlib.StoreHouseAnimView;
+import com.mcxtzhang.pathanimlib.res.StoreHousePath;
+import com.mcxtzhang.pathanimlib.utils.PathParserUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -78,6 +83,7 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
     private String city;
     private ProgressDialog progressDialog;
     private MyListAdapter myListAdapter;
+    private PathAnimView mAnimView;
 
 
     @Override
@@ -108,8 +114,12 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
         todayDestory.setVisibility(View.GONE);
         todayTomorrow.setText("今日天气");
         todayLife.setText("明日天气");
-        OverScrollDecoratorHelper.setUpOverScroll(scrollView);
         // Horizontal
+        OverScrollDecoratorHelper.setUpOverScroll(scrollView);
+        mAnimView = (PathAnimView) inflate.findViewById(R.id.pathAnimView1);
+        mAnimView.setColorBg(Color.GRAY).setColorFg(Color.WHITE);
+        mAnimView.setSourcePath(PathParserUtils.getPathFromArrayFloatList(StoreHousePath.getPath("comfortable",0.35f,5)));
+        mAnimView.startAnim();
         setListener();
         return inflate;
     }
@@ -190,5 +200,8 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        if(mAnimView!=null){
+            mAnimView.stopAnim();
+        }
     }
 }

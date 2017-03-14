@@ -1,10 +1,9 @@
 package com.matrix.yukun.matrix.weather_module.fragment;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,9 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,7 +20,7 @@ import android.widget.TextView;
 
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.anims.MyEvaluator;
+
 import com.matrix.yukun.matrix.movie_module.BaseFrag;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.util.Notifications;
@@ -35,6 +31,10 @@ import com.matrix.yukun.matrix.weather_module.bean.WeaHours;
 import com.matrix.yukun.matrix.weather_module.bean.WeaNow;
 import com.matrix.yukun.matrix.weather_module.present.TodayFragmentImpl;
 import com.matrix.yukun.matrix.weather_module.present.TodayPresent;
+import com.mcxtzhang.pathanimlib.StoreHouseAnimView;
+import com.mcxtzhang.pathanimlib.res.StoreHousePath;
+import com.mcxtzhang.pathanimlib.utils.PathParserUtils;
+
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -116,6 +116,8 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
     private LinearLayoutManager linearLayoutManager;
     private RecyclerAdapter recyclerAdapter;
     private String city;
+    private StoreHouseAnimView mAnimView;
+    //    private StoreHouseAnimView todayTime;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -147,6 +149,11 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         EventBus.getDefault().register(this);
         getViews(inflate);
         OverScrollDecoratorHelper.setUpOverScroll(scrollview);
+        //动画
+        mAnimView = (StoreHouseAnimView) inflate.findViewById(R.id.pathAnimView1);
+        mAnimView.setColorBg(Color.GRAY).setColorFg(Color.WHITE);
+        mAnimView.setSourcePath(PathParserUtils.getPathFromArrayFloatList(StoreHousePath.getPath("today",0.45f,5)));
+        mAnimView.setPathMaxLength(150).setAnimTime(2000).startAnim();
         setListener();
         return inflate;
     }
@@ -206,7 +213,7 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
     public void getInfo(WeaNow weaNow) {
         WeaNow.HeWeather5Bean.BasicBean basic = weaNow.getHeWeather5().get(0).getBasic();
         WeaNow.HeWeather5Bean.NowBean now = weaNow.getHeWeather5().get(0).getNow();
-        todayCity.setText(/*basic.getProv()+*/basic.getCity());
+        todayCity.setText(basic.getCity());
         String loc = basic.getUpdate().getLoc();
         //时间
         todayTime.setText(loc);
@@ -218,7 +225,6 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
             todayClass.setTextSize(30);
         }
         todayWendu.setText(now.getFl() + "℃");
-//        AnimUtils.setTempAnim(todayWendu);
         today1.setText("体感温度:" + now.getFl() + "℃");
         today2.setText("相对湿度:" + now.getHum() + "%");
         today3.setText("降水量:" + now.getPcpn() + "mm");
@@ -316,6 +322,9 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        if(mAnimView!=null){
+            mAnimView.stopAnim();
+        }
 
     }
 
