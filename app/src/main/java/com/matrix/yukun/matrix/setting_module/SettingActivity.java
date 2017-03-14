@@ -1,6 +1,7 @@
 package com.matrix.yukun.matrix.setting_module;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,6 +11,9 @@ import android.widget.ListView;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.movie_module.MovieActivity;
 import com.matrix.yukun.matrix.weather_module.WeatherActivity;
+import com.mcxtzhang.pathanimlib.StoreHouseAnimView;
+import com.mcxtzhang.pathanimlib.res.StoreHousePath;
+import com.mcxtzhang.pathanimlib.utils.PathParserUtils;
 import com.tencent.bugly.beta.Beta;
 
 import butterknife.BindView;
@@ -26,6 +30,10 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
+        StoreHouseAnimView mAnimView = (StoreHouseAnimView)findViewById(R.id.storeHouseAnimView);
+        mAnimView.setColorBg(Color.WHITE).setColorFg(Color.BLACK);
+        mAnimView.setSourcePath(PathParserUtils.getPathFromArrayFloatList(StoreHousePath.getPath("SETTING",0.4f,5)));
+        mAnimView.setPathMaxLength(400).setAnimTime(2000).startAnim();
         setAdapter();
         setListener();
     }

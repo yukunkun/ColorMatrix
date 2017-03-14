@@ -154,7 +154,6 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
             @Override
             public void onADReceiv() {
                 Log.i("---onNoAD","onNoAD");
-
             }
         });
         mBanner.addView(mBannerView);// 把banner加载到容器
