@@ -25,33 +25,33 @@
 ####     compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
 #### 第三方的path动画，一个很酷炫的path动画。
 ####  使用的第三方主要为:
-####    compile 'com.android.support:appcompat-v7:23.2.1'
-####    compile 'com.github.bumptech.glide:glide:3.5.2'
-####    compile 'com.android.support:design:23.2.1'
-####    compile 'com.android.support:recyclerview-v7:23.2.1'
-####    compile 'com.android.support:cardview-v7:23.2.1'
-####    compile 'org.greenrobot:eventbus:3.0.0'
-####    compile 'cn.jiguang.sdk:jcore:1.1.0'
-####    compile files('libs/GDTUnionSDK.4.9.542.min.jar')
-####    //bugly
-####    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
-####    compile 'com.edmodo:cropper:1.0.1'
-####    compile 'com.github.castorflex.smoothprogressbar:library-circular:1.0.1'
-####// rxjava的相关
-####   compile 'io.reactivex:rxjava:1.2.1'
-####    compile 'io.reactivex:rxandroid:1.2.1'
-####    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-####    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-####    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-####//butterknife
-####    compile 'com.jakewharton:butterknife:8.4.0'
-####    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-####    compile 'jp.wasabeef:glide-transformations:2.0.1'
-####    compile 'com.contrarywind:Android-PickerView:3.0.7'
-####    compile 'cn.qqtheme.framework:WheelPicker:1.4.3'
-####    compile 'me.everything:overscroll-decor-android:1.0.4'
-####    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-####  compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+    compile 'com.android.support:design:23.2.1'
+    compile 'com.android.support:recyclerview-v7:23.2.1'
+    compile 'com.android.support:cardview-v7:23.2.1'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'cn.jiguang.sdk:jcore:1.1.0'
+    compile files('libs/GDTUnionSDK.4.9.542.min.jar')
+    //bugly
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    compile 'com.edmodo:cropper:1.0.1'
+    compile 'com.github.castorflex.smoothprogressbar:library-circular:1.0.1'
+    // rxjava的相关
+    compile 'io.reactivex:rxjava:1.2.1'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    //butterknife
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'jp.wasabeef:glide-transformations:2.0.1'
+    compile 'com.contrarywind:Android-PickerView:3.0.7'
+    compile 'cn.qqtheme.framework:WheelPicker:1.4.3'
+    compile 'me.everything:overscroll-decor-android:1.0.4'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
 
 #### [下载](http://app.qq.com/#id=detail&appid=1105962710)
 ![](http://upload-images.jianshu.io/upload_images/3001453-7fc76659461b6b8e.png)

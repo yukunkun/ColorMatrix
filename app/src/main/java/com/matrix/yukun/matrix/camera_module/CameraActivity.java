@@ -67,8 +67,8 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
             if (!dir.exists()) {
                 dir.mkdirs();
             }
-            String name=System.currentTimeMillis() + ".jpg";
-            path1 = out_file_path + name;
+            fileName=System.currentTimeMillis() + ".jpg";
+            path1 = out_file_path + fileName;
             getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(path1)));
             getImageByCamera.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
             startActivityForResult(getImageByCamera, 1);

@@ -22,6 +22,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.LoginFilter;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -357,28 +359,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     Toast.makeText(MainActivity.this, "请先选择图片", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 final File f = new File(destDir, photoName);
-
-                    Toast.makeText(MainActivity.this, "正在下载...", Toast.LENGTH_SHORT).show();
-                    flag=false;
-                    imageViewTest.setProgress(0);
-                    bitmap = ImageUtils.createViewBitmap(layoutContain, layoutContain.getWidth(), layoutContain.getHeight());
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            FileUtil.loadImage(bitmap,photoName);
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(MainActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
-                                    share(f.getPath());
-                                    flag=true;
-                                    setColor();
-                                }
-                            });
-                        }
-                    }).start();
+                Toast.makeText(MainActivity.this, "正在下载...", Toast.LENGTH_SHORT).show();
+                flag=false;
+                imageViewTest.setProgress(0);
+                bitmap = ImageUtils.createViewBitmap(layoutContain, layoutContain.getWidth(), layoutContain.getHeight());
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        FileUtil.loadImage(bitmap,photoName);
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
+                                share(f.getPath());
+                                flag=true;
+                                setColor();
+                            }
+                        });
+                    }
+                }).start();
                 share(f.getPath());
                 break;
             case R.id.loadimage:
