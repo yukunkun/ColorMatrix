@@ -53,11 +53,16 @@ public class SetAdapter extends BaseAdapter {
             convertView= LayoutInflater.from(context).inflate(R.layout.setting_1,null);
         }else /*if((position)==viewTyp2)*/{
             convertView= LayoutInflater.from(context).inflate(R.layout.setting_2,null);
-            if(position==7){
+            if(position==8){
                 ((ImageView)convertView.findViewById(R.id.setting_image)).setVisibility(View.GONE);
                 ((TextView)convertView.findViewById(R.id.textview_banben)).setText(getVersion());
             }
             ((TextView)convertView.findViewById(R.id.setting_con)).setText(arrayList.get(position-1));
+            if(position==1||position==2||position==3){
+                ((TextView)convertView.findViewById(R.id.setting_con)).setTextColor(context.getResources().getColor(R.color.color_44fc2c));
+            }else {
+                ((TextView)convertView.findViewById(R.id.setting_con)).setTextColor(context.getResources().getColor(R.color.color_whit));
+            }
         }
         return convertView;
     }

@@ -27,6 +27,22 @@
     // AppKey 0c7613d6df2ec04de1521110
     // Master Secret 5b24a25afcdff0d132af6b75
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    //云点播
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
 
     <application
         android:name=".MyApp"
@@ -68,6 +84,10 @@
         <service
             android:name="com.qq.e.comm.DownloadService"
             android:exported="false" />
+        //云点播
+        <service
+            android:name="com.letvcloud.cmf.MediaService"
+            android:process=":cmf" />
 
         <activity android:name=".setting_module.IntroduceActivity" />
         <activity android:name=".setting_module.AgreeActivity" />
@@ -79,7 +99,11 @@
         <activity android:name=".movie_module.activity.TopDetailActivity" />
         <activity android:name=".movie_module.MovieBaseActivity" />
         <activity android:name=".weather_module.WeatherActivity" />
-        <activity android:name=".setting_module.SettingActivity"></activity>
+        <activity android:name=".setting_module.SettingActivity" />
+        <activity
+            android:name=".leshi_module.LeShiActivity"
+            android:configChanges="keyboard|screenSize|orientation|layoutDirection" />
+        <activity android:name=".leshi_module.LeShiListActivity"></activity>
     </application>
 
 </manifest>

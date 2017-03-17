@@ -43,23 +43,23 @@ dependencies {
     compile 'cn.jiguang.sdk:jcore:1.1.0'
     compile files('libs/GDTUnionSDK.4.9.542.min.jar')
     //bugly
-//    compile 'com.tencent.bugly:crashreport:latest.release'
+    //    compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
     compile 'com.edmodo:cropper:1.0.1'
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.0.1'
-// rxjava的相关
+    // rxjava的相关
     compile 'io.reactivex:rxjava:1.2.1'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-//butterknife
+    //butterknife
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     compile 'me.everything:overscroll-decor-android:1.0.4'
     compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
-//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-//    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-
+    //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    compile project(':LePlayerSdk')
 }

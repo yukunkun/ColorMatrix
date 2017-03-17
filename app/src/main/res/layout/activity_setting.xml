@@ -25,6 +25,7 @@
     </RelativeLayout>
     <ListView
         android:id="@+id/mListview"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layoutAnimation="@anim/layout_anim"

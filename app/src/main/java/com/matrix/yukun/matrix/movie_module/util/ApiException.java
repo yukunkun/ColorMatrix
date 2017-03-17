@@ -9,6 +9,6 @@ public class ApiException extends RuntimeException {
             super(getErrorDesc(status));
         }
         public static String getErrorDesc(int status){
-            return "出错了";
+            return "没有数据!_!";
         }
 }

@@ -21,7 +21,7 @@
         <TextView
             android:id="@+id/textmovie"
             android:layout_toRightOf="@id/back"
-            android:text="电影精选"
+            android:text="视频精选"
             android:layout_centerInParent="true"
             android:textSize="13sp"
             android:gravity="center"

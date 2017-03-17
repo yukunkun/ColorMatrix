@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="220dp">
+        <RelativeLayout
+            android:id="@+id/rea"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="250dp"
+            android:layout_height="220dp">
+            <ImageView
+                android:id="@+id/leshi_image"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/beijing_1"
+                android:layout_width="250dp"
+                android:layout_height="220dp" />
+            <TextView
+                android:id="@+id/leshi_time"
+                android:textColor="@color/color_whit"
+                android:layout_alignParentBottom="true"
+                android:textSize="13sp"
+                android:text=""
+                android:layout_marginBottom="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/leshi_name"
+                android:text=""
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:textColor="@color/color_54fa3e"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/movie_name"
+            android:maxLines="1"
+            android:layout_toRightOf="@id/rea"
+            android:layout_marginTop="15dp"
+            android:text="简介"
+            android:layout_marginLeft="10sp"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/leshi_content"
+            android:text="gener"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@id/rea"
+            android:layout_below="@id/movie_name"
+            android:layout_marginTop="10dp"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:maxLines="9"
+            android:ellipsize="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_marginTop="10dp"
+            android:background="@color/color_lines"
+            android:layout_below="@id/rea"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+    </RelativeLayout>
+</LinearLayout>

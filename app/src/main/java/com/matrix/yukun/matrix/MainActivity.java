@@ -45,6 +45,7 @@ import com.matrix.yukun.matrix.camera_module.CameraActivity;
 import com.matrix.yukun.matrix.image_module.activity.ListDetailActivity;
 import com.matrix.yukun.matrix.image_module.activity.PhotoListActivity;
 import com.matrix.yukun.matrix.image_module.bean.EventDetail;
+import com.matrix.yukun.matrix.leshi_module.LeShiListActivity;
 import com.matrix.yukun.matrix.movie_module.MovieActivity;
 import com.matrix.yukun.matrix.selfview.squareprogressbar.SquareProgressBar;
 import com.matrix.yukun.matrix.selfview.view.MyRelativeLayout;
@@ -345,7 +346,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startCamera();
                 break;
             case R.id.textmovie:
-                Intent intentMov=new Intent(MainActivity.this, MovieActivity.class);
+                Intent intentMov=new Intent(MainActivity.this, LeShiListActivity.class);
                 startActivity(intentMov);
                 break;
             case R.id.textweather:
