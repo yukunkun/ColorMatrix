@@ -7,38 +7,64 @@
     android:layout_height="match_parent"
     tools:context="com.matrix.yukun.matrix.leshi_module.LeShiActivity">
     <RelativeLayout
-        android:background="@color/color_252525"
+        android:id="@+id/view_con"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_60">
-        <ImageView
-            android:padding="15dp"
-            android:onClick="LeSHiBack"
-            android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
-            android:layout_width="@dimen/dimens_60"
-            android:layout_height="match_parent" />
-        <TextView
-            android:id="@+id/storeHouseAnimView"
-            android:layout_width="wrap_content"
-            android:text="视频播放"
-            android:textSize="18sp"
-            android:gravity="center_vertical"
-            android:textColor="@color/color_whit"
-            android:layout_centerInParent="true"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
+        android:layout_height="@dimen/dimens_220">
     <RelativeLayout
         android:id="@+id/videoContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+    </RelativeLayout>
         <fr.castorflex.android.circularprogressbar.CircularProgressBar
             android:id="@+id/circlrPro"
             android:layout_centerInParent="true"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:indeterminate="true"
             app:cpb_color="#FFee44"
-            app:cpb_colors="@array/gplus_colors"
-            />
+            app:cpb_colors="@array/gplus_colors" />
+        <LinearLayout
+            android:id="@+id/title"
+            android:background="@drawable/shape_academy_play_up"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_40">
+        <ImageView
+            android:padding="1dp"
+            android:onClick="LeSHiBack"
+            android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
+            android:layout_width="@dimen/dimens_30"
+            android:layout_height="@dimen/dimens_40" />
+        <TextView
+            android:id="@+id/text_title"
+            android:gravity="center_vertical"
+            android:text=""
+            android:ellipsize="marquee"
+            android:textSize="15sp"
+            android:textColor="@color/color_82ffffff"
+            android:paddingLeft="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_40" />
+        </LinearLayout>
+        <RelativeLayout
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:id="@+id/bottom_sheet"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/shape_academy_play_down"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_40">
+            <TextView
+                android:visibility="visible"
+                android:id="@+id/switchScreen"
+                android:text="全屏"
+                android:gravity="center_vertical"
+                android:textColor="@color/color_whit"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_width="@dimen/dimens_40"
+                android:layout_height="@dimen/dimens_40" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <GridView

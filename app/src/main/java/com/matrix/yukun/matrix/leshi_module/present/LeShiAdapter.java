@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.leshi_module.LeShiActivity;
 import com.matrix.yukun.matrix.leshi_module.bean.ListBean;
@@ -39,20 +40,28 @@ public class LeShiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final ListBean listBean = subjectsList.get(position);
-        Glide.with(context).load(listBean.getImg()).into(((MyHolder)holder).imageViewCover);
+        if(listBean.getInit_pic()!=null&&listBean.getInit_pic().length()>0){
+            Glide.with(context).load(listBean.getInit_pic())
+                    .into(((MyHolder)holder).imageViewCover);
+        }else {
+            Glide.with(context).load(listBean.getImg())
+                    .into(((MyHolder)holder).imageViewCover);
+        }
+
         ((MyHolder)holder).textViewContent.setText(listBean.getVideo_desc());
         ((MyHolder)holder).textViewName.setText(listBean.getVideo_name());
 
         long video_duration = listBean.getVideo_duration();
         int min=(int)video_duration/60;
         int sec=(int) video_duration%60;
-        ((MyHolder)holder).textViewTime.setText(min+"`"+sec+"``");
+        ((MyHolder)holder).textViewTime.setText("时长:"+min+"`"+sec+"``");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context, LeShiActivity.class);
                 intent.putExtra("video_id",listBean.getVideo_id()+"");
-                intent.putExtra("pos",position);
+                intent.putExtra("pos",position%10);
+                intent.putExtra("title",listBean.getVideo_name());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }

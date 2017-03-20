@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
@@ -35,6 +36,7 @@ public class LeShiListActivity extends AppCompatActivity implements LeShiListImp
     private LinearLayoutManager linearLayoutManager;
     List<ListBean> list=new ArrayList<>();
     private LeShiAdapter leShiAdapter;
+    private int index=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class LeShiListActivity extends AppCompatActivity implements LeShiListImp
         getViews();
         setListener();
         leShiPresent = new LeShiPresent(this);
-        leShiPresent.getInfo();
+        leShiPresent.getInfo(1);
     }
 
 
@@ -58,9 +60,12 @@ public class LeShiListActivity extends AppCompatActivity implements LeShiListImp
 
     @Override
     public void getInfo(List<ListBean> lists) {
-        list.addAll(lists);
-        leShiAdapter.notifyDataSetChanged();
-        swipe.setRefreshing(false);
+        if(lists.size()>0){
+            list.addAll(lists);
+            leShiAdapter.notifyDataSetChanged();
+            swipe.setRefreshing(false);
+            Toast.makeText(LeShiListActivity.this, "加载更多...", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -76,7 +81,25 @@ public class LeShiListActivity extends AppCompatActivity implements LeShiListImp
             @Override
             public void onRefresh() {
                 list.clear();
-                leShiPresent.getInfo();
+                index=1;
+                leShiPresent.getInfo(index);
+            }
+        });
+
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
+                if(lastVisibleItemPosition==list.size()-1){
+                    index++;
+                    leShiPresent.getInfo(index);
+                }
             }
         });
     }

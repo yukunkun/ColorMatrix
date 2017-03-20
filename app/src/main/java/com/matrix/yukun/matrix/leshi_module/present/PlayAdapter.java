@@ -74,12 +74,16 @@ public class PlayAdapter extends BaseAdapter {
         int sec=(int) video_duration%60;
         String tag = videoBean.getTag();
         viewHolder.textViewTime.setText(tag+"/"+min+"`"+sec+"``");
-        Glide.with(context).load(videoBean.getImg()).
-                diskCacheStrategy( DiskCacheStrategy.NONE )//禁用磁盘缓存
-                .skipMemoryCache( true )//跳过内存缓存
-                .into(viewHolder.mImageView);
+
+        if(videoBean.getInit_pic()!=null&&videoBean.getInit_pic().length()>0){
+            Glide.with(context).load(videoBean.getInit_pic())
+                    .into(viewHolder.mImageView);
+        }else {
+            Glide.with(context).load(videoBean.getImg())
+                    .into(viewHolder.mImageView);
+        }
         if(position==setPos){
-            viewHolder.layout.setVisibility(View.VISIBLE);
+//            viewHolder.layout.setVisibility(View.VISIBLE);
         }else {
             viewHolder.layout.setVisibility(View.GONE);
         }

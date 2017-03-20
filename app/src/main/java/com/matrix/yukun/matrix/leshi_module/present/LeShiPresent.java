@@ -28,8 +28,8 @@ public class LeShiPresent implements BasePresentImpl {
     public LeShiPresent(LeShiListActivity mView) {
         this.mView = mView;
     }
-    public void getInfo(){
-        Subscription onCompleted = RetrofitInfo.getList(AppConstants.timestamp, "video.list").subscribe(new Subscriber<List<ListBean>>() {
+    public void getInfo(int index){
+        Subscription onCompleted = RetrofitInfo.getList(AppConstants.timestamp, "video.list",index).subscribe(new Subscriber<List<ListBean>>() {
             @Override
             public void onCompleted() {
                 mView.dismissDialogs();
@@ -42,6 +42,7 @@ public class LeShiPresent implements BasePresentImpl {
 
             @Override
             public void onNext(List<ListBean> listBean) {
+                Log.i("LeShiPresent",listBean.toString());
                 mView.getInfo(listBean);
             }
         });

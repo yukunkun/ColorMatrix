@@ -27,20 +27,20 @@ import rx.schedulers.Schedulers;
  */
 public class RetrofitInfo {
 
-    public static Observable<List<ListBean>> getList(String timestamp, String api) {
+    public static Observable<List<ListBean>> getList(String timestamp, String api,int index) {
         Retrofit retrofit = RetrofitApi.getInstance().retrofitLeShiUtil();
         String sign=null;
-        String str="apivideo.listformat"+AppConstants.format+"index1size50timestamp"+timestamp+"user_unique"+AppConstants.user_unique+"ver"+AppConstants.ver;
+        String str="apivideo.listformat"+AppConstants.format+"index"+index+"size10timestamp"+timestamp+"user_unique"+AppConstants.user_unique+"ver"+AppConstants.ver;
         try {
             sign= MD5Encoder.encode(str+AppConstants.Secret_Key);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return retrofit.create(MovieService.class).getLeShiList(AppConstants.user_unique,timestamp,api,"json","2.0",1,50,sign)
+        return retrofit.create(MovieService.class).getLeShiList(AppConstants.user_unique,timestamp,api,"json","2.0",index,10,sign)
                 .filter(new Func1<LeShiListBean<ListBean>, Boolean>() {
                     @Override
                     public Boolean call(LeShiListBean<ListBean> listBeanLeShiListBean) {
-                        if(listBeanLeShiListBean.getTotal()==0){
+                        if(listBeanLeShiListBean.getCode().equals(0.0)){
                             throw new ApiException(0);
                         }
                         else {
@@ -76,9 +76,9 @@ public class RetrofitInfo {
                 .filter(new Func1<ListBeanJson<VideoBean>, Boolean>() {
                     @Override
                     public Boolean call(ListBeanJson<VideoBean> listBeanLeShiListBean) {
-                        Log.i("----",listBeanLeShiListBean.toString());
                         if(listBeanLeShiListBean.getTotal()==0){
-                            throw new ApiException(0);
+                            return false;
+//                            throw new ApiException(0);
                         }
                         else {
                             return true;

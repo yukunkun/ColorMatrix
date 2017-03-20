@@ -22,8 +22,8 @@ public class PlayListPresent implements BasePresentImpl {
     public PlayListPresent(LeShiActivity mView) {
         this.mView = mView;
     }
-    public void getInfo(){
-        Subscription onCompleted = RetrofitInfo.getList(AppConstants.timestamp, "video.list").subscribe(new Subscriber<List<ListBean>>() {
+    public void getInfo(int index){
+        Subscription onCompleted = RetrofitInfo.getList(AppConstants.timestamp, "video.list",index).subscribe(new Subscriber<List<ListBean>>() {
             @Override
             public void onCompleted() {
                 mView.dismissDialogs();

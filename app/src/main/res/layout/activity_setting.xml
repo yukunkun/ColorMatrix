@@ -23,11 +23,22 @@
             android:paddingLeft="2dp"
             android:layout_height="match_parent" />
     </RelativeLayout>
-    <ListView
-        android:id="@+id/mListview"
-        android:scrollbars="none"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layoutAnimation="@anim/layout_anim"
-        />
+        android:layout_height="match_parent">
+        <TextView
+            android:text="developer:KunYu(堃)"
+            android:textColor="@color/color_81e9e9e9"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_50" />
+        <ListView
+            android:id="@+id/mListview"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutAnimation="@anim/layout_anim"
+            />
+    </RelativeLayout>
 </LinearLayout>

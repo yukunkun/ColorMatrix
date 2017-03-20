@@ -25,7 +25,9 @@
     <TextView
         android:visibility="gone"
         android:id="@+id/play_name"
-        android:text="12456"
+        android:text=""
+        android:maxLines="1"
+        android:ellipsize="end"
         android:layout_marginTop="5dp"
         android:textColor="@color/color_whit"
         android:layout_marginLeft="5dp"
@@ -35,7 +37,8 @@
     <TextView
         android:visibility="gone"
         android:id="@+id/play_time"
-        android:text="126"
+        android:text=""
+        android:maxLines="1"
         android:layout_below="@id/play_name"
         android:layout_marginTop="4dp"
         android:textSize="14sp"

@@ -7,6 +7,7 @@
     <color name="color_252525">#181818</color>
     <color name="color_000000">#000000</color>
     <color name="color_000000_alpha">#a34d4c4c</color>
+
     <color name="color_282828">#1a1a1a</color>
     <color name="color_454444">#810b0b0b</color>
     <color name="color_202020">#0a0a0a</color>
@@ -52,5 +53,6 @@
     <color name="color_b9b9b9">#eae2e2e2</color>
     <color name="color_back_time">#7ed6d6d6</color>
     <color name="color_003af9">#003af9</color>
+    <color name="color_76333333">#66333333</color>
 
 </resources>
