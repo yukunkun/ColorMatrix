@@ -31,19 +31,22 @@
             android:layout_height="@dimen/dimens_40">
         <ImageView
             android:padding="1dp"
+            android:layout_marginLeft="5dp"
             android:onClick="LeSHiBack"
             android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
             android:layout_width="@dimen/dimens_30"
             android:layout_height="@dimen/dimens_40" />
-        <TextView
+        <com.matrix.yukun.matrix.util.MarTextView
             android:id="@+id/text_title"
             android:gravity="center_vertical"
             android:text=""
+            android:layout_marginLeft="4dp"
             android:ellipsize="marquee"
+            android:singleLine="true"
             android:textSize="15sp"
-            android:textColor="@color/color_82ffffff"
+            android:textColor="@color/color_whit"
             android:paddingLeft="1dp"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/dimens_220"
             android:layout_height="@dimen/dimens_40" />
         </LinearLayout>
         <RelativeLayout
@@ -54,17 +57,48 @@
             android:background="@drawable/shape_academy_play_down"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimens_40">
-            <TextView
-                android:visibility="visible"
+            <ImageView
                 android:id="@+id/switchScreen"
-                android:text="全屏"
-                android:gravity="center_vertical"
-                android:textColor="@color/color_whit"
+                android:src="@mipmap/ic_fullscreen"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="5dp"
                 android:layout_width="@dimen/dimens_40"
-                android:layout_height="@dimen/dimens_40" />
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/play_video"
+                android:src="@mipmap/ic_pause"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_width="@dimen/dimens_40"
+                android:layout_height="wrap_content" />
         </RelativeLayout>
+
+        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+            android:layout_width="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_height="160dp">
+        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+            android:id="@+id/lightSeek"
+            android:visibility="gone"
+            android:layout_width="10dp"
+            android:splitTrack="false"
+            app:seekBarRotation="CW270"
+            android:thumb="@mipmap/ic_time_slid"
+            android:layout_height="150dp"/>
+        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+    <TextView
+        android:background="@color/color_b9b9b9"
+        android:id="@+id/voice"
+        android:visibility="gone"
+        android:text="Voice:50%"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textColor="@color/color_44fc2c"
+        android:layout_centerInParent="true"
+        android:layout_width="100dp"
+        android:layout_height="40dp" />
     </RelativeLayout>
 
     <GridView
@@ -74,3 +108,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>
+

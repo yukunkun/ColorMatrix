@@ -99,4 +99,60 @@ public class RetrofitInfo {
                 }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    public static Observable<Object> getVideoPause(String timestamp, String api, int video_id) {
+        Retrofit retrofit = RetrofitApi.getInstance().retrofitLeShiUtil();
+        String sign=null;
+        String str="apivideo.pauseformat"+AppConstants.format+"timestamp"+timestamp+"user_unique"+AppConstants.user_unique+"ver"+AppConstants.ver+"video_id"+video_id;
+        try {
+            sign= MD5Encoder.encode(str+AppConstants.Secret_Key);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return retrofit.create(MovieService.class).getVideoPause(AppConstants.user_unique,timestamp,api,"json","2.0",video_id,sign)
+                .flatMap(new Func1<ListBeanJson<Object>, Observable<?>>() {
+                    @Override
+                    public Observable<?> call(ListBeanJson<Object> objectListBeanJson) {
+                        final Object data = objectListBeanJson.getMessage();
+                        return Observable.create(new Observable.OnSubscribe<Object>() {
+                            @Override
+                            public void call(Subscriber<? super Object> subscriber) {
+                                subscriber.onNext(data);
+                                subscriber.onCompleted();
+                            }
+                        });
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<Object> getVideoStart(String timestamp, String api, int video_id) {
+        Retrofit retrofit = RetrofitApi.getInstance().retrofitLeShiUtil();
+        String sign=null;
+        String str="apivideo.restoreformat"+AppConstants.format+"timestamp"+timestamp+"user_unique"+AppConstants.user_unique+"ver"+AppConstants.ver+"video_id"+video_id;
+        try {
+            sign= MD5Encoder.encode(str+AppConstants.Secret_Key);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return retrofit.create(MovieService.class).getVideoStart(AppConstants.user_unique,timestamp,api,"json","2.0",video_id,sign)
+                .flatMap(new Func1<ListBeanJson<Object>, Observable<?>>() {
+                    @Override
+                    public Observable<?> call(ListBeanJson<Object> objectListBeanJson) {
+
+                        final Object data = objectListBeanJson.getMessage();
+                        return Observable.create(new Observable.OnSubscribe<Object>() {
+                            @Override
+                            public void call(Subscriber<? super Object> subscriber) {
+                                subscriber.onNext(data);
+                                subscriber.onCompleted();
+                            }
+                        });
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
 }

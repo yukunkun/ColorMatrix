@@ -8,5 +8,6 @@
         android:textColorHint="@color/color_back_all"
         android:paddingLeft="5dp"
         android:layout_width="match_parent"
+        android:imeOptions="actionSearch"
         android:layout_height="@dimen/dimens_50" />
 </LinearLayout>

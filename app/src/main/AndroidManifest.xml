@@ -55,6 +55,7 @@
         tools:replace="android:icon, android:theme">
         <activity
             android:name=".SplashActivity"
+            android:configChanges="keyboard|screenSize|orientation|layoutDirection"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

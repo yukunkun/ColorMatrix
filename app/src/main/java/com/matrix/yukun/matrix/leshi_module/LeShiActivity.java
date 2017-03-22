@@ -5,38 +5,42 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
-import android.support.v7.app.AppCompatActivity;
+import android.location.GpsStatus;
+import android.media.AudioManager;
+import android.os.Handler;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
-import android.view.SurfaceView;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar;
 import com.lecloud.sdk.constant.PlayerEvent;
 import com.lecloud.sdk.constant.PlayerParams;
 import com.lecloud.sdk.surfaceview.ISurfaceView;
-import com.lecloud.sdk.surfaceview.impl.BaseSurfaceView;
 import com.lecloud.sdk.videoview.VideoViewListener;
 import com.lecloud.sdk.videoview.vod.VodVideoView;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.leshi_module.bean.ListBean;
 import com.matrix.yukun.matrix.leshi_module.bean.VideoBean;
 import com.matrix.yukun.matrix.leshi_module.present.LeShiListImple;
-import com.matrix.yukun.matrix.leshi_module.present.LeShiPresent;
 import com.matrix.yukun.matrix.leshi_module.present.PlayAdapter;
 import com.matrix.yukun.matrix.leshi_module.present.PlayListPresent;
 import com.matrix.yukun.matrix.leshi_module.present.PlayPresent;
 import com.matrix.yukun.matrix.movie_module.MovieBaseActivity;
+import com.matrix.yukun.matrix.util.MarTextView;
 import com.matrix.yukun.matrix.util.ScreenUtils;
 
 import java.util.ArrayList;
@@ -61,12 +65,34 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
     private CircularProgressBar progressBar;
     private int index=1;
     private LinearLayout layoutTitle;
-    private TextView textViewTitle;
+    private MarTextView textViewTitle;
     private String title;
     private RelativeLayout layoutBotton;
-    private TextView textViewScreen;
+    private ImageView imageViewScreen;
     private RelativeLayout view_con;
-
+    private ImageView imagePlay;
+    private Handler handler=new Handler();
+    private Handler handlerTime=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if(msg.what==1){
+                isVisiable=false;
+                layoutTitle.setVisibility(View.GONE);
+                layoutBotton.setVisibility(View.GONE);
+            }
+            super.handleMessage(msg);
+        }
+    };
+    private VerticalSeekBar lightSeekBar;
+    private float downPosX;
+    private float downPosY;
+    private GestureDetector detector;
+    private int widthScreen;
+    private int heightScreen;
+    private TextView voice;
+    private AudioManager audiomanager;
+    private float maxVolume;
+    private int streamVolume;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +101,19 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_le_shi);
         String video_id = getIntent().getStringExtra("video_id");
         setPos = getIntent().getIntExtra("pos",0);
         title = getIntent().getStringExtra("title");
+        audiomanager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        // 获取系统最大音量
+        maxVolume = audiomanager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        streamVolume = audiomanager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        audiomanager.setStreamVolume(AudioManager.STREAM_MUSIC,(int)(streamVolume),0);
 
-
-        init();
+        getViews();
         addVideoView();
         leShiPresent = new PlayPresent(this,video_id);
         this.basePresent=leShiPresent;
@@ -89,10 +121,14 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
         playPresent = new PlayListPresent(this);
         playPresent.getInfo(index);
         setListener();
+        widthScreen = ScreenUtils.instance().getWidth(this);
+        heightScreen = ScreenUtils.instance().getHeight(this);
+        detector=new GestureDetector(this, Listener);
 //        initPlay();
     }
 
-    private void init() {
+    @Override
+    public void getViews() {
         videoContainer = (RelativeLayout)findViewById(R.id.videoContainer);
         //无皮肤播放器请初始化
         videoView = new VodVideoView(this);
@@ -100,8 +136,12 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
         layoutBotton = (RelativeLayout) findViewById(R.id.bottom_sheet);
         view_con = (RelativeLayout)findViewById(R.id.view_con);
 
-        textViewTitle = (TextView) findViewById(R.id.text_title);
-        textViewScreen = (TextView) findViewById(R.id.switchScreen);
+        textViewTitle = (MarTextView) findViewById(R.id.text_title);
+        voice = (TextView)findViewById(R.id.voice);
+        imageViewScreen = (ImageView) findViewById(R.id.switchScreen);
+        imagePlay = (ImageView) findViewById(R.id.play_video);
+        lightSeekBar = (VerticalSeekBar) findViewById(R.id.lightSeek);
+        lightSeekBar.setMax(100);
         gridView = (GridView) findViewById(R.id.grideview);
         progressBar = (CircularProgressBar) findViewById(R.id.circlrPro);
         playAdapter = new PlayAdapter(getApplicationContext(),listBeen);
@@ -117,7 +157,7 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
             switchPortraitVideoView();
             switchPortraitView();
             isFullScreen=false;
-            textViewScreen.setText("全屏");
+            imageViewScreen.setImageResource(R.mipmap.ic_halfscreen);
         }else {
             finish();
         }
@@ -147,6 +187,115 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
     @Override
     public void dismissDialogs() {
 
+    }
+    GestureDetector.OnGestureListener Listener=new GestureDetector.OnGestureListener() {
+        @Override
+        public boolean onDown(MotionEvent event) {
+            downPosX = event.getRawX();
+            downPosY = event.getRawY();
+            return false;
+
+        }
+
+        @Override
+        public void onShowPress(MotionEvent e) {
+
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            return false;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            //分为向上滑和向下滑
+            downPosX = e1.getRawX();
+            if(downPosX<widthScreen/2){
+                if(lightSeekBar.getVisibility()==View.GONE){
+                    lightSeekBar.setVisibility(View.VISIBLE);
+                }
+                float movePosY = e2.getRawY();
+                float distancY = downPosY - movePosY;
+//                if (Math.abs(distancY)>5) {
+//                    //如果是全屏，则显示
+////                    Configuration configuration = getResources().getConfiguration();
+////                    if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+////                    }
+//                }
+                float value = mScreenBrightness;
+                value += (distancY / heightScreen) / 2;
+                if (value < 0.1F) value = 0.1F;
+                if (value > 1) value = 1F;
+                changeBrightness(value);
+            }else if((widthScreen/2)<downPosX){
+                if(voice.getVisibility()==View.GONE){
+                    voice.setVisibility(View.VISIBLE);
+                }
+                float movePosY = e2.getRawY();
+                float distancY = downPosY - movePosY;
+
+                float value = currentVoice;
+                value += (distancY / heightScreen) / 4;
+                if (value < 0.1F) value = 0.0F;
+                if (value > 1) value = 1F;
+                updateVoice(value);
+            }
+            return false;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+
+            return false;
+        }
+    };
+
+    private void updateVoice(float value) {
+        currentVoice=value;
+        if((maxVolume*value)<=maxVolume&&(maxVolume*value)>=0){
+            voice.setText("Voice:"+(int)(value*100)+"%");
+            audiomanager.setStreamVolume(AudioManager.STREAM_MUSIC,(int)(maxVolume*value),0);
+        }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        detector.onTouchEvent(ev);
+        if (ev.getAction() == MotionEvent.ACTION_UP) {
+            lightSeekBar.setVisibility(View.GONE);
+            voice.setVisibility(View.GONE);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private float mScreenBrightness = 0.1f;
+    private float currentVoice = 0.1f;
+
+
+
+    /**
+     * 改变屏幕亮度
+     *
+     * @param value 0到1.0
+     */
+    private void changeBrightness(float value) {
+            mScreenBrightness = value;
+            WindowManager.LayoutParams layoutParams = this.getWindow().getAttributes();
+            layoutParams.screenBrightness = value;
+            this.getWindow().setAttributes(layoutParams);
+            updateLightProgress(value);
+    }
+
+    public void updateLightProgress(float light) {
+        if (lightSeekBar != null) {
+            lightSeekBar.setProgress((int) (light * 100));
+        }
     }
 
     @Override
@@ -187,20 +336,12 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
         videoContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(layoutTitle.getVisibility()==View.VISIBLE){
-                    layoutTitle.setVisibility(View.GONE);
-                }else {
-                    layoutTitle.setVisibility(View.VISIBLE);
-                }
-                if(layoutBotton.getVisibility()==View.VISIBLE){
-                    layoutBotton.setVisibility(View.GONE);
-                }else {
-                    layoutBotton.setVisibility(View.VISIBLE);
-                }
+                updateView();
+//                visiableView();
             }
         });
 
-        textViewScreen.setOnClickListener(new View.OnClickListener() {
+        imageViewScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!isFullScreen){
@@ -208,23 +349,58 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
                     switchLandVideoView();
                     switchLandView();
                     isFullScreen=true;
-                    textViewScreen.setText("竖屏");
+                    imageViewScreen.setImageResource(R.mipmap.ic_halfscreen);
                 }else {
                     switchPortrait();
                     switchPortraitVideoView();
                     switchPortraitView();
                     isFullScreen=false;
-                    textViewScreen.setText("全屏");
+                    imageViewScreen.setImageResource(R.mipmap.ic_fullscreen);
+                }
+            }
+        });
+        imagePlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isPlayering){
+                    pauseVideo();//暂停
+                    isPlayering=false;
+                }else {
+                    starVideo();//开始
+                    isPlayering=true;
                 }
             }
         });
     }
+    //更新title和bottow
+    private void updateView() {
+        if(isVisiable){
+            isVisiable=false;
+            handlerTime.sendEmptyMessageDelayed(1,6000);
+            layoutTitle.setVisibility(View.GONE);
+            layoutBotton.setVisibility(View.GONE);
+        }else {
+            isVisiable=true;
+            handlerTime.removeMessages(1);
+            layoutTitle.setVisibility(View.VISIBLE);
+            layoutBotton.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void pauseVideo() {
+        imagePlay.setImageResource(R.mipmap.ic_player);
+        leShiPresent.pauseVideo();
+    }
+
+    private void starVideo() {
+        imagePlay.setImageResource(R.mipmap.ic_pause);
+        leShiPresent.startVideo();
+    }
 
     private boolean isFullScreen=false;
-    @Override
-    public void getViews() {
+    private boolean isPlayering=true;
+    private boolean isVisiable=true;
 
-    }
     private void initPlay() {
         // Url可以是在线视频，也可以是本地视频
         //  String playPath = "/sdcard/demo.mp4"
@@ -321,6 +497,7 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
         if (videoView != null) {
             videoView.onDestroy();
         }
+        leShiPresent.onsubscriber();
     }
 //在AndroidManifest.xml中Activity申明时，需要添加配置
 //android:configChanges="keyboard|screenSize|orientation|layoutDirection"，以使该回调方法生效
@@ -392,7 +569,7 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
             switchPortraitVideoView();
             switchPortraitView();
             isFullScreen=false;
-            textViewScreen.setText("全屏");
+            imageViewScreen.setImageResource(R.mipmap.ic_fullscreen);
         }else {
             finish();
 //            super.onBackPressed();

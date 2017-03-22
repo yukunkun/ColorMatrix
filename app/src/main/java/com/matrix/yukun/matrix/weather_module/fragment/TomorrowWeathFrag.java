@@ -9,12 +9,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -265,6 +267,21 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
 
             }
         }).show();
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId== EditorInfo.IME_ACTION_SEARCH){
+                    if (editText.getText().toString() != null) {
+                        city = editText.getText().toString().trim();
+                        tomorrowPresent.getTomorrow(city);
+                        if (progressDialog != null) {
+                            progressDialog.show();
+                        }
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     @Override
