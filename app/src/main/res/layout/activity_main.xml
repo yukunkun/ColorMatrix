@@ -15,6 +15,7 @@
             android:id="@+id/back"
             android:padding="2dp"
             android:onClick="Back"
+            android:transitionName="share"
             android:src="@mipmap/ic_settings_dark"
             android:layout_width="@dimen/dimens_40"
             android:layout_height="match_parent" />

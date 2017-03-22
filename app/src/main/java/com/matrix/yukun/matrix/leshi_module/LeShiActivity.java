@@ -143,7 +143,7 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
         lightSeekBar.setMax(100);
         gridView = (GridView) findViewById(R.id.grideview);
         progressBar = (CircularProgressBar) findViewById(R.id.circlrPro);
-        playAdapter = new PlayAdapter(getApplicationContext(),listBeen);
+        playAdapter = new PlayAdapter(LeShiActivity.this,listBeen);
         gridView.setAdapter(playAdapter);
         OverScrollDecoratorHelper.setUpOverScroll(gridView);
         textViewTitle.setText(title);

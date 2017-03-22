@@ -108,7 +108,7 @@ public class LeShiListActivity extends AppCompatActivity implements LeShiListImp
     public void getViews() {
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        leShiAdapter = new LeShiAdapter(getApplicationContext(),list);
+        leShiAdapter = new LeShiAdapter(this,list);
         recyclerView.setAdapter(leShiAdapter);
     }
 

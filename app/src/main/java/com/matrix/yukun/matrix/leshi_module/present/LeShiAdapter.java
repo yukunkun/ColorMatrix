@@ -1,7 +1,11 @@
 package com.matrix.yukun.matrix.leshi_module.present;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +16,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.prefill.PreFillType;
+import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.leshi_module.LeShiActivity;
 import com.matrix.yukun.matrix.leshi_module.bean.ListBean;
@@ -22,12 +28,12 @@ import java.util.List;
  */
 public class LeShiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Context context;
+    private Activity context;
     private List<ListBean>  subjectsList;
 
 
     public LeShiAdapter(Context context, List<ListBean> list) {
-        this.context=context;
+        this.context=(Activity) context;
         this.subjectsList=list;
     }
 
@@ -38,7 +44,7 @@ public class LeShiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         final ListBean listBean = subjectsList.get(position);
         if(listBean.getInit_pic()!=null&&listBean.getInit_pic().length()>0){
             Glide.with(context).load(listBean.getInit_pic())
@@ -56,6 +62,7 @@ public class LeShiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         int sec=(int) video_duration%60;
         ((MyHolder)holder).textViewTime.setText("时长:"+min+"`"+sec+"``");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context, LeShiActivity.class);
@@ -63,7 +70,14 @@ public class LeShiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 intent.putExtra("pos",position%10);
                 intent.putExtra("title",listBean.getVideo_name());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    ActivityOptions transitionActivityOptions = ActivityOptions
+                            .makeSceneTransitionAnimation((Activity) context, ((MyHolder) holder).imageViewCover, "share");
+                    context.startActivity(intent, transitionActivityOptions.toBundle());
+                }else {
+                    context.startActivity(intent);
+                }
             }
         });
     }

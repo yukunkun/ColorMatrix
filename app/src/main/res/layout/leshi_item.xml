@@ -11,9 +11,9 @@
             android:layout_width="match_parent"
             android:layout_height="220dp">
             <ImageView
+                android:transitionName="share"
                 android:id="@+id/leshi_image"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/beijing_1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <TextView

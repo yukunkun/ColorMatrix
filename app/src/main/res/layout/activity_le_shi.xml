@@ -8,6 +8,7 @@
     tools:context="com.matrix.yukun.matrix.leshi_module.LeShiActivity">
     <RelativeLayout
         android:id="@+id/view_con"
+        android:transitionName="share"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimens_220">
     <RelativeLayout

@@ -2,6 +2,8 @@ package com.matrix.yukun.matrix;
 
 import android.Manifest;
 import android.animation.ValueAnimator;
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,6 +16,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -690,6 +693,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         Intent intent=new Intent(this, SettingActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.left_in, R.anim.right_out);
+
     }
 
     private void getPermission() {

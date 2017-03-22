@@ -12,6 +12,7 @@
         <ImageView
             android:padding="15dp"
             android:onClick="SetingBack"
+            android:transitionName="share"
             android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
             android:layout_width="@dimen/dimens_60"
             android:layout_height="match_parent" />
