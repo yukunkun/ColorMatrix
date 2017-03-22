@@ -7,8 +7,8 @@ import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.location.GpsStatus;
 import android.media.AudioManager;
-import android.os.Handler;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -71,18 +71,6 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
     private ImageView imageViewScreen;
     private RelativeLayout view_con;
     private ImageView imagePlay;
-    private Handler handler=new Handler();
-    private Handler handlerTime=new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            if(msg.what==1){
-                isVisiable=false;
-                layoutTitle.setVisibility(View.GONE);
-                layoutBotton.setVisibility(View.GONE);
-            }
-            super.handleMessage(msg);
-        }
-    };
     private VerticalSeekBar lightSeekBar;
     private float downPosX;
     private float downPosY;
@@ -93,6 +81,17 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
     private AudioManager audiomanager;
     private float maxVolume;
     private int streamVolume;
+    private Handler handlerTime=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(msg.what==1){
+                isVisiable=false;
+                layoutTitle.setVisibility(View.GONE);
+                layoutBotton.setVisibility(View.GONE);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -212,7 +211,7 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
             //分为向上滑和向下滑
             downPosX = e1.getRawX();
             if(downPosX<widthScreen/2){
-                if(lightSeekBar.getVisibility()==View.GONE){
+                if(lightSeekBar.getVisibility()==View.GONE&&isFullScreen){
                     lightSeekBar.setVisibility(View.VISIBLE);
                 }
                 float movePosY = e2.getRawY();
@@ -224,12 +223,14 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
 ////                    }
 //                }
                 float value = mScreenBrightness;
-                value += (distancY / heightScreen) / 2;
+                value += (distancY / heightScreen) / 4;
                 if (value < 0.1F) value = 0.1F;
                 if (value > 1) value = 1F;
-                changeBrightness(value);
+                if(isFullScreen){
+                    changeBrightness(value);
+                }
             }else if((widthScreen/2)<downPosX){
-                if(voice.getVisibility()==View.GONE){
+                if(voice.getVisibility()==View.GONE&&isFullScreen){
                     voice.setVisibility(View.VISIBLE);
                 }
                 float movePosY = e2.getRawY();
@@ -237,12 +238,15 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
 
                 float value = currentVoice;
                 value += (distancY / heightScreen) / 4;
-                if (value < 0.1F) value = 0.0F;
+                if (value < 0.1F) value = 0.05F;
                 if (value > 1) value = 1F;
-                updateVoice(value);
+                if(isFullScreen){
+                    updateVoice(value);
+                }
             }
             return false;
         }
+
 
         @Override
         public void onLongPress(MotionEvent e) {
@@ -376,12 +380,12 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
     private void updateView() {
         if(isVisiable){
             isVisiable=false;
-            handlerTime.sendEmptyMessageDelayed(1,6000);
             layoutTitle.setVisibility(View.GONE);
             layoutBotton.setVisibility(View.GONE);
+            handlerTime.removeMessages(1);
         }else {
             isVisiable=true;
-            handlerTime.removeMessages(1);
+            handlerTime.sendEmptyMessageDelayed(1,6000);
             layoutTitle.setVisibility(View.VISIBLE);
             layoutBotton.setVisibility(View.VISIBLE);
         }
@@ -497,7 +501,12 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
         if (videoView != null) {
             videoView.onDestroy();
         }
+
         leShiPresent.onsubscriber();
+        if(handlerTime!=null){
+            handlerTime.removeMessages(1);
+            handlerTime=null;
+        }
     }
 //在AndroidManifest.xml中Activity申明时，需要添加配置
 //android:configChanges="keyboard|screenSize|orientation|layoutDirection"，以使该回调方法生效
