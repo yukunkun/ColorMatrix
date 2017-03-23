@@ -479,6 +479,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if(requestCode==1&&data!=null){
             Bundle extras = data.getExtras();
             Bitmap photo=null;
+            photoName=System.currentTimeMillis() + ".jpg";
             if(extras!=null){
                 photo = (Bitmap) extras.get("data");
             }
