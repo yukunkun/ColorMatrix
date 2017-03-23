@@ -23,6 +23,8 @@ import com.matrix.yukun.matrix.util.FileUtil;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class CameraActivity extends BaseActivity implements View.OnClickListener {
@@ -34,8 +36,8 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     private String fileName="";
     private RelativeLayout layout;
     private boolean tag=true;
-    private BitmapFactory.Options options = new BitmapFactory.Options();
-    private String path1=null;
+    private String path1="";
+    private String mFilePath;
 
 
     @Override
@@ -58,21 +60,26 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void openCamera() {
-        tag=false;
-        String state = Environment.getExternalStorageState();
-        if (state.equals(Environment.MEDIA_MOUNTED)) {
-            Intent getImageByCamera = new Intent("android.media.action.IMAGE_CAPTURE");
-            String out_file_path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+AppConstants.PATH+"/";
-            File dir = new File(out_file_path);
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
-            fileName=System.currentTimeMillis() + ".jpg";
-            path1 = out_file_path + fileName;
-            getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(path1)));
-            getImageByCamera.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-            startActivityForResult(getImageByCamera, 1);
+        tag = false;
+        //设置自定义存储路径
+        mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" +AppConstants.PATH;
+        //存储文件夹操作
+        File outFilePath = new File(mFilePath);
+        if (!outFilePath.exists()) {
+            outFilePath.mkdirs();
         }
+        //设置自定义照片的名字
+        String fileNames = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        mFilePath = mFilePath + "/" + fileNames + ".jpg";
+        path1 = mFilePath;
+        fileName=fileName + ".jpg";
+        File outFile = new File(mFilePath);
+        Uri uri = Uri.fromFile(outFile);
+        //拍照
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        startActivityForResult(intent, 1);
+
     }
 
     private void setListener() {
@@ -124,10 +131,10 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
         imageViewCamera.setImageResource(R.mipmap.beijing_1);
-        if (requestCode == 1) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        if (requestCode == 1&&options!=null) {
             Bitmap bitmapCopy=BitmapFactory.decodeFile(path1,options).copy(Bitmap.Config.ARGB_4444,true);
             imageViewCamera.setImageBitmap(bitmapCopy);// 将图片显示在ImageView里
-
         }
 
     }
