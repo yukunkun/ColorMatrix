@@ -86,6 +86,8 @@ public class SettingActivity extends AppCompatActivity {
                         break;
                     case 7:
                         Beta.checkUpgrade();
+                    case 8:
+                        Beta.checkUpgrade();
                         break;
                 }
             }

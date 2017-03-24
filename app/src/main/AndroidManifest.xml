@@ -103,9 +103,10 @@
         <activity android:name=".setting_module.SettingActivity" />
         <activity
             android:name=".leshi_module.LeShiActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboard|screenSize|orientation|layoutDirection" />
-        <activity android:name=".leshi_module.LeShiListActivity"></activity>
+            android:configChanges="keyboard|screenSize|orientation|layoutDirection"
+            android:screenOrientation="portrait" />
+        <activity android:name=".leshi_module.LeShiListActivity" />
+        <activity android:name=".leshilive_module.LeShiLiveActivity"></activity>
     </application>
 
 </manifest>

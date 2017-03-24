@@ -58,7 +58,7 @@ public class MyApp extends Application {
                  LeCloudPlayerConfig.LOG_ALL
                  日志打印到控制台和文件
                  */
-                LeCloudPlayerConfig.setLogOutputType(LeCloudPlayerConfig.LOG_LOGCAT);
+//                LeCloudPlayerConfig.setLogOutputType(LeCloudPlayerConfig.LOG_LOGCAT);
                 LeCloudPlayerConfig.setHostType(host);
                 LeCloudPlayerConfig.init(getApplicationContext());
                 LeCloudPlayerConfig.setmInitCmfListener(new OnInitCmfListener() {
