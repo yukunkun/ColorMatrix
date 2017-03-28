@@ -22,7 +22,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
-        android:padding="10dp"
+        android:padding="5dp"
         />
 
 </RelativeLayout>

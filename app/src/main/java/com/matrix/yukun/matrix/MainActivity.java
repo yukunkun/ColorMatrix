@@ -53,6 +53,7 @@ import com.matrix.yukun.matrix.movie_module.MovieActivity;
 import com.matrix.yukun.matrix.selfview.squareprogressbar.SquareProgressBar;
 import com.matrix.yukun.matrix.selfview.view.MyRelativeLayout;
 import com.matrix.yukun.matrix.setting_module.SettingActivity;
+import com.matrix.yukun.matrix.util.AnimUtils;
 import com.matrix.yukun.matrix.util.BitmapUtil;
 import com.matrix.yukun.matrix.util.DeskMapUtil;
 import com.matrix.yukun.matrix.util.FileUtil;
@@ -114,9 +115,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private boolean isShow=false;
     private BitmapFactory.Options options = new BitmapFactory.Options();
     private Handler handler=new Handler();
-    private int []ranColor ={Color.RED,Color.BLUE,Color.GRAY,Color.DKGRAY,Color.GREEN,Color.LTGRAY,
+    private int []ranColor ={Color.RED,Color.BLUE,Color.DKGRAY,Color.GREEN,Color.LTGRAY,
             R.color.color_44fc2c, R.color.color_44fc2c, R.color.color_b450fc, R.color.color_fc2c5d, R.color.color_fc2cd2,
-            R.color.color_000000_alpha, R.color.color_57f733, R.color.color_f733d6, R.color.colorPrimaryDark, R.color.color_3575ff};
+            R.color.color_57f733, R.color.color_f733d6, R.color.colorPrimaryDark, R.color.color_3575ff};
     private TextView textViewRoate;
     private ImageView imageViewCamera;
     private ImageView imageViewCrop;
@@ -127,6 +128,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private long newName;
     private TextView textViewMov;
     private TextView textViewWea;
+    private TextView textViewMovRec;
+    private TextView textViewSetting;
+    private ImageView imageViewBack;
+    private boolean mIsMenuOpen=false;
+    private int radias=220; //动画半径
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,7 +152,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         imageViewTest.setImage(R.mipmap.beijing_1);
 //        imageViewTest.setImage(R.drawable.yuanjing);
 
-        imageViewTest.setWidth(2);
+        imageViewTest.setWidth(1);
         setColor();
 
         imageLoad = (ImageView) findViewById(R.id.loadimage);
@@ -164,6 +170,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         textViewTag = (TextView) findViewById(R.id.tishitag);
         textViewMov = (TextView)findViewById(R.id.textmovie);
         textViewWea = (TextView)findViewById(R.id.textweather);
+        imageViewBack = (ImageView) findViewById(R.id.back);
+        textViewMovRec = (TextView)findViewById(R.id.textmovierec);
+        textViewSetting = (TextView)findViewById(R.id.textseting);
         layoutContain = (MyRelativeLayout) findViewById(R.id.rea_contain);
         textViewTiShi = (RelativeLayout) findViewById(R.id.texttishi);
         reaContain = (RelativeLayout) findViewById(R.id.contain);
@@ -187,9 +196,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     //计算高度
     private void setConLayout() {
         int height= ScreenUtils.instance().getHeight(this);
+        int width= ScreenUtils.instance().getWidth(this);
         ViewGroup.LayoutParams layoutParams =reaContain.getLayoutParams();
         layoutParams.height= (int) (height*0.55);
         reaContain.setLayoutParams(layoutParams);
+        radias=width/4;//菜单的半径为屏幕高度的1/4
     }
 
     private void setAdapter() {
@@ -319,7 +330,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         imageViewCrop.setOnClickListener(this);
         textViewMov.setOnClickListener(this);
         textViewWea.setOnClickListener(this);
-
+        textViewMovRec.setOnClickListener(this);
+        textViewSetting.setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
@@ -349,12 +361,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startCamera();
                 break;
             case R.id.textmovie:
+                //视频推荐
+                closeMenu();
                 Intent intentMov=new Intent(MainActivity.this, LeShiListActivity.class);
                 startActivity(intentMov);
                 break;
             case R.id.textweather:
+                //天气提醒
+                closeMenu();
                 Intent intentWea=new Intent(MainActivity.this, WeatherActivity.class);
                 startActivity(intentWea);
+                break;
+            case R.id.textmovierec:
+                //电影推荐
+                closeMenu();
+                Intent intentWeaRec =new Intent(MainActivity.this, MovieActivity.class);
+                startActivity(intentWeaRec);
+                break;
+            case R.id.textseting:
+                //设置
+                closeMenu();
+                Intent intentSet=new Intent(MainActivity.this, SettingActivity.class);
+                startActivity(intentSet);
+                overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 break;
             case R.id.shareimage:
                 //分享
@@ -689,19 +718,42 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         }).start();
     }
-
+    
     public void Back(View view) {
-        Intent intent=new Intent(this, SettingActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.left_in, R.anim.right_out);
+        if (!mIsMenuOpen) {
+            mIsMenuOpen = true;
+            if(textViewSetting.getVisibility()==View.GONE){
+                textViewSetting.setVisibility(View.VISIBLE);
+                textViewWea.setVisibility(View.VISIBLE);
+                textViewMov.setVisibility(View.VISIBLE);
+                textViewMovRec.setVisibility(View.VISIBLE);
+            }
+            openMenu();
+        } else {
+            closeMenu();
+        }
+    }
 
+    private void openMenu() {
+        AnimUtils.doAnimateOpen(textViewSetting, 0, 4, radias);
+        AnimUtils.doAnimateOpen(textViewWea, 1, 4, radias);
+        AnimUtils.doAnimateOpen(textViewMov, 2, 4, radias);
+        AnimUtils.doAnimateOpen(textViewMovRec, 3, 4, radias);
+        AnimUtils.setSettingDown(this,imageViewBack);
+    }
+    private void closeMenu() {
+        mIsMenuOpen = false;
+        AnimUtils.doAnimateClose(textViewSetting, 0, 4, radias);
+        AnimUtils.doAnimateClose(textViewWea, 1, 4, radias);
+        AnimUtils.doAnimateClose(textViewMov, 2, 4, radias);
+        AnimUtils.doAnimateClose(textViewMovRec, 3, 4, radias);
+        AnimUtils.setSettingUp(this,imageViewBack);
     }
 
     private void getPermission() {
 
         if (ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         }else{
 //            //快捷图标
@@ -757,20 +809,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Timer timer = new Timer();
     @Override
     public void onBackPressed() {
-        if (isQuit == false) {
-            isQuit = true;
-            MyApp.showToast("再按一次退出*_*");
-            TimerTask task = new TimerTask() {
-                @Override
-                public void run() {
-                    isQuit = false;
-                }
-            };
-            timer.schedule(task, 2000);
-        } else {
-            finish();
+        if(mIsMenuOpen){
+            mIsMenuOpen=false;
+            closeMenu();
+        }else {
+            if (isQuit == false) {
+                isQuit = true;
+                MyApp.showToast("再按一次退出*_*");
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        isQuit = false;
+                    }
+                };
+                timer.schedule(task, 2000);
+            } else {
+                finish();
 //            System.exit(0);
-            android.os.Process.killProcess(android.os.Process.myPid());
+                android.os.Process.killProcess(android.os.Process.myPid());
+            }
         }
     }
 }

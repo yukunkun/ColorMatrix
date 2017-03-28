@@ -50,6 +50,7 @@ public class LeShiListActivity extends AppCompatActivity implements LeShiListImp
         setListener();
         leShiPresent = new LeShiPresent(this);
         leShiPresent.getInfo(1);
+        swipe.setRefreshing(true);
     }
 
 
