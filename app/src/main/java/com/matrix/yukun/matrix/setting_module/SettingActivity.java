@@ -1,17 +1,25 @@
 package com.matrix.yukun.matrix.setting_module;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.bean.AppConstants;
 import com.matrix.yukun.matrix.leshi_module.LeShiActivity;
 import com.matrix.yukun.matrix.leshi_module.LeShiListActivity;
+import com.matrix.yukun.matrix.leshilive_module.LeShiLiveActivity;
 import com.matrix.yukun.matrix.movie_module.MovieActivity;
+import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.weather_module.WeatherActivity;
 import com.mcxtzhang.pathanimlib.StoreHouseAnimView;
 import com.mcxtzhang.pathanimlib.res.StoreHousePath;
@@ -51,6 +59,11 @@ public class SettingActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 switch (position){
+                    case 0:
+                        Resources res=getResources();
+                        Bitmap bmp= BitmapFactory.decodeResource(res,R.mipmap.tool_icon);
+                        loadImage(bmp);
+                        break;
                     case 1:
                         Intent intent2=new Intent(SettingActivity.this,MovieActivity.class);
                         startActivity(intent2);
@@ -83,11 +96,21 @@ public class SettingActivity extends AppCompatActivity {
                     case 7:
                         Beta.checkUpgrade();
                     case 8:
-//                        Beta.checkUpgrade();
+                        Intent intent5=new Intent(SettingActivity.this,LeShiLiveActivity.class);
+                        startActivity(intent5);
                         break;
                 }
             }
         });
+    }
+    //下载图标
+    private void loadImage(final Bitmap bmp) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                FileUtil.loadImage(bmp, "matrix_icon.png");
+            }
+        }).start();
     }
 
     public void SetingBack(View view) {

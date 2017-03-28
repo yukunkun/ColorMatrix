@@ -14,6 +14,7 @@ import com.lecloud.sdk.videoview.IMediaDataVideoView;
 import com.lecloud.sdk.videoview.VideoViewListener;
 import com.lecloud.sdk.videoview.live.ActionLiveVideoView;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.bean.AppConstants;
 
 import java.util.LinkedHashMap;
 
@@ -23,12 +24,12 @@ public class LeShiLiveActivity extends AppCompatActivity {
 
     //mActionId,活动 id, 可调用OpenApi接口批量获取
 
-    String mActionId = "A2016062700000gx";
+    String mActionId = "A2017032800000dh";
     //mUseHls = true,表示使用 hls协议播放;mUseHls = false,表示使用 rtmp协议播放;
     //默认使用 rtmp协议播放
     private boolean mUseHls = false;
     //用户标识 可通过官网用户中心-用户私钥获取-用户 ID
-    String mCustomerId = "838389";
+    String mCustomerId = AppConstants.UserId;
     //业务 ID，p 值需要
     String p = "102";
     //cuid,utoken是直播付费验证需要的两个参数
@@ -62,8 +63,7 @@ public class LeShiLiveActivity extends AppCompatActivity {
 //        // ActionId配置
         mBundle.putString(PlayerParams.KEY_PLAY_ACTIONID,mActionId);
         mBundle.putBoolean(PlayerParams.KEY_PLAY_USEHLS,mUseHls);
-        mBundle.putString(PlayerParams.KEY_PLAY_CUSTOMERID, mCustomerId);
-        mBundle.putString(PlayerParams.KEY_PLAY_BUSINESSLINE,p);
+        mBundle.putString(PlayerParams.KEY_PLAY_PU, p);
         mBundle.putString(PlayerParams.KEY_ACTION_CUID, cuid);
         mBundle.putString(PlayerParams.KEY_ACTION_UTOKEN, utoken);
         videoView.setDataSource(mBundle);
@@ -78,7 +78,6 @@ public class LeShiLiveActivity extends AppCompatActivity {
 
             @Override
             public String onGetVideoRateList(LinkedHashMap<String, String> linkedHashMap) {
-
                 return null;
             }
         };
@@ -129,5 +128,9 @@ public class LeShiLiveActivity extends AppCompatActivity {
         if (videoView != null) {
             videoView.onConfigurationChanged(newConfig);
         }
+    }
+
+    public void PlayBack(View view) {
+        finish();
     }
 }

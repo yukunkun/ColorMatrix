@@ -4,8 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.matrix.yukun.matrix.leshilive_module.LeShiLiveActivity">
+    <RelativeLayout
+        android:background="@color/color_252525"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_60">
+        <ImageView
+            android:padding="15dp"
+            android:onClick="PlayBack"
+            android:transitionName="share"
+            android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
+            android:layout_width="@dimen/dimens_60"
+            android:layout_height="match_parent" />
+        <TextView
+            android:text=""
+            android:textColor="@color/color_whit"
+            android:layout_width="90dp"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:layout_centerInParent="true"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/videoContainer"
         android:layout_width="match_parent"

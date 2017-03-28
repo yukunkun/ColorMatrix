@@ -53,4 +53,10 @@ public interface MovieService {
     @GET("open.php")
     Observable<ListBeanJson<Object>> getVideoStart(@Query("user_unique") String user_unique, @Query("timestamp") String timestamp, @Query("api") String api, @Query("format") String formate,
                                                     @Query("ver") String ver, @Query("video_id") int video_id, @Query("sign") String sign);
+    //leshilive API
+    @GET("live/execute")
+    Observable<Object> getLiveList(@Query("method") String method, @Query("ver") String ver, @Query("userid") String userid,
+                                   @Query("timestamp") String timestamp,@Query("sign") String sign);
+
 }
+

@@ -14,6 +14,8 @@ public class RetrofitApi {
     static String baseUrl = "https://api.douban.com/";
     static String leshiBaseurl = "http://api.letvcloud.com/";
     static String weabaseurl="https://free-api.heweather.com/v5/";
+    static String leshiliveurl = "http://api.open.lecloud.com/";
+
     public static RetrofitApi getInstance(){
         return new RetrofitApi();
     }
@@ -47,6 +49,7 @@ public class RetrofitApi {
 
         return retrofit;
     }
+
     public Retrofit retrofitLeShiUtil(){
 
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
@@ -55,6 +58,20 @@ public class RetrofitApi {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(httpClientBuilder.build())
                 .baseUrl(leshiBaseurl)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())  //使用RxJava不能忘记
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        return retrofit;
+    }
+
+    public Retrofit retrofitLiveUtil(){
+
+        OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+        httpClientBuilder.connectTimeout(10000, TimeUnit.SECONDS);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(httpClientBuilder.build())
+                .baseUrl(leshiliveurl)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())  //使用RxJava不能忘记
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

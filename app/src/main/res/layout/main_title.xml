@@ -43,4 +43,22 @@
         android:src="@mipmap/abc_ic_menu_cut_mtrl_alpha"
         android:layout_width="@dimen/dimens_40"
         android:layout_height="match_parent" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_height="match_parent">
+        <!--<ImageView
+            android:src="@mipmap/tool_icon"
+            android:layout_width="@dimen/dimens_50"
+            android:layout_height="match_parent" />
+-->     <TextView
+            android:text="Matrix"
+            android:textAllCaps="false"
+            android:gravity="center_vertical"
+            android:textSize="22sp"
+            android:textStyle="normal"
+            android:textColor="@color/color_back_more"
+            android:layout_width="@dimen/dimens_70"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
 </RelativeLayout>

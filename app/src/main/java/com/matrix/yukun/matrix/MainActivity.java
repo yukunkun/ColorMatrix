@@ -400,7 +400,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         });
                     }
                 }).start();
-                share(f.getPath());
+//                share(f.getPath());
                 break;
             case R.id.loadimage:
                 layoutMore.setVisibility(View.GONE);
