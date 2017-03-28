@@ -41,7 +41,6 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void setAdapter() {
-
         mListview.setAdapter(new SetAdapter(getApplicationContext()));
         OverScrollDecoratorHelper.setUpOverScroll(mListview);
     }
@@ -71,9 +70,6 @@ public class SettingActivity extends AppCompatActivity {
                         Intent intent=new Intent(SettingActivity.this,AgreeActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);
-//                Uri  uri = Uri.parse(AppConstants.YINGYONGBAOPATH);
-//                Intent  intents = new  Intent(Intent.ACTION_VIEW, uri);
-//                startActivity(intents);
                         break;
                     case 5:
                         Intent intent1=new Intent(SettingActivity.this,IntroduceActivity.class);

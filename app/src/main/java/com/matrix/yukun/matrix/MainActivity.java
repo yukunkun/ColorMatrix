@@ -132,7 +132,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView textViewSetting;
     private ImageView imageViewBack;
     private boolean mIsMenuOpen=false;
-    private int radias=220; //动画半径
+    private int radias=180; //动画半径
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +150,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void init() {
         imageViewTest = (SquareProgressBar)findViewById(R.id.squareProgressBar);
         imageViewTest.setImage(R.mipmap.beijing_1);
-//        imageViewTest.setImage(R.drawable.yuanjing);
 
         imageViewTest.setWidth(1);
         setColor();
@@ -180,17 +179,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(linearLayoutManager);
         setConLayout();
-        startNoticefication();
         OverScrollDecoratorHelper.setUpOverScroll((ScrollView)findViewById(R.id.scrollview));
-    }
-
-    private void startNoticefication() {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Noticefication.start(getApplicationContext());
-//            }
-//        }).start();
     }
 
     //计算高度
@@ -200,7 +189,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ViewGroup.LayoutParams layoutParams =reaContain.getLayoutParams();
         layoutParams.height= (int) (height*0.55);
         reaContain.setLayoutParams(layoutParams);
-        radias=width/4;//菜单的半径为屏幕高度的1/4
+        radias=width/4;   //菜单的半径为屏幕高度的1/4
     }
 
     private void setAdapter() {
@@ -235,7 +224,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if(path==null||path.length()==0){
             return;
         }
-
         imageViewCrop.setVisibility(View.VISIBLE);
         imageViewRoate.setVisibility(View.VISIBLE);
         textViewTiShi.setVisibility(View.GONE);
