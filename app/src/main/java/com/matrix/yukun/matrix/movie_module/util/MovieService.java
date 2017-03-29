@@ -6,6 +6,8 @@ import com.matrix.yukun.matrix.leshi_module.bean.LeShiListBean;
 import com.matrix.yukun.matrix.leshi_module.bean.ListBean;
 import com.matrix.yukun.matrix.leshi_module.bean.ListBeanJson;
 import com.matrix.yukun.matrix.leshi_module.bean.VideoBean;
+import com.matrix.yukun.matrix.leshilive_module.bean.LiveListBean;
+import com.matrix.yukun.matrix.leshilive_module.bean.ResponseBean;
 import com.matrix.yukun.matrix.movie_module.bean.HttpResult;
 import com.matrix.yukun.matrix.movie_module.bean.Subjects;
 import com.matrix.yukun.matrix.weather_module.bean.WeaDestory;
@@ -15,6 +17,7 @@ import com.matrix.yukun.matrix.weather_module.bean.WeaNow;
 import com.matrix.yukun.matrix.weather_module.bean.WeaTomorrow;
 
 import retrofit2.http.GET;
+import retrofit2.http.HEAD;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -55,8 +58,8 @@ public interface MovieService {
                                                     @Query("ver") String ver, @Query("video_id") int video_id, @Query("sign") String sign);
     //leshilive API
     @GET("live/execute")
-    Observable<Object> getLiveList(@Query("method") String method, @Query("ver") String ver, @Query("userid") String userid,
-                                   @Query("timestamp") String timestamp,@Query("sign") String sign);
+    Observable<ResponseBean<LiveListBean>> getLiveList(@Query("method") String method, @Query("ver") String ver, @Query("userid") int userid,
+                                                       @Query("timestamp") long timestamp, @Query("sign") String sign);
 
 }
 

@@ -12,7 +12,6 @@
         <ImageView
             android:padding="15dp"
             android:onClick="PlayBack"
-            android:transitionName="share"
             android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
             android:layout_width="@dimen/dimens_60"
             android:layout_height="match_parent" />
@@ -27,8 +26,8 @@
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/videoContainer"
+        android:transitionName="share"
         android:layout_width="match_parent"
-        android:layout_height="203dp">
-
+        android:layout_height="wrap_content">
     </RelativeLayout>
 </LinearLayout>

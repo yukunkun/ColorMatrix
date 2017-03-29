@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimens_60">
         <ImageView
+            android:id="@+id/liveback"
             android:padding="15dp"
             android:onClick="LeSHiListBack"
             android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
@@ -18,7 +19,7 @@
         <TextView
             android:id="@+id/storeHouseAnimView"
             android:layout_width="wrap_content"
-            android:text="视频精选"
+            android:text=""
             android:textSize="18sp"
             android:gravity="center_vertical"
             android:textColor="@color/color_whit"

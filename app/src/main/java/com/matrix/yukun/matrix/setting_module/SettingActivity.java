@@ -18,6 +18,8 @@ import com.matrix.yukun.matrix.bean.AppConstants;
 import com.matrix.yukun.matrix.leshi_module.LeShiActivity;
 import com.matrix.yukun.matrix.leshi_module.LeShiListActivity;
 import com.matrix.yukun.matrix.leshilive_module.LeShiLiveActivity;
+import com.matrix.yukun.matrix.leshilive_module.LiveActivity;
+import com.matrix.yukun.matrix.leshilive_module.LiveListActivity;
 import com.matrix.yukun.matrix.movie_module.MovieActivity;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.weather_module.WeatherActivity;
@@ -57,7 +59,6 @@ public class SettingActivity extends AppCompatActivity {
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 switch (position){
                     case 0:
                         Resources res=getResources();
@@ -96,7 +97,8 @@ public class SettingActivity extends AppCompatActivity {
                     case 7:
                         Beta.checkUpgrade();
                     case 8:
-                        Intent intent5=new Intent(SettingActivity.this,LeShiLiveActivity.class);
+//                        Intent intent5=new Intent(SettingActivity.this,LiveListActivity.class);
+                        Intent intent5=new Intent(SettingActivity.this,LiveActivity.class);
                         startActivity(intent5);
                         break;
                 }

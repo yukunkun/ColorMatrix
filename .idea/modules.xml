@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/LePlayerSdk/LePlayerSdk.iml" filepath="$PROJECT_DIR$/LePlayerSdk/LePlayerSdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/Matrix.iml" filepath="$PROJECT_DIR$/Matrix.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libstreaming/libstreaming.iml" filepath="$PROJECT_DIR$/libstreaming/libstreaming.iml" />
     </modules>
   </component>
 </project>

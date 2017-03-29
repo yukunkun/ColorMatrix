@@ -1,7 +1,10 @@
 package com.matrix.yukun.matrix.movie_module.adapter;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +43,7 @@ public class MovieTopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         //评分
         ((MyHolder)holder).textViewRate.setText(subjectsList.get(position).getRating().getAverage()+"");
         ((MyHolder)holder).textViewName.setText(subjectsList.get(position).getTitle());
@@ -85,7 +88,14 @@ public class MovieTopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 intent.putStringArrayListExtra("actAvatar",actAvatar);
                 intent.putStringArrayListExtra("dirAvatar",dirAvatar);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    ActivityOptions transitionActivityOptions = ActivityOptions
+                            .makeSceneTransitionAnimation((Activity) context, ((MyHolder) holder).imageViewCover, "share");
+                    context.startActivity(intent, transitionActivityOptions.toBundle());
+                }else {
+                    context.startActivity(intent);
+                }
             }
         });
 

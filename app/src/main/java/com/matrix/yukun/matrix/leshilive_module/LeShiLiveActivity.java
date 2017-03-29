@@ -24,7 +24,7 @@ public class LeShiLiveActivity extends AppCompatActivity {
 
     //mActionId,活动 id, 可调用OpenApi接口批量获取
 
-    String mActionId = "A2017032800000dh";
+    private String mActionId = "A2017032800000dh";
     //mUseHls = true,表示使用 hls协议播放;mUseHls = false,表示使用 rtmp协议播放;
     //默认使用 rtmp协议播放
     private boolean mUseHls = false;
@@ -35,6 +35,8 @@ public class LeShiLiveActivity extends AppCompatActivity {
     //cuid,utoken是直播付费验证需要的两个参数
     String cuid = "";
     String utoken = "";
+    private String ActivityName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,8 @@ public class LeShiLiveActivity extends AppCompatActivity {
         //视频播放界面，保持屏幕常亮利于视频观看体验
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_le_shi_live);
+        mActionId = getIntent().getStringExtra("activity_id");
+        ActivityName = getIntent().getStringExtra("activity_name");
         init();
         setInfo();
         setListener();
@@ -91,7 +95,6 @@ public class LeShiLiveActivity extends AppCompatActivity {
      */
     private void handlePlayerEvent(int state, Bundle bundle) {
         switch (state) {
-
             case PlayerEvent.PLAY_PREPARED:
                 //播放器准备完成，此刻调用 start() 就可以进行播放了
                 if (videoView != null) {

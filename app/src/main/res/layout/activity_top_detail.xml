@@ -9,18 +9,14 @@
         android:background="@color/color_252525"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimens_60">
-        <LinearLayout
+
+        <ImageView
+            android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
+            android:layout_width="@dimen/dimens_30"
+            android:transitionName="share"
             android:onClick="MovieTopBack"
-            android:background="?android:attr/actionBarItemBackground"
-            android:id="@+id/academy_back"
-            android:layout_marginLeft="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-            <ImageView
-                android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
-                android:layout_width="@dimen/dimens_30"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+            android:layout_marginLeft="5dp"
+            android:layout_height="match_parent" />
         <TextView
             android:textColor="#FFFFFF"
             android:textSize="17sp"

@@ -1,13 +1,9 @@
 package com.matrix.yukun.matrix.leshi_module.present;
 
-import android.app.ActivityManager;
-import android.text.LoginFilter;
 import android.util.Log;
 
-import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.bean.AppConstants;
 import com.matrix.yukun.matrix.leshi_module.LeShiActivity;
-import com.matrix.yukun.matrix.leshi_module.bean.ListBeanJson;
 import com.matrix.yukun.matrix.leshi_module.bean.VideoBean;
 import com.matrix.yukun.matrix.movie_module.present.BasePresentImpl;
 
@@ -52,6 +48,7 @@ public class PlayPresent implements BasePresentImpl{
 
     @Override
     public void onsubscriber() {
+
     }
 
     @Override
