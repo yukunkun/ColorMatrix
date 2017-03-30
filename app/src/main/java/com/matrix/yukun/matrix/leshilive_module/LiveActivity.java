@@ -188,7 +188,7 @@ public class LiveActivity extends AppCompatActivity {
     //判断权限
     private void getLive() {
         String password = editPassword.getText().toString();
-        if (password != null && password.equals("1")) {
+        if (password != null && password.equals("matrix")) {
             reaCover.setVisibility(View.GONE);
         }else {
             Toast.makeText(LiveActivity.this, "对不起你没有权限开启直播!", Toast.LENGTH_SHORT).show();

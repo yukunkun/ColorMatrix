@@ -10,7 +10,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/LePlayerSdk" />
-            <option value="$PROJECT_DIR$/LeRecorderDemos" />
             <option value="$PROJECT_DIR$/LeRecorderSkin" />
             <option value="$PROJECT_DIR$/app" />
           </set>
@@ -19,7 +18,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/LePlayerSdk" />
-            <option value="$PROJECT_DIR$/LeRecorderDemos" />
             <option value="$PROJECT_DIR$/LeRecorderSkin" />
             <option value="$PROJECT_DIR$/app" />
           </set>

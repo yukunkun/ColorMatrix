@@ -64,40 +64,15 @@ public class MyApp extends Application {
                 LeCloudPlayerConfig.setmInitCmfListener(new OnInitCmfListener() {
                     @Override
                     public void onCdeStartSuccess() {
-                        /**
-                         cde
-                         启动成功
-                         ,
-                         可以开始播放
-                         如果使用
-                         remote
-                         版本这个方法会回调的晚一些，因为有个下载过程
-                         只有回调了该方法，才可以正常播放视频
-                         建议用户通过
-                         cde
-                         初始化的回调进行控制，点击开始播放是否创建播放器
+                        /**cde启动成功,可以开始播放如果使用remote版本这个方法会回调的晚一些，因为有个下载过程
+                         * 只有回调了该方法，才可以正常播放视频建议用户通过
+                         cde初始化的回调进行控制，点击开始播放是否创建播放器
                          */
                     }
                     @Override
                     public void onCdeStartFail() {
-                        /**
-                         cde
-                         启动失败
-                         ,
-                         不能正常播放
-                         ;
-                         如果使用
-                         remote
-                         版本则可能是
-                         remote
-                         下载失败
-                         ;
-                         如果使用普通版本
-                         ,
-                         则可能是
-                         so
-                         文件加载失败导致
-                         */
+                        /**cde启动失败,不能正常播放;如果使用remote版本则可能是remote下载失败;如果使用普通版本,
+                         则可能是so文件加载失败导致*/
                     }
                     @Override
                     public void onCmfCoreInitSuccess() {
@@ -136,10 +111,6 @@ public class MyApp extends Application {
             }
         }
         return null;
-
-
-
-
     }
 
     public static Application getInstance(){

@@ -54,5 +54,10 @@
     <color name="color_back_time">#7ed6d6d6</color>
     <color name="color_003af9">#003af9</color>
     <color name="color_76333333">#66333333</color>
+    <!--live-->
+    <color name="color_8744fc2c">#a644fc2c</color>
+    <color name="color_9cffffff">#b2ffffff</color>
+
+
 
 </resources>

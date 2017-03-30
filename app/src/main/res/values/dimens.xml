@@ -8,6 +8,7 @@
     <dimen name="dimens_25">25dp</dimen>
     <dimen name="dimens_30">30dp</dimen>
     <dimen name="dimens_40">38dp</dimen>
+    <dimen name="dimens_45">45dp</dimen>
     <dimen name="dimens_50">55dp</dimen>
     <dimen name="dimens_60">60dp</dimen>
     <dimen name="dimens_70">70dp</dimen>
