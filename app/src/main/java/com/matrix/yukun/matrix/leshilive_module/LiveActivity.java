@@ -35,12 +35,12 @@ public class LiveActivity extends AppCompatActivity implements Session.Callback{
 
     private void init() {
         //音频编码格式
-//音频参数 采样率
-//视频编码格式
-//视频参数 分辨率1280*720 帧率15 码率1000*1000
-//用于进行预览展示的SurfaceView
-//SurfaceView//Camera方向
-//一些监听回调
+        //音频参数 采样率
+        //视频编码格式
+        //视频参数 分辨率1280*720 帧率15 码率1000*1000
+        //用于进行预览展示的SurfaceView
+        //SurfaceView//Camera方向
+        //一些监听回调
         mSession = SessionBuilder.getInstance()
                 .setContext(getApplicationContext())
                 .setAudioEncoder(SessionBuilder.AUDIO_AAC)//音频编码格式
