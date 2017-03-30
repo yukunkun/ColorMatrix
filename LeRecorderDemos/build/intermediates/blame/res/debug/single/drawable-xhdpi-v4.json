@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/res/merged/debug/drawable-xhdpi-v4/btn_filter_cancle.png",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/exploded-aar/Matrix/LeRecorderSkin/unspecified/res/drawable-xhdpi-v4/btn_filter_cancle.png"
+    },
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/res/merged/debug/drawable-xhdpi-v4/letv_recorder_thumd.png",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/exploded-aar/Matrix/LeRecorderSkin/unspecified/res/drawable-xhdpi-v4/letv_recorder_thumd.png"
+    },
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/res/merged/debug/drawable-xhdpi-v4/letv_recorder_arrow.png",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/exploded-aar/Matrix/LeRecorderSkin/unspecified/res/drawable-xhdpi-v4/letv_recorder_arrow.png"
+    },
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/res/merged/debug/drawable-xhdpi-v4/letv_recorder_stop.png",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/exploded-aar/Matrix/LeRecorderSkin/unspecified/res/drawable-xhdpi-v4/letv_recorder_stop.png"
+    },
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/res/merged/debug/drawable-xhdpi-v4/letv_recorder_angle_gray.png",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/exploded-aar/Matrix/LeRecorderSkin/unspecified/res/drawable-xhdpi-v4/letv_recorder_angle_gray.png"
+    },
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/res/merged/debug/drawable-xhdpi-v4/letv_focus_auto.png",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/exploded-aar/Matrix/LeRecorderSkin/unspecified/res/drawable-xhdpi-v4/letv_focus_auto.png"
+    },
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/res/merged/debug/drawable-xhdpi-v4/letv_recorder_open.png",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/exploded-aar/Matrix/LeRecorderSkin/unspecified/res/drawable-xhdpi-v4/letv_recorder_open.png"
+    },
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/res/merged/debug/drawable-xhdpi-v4/letv_recorder_angle_blue.png",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/exploded-aar/Matrix/LeRecorderSkin/unspecified/res/drawable-xhdpi-v4/letv_recorder_angle_blue.png"
+    },
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/res/merged/debug/drawable-xhdpi-v4/btn_filter_save.png",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/exploded-aar/Matrix/LeRecorderSkin/unspecified/res/drawable-xhdpi-v4/btn_filter_save.png"
+    },
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/res/merged/debug/drawable-xhdpi-v4/letv_recorder_angle_white.png",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/exploded-aar/Matrix/LeRecorderSkin/unspecified/res/drawable-xhdpi-v4/letv_recorder_angle_white.png"
+    }
+]

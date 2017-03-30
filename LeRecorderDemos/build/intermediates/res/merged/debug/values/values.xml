@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="activity_main_title_color">#ffffffff</color>
+    <color name="activity_main_title_color_push">#ff333333</color>
+    <color name="filter_color_blue">#ff5cbadc</color>
+    <color name="filter_color_blue_dark">#3d5afe</color>
+    <color name="filter_color_blue_dark_dark">#1e3250</color>
+    <color name="filter_color_brown_light">#ff9933</color>
+    <color name="filter_color_grey_light">#c4c4c4</color>
+    <color name="letv_recorder_background_gray">#70000000</color>
+    <color name="letv_recorder_dialog_button_background">#1074C2</color>
+    <color name="letv_recorder_fade_background">#50BA68C8</color>
+    <color name="letv_recorder_text_blue_color">#1073C2</color>
+    <color name="letv_recorder_text_color">#ffffff</color>
+    <declare-styleable name="publisher_skin"><attr format="boolean" name="isLanscape"/><attr format="integer" name="videoWidth"/><attr format="integer" name="videoHeight"/><attr format="integer" name="cameraId"/><attr format="integer" name="videoBitrate"/><attr format="boolean" name="isOnTouch"/><attr format="boolean" name="isOnAnimation"/><attr format="reference" name="foceView"/><attr format="boolean" name="updateLogFile"/><attr format="string" name="pushTitle"/><attr format="boolean" name="isVolumeGain"/><attr format="boolean" name="isResume"/><attr format="boolean" name="isNetResume"/><attr format="boolean" name="isFirstMachine"/><attr format="integer" name="surfaceWidth"/><attr format="integer" name="surfaceHeight"/><attr format="boolean" name="mirror"/><attr format="boolean" name="isOpenGestureZoom"/></declare-styleable>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_main_submit_lift">46dp</dimen>
+    <dimen name="activity_main_submit_width">267dp</dimen>
+    <dimen name="activity_main_title_bottom">57dp</dimen>
+    <dimen name="activity_main_title_hight">33dp</dimen>
+    <dimen name="activity_main_title_lift">29dp</dimen>
+    <dimen name="activity_main_title_text">13dp</dimen>
+    <dimen name="activity_main_title_top">100dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="letv_recorder_bottom_text_size">16sp</dimen>
+    <dimen name="letv_recorder_change_cam_margin">20dp</dimen>
+    <dimen name="letv_recorder_left_arraw_margin">10dp</dimen>
+    <dimen name="letv_recorder_machine_item_gap">10dp</dimen>
+    <dimen name="letv_recorder_machine_item_width">90dp</dimen>
+    <dimen name="letv_recorder_top_title_size">16sp</dimen>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">LeRecorder</string>
+    <string name="filter_antique">复古</string>
+    <string name="filter_beauty_skin">美肤</string>
+    <string name="filter_calm">平静</string>
+    <string name="filter_healthy">健康</string>
+    <string name="filter_none">原图</string>
+    <string name="filter_nostalgia">怀旧</string>
+    <string name="filter_romance">浪漫</string>
+    <string name="filter_soft">温柔</string>
+    <string name="filter_warm">温暖</string>
+    <string name="filter_whiten_skin">美白</string>
+    <string name="hello_world">Hello world!</string>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+
+
+
+
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="letvRecorderDialog" parent="android:style/Theme.Dialog">  
+        <!--背景颜色及透明程度-->  
+        <item name="android:windowBackground">@android:color/transparent</item>  
+        <!--是否有标题 -->  
+        <item name="android:windowNoTitle">true</item>  
+        <!--是否浮现在activity之上-->  
+        <item name="android:windowIsFloating">true</item>  
+        <!--是否模糊-->  
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--去边框 -->
+        <item name="android:windowFrame">@null</item>
+    </style>
+    <style name="main_input_edit">
+        <item name="android:layout_width">163dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/main_input_edit</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">13dp</item>
+    </style>
+    <style name="main_input_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+    <style name="main_input_name">
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">13dp</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:layout_gravity">center_vertical|left</item>
+    </style>
+    <style name="main_submit_style">
+        <item name="android:layout_width">@dimen/activity_main_submit_width</item>
+        <item name="android:layout_height">@dimen/activity_main_title_hight</item>
+        <item name="android:background">@drawable/main_start_button</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">#ffffffff</item>
+    </style>
+</resources>

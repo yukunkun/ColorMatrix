@@ -9,9 +9,14 @@
         <item>电影推荐</item>
         <item>视频精选</item>
         <item>天气预报</item>
+        <item>直播间(内部使用)</item>
+        <item>观看直播(内部使用)</item>
+        <item>关于我们</item>
+    </array>
+    <array name="aboutus">
         <item>简介</item>
         <item>用户协议</item>
-        <item>反馈</item>
+        <item>问题反馈</item>
         <item>版本升级</item>
         <item>版本号</item>
     </array>

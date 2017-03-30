@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/res/merged/androidTest/debug/layout/le_recorder_bottom_skin_layout.xml",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/bundles/debug/res/layout/le_recorder_bottom_skin_layout.xml"
+    },
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/res/merged/androidTest/debug/layout/le_recorder_top_skin_layout.xml",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/bundles/debug/res/layout/le_recorder_top_skin_layout.xml"
+    },
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/res/merged/androidTest/debug/layout/le_recorder_skin_view.xml",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/bundles/debug/res/layout/le_recorder_skin_view.xml"
+    },
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/res/merged/androidTest/debug/layout/le_recorder_filter_list.xml",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/bundles/debug/res/layout/le_recorder_filter_list.xml"
+    },
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/res/merged/androidTest/debug/layout/le_recorder_common_dialog.xml",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/bundles/debug/res/layout/le_recorder_common_dialog.xml"
+    },
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/res/merged/androidTest/debug/layout/le_recorder_machine_layout.xml",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/bundles/debug/res/layout/le_recorder_machine_layout.xml"
+    },
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/res/merged/androidTest/debug/layout/le_filter_item_layout.xml",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/bundles/debug/res/layout/le_filter_item_layout.xml"
+    }
+]

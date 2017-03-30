@@ -1,2 +1,1 @@
-include ':app', ':LePlayerSdk'
-include ':libstreaming'
+include ':app', ':LePlayerSdk', ':LeRecorderSkin', ':LeRecorderDemos'

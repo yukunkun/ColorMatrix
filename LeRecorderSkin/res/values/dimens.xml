@@ -1,0 +1,9 @@
+<resources>
+    <dimen name="letv_recorder_top_title_size">16sp</dimen>
+    <dimen name="letv_recorder_left_arraw_margin">10dp</dimen>
+    <dimen name="letv_recorder_change_cam_margin">20dp</dimen>
+    <dimen name="letv_recorder_bottom_text_size">16sp</dimen>
+    <dimen name="letv_recorder_machine_item_width">90dp</dimen>
+    <dimen name="letv_recorder_machine_item_gap">10dp</dimen>
+
+</resources>

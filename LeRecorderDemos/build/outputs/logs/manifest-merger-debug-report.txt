@@ -1,0 +1,182 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:2:1-88:12
+	package
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:3:5-32
+	android:versionName
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:5:5-30
+		INJECTED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml
+		INJECTED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml
+	android:versionCode
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:4:5-28
+		INJECTED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml
+		INJECTED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:2:11-69
+uses-feature#0x00020000
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:7:5-9:35
+	android:glEsVersion
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:8:9-41
+	android:required
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:9:9-32
+uses-sdk
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:11:5-13:11
+MERGED from [Matrix:LeRecorderSkin:unspecified] /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/build/intermediates/exploded-aar/Matrix/LeRecorderSkin/unspecified/AndroidManifest.xml:7:5-44
+	android:minSdkVersion
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:12:9-35
+application
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:15:5-68:19
+	android:label
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:18:9-41
+	android:allowBackup
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:16:9-36
+	android:icon
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:17:9-45
+	android:theme
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:19:9-40
+activity#com.letv.recorder.MainActivity
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:20:9-32:20
+	android:screenOrientation
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:23:13-49
+	android:label
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:22:13-45
+	android:allowBackup
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:26:13-40
+	android:alwaysRetainTaskState
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:27:13-49
+	android:icon
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:24:13-49
+	android:theme
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:25:13-60
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:21:13-41
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:28:12-31:29
+action#android.intent.action.MAIN
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:29:17-69
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:29:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:30:17-77
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:30:27-74
+activity#com.letv.recorder.RecorderTestActivity
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:33:9-44:20
+	android:screenOrientation
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:35:13-49
+	android:label
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:34:13-39
+	android:allowBackup
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:38:13-40
+	android:alwaysRetainTaskState
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:39:13-49
+	android:icon
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:36:13-49
+	android:theme
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:37:13-60
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:33:19-55
+activity#com.letv.recorder.ListActivity
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:45:9-51:20
+	android:screenOrientation
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:48:13-49
+	android:label
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:47:13-45
+	android:launchMode
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:50:13-44
+	android:theme
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:49:13-60
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:46:13-41
+activity#com.letv.recorder.RecorderActivity
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:52:9-59:20
+	android:screenOrientation
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:55:13-49
+	android:launchMode
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:58:13-44
+	android:configChanges
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:54:13-81
+	android:allowBackup
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:57:13-40
+	android:theme
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:56:13-60
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:53:13-45
+activity#com.letv.recorder.RecorderLetvActivity
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:60:9-67:20
+	android:screenOrientation
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:63:13-49
+	android:launchMode
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:66:13-44
+	android:configChanges
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:62:13-81
+	android:allowBackup
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:65:13-40
+	android:theme
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:64:13-60
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:61:13-49
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:71:5-79
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:71:22-76
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:72:5-76
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:72:22-73
+uses-permission#android.permission.GET_TASKS
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:73:5-68
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:73:22-65
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:74:5-76
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:74:22-73
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:75:5-75
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:75:22-72
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:76:5-81
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:76:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:77:5-80
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:77:22-77
+uses-permission#android.permission.INTERNET
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:78:5-67
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:78:22-64
+uses-permission#android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:79:5-84
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:79:22-81
+uses-permission#android.permission.WAKE_LOCK
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:80:5-68
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:80:22-65
+uses-feature#android.hardware.camera
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:81:5-60
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:81:19-57
+uses-feature#android.hardware.camera.autofocus
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:82:5-70
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:82:19-67
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:84:5-71
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:84:22-68
+uses-permission#android.permission.CAMERA
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:85:5-65
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:85:22-62
+uses-permission#android.permission.PROCESS_OUTGOING_CALLS
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:86:5-80
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:86:22-78
+permission#android.permission.INTERACT_ACROSS_USERS_FULL
+ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:87:5-79
+	android:name
+		ADDED from /home/yukun/AndroidStudioProjects/Matrix/LeRecorderDemos/AndroidManifest.xml:87:17-77

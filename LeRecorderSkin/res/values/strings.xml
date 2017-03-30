@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">LetvRecorderSkin</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="filter_none">原图</string>
+    <string name="filter_beauty_skin">美肤</string>
+    <string name="filter_whiten_skin">美白</string>
+    <string name="filter_healthy">健康</string>
+    <string name="filter_romance">浪漫</string>
+    <string name="filter_warm">温暖</string>
+    <string name="filter_antique">复古</string>
+    <string name="filter_nostalgia">怀旧</string>
+    <string name="filter_calm">平静</string>
+    <string name="filter_soft">温柔</string>
+</resources>

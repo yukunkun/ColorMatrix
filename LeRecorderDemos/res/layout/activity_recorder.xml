@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.letv.recorder.ui.RecorderView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:background="#00ffffff"
+        >
+
+        <ImageView
+            android:id="@+id/focusView"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/focus_auto" />
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/assets"/><source path="/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/generated/assets/shaders/release"/></dataSet><dataSet config="release"><source path="/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build-types/release/assets"/></dataSet></merger>

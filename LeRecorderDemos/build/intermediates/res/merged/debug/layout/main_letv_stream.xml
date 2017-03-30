@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:background="#00ffffff"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        style="@style/main_input_layout"
+        android:gravity="left" >
+
+        <TextView
+            style="@style/main_input_name"
+            android:text="用户  ID:" />
+
+        <EditText 
+            android:id="@+id/ed_user_id"
+            style="@style/main_input_edit" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_input_layout"
+        android:gravity="left" >
+
+        <TextView
+            style="@style/main_input_name"
+            android:text="APP KEY:" />
+
+        <EditText 
+            android:id="@+id/ed_letv_app_key"
+            style="@style/main_input_edit" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_input_layout"
+        android:gravity="left" >
+
+        <TextView
+            style="@style/main_input_name"
+            android:text="活动  ID:" />
+
+        <EditText
+            android:id="@+id/ed_letv_stream_id"
+             style="@style/main_input_edit" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/main_input_layout"
+        android:layout_marginBottom="33dp"
+        android:layout_marginTop="18dp" >
+
+        <TextView
+            style="@style/main_input_name"
+            android:text="是否横屏:" />
+
+        <Button
+            android:id="@+id/btn_turn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/turn_off" />
+    </LinearLayout>
+
+</LinearLayout>

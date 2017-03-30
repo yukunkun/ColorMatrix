@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="letv_recorder_text_color">#ffffff</color>
+    <color name="letv_recorder_text_blue_color">#1073C2</color>
+    <color name="letv_recorder_background_gray">#70000000</color>
+    <color name="letv_recorder_fade_background">#50BA68C8</color>
+    <color name="letv_recorder_dialog_button_background">#1074C2</color>
+    <color name="filter_color_brown_light">#ff9933</color>
+    <color name="filter_color_grey_light">#c4c4c4</color>
+    <color name="filter_color_blue_dark">#3d5afe</color>
+    <color name="filter_color_blue_dark_dark">#1e3250</color>
+    <color name="filter_color_blue">#ff5cbadc</color>
+
+</resources>

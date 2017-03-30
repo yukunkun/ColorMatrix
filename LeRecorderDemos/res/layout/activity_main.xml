@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/register_bg"
+    android:gravity="center_horizontal"
+    android:layout_gravity="center_horizontal"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_main_title_hight"
+        android:layout_marginBottom="@dimen/activity_main_title_bottom"
+        android:layout_marginLeft="@dimen/activity_main_title_lift"
+        android:layout_marginRight="@dimen/activity_main_title_lift"
+        android:layout_marginTop="@dimen/activity_main_title_top"
+        android:orientation="horizontal"
+        android:weightSum="3" >
+
+        <Button
+            android:id="@+id/btn_no_push_stream"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/main_title_button_lift_push"
+            android:text="无推流地址"
+            android:textColor="@color/activity_main_title_color_push"
+            android:textSize="@dimen/activity_main_title_text" />
+
+        <Button
+            android:id="@+id/btn_push_stream"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/main_title_button_middle"
+            android:text="有推流地址"
+            android:textColor="@color/activity_main_title_color"
+            android:textSize="@dimen/activity_main_title_text" />
+
+        <Button
+            android:id="@+id/btn_letv_stream"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/main_title_button_right"
+            android:text="乐视云直播"
+            android:textColor="@color/activity_main_title_color"
+            android:textSize="@dimen/activity_main_title_text" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_middle"
+        android:layout_width="@dimen/activity_main_submit_width"
+        android:layout_marginLeft="@dimen/activity_main_submit_lift"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/ll_title" >
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_submit_push"
+        style="@style/main_submit_style"
+        android:layout_below="@id/rl_middle"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="@dimen/activity_main_submit_lift"
+        android:layout_marginRight="@dimen/activity_main_submit_lift"
+        android:text="开始直播" />
+
+</RelativeLayout>

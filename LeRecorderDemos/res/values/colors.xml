@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="activity_main_title_color">#ffffffff</color>
+    <color name="activity_main_title_color_push">#ff333333</color>
+</resources>

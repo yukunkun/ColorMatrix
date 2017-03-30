@@ -81,26 +81,21 @@ public class SettingActivity extends AppCompatActivity {
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);
                         break;
                     case 4:
-                        Intent intent=new Intent(SettingActivity.this,AgreeActivity.class);
+                        Intent intent=new Intent(SettingActivity.this,LiveActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);
                         break;
                     case 5:
-                        Intent intent1=new Intent(SettingActivity.this,IntroduceActivity.class);
+                        Intent intent1=new Intent(SettingActivity.this,LeShiLiveActivity.class);
                         startActivity(intent1);
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);
                         break;
                     case 6:
-                        FankuiDialog noteCommentDialog=FankuiDialog.newInstance(0);
-                        noteCommentDialog.show(getSupportFragmentManager(),"NoteDetailActivity");
+                        Intent intentUs=new Intent(SettingActivity.this,AboutUsActivity.class);
+                        startActivity(intentUs);
+                        overridePendingTransition(R.anim.right_in,R.anim.left_out);
                         break;
-                    case 7:
-                        Beta.checkUpgrade();
-                    case 8:
-//                        Intent intent5=new Intent(SettingActivity.this,LiveListActivity.class);
-                        Intent intent5=new Intent(SettingActivity.this,LiveActivity.class);
-                        startActivity(intent5);
-                        break;
+
                 }
             }
         });

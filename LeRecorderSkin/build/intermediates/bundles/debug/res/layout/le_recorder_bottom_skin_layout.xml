@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="56dp"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="10dp">
+
+ <!--  <ImageView
+        android:id="@+id/imgV_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="13dp"
+        android:src="@drawable/letv_recorder_set"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/imgV_setting"
+        android:background="@drawable/letv_recorder_rate_button"
+        android:gravity="center"
+        android:text="标清"
+        android:textColor="#ffffffff"
+        android:visibility="invisible" />-->
+
+    <ImageView
+        android:id="@+id/imgV_open"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/letv_recorder_open" />
+
+    <ImageView
+        android:id="@+id/imgV_flashlight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="13dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:layout_toRightOf="@id/imgV_open"
+        android:src="@drawable/letv_recorder_flash_light_close" />
+
+    <ImageView
+        android:id="@+id/imgV_voice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingLeft="14dp"
+        android:paddingRight="13dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:layout_toRightOf="@id/imgV_flashlight"
+        android:src="@drawable/letv_recorder_voise_open" />
+
+    <ImageView
+        android:id="@+id/imgV_postposition_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingLeft="14dp"
+        android:paddingRight="13dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:layout_toRightOf="@id/imgV_voice"
+        android:src="@drawable/letv_recorder_postposition_camera" />
+
+    <ImageView
+        android:id="@+id/imgV_postposition_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingLeft="14dp"
+        android:paddingRight="13dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:layout_toRightOf="@id/imgV_postposition_camera"
+        android:src="@drawable/letv_recorder_postposition_filter" />
+   <ImageView
+       android:id="@+id/imgV_mirror"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerInParent="true"
+       android:paddingLeft="14dp"
+       android:paddingRight="13dp"
+       android:paddingBottom="10dp"
+       android:paddingTop="10dp"
+       android:layout_toRightOf="@id/imgV_postposition_filter"
+       android:src="@drawable/letv_recorder_mirror_open" />
+
+</RelativeLayout>

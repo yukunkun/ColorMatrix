@@ -51,12 +51,8 @@ public class SetAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (position==viewTyp1){
             convertView= LayoutInflater.from(context).inflate(R.layout.setting_1,null);
-        }else /*if((position)==viewTyp2)*/{
+        }else{
             convertView= LayoutInflater.from(context).inflate(R.layout.setting_2,null);
-            if(position==8){
-                ((ImageView)convertView.findViewById(R.id.setting_image)).setVisibility(View.GONE);
-                ((TextView)convertView.findViewById(R.id.textview_banben)).setText(getVersion());
-            }
             ((TextView)convertView.findViewById(R.id.setting_con)).setText(arrayList.get(position-1));
             if(position==1||position==2||position==3){
                 ((TextView)convertView.findViewById(R.id.setting_con)).setTextColor(context.getResources().getColor(R.color.color_44fc2c));
@@ -75,22 +71,4 @@ public class SetAdapter extends BaseAdapter {
             return viewTyp2;
         }
     }
-    private String getVersion() {
-        // 获取packagemanager的实例
-        PackageManager packageManager = context.getPackageManager();
-        // getPackageName()是你当前类的包名，0代表是获取版本信息
-        PackageInfo packInfo = null;
-        try {
-            packInfo = packageManager.getPackageInfo(context.getPackageName(),0);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        String version = packInfo.versionName;
-        return version;
-    }
-
-//    @Override
-//    public int getViewTypeCount() {
-//        return 2;
-//    }
 }

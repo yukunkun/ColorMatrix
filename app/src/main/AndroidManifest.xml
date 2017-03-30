@@ -46,11 +46,12 @@
     //live
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
         android:name=".MyApp"
@@ -116,7 +117,8 @@
         <activity android:name=".leshi_module.LeShiListActivity" />
         <activity android:name=".leshilive_module.LeShiLiveActivity" />
         <activity android:name=".leshilive_module.LiveListActivity" />
-        <activity android:name=".leshilive_module.LiveActivity"></activity>
+        <activity android:name=".leshilive_module.LiveActivity" />
+        <activity android:name=".setting_module.AboutUsActivity"></activity>
     </application>
 
 </manifest>

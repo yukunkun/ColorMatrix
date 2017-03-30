@@ -1,0 +1,14 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="activity_main_title_hight">33dp</dimen>
+    <dimen name="activity_main_title_top">100dp</dimen>
+    <dimen name="activity_main_title_bottom">57dp</dimen>
+    <dimen name="activity_main_title_lift">29dp</dimen>
+    <dimen name="activity_main_title_text">13dp</dimen>
+    <dimen name="activity_main_submit_lift">46dp</dimen>
+    <dimen name="activity_main_submit_width">267dp</dimen>
+</resources>
