@@ -1,6 +1,9 @@
 package com.matrix.yukun.matrix.bean;
 
 import com.matrix.yukun.matrix.MyApp;
+import com.matrix.yukun.matrix.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by cretin on 15/12/30.
@@ -26,10 +29,30 @@ public class AppConstants {
     public static final String ver="2.0";
     public static final String Secret_Key="ca1d537e27d5c7433741222b52133246";
     public static final String UserId="894559";
+    public static ArrayList<Integer> integers=new ArrayList<>();
 
     public static String getCurrentTime(){
         long l = System.currentTimeMillis();
         return l+"";
     }
-
+    //礼物的集合
+    public static ArrayList<Integer> getGift(){
+        integers.add(R.mipmap.gift_1);
+        integers.add(R.mipmap.gift_2);
+        integers.add(R.mipmap.gift_3);
+        integers.add(R.mipmap.gift_4);
+        integers.add(R.mipmap.gift_5);
+        integers.add(R.mipmap.gift_6);
+        integers.add(R.mipmap.gift_7);
+        integers.add(R.mipmap.gift_8);
+        integers.add(R.mipmap.gift_9);
+        integers.add(R.mipmap.gift_10);
+        integers.add(R.mipmap.gift_11);
+        integers.add(R.mipmap.chat_gif_666);
+        integers.add(R.mipmap.chat_gif_2333);
+        integers.add(R.mipmap.chat_gif_no);
+        integers.add(R.mipmap.chat_gif_ruanmei);
+        integers.add(R.mipmap.chat_gif_wow);
+        return integers;
+    }
 }

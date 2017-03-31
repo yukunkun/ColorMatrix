@@ -1,11 +1,14 @@
 package com.matrix.yukun.matrix.leshilive_module;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,12 +26,22 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.lecloud.sdk.constant.PlayerEvent;
 import com.lecloud.sdk.videoview.IMediaDataVideoView;
 import com.lecloud.sdk.videoview.VideoViewListener;
 import com.lecloud.sdk.videoview.mobile.MobileLiveVideoView;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.bean.AppConstants;
+import com.matrix.yukun.matrix.leshilive_module.adapter.ViewAdapter;
+import com.matrix.yukun.matrix.leshilive_module.bean.OnEventNumber;
+import com.matrix.yukun.matrix.leshilive_module.giftview.GiftFrameLayout;
+import com.matrix.yukun.matrix.leshilive_module.giftview.GiftSendModel;
+import com.matrix.yukun.matrix.util.AnimUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -47,20 +60,29 @@ public class LeShiLiveActivity extends AppCompatActivity {
     EditText editChat;
     @BindView(R.id.gift_list)
     ImageView giftList;
+    @BindView(R.id.gift_big)
+    ImageView giftBig;
+    @BindView(R.id.gift_layout1)
+    GiftFrameLayout giftFrameLayout1;
+    @BindView(R.id.gift_layout2)
+    GiftFrameLayout giftFrameLayout2;
     private RelativeLayout videoContainer;
     private IMediaDataVideoView videoView;
 
     //mActionId,活动 id, 可调用OpenApi接口批量获取
     private String mActionId = "A2017032800000dh";
-    private List<String> stringList=new ArrayList<>();
-    //mUseHls = true,表示使用 hls协议播放;mUseHls = false,表示使用 rtmp协议播放;
-    //默认使用 rtmp协议播放
-    private boolean mUseHls = false;
+    private List<String> stringList = new ArrayList<>();
+    //mUseHls = true,表示使用 ;mUseHls = false,表示使用 rtmp协议播放;
 
     private static final String playPath = "http://cache.utovr.com/201601131107187320.mp4";
-    private static final String LivePath="rtmp://19113.mpull.live.lecloud.com/live/mylive";
+    private static final String LivePath = "rtmp://19113.mpull.live.lecloud.com/live/mylive";
     private RecAcatAdapter adapter;
     private PopupWindow popupWindow;
+    private ArrayList<Integer> giftsList;
+    private List<GiftSendModel> giftSendModelList = new ArrayList<GiftSendModel>();
+    private String[] strings;
+    private ViewAdapter adapter1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +92,11 @@ public class LeShiLiveActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_le_shi_live);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         mActionId = getIntent().getStringExtra("activity_id");
-        String ActivityName = getIntent().getStringExtra("activity_name");
         init();
+        giftsList = AppConstants.getGift();
+        strings = getApplicationContext().getResources().getStringArray(R.array.gift);
         setInfo();
         setListener();
     }
@@ -84,27 +108,29 @@ public class LeShiLiveActivity extends AppCompatActivity {
                 new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                         RelativeLayout.LayoutParams.MATCH_PARENT);
         videoContainer.addView((View) videoView, params);
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new RecAcatAdapter(this,stringList);
+        adapter = new RecAcatAdapter(this, stringList);
         recyclerView.setAdapter(adapter);
     }
 
     private void setInfo() {
         videoView.setDataSource(playPath);
     }
-    boolean tag=false;
+
+    boolean tag = false;
+
     @OnClick({R.id.text_change, R.id.gift_list})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.text_change:
                 videoView.resetPlayer();
-                if(!tag){
-                    tag=true;
+                if (!tag) {
+                    tag = true;
                     videoView.setDataSource(LivePath);
                     textChange.setText("切换源视频");
-                }else {
-                    tag=false;
+                } else {
+                    tag = false;
                     videoView.setDataSource(playPath);
                     textChange.setText("切换直播间");
                 }
@@ -116,48 +142,81 @@ public class LeShiLiveActivity extends AppCompatActivity {
     }
 
     private void showGift() {
-        View view=LayoutInflater.from(this).inflate(R.layout.popu_layout,null);
-        ImageView imageViewGift_1= (ImageView) view.findViewById(R.id.gift_1);
-        ImageView imageViewGift_2= (ImageView) view.findViewById(R.id.gift_2);
-        ImageView imageViewGift_3= (ImageView) view.findViewById(R.id.gift_3);
-        ImageView imageViewGift_4= (ImageView) view.findViewById(R.id.gift_4);
-        imageViewGift_1.setOnClickListener(new GiftListener());
-        imageViewGift_2.setOnClickListener(new GiftListener());
-        imageViewGift_3.setOnClickListener(new GiftListener());
-        imageViewGift_4.setOnClickListener(new GiftListener());
-        popupWindow = new PopupWindow(view,WindowManager.LayoutParams.MATCH_PARENT,180);
+        View view = LayoutInflater.from(this).inflate(R.layout.popu_layout, null);
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        adapter1 = new ViewAdapter(getApplicationContext());
+        viewPager.setAdapter(adapter1);
+        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, dip2px(this, 160.0f));
         popupWindow.setAnimationStyle(R.style.popwindow_style);
         popupWindow.setOutsideTouchable(true);
         popupWindow.setFocusable(true);
-        ColorDrawable dw = new ColorDrawable(0xb0000000);
+        ColorDrawable dw = new ColorDrawable(0x9000000);
         popupWindow.setBackgroundDrawable(dw);
-        LinearLayout layout= (LinearLayout) findViewById(R.id.lin_bottom);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.lin_bottom);
         int[] location = new int[2];
         layout.getLocationOnScreen(location);
-
-        popupWindow.showAtLocation(layout,Gravity.NO_GRAVITY, location[0], location[1]-popupWindow.getHeight());
-//        popupWindow.showAtLocation(LeShiLiveActivity.this.findViewById(R.id.parent), Gravity.BOTTOM,0,0);
+        popupWindow.showAtLocation(layout, Gravity.NO_GRAVITY, location[0], location[1] - popupWindow.getHeight());
     }
-    //礼物的点击时事件
-    class GiftListener implements View.OnClickListener {
 
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
-                case R.id.gift_1:
-                    popupWindow.dismiss();
-                    break;
-                case R.id.gift_2:
-                    popupWindow.dismiss();
-                    break;
-                case R.id.gift_3:
-                    popupWindow.dismiss();
-                    break;
-                case R.id.gift_4:
-                    popupWindow.dismiss();
-                    break;
-            }
+    @Subscribe
+    public void getnumGift(OnEventNumber eventNumber) {
+        int position = eventNumber.position;
+        int number = eventNumber.number;
+
+        if(position<11){
+            //左边的动画
+            startAnim(number,position);
+            adapter1.setnum(1);//让num变成1个,回到初状态
+        }else {
+            //大动画
+            Glide.with(this).load(giftsList.get(position)).into(giftBig);
+            AnimUtils.cancelAnim();
+            AnimUtils.giftBigAnim(giftBig, this);
+            adapter1.setnum(1);//让num变成1个,回到初状态
         }
+    }
+    //礼物的动画
+    public void startAnim(int number,int pos) {
+        GiftSendModel giftSendModel = new GiftSendModel();
+        giftSendModel.setGiftCount(number-1);
+        giftSendModel.setImage_id(giftsList.get(pos));
+        giftSendModel.setSig("送你一个"+strings[pos]);
+        starGiftAnimation(giftSendModel);
+    }
+
+    private void starGiftAnimation(GiftSendModel model) {
+        if (!giftFrameLayout1.isShowing()) {
+            //显示view
+            if(giftFrameLayout1.getVisibility()==View.GONE){
+                giftFrameLayout1.setVisibility(View.VISIBLE);
+            }
+            sendGiftAnimation(giftFrameLayout1,model);
+        }else if(!giftFrameLayout2.isShowing()){
+            //显示view
+            if(giftFrameLayout2.getVisibility()==View.GONE){
+                giftFrameLayout2.setVisibility(View.VISIBLE);
+            }
+            sendGiftAnimation(giftFrameLayout2,model);
+        }else{
+            giftSendModelList.add(model);
+        }
+    }
+
+    private void sendGiftAnimation(final GiftFrameLayout view, GiftSendModel model){
+        view.setModel(model);
+        AnimatorSet animatorSet = view.startAnimation(model.getGiftCount());
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                synchronized (giftSendModelList) {
+                    if (giftSendModelList.size() > 0) {
+                        view.startAnimation(giftSendModelList.get(giftSendModelList.size() - 1).getGiftCount());
+                        giftSendModelList.remove(giftSendModelList.size() - 1);
+                    }
+                }
+            }
+        });
     }
 
     private void setListener() {
@@ -177,25 +236,24 @@ public class LeShiLiveActivity extends AppCompatActivity {
         editChat.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId== EditorInfo.IME_ACTION_SEND){
-                    if(editChat.getText().toString()!=null&&editChat.getText().toString().length()>=1){
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    if (editChat.getText().toString() != null && editChat.getText().toString().length() >= 1) {
                         stringList.add(editChat.getText().toString());
                         adapter.notifyDataSetChanged();
                         recyclerView.smoothScrollToPosition(stringList.size());
                         editChat.setText("");
-                    }else {
+                    } else {
                         MyApp.showToast("消息不能为空");
                     }
-                    closeKeybord(editChat,LeShiLiveActivity.this);
+                    closeKeybord(editChat, LeShiLiveActivity.this);
                     return true;
                 }
                 return false;
             }
         });
-
     }
-    public static void closeKeybord(EditText mEditText, Context mContext){
 
+    public static void closeKeybord(EditText mEditText, Context mContext) {
         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
     }
@@ -236,6 +294,8 @@ public class LeShiLiveActivity extends AppCompatActivity {
         if (videoView != null) {
             videoView.onDestroy();
         }
+        EventBus.getDefault().unregister(this);
+
     }
 
     @Override
@@ -248,5 +308,10 @@ public class LeShiLiveActivity extends AppCompatActivity {
 
     public void PlayBack(View view) {
         finish();
+    }
+
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 }

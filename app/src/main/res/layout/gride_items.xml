@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_30">
+        <TextView
+            android:id="@+id/textview_sure"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:padding="4dp"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/color_whit"
+            android:text="确 定"
+            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <com.matrix.yukun.matrix.selfview.NumberView
+            android:id="@+id/numview"
+            android:layout_marginLeft="4dp"
+            android:layout_toLeftOf="@id/textview_sure"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimens_30"/>
+    </RelativeLayout>
+    <GridView
+        android:layout_marginTop="5dp"
+        android:background="@color/color_back_all"
+        android:id="@+id/grideviews"
+        android:numColumns="4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

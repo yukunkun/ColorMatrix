@@ -20,5 +20,23 @@
         <item>版本升级</item>
         <item>版本号</item>
     </array>
+    <array name="gift">
+        <item>糖果</item>
+        <item>拉勾</item>
+        <item>袜子</item>
+        <item>帽子</item>
+        <item>甜甜圈</item>
+        <item>礼物</item>
+        <item>钻石</item>
+        <item>灯笼</item>
+        <item>金币</item>
+        <item>红包</item>
+        <item>黄金</item>
+        <item>六六六</item>
+        <item>二三三</item>
+        <item>NO</item>
+        <item>软妹子</item>
+        <item>wow</item>
+    </array>
 
 </resources>

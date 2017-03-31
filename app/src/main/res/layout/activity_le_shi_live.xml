@@ -39,23 +39,33 @@
             android:layout_alignParentRight="true"
             android:layout_height="match_parent" />
     </RelativeLayout>
+
+    <ImageView
+        android:layout_margin="30dp"
+        android:id="@+id/gift_big"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <LinearLayout
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
         android:layout_marginBottom="@dimen/dimens_50"
         android:layout_width="280dp"
-        android:layout_height="380dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp" />
+        android:layout_height="350dp">
+        <com.matrix.yukun.matrix.leshilive_module.giftview.GiftFrameLayout
+            android:visibility="gone"
+            android:id="@+id/gift_layout1"
+            android:layout_width="250dp"
+            android:layout_height="55dp" />
+        <com.matrix.yukun.matrix.leshilive_module.giftview.GiftFrameLayout
+            android:visibility="gone"
+            android:id="@+id/gift_layout2"
+            android:layout_width="250dp"
+            android:layout_height="55dp" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:paddingLeft="10dp"
             android:layout_width="match_parent"
-            android:layout_height="280dp"/>
+            android:layout_height="250dp"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/lin_bottom"
@@ -85,4 +95,5 @@
             android:layout_width="0dp"
             android:layout_height="match_parent" />
     </LinearLayout>
+
 </RelativeLayout>
