@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.haozhang.lib.SlantedTextView;
 import com.matrix.yukun.matrix.R;
 
 import java.util.ArrayList;
@@ -54,6 +55,8 @@ public class GrideAdapter extends BaseAdapter {
         ImageView imageViewGift= (ImageView) inflate.findViewById(R.id.gift);
         LinearLayout linCon= (LinearLayout) inflate.findViewById(R.id.gift_con);
         TextView textView=(TextView)inflate.findViewById(R.id.gift_name);
+        SlantedTextView textViewTag=(SlantedTextView)inflate.findViewById(R.id.textviewtag);
+
         Glide.with(context).load(integers.get(position)).into(imageViewGift);
         textView.setText(strings[position]);
         if(position==secPos){
@@ -62,6 +65,16 @@ public class GrideAdapter extends BaseAdapter {
         }else {
             linCon.setBackground(context.getResources().getDrawable(R.drawable.giftbackclose));
             textView.setTextColor(context.getResources().getColor(R.color.color_whit));
+        }
+        if(position<11){
+            textViewTag.setText("nor");
+            textViewTag.setSlantedBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+        }else if(position<16){
+            textViewTag.setText("vip");
+            textViewTag.setSlantedBackgroundColor(context.getResources().getColor(R.color.color_0064f9));
+        }else if(position<20){
+            textViewTag.setText("svip");
+            textViewTag.setSlantedBackgroundColor(context.getResources().getColor(R.color.color_d400f9));
         }
         return inflate;
     }

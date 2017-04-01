@@ -4,12 +4,12 @@
         "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/bundles/debug/res/drawable/filter_thumb_calm.png"
     },
     {
-        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/res/merged/androidTest/debug/drawable/filter_thumb_romance.png",
-        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/bundles/debug/res/drawable/filter_thumb_romance.png"
-    },
-    {
         "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/res/merged/androidTest/debug/drawable/filter_thumb_nostalgia.png",
         "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/bundles/debug/res/drawable/filter_thumb_nostalgia.png"
+    },
+    {
+        "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/res/merged/androidTest/debug/drawable/filter_thumb_romance.png",
+        "source": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/bundles/debug/res/drawable/filter_thumb_romance.png"
     },
     {
         "merged": "/home/yukun/AndroidStudioProjects/Matrix/LeRecorderSkin/build/intermediates/res/merged/androidTest/debug/drawable/filter_thumb_original.jpg",

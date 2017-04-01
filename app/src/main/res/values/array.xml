@@ -23,8 +23,8 @@
     <array name="gift">
         <item>糖果</item>
         <item>拉勾</item>
-        <item>袜子</item>
-        <item>帽子</item>
+        <item>皇冠</item>
+        <item>小花</item>
         <item>甜甜圈</item>
         <item>礼物</item>
         <item>钻石</item>
@@ -37,6 +37,10 @@
         <item>NO</item>
         <item>软妹子</item>
         <item>wow</item>
+        <item>帽子</item>
+        <item>铃铛</item>
+        <item>袜子</item>
+        <item>鱼儿</item>
     </array>
 
 </resources>

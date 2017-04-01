@@ -8,10 +8,13 @@ import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -38,7 +41,9 @@ import com.matrix.yukun.matrix.leshilive_module.adapter.ViewAdapter;
 import com.matrix.yukun.matrix.leshilive_module.bean.OnEventNumber;
 import com.matrix.yukun.matrix.leshilive_module.giftview.GiftFrameLayout;
 import com.matrix.yukun.matrix.leshilive_module.giftview.GiftSendModel;
+import com.matrix.yukun.matrix.selfview.GiftView;
 import com.matrix.yukun.matrix.util.AnimUtils;
+import com.matrix.yukun.matrix.util.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -66,8 +71,11 @@ public class LeShiLiveActivity extends AppCompatActivity {
     GiftFrameLayout giftFrameLayout1;
     @BindView(R.id.gift_layout2)
     GiftFrameLayout giftFrameLayout2;
+    @BindView(R.id.gift)
+    GiftView giftView;
     private RelativeLayout videoContainer;
     private IMediaDataVideoView videoView;
+    private int GIFTCOUNT = 1;
 
     //mActionId,活动 id, 可调用OpenApi接口批量获取
     private String mActionId = "A2017032800000dh";
@@ -75,14 +83,33 @@ public class LeShiLiveActivity extends AppCompatActivity {
     //mUseHls = true,表示使用 ;mUseHls = false,表示使用 rtmp协议播放;
 
     private static final String playPath = "http://cache.utovr.com/201601131107187320.mp4";
+//    private static final String playPath = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
     private static final String LivePath = "rtmp://19113.mpull.live.lecloud.com/live/mylive";
-    private RecAcatAdapter adapter;
+    private RecChatAdapter adapter;
     private PopupWindow popupWindow;
     private ArrayList<Integer> giftsList;
     private List<GiftSendModel> giftSendModelList = new ArrayList<GiftSendModel>();
     private String[] strings;
     private ViewAdapter adapter1;
+    private int giftViewNum=7*1000;
+    private int giftViewCount=1;
 
+    //使用handler进行消息的处理，不断进行重绘
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+                giftViewCount=giftViewCount+100;
+                //重绘
+                giftView.invalidate();
+                mHandler.sendEmptyMessageDelayed(1, 100);
+                //控制flow动画消失
+                if(giftViewCount>giftViewNum){
+                    giftView.setVisibility(View.GONE);
+                }
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +126,12 @@ public class LeShiLiveActivity extends AppCompatActivity {
         strings = getApplicationContext().getResources().getStringArray(R.array.gift);
         setInfo();
         setListener();
+        //礼物的屏幕
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        giftView.SetView(dm.heightPixels, dm.widthPixels);
+        giftView.setVisibility(View.GONE);
+        update();
     }
 
     private void init() {
@@ -110,7 +143,7 @@ public class LeShiLiveActivity extends AppCompatActivity {
         videoContainer.addView((View) videoView, params);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new RecAcatAdapter(this, stringList);
+        adapter = new RecChatAdapter(this, stringList);
         recyclerView.setAdapter(adapter);
     }
 
@@ -146,7 +179,7 @@ public class LeShiLiveActivity extends AppCompatActivity {
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         adapter1 = new ViewAdapter(getApplicationContext());
         viewPager.setAdapter(adapter1);
-        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, dip2px(this, 160.0f));
+        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, dip2px(this, 180.0f));
         popupWindow.setAnimationStyle(R.style.popwindow_style);
         popupWindow.setOutsideTouchable(true);
         popupWindow.setFocusable(true);
@@ -162,17 +195,38 @@ public class LeShiLiveActivity extends AppCompatActivity {
     public void getnumGift(OnEventNumber eventNumber) {
         int position = eventNumber.position;
         int number = eventNumber.number;
-
+        GIFTCOUNT=number;
         if(position<11){
             //左边的动画
             startAnim(number,position);
             adapter1.setnum(1);//让num变成1个,回到初状态
-        }else {
+        }else if(position<16){
             //大动画
             Glide.with(this).load(giftsList.get(position)).into(giftBig);
             AnimUtils.cancelAnim();
             AnimUtils.giftBigAnim(giftBig, this);
             adapter1.setnum(1);//让num变成1个,回到初状态
+        }else if(position<20){
+            mHandler.removeMessages(1);
+            mHandler.sendEmptyMessageDelayed(1, 100);
+            giftView.produceGiftRandom(GIFTCOUNT);
+            giftViewCount=1;
+            if(position==16){
+                giftView.getDrawables(AppConstants.getFlowGiftMap());
+            }
+            if(position==17){
+                giftView.getDrawables(AppConstants.getFlowGiftRing());
+            }
+            if(position==18){
+                giftView.getDrawables(AppConstants.getFlowGiftSocks());
+            }
+            if(position==19){
+                giftView.getDrawables(AppConstants.getFlowGiftFish());
+            }
+            adapter1.setnum(1);//让num变成1个,回到初状态
+            if(giftView.getVisibility()==View.GONE){
+                giftView.setVisibility(View.VISIBLE);
+            }
         }
     }
     //礼物的动画
@@ -218,6 +272,13 @@ public class LeShiLiveActivity extends AppCompatActivity {
             }
         });
     }
+
+    //大礼物的动画
+    public void update() {
+        //发送延迟消息
+//        mHandler.sendEmptyMessageDelayed(1, 100);
+    }
+
 
     private void setListener() {
         VideoViewListener videoViewListener = new VideoViewListener() {
@@ -295,6 +356,8 @@ public class LeShiLiveActivity extends AppCompatActivity {
             videoView.onDestroy();
         }
         EventBus.getDefault().unregister(this);
+        mHandler.removeMessages(1);
+        mHandler=null;
 
     }
 

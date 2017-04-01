@@ -78,7 +78,7 @@ public class NumberView extends LinearLayout implements View.OnClickListener {
                 }
             break;
             case R.id.close:
-                if(num>=1){
+                if(num>1){
                     num--;
                     textViewContent.setText(num+"");
                 }

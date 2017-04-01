@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/gift_con"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/gift"
-        android:paddingTop="1dp"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_40" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/gift"
+            android:paddingTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_40" />
+        <com.haozhang.lib.SlantedTextView
+            android:id="@+id/textviewtag"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/dimens_25"
+            android:layout_height="@dimen/dimens_25"
+            android:gravity="center"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="1dp"
+            app:slantedBackgroundColor="@color/color_44fc2c"
+            app:slantedLength="18dp"
+            app:slantedMode="right"
+            app:slantedTextColor="@color/color_whit"
+            app:slantedTextSize="10sp" />
+    </RelativeLayout>
     <TextView
         android:id="@+id/gift_name"
         android:textSize="14sp"
-        android:text="123"
+        android:text=""
         android:layout_marginTop="0dp"
-        android:textColor="@color/color_whit"
+        android:textColor="@drawable/btnsend"
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

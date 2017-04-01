@@ -45,6 +45,11 @@
         android:id="@+id/gift_big"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <com.matrix.yukun.matrix.selfview.GiftView
+        android:id="@+id/gift"
+        android:layout_marginBottom="@dimen/dimens_45"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <LinearLayout
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
@@ -64,6 +69,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:paddingLeft="10dp"
+            android:paddingBottom="3dp"
             android:layout_width="match_parent"
             android:layout_height="250dp"/>
     </LinearLayout>
@@ -77,7 +83,8 @@
             android:id="@+id/edit_chat"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="2dp"
+            android:paddingRight="2dp"
             android:paddingLeft="5dp"
             android:hint="说点什么吧 !"
             android:singleLine="true"

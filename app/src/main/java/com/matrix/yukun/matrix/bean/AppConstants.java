@@ -1,9 +1,9 @@
 package com.matrix.yukun.matrix.bean;
 
-import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by cretin on 15/12/30.
@@ -30,6 +30,7 @@ public class AppConstants {
     public static final String Secret_Key="ca1d537e27d5c7433741222b52133246";
     public static final String UserId="894559";
     public static ArrayList<Integer> integers=new ArrayList<>();
+    public static List<Integer> giftFlows=new ArrayList<>();
 
     public static String getCurrentTime(){
         long l = System.currentTimeMillis();
@@ -53,6 +54,42 @@ public class AppConstants {
         integers.add(R.mipmap.chat_gif_no);
         integers.add(R.mipmap.chat_gif_ruanmei);
         integers.add(R.mipmap.chat_gif_wow);
+        integers.add(R.drawable.live_icon_christmas_hat2);
+        integers.add(R.drawable.live_icon_christmas_ring1);
+        integers.add(R.drawable.live_icon_christmas_socks4);
+        integers.add(R.drawable.live_icon_spring_fish1);
         return integers;
+    }
+    //礼物的集合
+    public static List<Integer> getFlowGiftMap(){
+        giftFlows.clear();
+        giftFlows.add(R.drawable.live_icon_christmas_hat1);
+        giftFlows.add(R.drawable.live_icon_christmas_hat2);
+        giftFlows.add(R.drawable.live_icon_christmas_hat3);
+        return giftFlows;
+    }
+    //礼物的集合
+    public static List<Integer> getFlowGiftRing(){
+        giftFlows.clear();
+        giftFlows.add(R.drawable.live_icon_christmas_ring1);
+        giftFlows.add(R.drawable.live_icon_christmas_ring2);
+        giftFlows.add(R.drawable.live_icon_christmas_ring3);
+        return giftFlows;
+    }
+    //礼物的集合
+    public static List<Integer> getFlowGiftSocks(){
+        giftFlows.clear();
+        giftFlows.add(R.drawable.live_icon_christmas_socks1);
+        giftFlows.add(R.drawable.live_icon_christmas_socks2);
+        giftFlows.add(R.drawable.live_icon_christmas_socks3);
+        giftFlows.add(R.drawable.live_icon_christmas_socks4);
+        return giftFlows;
+    }
+    //礼物的集合
+    public static List<Integer> getFlowGiftFish(){
+        giftFlows.clear();
+        giftFlows.add(R.drawable.live_icon_spring_fish1);
+        giftFlows.add(R.drawable.live_icon_spring_fish2);
+        return giftFlows;
     }
 }
