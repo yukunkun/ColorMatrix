@@ -36,7 +36,6 @@ public class NumberView extends LinearLayout implements View.OnClickListener {
 
     public NumberView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
         initView(context,attrs,defStyleAttr);
     }
 

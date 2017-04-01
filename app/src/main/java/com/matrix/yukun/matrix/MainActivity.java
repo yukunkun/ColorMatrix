@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -68,6 +69,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
@@ -473,18 +475,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.imagecrop:
 
-                Intent intent1 = new Intent("com.android.camera.action.CROP");
-                intent1.setDataAndType(Uri.fromFile(new File(path)), "image/*");
-                intent1.putExtra("crop", "true");
-                newName = System.currentTimeMillis();
-                destDirs = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+ AppConstants.PATH+"/"+newName);
-                intent1.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(destDirs));//
-                intent1.putExtra("outputFormat", Bitmap.CompressFormat.JPEG);
-                intent1.putExtra("scale", true);
-                intent1.putExtra("scaleUpIfNeeded", true);
-                intent1.putExtra("return-data", false);
-                startActivityForResult(intent1, 1);
+//                Intent intent1 = new Intent("com.android.camera.action.CROP");
+//                intent1.setDataAndType(Uri.fromFile(new File(path)), "image/*");
+//                intent1.putExtra("crop", "true");
+//                newName = System.currentTimeMillis();
+//                destDirs = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+ AppConstants.PATH+"/"+newName);
+//                intent1.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(destDirs));//
+//                intent1.putExtra("outputFormat", Bitmap.CompressFormat.JPEG);
+//                intent1.putExtra("scale", true);
+//                intent1.putExtra("scaleUpIfNeeded", true);
+//                intent1.putExtra("return-data", true);
+//                startActivityForResult(intent1, 1);
 
+                Intent intent2 = new Intent("com.android.camera.action.CROP");
+
+//                newName =System.currentTimeMillis();
+//                destDirs = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+ AppConstants.PATH+"/"+newName);
+                intent2.setDataAndType(Uri.fromFile(new File(path)), "image/*");
+                intent2.putExtra("crop", "true");
+                intent2.putExtra("scale", true);
+                intent2.putExtra("return-data", false);//默认不输出.防止图片失真
+                intent2.putExtra("noFaceDetection", true);
+                startActivityForResult(intent2, 1);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 break;
         }
@@ -494,16 +506,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1&&data!=null){
-            Bundle extras = data.getExtras();
-            Bitmap photo=null;
             photoName=System.currentTimeMillis() + ".jpg";
-            if(extras!=null){
-                photo = (Bitmap) extras.get("data");
-            }
-
-            if (photo!=null&&!photo.equals("null")) {
-                getCrop(photo);
-            }else if(data.getData()!=null){
+            if(data.getData()!=null){
                 Uri uri = data.getData();
                 if((data.getData()+"").startsWith("file")){
                     Bitmap bitmapCopy=BitmapFactory.decodeFile((data.getData()+"").substring(8,(data.getData()+"").length()),options).copy(Bitmap.Config.ARGB_4444,true);
@@ -523,11 +527,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         cursor.close();
                     }
                     Bitmap bitmapCopy=BitmapFactory.decodeFile(imagePath,options).copy(Bitmap.Config.ARGB_4444,true);
-                    getCrop(bitmapCopy);
+                    getCrop(big(bitmapCopy,2,2));
                     FileUtil.deleteFile(imagePath);
+                }
+            }else if(data.getExtras()!=null){
+
+                Bitmap photo = (Bitmap) (data.getExtras().get("data"));
+                if(photo!=null){
+                    //图片失真太严重
+                    getCrop(big(photo,2,2));
+                }else {
+                    MyApp.showToast("裁剪失败!");
                 }
             }
         }
+    }
+
+    public static Bitmap big(Bitmap b,float x,float y)
+    {
+        int w=b.getWidth();
+        int h=b.getHeight();
+        float sx=(float)x/w;//要强制转换，不转换我的在这总是死掉。
+        float sy=(float)y/h;
+        Matrix matrix = new Matrix();
+        matrix.postScale(x, y); // 长和宽放大缩小的比例
+        Bitmap resizeBmp = Bitmap.createBitmap(b, 0, 0, w,
+                h, matrix, true);
+        return resizeBmp;
     }
 
     //打开相机
