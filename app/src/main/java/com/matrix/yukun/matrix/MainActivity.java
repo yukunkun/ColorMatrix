@@ -474,23 +474,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 textViewTag.setVisibility(View.GONE);
                 break;
             case R.id.imagecrop:
-
-//                Intent intent1 = new Intent("com.android.camera.action.CROP");
-//                intent1.setDataAndType(Uri.fromFile(new File(path)), "image/*");
-//                intent1.putExtra("crop", "true");
-//                newName = System.currentTimeMillis();
-//                destDirs = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+ AppConstants.PATH+"/"+newName);
-//                intent1.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(destDirs));//
-//                intent1.putExtra("outputFormat", Bitmap.CompressFormat.JPEG);
-//                intent1.putExtra("scale", true);
-//                intent1.putExtra("scaleUpIfNeeded", true);
-//                intent1.putExtra("return-data", true);
-//                startActivityForResult(intent1, 1);
-
                 Intent intent2 = new Intent("com.android.camera.action.CROP");
-
-//                newName =System.currentTimeMillis();
-//                destDirs = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+ AppConstants.PATH+"/"+newName);
                 intent2.setDataAndType(Uri.fromFile(new File(path)), "image/*");
                 intent2.putExtra("crop", "true");
                 intent2.putExtra("scale", true);
@@ -527,7 +511,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         cursor.close();
                     }
                     Bitmap bitmapCopy=BitmapFactory.decodeFile(imagePath,options).copy(Bitmap.Config.ARGB_4444,true);
-                    getCrop(big(bitmapCopy,2,2));
+                    getCrop(BitmapUtil.bigBitmap(bitmapCopy,2,2));
                     FileUtil.deleteFile(imagePath);
                 }
             }else if(data.getExtras()!=null){
@@ -535,7 +519,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Bitmap photo = (Bitmap) (data.getExtras().get("data"));
                 if(photo!=null){
                     //图片失真太严重
-                    getCrop(big(photo,2,2));
+                    getCrop(BitmapUtil.bigBitmap(photo,2,2));
                 }else {
                     MyApp.showToast("裁剪失败!");
                 }
@@ -543,18 +527,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    public static Bitmap big(Bitmap b,float x,float y)
-    {
-        int w=b.getWidth();
-        int h=b.getHeight();
-        float sx=(float)x/w;//要强制转换，不转换我的在这总是死掉。
-        float sy=(float)y/h;
-        Matrix matrix = new Matrix();
-        matrix.postScale(x, y); // 长和宽放大缩小的比例
-        Bitmap resizeBmp = Bitmap.createBitmap(b, 0, 0, w,
-                h, matrix, true);
-        return resizeBmp;
-    }
+
 
     //打开相机
     private void startCamera() {

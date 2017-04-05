@@ -88,7 +88,7 @@
             android:paddingLeft="5dp"
             android:hint="说点什么吧 !"
             android:singleLine="true"
-            android:textSize="13sp"
+            android:textSize="15sp"
             android:imeOptions="actionSend"
             android:background="@drawable/chat_edit"
             android:layout_weight="10"

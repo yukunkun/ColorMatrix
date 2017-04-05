@@ -15,7 +15,7 @@
         android:text=""
         android:gravity="center"
         android:textColor="@color/color_44fc2c"
-        android:layout_width="@dimen/dimens_40"
+        android:layout_width="@dimen/dimens_35"
         android:layout_height="30dp" />
     <ImageView
         android:id="@+id/adds"
