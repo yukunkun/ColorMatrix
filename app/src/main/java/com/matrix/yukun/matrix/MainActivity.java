@@ -722,18 +722,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void openMenu() {
-        AnimUtils.doAnimateOpen(textViewSetting, 0, 4, radias);
-        AnimUtils.doAnimateOpen(textViewWea, 1, 4, radias);
-        AnimUtils.doAnimateOpen(textViewMov, 2, 4, radias);
-        AnimUtils.doAnimateOpen(textViewMovRec, 3, 4, radias);
+        AnimUtils.doAnimateOpen(textViewSetting, 0, 4, radias,500);
+        AnimUtils.doAnimateOpen(textViewWea, 1, 4, radias,420);
+        AnimUtils.doAnimateOpen(textViewMov, 2, 4, radias,340);
+        AnimUtils.doAnimateOpen(textViewMovRec, 3, 4, radias,260);
         AnimUtils.setSettingDown(this,imageViewBack);
     }
     private void closeMenu() {
         mIsMenuOpen = false;
-        AnimUtils.doAnimateClose(textViewSetting, 0, 4, radias);
-        AnimUtils.doAnimateClose(textViewWea, 1, 4, radias);
-        AnimUtils.doAnimateClose(textViewMov, 2, 4, radias);
-        AnimUtils.doAnimateClose(textViewMovRec, 3, 4, radias);
+        AnimUtils.doAnimateClose(textViewSetting, 0, 4, radias,400);
+        AnimUtils.doAnimateClose(textViewWea, 1, 4, radias,400);
+        AnimUtils.doAnimateClose(textViewMov, 2, 4, radias,400);
+        AnimUtils.doAnimateClose(textViewMovRec, 3, 4, radias,400);
         AnimUtils.setSettingUp(this,imageViewBack);
     }
 

@@ -18,7 +18,7 @@ public class AnimUtils {
     private static AnimatorSet set;
     private static AnimatorSet setback;
 
-    public static void doAnimateOpen(View view, int index, int total, int radius) {
+    public static void doAnimateOpen(View view, int index, int total, int radius,int time) {
         if (view.getVisibility() != View.VISIBLE) {
             view.setVisibility(View.VISIBLE);
         }
@@ -35,11 +35,11 @@ public class AnimUtils {
                 ObjectAnimator.ofFloat(view, "scaleY", 0f, 1f),
                 ObjectAnimator.ofFloat(view, "alpha", 0f, 1));
         //动画周期为500ms
-        set.setDuration(1 * 400).start();
+        set.setDuration(1 * time).start();
     }
 
     public static void doAnimateClose(final View view, int index, int total,
-                                      int radius) {
+                                      int radius,int time) {
         if (view.getVisibility() != View.VISIBLE) {
             view.setVisibility(View.VISIBLE);
         }
@@ -54,7 +54,7 @@ public class AnimUtils {
                 ObjectAnimator.ofFloat(view, "scaleX", 1f, 0.1f), //bug
                 ObjectAnimator.ofFloat(view, "scaleY", 1f, 0.1f),//0.1为了避免消失为0，会产生bug
                 ObjectAnimator.ofFloat(view, "alpha", 1f, 0f));
-        set.setDuration(1 * 400).start();
+        set.setDuration(1 * time).start();
     }
 
     public static void setSettingDown(Context context, View view){

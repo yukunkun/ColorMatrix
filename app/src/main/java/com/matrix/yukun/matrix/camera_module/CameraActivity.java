@@ -72,7 +72,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         String fileNames = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         mFilePath = mFilePath + "/" + fileNames + ".jpg";
         path1 = mFilePath;
-        fileName=fileName + ".jpg";
+        fileName=fileNames + ".jpg";
         File outFile = new File(mFilePath);
         Uri uri = Uri.fromFile(outFile);
         //拍照
