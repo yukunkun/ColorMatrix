@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_whit"
+    tools:context="com.matrix.yukun.matrix.main_module.LockActivity">
+    <RelativeLayout
+        android:id="@+id/title"
+        android:background="@color/color_252525"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_60">
+        <ImageView
+            android:padding="15dp"
+            android:onClick="LockBack"
+            android:transitionName="share"
+            android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
+            android:layout_width="@dimen/dimens_60"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/titile"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="@color/color_whit"
+            android:layout_centerInParent="true"
+            android:text="手势解锁"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/tv_forget"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:textColor="@color/color_57f733"
+            android:layout_alignParentRight="true"
+            android:text="忘记密码"
+            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_input"
+        android:layout_below="@+id/title"
+        android:text="请输入密码(最多3次)"
+        android:layout_marginTop="@dimen/dimens_40"
+        android:textSize="18sp"
+        android:textColor="@color/color_44fc2c"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.matrix.yukun.matrix.selfview.GestureLockViewGroup
+        android:layout_below="@+id/tv_input"
+        android:layout_marginLeft="@dimen/dimens_30"
+        android:layout_marginRight="@dimen/dimens_30"
+        android:layout_marginTop="@dimen/dimens_40"
+        android:id="@+id/id_gestureLockViewGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        zhy:count="3"
+        zhy:color_no_finger_inner_circle="#00ff05"
+        zhy:color_no_finger_outer_circle="#bd79ffce"
+        zhy:color_finger_up="#3656f4"
+        zhy:color_finger_on="#00f8fc"  />
+</RelativeLayout>

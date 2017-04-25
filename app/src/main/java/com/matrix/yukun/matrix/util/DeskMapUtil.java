@@ -8,7 +8,7 @@ import android.net.Uri;
 import android.os.Parcelable;
 
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.SplashActivity;
+import com.matrix.yukun.matrix.main_module.SplashActivity;
 
 /**
  * Created by Administrator on 2017/2/5.

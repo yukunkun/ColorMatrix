@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.matrix.yukun.matrix">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.matrix.yukun.matrix">
 
     <uses-sdk
         android:minSdkVersion="9"
-        android:targetSdkVersion="23" />
+        android:targetSdkVersion="23"/>
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COASE_UPDATES" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-    <uses-permission android:name="android.permission.READ_SETTINGS" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COASE_UPDATES"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+    <uses-permission android:name="android.permission.READ_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <!-- 保存资源到SD卡 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     // 极光推送
     // AppKey 0c7613d6df2ec04de1521110
     // Master Secret 5b24a25afcdff0d132af6b75
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     //云点播
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
     //live
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
     <application
         android:name=".MyApp"
@@ -63,62 +63,66 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:theme">
         <activity
-            android:name=".SplashActivity"
+            android:name=".main_module.SplashActivity"
             android:configChanges="keyboard|screenSize|orientation|layoutDirection"
             android:launchMode="singleInstance">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <meta-data
             android:name="IFLYTEK_APPKEY"
-            android:value="58833c92" />
+            android:value="58833c92"/>
         <meta-data
             android:name="IFLYTEK_CHANNEL"
-            android:value="应用宝" />
+            android:value="应用宝"/>
 
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
-            android:theme="@android:style/Theme.Translucent" />
-        <activity android:name=".image_module.activity.PhotoListActivity" />
-        <activity android:name=".image_module.activity.ListDetailActivity" />
-        <activity android:name=".BaseActivity" />
-        <activity android:name=".MainActivity" />
+            android:theme="@android:style/Theme.Translucent"/>
+        <activity android:name=".image_module.activity.PhotoListActivity"/>
+        <activity android:name=".image_module.activity.ListDetailActivity"/>
+        <activity android:name=".BaseActivity"/>
+        <activity android:name=".main_module.MainActivity"/>
         <activity
             android:name="com.qq.e.ads.ADActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"/>
 
         <service
             android:name="com.qq.e.comm.DownloadService"
-            android:exported="false" />
+            android:exported="false"/>
         //云点播
         <service
             android:name="com.letvcloud.cmf.MediaService"
-            android:process=":cmf" />
+            android:process=":cmf"/>
 
-        <activity android:name=".setting_module.IntroduceActivity" />
-        <activity android:name=".setting_module.AgreeActivity" />
-        <activity android:name=".camera_module.CorpActivity" />
+        <activity android:name=".setting_module.IntroduceActivity"/>
+        <activity android:name=".setting_module.AgreeActivity"/>
+        <activity android:name=".camera_module.CorpActivity"/>
         <activity
             android:name=".camera_module.CameraActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".movie_module.MovieActivity" />
-        <activity android:name=".movie_module.activity.TopDetailActivity" />
-        <activity android:name=".movie_module.MovieBaseActivity" />
-        <activity android:name=".weather_module.WeatherActivity" />
-        <activity android:name=".setting_module.SettingActivity" />
+            android:screenOrientation="portrait"/>
+        <activity android:name=".movie_module.MovieActivity"/>
+        <activity android:name=".movie_module.activity.TopDetailActivity"/>
+        <activity android:name=".movie_module.MovieBaseActivity"/>
+        <activity android:name=".weather_module.WeatherActivity"/>
+        <activity android:name=".setting_module.SettingActivity"/>
         <activity
             android:name=".leshi_module.LeShiActivity"
             android:configChanges="keyboard|screenSize|orientation|layoutDirection"
-            android:screenOrientation="portrait" />
-        <activity android:name=".leshi_module.LeShiListActivity" />
-        <activity android:name=".leshilive_module.LeShiLiveActivity" />
-        <activity android:name=".leshilive_module.LiveListActivity" />
-        <activity android:name=".leshilive_module.LiveActivity" />
-        <activity android:name=".setting_module.AboutUsActivity"></activity>
+            android:screenOrientation="portrait"/>
+        <activity android:name=".leshi_module.LeShiListActivity"/>
+        <activity android:name=".leshilive_module.LeShiLiveActivity"/>
+        <activity android:name=".leshilive_module.LiveListActivity"/>
+        <activity android:name=".leshilive_module.LiveActivity"/>
+        <activity android:name=".setting_module.AboutUsActivity"/>
+        <activity android:name=".gesture_module.GestureActivity">
+        </activity>
+        <activity android:name=".main_module.LockActivity">
+        </activity>
     </application>
 
 </manifest>

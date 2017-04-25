@@ -59,7 +59,7 @@
     <TextView
         android:layout_marginTop="20dp"
         android:id="@+id/textseting"
-        android:text="关于我们"
+        android:text="系统设置"
         android:visibility="gone"
         android:layout_centerInParent="true"
         android:textSize="13sp"
