@@ -100,7 +100,7 @@
             android:id="@+id/tv_sure"
             android:textSize="18sp"
             android:text="创建手势"
-            android:textColor="@color/color_whit"
+            android:textColor="@color/color_8c8c8c"
             android:gravity="center"
             android:background="@drawable/shape_gesture"
             android:layout_width="@dimen/dimens_240"

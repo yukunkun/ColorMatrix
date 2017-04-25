@@ -64,17 +64,12 @@ public class GestureActivity extends AppCompatActivity {
 
                     @Override
                     public void onUnmatchedExceedBoundary() {
-//                        Toast.makeText(GestureActivity.this, "错误5次...",
-//                                Toast.LENGTH_SHORT).show();
-//                        mGestureLockViewGroup.setUnMatchExceedBoundary(5);
                     }
 
                     @Override
                     public void onGestureEvent(boolean matched) {
                         secretPos = 2;
                         mTvInputTime.setText("第二次输入");
-//                        Toast.makeText(GestureActivity.this, matched + "",
-//                                Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -84,8 +79,6 @@ public class GestureActivity extends AppCompatActivity {
                         } else {
                             mListSecond.add(cId);
                         }
-//                        Toast.makeText(GestureActivity.this, cId + "",
-//                                Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -109,7 +102,6 @@ public class GestureActivity extends AppCompatActivity {
             case R.id.tv_forget:
                 showAlterDialog();
                 break;
-
             case R.id.tv_sure:
                 if (mEtSecret.getText().toString().length() == 0) {
                     showAlterDialog();
