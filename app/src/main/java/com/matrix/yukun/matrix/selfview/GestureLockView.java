@@ -77,7 +77,6 @@ public class GestureLockView extends View {
         this.mColorFingerUp = colorFingerUp;
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mArrowPath = new Path();
-
     }
 
     @Override
@@ -107,11 +106,9 @@ public class GestureLockView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
 
-        switch (mCurrentStatus)
-        {
+        switch (mCurrentStatus) {
             case STATUS_FINGER_ON:
 
                 // 绘制外圆

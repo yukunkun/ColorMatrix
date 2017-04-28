@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:id="@+id/rea"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.matrix.yukun.matrix.weather_module.WeatherActivity">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                xmlns:yk="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/rea"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:context="com.matrix.yukun.matrix.weather_module.WeatherActivity">
     <ImageView
         android:id="@+id/back_image"
         android:scaleType="centerCrop"
@@ -23,52 +24,68 @@
         android:background="@color/color_bfbfbf"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"/>-->
-    <RadioGroup
-        android:id="@+id/group"
+    <RelativeLayout
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:weightSum="3"
-        android:background="@color/color_82181818"
-        android:orientation="horizontal"
         android:layout_height="@dimen/dimens_50">
-        <RadioButton
-            android:id="@+id/today"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="今天"
-            android:textSize="15sp"
-            android:gravity="center"
-            android:button="@null"
-            android:textColor="@drawable/text_check_color"
-            android:layout_height="match_parent" />
-        <View
-            android:background="@color/color_bfbfbf"
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"/>
-        <RadioButton
-            android:id="@+id/tomorrow"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="明天"
-            android:textSize="15sp"
-            android:gravity="center"
-            android:button="@null"
-            android:textColor="@drawable/text_check_color"
-            android:layout_height="match_parent" />
-        <View
-            android:background="@color/color_bfbfbf"
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"/>
-        <RadioButton
-            android:id="@+id/life"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="舒适度"
-            android:gravity="center"
-            android:textSize="15sp"
-            android:button="@null"
-            android:textColor="@drawable/text_check_color"
-            android:layout_height="match_parent" />
-    </RadioGroup>
+        <com.matrix.yukun.matrix.selfview.BMoveView
+            android:id="@+id/bmoveview"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_50"
+            yk:circleColor="@color/color_54fa3e"
+            yk:lineColor="@color/color_54fa3e"
+            yk:lineDuration="150"
+            yk:lineWidth="3"
+            yk:circleDuration="500"
+            yk:circleCenterColor="@color/color_ff181818"
+            yk:circleRadio="22"
+            />
+        <RadioGroup
+            android:id="@+id/group"
+            android:layout_width="match_parent"
+            android:weightSum="3"
+            android:background="@color/color_82181818"
+            android:orientation="horizontal"
+            android:layout_height="@dimen/dimens_50">
+            <RadioButton
+                android:id="@+id/today"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="今天"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:button="@null"
+                android:textColor="@drawable/text_check_color"
+                android:layout_height="match_parent" />
+            <View
+                android:background="@color/color_bfbfbf"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"/>
+            <RadioButton
+                android:id="@+id/tomorrow"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="明天"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:button="@null"
+                android:textColor="@drawable/text_check_color"
+                android:layout_height="match_parent" />
+            <View
+                android:background="@color/color_bfbfbf"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"/>
+            <RadioButton
+                android:id="@+id/life"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="舒适"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:button="@null"
+                android:textColor="@drawable/text_check_color"
+                android:layout_height="match_parent" />
+        </RadioGroup>
+    </RelativeLayout>
 
 </RelativeLayout>

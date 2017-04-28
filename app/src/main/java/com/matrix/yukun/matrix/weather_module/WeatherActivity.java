@@ -28,6 +28,7 @@ import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
+import com.matrix.yukun.matrix.selfview.BMoveView;
 import com.matrix.yukun.matrix.util.GetCity;
 import com.matrix.yukun.matrix.util.ScreenUtils;
 import com.matrix.yukun.matrix.weather_module.bean.EventDay;
@@ -58,6 +59,9 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
     private String  city="成都";;
     private FragmentTransaction fragmentTransaction;
     private PopupWindow popupWindow;
+    private BMoveView mBMoveView;
+    private int mFirstPos;
+    private int mLastPos;
 
 
     @Override
@@ -79,6 +83,10 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
         imageView=(ImageView) findViewById(R.id.back_image);
         ((RadioButton)(radioGroup.getChildAt(0))).setChecked(true);
         ((RadioButton)findViewById(R.id.today)).setTextSize(18);
+        mBMoveView = (BMoveView) findViewById(R.id.bmoveview);
+        ((RadioButton) (radioGroup.getChildAt(0))).setChecked(true);
+        mFirstPos = 0;
+        mBMoveView.startAnim();
 
     }
 
@@ -108,23 +116,33 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                     if(checkedId==R.id.today){
                         show(0);
-                        ((RadioButton)findViewById(R.id.today)).setTextSize(18);
+                        ((RadioButton)findViewById(R.id.today)).setTextSize(16);
                         ((RadioButton)findViewById(R.id.tomorrow)).setTextSize(15);
                         ((RadioButton)findViewById(R.id.life)).setTextSize(15);
+                        setBMoveAnim(0);
                     }else if(checkedId==R.id.tomorrow){
                         show(1);
                         ((RadioButton)findViewById(R.id.today)).setTextSize(15);
-                        ((RadioButton)findViewById(R.id.tomorrow)).setTextSize(18);
+                        ((RadioButton)findViewById(R.id.tomorrow)).setTextSize(16);
                         ((RadioButton)findViewById(R.id.life)).setTextSize(15);
+                        setBMoveAnim(1);
                     }else if(checkedId==R.id.life){
                         show(2);
                         ((RadioButton)findViewById(R.id.today)).setTextSize(15);
                         ((RadioButton)findViewById(R.id.tomorrow)).setTextSize(15);
-                        ((RadioButton)findViewById(R.id.life)).setTextSize(18);
+                        ((RadioButton)findViewById(R.id.life)).setTextSize(16);
+                        setBMoveAnim(2);
                     }
             }
         });
     }
+
+    private void setBMoveAnim(int pos) {
+        mLastPos = pos;
+        mBMoveView.setTwoPos(mFirstPos, mLastPos);
+        mFirstPos = mLastPos;
+    }
+
     //fragment
     @Override
     public void show(int pos) {
@@ -154,13 +172,16 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
     @Subscribe(threadMode=ThreadMode.MAIN)
     public void getDay(EventDay eventDay){
         String fragmentTag = eventDay.day;
-
         if(fragmentTag.equals("tomorrow")){
             ((RadioButton)findViewById(R.id.tomorrow)).setChecked(true);
+            setBMoveAnim(1);
         }else if(fragmentTag.equals("life")){
             ((RadioButton)findViewById(R.id.life)).setChecked(true);
+            setBMoveAnim(2);
         }else if(fragmentTag.equals("today")){
-            ((RadioButton)findViewById(R.id.today)).setChecked(true);        }
+            ((RadioButton)findViewById(R.id.today)).setChecked(true);
+            setBMoveAnim(0);
+        }
     }
 
     private void setBackImage(int pos) {

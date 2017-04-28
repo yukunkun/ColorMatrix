@@ -88,7 +88,6 @@ public class GestureActivity extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 
     public void GestureBack(View view) {
@@ -185,6 +184,5 @@ public class GestureActivity extends AppCompatActivity {
         finish();
         overridePendingTransition(R.anim.left_in,R.anim.right_out);
     }
-
 
 }
