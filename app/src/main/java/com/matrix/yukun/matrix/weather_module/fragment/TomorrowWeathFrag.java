@@ -13,9 +13,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,6 +26,7 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.bean.AppConstants;
 import com.matrix.yukun.matrix.movie_module.BaseFrag;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
+import com.matrix.yukun.matrix.selfview.WaterLoadView;
 import com.matrix.yukun.matrix.weather_module.animutils.AnimUtils;
 import com.matrix.yukun.matrix.weather_module.bean.WeaTomorrow;
 import com.matrix.yukun.matrix.weather_module.present.TomorrowFragmentImpl;
@@ -96,9 +94,10 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
     LinearLayout powerLin;
     @BindView(R.id.banner)
     RelativeLayout mBanner;
+    @BindView(R.id.waterload)
+    WaterLoadView mWaterload;
     private TomorrowPresent tomorrowPresent;
     private String city;
-    private ProgressDialog progressDialog;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerTomorrowAdapter recyclerTomorrowAdapter;
     private BannerView mBannerView;
@@ -106,9 +105,6 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("刷新中...");
-        progressDialog.show();
         city = getArguments().getString("city");
         tomorrowPresent = new TomorrowPresent(this, city);
         this.basePresent = tomorrowPresent;
@@ -133,10 +129,11 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
         EventBus.getDefault().register(this);
         // Horizontal
         OverScrollDecoratorHelper.setUpOverScroll(scrollView);
+        mWaterload.setVisibility(View.VISIBLE);
         //动画
         mAnimView = (StoreHouseAnimView) inflate.findViewById(R.id.pathAnimView1);
         mAnimView.setColorBg(Color.GRAY).setColorFg(Color.WHITE);
-        mAnimView.setSourcePath(PathParserUtils.getPathFromArrayFloatList(StoreHousePath.getPath("tomorrow",0.4f,5)));
+        mAnimView.setSourcePath(PathParserUtils.getPathFromArrayFloatList(StoreHousePath.getPath("tomorrow", 0.4f, 5)));
         mAnimView.setPathMaxLength(150).setAnimTime(2000).startAnim();
         setListener();
         getBanner();
@@ -150,35 +147,37 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
         mBannerView.setADListener(new AbstractBannerADListener() {
             @Override
             public void onNoAD(int i) {
-                Log.i("---onNoAD",i+"");
+                Log.i("---onNoAD", i + "");
             }
 
             @Override
             public void onADReceiv() {
-                Log.i("---onNoAD","onNoAD");
+                Log.i("---onNoAD", "onNoAD");
             }
         });
         mBanner.addView(mBannerView);// 把banner加载到容器
         mBannerView.loadAD();
     }
-    private boolean animTag=true;
+
+    private boolean animTag = true;
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getColor(OnEventpos onEventpos) {
         int pos = onEventpos.pos;
         if (pos == 2) {
             //动画
-            if(animTag){
-                animTag=false;
-                AnimUtils.setTitleUp(getContext(),tomorrowTitle);
+            if (animTag) {
+                animTag = false;
+                AnimUtils.setTitleUp(getContext(), tomorrowTitle);
             }
-            AnimUtils.setBackUp(getContext(),tomorrowBack);
+            AnimUtils.setBackUp(getContext(), tomorrowBack);
         } else if (pos == 3) {
             //动画
-            if(animTag==false){
-                animTag=true;
-                AnimUtils.setTitleDown(getContext(),tomorrowTitle);
+            if (animTag == false) {
+                animTag = true;
+                AnimUtils.setTitleDown(getContext(), tomorrowTitle);
             }
-            AnimUtils.setBackDown(getContext(),tomorrowBack);
+            AnimUtils.setBackDown(getContext(), tomorrowBack);
         }
     }
 
@@ -189,16 +188,12 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
                 EventBus.getDefault().post(new OnEventpos(1));
                 break;
             case R.id.today_refresh:
-                if (progressDialog != null) {
-                    progressDialog.show();
-                }
-
+                mWaterload.setVisibility(View.VISIBLE);
                 tomorrowPresent.getTomorrow(city);
                 break;
             case R.id.today_refreshs:
-                if (progressDialog != null) {
-                    progressDialog.show();
-                }
+                mWaterload.setVisibility(View.VISIBLE);
+
                 tomorrowPresent.getTomorrow(city);
                 break;
             case R.id.search:
@@ -256,9 +251,7 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
                         if (editText.getText().toString() != null) {
                             city = editText.getText().toString().trim();
                             tomorrowPresent.getTomorrow(city);
-                            if (progressDialog != null) {
-                                progressDialog.show();
-                            }
+                            mWaterload.setVisibility(View.VISIBLE);
                         }
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -270,13 +263,11 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId== EditorInfo.IME_ACTION_SEARCH){
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     if (editText.getText().toString() != null) {
                         city = editText.getText().toString().trim();
                         tomorrowPresent.getTomorrow(city);
-                        if (progressDialog != null) {
-                            progressDialog.show();
-                        }
+                        mWaterload.setVisibility(View.VISIBLE);
                     }
                 }
                 return false;
@@ -286,7 +277,7 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
 
     @Override
     public void dismissDialogs() {
-        progressDialog.dismiss();
+        mWaterload.setVisibility(View.GONE);
 
     }
 
@@ -294,7 +285,7 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        if(mAnimView!=null){
+        if (mAnimView != null) {
             mAnimView.stopAnim();
         }
     }

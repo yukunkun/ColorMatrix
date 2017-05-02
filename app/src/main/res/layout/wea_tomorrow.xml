@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              xmlns:yk="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/tomorrow_title"
         android:layout_width="match_parent"
@@ -121,6 +123,16 @@
                         android:shadowDy="5"
                         android:textSize="100sp"
                         android:layout_height="match_parent" />
+                    <com.matrix.yukun.matrix.selfview.WaterLoadView
+                        android:id="@+id/waterload"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:layout_centerInParent="true"
+                        yk:circleColor="#FF0077"
+                        yk:circleTop="90"
+                        yk:circleSmallRadio="8"
+                        yk:loadTime="1000" />
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_alignParentBottom="true"

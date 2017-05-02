@@ -1,18 +1,12 @@
 package com.matrix.yukun.matrix.weather_module.fragment;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,16 +18,15 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.movie_module.BaseFrag;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.selfview.MyListView;
+import com.matrix.yukun.matrix.selfview.WaterLoadView;
 import com.matrix.yukun.matrix.task.AddressInitTask;
 import com.matrix.yukun.matrix.weather_module.animutils.AnimUtils;
-import com.matrix.yukun.matrix.weather_module.bean.CityPickerFragment;
 import com.matrix.yukun.matrix.weather_module.bean.EventCity;
 import com.matrix.yukun.matrix.weather_module.bean.EventDay;
 import com.matrix.yukun.matrix.weather_module.bean.WeaLifePoint;
 import com.matrix.yukun.matrix.weather_module.present.ConforableFragImpl;
 import com.matrix.yukun.matrix.weather_module.present.ConfortablePresent;
 import com.mcxtzhang.pathanimlib.PathAnimView;
-import com.mcxtzhang.pathanimlib.StoreHouseAnimView;
 import com.mcxtzhang.pathanimlib.res.StoreHousePath;
 import com.mcxtzhang.pathanimlib.utils.PathParserUtils;
 
@@ -79,18 +72,16 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
     ScrollView scrollView;
     @BindView(R.id.conf_air)
     TextView confAir;
+    @BindView(R.id.waterload)
+    WaterLoadView mWaterload;
     private ConfortablePresent mPresent;
     private String city;
-    private ProgressDialog progressDialog;
     private MyListAdapter myListAdapter;
     private PathAnimView mAnimView;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("刷新中...");
-        progressDialog.show();
         city = getArguments().getString("city");
         mPresent = new ConfortablePresent(this, city);
         this.basePresent = mPresent;
@@ -116,9 +107,10 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
         todayLife.setText("明日天气");
         // Horizontal
         OverScrollDecoratorHelper.setUpOverScroll(scrollView);
+        mWaterload.setVisibility(View.VISIBLE);
         mAnimView = (PathAnimView) inflate.findViewById(R.id.pathAnimView1);
         mAnimView.setColorBg(Color.GRAY).setColorFg(Color.WHITE);
-        mAnimView.setSourcePath(PathParserUtils.getPathFromArrayFloatList(StoreHousePath.getPath("comfortable",0.35f,5)));
+        mAnimView.setSourcePath(PathParserUtils.getPathFromArrayFloatList(StoreHousePath.getPath("comfortable", 0.35f, 5)));
         mAnimView.startAnim();
         setListener();
         return inflate;
@@ -131,25 +123,26 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
 
     @Override
     public void dismissDialogs() {
-        if (progressDialog != null) {
-            progressDialog.dismiss();
-        }
+        mWaterload.setVisibility(View.GONE);
+
     }
 
     @Override
     public void setListener() {
 
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getColor(OnEventpos onEventpos) {
         int pos = onEventpos.pos;
         if (pos == 2) {
-            AnimUtils.setBackUp(getContext(),tomorrowBack);
+            AnimUtils.setBackUp(getContext(), tomorrowBack);
         } else if (pos == 3) {
-            AnimUtils.setBackDown(getContext(),tomorrowBack);
+            AnimUtils.setBackDown(getContext(), tomorrowBack);
 
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getCity(EventCity onEventpos) {
         String pos = onEventpos.city;
@@ -167,20 +160,17 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
         scrollView.fullScroll(ScrollView.FOCUS_UP);
     }
 
-    @OnClick({R.id.tomorrow_back,R.id.today_refresh, R.id.today_refreshs, R.id.today_tomorrow, R.id.today_life,R.id.search})
+    @OnClick({R.id.tomorrow_back, R.id.today_refresh, R.id.today_refreshs, R.id.today_tomorrow, R.id.today_life, R.id.search})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.today_refresh:
                 mPresent.getInfo(city);
-                if (progressDialog != null) {
-                    progressDialog.show();
-                }
+                mWaterload.setVisibility(View.VISIBLE);
+
                 break;
             case R.id.today_refreshs:
                 mPresent.getInfo(city);
-                if (progressDialog != null) {
-                    progressDialog.show();
-                }
+                mWaterload.setVisibility(View.VISIBLE);
                 break;
             case R.id.today_tomorrow:
                 EventBus.getDefault().post(new EventDay("today"));
@@ -196,11 +186,12 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
                 break;
         }
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        if(mAnimView!=null){
+        if (mAnimView != null) {
             mAnimView.stopAnim();
         }
     }

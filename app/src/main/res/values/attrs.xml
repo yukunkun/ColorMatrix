@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="circleColor" format="color"/>
+    <attr name="lineColor" format="color" />
+    <attr name="lineWidth" format="integer" />
+    <attr name="lineDuration" format="integer" />
+    <attr name="circleDuration" format="integer" />
+    <attr name="circleCenterColor" format="color"/>
+    <attr name="circleRadio" format="integer" />
+
+    <declare-styleable name="BMoveView">
+        <attr name="circleColor" />
+        <attr name="circleCenterColor" />
+        <attr name="lineColor" />
+        <attr name="lineWidth" />
+        <attr name="circleRadio"/>
+        <attr name="lineDuration" />
+        <attr name="circleDuration" />
+    </declare-styleable>
+
+    <!--WaterLoadView-->
+    <attr name="circleSmallRadio" format="integer"/>
+    <attr name="circleTop" format="integer"/>
+    <attr name="loadTime" format="integer"/>
+    <declare-styleable name="WaterLoadView" >
+        <attr name="circleColor" />
+        <attr name="circleSmallRadio" />
+        <attr name="circleTop" />
+        <attr name="loadTime" />
+
+    </declare-styleable>
+</resources>
