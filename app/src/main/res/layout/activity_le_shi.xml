@@ -92,17 +92,18 @@
         </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
         <com.matrix.yukun.matrix.selfview.VoiceLoadView
             android:id="@+id/voiceloadview"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="85dp"
+            android:layout_height="80dp"
+            android:background="@color/color_82181818"
             android:visibility="gone"
             android:layout_centerInParent="true"
             yk:bg="@mipmap/voice"
-            yk:circleWidth="5"
+            yk:circleWidth="4"
             yk:firstColor="#a7a7a7"
             yk:secondColor="#5ff24c"
             yk:dotCount="10"
-            yk:splitSize="15"
-            yk:circleRadio="40"
+            yk:splitSize="16"
+            yk:circleRadio="32"
             yk:imageDevide="0"
             />
     <TextView

@@ -201,7 +201,6 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
             downPosX = event.getRawX();
             downPosY = event.getRawY();
             return false;
-
         }
 
         @Override
