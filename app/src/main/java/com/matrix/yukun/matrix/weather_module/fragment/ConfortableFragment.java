@@ -124,7 +124,6 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
     @Override
     public void dismissDialogs() {
         mWaterload.setVisibility(View.GONE);
-
     }
 
     @Override
@@ -139,7 +138,6 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
             AnimUtils.setBackUp(getContext(), tomorrowBack);
         } else if (pos == 3) {
             AnimUtils.setBackDown(getContext(), tomorrowBack);
-
         }
     }
 

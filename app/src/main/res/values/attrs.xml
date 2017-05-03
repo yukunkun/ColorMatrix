@@ -29,4 +29,24 @@
         <attr name="loadTime" />
 
     </declare-styleable>
+
+    <!--VoiceLoadView-->
+    <attr name="firstColor" format="color" />
+    <attr name="secondColor" format="color" />
+    <attr name="circleWidth" format="integer" />
+    <attr name="dotCount" format="integer" />
+    <attr name="splitSize" format="integer" />
+    <attr name="bg" format="reference"></attr>
+    <attr name="imageDevide" format="integer"/>
+
+    <declare-styleable name="VoiceLoadView">
+        <attr name="firstColor" />
+        <attr name="secondColor" />
+        <attr name="circleWidth" />
+        <attr name="dotCount" />
+        <attr name="splitSize" />
+        <attr name="bg" />
+        <attr name="circleRadio" />
+        <attr name="imageDevide"/>
+    </declare-styleable>
 </resources>

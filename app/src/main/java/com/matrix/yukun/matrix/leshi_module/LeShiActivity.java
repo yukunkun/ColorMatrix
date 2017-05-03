@@ -10,6 +10,7 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -40,6 +41,7 @@ import com.matrix.yukun.matrix.leshi_module.present.PlayAdapter;
 import com.matrix.yukun.matrix.leshi_module.present.PlayListPresent;
 import com.matrix.yukun.matrix.leshi_module.present.PlayPresent;
 import com.matrix.yukun.matrix.movie_module.MovieBaseActivity;
+import com.matrix.yukun.matrix.selfview.VoiceLoadView;
 import com.matrix.yukun.matrix.util.MarTextView;
 import com.matrix.yukun.matrix.util.ScreenUtils;
 
@@ -77,10 +79,8 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
     private GestureDetector detector;
     private int widthScreen;
     private int heightScreen;
-    private TextView voice;
     private AudioManager audiomanager;
     private float maxVolume;
-    private int streamVolume;
     private Handler handlerTime=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -92,6 +92,7 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
             }
         }
     };
+    private VoiceLoadView mVoiceLoadView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,8 +110,9 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
         audiomanager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         // 获取系统最大音量
         maxVolume = audiomanager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        streamVolume = audiomanager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        audiomanager.setStreamVolume(AudioManager.STREAM_MUSIC,(int)(streamVolume),0);
+        currentVoice=audiomanager.getStreamVolume( AudioManager.STREAM_MUSIC);
+//        streamVolume = audiomanager.getStreamVolume(AudioManager.STREAM_MUSIC);
+//        audiomanager.setStreamVolume(AudioManager.STREAM_MUSIC,(int)(streamVolume),0);
 
         getViews();
         addVideoView();
@@ -134,9 +136,9 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
         layoutTitle = (LinearLayout) findViewById(R.id.title);
         layoutBotton = (RelativeLayout) findViewById(R.id.bottom_sheet);
         view_con = (RelativeLayout)findViewById(R.id.view_con);
+        mVoiceLoadView = (VoiceLoadView) findViewById(R.id.voiceloadview);
 
         textViewTitle = (MarTextView) findViewById(R.id.text_title);
-        voice = (TextView)findViewById(R.id.voice);
         imageViewScreen = (ImageView) findViewById(R.id.switchScreen);
         imagePlay = (ImageView) findViewById(R.id.play_video);
         lightSeekBar = (VerticalSeekBar) findViewById(R.id.lightSeek);
@@ -147,6 +149,12 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
         gridView.setAdapter(playAdapter);
         OverScrollDecoratorHelper.setUpOverScroll(gridView);
         textViewTitle.setText(title);
+
+        try {
+            mScreenBrightness = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS);
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -211,17 +219,12 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
             //分为向上滑和向下滑
             downPosX = e1.getRawX();
             if(downPosX<widthScreen/2){
+
                 if(lightSeekBar.getVisibility()==View.GONE&&isFullScreen){
                     lightSeekBar.setVisibility(View.VISIBLE);
                 }
                 float movePosY = e2.getRawY();
                 float distancY = downPosY - movePosY;
-//                if (Math.abs(distancY)>5) {
-//                    //如果是全屏，则显示
-////                    Configuration configuration = getResources().getConfiguration();
-////                    if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-////                    }
-//                }
                 float value = mScreenBrightness;
                 value += (distancY / heightScreen) / 4;
                 if (value < 0.1F) value = 0.1F;
@@ -229,17 +232,21 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
                 if(isFullScreen){
                     changeBrightness(value);
                 }
-            }else if((widthScreen/2)<downPosX){
-                if(voice.getVisibility()==View.GONE&&isFullScreen){
-                    voice.setVisibility(View.VISIBLE);
-                }
-                float movePosY = e2.getRawY();
-                float distancY = downPosY - movePosY;
 
+            }else if((widthScreen/2)<downPosX){
+                if(mVoiceLoadView.getVisibility()==View.GONE&&isFullScreen){
+                    mVoiceLoadView.setVisibility(View.VISIBLE);
+                }
+//                float movePosY = e2.getRawY();
+//                float distancY = downPosY - movePosY;
                 float value = currentVoice;
-                value += (distancY / heightScreen) / 4;
-                if (value < 0.1F) value = 0.05F;
-                if (value > 1) value = 1F;
+
+                if(value>=0&&distanceY>=10&&value<=maxVolume){
+                    value++;
+                }
+                if(value>0&&distanceY<=-10){
+                    value--;
+                }
                 if(isFullScreen){
                     updateVoice(value);
                 }
@@ -260,11 +267,15 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
         }
     };
 
+    /**
+     *
+     * @param value 声音
+     */
     private void updateVoice(float value) {
         currentVoice=value;
-        if((maxVolume*value)<=maxVolume&&(maxVolume*value)>=0){
-            voice.setText("Voice:"+(int)(value*100)+"%");
-            audiomanager.setStreamVolume(AudioManager.STREAM_MUSIC,(int)(maxVolume*value),0);
+        if(value<=maxVolume){
+            mVoiceLoadView.setCurrentCount((int) (10*currentVoice/maxVolume));
+            audiomanager.setStreamVolume(AudioManager.STREAM_MUSIC,(int) currentVoice,0);
         }
     }
 
@@ -273,15 +284,14 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
         detector.onTouchEvent(ev);
         if (ev.getAction() == MotionEvent.ACTION_UP) {
             lightSeekBar.setVisibility(View.GONE);
-            voice.setVisibility(View.GONE);
+            mVoiceLoadView.setVisibility(View.GONE);
+//            voice.setVisibility(View.GONE);
         }
         return super.dispatchTouchEvent(ev);
     }
 
-    private float mScreenBrightness = 0.1f;
-    private float currentVoice = 0.1f;
-
-
+    private float mScreenBrightness = 50f;
+    private float currentVoice ;
 
     /**
      * 改变屏幕亮度
@@ -298,7 +308,7 @@ public class LeShiActivity extends MovieBaseActivity implements LeShiListImple{
 
     public void updateLightProgress(float light) {
         if (lightSeekBar != null) {
-            lightSeekBar.setProgress((int) (light * 100));
+            lightSeekBar.setProgress((int) (light*100));
         }
     }
 
