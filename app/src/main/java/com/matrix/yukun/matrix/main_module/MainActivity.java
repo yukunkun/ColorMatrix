@@ -37,6 +37,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
@@ -88,7 +90,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private boolean check=false;
     private LinearLayout layout;
     private ImageView imageViewMore;
-    private ImageView imageViewPhoto;
     private String path;
     private String photoName;
     private SquareProgressBar imageViewTest;
@@ -108,7 +109,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private int roate=0;
     private LinearLayout layoutMore;
     private TextView textViewMatrix;
-    private TextView textViewShare;
     private ValueAnimator animator;
     private ArrayList<String> lists=new ArrayList<>();
     private MyRelativeLayout layoutContain;
@@ -122,13 +122,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             R.color.color_44fc2c, R.color.color_44fc2c, R.color.color_b450fc, R.color.color_fc2c5d, R.color.color_fc2cd2,
             R.color.color_57f733, R.color.color_f733d6, R.color.colorPrimaryDark, R.color.color_3575ff};
     private TextView textViewRoate;
-    private ImageView imageViewCamera;
     private ImageView imageViewCrop;
     private RelativeLayout reaContain;
     private Bitmap bitmap;
     private TextView textViewTag;
-    private File destDirs;
-    private long newName;
     private TextView textViewMov;
     private TextView textViewWea;
     private TextView textViewMovRec;
@@ -141,6 +138,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView mTvmore;
     private LinearLayoutManager mLinearLayout;
     private WaterLoadView mWaterLoadView;
+    private FloatingActionsMenu mActionsMenu;
+    private FloatingActionButton mActionButtonA;
+    private FloatingActionButton mActionButtonb;
+    private FloatingActionButton mActionButtonc;
+    private boolean isShowMoew=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,18 +165,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setColor();
 
         imageLoad = (ImageView) findViewById(R.id.loadimage);
-        imageShare = (ImageView) findViewById(R.id.shareimage);
         layout = (LinearLayout) findViewById(R.id.linfuntion);
         imageViewMore = (ImageView) findViewById(R.id.imagemore);
-        imageViewPhoto = (ImageView) findViewById(R.id.imagephoto);
         imageViewRoate = (ImageView) findViewById(R.id.imagerotate);
-        imageViewCamera = (ImageView) findViewById(R.id.imagecameras);
         mTvmore = (TextView) findViewById(R.id.lujing);
         mWaterLoadView = (WaterLoadView) findViewById(R.id.waterload);
         imageViewCrop = (ImageView) findViewById(R.id.imagecrop);
-        layoutMore = (LinearLayout) findViewById(R.id.morefunction);
         textViewMatrix = (TextView) findViewById(R.id.loadmaterial);
-        textViewShare = (TextView) findViewById(R.id.textviewshare);
         textViewRoate = (TextView) findViewById(R.id.tishi);
         textViewTag = (TextView) findViewById(R.id.tishitag);
         textViewMov = (TextView)findViewById(R.id.textmovie);
@@ -194,6 +191,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mRecyclerFilter.setLayoutManager(mLinearLayout);
         setConLayout();
         OverScrollDecoratorHelper.setUpOverScroll((ScrollView)findViewById(R.id.scrollview));
+        mActionsMenu = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
+        mActionButtonA = (FloatingActionButton) findViewById(R.id.action_a);
+        mActionButtonb = (FloatingActionButton) findViewById(R.id.action_b);
+        mActionButtonc = (FloatingActionButton) findViewById(R.id.action_c);
     }
 
     //计算高度
@@ -244,17 +245,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
         //得到不同的ColorMatrix,并且返回回来
         IImageFilter filter = (IImageFilter) mFilterAdapter.getItem(posmore);
-        new processImageTask(this, filter,mOriginBmp).execute();
+        new processImageTask(filter,mOriginBmp).execute();
     }
 
 
     public class processImageTask extends AsyncTask<Void, Void, Bitmap> {
         private IImageFilter filter;
-        private Activity activity = null;
         private Bitmap images;
-        public processImageTask(Activity activity, IImageFilter imageFilter,Bitmap images) {
+        public processImageTask(IImageFilter imageFilter,Bitmap images) {
             this.filter = imageFilter;
-            this.activity = activity;
             this.images=images;
 
         }
@@ -281,7 +280,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (img != null && img.destImage.isRecycled()) {
                     img.destImage.recycle();
                     img.destImage = null;
-                    System.gc(); // ����ϵͳ��ʱ����
+                    System.gc(); //
                 }
             }
             finally{
@@ -302,7 +301,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 imageViewTest.setImageBitmap(result);
                 seekBitmap=result;//进度的Bitmap
                 bitmapRoate=result;//旋转的Bitmap
-                mTempBmp= BitmapUtil.mTempBit(result);
+                Bitmap bitmap= ImageUtils.compressBitmap(result);//图片处理,压缩大小
+                mTempBmp= BitmapUtil.mTempBit(bitmap);
             }
 //            textView.setVisibility(View.GONE);
         }
@@ -405,33 +405,39 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void setListener() {
-        imageViewPhoto.setOnClickListener(this);
         imageViewMore.setOnClickListener(this);
         textViewTiShi.setOnClickListener(this);
-        imageShare.setOnClickListener(this);
+//        imageShare.setOnClickListener(this);
         imageLoad.setOnClickListener(this);
         imageViewRoate.setOnClickListener(this);
         textViewMatrix.setOnClickListener(this);
-        textViewShare.setOnClickListener(this);
         textViewRoate.setOnClickListener(this);
         textViewTag.setOnClickListener(this);
-        imageViewCamera.setOnClickListener(this);
         imageViewCrop.setOnClickListener(this);
         textViewMov.setOnClickListener(this);
         textViewWea.setOnClickListener(this);
         textViewMovRec.setOnClickListener(this);
         textViewSetting.setOnClickListener(this);
         mTvmore.setOnClickListener(this);
+        mActionButtonA.setOnClickListener(this);
+        mActionButtonb.setOnClickListener(this);
+        mActionButtonc.setOnClickListener(this);
+        mActionsMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
+            @Override
+            public void onMenuExpanded() {
+
+            }
+
+            @Override
+            public void onMenuCollapsed() {
+
+            }
+        });
     }
     @Override
     public void onClick(View view) {
         int id = view.getId();
         switch (id){
-            case R.id.imagephoto:
-                Intent intent=new Intent(MainActivity.this, PhotoListActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.right_in, R.anim.left_out);
-            break;
             case R.id.imagemore:
                 //popuwindow的展示
                 if(!isShow){
@@ -447,9 +453,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent_1);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 break;
-            case R.id.imagecameras:
-                startCamera();
-                break;
+            case R.id.loadmaterial:
+                Intent intent=new Intent(MainActivity.this, PhotoListActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+            break;
             case R.id.textmovie:
                 //视频推荐
                 closeMenu();
@@ -475,37 +483,35 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intentSet);
                 overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 break;
-            case R.id.shareimage:
+//            case R.id.shareimage:
                 //分享
-                File destDir= FileUtil.createFile();
-                if(photoName==null||photoName.length()==0){
-                    Toast.makeText(MainActivity.this, "请先选择图片", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                final File f = new File(destDir, photoName);
-                Toast.makeText(MainActivity.this, "正在下载...", Toast.LENGTH_SHORT).show();
-                flag=false;
-                imageViewTest.setProgress(0);
-                bitmap = ImageUtils.createViewBitmap(layoutContain, layoutContain.getWidth(), layoutContain.getHeight());
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        FileUtil.loadImage(bitmap,photoName);
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(MainActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
-                                share(f.getPath());
-                                flag=true;
-                                setColor();
-                            }
-                        });
-                    }
-                }).start();
-//                share(f.getPath());
-                break;
+//                File destDir= FileUtil.createFile();
+//                if(photoName==null||photoName.length()==0){
+//                    Toast.makeText(MainActivity.this, "请先选择图片", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                final File f = new File(destDir, photoName);
+//                Toast.makeText(MainActivity.this, "正在下载...", Toast.LENGTH_SHORT).show();
+//                flag=false;
+//                imageViewTest.setProgress(0);
+//                bitmap = ImageUtils.createViewBitmap(layoutContain, layoutContain.getWidth(), layoutContain.getHeight());
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        FileUtil.loadImage(bitmap,photoName);
+//                        handler.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Toast.makeText(MainActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
+//                                share(f.getPath());
+//                                flag=true;
+//                                setColor();
+//                            }
+//                        });
+//                    }
+//                }).start();
+//                break;
             case R.id.loadimage:
-                layoutMore.setVisibility(View.GONE);
                 flag=false;
                 imageViewTest.setProgress(0);
                 //load
@@ -515,7 +521,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         return;
                     }
                 }
-
                 bitmap = ImageUtils.createViewBitmap(layoutContain, layoutContain.getWidth(), layoutContain.getHeight());
                 Toast.makeText(MainActivity.this, "正在下载...", Toast.LENGTH_SHORT).show();
                 new Thread(new Runnable() {
@@ -536,32 +541,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.imagerotate:
                 handleColorRoate(roate);
                 roate++;
-                break;
-            case R.id.loadmaterial:
-                File destDi = new File(Environment.getExternalStorageDirectory()+"/yukun");
-                if (!destDi.exists()) {
-                    destDi.mkdirs();
-                }
-                lists.clear();
-                File[] files=destDi.listFiles();
-                for (int i = 0; i < files.length; i++) {
-                    lists.add(files[i]+"");
-                }
-                //打开Matria图库
-                Intent intent_map=new Intent(MainActivity.this,ListDetailActivity.class);
-                intent_map.putStringArrayListExtra("photo",lists);
-                startActivity(intent_map);
-                overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                break;
-            case R.id.textviewshare:
-                //下载分享的动画
-                if(layoutMore.getVisibility()==View.GONE){
-                    //下载分享的动画
-                    layoutMore.setVisibility(View.VISIBLE);
-                    addAnimation();
-                }else {
-                    layoutMore.setVisibility(View.GONE);
-                }
                 break;
             case R.id.tishi:
                 saveSharePreferrence();
@@ -594,9 +573,56 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     mRecyclerFilter.setVisibility(View.GONE);
                 }
                 break;
+            case R.id.action_a:
+                startCamera();
+                break;
+            case R.id.action_b:
+                File destDis = new File(Environment.getExternalStorageDirectory()+"/yukun");
+                if (!destDis.exists()) {
+                    destDis.mkdirs();
+                }
+                lists.clear();
+                File[] filess=destDis.listFiles();
+                for (int i = 0; i < filess.length; i++) {
+                    lists.add(filess[i]+"");
+                }
+                //打开Matria图库
+                Intent intent_maps=new Intent(MainActivity.this,ListDetailActivity.class);
+                intent_maps.putStringArrayListExtra("photo",lists);
+                startActivity(intent_maps);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                break;
+            case R.id.action_c:
+                //分享
+                File destDir= FileUtil.createFile();
+                if(photoName==null||photoName.length()==0){
+                    Toast.makeText(MainActivity.this, "请先选择图片", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                final File f = new File(destDir, photoName);
+                Toast.makeText(MainActivity.this, "正在下载...", Toast.LENGTH_SHORT).show();
+                flag=false;
+                imageViewTest.setProgress(0);
+                bitmap = ImageUtils.createViewBitmap(layoutContain, layoutContain.getWidth(), layoutContain.getHeight());
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        FileUtil.loadImage(bitmap,photoName);
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
+                                share(f.getPath());
+                                flag=true;
+                                setColor();
+                            }
+                        });
+                    }
+                }).start();
+                break;
         }
     }
-    private boolean isShowMoew=false;
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -612,7 +638,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     return;
                 }else {
                     if(data.getData()==null||getContentResolver().query(uri, null, null, null,null)==null){
-                        imageViewCamera.setImageResource(R.mipmap.beijing_1);
                         Toast.makeText(MainActivity.this, "获取图片失败，请从相册选择！", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -623,7 +648,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         cursor.close();
                     }
                     Bitmap bitmapCopy=BitmapFactory.decodeFile(imagePath,options).copy(Bitmap.Config.ARGB_4444,true);
-                    getCrop(BitmapUtil.bigBitmap(bitmapCopy,2,2));
+                    //裁剪后的压缩
+                    Bitmap bitmap= ImageUtils.compressBitmap(bitmapCopy);//图片处理,压缩大小
+
+                    getCrop(BitmapUtil.bigBitmap(bitmap,2,2));
                     FileUtil.deleteFile(imagePath);
                 }
             }else if(data.getExtras()!=null){
@@ -686,7 +714,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 int animatedValue = (int) valueAnimator.getAnimatedValue();
-                layoutMore.layout(layoutMore.getLeft(),animatedValue,layoutMore.getRight(),layoutMore.getHeight()+animatedValue);
+//                layoutMore.layout(layoutMore.getLeft(),animatedValue,layoutMore.getRight(),layoutMore.getHeight()+animatedValue);
             }
         });
 
@@ -698,9 +726,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(layoutMore.getVisibility()==View.VISIBLE){
-            layoutMore.setVisibility(View.GONE);
-        }
+//        if(layoutMore.getVisibility()==View.VISIBLE){
+//            layoutMore.setVisibility(View.GONE);
+//        }
         return super.onTouchEvent(event);
     }
 

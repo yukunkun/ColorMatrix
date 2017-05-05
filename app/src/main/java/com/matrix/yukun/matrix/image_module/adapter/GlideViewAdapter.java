@@ -56,9 +56,7 @@ public class GlideViewAdapter extends BaseAdapter {
         }
 
         viewHolder.mImageView.setImageBitmap(null);
-        Glide.with(context).load(mImageBean).
-                diskCacheStrategy( DiskCacheStrategy.NONE )//禁用磁盘缓存
-                .skipMemoryCache( true )//跳过内存缓存
+        Glide.with(context).load(mImageBean)
                 .into(viewHolder.mImageView);
 
         return convertView;

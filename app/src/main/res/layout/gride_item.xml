@@ -4,6 +4,7 @@
     android:layout_height="@dimen/dimens_130">
     <ImageView
         android:id="@+id/image"
+        android:transitionName="share"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:layout_marginBottom="6dp"

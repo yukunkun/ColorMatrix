@@ -123,6 +123,8 @@
         </activity>
         <activity android:name=".main_module.LockActivity">
         </activity>
+        <activity android:name=".setting_module.PhotoActivity">
+        </activity>
     </application>
 
 </manifest>

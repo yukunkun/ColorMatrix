@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.matrix.yukun.matrix.setting_module.PhotoActivity">
+    <RelativeLayout
+        android:id="@+id/real"
+        android:background="@color/color_252525"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_60">
+        <com.matrix.yukun.matrix.util.MarTextView
+            android:id="@+id/photo_name"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="4dp"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:paddingLeft="1dp"
+            android:layout_width="@dimen/dimens_240"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:padding="15dp"
+            android:onClick="PhotoBack"
+            android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
+            android:layout_width="@dimen/dimens_60"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_lines"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+    </RelativeLayout>
+    <uk.co.senab.photoview.PhotoView
+        android:layout_below="@+id/real"
+        android:id="@+id/photo_view"
+        android:transitionName="share"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>

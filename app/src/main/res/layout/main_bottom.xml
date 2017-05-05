@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrollview"
+    android:layout_below="@+id/frame"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
@@ -13,7 +14,7 @@
             android:layout_height="0.5dp"/>
         <LinearLayout
             android:id="@+id/linfuntion"
-            android:weightSum="3"
+            android:weightSum="2"
             android:visibility="visible"
             android:background="@color/color_282828"
             android:orientation="horizontal"
@@ -38,23 +39,9 @@
                 android:layout_weight="1"
                 android:textSize="18sp"
                 android:textColor="@color/color_44fc2c"
-                android:text="Matrix 图库"
+                android:text="图 库"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:layout_width="0dp"
-                android:layout_height="match_parent" />
-            <View
-                android:background="#363636"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"/>
-            <TextView
-                android:id="@+id/textviewshare"
-                android:layout_weight="1"
-                android:textSize="18sp"
-                android:text="分 享"
-                android:textStyle="bold"
-                android:textColor="@color/color_44fc2c"
-                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />
         </LinearLayout>

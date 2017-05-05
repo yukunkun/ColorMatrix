@@ -4,10 +4,15 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               xmlns:yk="http://schemas.android.com/apk/res-auto"
+              xmlns:fab="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:background="@color/color_000000">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <FrameLayout
+        android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
@@ -73,7 +78,7 @@
                     yk:circleTop="80"
                     yk:circleSmallRadio="7"
                     yk:loadTime="1000" />
-                <LinearLayout
+                <!--<LinearLayout
                     android:id="@+id/morefunction"
                     android:weightSum="2"
                     android:alpha="1"
@@ -107,13 +112,59 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="0dp" />
-                </LinearLayout>
+                </LinearLayout>-->
             </RelativeLayout>
         </LinearLayout>
         <!--菜单-->
-       <include layout="@layout/main_menus"/>
-
+        <include layout="@layout/main_menus"/>
     </FrameLayout>
     <!--底部的布局-->
-    <include layout="@layout/main_bottom"/>
+    <include
+        layout="@layout/main_bottom"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/multiple_actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        fab:fab_addButtonColorNormal="@color/color_54fa3e"
+        fab:fab_addButtonColorPressed="@color/color_fc2c5d"
+        fab:fab_addButtonPlusIconColor="@color/color_whit"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="12dp">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="@color/color_f78fff75"
+            fab:fab_title="相机"
+            fab:fab_icon="@mipmap/abc_ic_menu_selectall_mtrl_alpha"
+            fab:fab_colorPressed="#ffff77"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_size="mini"
+            fab:fab_colorNormal="@color/color_f78fff75"
+            fab:fab_title="图库"
+            fab:fab_icon="@mipmap/ic_explore_wallpaper_pressed"
+            fab:fab_colorPressed="#ffff00"/>
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_size="mini"
+            fab:fab_icon="@mipmap/abc_ic_menu_share_mtrl_alpha"
+            fab:fab_colorNormal="@color/color_f78fff75"
+            fab:fab_title="分享"
+            fab:fab_colorPressed="#ffff00"/>
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+</RelativeLayout>
+
 </LinearLayout>

@@ -80,8 +80,7 @@ public class BitmapUtil {
         return colorMatrices.get(position);
     }
 
-    public static Bitmap bigBitmap(Bitmap b,float x,float y)
-    {
+    public static Bitmap bigBitmap(Bitmap b,float x,float y) {
         int w=b.getWidth();
         int h=b.getHeight();
         float sx=(float)x/w;//要强制转换，不转换我的在这总是死掉。

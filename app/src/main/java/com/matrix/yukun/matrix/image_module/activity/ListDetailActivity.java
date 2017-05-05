@@ -1,6 +1,10 @@
 package com.matrix.yukun.matrix.image_module.activity;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +21,7 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.image_module.adapter.GlideViewAdapter;
 import com.matrix.yukun.matrix.image_module.bean.EventDetail;
 import com.matrix.yukun.matrix.image_module.bean.EventList;
+import com.matrix.yukun.matrix.setting_module.PhotoActivity;
 import com.matrix.yukun.matrix.util.FileUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,13 +33,14 @@ import java.util.List;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-public class ListDetailActivity extends BaseActivity {
+public class ListDetailActivity extends AppCompatActivity {
 
     private ArrayList<String> lists;
     private GridView gridView;
     private TextView textView;
     private RelativeLayout layout;
     private GlideViewAdapter glideViewAdapter;
+    private int mTag;
 
     private void init() {
         gridView = (GridView) findViewById(R.id.grideview);
@@ -51,6 +57,7 @@ public class ListDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_list);
         lists = getIntent().getStringArrayListExtra("photo");
+        mTag = getIntent().getIntExtra("tag",0);
         init();
         setAdapter();
         setListener();
@@ -66,24 +73,41 @@ public class ListDetailActivity extends BaseActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                layout.setVisibility(View.VISIBLE);
+                View childAt = adapterView.getChildAt(position);
                 if(lists.size()!=0){
-                    final String detail = lists.get(position);
-                    int nameCount = detail.lastIndexOf("/");
-                    final String name=detail.substring(nameCount+1,detail.length());
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Thread.sleep(500);
-                                EventBus.getDefault().post(new EventDetail(detail,name));
-                                finish();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+                        final String detail = lists.get(position);
+                        int nameCount = detail.lastIndexOf("/");
+                        final String name=detail.substring(nameCount+1,detail.length());
+                        //直接返回到主页面
+                        if(mTag==0){
+                            layout.setVisibility(View.VISIBLE);
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        Thread.sleep(500);
+                                        EventBus.getDefault().post(new EventDetail(detail,name));
+                                        finish();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                        }
+                                    }
+                                }).start();
+                            }
+                        else if(mTag==1){
+                            //设置页传递过来的,照片查看
+                            Intent intent=new Intent(ListDetailActivity.this,PhotoActivity.class);
+                            intent.putExtra("photoname",name);
+                            intent.putExtra("photopath",detail);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP&&childAt!=null) {
+                                ActivityOptions transitionActivityOptions = ActivityOptions
+                                        .makeSceneTransitionAnimation(ListDetailActivity.this,childAt, "share");
+                                startActivity(intent, transitionActivityOptions.toBundle());
+                            }else {
+                                startActivity(intent);
                             }
                         }
-                    }).start();
-                }
+                    }
             }
         });
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

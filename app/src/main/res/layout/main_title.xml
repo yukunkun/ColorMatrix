@@ -6,32 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/titlebar">
     <ImageView
+        android:id="@+id/loadimage"
+        android:layout_weight="1"
+        android:padding="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/ic_install_dark"
+        android:layout_gravity="center"
+        android:layout_width="@dimen/dimens_40"
+        android:layout_height="match_parent" />
+    <ImageView
         android:id="@+id/imagemore"
         android:padding="4dp"
+        android:layout_toLeftOf="@+id/loadimage"
         android:visibility="visible"
-        android:layout_alignParentRight="true"
         android:src="@mipmap/ic_shuffle_white"
-        android:layout_width="@dimen/dimens_40"
-        android:layout_height="match_parent" />
-    <ImageView
-        android:id="@+id/imagephoto"
-        android:padding="3dp"
-        android:layout_toLeftOf="@+id/imagemore"
-        android:src="@mipmap/ic_explore_wallpaper_pressed"
-        android:layout_width="@dimen/dimens_40"
-        android:layout_height="match_parent" />
-    <ImageView
-        android:id="@+id/imagecameras"
-        android:padding="3dp"
-        android:layout_toLeftOf="@+id/imagephoto"
-        android:src="@mipmap/abc_ic_menu_selectall_mtrl_alpha"
         android:layout_width="@dimen/dimens_40"
         android:layout_height="match_parent" />
     <ImageView
         android:id="@+id/imagerotate"
         android:padding="3dp"
         android:visibility="gone"
-        android:layout_toLeftOf="@+id/imagecameras"
+        android:layout_toLeftOf="@+id/imagemore"
         android:src="@mipmap/ic_refresh_dark"
         android:layout_width="@dimen/dimens_40"
         android:layout_height="match_parent" />
