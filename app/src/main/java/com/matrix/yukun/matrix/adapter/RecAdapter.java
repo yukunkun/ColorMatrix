@@ -80,8 +80,6 @@ public class RecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //            ((MyHolder) holder).imageView.setImageResource(integers.get(position));
             Glide.with(context).load(integers.get(position)).into(((MyHolder) holder).imageView);
             ((MyHolder) holder).textView.setText(names.get(position));
-            //设置字体
-
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -107,11 +105,11 @@ public class RecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return integers.size();
     }
 
-    class MyHolder extends RecyclerView.ViewHolder{
+    public class MyHolder extends RecyclerView.ViewHolder{
 
-        private ImageView imageView;
-        private final TextView textView;
-        private final ImageView imageViewCheck;
+        public ImageView imageView;
+        public final TextView textView;
+        public final ImageView imageViewCheck;
 
         public MyHolder(View itemView) {
             super(itemView);

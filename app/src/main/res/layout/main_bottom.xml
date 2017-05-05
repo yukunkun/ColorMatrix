@@ -13,12 +13,26 @@
             android:layout_height="0.5dp"/>
         <LinearLayout
             android:id="@+id/linfuntion"
-            android:weightSum="2"
+            android:weightSum="3"
             android:visibility="visible"
             android:background="@color/color_282828"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimens_50">
+            <TextView
+                android:id="@+id/lujing"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:text="增强滤镜"
+                android:textStyle="bold"
+                android:textColor="@color/color_44fc2c"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+            <View
+                android:background="#363636"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
             <TextView
                 android:id="@+id/loadmaterial"
                 android:layout_weight="1"
@@ -48,10 +62,21 @@
             android:background="#363636"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"/>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimens_130"/>
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_130"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerfilter"
+                android:visibility="gone"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_130"/>
+        </RelativeLayout>
     </LinearLayout>
 
 </ScrollView>

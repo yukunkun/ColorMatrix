@@ -2,6 +2,7 @@ package com.matrix.yukun.matrix.main_module;
 
 import android.Manifest;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,6 +15,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -40,13 +42,17 @@ import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.adapter.RecAdapter;
 import com.matrix.yukun.matrix.anims.MyEvaluator;
+import com.matrix.yukun.matrix.bean.EventMorePos;
 import com.matrix.yukun.matrix.bean.EventPos;
 import com.matrix.yukun.matrix.camera_module.CameraActivity;
 import com.matrix.yukun.matrix.image_module.activity.ListDetailActivity;
 import com.matrix.yukun.matrix.image_module.activity.PhotoListActivity;
 import com.matrix.yukun.matrix.image_module.bean.EventDetail;
 import com.matrix.yukun.matrix.leshi_module.LeShiListActivity;
+import com.matrix.yukun.matrix.main_module.filters.IImageFilter;
+import com.matrix.yukun.matrix.main_module.filters.Image;
 import com.matrix.yukun.matrix.movie_module.MovieActivity;
+import com.matrix.yukun.matrix.selfview.WaterLoadView;
 import com.matrix.yukun.matrix.selfview.squareprogressbar.SquareProgressBar;
 import com.matrix.yukun.matrix.selfview.view.MyRelativeLayout;
 import com.matrix.yukun.matrix.setting_module.SettingActivity;
@@ -130,6 +136,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView imageViewBack;
     private boolean mIsMenuOpen=false;
     private int radias=180; //动画半径
+    private RecyclerView mRecyclerFilter;
+    private FilterAdapter mFilterAdapter;
+    private TextView mTvmore;
+    private LinearLayoutManager mLinearLayout;
+    private WaterLoadView mWaterLoadView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,6 +169,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         imageViewPhoto = (ImageView) findViewById(R.id.imagephoto);
         imageViewRoate = (ImageView) findViewById(R.id.imagerotate);
         imageViewCamera = (ImageView) findViewById(R.id.imagecameras);
+        mTvmore = (TextView) findViewById(R.id.lujing);
+        mWaterLoadView = (WaterLoadView) findViewById(R.id.waterload);
         imageViewCrop = (ImageView) findViewById(R.id.imagecrop);
         layoutMore = (LinearLayout) findViewById(R.id.morefunction);
         textViewMatrix = (TextView) findViewById(R.id.loadmaterial);
@@ -173,8 +186,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         textViewTiShi = (RelativeLayout) findViewById(R.id.texttishi);
         reaContain = (RelativeLayout) findViewById(R.id.contain);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+        mLinearLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        mRecyclerFilter = (RecyclerView) findViewById(R.id.recyclerfilter);
         recyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerFilter.setLayoutManager(mLinearLayout);
         setConLayout();
         OverScrollDecoratorHelper.setUpOverScroll((ScrollView)findViewById(R.id.scrollview));
     }
@@ -195,6 +212,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         // Horizontal
         OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
         recyclerView.addItemDecoration(new SpacesItemDecoration(20));
+
+        mFilterAdapter = new FilterAdapter(this);
+        mRecyclerFilter.setAdapter(mFilterAdapter);
+        // Horizontal
+        OverScrollDecoratorHelper.setUpOverScroll(mRecyclerFilter, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
+        mRecyclerFilter.addItemDecoration(new SpacesItemDecoration(20));
+
     }
 
     @Subscribe(threadMode=ThreadMode.MAIN)
@@ -202,6 +226,86 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         pos = event.position;
         recAdapter.notifyDataSetChanged();
         setBitmapColor(pos);
+    }
+    //更多滤镜
+    @Subscribe(threadMode=ThreadMode.MAIN)
+    public void getMorePos(EventMorePos event){
+        int posmore = event.pos;
+        mFilterAdapter.setSelectPosition(posmore);
+        mFilterAdapter.notifyDataSetChanged();
+        detailBitmap(posmore);
+
+    }
+
+    private void detailBitmap(int posmore) {
+        if(bitmapOri==null){
+            Toast.makeText(MainActivity.this, "请选择图片", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //得到不同的ColorMatrix,并且返回回来
+        IImageFilter filter = (IImageFilter) mFilterAdapter.getItem(posmore);
+        new processImageTask(this, filter,mOriginBmp).execute();
+    }
+
+
+    public class processImageTask extends AsyncTask<Void, Void, Bitmap> {
+        private IImageFilter filter;
+        private Activity activity = null;
+        private Bitmap images;
+        public processImageTask(Activity activity, IImageFilter imageFilter,Bitmap images) {
+            this.filter = imageFilter;
+            this.activity = activity;
+            this.images=images;
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+            mWaterLoadView.setVisibility(View.VISIBLE);
+        }
+
+        public Bitmap doInBackground(Void... params) {
+            Image img = null;
+            try {
+//                Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.image);
+                img = new Image(images);
+                if (filter != null) {
+                    img = filter.process(img);
+                    img.copyPixelsFromBuffer();
+                }
+                return img.getImage();
+            }
+            catch(Exception e){
+                if (img != null && img.destImage.isRecycled()) {
+                    img.destImage.recycle();
+                    img.destImage = null;
+                    System.gc(); // ����ϵͳ��ʱ����
+                }
+            }
+            finally{
+                if (img != null && img.image.isRecycled()) {
+                    img.image.recycle();
+                    img.image = null;
+                    System.gc();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            if(result != null){
+                mWaterLoadView.setVisibility(View.GONE);
+                super.onPostExecute(result);
+                imageViewTest.setImageBitmap(result);
+                seekBitmap=result;//进度的Bitmap
+                bitmapRoate=result;//旋转的Bitmap
+                mTempBmp= BitmapUtil.mTempBit(result);
+            }
+//            textView.setVisibility(View.GONE);
+        }
     }
 
     private void setBitmapColor(int pos) {
@@ -317,6 +421,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         textViewWea.setOnClickListener(this);
         textViewMovRec.setOnClickListener(this);
         textViewSetting.setOnClickListener(this);
+        mTvmore.setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
@@ -478,8 +583,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivityForResult(intent2, 1);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 break;
+            case R.id.lujing:
+                if(!isShowMoew){
+                    isShowMoew=true;
+                    recyclerView.setVisibility(View.GONE);
+                    mRecyclerFilter.setVisibility(View.VISIBLE);
+                }else {
+                    isShowMoew=false;
+                    recyclerView.setVisibility(View.VISIBLE);
+                    mRecyclerFilter.setVisibility(View.GONE);
+                }
+                break;
         }
     }
+    private boolean isShowMoew=false;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
