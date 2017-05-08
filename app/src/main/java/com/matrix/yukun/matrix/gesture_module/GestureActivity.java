@@ -4,18 +4,24 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.movie_module.adapter.PagerAdapter;
 import com.matrix.yukun.matrix.selfview.GestureLockViewGroup;
+import com.matrix.yukun.matrix.selfview.NoScrollViewPager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,126 +32,57 @@ import butterknife.OnClick;
 
 public class GestureActivity extends AppCompatActivity {
 
-    @BindView(R.id.titile)
-    TextView mTitile;
+
+    @BindView(R.id.tabLayout)
+    TabLayout mTabLayout;
     @BindView(R.id.tv_forget)
     TextView mTvForget;
     @BindView(R.id.title)
     RelativeLayout mTitle;
-    @BindView(R.id.lin)
-    LinearLayout mLin;
-    @BindView(R.id.id_gestureLockViewGroup)
-    GestureLockViewGroup mGestureLockViewGroup;
-    @BindView(R.id.tv_sure)
-    TextView mTvSure;
-    @BindView(R.id.et_secret)
-    EditText mEtSecret;
-    @BindView(R.id.tv_input_time)
-    TextView mTvInputTime;
-    @BindView(R.id.tv_reset)
-    TextView mTvReset;
-
-    private List<Integer> mListFirst = new ArrayList<>();
-    private List<Integer> mListSecond = new ArrayList<>();
-    private int secretPos = 1;
-
+    @BindView(R.id.mViewPager)
+    NoScrollViewPager mViewPager;
+    private ArrayList<Fragment> fragments = new ArrayList<>();
+    private PagerAdapter mSecViewPagerAdapter;
+    String [] strings=new String[]{"手势密码","人脸识别"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gesture);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         setListener();
+        setAdapter();
     }
 
     private void setListener() {
-        mGestureLockViewGroup
-                .setOnGestureLockViewListener(new GestureLockViewGroup.OnGestureLockViewListener() {
+        mTabLayout.addTab(mTabLayout.newTab().setText("手势密码"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("人脸识别"));
 
-                    @Override
-                    public void onUnmatchedExceedBoundary() {
-                    }
-
-                    @Override
-                    public void onGestureEvent(boolean matched) {
-                        secretPos = 2;
-                        mTvInputTime.setText("第二次输入");
-                    }
-
-                    @Override
-                    public void onBlockSelected(int cId) {
-                        if (secretPos == 1) {
-                            mListFirst.add(cId);
-                        } else {
-                            mListSecond.add(cId);
-                        }
-                    }
-                });
-
-        mEtSecret.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                return false;
-            }
-        });
+        fragments.add(new GestureFragment());
+        fragments.add(new FaceFragment());
     }
+
+    private void setAdapter() {
+        mSecViewPagerAdapter = new PagerAdapter(getSupportFragmentManager(),fragments,strings);
+        mViewPager.setAdapter(mSecViewPagerAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+        mViewPager.setOffscreenPageLimit(2);
+    }
+
 
     public void GestureBack(View view) {
         finish();
-        overridePendingTransition(R.anim.left_in,R.anim.right_out);
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 
-    @OnClick({R.id.titile, R.id.tv_forget, R.id.title, R.id.lin, R.id.tv_sure,R.id.tv_reset})
+    @OnClick({R.id.tv_forget})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_forget:
                 showAlterDialog();
                 break;
-            case R.id.tv_sure:
-                if (mEtSecret.getText().toString().length() == 0) {
-                    showAlterDialog();
-                    MyApp.showToast("请输入数字密码");
-                } else if (!isSame()) {
-                    secretPos = 1;
-                    mListFirst.clear();
-                    mListSecond.clear();
-                    MyApp.showToast("请保证两次的手势相同");
-                    mTvInputTime.setText("第一次输入");
-                } else {
-                    setSharePrefressSuccess("gesture", true);
-                    setSharePrefress("secretStr", mEtSecret.getText().toString());
-                    String secret = "";
-                    for (int i = 0; i < mListFirst.size(); i++) {
-                        secret = secret + mListFirst.get(i);
-                    }
-                    setSharePrefress("getsureLock", secret);
-                    MyApp.showToast("设置成功!");
-                    finish();
-                    overridePendingTransition(R.anim.left_in,R.anim.right_out);
-                }
-                break;
-            case R.id.tv_reset:
-                setSharePrefressSuccess("gesture",false);
-                MyApp.showToast("重置手势密码成功");
-                finish();
-                overridePendingTransition(R.anim.left_in,R.anim.right_out);
-                break;
         }
-    }
-
-    //判断两次相同的集合;
-    private boolean isSame() {
-        if (mListFirst.size() != mListSecond.size() || mListFirst.size() == 0) {
-            return false;
-        }
-        for (int i = 0; i < mListFirst.size(); i++) {
-            if (mListFirst.get(i) == mListSecond.get(i)) {
-                continue;
-            } else {
-                return false;
-            }
-        }
-        return true;
     }
 
     private void showAlterDialog() {
@@ -165,24 +102,25 @@ public class GestureActivity extends AppCompatActivity {
         }).show();
     }
 
-    private void setSharePrefress(String tag, String str) {
-        SharedPreferences sp = getSharedPreferences(tag, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString(tag, str);
-        editor.commit();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
+    @Subscribe
+    public void gettag(OnEventFinish eventFinish){
+        int pos = eventFinish.pos;
+        if(pos==1){
+            finish();
+            overridePendingTransition(R.anim.left_in, R.anim.right_out);
+        }
+    };
 
-    private void setSharePrefressSuccess(String tag, boolean str) {
-        SharedPreferences sp = getSharedPreferences(tag, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putBoolean(tag, str);
-        editor.commit();
-    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-        overridePendingTransition(R.anim.left_in,R.anim.right_out);
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 
 }

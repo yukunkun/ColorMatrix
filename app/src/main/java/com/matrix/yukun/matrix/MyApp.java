@@ -5,6 +5,8 @@ import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.lecloud.sdk.config.LeCloudPlayerConfig;
 import com.lecloud.sdk.listener.OnInitCmfListener;
 import com.tencent.bugly.Bugly;
@@ -23,7 +25,8 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
         myApp=this;
-
+        //讯飞人脸识别
+        SpeechUtility.createUtility(this, SpeechConstant.APPID +"=58833c92");
         Beta.autoCheckUpgrade = false;//设置不自动检查
 //        Beta.initDelay = 9 * 1000; //自动监测时间
         Bugly.init(getApplicationContext(), "884e2d9286", false);
