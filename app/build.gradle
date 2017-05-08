@@ -10,7 +10,7 @@ android {
         applicationId "com.matrix.yukun.matrix"
         minSdkVersion 18
         targetSdkVersion 23
-        versionCode 13
+        versionCode 14
         versionName "2.6.9 版"
         ndk {
             //设置支持的SO库架构
