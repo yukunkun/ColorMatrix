@@ -60,6 +60,7 @@ import com.matrix.yukun.matrix.selfview.view.MyRelativeLayout;
 import com.matrix.yukun.matrix.setting_module.SettingActivity;
 import com.matrix.yukun.matrix.util.AnimUtils;
 import com.matrix.yukun.matrix.util.BitmapUtil;
+import com.matrix.yukun.matrix.util.CameraSizeUtils;
 import com.matrix.yukun.matrix.util.DeskMapUtil;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.util.ImageUtils;
@@ -647,10 +648,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
                         cursor.close();
                     }
-                    Bitmap bitmapCopy=BitmapFactory.decodeFile(imagePath,options).copy(Bitmap.Config.ARGB_4444,true);
-                    //裁剪后的压缩
-                    Bitmap bitmap= ImageUtils.compressBitmap(bitmapCopy);//图片处理,压缩大小
-
+                    Bitmap bitmap= ImageUtils.getSmallBitmap(imagePath);//图片处理,压缩大小                    Bitmap bitmap= ImageUtils.compressBitmap(bitmapCopy);//图片处理,压缩大小
                     getCrop(BitmapUtil.bigBitmap(bitmap,2,2));
                     FileUtil.deleteFile(imagePath);
                 }

@@ -490,7 +490,7 @@ public class ImageUtils {
         //初始压缩比为1
         int inSampleSize = 1;
         // TODO: 16/3/7 动态设置
-        int reqHeight = 1280;
+        int reqHeight = 1080;
         int reqWidth = 960;
         if (height > reqHeight || width > reqWidth) {
             final int heightRatio = Math.round((float) height / (float) reqHeight);
