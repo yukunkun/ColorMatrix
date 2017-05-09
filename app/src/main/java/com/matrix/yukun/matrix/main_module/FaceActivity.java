@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.hardware.Camera;
@@ -136,7 +137,6 @@ public class FaceActivity extends AppCompatActivity {
         ViewGroup.LayoutParams param = mSvCamera.getLayoutParams();
         param.height = mSvCamera.getWidth() * mBestPreviewSize.width / mBestPreviewSize.height;
         mSvCamera.setLayoutParams(param);
-
         //设置值回去
 //        mCamera.setParameters(params);
         //回调
@@ -173,8 +173,9 @@ public class FaceActivity extends AppCompatActivity {
     }
 
     private void onTakePhoto(byte[] data) {
-        byte[] bytes = CameraSizeUtils.compressBitmap(BitmapFactory.decodeByteArray(data, 0, data.length), 100);
+        Bitmap bitmap = CameraSizeUtils.rotateBitmapByDegree(BitmapFactory.decodeByteArray(data, 0, data.length), -90);
 
+        byte[] bytes = CameraSizeUtils.compressBitmap(bitmap, 150);
         String mAuthId = isFace();
         mFace = new FaceRequest(this);
         // 设置业务类型为验证

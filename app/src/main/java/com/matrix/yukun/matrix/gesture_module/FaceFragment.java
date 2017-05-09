@@ -2,6 +2,7 @@ package com.matrix.yukun.matrix.gesture_module;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.hardware.Camera;
@@ -23,7 +24,6 @@ import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.RequestListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.thirdparty.V;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.util.CameraSizeUtils;
@@ -193,10 +193,11 @@ public class FaceFragment extends Fragment {
     private void onTakePhoto(byte[] data) {
 
 //        byte[] bytes = getSmallBitmap(data);
-
-        byte[] bytes = CameraSizeUtils.compressBitmap(BitmapFactory.decodeByteArray(data, 0, data.length), 100);
+        Bitmap bitmap = CameraSizeUtils.rotateBitmapByDegree(BitmapFactory.decodeByteArray(data, 0, data.length), -90);
+        byte[] bytes = CameraSizeUtils.compressBitmap(bitmap, 150);
         long longtime = System.currentTimeMillis();//获取当前时间
         mAuthId = "a" + longtime;
+//        mBitmap.setImageBitmap(bitmap);
 //        Log.i("----byte",/*bytes.length+*/" date:" + data.length);
         mFace = new FaceRequest(getContext());
         // 设置业务类型为注册

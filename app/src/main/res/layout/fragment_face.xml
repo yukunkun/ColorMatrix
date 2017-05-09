@@ -5,7 +5,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
     <TextView
-        android:layout_marginTop="@dimen/dimens_20"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="@dimen/dimens_10"
         android:text="对准面部后请点击确定"
         android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
             android:layout_width="0dp"
             android:text="确 定"
             android:textSize="18sp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/color_44fc2c"
             android:background="@drawable/faceshape"
             android:layout_marginRight="@dimen/dimens_50"
