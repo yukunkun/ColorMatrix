@@ -2,23 +2,28 @@ package com.matrix.yukun.matrix.gesture_module;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.RequestListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.thirdparty.V;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.util.CameraSizeUtils;
@@ -46,6 +51,10 @@ public class FaceFragment extends Fragment {
     Button mBtSure;
     @BindView(R.id.cancel_face)
     TextView mCancelFace;
+    @BindView(R.id.bitmap)
+    ImageView mBitmap;
+    @BindView(R.id.waterloading)
+    RelativeLayout mWaterloading;
     private Camera mCamera;
     private Camera.Size mBestPreviewSize;
     private FaceRequest mFace;
@@ -118,7 +127,7 @@ public class FaceFragment extends Fragment {
         mSvCamera.setLayoutParams(param);
 
         //设置值回去
-        mCamera.setParameters(params);
+//        mCamera.setParameters(params);
         //回调
         mCamera.setPreviewCallback(new Camera.PreviewCallback() { //获取相机的data
 
@@ -136,26 +145,37 @@ public class FaceFragment extends Fragment {
         }
     }
 
-    @OnClick({R.id.bt_cancle, R.id.bt_sure,R.id.cancel_face})
+    @OnClick({R.id.bt_cancle, R.id.bt_sure, R.id.cancel_face})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_cancle:
                 if (mCamera != null) {
+                    isSure = false;
                     mCamera.stopPreview();
                     mCamera.startPreview();
                 }
-//                EventBus.getDefault().post(new OnEventFinish(1));
                 break;
             case R.id.bt_sure:
-                takePhoto();
+                if (!isSure) {
+                    mWaterloading.setVisibility(View.VISIBLE);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            takePhoto();
+                        }
+                    }).start();
+                    isSure = true;
+                }
                 break;
             case R.id.cancel_face:
-                setSharePrefress("mAuthId","a");
+                setSharePrefress("mAuthId", "a");
                 MyApp.showToast("取消成功");
                 EventBus.getDefault().post(new OnEventFinish(1));
                 break;
         }
     }
+
+    private boolean isSure = false;
 
     private void takePhoto() {
         if (mCamera == null) {
@@ -172,16 +192,19 @@ public class FaceFragment extends Fragment {
 
     private void onTakePhoto(byte[] data) {
 
+//        byte[] bytes = getSmallBitmap(data);
+
+        byte[] bytes = CameraSizeUtils.compressBitmap(BitmapFactory.decodeByteArray(data, 0, data.length), 100);
         long longtime = System.currentTimeMillis();//获取当前时间
         mAuthId = "a" + longtime;
-
+//        Log.i("----byte",/*bytes.length+*/" date:" + data.length);
         mFace = new FaceRequest(getContext());
         // 设置业务类型为注册
         mFace.setParameter(SpeechConstant.WFR_SST, "reg");
         // 设置auth_id
         mFace.setParameter(SpeechConstant.AUTH_ID, mAuthId);
         // imgData 为图片的二进制数据，listener 为处理注册结果的回调对象
-        mFace.sendRequest(data, new RequestListener() {
+        mFace.sendRequest(bytes, new RequestListener() {
             @Override
             public void onEvent(int i, Bundle bundle) {
 
@@ -191,6 +214,7 @@ public class FaceFragment extends Fragment {
             public void onBufferReceived(byte[] bytes) {
                 String ret = new String(bytes);
                 try {
+                    mWaterloading.setVisibility(View.GONE);
                     JSONObject jsonObject = new JSONObject(ret);
                     String rst = jsonObject.optString("rst");
                     MyApp.showToast("验证成功 " + rst);
@@ -204,6 +228,7 @@ public class FaceFragment extends Fragment {
             @Override
             public void onCompleted(SpeechError speechError) {
                 if (speechError != null) {
+                    mWaterloading.setVisibility(View.GONE);
                     MyApp.showToast("识别错误:" + speechError.toString() + " 请重试");
                 }
             }
@@ -216,5 +241,6 @@ public class FaceFragment extends Fragment {
         editor.putString(tag, str);
         editor.commit();
     }
+
 
 }

@@ -1,7 +1,10 @@
 package com.matrix.yukun.matrix.util;
 
+import android.graphics.Bitmap;
 import android.hardware.Camera;
+import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Iterator;
 import java.util.List;
 
@@ -79,4 +82,24 @@ public class CameraSizeUtils {
         // 没得选，默认吧
         return defaultSize;
     }
+
+    public static byte[] compressBitmap(Bitmap bitmap, float size) {
+        if (bitmap == null) {
+            return null;//如果图片本身的大小已经小于这个大小了，就没必要进行压缩
+        }
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);//如果签名是png的话，则不管quality是多少，都不会进行质量的压缩
+        int quality = 100;
+        while (baos.toByteArray().length / 1024f > size) {
+            quality = quality - 4;// 每次都减少4
+            baos.reset();// 重置baos即清空baos
+            if (quality <= 0) {
+                break;
+            }
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
+            Log.i("------质量--------", "" + baos.toByteArray().length / 1024f);
+        }
+        return baos.toByteArray();
+    }
+
 }

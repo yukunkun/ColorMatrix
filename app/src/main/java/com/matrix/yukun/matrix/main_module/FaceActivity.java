@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -11,13 +12,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.iflytek.cloud.FaceRequest;
@@ -47,17 +47,25 @@ public class FaceActivity extends AppCompatActivity {
     SurfaceView mSvCamera;
     @BindView(R.id.bt_reset)
     Button mBtReset;
+    @BindView(R.id.waterloading)
+    RelativeLayout mWaterloading;
     private AlertDialog mAlertDialog;
     private Camera mCamera;
     private Camera.Size mBestPreviewSize;
     private FaceRequest mFace;
 
-    private Handler mHandler=new Handler() {
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 1) {
-                takePhoto();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        takePhoto();
+                    }
+                }).start();
+                mWaterloading.setVisibility(View.VISIBLE);
             }
         }
     };
@@ -91,7 +99,7 @@ public class FaceActivity extends AppCompatActivity {
     }
 
     private void closeCamer() {
-        if(mCamera!=null){
+        if (mCamera != null) {
             mCamera.setPreviewCallback(null);
             mCamera.stopPreview();
             mCamera.release();
@@ -130,7 +138,7 @@ public class FaceActivity extends AppCompatActivity {
         mSvCamera.setLayoutParams(param);
 
         //设置值回去
-        mCamera.setParameters(params);
+//        mCamera.setParameters(params);
         //回调
         mCamera.setPreviewCallback(new Camera.PreviewCallback() { //获取相机的data
 
@@ -145,7 +153,7 @@ public class FaceActivity extends AppCompatActivity {
             mCamera.startPreview();
 
             //自动拍照
-            mHandler.sendEmptyMessageDelayed(1,1500);
+            mHandler.sendEmptyMessageDelayed(1, 1500);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -165,15 +173,16 @@ public class FaceActivity extends AppCompatActivity {
     }
 
     private void onTakePhoto(byte[] data) {
+        byte[] bytes = CameraSizeUtils.compressBitmap(BitmapFactory.decodeByteArray(data, 0, data.length), 100);
 
-        String mAuthId=isFace();
+        String mAuthId = isFace();
         mFace = new FaceRequest(this);
         // 设置业务类型为验证
-        mFace.setParameter( SpeechConstant.WFR_SST, "verify" );
+        mFace.setParameter(SpeechConstant.WFR_SST, "verify");
         // 设置auth_id
-        mFace.setParameter( SpeechConstant. AUTH_ID, mAuthId );
+        mFace.setParameter(SpeechConstant.AUTH_ID, mAuthId);
         // imgData 为图片的二进制数据
-        mFace.sendRequest(data, new RequestListener() {
+        mFace.sendRequest(bytes, new RequestListener() {
             @Override
             public void onEvent(int i, Bundle bundle) {
 
@@ -183,9 +192,10 @@ public class FaceActivity extends AppCompatActivity {
             public void onBufferReceived(byte[] bytes) {
                 String ret = new String(bytes);
                 try {
-                    JSONObject jsonObject=new JSONObject(ret);
+                    mWaterloading.setVisibility(View.GONE);
+                    JSONObject jsonObject = new JSONObject(ret);
                     Double rst = jsonObject.optDouble("score");
-                    MyApp.showToast("相似度: "+rst+"%");
+                    MyApp.showToast("相似度: " + rst + "%");
                     Intent intent = new Intent(FaceActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -197,16 +207,17 @@ public class FaceActivity extends AppCompatActivity {
 
             @Override
             public void onCompleted(SpeechError speechError) {
-                if(speechError!=null){
-                    MyApp.showToast("验证错误:"+speechError.toString()+" 请正对镜头重试");
+                if (speechError != null) {
+                    mWaterloading.setVisibility(View.GONE);
+                    MyApp.showToast("验证错误:" + speechError.toString() + " 请正对镜头重试");
                 }
             }
         });
     }
 
-    private String isFace(){
-        SharedPreferences preferences=getSharedPreferences("mAuthId", Context.MODE_PRIVATE);
-        String result = preferences.getString("mAuthId","a");
+    private String isFace() {
+        SharedPreferences preferences = getSharedPreferences("mAuthId", Context.MODE_PRIVATE);
+        String result = preferences.getString("mAuthId", "a");
         return result;
     }
 
@@ -217,21 +228,21 @@ public class FaceActivity extends AppCompatActivity {
                 resetSecret();
                 break;
             case R.id.bt_reset:
-                if(null!=mCamera){
+                if (null != mCamera) {
                     mCamera.stopPreview();
                     mCamera.startPreview();
-                    mHandler.sendEmptyMessageDelayed(1,1000);
+                    mHandler.sendEmptyMessageDelayed(1, 1000);
                 }
                 break;
         }
     }
 
-    public void LockBack(View view) {
+    public void FaceBack(View view) {
         finish();
     }
 
 
-    private void resetSecret(){
+    private void resetSecret() {
         mAlertDialog.dismiss();
         new AlertDialog.Builder(this).setTitle("是否重置密码")
                 .setMessage("重置密码你的记录将会清零")

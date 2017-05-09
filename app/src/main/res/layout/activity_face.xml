@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:yk="http://schemas.android.com/apk/res-auto"
     tools:context="com.matrix.yukun.matrix.main_module.FaceActivity">
     <RelativeLayout
         android:id="@+id/title"
@@ -56,4 +57,29 @@
         android:layout_marginBottom="@dimen/dimens_20"
         android:background="@drawable/shape_gesture"
         android:layout_height="@dimen/dimens_40"/>
+    <RelativeLayout
+        android:id="@+id/waterloading"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.matrix.yukun.matrix.selfview.WaterLoadView
+            android:id="@+id/waterload"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_centerInParent="true"
+            yk:circleColor="#FF0077"
+            yk:circleTop="90"
+            yk:circleSmallRadio="8"
+            yk:loadTime="1000" />
+        <TextView
+            android:text="loading ..."
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/waterload"
+            android:layout_width="wrap_content"
+            android:textColor="@color/color_44fc2c"
+            android:layout_centerHorizontal="true"
+            android:layout_height="@dimen/dimens_30"/>
+    </RelativeLayout>
 </RelativeLayout>

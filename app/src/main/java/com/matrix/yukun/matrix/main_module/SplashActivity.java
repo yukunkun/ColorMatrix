@@ -158,7 +158,6 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
         Log.i("---conJump",conJump+"");
         if(conJump){
             Intent intent;
-            Log.i("---mAuthId",isFace());
             if(!isFace().equals("a")){
                 intent=new Intent(this,FaceActivity.class);
             }else if(istrue()){
