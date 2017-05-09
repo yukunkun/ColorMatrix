@@ -26,7 +26,7 @@ public class MyApp extends Application {
         super.onCreate();
         myApp=this;
         //讯飞人脸识别
-        SpeechUtility.createUtility(this, SpeechConstant.APPID +"=58833c92");
+        SpeechUtility.createUtility(getApplicationContext(), SpeechConstant.APPID+"=58833c92");
         Beta.autoCheckUpgrade = false;//设置不自动检查
 //        Beta.initDelay = 9 * 1000; //自动监测时间
         Bugly.init(getApplicationContext(), "884e2d9286", false);

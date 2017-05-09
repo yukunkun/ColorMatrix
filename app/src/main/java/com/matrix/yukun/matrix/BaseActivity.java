@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.iflytek.sunflower.FlowerCollector;
 
+
 public class BaseActivity extends AppCompatActivity {
     //  讯飞统计的 Appid： 	58833c92
     @Override

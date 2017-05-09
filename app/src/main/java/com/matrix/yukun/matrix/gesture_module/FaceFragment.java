@@ -13,19 +13,21 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.RequestListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
-import com.letvcloud.cmf.utils.IOUtils;
+import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.util.CameraSizeUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,9 +44,12 @@ public class FaceFragment extends Fragment {
     Button mBtCancle;
     @BindView(R.id.bt_sure)
     Button mBtSure;
+    @BindView(R.id.cancel_face)
+    TextView mCancelFace;
     private Camera mCamera;
     private Camera.Size mBestPreviewSize;
     private FaceRequest mFace;
+    private String mAuthId;
 
     @Nullable
     @Override
@@ -75,7 +80,7 @@ public class FaceFragment extends Fragment {
     }
 
     private void closeCamer() {
-        if(mCamera!=null){
+        if (mCamera != null) {
             mCamera.setPreviewCallback(null);
             mCamera.stopPreview();
             mCamera.release();
@@ -92,18 +97,18 @@ public class FaceFragment extends Fragment {
         mCamera.setDisplayOrientation(90);
 
         List<Camera.Size> previewSizes = params.getSupportedPreviewSizes();
-        Camera.Size mBestPictureSize=null;
+        Camera.Size mBestPictureSize = null;
 
         // 设置pictureSize
         List<Camera.Size> pictureSizes = params.getSupportedPictureSizes();
         if (mBestPictureSize == null) {
-            mBestPictureSize =findBestPictureSize(pictureSizes, params.getPictureSize(), ratio);
+            mBestPictureSize = CameraSizeUtils.findBestPictureSize(pictureSizes, params.getPictureSize(), ratio);
         }
         params.setPictureSize(mBestPictureSize.width, mBestPictureSize.height);
 
         // 设置previewSize
         if (mBestPreviewSize == null) {
-            mBestPreviewSize = findBestPreviewSize(previewSizes, params.getPreviewSize(),
+            mBestPreviewSize = CameraSizeUtils.findBestPreviewSize(previewSizes, params.getPreviewSize(),
                     mBestPictureSize, ratio);
         }
         params.setPreviewSize(mBestPreviewSize.width, mBestPreviewSize.height);
@@ -131,14 +136,23 @@ public class FaceFragment extends Fragment {
         }
     }
 
-    @OnClick({R.id.bt_cancle, R.id.bt_sure})
+    @OnClick({R.id.bt_cancle, R.id.bt_sure,R.id.cancel_face})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_cancle:
-                EventBus.getDefault().post(new OnEventFinish(1));
+                if (mCamera != null) {
+                    mCamera.stopPreview();
+                    mCamera.startPreview();
+                }
+//                EventBus.getDefault().post(new OnEventFinish(1));
                 break;
             case R.id.bt_sure:
                 takePhoto();
+                break;
+            case R.id.cancel_face:
+                setSharePrefress("mAuthId","a");
+                MyApp.showToast("取消成功");
+                EventBus.getDefault().post(new OnEventFinish(1));
                 break;
         }
     }
@@ -159,14 +173,13 @@ public class FaceFragment extends Fragment {
     private void onTakePhoto(byte[] data) {
 
         long longtime = System.currentTimeMillis();//获取当前时间
-        String mAuthId="a"+longtime;
-        setSharePrefress("mAuthId",mAuthId);
+        mAuthId = "a" + longtime;
 
         mFace = new FaceRequest(getContext());
         // 设置业务类型为注册
-        mFace.setParameter( SpeechConstant.WFR_SST, "reg" );
+        mFace.setParameter(SpeechConstant.WFR_SST, "reg");
         // 设置auth_id
-        mFace.setParameter( SpeechConstant. AUTH_ID, mAuthId );
+        mFace.setParameter(SpeechConstant.AUTH_ID, mAuthId);
         // imgData 为图片的二进制数据，listener 为处理注册结果的回调对象
         mFace.sendRequest(data, new RequestListener() {
             @Override
@@ -176,88 +189,26 @@ public class FaceFragment extends Fragment {
 
             @Override
             public void onBufferReceived(byte[] bytes) {
-
+                String ret = new String(bytes);
+                try {
+                    JSONObject jsonObject = new JSONObject(ret);
+                    String rst = jsonObject.optString("rst");
+                    MyApp.showToast("验证成功 " + rst);
+                    //成功后存储数据
+                    setSharePrefress("mAuthId", mAuthId);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onCompleted(SpeechError speechError) {
-
+                if (speechError != null) {
+                    MyApp.showToast("识别错误:" + speechError.toString() + " 请重试");
+                }
             }
         });
     }
-
-
-    /**
-     * 找到短边比长边大于于所接受的最小比例的最大尺寸
-     *
-     * @param sizes       支持的尺寸列表
-     * @param defaultSize 默认大小
-     * @param minRatio    相机图片短边比长边所接受的最小比例
-     * @return 返回计算之后的尺寸
-     */
-    private Camera.Size findBestPictureSize(List<Camera.Size> sizes, Camera.Size defaultSize, float minRatio) {
-        final int MIN_PIXELS = 320 * 480;
-
-//        sortSizes(sizes);
-
-        Iterator<Camera.Size> it = sizes.iterator();
-        while (it.hasNext()) {
-            Camera.Size size = it.next();
-            //移除不满足比例的尺寸
-            if ((float) size.height / size.width <= minRatio) {
-                it.remove();
-                continue;
-            }
-            //移除太小的尺寸
-            if (size.width * size.height < MIN_PIXELS) {
-                it.remove();
-            }
-        }
-
-        // 返回符合条件中最大尺寸的一个
-        if (!sizes.isEmpty()) {
-            return sizes.get(0);
-        }
-        // 没得选，默认吧
-        return defaultSize;
-    }
-    /**
-     * @param sizes
-     * @param defaultSize
-     * @param pictureSize 图片的大小
-     * @param minRatio preview短边比长边所接受的最小比例
-     * @return
-     */
-    private Camera.Size findBestPreviewSize(List<Camera.Size> sizes, Camera.Size defaultSize,
-                                            Camera.Size pictureSize, float minRatio) {
-        final int pictureWidth = pictureSize.width;
-        final int pictureHeight = pictureSize.height;
-        boolean isBestSize = (pictureHeight / (float)pictureWidth) > minRatio;
-//        sortSizes(sizes);
-
-        Iterator<Camera.Size> it = sizes.iterator();
-        while (it.hasNext()) {
-            Camera.Size size = it.next();
-            if ((float) size.height / size.width <= minRatio) {
-                it.remove();
-                continue;
-            }
-
-            // 找到同样的比例，直接返回
-            if (isBestSize && size.width * pictureHeight == size.height * pictureWidth) {
-                return size;
-            }
-        }
-
-        // 未找到同样的比例的，返回尺寸最大的
-        if (!sizes.isEmpty()) {
-            return sizes.get(0);
-        }
-
-        // 没得选，默认吧
-        return defaultSize;
-    }
-
 
     private void setSharePrefress(String tag, String str) {
         SharedPreferences sp = getActivity().getSharedPreferences(tag, Context.MODE_PRIVATE);

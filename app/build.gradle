@@ -18,11 +18,11 @@ android {
         }
         multiDexEnabled true
     }
-//    sourceSets {
-//        main {
-//            jniLibs.srcDirs = ['libs']
-//        }
-//    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -75,4 +75,5 @@ dependencies {
     compile 'com.getbase:floatingactionbutton:1.10.1'
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
     compile files('libs/Msc.jar')
+    compile files('libs/Sunflower.jar')
 }

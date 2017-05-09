@@ -10,7 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <SurfaceView
-        android:layout_margin="45dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="20dp"
         android:id="@+id/sv_camera"
         android:layout_width="match_parent"
         android:layout_height="320dp"/>
@@ -19,26 +22,38 @@
         android:layout_below="@+id/sv_camera"
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/dimens_45">
         <Button
             android:id="@+id/bt_cancle"
             android:layout_width="0dp"
-            android:text="取消"
-            android:background="@color/color_8c8c8c"
+            android:text="重 试"
+            android:textSize="18sp"
+            android:textColor="@color/color_000000"
+            android:background="@drawable/faceshape"
             android:layout_marginLeft="@dimen/dimens_50"
             android:layout_weight="1"
-            android:textColor="@color/color_ececec"
-            android:layout_height="wrap_content"/>
+            android:layout_height="@dimen/dimens_45"/>
         <Button
             android:id="@+id/bt_sure"
             android:layout_width="0dp"
-            android:text="确定"
+            android:text="确 定"
+            android:textSize="18sp"
             android:layout_marginLeft="5dp"
             android:textColor="@color/color_44fc2c"
-            android:background="@color/color_8c8c8c"
+            android:background="@drawable/faceshape"
             android:layout_marginRight="@dimen/dimens_50"
             android:layout_weight="1"
-            android:layout_height="wrap_content"/>
+            android:layout_height="@dimen/dimens_45"/>
     </LinearLayout>
-
+    <TextView
+        android:id="@+id/cancel_face"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dimens_20"
+        android:text="取消人脸识别检测"
+        android:textColor="@color/color_44fc2c"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:layout_height="@dimen/dimens_50"/>
 </RelativeLayout>

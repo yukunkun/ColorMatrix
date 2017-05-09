@@ -158,10 +158,13 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
         Log.i("---conJump",conJump+"");
         if(conJump){
             Intent intent;
-            if(!istrue()){
-                intent=new Intent(this,MainActivity.class);
-            }else {
+            Log.i("---mAuthId",isFace());
+            if(!isFace().equals("a")){
+                intent=new Intent(this,FaceActivity.class);
+            }else if(istrue()){
                 intent=new Intent(this,LockActivity.class);
+            }else {
+                intent=new Intent(this,MainActivity.class);
             }
             startActivity(intent);
             finish();
@@ -176,6 +179,9 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
         return result;
     }
 
-
-
+    private String isFace(){
+        SharedPreferences preferences=getSharedPreferences("mAuthId", Context.MODE_PRIVATE);
+        String result = preferences.getString("mAuthId","a");
+        return result;
+    }
 }
