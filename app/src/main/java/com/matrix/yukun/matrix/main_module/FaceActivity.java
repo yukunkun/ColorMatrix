@@ -163,7 +163,7 @@ public class FaceActivity extends AppCompatActivity {
             mTvSaomiao.setVisibility(View.VISIBLE);
             //自动拍照
             int nextInt = random.nextInt(1500);
-            mHandler.sendEmptyMessageDelayed(1, 2500+nextInt);
+            mHandler.sendEmptyMessageDelayed(1, 1500+nextInt);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -251,8 +251,8 @@ public class FaceActivity extends AppCompatActivity {
                     mCamera.stopPreview();
                     mCamera.startPreview();
                     mTvSaomiao.setVisibility(View.VISIBLE);
-                    mHandler.sendEmptyMessageDelayed(1, 1000);
-                }
+                    int nextInt = random.nextInt(3000);
+                    mHandler.sendEmptyMessageDelayed(1, 1000+nextInt);                }
                 break;
         }
     }
@@ -291,13 +291,12 @@ public class FaceActivity extends AppCompatActivity {
         closeCamer();
     }
     public void startTrans(){
-
         ObjectAnimator anim1 = ObjectAnimator.ofFloat(mTvSaomiao, "translationY",
-                120.0f, mSvCamera.getHeight());
+                50.0f, mSvCamera.getHeight());
         anim1.setRepeatCount(100);
         AnimatorSet animSet = new AnimatorSet();
         animSet.play(anim1);
-        animSet.setDuration(1000);
+        animSet.setDuration(1200);
         animSet.start();
     }
 

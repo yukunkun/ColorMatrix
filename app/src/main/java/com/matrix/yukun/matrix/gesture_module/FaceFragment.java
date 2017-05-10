@@ -236,6 +236,12 @@ public class FaceFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        closeCamer();
+    }
+
     private void setSharePrefress(String tag, String str) {
         SharedPreferences sp = getActivity().getSharedPreferences(tag, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
