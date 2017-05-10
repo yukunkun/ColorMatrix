@@ -1,7 +1,8 @@
 package com.matrix.yukun.matrix.main_module;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -25,6 +26,7 @@ import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.RequestListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.thirdparty.V;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.util.CameraSizeUtils;
@@ -34,6 +36,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,11 +53,14 @@ public class FaceActivity extends AppCompatActivity {
     Button mBtReset;
     @BindView(R.id.waterloading)
     RelativeLayout mWaterloading;
+    @BindView(R.id.tv_saomiao)
+    TextView mTvSaomiao;
     private AlertDialog mAlertDialog;
     private Camera mCamera;
     private Camera.Size mBestPreviewSize;
     private FaceRequest mFace;
-
+    private Random random=new Random();
+    private boolean isClick=false;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -67,6 +73,7 @@ public class FaceActivity extends AppCompatActivity {
                     }
                 }).start();
                 mWaterloading.setVisibility(View.VISIBLE);
+                mTvSaomiao.setVisibility(View.GONE);
             }
         }
     };
@@ -151,9 +158,12 @@ public class FaceActivity extends AppCompatActivity {
         try {
             mCamera.setPreviewDisplay(mSvCamera.getHolder());
             mCamera.startPreview();
-
+            //开始扫描动画
+            startTrans();
+            mTvSaomiao.setVisibility(View.VISIBLE);
             //自动拍照
-            mHandler.sendEmptyMessageDelayed(1, 1500);
+            int nextInt = random.nextInt(1500);
+            mHandler.sendEmptyMessageDelayed(1, 2500+nextInt);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -170,6 +180,7 @@ public class FaceActivity extends AppCompatActivity {
                 onTakePhoto(data);
             }
         });
+
     }
 
     private void onTakePhoto(byte[] data) {
@@ -193,13 +204,18 @@ public class FaceActivity extends AppCompatActivity {
             public void onBufferReceived(byte[] bytes) {
                 String ret = new String(bytes);
                 try {
+                    isClick=false;
                     mWaterloading.setVisibility(View.GONE);
                     JSONObject jsonObject = new JSONObject(ret);
                     Double rst = jsonObject.optDouble("score");
-                    MyApp.showToast("相似度: " + rst + "%");
-                    Intent intent = new Intent(FaceActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if (rst > 50.0) {
+                        MyApp.showToast("相似度: " + rst + "%");
+                        Intent intent = new Intent(FaceActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        MyApp.showToast("相似度:" + rst + "%" + "不是本人拒绝访问");
+                    }
                     //成功后存储数据
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -209,6 +225,7 @@ public class FaceActivity extends AppCompatActivity {
             @Override
             public void onCompleted(SpeechError speechError) {
                 if (speechError != null) {
+                    isClick=false;
                     mWaterloading.setVisibility(View.GONE);
                     MyApp.showToast("验证错误:" + speechError.toString() + " 请正对镜头重试");
                 }
@@ -229,9 +246,11 @@ public class FaceActivity extends AppCompatActivity {
                 resetSecret();
                 break;
             case R.id.bt_reset:
-                if (null != mCamera) {
+                if (null != mCamera&&!isClick) {
+                    isClick=true;
                     mCamera.stopPreview();
                     mCamera.startPreview();
+                    mTvSaomiao.setVisibility(View.VISIBLE);
                     mHandler.sendEmptyMessageDelayed(1, 1000);
                 }
                 break;
@@ -244,20 +263,26 @@ public class FaceActivity extends AppCompatActivity {
 
 
     private void resetSecret() {
-        mAlertDialog.dismiss();
-        new AlertDialog.Builder(this).setTitle("是否重置密码")
-                .setMessage("重置密码你的记录将会清零")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MyApp.showToast("已重置手势密码,请重新进入APP");
-                    }
-                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        setSharePrefress("mAuthId", "a");
+    }
 
-            }
-        }).show();
+    private void setSharePrefress(String tag, String str) {
+        SharedPreferences sp = this.getSharedPreferences(tag, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(tag, str);
+        editor.commit();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        closeCamer();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //后台回来执行的生命周期
     }
 
     @Override
@@ -265,4 +290,16 @@ public class FaceActivity extends AppCompatActivity {
         super.onDestroy();
         closeCamer();
     }
+    public void startTrans(){
+
+        ObjectAnimator anim1 = ObjectAnimator.ofFloat(mTvSaomiao, "translationY",
+                120.0f, mSvCamera.getHeight());
+        anim1.setRepeatCount(100);
+        AnimatorSet animSet = new AnimatorSet();
+        animSet.play(anim1);
+        animSet.setDuration(1000);
+        animSet.start();
+    }
+
+
 }

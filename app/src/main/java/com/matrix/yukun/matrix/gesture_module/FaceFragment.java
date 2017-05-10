@@ -242,6 +242,4 @@ public class FaceFragment extends Fragment {
         editor.putString(tag, str);
         editor.commit();
     }
-
-
 }
