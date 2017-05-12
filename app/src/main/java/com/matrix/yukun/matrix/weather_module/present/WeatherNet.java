@@ -55,11 +55,10 @@ public class WeatherNet {
                     }
                 }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
-
     }
     //自然灾害
     public  static Observable<WeaDestory> getDestory(String city){
-
+        // 该接口变为付费接口了,暂时不显示
         Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
         return retrofit.create(MovieService.class).getAlarm(city, AppConstants.HEWEATHER_KEY)
                 .filter(new Func1<WeaDestory, Boolean>() {
@@ -68,7 +67,9 @@ public class WeatherNet {
                         if(weaDestory.getHeWeather5().get(0).getStatus().equals("ok")){
                             return true;
                         }else {
-                            throw new ApiException(1);
+                            //此处显示付费
+//                            throw new ApiException(1);
+                            return false;
                         }
                     }
                 }).flatMap(new Func1<WeaDestory, Observable<WeaDestory>>() {

@@ -211,4 +211,11 @@ public class WeaDestory {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "WeaDestory{" +
+                "HeWeather5=" + HeWeather5 +
+                '}';
+    }
 }
