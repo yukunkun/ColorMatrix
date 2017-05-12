@@ -2,6 +2,7 @@ package com.matrix.yukun.matrix.movie_module.util;
 
 
 import com.lecloud.sdk.api.md.entity.vod.cloud.Video;
+import com.matrix.yukun.matrix.chat_module.ChatInfo;
 import com.matrix.yukun.matrix.leshi_module.bean.LeShiListBean;
 import com.matrix.yukun.matrix.leshi_module.bean.ListBean;
 import com.matrix.yukun.matrix.leshi_module.bean.ListBeanJson;
@@ -16,6 +17,7 @@ import com.matrix.yukun.matrix.weather_module.bean.WeaLifePoint;
 import com.matrix.yukun.matrix.weather_module.bean.WeaNow;
 import com.matrix.yukun.matrix.weather_module.bean.WeaTomorrow;
 
+import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.HEAD;
 import retrofit2.http.Query;
@@ -61,5 +63,8 @@ public interface MovieService {
     Observable<ResponseBean<LiveListBean>> getLiveList(@Query("method") String method, @Query("ver") String ver, @Query("userid") int userid,
                                                        @Query("timestamp") long timestamp, @Query("sign") String sign);
 
+    //chat API
+    @GET("robot/index")
+    Call<ChatInfo> getChat(@Query("info") String info, @Query("key") String key);
 }
 

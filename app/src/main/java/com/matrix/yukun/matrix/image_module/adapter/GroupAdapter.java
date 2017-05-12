@@ -26,6 +26,7 @@ public class GroupAdapter extends BaseAdapter{
     protected LayoutInflater mInflater;
     private Context context;
 
+
     @Override
     public int getCount() {
         return list.size();

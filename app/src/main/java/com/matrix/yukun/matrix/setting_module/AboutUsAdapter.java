@@ -46,7 +46,7 @@ public class AboutUsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView= LayoutInflater.from(context).inflate(R.layout.setting_2,null);
-        if(position==4){
+        if(position==6){
             ((ImageView)convertView.findViewById(R.id.setting_image)).setVisibility(View.GONE);
             ((TextView)convertView.findViewById(R.id.textview_banben)).setText(getVersion());
         }

@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.chat_module.OnEventImage;
 import com.matrix.yukun.matrix.image_module.adapter.GlideViewAdapter;
 import com.matrix.yukun.matrix.image_module.bean.EventDetail;
 import com.matrix.yukun.matrix.image_module.bean.EventList;
@@ -41,6 +42,8 @@ public class ListDetailActivity extends AppCompatActivity {
     private RelativeLayout layout;
     private GlideViewAdapter glideViewAdapter;
     private int mTag;
+    private int fromWhitch;
+
 
     private void init() {
         gridView = (GridView) findViewById(R.id.grideview);
@@ -58,6 +61,7 @@ public class ListDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_list);
         lists = getIntent().getStringArrayListExtra("photo");
         mTag = getIntent().getIntExtra("tag",0);
+        fromWhitch=getIntent().getIntExtra("whitch",0);
         init();
         setAdapter();
         setListener();
@@ -75,9 +79,19 @@ public class ListDetailActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 View childAt = adapterView.getChildAt(position);
                 if(lists.size()!=0){
-                        final String detail = lists.get(position);
-                        int nameCount = detail.lastIndexOf("/");
-                        final String name=detail.substring(nameCount+1,detail.length());
+
+                    final String detail = lists.get(position);
+                    int nameCount = detail.lastIndexOf("/");
+                    final String name=detail.substring(nameCount+1,detail.length());
+                    if(fromWhitch==1){
+                        //跳转到头像设置页
+                        if(mTag==0){
+                            layout.setVisibility(View.VISIBLE);
+                            EventBus.getDefault().post(new OnEventImage(detail));
+                            finish();
+                        }
+
+                    }else {
                         //直接返回到主页面
                         if(mTag==0){
                             layout.setVisibility(View.VISIBLE);
@@ -90,11 +104,10 @@ public class ListDetailActivity extends AppCompatActivity {
                                         finish();
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
-                                        }
                                     }
-                                }).start();
-                            }
-                        else if(mTag==1){
+                                }
+                            }).start();
+                        } else if(mTag==1){
                             //设置页传递过来的,照片查看
                             Intent intent=new Intent(ListDetailActivity.this,PhotoActivity.class);
                             intent.putExtra("photoname",name);
@@ -108,6 +121,8 @@ public class ListDetailActivity extends AppCompatActivity {
                             }
                         }
                     }
+                    }
+
             }
         });
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

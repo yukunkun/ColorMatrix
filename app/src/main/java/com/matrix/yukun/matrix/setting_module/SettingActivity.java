@@ -15,6 +15,7 @@ import android.widget.ListView;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.bean.AppConstants;
+import com.matrix.yukun.matrix.chat_module.ChatActivity;
 import com.matrix.yukun.matrix.gesture_module.GestureActivity;
 import com.matrix.yukun.matrix.image_module.activity.ListDetailActivity;
 import com.matrix.yukun.matrix.leshi_module.LeShiActivity;
@@ -88,6 +89,12 @@ public class SettingActivity extends AppCompatActivity {
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);
                         break;
                     case 4:
+                        Intent intent=new Intent(SettingActivity.this,ChatActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.right_in,R.anim.left_out);
+                        break;
+                    case 5:
+
                         File destDis = new File(Environment.getExternalStorageDirectory()+"/yukun");
                         if (!destDis.exists()) {
                             destDis.mkdirs();
@@ -104,22 +111,12 @@ public class SettingActivity extends AppCompatActivity {
                         startActivity(intent_maps);
                         overridePendingTransition(R.anim.right_in, R.anim.left_out);
                         break;
-                    case 5:
+                    case 6:
                         Intent getsure=new Intent(SettingActivity.this,GestureActivity.class);
                         startActivity(getsure);
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);
                         break;
-                    case 6:
-                        Intent intent=new Intent(SettingActivity.this,LiveActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.right_in,R.anim.left_out);
-                        break;
                     case 7:
-                        Intent intent1=new Intent(SettingActivity.this,LeShiLiveActivity.class);
-                        startActivity(intent1);
-                        overridePendingTransition(R.anim.right_in,R.anim.left_out);
-                        break;
-                    case 8:
                         Intent intentUs=new Intent(SettingActivity.this,AboutUsActivity.class);
                         startActivity(intentUs);
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);

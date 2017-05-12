@@ -16,6 +16,7 @@ public class RetrofitApi {
     static String weabaseurl="https://free-api.heweather.com/v5/";
     static String leshiliveurl = "http://api.open.lecloud.com/";
 
+    static String chatUrl = "http://op.juhe.cn/";
     public static RetrofitApi getInstance(){
         return new RetrofitApi();
     }
@@ -75,6 +76,21 @@ public class RetrofitApi {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())  //使用RxJava不能忘记
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        return retrofit;
+    }
+
+    public Retrofit retrofitChat(){
+
+        OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+        httpClientBuilder.connectTimeout(10000, TimeUnit.SECONDS);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(httpClientBuilder.build())
+                .baseUrl(chatUrl)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())  //使用RxJava不能忘记
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
         return retrofit;
     }
 }

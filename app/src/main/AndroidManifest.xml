@@ -137,6 +137,12 @@
         </activity>
         <activity android:name=".main_module.FaceActivity">
         </activity>
+        <activity
+            android:name=".chat_module.ChatActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize">
+        </activity>
+        <activity android:name=".chat_module.ChatPersonActivity">
+        </activity>
     </application>
 
 </manifest>

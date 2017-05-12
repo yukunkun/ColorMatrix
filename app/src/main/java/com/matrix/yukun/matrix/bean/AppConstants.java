@@ -29,6 +29,7 @@ public class AppConstants {
     public static final String ver="2.0";
     public static final String Secret_Key="ca1d537e27d5c7433741222b52133246";
     public static final String UserId="894559";
+    public static final String ChatAppId="12b5b1b14c7e1d25f18902728b9655b6";
     public static ArrayList<Integer> integers=new ArrayList<>();
     public static List<Integer> giftFlows=new ArrayList<>();
 

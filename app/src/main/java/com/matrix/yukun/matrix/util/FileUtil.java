@@ -15,6 +15,7 @@ import com.matrix.yukun.matrix.bean.AppConstants;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,6 +24,10 @@ import java.io.IOException;
  * Created by yukun on 17-1-25.
  */
 public class FileUtil {
+
+    private static FileInputStream in;
+    private static FileOutputStream out;
+
     /**
      * 分享功能
      *            上下文
@@ -127,6 +132,38 @@ public class FileUtil {
             return file.delete();
         }
         return false;
+    }
+
+
+    /**
+     * load
+     * @param
+     */
+    public static void loadPath(String photoPath){
+        File destDir = createFile();
+        int byteread = 0; // 读取的字节数
+        try {
+            in = new FileInputStream(photoPath);
+            out = new FileOutputStream(destDir);
+            byte[] buffer = new byte[1024];
+
+            while ((byteread = in.read(buffer)) != -1) {
+                out.write(buffer, 0, byteread);
+            }
+        } catch (FileNotFoundException e) {
+
+        } catch (IOException e) {
+
+        } finally {
+            try {
+                if (out != null)
+                    out.close();
+                if (in != null)
+                    in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

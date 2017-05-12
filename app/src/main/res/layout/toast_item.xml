@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:gravity="center"
+              android:layout_width="@dimen/dimens_220"
+              android:layout_height="@dimen/dimens_220">
+    <ImageView
+        android:id="@+id/im_toast"
+        android:layout_width="@dimen/dimens_220"
+        android:layout_height="@dimen/dimens_220"/>
+
+</LinearLayout>

@@ -37,10 +37,13 @@ public class PhotoListActivity extends BaseActivity {
     private HashMap<String, List<String>> mGruopMap = new HashMap<String, List<String>>();
     private List<ImageBean> list = new ArrayList<ImageBean>();
     private ArrayList<ArrayList<String>> lists=new ArrayList<>();
+    private int fromWhitch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_list);
+        fromWhitch=getIntent().getIntExtra("whitch",0);
         init();
         getImages();
         setListener();
@@ -152,6 +155,7 @@ public class PhotoListActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent=new Intent(PhotoListActivity.this,ListDetailActivity.class);
                 intent.putStringArrayListExtra("photo",lists.get(i));
+                intent.putExtra("whitch",fromWhitch);
                 startActivity(intent);
                 finish();
             }
