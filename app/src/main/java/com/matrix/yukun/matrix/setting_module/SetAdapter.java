@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.matrix.yukun.matrix.R;
@@ -58,6 +59,9 @@ public class SetAdapter extends BaseAdapter {
                 ((TextView)convertView.findViewById(R.id.setting_con)).setTextColor(context.getResources().getColor(R.color.color_44fc2c));
             }else {
                 ((TextView)convertView.findViewById(R.id.setting_con)).setTextColor(context.getResources().getColor(R.color.color_whit));
+            }
+            if(position==7){
+                ((RelativeLayout)convertView.findViewById(R.id.rea_jianjie)).setVisibility(View.GONE);
             }
         }
         return convertView;

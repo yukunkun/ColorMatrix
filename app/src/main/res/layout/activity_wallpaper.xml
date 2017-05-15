@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.matrix.yukun.matrix.wallpaper_module.WallpaperActivity">
+    <RelativeLayout
+        android:id="@+id/title"
+        android:background="@color/color_252525"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_60">
+        <ImageView
+            android:padding="15dp"
+            android:onClick="WallBack"
+            android:transitionName="share"
+            android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
+            android:layout_width="@dimen/dimens_60"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/title_name"
+            android:text="设置壁纸"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/color_whit"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:id="@+id/iv_person"
+            android:layout_alignParentRight="true"
+            android:padding="15dp"
+            android:transitionName="share"
+            android:layout_width="@dimen/dimens_60"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <LinearLayout
+        android:background="@color/color_whit"
+        android:layout_below="@id/title"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/bt_sure"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_45"
+            android:text="设置透明壁纸"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="@dimen/dimens_50"
+            android:textColor="@color/color_44fc2c"
+            android:background="@drawable/faceshape"
+            android:layout_marginRight="@dimen/dimens_50"
+            />
+        <TextView
+            android:id="@+id/name"
+            android:text="设置透明壁纸 → 选择动态壁纸 → 选择透明壁纸 → 设置"
+            android:textSize="20sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/dimens_20"
+            android:paddingLeft="@dimen/dimens_30"
+            android:paddingRight="@dimen/dimens_30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+        />
+        <android.support.v4.view.ViewPager
+            android:layout_marginTop="@dimen/dimens_20"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/dimens_30"
+            android:layout_marginRight="@dimen/dimens_30"
+            android:layout_height="match_parent">
+        </android.support.v4.view.ViewPager>
+    </LinearLayout>
+</RelativeLayout>

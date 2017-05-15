@@ -59,6 +59,10 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             permissingList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
+//        if (ContextCompat.checkSelfPermission(SplashActivity.this,
+//                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+//            permissingList.add(Manifest.permission.CAMERA);
+//        }
         if(permissingList.size()>0){
             String[] permissings=permissingList.toArray(new String[permissingList.size()]);
             ActivityCompat.requestPermissions(SplashActivity.this,permissings,1);
