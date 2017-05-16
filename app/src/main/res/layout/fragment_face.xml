@@ -20,9 +20,10 @@
         android:layout_height="320dp"/>
     <LinearLayout
         android:weightSum="2"
-        android:layout_below="@+id/sv_camera"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/dimens_50"
         android:layout_height="@dimen/dimens_45">
         <Button
             android:id="@+id/bt_cancle"

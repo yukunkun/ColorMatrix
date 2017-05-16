@@ -26,6 +26,6 @@
     <dimen name="dimens_150">190dp</dimen>
     <dimen name="dimens_170">200dp</dimen>
     <dimen name="dimens_200">220dp</dimen>
-    <dimen name="dimens_220">250dp</dimen>
-    <dimen name="dimens_240">270dp</dimen>
+    <dimen name="dimens_220">230dp</dimen>
+    <dimen name="dimens_240">260dp</dimen>
 </resources>
