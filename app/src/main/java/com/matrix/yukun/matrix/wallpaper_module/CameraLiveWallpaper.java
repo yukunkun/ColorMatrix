@@ -76,7 +76,6 @@ public class CameraLiveWallpaper extends WallpaperService {
                 MyApp.showToast("请在手机权限设置打开相机权限");
                 e.printStackTrace();
             }
-
         }
 
         /**

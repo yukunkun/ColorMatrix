@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp">
+    android:layout_height="@dimen/dimens_200">
     <ImageView
-        android:layout_marginLeft="5dp"
         android:id="@+id/back"
-        android:padding="2dp"
+        android:padding="15dp"
         android:onClick="Back"
         android:transitionName="share"
         android:src="@mipmap/ic_settings_dark"
-        android:layout_width="@dimen/dimens_40"
+        android:layout_width="@dimen/dimens_60"
         android:layout_height="@dimen/dimens_60" />
     <TextView
         android:layout_marginTop="15dp"
@@ -23,8 +22,8 @@
         android:background="@drawable/movieshape"
         android:textColor="@color/color_54fa3e"
         android:layout_width="wrap_content"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
+        android:paddingLeft="@dimen/dimens_5"
+        android:paddingRight="@dimen/dimens_5"
         android:layout_height="@dimen/dimens_25" />
     <TextView
         android:layout_marginTop="12dp"
@@ -37,9 +36,9 @@
         android:background="@drawable/movieshape"
         android:textColor="@color/color_54fa3e"
         android:layout_width="wrap_content"
-        android:paddingLeft="5dp"
+        android:paddingLeft="@dimen/dimens_5"
         android:layout_marginLeft="18dp"
-        android:paddingRight="5dp"
+        android:paddingRight="@dimen/dimens_5"
         android:layout_height="@dimen/dimens_25" />
     <TextView
         android:layout_marginTop="15dp"
@@ -53,8 +52,8 @@
         android:background="@drawable/movieshape"
         android:textColor="@color/color_54fa3e"
         android:layout_width="wrap_content"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
+        android:paddingLeft="@dimen/dimens_5"
+        android:paddingRight="@dimen/dimens_5"
         android:layout_height="@dimen/dimens_25" />
     <TextView
         android:layout_marginTop="20dp"
@@ -68,7 +67,7 @@
         android:background="@drawable/movieshape"
         android:textColor="@color/color_54fa3e"
         android:layout_width="wrap_content"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
+        android:paddingLeft="@dimen/dimens_5"
+        android:paddingRight="@dimen/dimens_5"
         android:layout_height="@dimen/dimens_25" />
 </FrameLayout>

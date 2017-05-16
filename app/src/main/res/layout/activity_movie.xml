@@ -18,12 +18,12 @@
                 android:onClick="MovieBack"
                 android:background="?android:attr/actionBarItemBackground"
                 android:id="@+id/academy_back"
-                android:layout_marginLeft="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:padding="15dp"
                     android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
-                    android:layout_width="@dimen/dimens_30"
+                    android:layout_width="@dimen/dimens_60"
                     android:layout_height="match_parent" />
             </LinearLayout>
             <TextView

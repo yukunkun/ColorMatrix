@@ -12,10 +12,10 @@
 
         <ImageView
             android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
-            android:layout_width="@dimen/dimens_30"
+            android:layout_width="@dimen/dimens_60"
+            android:padding="15dp"
             android:transitionName="share"
             android:onClick="MovieTopBack"
-            android:layout_marginLeft="5dp"
             android:layout_height="match_parent" />
         <TextView
             android:textColor="#FFFFFF"

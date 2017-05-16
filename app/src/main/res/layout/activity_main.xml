@@ -132,8 +132,8 @@
         fab:fab_addButtonColorNormal="@color/color_54fa3e"
         fab:fab_addButtonColorPressed="@color/color_fc2c5d"
         fab:fab_addButtonPlusIconColor="@color/color_whit"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="12dp">
+        android:layout_marginBottom="@dimen/dimens_10"
+        android:layout_marginRight="@dimen/dimens_10">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/action_a"

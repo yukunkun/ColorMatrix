@@ -1,9 +1,13 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="titlebar">60dp</dimen>
+    <dimen name="dimens_5">5dp</dimen>
     <dimen name="dimens_10">10dp</dimen>
+    <dimen name="dimens_12">12dp</dimen>
     <dimen name="dimens_20">20dp</dimen>
     <dimen name="dimens_25">25dp</dimen>
     <dimen name="dimens_30">30dp</dimen>
@@ -22,6 +26,7 @@
     <dimen name="dimens_140">140dp</dimen>
     <dimen name="dimens_150">150dp</dimen>
     <dimen name="dimens_170">170dp</dimen>
+    <dimen name="dimens_200">200dp</dimen>
     <dimen name="dimens_220">220dp</dimen>
     <dimen name="dimens_240">240dp</dimen>
 </resources>

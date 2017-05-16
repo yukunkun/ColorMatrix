@@ -12,8 +12,8 @@
             android:transitionName="share"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_width="150dp"
-            android:layout_height="220dp" />
+            android:layout_width="@dimen/dimens_150"
+            android:layout_height="@dimen/dimens_220" />
         <TextView
             android:id="@+id/movie_name"
             android:maxLines="1"

@@ -20,6 +20,7 @@ import com.matrix.yukun.matrix.util.ImageUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,7 +78,7 @@ public class ChatPersonActivity extends AppCompatActivity {
         MyApp.showToast("设置成功");
     }
 
-    @Subscribe
+    @Subscribe(threadMode= ThreadMode.MAIN)
     public void getImagePath(OnEventImage eventImage){
         String headPath = eventImage.headPath;
         if(headPath==null){

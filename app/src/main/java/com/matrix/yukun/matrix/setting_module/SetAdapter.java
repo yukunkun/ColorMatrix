@@ -61,7 +61,7 @@ public class SetAdapter extends BaseAdapter {
                 ((TextView)convertView.findViewById(R.id.setting_con)).setTextColor(context.getResources().getColor(R.color.color_whit));
             }
             if(position==7){
-                ((RelativeLayout)convertView.findViewById(R.id.rea_jianjie)).setVisibility(View.GONE);
+//                ((RelativeLayout)convertView.findViewById(R.id.rea_jianjie)).setVisibility(View.GONE);
             }
         }
         return convertView;
