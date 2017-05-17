@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,9 +15,14 @@ import android.widget.Toast;
 
 import com.matrix.yukun.matrix.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WallpaperActivity extends AppCompatActivity {
 
     private Context mContext;
+    private ViewPager mViewPager;
+    private List<Integer> mList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,20 @@ public class WallpaperActivity extends AppCompatActivity {
                         checkSelfPermission();
                     }
                 });
+        setInfo();
+    }
+
+    private void setInfo() {
+        mList = new ArrayList<>();
+        mList.add(R.drawable.tou1);
+        mList.add(R.drawable.tou2);
+        mList.add(R.drawable.tou3);
+        mList.add(R.drawable.tou4);
+        mList.add(R.drawable.tou5);
+        mViewPager = (ViewPager) findViewById(R.id.viewpagers);
+        PagerAdapters pagerAdapters=new PagerAdapters(this, mList);
+        mViewPager.setAdapter(pagerAdapters);
+        mViewPager.setPageTransformer(true,new DepthpagerTransformer());
     }
 
     /**

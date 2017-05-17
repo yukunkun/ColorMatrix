@@ -35,7 +35,7 @@
             android:layout_height="match_parent" />
     </RelativeLayout>
     <LinearLayout
-        android:background="@color/color_whit"
+        android:background="@color/color_82ffffff"
         android:layout_below="@id/title"
         android:layout_width="match_parent"
         android:orientation="vertical"
@@ -57,18 +57,35 @@
             android:text="设置透明壁纸 → 选择动态壁纸 → 选择透明壁纸 → 设置"
             android:textSize="20sp"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="@dimen/dimens_20"
+            android:layout_marginTop="@dimen/dimens_10"
             android:paddingLeft="@dimen/dimens_30"
             android:paddingRight="@dimen/dimens_30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
         />
-        <android.support.v4.view.ViewPager
-            android:layout_marginTop="@dimen/dimens_20"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_marginLeft="@dimen/dimens_30"
-            android:layout_marginRight="@dimen/dimens_30"
             android:layout_height="match_parent">
-        </android.support.v4.view.ViewPager>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpagers"
+                android:layout_marginTop="@dimen/dimens_10"
+                android:layout_width="match_parent"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingRight="1dp"
+                android:background="@drawable/circleback"
+                android:layout_marginBottom="@dimen/dimens_40"
+                android:layout_marginLeft="@dimen/dimens_30"
+                android:layout_marginRight="@dimen/dimens_30"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:gravity="center"
+                android:text="滑动查看下一张"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/dimens_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>
