@@ -1,5 +1,7 @@
 package com.matrix.yukun.matrix.weather_module.present;
 
+import android.util.Log;
+
 import com.matrix.yukun.matrix.weather_module.bean.WeaLifePoint;
 import com.matrix.yukun.matrix.weather_module.fragment.ConfortableFragment;
 
@@ -39,11 +41,14 @@ public class ConfortablePresent  implements ConfortablePresentImpl {
 
             @Override
             public void onError(Throwable e) {
+                Log.i("------e",e.toString());
                 mView.showMessage(e.toString());
             }
 
             @Override
             public void onNext(WeaLifePoint weaLifePoint) {
+                Log.i("------bb",weaLifePoint.toString());
+
                 mView.getLifeInfo(weaLifePoint);
             }
         });

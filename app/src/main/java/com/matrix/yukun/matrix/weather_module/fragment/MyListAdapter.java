@@ -1,6 +1,7 @@
 package com.matrix.yukun.matrix.weather_module.fragment;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ public class MyListAdapter extends BaseAdapter {
     public MyListAdapter(Context context, WeaLifePoint.HeWeather5Bean.SuggestionBean suggestionBean) {
         this.context = context;
         this.suggestionBean = suggestionBean;
+        Log.i("--wea",suggestionBean.toString());
     }
 
     @Override
@@ -41,7 +43,7 @@ public class MyListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView=LayoutInflater.from(context).inflate(R.layout.list_item,null);
-        ((TextView)convertView.findViewById(R.id.conf_air_content)).setText(suggestionBean.getAir().getTxt());
+        ((TextView)convertView.findViewById(R.id.conf_air_content)).setText(suggestionBean.getComf().getTxt());
         ((TextView)convertView.findViewById(R.id.conf_shushi_dengji)).setText(suggestionBean.getComf().getBrf());
         ((TextView)convertView.findViewById(R.id.conf_shushi_con)).setText(suggestionBean.getComf().getTxt());
         ((TextView)convertView.findViewById(R.id.conf_xiche_dengji)).setText(suggestionBean.getCw().getBrf());

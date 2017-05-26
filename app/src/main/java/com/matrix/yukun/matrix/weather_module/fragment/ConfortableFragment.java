@@ -113,6 +113,7 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
         mAnimView.setSourcePath(PathParserUtils.getPathFromArrayFloatList(StoreHousePath.getPath("comfortable", 0.35f, 5)));
         mAnimView.startAnim();
         setListener();
+//        mPresent.getInfo(city);
         return inflate;
     }
 
@@ -150,7 +151,7 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
 
     @Override
     public void getLifeInfo(WeaLifePoint weaLifePoint) {
-        confAir.setText(weaLifePoint.getHeWeather5().get(0).getSuggestion().getAir().getBrf());
+        confAir.setText(weaLifePoint.getHeWeather5().get(0).getSuggestion().getComf().getBrf());
         todayTime.setText(weaLifePoint.getHeWeather5().get(0).getBasic().getUpdate().getLoc());
         todayCity.setText(weaLifePoint.getHeWeather5().get(0).getBasic().getCity());
         myListAdapter = new MyListAdapter(getContext(), weaLifePoint.getHeWeather5().get(0).getSuggestion());

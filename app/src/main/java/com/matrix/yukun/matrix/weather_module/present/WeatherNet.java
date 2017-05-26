@@ -149,9 +149,10 @@ public class WeatherNet {
 
         Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
         return retrofit.create(MovieService.class).getLife(city, AppConstants.HEWEATHER_KEY)
-                .filter(new Func1<WeaLifePoint, Boolean>() {
+        .filter(new Func1<WeaLifePoint, Boolean>() {
                     @Override
                     public Boolean call(WeaLifePoint weaHours) {
+
                         if(weaHours.getHeWeather5().get(0).getStatus().equals("ok")){
                             return true;
                         }else {

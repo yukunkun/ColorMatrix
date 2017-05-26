@@ -153,6 +153,18 @@ public class WeaLifePoint {
                     this.utc = utc;
                 }
             }
+
+            @Override
+            public String toString() {
+                return "BasicBean{" +
+                        "city='" + city + '\'' +
+                        ", cnty='" + cnty + '\'' +
+                        ", id='" + id + '\'' +
+                        ", lat='" + lat + '\'' +
+                        ", lon='" + lon + '\'' +
+                        ", update=" + update +
+                        '}';
+            }
         }
 
         public static class SuggestionBean {
@@ -161,7 +173,7 @@ public class WeaLifePoint {
              * txt : 气象条件较不利于空气污染物稀释、扩散和清除，请适当减少室外活动时间。
              */
 
-            private AirBean air;
+//            private AirBean air;
             /**
              * brf : 较舒适
              * txt : 白天天气阴沉，会感到有点儿凉，但大部分人完全可以接受。
@@ -205,13 +217,13 @@ public class WeaLifePoint {
 
             private UvBean uv;
 
-            public AirBean getAir() {
-                return air;
-            }
-
-            public void setAir(AirBean air) {
-                this.air = air;
-            }
+//            public AirBean getAir() {
+//                return air;
+//            }
+//
+//            public void setAir(AirBean air) {
+//                this.air = air;
+//            }
 
             public ComfBean getComf() {
                 return comf;
@@ -269,26 +281,34 @@ public class WeaLifePoint {
                 this.uv = uv;
             }
 
-            public static class AirBean {
-                private String brf;
-                private String txt;
-
-                public String getBrf() {
-                    return brf;
-                }
-
-                public void setBrf(String brf) {
-                    this.brf = brf;
-                }
-
-                public String getTxt() {
-                    return txt;
-                }
-
-                public void setTxt(String txt) {
-                    this.txt = txt;
-                }
-            }
+//            public static class AirBean {
+//                private String brf;
+//                private String txt;
+//
+//                public String getBrf() {
+//                    return brf;
+//                }
+//
+//                public void setBrf(String brf) {
+//                    this.brf = brf;
+//                }
+//
+//                public String getTxt() {
+//                    return txt;
+//                }
+//
+//                public void setTxt(String txt) {
+//                    this.txt = txt;
+//                }
+//
+//                @Override
+//                public String toString() {
+//                    return "AirBean{" +
+//                            "brf='" + brf + '\'' +
+//                            ", txt='" + txt + '\'' +
+//                            '}';
+//                }
+//            }
 
             public static class ComfBean {
                 private String brf;
@@ -308,6 +328,14 @@ public class WeaLifePoint {
 
                 public void setTxt(String txt) {
                     this.txt = txt;
+                }
+
+                @Override
+                public String toString() {
+                    return "ComfBean{" +
+                            "brf='" + brf + '\'' +
+                            ", txt='" + txt + '\'' +
+                            '}';
                 }
             }
 
@@ -330,6 +358,14 @@ public class WeaLifePoint {
                 public void setTxt(String txt) {
                     this.txt = txt;
                 }
+
+                @Override
+                public String toString() {
+                    return "CwBean{" +
+                            "brf='" + brf + '\'' +
+                            ", txt='" + txt + '\'' +
+                            '}';
+                }
             }
 
             public static class DrsgBean {
@@ -350,6 +386,14 @@ public class WeaLifePoint {
 
                 public void setTxt(String txt) {
                     this.txt = txt;
+                }
+
+                @Override
+                public String toString() {
+                    return "DrsgBean{" +
+                            "brf='" + brf + '\'' +
+                            ", txt='" + txt + '\'' +
+                            '}';
                 }
             }
 
@@ -372,6 +416,14 @@ public class WeaLifePoint {
                 public void setTxt(String txt) {
                     this.txt = txt;
                 }
+
+                @Override
+                public String toString() {
+                    return "FluBean{" +
+                            "brf='" + brf + '\'' +
+                            ", txt='" + txt + '\'' +
+                            '}';
+                }
             }
 
             public static class SportBean {
@@ -392,6 +444,14 @@ public class WeaLifePoint {
 
                 public void setTxt(String txt) {
                     this.txt = txt;
+                }
+
+                @Override
+                public String toString() {
+                    return "SportBean{" +
+                            "brf='" + brf + '\'' +
+                            ", txt='" + txt + '\'' +
+                            '}';
                 }
             }
 
@@ -414,6 +474,14 @@ public class WeaLifePoint {
                 public void setTxt(String txt) {
                     this.txt = txt;
                 }
+
+                @Override
+                public String toString() {
+                    return "TravBean{" +
+                            "brf='" + brf + '\'' +
+                            ", txt='" + txt + '\'' +
+                            '}';
+                }
             }
 
             public static class UvBean {
@@ -435,7 +503,44 @@ public class WeaLifePoint {
                 public void setTxt(String txt) {
                     this.txt = txt;
                 }
+
+                @Override
+                public String toString() {
+                    return "UvBean{" +
+                            "brf='" + brf + '\'' +
+                            ", txt='" + txt + '\'' +
+                            '}';
+                }
+            }
+
+            @Override
+            public String toString() {
+                return "SuggestionBean{" +
+                        ", comf=" + comf +
+                        ", cw=" + cw +
+                        ", drsg=" + drsg +
+                        ", flu=" + flu +
+                        ", sport=" + sport +
+                        ", trav=" + trav +
+                        ", uv=" + uv +
+                        '}';
             }
         }
+
+        @Override
+        public String toString() {
+            return "HeWeather5Bean{" +
+                    "basic=" + basic +
+                    ", status='" + status + '\'' +
+                    ", suggestion=" + suggestion +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "WeaLifePoint{" +
+                "HeWeather5=" + HeWeather5 +
+                '}';
     }
 }

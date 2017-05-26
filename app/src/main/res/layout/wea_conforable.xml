@@ -118,7 +118,7 @@
                        android:layout_height="wrap_content">
                        <TextView
                            android:textSize="15sp"
-                           android:text="空气质量:"
+                           android:text="人体舒适度:"
                            android:textColor="@color/color_82ffffff"
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content" />
