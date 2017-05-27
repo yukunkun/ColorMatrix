@@ -133,9 +133,12 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         imageViewCamera.setImageResource(R.mipmap.beijing_1);
         BitmapFactory.Options options = new BitmapFactory.Options();
         if (requestCode == 1&&options!=null) {
+            File file=new File(path1);
+            if(!file.isFile()){
+                return;
+            }
             Bitmap bitmapCopy=BitmapFactory.decodeFile(path1,options).copy(Bitmap.Config.ARGB_4444,true);
             imageViewCamera.setImageBitmap(bitmapCopy);// 将图片显示在ImageView里
         }
-
     }
 }

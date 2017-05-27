@@ -398,6 +398,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
     //旋转
     private void handleColorRoate(int progress){
+        if(bitmapRoate==null){
+            return;
+        }
         Bitmap bitmap = BitmapUtil.rotateBitmap(bitmapRoate, progress);
         imageViewTest.setImageBitmap(null);
         imageViewTest.setImageBitmap(bitmap);
