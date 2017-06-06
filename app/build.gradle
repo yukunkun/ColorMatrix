@@ -5,12 +5,12 @@ apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "24.0.0"
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "com.matrix.yukun.matrix"
         minSdkVersion 18
         targetSdkVersion 23
-        versionCode 15
+        versionCode 16
         versionName "2.7.0 版"
         ndk {
             //设置支持的SO库架构
