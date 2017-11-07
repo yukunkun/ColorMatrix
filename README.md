@@ -7,7 +7,7 @@
 ####  自定义图库,使用contentProvide,加载本地图库　　　　
 ####  --------------------------------------------------------------------------------------------------------
 #### 有些地方使用了不同的模式写的，这也是后来接触之后才修改的
-###  movie_module
+###  movie_module  
 #### 使用的rxjava retrofit MVP模式写的，也就是尝试着用一下，用的比较基础的方式
 #### 这里调用的豆瓣的API，使用第三方的接口，在项目中很多地方使用了overscroll，使用弹簧效果
 #### 在详情页调用的豆瓣的网页，使用了webview、 
@@ -74,8 +74,8 @@
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     compile 'com.contrarywind:Android-PickerView:3.0.7'
     compile 'cn.qqtheme.framework:WheelPicker:1.4.3'
-    compile 'me.everything:overscroll-decor-android:1.0.4'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    compile 'me.everything:overscroll-decor-android:1.0.4'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile project(':LeRecorderSkin')
