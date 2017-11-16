@@ -49,7 +49,7 @@
 ![S70401-16071140.jpg](http://upload-images.jianshu.io/upload_images/3001453-d7f4bf973110d5c6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 #### compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
 #### 第三方的path动画，一个很酷炫的path动画。
-####  使用的第三方主要为:
+####  使用的第三方主要为:       
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'com.android.support:design:23.2.1'
