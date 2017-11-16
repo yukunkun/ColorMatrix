@@ -78,41 +78,6 @@
                     yk:circleTop="80"
                     yk:circleSmallRadio="7"
                     yk:loadTime="1000" />
-                <!--<LinearLayout
-                    android:id="@+id/morefunction"
-                    android:weightSum="2"
-                    android:alpha="1"
-                    android:visibility="gone"
-                    android:layout_width="@dimen/dimens_50"
-                    android:orientation="vertical"
-                    android:background="@color/color_810b0b"
-                    android:layout_alignParentRight="true"
-                    android:layout_height="match_parent">
-                    <View
-                        android:background="#363636"
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"/>
-                    <ImageView
-                        android:id="@+id/loadimage"
-                        android:layout_weight="1"
-                        android:padding="18dp"
-                        android:src="@mipmap/ic_install_dark"
-                        android:layout_gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp" />
-                    <View
-                        android:background="#363636"
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"/>
-                    <ImageView
-                        android:id="@+id/shareimage"
-                        android:layout_weight="1"
-                        android:padding="18dp"
-                        android:src="@mipmap/abc_ic_menu_share_mtrl_alpha"
-                        android:layout_gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp" />
-                </LinearLayout>-->
             </RelativeLayout>
         </LinearLayout>
         <!--菜单-->

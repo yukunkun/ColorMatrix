@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00ffffff</color>
+    <color name="colorPrimaryDark">#00ffffff</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="color_252525">#333333</color>
+    <color name="color_000000">#000000</color>
+    <color name="color_000000_alpha">#a34d4c4c</color>
+
+    <color name="color_282828">#181818</color>
+    <color name="color_181818">#181818</color>
+    <color name="color_454444">#810b0b0b</color>
+    <color name="color_202020">#0a0a0a</color>
+    <color name="color_810b0b">#a80b0b0b</color>
+    <color name="color_44fc2c">#44fc2c</color>
+    <color name="color_b450fc">#b450fc</color>
+    <color name="color_fc2c5d">#ff013d</color>
+    <color name="color_fc2cd2">#fc2cd2</color>
+    <color name="color_3575ff">#3575ff</color>
+    <color name="color_eaffd9">#696969</color>
+    <color name="color_54fa3e">#54fa3e</color>
+
+    <color name="color_57f733">#57f733</color>
+    <color name="color_f733d6">#f733d6</color>
+
+    <color name="gplus_color_1">#44fc2c</color>
+    <color name="gplus_color_2">#f4b400</color>
+    <color name="gplus_color_3">#427fed</color>
+    <color name="gplus_color_4">#b23424</color>
+
+    <integer-array name="gplus_colors">
+        <item>@color/gplus_color_1</item>
+        <item>@color/gplus_color_2</item>
+        <item>@color/gplus_color_3</item>
+        <item>@color/gplus_color_4</item>
+    </integer-array>
+    <!--movie-->
+    <color name="color_lines">#363636</color>
+    <color name="color_bfbfbf">#9c9c9c</color>
+    <color name="color_whit">#FFFFFF</color>
+    <!--weather-->
+    <color name="color_82181818">#82181818</color>
+    <color name="color_82000000">#a8000000</color>
+    <color name="color_ff181818">#ff181818</color>
+
+
+    <color name="color_82ffffff">#b4ffffff</color>
+    <color name="color_back">#5e838383</color>
+    <color name="color_back_all">#5f878787</color>
+    <color name="color_back_more">#ab535353</color>
+    <color name="color_line">#363636</color>
+    <color name="color_text">#292929</color>
+    <color name="color_00ffffff">#00ffffff</color>
+    <color name="color_81e9e9e9">#81e9e9e9</color>
+    <color name="color_b9b9b9">#eae2e2e2</color>
+    <color name="color_back_time">#7ed6d6d6</color>
+    <color name="color_003af9">#003af9</color>
+    <color name="color_76333333">#66333333</color>
+    <color name="color_d400f9">#d400f9</color>
+    <color name="color_0064f9">#0064f9</color>
+    <!--live-->
+    <color name="color_8744fc2c">#a644fc2c</color>
+    <color name="color_9cffffff">#b2ffffff</color>
+    <color name="color_ececec">#ececec</color>
+    <color name="color_8c8c8c">#8c8c8c</color>
+    <color name="color_a757f733">#a757f733</color>
+    <color name="color_f78fff75">#f78fff75</color>
+    <color name="color_c054fa3e">#c054fa3e</color>
+
+</resources>

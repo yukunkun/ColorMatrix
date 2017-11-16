@@ -94,7 +94,7 @@ public class AnimUtils {
                 ObjectAnimator.ofFloat(view, "scaleX", 0f, 1f), //bug
                 ObjectAnimator.ofFloat(view, "scaleY", 0f, 1f),//0.1为了避免消失为0，会产生bug
                 ObjectAnimator.ofFloat(view, "alpha", 0f, 1f));
-
+        setback.setStartDelay(800);
         set.setDuration(1 * 800).start();
 
         setback.playTogether(
@@ -103,7 +103,7 @@ public class AnimUtils {
                 ObjectAnimator.ofFloat(view, "scaleX", 1f, 0f),
                 ObjectAnimator.ofFloat(view, "scaleY", 1f, 0f),//0.1为了避免消失为0，会产生bug
                 ObjectAnimator.ofFloat(view, "alpha", 1f, 0f));
-        setback.setStartDelay(1*800*4);
+        setback.setStartDelay(1*800*5);
         setback.setDuration(1 * 800).start();
 
     }

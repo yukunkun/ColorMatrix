@@ -66,7 +66,7 @@ public class ChatActivity extends AppCompatActivity implements ChatControl.View 
         initView();
         setListener();
         //默认发送一条消息
-        mChatPresent.getInfo("你好");
+        mChatPresent.getInfo("how are you");
     }
 
     @Override

@@ -37,7 +37,6 @@ public class ChatPresent implements ChatControl.chatBasePresent {
             @Override
             public void onResponse(Call<ChatInfo> call, Response<ChatInfo> response) {
                 ChatInfo body = response.body();
-                Log.i("----body",body.toString());
                 if(null!=(body.getResult())){
                     text = body.getResult().getText();
                     //回调数据

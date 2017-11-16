@@ -6,7 +6,7 @@
     <RelativeLayout
         android:id="@+id/rea_jianjie"
         android:layout_marginTop="2dp"
-        android:background="@color/color_252525"
+        android:background="@color/color_181818"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimens_50">
         <TextView

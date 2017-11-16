@@ -239,6 +239,7 @@ public class LeShiLiveActivity extends AppCompatActivity {
     }
 
     private void starGiftAnimation(GiftSendModel model) {
+
         if (!giftFrameLayout1.isShowing()) {
             //显示view
             if(giftFrameLayout1.getVisibility()==View.GONE){

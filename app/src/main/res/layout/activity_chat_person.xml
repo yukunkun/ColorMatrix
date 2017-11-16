@@ -26,8 +26,7 @@
             android:textColor="@color/color_whit"
             android:layout_centerInParent="true"
             android:layout_width="@dimen/dimens_60"
-            android:layout_height="match_parent"
-        />
+            android:layout_height="match_parent"/>
         <TextView
             android:id="@+id/tva_suren"
             android:text="完成"

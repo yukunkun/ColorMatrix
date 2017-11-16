@@ -1,6 +1,7 @@
 package com.matrix.yukun.matrix.setting_module;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,9 +9,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
@@ -24,6 +28,7 @@ import com.matrix.yukun.matrix.leshilive_module.LeShiLiveActivity;
 import com.matrix.yukun.matrix.leshilive_module.LiveActivity;
 import com.matrix.yukun.matrix.leshilive_module.LiveListActivity;
 import com.matrix.yukun.matrix.movie_module.MovieActivity;
+import com.matrix.yukun.matrix.task.LogUtils;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.wallpaper_module.WallpaperActivity;
 import com.matrix.yukun.matrix.weather_module.WeatherActivity;
@@ -44,7 +49,7 @@ public class SettingActivity extends AppCompatActivity {
     @BindView(R.id.mListview)
     ListView mListview;
     private ArrayList<String> lists=new ArrayList<>();
-
+    private static boolean isNight=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +116,9 @@ public class SettingActivity extends AppCompatActivity {
                         startActivity(intent);
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);
                         break;
+                    /*case 6:
+                        setNightMode();
+                        break;*/
                     case 6:
                         Intent getsure=new Intent(SettingActivity.this,GestureActivity.class);
                         startActivity(getsure);
@@ -129,6 +137,18 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setNightMode() {
+        //  获取当前模式
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        //  切换模式
+        getDelegate().setDefaultNightMode(isNight ?
+                AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_YES);
+        //  重启Activity
+        recreate();
+        isNight=!isNight;
     }
     //下载图标
     private void loadImage(final Bitmap bmp) {

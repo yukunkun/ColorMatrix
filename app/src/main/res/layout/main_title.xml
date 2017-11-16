@@ -54,7 +54,7 @@
             android:textSize="22sp"
             android:textStyle="normal"
             android:textColor="@color/color_back_more"
-            android:layout_width="@dimen/dimens_70"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent" />
     </RelativeLayout>
 </RelativeLayout>

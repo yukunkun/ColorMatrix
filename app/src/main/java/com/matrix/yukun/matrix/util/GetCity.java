@@ -82,9 +82,7 @@ public class GetCity {
         public void onProviderDisabled(String s) {
             Log.i("----city", "onProviderDisabled");
 
-        }
-
-        ;
+        };
 
     }
 
