@@ -1,5 +1,5 @@
 #  ColorMatrix 的使用
-##  在应用宝上可以搜索下载APP MatrixPhoto,就是基于这个 
+##  在应用宝上可以搜索下载APP MatrixPhoto,就是基于这个 　
 ####  功能主要来至于 [自定义控件三部曲之绘图篇（八）——Paint之ColorMatrix与滤镜效果](http://blog.csdn.net/harvic880925/article/details/51187277)
 ####  这里主要使用了ColorMatrix这个类 
 ####  有很多简单的布局,类似与一个小的APP 　　　　　  
