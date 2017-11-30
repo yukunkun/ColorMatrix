@@ -74,14 +74,13 @@
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     compile 'com.contrarywind:Android-PickerView:3.0.7'
     compile 'cn.qqtheme.framework:WheelPicker:1.4.3'
-   　　compile 'me.everything:overscroll-decor-android:1.0.4'
-    　debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    　compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
-    　compile 'de.hdodenhof:circleimageview:2.1.0'
-    　compile project(':LeRecorderSkin')
-    　compile 'com.haozhang.libary:android-slanted-textview:1.2'
+    compile 'me.everything:overscroll-decor-android:1.0.4'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile project(':LeRecorderSkin')
+    compile 'com.haozhang.libary:android-slanted-textview:1.2'
 
 #### [下载](http://app.qq.com/#id=detail&appid=1105962710)
 ![](http://upload-images.jianshu.io/upload_images/3001453-7fc76659461b6b8e.png)
-
 
