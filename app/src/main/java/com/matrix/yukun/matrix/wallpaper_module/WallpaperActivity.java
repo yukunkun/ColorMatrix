@@ -49,7 +49,45 @@ public class WallpaperActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.viewpagers);
         PagerAdapters pagerAdapters=new PagerAdapters(this, mList);
         mViewPager.setAdapter(pagerAdapters);
-        mViewPager.setPageTransformer(true,new DepthpagerTransformer());
+        mViewPager.setPageTransformer(true,new AlphaTransformer());
+    }
+
+    public class AlphaTransformer implements ViewPager.PageTransformer {
+        private float MINALPHA = 0.5f;
+        private static final float MIN_SCALE = 0.70f;
+        /**
+         * position取值特点：
+         * 假设页面从0～1，则：
+         * 第一个页面position变化为[0,-1]
+         * 第二个页面position变化为[1,0]
+         * @param page
+         * @param position
+         */
+        @Override
+        public void transformPage(View page, float position) {
+//            Log.i("-----",page.getTag()+" pos: "+position);
+            float MIN_SCALE = 0.80f;
+            float MIN_ALPHA = 0.5f;
+
+            if (position < -1 || position > 1) {
+                page.setAlpha(MIN_ALPHA);
+                page.setScaleX(MIN_SCALE);
+                page.setScaleY(MIN_SCALE);
+            } else if (position <= 1) { // [-1,1]
+                float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));
+                if (position < 0) {
+                    float scaleX = 1 + 0.2f * position;
+//                    Log.d("google_lenve_fb", "transformPage: scaleX:" + scaleX);
+                    page.setScaleX(scaleX);
+                    page.setScaleY(scaleX);
+                } else {
+                    float scaleX = 1 - 0.2f * position;
+                    page.setScaleX(scaleX);
+                    page.setScaleY(scaleX);
+                }
+                page.setAlpha(MIN_ALPHA + (scaleFactor - MIN_SCALE) / (1 - MIN_SCALE) * (1 - MIN_ALPHA));
+            }
+        }
     }
 
     /**

@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:clipChildren="false"
     android:layout_height="match_parent"
     tools:context="com.matrix.yukun.matrix.wallpaper_module.WallpaperActivity">
     <RelativeLayout
@@ -65,19 +66,18 @@
         />
         <RelativeLayout
             android:layout_width="match_parent"
+            android:clipChildren="false"
             android:layout_height="match_parent">
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewpagers"
                 android:layout_marginTop="@dimen/dimens_10"
-                android:layout_width="match_parent"
-                android:paddingLeft="5dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
+                android:layout_width="250dp"
                 android:paddingRight="1dp"
+                android:padding="3dp"
+                android:layout_centerHorizontal="true"
+                android:clipChildren="false"
                 android:background="@drawable/circleback"
                 android:layout_marginBottom="@dimen/dimens_40"
-                android:layout_marginLeft="@dimen/dimens_30"
-                android:layout_marginRight="@dimen/dimens_30"
                 android:layout_height="match_parent"/>
             <TextView
                 android:gravity="center"
