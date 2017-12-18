@@ -1,28 +1,28 @@
 #  ColorMatrix 的使用
-##  在应用宝上可以搜索下载APP MatrixPhoto,就是基于这个 
+##  在应用宝上可以搜索下载APP MatrixPhoto,就是基于这个 　
 ####  功能主要来至于 [自定义控件三部曲之绘图篇（八）——Paint之ColorMatrix与滤镜效果](http://blog.csdn.net/harvic880925/article/details/51187277)
 ####  这里主要使用了ColorMatrix这个类 
-####  有很多简单的布局,类似与一个小的APP 　　　　　
+####  有很多简单的布局,类似与一个小的APP 　　　　　  
 ####  利用色彩矩阵,对bitmap的颜色加以改变,添加滤镜效果,有一些自定义view,增加效果,对图片处理,裁剪,变换.
-####  自定义图库,使用contentProvide,加载本地图库　　　　 
+####  自定义图库,使用contentProvide,加载本地图库　　　　 　 
 ####  --------------------------------------------------------------------------------------------------------
 #### 有些地方使用了不同的模式写的，这也是后来接触之后才修改的
-###  movie_module  
+###  movie_module  　
 #### 使用的rxjava retrofit MVP模式写的，也就是尝试着用一下，用的比较基础的方式
-#### 这里调用的豆瓣的API，使用第三方的接口，在项目中很多地方使用了overscroll，使用弹簧效果
+#### 这里调用的豆瓣的API，使用第三方的接口，在项目中很多地方使用了overscroll，使用弹簧效果 
 #### 在详情页调用的豆瓣的网页，使用了webview、  　
 ####  ---------------------------------------------------------------------------------------------------------
-###  weather_module　　　
+###  weather_module　　　　
 #### 这儿也是后来加上的，使用的rxjava retrofit MVP模式写的，主要是一个天气预报的模块。
 #### 调用了和风天气的免费API，这里有需要的可以试着调用一下。
 #### 分为今天的天气，明天的天气，和舒适度三个模块，分别调用了和风天气的不同接口来呈现的。
 #### 当中接入了腾讯给广告联盟的的banner广告。 
 ####  ---------------------------------------------------------------------------------------------------------
-### 乐视的点播功能(Leshi_module模块)
+### 乐视的点播功能(Leshi_module模块)　
 #### 添加了视频播放功能,主要是使用乐视的点播功能
-#### 播放器添加了手势,声音的控制和屏幕亮度的控制.
+#### 播放器添加了手势,声音的控制和屏幕亮度的控制.   
 ####  ---------------------------------------------------------------------------------------------------------
-### 乐视的直播与播放(LeshiLive_module模块)
+### 乐视的直播与播放(LeshiLive_module模块) 
 #### 界面优化了一部分
 #### 添加了乐视的直播功能,由于各人账户只有免费的5G/年,所以不怎么测试.但是直播功能是实现了的
 #### 直播的播放页:
@@ -74,8 +74,8 @@
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     compile 'com.contrarywind:Android-PickerView:3.0.7'
     compile 'cn.qqtheme.framework:WheelPicker:1.4.3'
-    compile 'me.everything:overscroll-decor-android:1.0.4'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    compile 'me.everything:overscroll-decor-android:1.0.4'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile project(':LeRecorderSkin')
@@ -83,5 +83,4 @@
 
 #### [下载](http://app.qq.com/#id=detail&appid=1105962710)
 ![](http://upload-images.jianshu.io/upload_images/3001453-7fc76659461b6b8e.png)
-
 
