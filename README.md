@@ -30,10 +30,8 @@
 ![S70401-16001073.jpg](http://upload-images.jianshu.io/upload_images/3001453-0f19ff4218784a44.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![S70401-16020219.jpg](http://upload-images.jianshu.io/upload_images/3001453-f966e3a6c737ff50.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![S70401-16014880.jpg](http://upload-images.jianshu.io/upload_images/3001453-cdcb4993d4790e40.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![S70401-16003831.jpg](http://upload-images.jianshu.io/upload_images/3001453-bc1361108afcd75a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![S70401-16065199.jpg](http://upload-images.jianshu.io/upload_images/3001453-8915d1fae0bd7d7c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![S70401-16073051.jpg](http://upload-images.jianshu.io/upload_images/3001453-34ab35af3d0a8b3b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![S70401-16071140.jpg](http://upload-images.jianshu.io/upload_images/3001453-d7f4bf973110d5c6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 #### compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
 #### 第三方的path动画，一个很酷炫的path动画。
 ####  使用的第三方主要为:       
@@ -65,7 +63,6 @@
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile project(':LeRecorderSkin')
     compile 'com.haozhang.libary:android-slanted-textview:1.2'
 
 #### [下载](http://app.qq.com/#id=detail&appid=1105962710)
