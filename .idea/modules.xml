@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/LePlayerSdk/LePlayerSdk.iml" filepath="$PROJECT_DIR$/LePlayerSdk/LePlayerSdk.iml" />
-      <module fileurl="file://$PROJECT_DIR$/LeRecorderSkin/LeRecorderSkin.iml" filepath="$PROJECT_DIR$/LeRecorderSkin/LeRecorderSkin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Matrix.iml" filepath="$PROJECT_DIR$/Matrix.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ColorMatrix.iml" filepath="$PROJECT_DIR$/ColorMatrix.iml" />
+      <module fileurl="file://D:\project\ColorMatrix\Matrix.iml" filepath="D:\project\ColorMatrix\Matrix.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

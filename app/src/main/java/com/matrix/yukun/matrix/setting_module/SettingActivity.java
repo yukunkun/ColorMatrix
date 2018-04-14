@@ -22,11 +22,6 @@ import com.matrix.yukun.matrix.bean.AppConstants;
 import com.matrix.yukun.matrix.chat_module.ChatActivity;
 import com.matrix.yukun.matrix.gesture_module.GestureActivity;
 import com.matrix.yukun.matrix.image_module.activity.ListDetailActivity;
-import com.matrix.yukun.matrix.leshi_module.LeShiActivity;
-import com.matrix.yukun.matrix.leshi_module.LeShiListActivity;
-import com.matrix.yukun.matrix.leshilive_module.LeShiLiveActivity;
-import com.matrix.yukun.matrix.leshilive_module.LiveActivity;
-import com.matrix.yukun.matrix.leshilive_module.LiveListActivity;
 import com.matrix.yukun.matrix.movie_module.MovieActivity;
 import com.matrix.yukun.matrix.task.LogUtils;
 import com.matrix.yukun.matrix.util.FileUtil;
@@ -85,8 +80,7 @@ public class SettingActivity extends AppCompatActivity {
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);
                         break;
                     case 2:
-                        Intent intent4=new Intent(SettingActivity.this,LeShiListActivity.class);
-                        startActivity(intent4);
+
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);
                         break;
                     case 3:

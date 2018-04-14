@@ -1,1 +1,1 @@
-include ':app', ':LePlayerSdk', ':LeRecorderSkin'
+include ':app'

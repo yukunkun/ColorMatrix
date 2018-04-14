@@ -9,8 +9,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/LePlayerSdk" />
-            <option value="$PROJECT_DIR$/LeRecorderSkin" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>

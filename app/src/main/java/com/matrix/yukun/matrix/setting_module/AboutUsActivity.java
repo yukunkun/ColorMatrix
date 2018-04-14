@@ -10,15 +10,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.gesture_module.GestureActivity;
-import com.matrix.yukun.matrix.leshi_module.LeShiListActivity;
-import com.matrix.yukun.matrix.leshilive_module.LeShiLiveActivity;
-import com.matrix.yukun.matrix.leshilive_module.LiveActivity;
-import com.matrix.yukun.matrix.movie_module.MovieActivity;
-import com.matrix.yukun.matrix.weather_module.WeatherActivity;
 import com.tencent.bugly.beta.Beta;
 
 import butterknife.BindView;
@@ -63,14 +56,10 @@ public class AboutUsActivity extends AppCompatActivity {
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);
                         break;
                     case 2:
-                        Intent intent2=new Intent(AboutUsActivity.this,LiveActivity.class);
-                        startActivity(intent2);
-                        overridePendingTransition(R.anim.right_in,R.anim.left_out);
+
                         break;
                     case 3:
-                        Intent intent3=new Intent(AboutUsActivity.this,LeShiLiveActivity.class);
-                        startActivity(intent3);
-                        overridePendingTransition(R.anim.right_in,R.anim.left_out);
+
                         break;
                     case 4:
                         FankuiDialog noteCommentDialog=FankuiDialog.newInstance(0);

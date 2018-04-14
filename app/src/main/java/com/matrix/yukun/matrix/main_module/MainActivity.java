@@ -50,7 +50,6 @@ import com.matrix.yukun.matrix.camera_module.CameraActivity;
 import com.matrix.yukun.matrix.image_module.activity.ListDetailActivity;
 import com.matrix.yukun.matrix.image_module.activity.PhotoListActivity;
 import com.matrix.yukun.matrix.image_module.bean.EventDetail;
-import com.matrix.yukun.matrix.leshi_module.LeShiListActivity;
 import com.matrix.yukun.matrix.main_module.filters.IImageFilter;
 import com.matrix.yukun.matrix.main_module.filters.Image;
 import com.matrix.yukun.matrix.movie_module.MovieActivity;
@@ -465,8 +464,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.textmovie:
                 //视频推荐
                 closeMenu();
-                Intent intentMov=new Intent(MainActivity.this, LeShiListActivity.class);
-                startActivity(intentMov);
                 break;
             case R.id.textweather:
                 //天气提醒

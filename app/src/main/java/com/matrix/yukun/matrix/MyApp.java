@@ -7,11 +7,8 @@ import android.widget.Toast;
 
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
-import com.lecloud.sdk.config.LeCloudPlayerConfig;
-import com.lecloud.sdk.listener.OnInitCmfListener;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
-import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.List;
 
@@ -20,7 +17,6 @@ import java.util.List;
  */
 public class MyApp extends Application {
     public  static MyApp myApp;
-//   private RefWatcher refWatcher;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -38,68 +34,6 @@ public class MyApp extends Application {
 //        }
 //        refWatcher = LeakCanary.install(this);
         String processName = getProcessName(this, android.os.Process.myPid());
-        //设置域名 LeCloudPlayerConfig.HOST_DEFAULT 代表国内版
-        //LeCloudPlayerConfig.HOST_US代表国际版
-                //LeCloudPlayerConfig.HOST_GUOGUANG代表国广版
-        //默认是国内版LeCloudPlayerConfig.HOST_DEFAULT，国内用户使用默认就可以
-        int host = LeCloudPlayerConfig.HOST_DEFAULT;
-        /**
-         这个
-         if
-         判断必须有，在自己的进程初始化
-         cde
-         */
-        if (getApplicationInfo().packageName.equals(processName)) {
-            try {
-                /**
-                 LeCloudPlayerConfig.LOG_LOGCAT
-                 打印日志到控制台
-                 LeCloudPlayerConfig.LOG_FILE
-                 日志打印到文件
-                 LeCloudPlayerConfig.LOG_NONE
-                 不打印日志
-                 LeCloudPlayerConfig.LOG_ALL
-                 日志打印到控制台和文件
-                 */
-//                LeCloudPlayerConfig.setLogOutputType(LeCloudPlayerConfig.LOG_LOGCAT);
-                LeCloudPlayerConfig.setHostType(host);
-                LeCloudPlayerConfig.init(getApplicationContext());
-                LeCloudPlayerConfig.setmInitCmfListener(new OnInitCmfListener() {
-                    @Override
-                    public void onCdeStartSuccess() {
-                        /**cde启动成功,可以开始播放如果使用remote版本这个方法会回调的晚一些，因为有个下载过程
-                         * 只有回调了该方法，才可以正常播放视频建议用户通过
-                         cde初始化的回调进行控制，点击开始播放是否创建播放器
-                         */
-                    }
-                    @Override
-                    public void onCdeStartFail() {
-                        /**cde启动失败,不能正常播放;如果使用remote版本则可能是remote下载失败;如果使用普通版本,
-                         则可能是so文件加载失败导致*/
-                    }
-                    @Override
-                    public void onCmfCoreInitSuccess() {
-                        //不包含 cde 的播放框架需要处理
-                    }
-                    @Override
-                    public void onCmfCoreInitFail() {
-                        //不包含 cde 的播放框架需要处理
-                    }
-                    @Override
-                    public void onCmfDisconnected() {
-                        //cde服务断开, 会导致播放失败, 需要重新执行初始化
-                        try {
-                            LeCloudPlayerConfig.init(getApplicationContext());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
     }
     //获取当前进程名字
     public static String getProcessName(Context cxt, int pid) {

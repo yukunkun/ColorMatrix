@@ -1,14 +1,7 @@
 package com.matrix.yukun.matrix.movie_module.util;
 
 
-import com.lecloud.sdk.api.md.entity.vod.cloud.Video;
 import com.matrix.yukun.matrix.chat_module.ChatInfo;
-import com.matrix.yukun.matrix.leshi_module.bean.LeShiListBean;
-import com.matrix.yukun.matrix.leshi_module.bean.ListBean;
-import com.matrix.yukun.matrix.leshi_module.bean.ListBeanJson;
-import com.matrix.yukun.matrix.leshi_module.bean.VideoBean;
-import com.matrix.yukun.matrix.leshilive_module.bean.LiveListBean;
-import com.matrix.yukun.matrix.leshilive_module.bean.ResponseBean;
 import com.matrix.yukun.matrix.movie_module.bean.HttpResult;
 import com.matrix.yukun.matrix.movie_module.bean.Subjects;
 import com.matrix.yukun.matrix.weather_module.bean.WeaDestory;
@@ -19,7 +12,6 @@ import com.matrix.yukun.matrix.weather_module.bean.WeaTomorrow;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.HEAD;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -45,23 +37,6 @@ public interface MovieService {
     Observable<WeaLifePoint> getLife(@Query("city") String city, @Query("key") String key);
     @GET("alarm")
     Observable<WeaDestory> getAlarm(@Query("city") String city, @Query("key") String key);
-    //leshi API
-    @GET("open.php")
-    Observable<LeShiListBean<ListBean>> getLeShiList(@Query("user_unique") String user_unique, @Query("timestamp") String timestamp, @Query("api") String api, @Query("format") String formate,
-                                                     @Query("ver") String ver, @Query("index") int index, @Query("size") int size, @Query("sign") String sign);
-    @GET("open.php")
-    Observable<ListBeanJson<VideoBean>> getLeShiMov(@Query("user_unique") String user_unique, @Query("timestamp") String timestamp, @Query("api") String api, @Query("format") String formate,
-                                                    @Query("ver") String ver, @Query("video_id") int video_id, @Query("sign") String sign);
-    @GET("open.php")
-    Observable<ListBeanJson<Object>> getVideoPause(@Query("user_unique") String user_unique, @Query("timestamp") String timestamp, @Query("api") String api, @Query("format") String formate,
-                                                    @Query("ver") String ver, @Query("video_id") int video_id, @Query("sign") String sign);
-    @GET("open.php")
-    Observable<ListBeanJson<Object>> getVideoStart(@Query("user_unique") String user_unique, @Query("timestamp") String timestamp, @Query("api") String api, @Query("format") String formate,
-                                                    @Query("ver") String ver, @Query("video_id") int video_id, @Query("sign") String sign);
-    //leshilive API
-    @GET("live/execute")
-    Observable<ResponseBean<LiveListBean>> getLiveList(@Query("method") String method, @Query("ver") String ver, @Query("userid") int userid,
-                                                       @Query("timestamp") long timestamp, @Query("sign") String sign);
 
     //chat API
     @GET("robot/index")
