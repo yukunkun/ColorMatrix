@@ -65,6 +65,36 @@
     <!-- 配置权限，用来记录应用配置信息 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
 
+    <!-- 允许挂载和反挂载文件系统 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <!-- 允许程序向外部存储设备写数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- 允许程序打开网络套接字 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 允许程序获取网络相关信息 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 允许程序向外部存储设备写数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- 允许程序写音频数据 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!-- 允许程序使用PowerManager WakeLocks以防止处理器休眠或者屏幕锁屏 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <!-- 允许程序获取Wifi网络状态信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- 允许程序使用设备的camera -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <!-- 允许程序使用闪光灯 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <!-- 允许程序获得设备信息 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
+
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <!-- 声明程序使用camera和自动对焦功能 -->
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
+
     <application
         android:name=".MyApp"
         android:allowBackup="true"
@@ -122,10 +152,6 @@
         <service
             android:name="com.qq.e.comm.DownloadService"
             android:exported="false"/>
-        //云点播
-        <service
-            android:name="com.letvcloud.cmf.MediaService"
-            android:process=":cmf"/>
 
         <activity android:name=".setting_module.IntroduceActivity"/>
         <activity android:name=".setting_module.AgreeActivity"/>
@@ -138,14 +164,6 @@
         <activity android:name=".movie_module.MovieBaseActivity"/>
         <activity android:name=".weather_module.WeatherActivity"/>
         <activity android:name=".setting_module.SettingActivity"/>
-        <activity
-            android:name=".leshi_module.LeShiActivity"
-            android:configChanges="keyboard|screenSize|orientation|layoutDirection"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".leshi_module.LeShiListActivity"/>
-        <activity android:name=".leshilive_module.LeShiLiveActivity"/>
-        <activity android:name=".leshilive_module.LiveListActivity"/>
-        <activity android:name=".leshilive_module.LiveActivity"/>
         <activity android:name=".setting_module.AboutUsActivity"/>
         <activity android:name=".gesture_module.GestureActivity">
         </activity>

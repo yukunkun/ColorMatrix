@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <ScrollView android:layout_width="match_parent"
+                android:background="@color/color_write"
+                android:layout_marginTop="70dp"
+                android:id="@+id/scrollview"
+                android:layout_height="match_parent">
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="vertical"
+                      android:layout_height="wrap_content">
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                <ImageView android:layout_width="100dp"
+                           android:layout_marginTop="20dp"
+                           android:id="@+id/icon"
+                           android:layout_centerHorizontal="true"
+                           android:src="@mipmap/android_blue"
+                           android:layout_height="100dp"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:id="@+id/tv_version"
+                              android:layout_below="@+id/icon"
+                              android:layout_marginTop="10dp"
+                              android:layout_centerHorizontal="true"
+                              android:text="V 1.0"
+                              android:layout_marginBottom="20dp"
+                              android:layout_height="wrap_content"/>
+            </RelativeLayout>
+            <RelativeLayout android:layout_width="match_parent"
+                            android:id="@+id/rl_collect"
+                            android:layout_height="45dp">
+                <TextView android:layout_width="wrap_content"
+                          android:paddingLeft="10dp"
+                          android:text="我的收藏"
+                          android:textSize="16sp"
+                          android:textColor="@color/color_595959"
+                          android:gravity="center"
+                          android:layout_centerVertical="true"
+                          android:layout_height="match_parent"/>
+                <View android:layout_height="0.5dp"
+                      android:background="@color/color_eaeaea"
+                      android:layout_width="match_parent"/>
+                <View android:layout_height="0.5dp"
+                      android:layout_alignParentBottom="true"
+                      android:background="@color/color_eaeaea"
+                      android:layout_width="match_parent"/>
+                <ImageView android:layout_width="22dp"
+                           android:layout_alignParentRight="true"
+                           android:layout_marginRight="10dp"
+                           android:src="@mipmap/right"
+                           android:layout_height="match_parent"/>
+            </RelativeLayout>
+            <RelativeLayout android:layout_width="match_parent"
+                            android:id="@+id/rl_adoutus"
+                            android:layout_height="45dp">
+                <TextView android:layout_width="wrap_content"
+                          android:paddingLeft="10dp"
+                          android:text="关于我们"
+                          android:textSize="16sp"
+                          android:textColor="@color/color_595959"
+                          android:gravity="center"
+                          android:layout_centerVertical="true"
+                          android:layout_height="match_parent"/>
+                <View android:layout_height="0.5dp"
+                      android:layout_alignParentBottom="true"
+                      android:background="@color/color_eaeaea"
+                      android:layout_width="match_parent"/>
+                <ImageView android:layout_width="22dp"
+                           android:layout_alignParentRight="true"
+                           android:layout_marginRight="10dp"
+                           android:src="@mipmap/right"
+                           android:layout_height="match_parent"/>
+            </RelativeLayout>
+
+            <TextView android:layout_width="match_parent"
+                      android:layout_marginLeft="80dp"
+                      android:text="登 录"
+                      android:id="@+id/tv_login"
+                      android:gravity="center"
+                      android:textSize="20sp"
+                      android:background="@drawable/shape_login"
+                      android:textColor="@color/color_write"
+                      android:layout_marginRight="80dp"
+                      android:layout_marginTop="50dp"
+                      android:layout_height="45dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="vertical"
+                  android:layout_height="wrap_content">
+        <View android:layout_height="20dp"
+              android:background="@color/colorPrimary"
+              android:layout_width="match_parent"/>
+        <RelativeLayout android:layout_width="match_parent"
+                        android:background="@color/colorPrimary"
+                        android:layout_height="50dp">
+            <TextView android:layout_width="wrap_content"
+                      android:textSize="18sp"
+                      android:id="@+id/tv_name"
+                      android:textColor="@color/color_write"
+                      android:text="我的"
+                      android:gravity="center"
+                      android:layout_centerInParent="true"
+                      android:layout_height="match_parent"/>
+            <ImageView android:layout_width="40dp"
+                       android:id="@+id/iv_back"
+                       android:src="@mipmap/icon_back"
+                       android:padding="8dp"
+                       android:layout_height="match_parent"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

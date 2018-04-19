@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:id="@+id/ll_bg"
+                  android:background="@color/color_5a383737"
+                  android:layout_centerInParent="true"
+                  android:orientation="vertical"
+                  android:layout_marginLeft="20dp"
+                  android:layout_marginRight="20dp"
+                  android:layout_height="wrap_content">
+        <TextView android:layout_width="220dp"
+                  android:id="@+id/tv_play"
+                  android:layout_gravity="center_horizontal"
+                  android:text="娱 乐"
+                  android:textSize="18sp"
+                  android:gravity="center"
+                  android:textColor="@color/colorAccent"
+                  android:background="@drawable/shape_choose_bg"
+                  android:layout_marginTop="20dp"
+                  android:layout_height="35dp"/>
+
+        <TextView android:layout_width="220dp"
+                  android:layout_gravity="center_horizontal"
+                  android:id="@+id/tv_video"
+                  android:background="@drawable/shape_choose_bg"
+                  android:text="拍 摄"
+                  android:gravity="center"
+                  android:textSize="18sp"
+                  android:textColor="@color/colorAccent"
+                  android:layout_marginBottom="20dp"
+                  android:layout_marginTop="20dp"
+                  android:layout_height="35dp"/>
+        <TextView android:layout_width="220dp"
+                  android:visibility="gone"
+                  android:layout_gravity="center_horizontal"
+                  android:id="@+id/tv_wanandroid"
+                  android:background="@drawable/shape_choose_bg"
+                  android:text="玩 Android"
+                  android:gravity="center"
+                  android:textSize="18sp"
+                  android:textColor="@color/colorAccent"
+                  android:layout_marginBottom="20dp"
+                  android:layout_height="35dp"/>
+    </LinearLayout>
+</RelativeLayout>

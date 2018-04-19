@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_write"
+    android:orientation="vertical">
+    <RelativeLayout android:layout_width="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:layout_height="50dp">
+        <TextView android:layout_width="wrap_content"
+                  android:textSize="18sp"
+                  android:textColor="@color/color_write"
+                  android:text="我的收藏"
+                  android:gravity="center"
+                  android:layout_centerInParent="true"
+                  android:layout_height="match_parent"/>
+        <ImageView android:layout_width="40dp"
+                   android:id="@+id/iv_search"
+                   android:layout_marginTop="0dp"
+                   android:layout_centerVertical="true"
+                   android:padding="10dp"
+                   android:layout_alignParentRight="true"
+                   android:layout_height="match_parent"/>
+        <ImageView android:layout_width="40dp"
+                   android:id="@+id/iv_me"
+                   android:src="@mipmap/icon_back"
+                   android:layout_marginTop="0dp"
+                   android:layout_centerVertical="true"
+                   android:padding="8dp"
+                   android:layout_height="match_parent"/>
+    </RelativeLayout>
+    <android.support.v4.widget.SwipeRefreshLayout android:layout_width="match_parent"
+                                                  android:id="@+id/sw"
+                                                  android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
+                                                android:id="@+id/recyclerview"
+                                                android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

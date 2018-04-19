@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:sidebar="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/color_write"
+    >
+    <RelativeLayout android:layout_width="match_parent"
+                    android:id="@+id/rl"
+                    android:layout_height="50dp">
+        <ImageView android:layout_width="50dp"
+                   android:padding="8dp"
+                   android:id="@+id/iv_back"
+                   android:src="@mipmap/joke_back"
+                   android:layout_height="match_parent"/>
+        <TextView android:layout_width="250dp"
+                  android:gravity="center"
+                  android:id="@+id/tv_title"
+                  android:layout_centerInParent="true"
+                  android:text="历史上的今天"
+                  android:textSize="18sp"
+                  android:singleLine="true"
+                  android:scrollbars = "vertical"
+                  android:textColor="@color/color_2b2b2b"
+                  android:layout_height="match_parent"/>
+        <View android:layout_height="0.5dp"
+              android:background="@color/color_b1b1b1"
+              android:layout_alignParentBottom="true"
+              android:layout_width="match_parent"/>
+    </RelativeLayout>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+        <ListView android:layout_width="match_parent"
+                  android:id="@+id/recyclerview"
+                  android:layout_height="match_parent">
+        </ListView>
+        <com.ykk.pluglin_video.views.SideBar
+            android:textColor="@color/colorAccent"
+            android:textSize="15sp"
+            android:paddingRight="10dp"
+            sidebar:scaleTime="1"
+            android:layout_width="200dp"
+            android:id="@+id/bar"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+</LinearLayout>

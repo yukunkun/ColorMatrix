@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/rl"
+                android:background="@color/color_write"
+              android:layout_width="match_parent"
+                android:paddingBottom="35dp"
+              android:layout_height="match_parent">
+<TextView android:layout_width="match_parent"
+          android:gravity="center_horizontal"
+          android:text="到底了，亲 ~"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="150dp"
+          android:layout_height="wrap_content"/>
+
+    <ImageView android:layout_width="40dp"
+               android:id="@+id/iv_icon"
+               android:padding="0dp"
+               android:layout_marginTop="50dp"
+               android:src="@mipmap/icon_small_bird"
+               android:layout_height="40dp"/>
+    <TextView android:layout_width="80dp"
+              android:layout_alignParentRight="true"
+              android:id="@+id/button"
+              android:text="点我有惊喜"
+              android:gravity="center"
+              android:layout_height="50dp"/>
+    <android.support.design.widget.FloatingActionButton android:layout_width="wrap_content"
+                                                        android:src="@mipmap/add"
+                                                        android:id="@+id/fl_btn"
+                                                        android:paddingBottom="10dp"
+                                                        android:layout_centerHorizontal="true"
+                                                        android:layout_alignParentBottom="true"
+                                                        android:layout_height="wrap_content"/>
+</RelativeLayout>

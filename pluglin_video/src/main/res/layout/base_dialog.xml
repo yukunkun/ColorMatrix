@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/shape_color_bg"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView android:layout_width="wrap_content"
+              android:text="滤镜选择："
+              android:textColor="@color/colorAccent"
+              android:gravity="center_vertical"
+              android:layout_marginLeft="10dp"
+              android:layout_height="40dp"/>
+    <View android:layout_height="0.5dp"
+          android:background="#e1e1e1"
+          android:layout_width="match_parent"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:id="@+id/lv_lujing"
+        android:layout_height="wrap_content">
+    </ListView>
+</LinearLayout>

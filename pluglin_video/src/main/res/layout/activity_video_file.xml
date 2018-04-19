@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout android:layout_width="match_parent"
+                    android:id="@+id/rl_title"
+                    android:background="@color/color_595959"
+                    android:layout_height="50dp">
+        <ImageView android:layout_width="50dp"
+                   android:padding="12dp"
+                   android:id="@+id/iv_back"
+                   android:src="@mipmap/ic_back"
+                   android:layout_height="50dp"/>
+        <TextView android:layout_width="wrap_content"
+                  android:gravity="center"
+                  android:text="文 件"
+                  android:textSize="18dp"
+                  android:textColor="@color/white"
+                  android:layout_centerInParent="true"
+                  android:layout_height="match_parent"/>
+        <TextView android:layout_width="wrap_content"
+                  android:gravity="center"
+                  android:id="@+id/tv_delete"
+                  android:text="删除"
+                  android:layout_marginRight="10dp"
+                  android:textSize="14dp"
+                  android:textColor="@color/colorAccent"
+                  android:layout_alignParentRight="true"
+                  android:layout_height="match_parent"/>
+    </RelativeLayout>
+    <ListView android:layout_width="match_parent"
+              android:id="@+id/listview"
+              android:layout_below="@+id/rl_title"
+              android:layout_height="match_parent">
+    </ListView>
+    <TextView android:layout_width="wrap_content"
+              android:id="@+id/tv_remind"
+              android:text="你还没有照片或者视频-_-"
+              android:layout_centerInParent="true"
+              android:layout_height="wrap_content"/>
+
+</RelativeLayout>

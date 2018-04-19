@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="#5a000000"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="50dp">
+        <ImageView android:layout_width="wrap_content"
+                   android:id="@+id/iv_back_setting"
+                   android:layout_centerVertical="true"
+                   android:layout_marginLeft="10dp"
+                   android:src="@mipmap/ic_back_setting"
+                   android:layout_height="wrap_content"/>
+        <View android:layout_width="match_parent"
+              android:background="#696969"
+              android:layout_alignParentBottom="true"
+              android:layout_height="0.5dp"/>
+    </RelativeLayout>
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="vertical"
+                      android:layout_height="match_parent">
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="50dp">
+                <TextView android:layout_width="58dp"
+                          android:text="录制分辨率："
+                          android:id="@+id/tv_video"
+                          android:textColor="@color/white"
+                          android:layout_marginLeft="20dp"
+                          android:gravity="center"
+                          android:layout_height="match_parent"/>
+                <Spinner android:layout_width="match_parent"
+                         android:id="@+id/sp_record"
+                         android:theme="@style/SpinnerStyle"
+                         android:layout_marginLeft="0dp"
+                         android:entries="@array/spinners"
+                         android:layout_toRightOf="@+id/tv_video"
+                         android:dropDownWidth="90dp"
+                         android:gravity="center"
+                         android:spinnerMode="dropdown"
+                         android:overlapAnchor="false"
+                         android:layout_height="match_parent">
+                </Spinner>
+
+            </RelativeLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="horizontal"
+                          android:layout_height="50dp">
+                <TextView android:layout_width="wrap_content"
+                          android:text="水平线:"
+                          android:textColor="#ffffff"
+                          android:gravity="center_vertical"
+                          android:layout_marginLeft="20dp"
+                          android:layout_height="match_parent"/>
+                <Switch android:layout_width="wrap_content"
+                        android:id="@+id/switchBtn"
+                        android:textOn="开"
+                        android:textOff="关"
+                        android:layout_marginLeft="20dp"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="horizontal"
+                          android:layout_height="50dp">
+                <TextView android:layout_width="wrap_content"
+                          android:text="白平衡值:"
+                          android:textColor="#ffffff"
+                          android:gravity="center_vertical"
+                          android:layout_marginLeft="20dp"
+                          android:layout_height="match_parent"/>
+                <Switch android:layout_width="wrap_content"
+                        android:id="@+id/switchWrite"
+                        android:textOn="开"
+                        android:textOff="关"
+                        android:layout_marginLeft="20dp"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <com.cxria.media.utils.TagLayout android:layout_width="match_parent"
+                                             android:id="@+id/taglayout"
+                                             android:visibility="gone"
+                                             android:layout_marginLeft="10dp"
+                                             android:layout_marginRight="10dp"
+                                             android:layout_height="wrap_content">
+            </com.cxria.media.utils.TagLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="horizontal"
+                          android:layout_height="50dp">
+                <TextView android:layout_width="wrap_content"
+                          android:text="情景效果:"
+                          android:textColor="#ffffff"
+                          android:gravity="center_vertical"
+                          android:layout_marginLeft="20dp"
+                          android:layout_height="match_parent"/>
+                <Switch android:layout_width="wrap_content"
+                        android:id="@+id/switchScreen"
+                        android:textOn="开"
+                        android:textOff="关"
+                        android:layout_marginLeft="20dp"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <com.cxria.media.utils.TagLayout android:layout_width="match_parent"
+                                             android:id="@+id/taglayoutScreen"
+                                             android:visibility="gone"
+                                             android:layout_marginLeft="10dp"
+                                             android:layout_marginRight="10dp"
+                                             android:layout_height="wrap_content">
+
+            </com.cxria.media.utils.TagLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="horizontal"
+                          android:layout_height="50dp">
+                <TextView android:layout_width="wrap_content"
+                          android:text="滤镜效果:"
+                          android:textColor="#ffffff"
+                          android:gravity="center_vertical"
+                          android:layout_marginLeft="20dp"
+                          android:layout_height="match_parent"/>
+                <Switch android:layout_width="wrap_content"
+                        android:id="@+id/switchColor"
+                        android:textOn="开"
+                        android:textOff="关"
+                        android:layout_marginLeft="20dp"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              xmlns:yk="http://schemas.android.com/apk/res-auto"
-              xmlns:fab="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:background="@color/color_000000">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:yk="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/color_000000">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -14,122 +14,103 @@
     <FrameLayout
         android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <!--title-->
-            <include layout="@layout/main_title"/>
+            <include layout="@layout/main_title" />
 
             <RelativeLayout
                 android:id="@+id/contain"
                 android:layout_width="match_parent"
                 android:layout_height="320dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:gravity="center"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
                     <com.matrix.yukun.matrix.selfview.view.MyRelativeLayout
-                        android:id="@+id/rea_contain"
-                        android:gravity="center"
-                        android:background="@color/color_eaffd9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <com.matrix.yukun.matrix.selfview.squareprogressbar.SquareProgressBar
-                            android:id="@+id/squareProgressBar"
-                            android:layout_centerInParent="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        </com.matrix.yukun.matrix.selfview.squareprogressbar.SquareProgressBar>
+                        android:id="@+id/my_relat"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/iv_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitCenter" />
                     </com.matrix.yukun.matrix.selfview.view.MyRelativeLayout>
+
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/texttishi"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <TextView
                         android:id="@+id/tishi"
-                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:layout_marginTop="5dp"
                         android:text="图库和编辑栏在上面呦     "
                         android:textColor="#ffffff"
-                        android:textSize="20sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:textSize="20sp" />
+
                     <TextView
                         android:id="@+id/tishitag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_below="@+id/tishi"
                         android:layout_marginTop="15dp"
-                        android:layout_alignParentRight="true"
                         android:text="点击图片可添加文字呦     "
                         android:textColor="#ffffff"
-                        android:textSize="20sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:textSize="20sp" />
                 </RelativeLayout>
+
                 <com.matrix.yukun.matrix.selfview.WaterLoadView
                     android:id="@+id/waterload"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_centerInParent="true"
+                    android:visibility="gone"
                     yk:circleColor="#FF0077"
-                    yk:circleTop="80"
                     yk:circleSmallRadio="7"
+                    yk:circleTop="80"
                     yk:loadTime="1000" />
+
             </RelativeLayout>
         </LinearLayout>
         <!--菜单-->
-        <include layout="@layout/main_menus"/>
+        <include layout="@layout/main_menus" />
     </FrameLayout>
     <!--底部的布局-->
     <include
         layout="@layout/main_bottom"/>
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/multiple_actions"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fl_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@mipmap/abc_ic_menu_share_mtrl_alpha"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        fab:fab_addButtonColorNormal="@color/color_54fa3e"
-        fab:fab_addButtonColorPressed="@color/color_fc2c5d"
-        fab:fab_addButtonPlusIconColor="@color/color_whit"
-        android:layout_marginBottom="@dimen/dimens_10"
-        android:layout_marginRight="@dimen/dimens_10">
+        app:backgroundTint="@color/color_44fc2c"
+        app:rippleColor="@color/color_ff2323"
+        app:elevation="2dp"
+        app:pressedTranslationZ="3dp"
+        android:layout_marginBottom="@dimen/dimens_20"
+        android:layout_marginRight="@dimen/dimens_30" />
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_a"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_size="mini"
-            fab:fab_colorNormal="@color/color_f78fff75"
-            fab:fab_title="相机"
-            fab:fab_icon="@mipmap/abc_ic_menu_selectall_mtrl_alpha"
-            fab:fab_colorPressed="#ffff77"/>
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_b"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_size="mini"
-            fab:fab_colorNormal="@color/color_f78fff75"
-            fab:fab_title="图库"
-            fab:fab_icon="@mipmap/ic_explore_wallpaper_pressed"
-            fab:fab_colorPressed="#ffff00"/>
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_c"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_size="mini"
-            fab:fab_icon="@mipmap/abc_ic_menu_share_mtrl_alpha"
-            fab:fab_colorNormal="@color/color_f78fff75"
-            fab:fab_title="分享"
-            fab:fab_colorPressed="#ffff00"/>
-
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 </RelativeLayout>
 
 </LinearLayout>

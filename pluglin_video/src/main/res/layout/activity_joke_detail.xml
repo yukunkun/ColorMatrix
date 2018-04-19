@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/color_write"
+    android:layout_height="match_parent">
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="50dp">
+        <ImageView android:layout_width="wrap_content"
+                   android:src="@mipmap/joke_back"
+                   android:id="@+id/iv_back"
+                   android:layout_marginLeft="10dp"
+                   android:layout_centerVertical="true"
+                   android:layout_height="wrap_content"/>
+
+        <ImageView android:layout_width="wrap_content"
+                   android:src="@mipmap/skip"
+                   android:id="@+id/iv_share"
+                   android:padding="5dp"
+                   android:layout_alignParentRight="true"
+                   android:layout_marginRight="10dp"
+                   android:layout_centerVertical="true"
+                   android:layout_height="50dp"/>
+        <View android:layout_height="0.5dp"
+              android:layout_alignParentBottom="true"
+              android:background="@color/color_94abaaaa"
+              android:layout_width="match_parent"/>
+    </RelativeLayout>
+    <TextView android:layout_width="match_parent"
+              android:layout_marginTop="50dp"
+              android:gravity="center"
+              android:background="@color/color_write"
+              android:id="@+id/tv_content"
+              android:textSize="20dp"
+              android:paddingLeft="20dp"
+              android:text=""
+              android:textIsSelectable="true"
+              android:paddingRight="20dp"
+              android:textColor="@color/color_2b2b2b"
+              android:layout_height="match_parent"/>
+
+</RelativeLayout>

@@ -2,7 +2,6 @@ package com.matrix.yukun.matrix.main_module;
 
 import android.Manifest;
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,7 +11,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -20,6 +18,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,8 +36,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
@@ -47,19 +44,16 @@ import com.matrix.yukun.matrix.anims.MyEvaluator;
 import com.matrix.yukun.matrix.bean.EventMorePos;
 import com.matrix.yukun.matrix.bean.EventPos;
 import com.matrix.yukun.matrix.camera_module.CameraActivity;
-import com.matrix.yukun.matrix.image_module.activity.ListDetailActivity;
 import com.matrix.yukun.matrix.image_module.activity.PhotoListActivity;
 import com.matrix.yukun.matrix.image_module.bean.EventDetail;
 import com.matrix.yukun.matrix.main_module.filters.IImageFilter;
 import com.matrix.yukun.matrix.main_module.filters.Image;
 import com.matrix.yukun.matrix.movie_module.MovieActivity;
 import com.matrix.yukun.matrix.selfview.WaterLoadView;
-import com.matrix.yukun.matrix.selfview.squareprogressbar.SquareProgressBar;
 import com.matrix.yukun.matrix.selfview.view.MyRelativeLayout;
 import com.matrix.yukun.matrix.setting_module.SettingActivity;
 import com.matrix.yukun.matrix.util.AnimUtils;
 import com.matrix.yukun.matrix.util.BitmapUtil;
-import com.matrix.yukun.matrix.util.CameraSizeUtils;
 import com.matrix.yukun.matrix.util.DeskMapUtil;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.util.ImageUtils;
@@ -67,6 +61,7 @@ import com.matrix.yukun.matrix.util.ScreenUtils;
 import com.matrix.yukun.matrix.util.SpacesItemDecoration;
 import com.matrix.yukun.matrix.weather_module.WeatherActivity;
 import com.tencent.bugly.beta.Beta;
+import com.ykk.pluglin_video.play.PlayActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -83,7 +78,6 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView imageLoad;
-    private ImageView imageShare;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private RecAdapter recAdapter;
@@ -92,7 +86,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView imageViewMore;
     private String path;
     private String photoName;
-    private SquareProgressBar imageViewTest;
+    private ImageView imageViewTest;
     private PopupWindow mPopupWindow;
     private SeekBar seekBarBaoHe;
     private SeekBar seekBarLight;
@@ -107,20 +101,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Bitmap bitmapRoate;
     private ImageView imageViewRoate;
     private int roate=0;
-    private LinearLayout layoutMore;
-    private TextView textViewMatrix;
     private ValueAnimator animator;
-    private ArrayList<String> lists=new ArrayList<>();
     private MyRelativeLayout layoutContain;
-    private Random random = new Random();
     private boolean flag=true;
-    private int count=0;
     private boolean isShow=false;
     private BitmapFactory.Options options = new BitmapFactory.Options();
     private Handler handler=new Handler();
-    private int []ranColor ={Color.RED,Color.BLUE,Color.DKGRAY,Color.GREEN,Color.LTGRAY,
-            R.color.color_44fc2c, R.color.color_44fc2c, R.color.color_b450fc, R.color.color_fc2c5d, R.color.color_fc2cd2,
-            R.color.color_57f733, R.color.color_f733d6, R.color.colorPrimaryDark, R.color.color_3575ff};
     private TextView textViewRoate;
     private ImageView imageViewCrop;
     private RelativeLayout reaContain;
@@ -135,14 +121,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private int radias=180; //动画半径
     private RecyclerView mRecyclerFilter;
     private FilterAdapter mFilterAdapter;
-    private TextView mTvmore;
     private LinearLayoutManager mLinearLayout;
     private WaterLoadView mWaterLoadView;
-    private FloatingActionsMenu mActionsMenu;
-    private FloatingActionButton mActionButtonA;
-    private FloatingActionButton mActionButtonb;
-    private FloatingActionButton mActionButtonc;
-    private boolean isShowMoew=false;
+    private FloatingActionButton mActionsMenu;
+    private TextView tvVideo;
+    private LinearLayout llCamera;
+    private LinearLayout llPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,20 +142,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void init() {
-        imageViewTest = (SquareProgressBar)findViewById(R.id.squareProgressBar);
-        imageViewTest.setImage(R.mipmap.beijing_1);
-
-        imageViewTest.setWidth(1);
-        setColor();
-
+        imageViewTest = (ImageView) findViewById(R.id.iv_image);
+        imageViewTest.setImageResource(R.mipmap.beijing_1);
         imageLoad = (ImageView) findViewById(R.id.loadimage);
         layout = (LinearLayout) findViewById(R.id.linfuntion);
         imageViewMore = (ImageView) findViewById(R.id.imagemore);
         imageViewRoate = (ImageView) findViewById(R.id.imagerotate);
-        mTvmore = (TextView) findViewById(R.id.lujing);
+        llCamera = (LinearLayout) findViewById(R.id.ll_camera);
         mWaterLoadView = (WaterLoadView) findViewById(R.id.waterload);
         imageViewCrop = (ImageView) findViewById(R.id.imagecrop);
-        textViewMatrix = (TextView) findViewById(R.id.loadmaterial);
+        llPhoto = (LinearLayout) findViewById(R.id.ll_photo);
         textViewRoate = (TextView) findViewById(R.id.tishi);
         textViewTag = (TextView) findViewById(R.id.tishitag);
         textViewMov = (TextView)findViewById(R.id.textmovie);
@@ -179,22 +159,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         imageViewBack = (ImageView) findViewById(R.id.back);
         textViewMovRec = (TextView)findViewById(R.id.textmovierec);
         textViewSetting = (TextView)findViewById(R.id.textseting);
-        layoutContain = (MyRelativeLayout) findViewById(R.id.rea_contain);
         textViewTiShi = (RelativeLayout) findViewById(R.id.texttishi);
         reaContain = (RelativeLayout) findViewById(R.id.contain);
+        layoutContain=(MyRelativeLayout)findViewById(R.id.my_relat);
+        tvVideo = findViewById(R.id.tv_video);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
         mLinearLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
-
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mRecyclerFilter = (RecyclerView) findViewById(R.id.recyclerfilter);
+        mActionsMenu = (FloatingActionButton) findViewById(R.id.fl_btn);
         recyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerFilter.setLayoutManager(mLinearLayout);
         setConLayout();
         OverScrollDecoratorHelper.setUpOverScroll((ScrollView)findViewById(R.id.scrollview));
-        mActionsMenu = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
-        mActionButtonA = (FloatingActionButton) findViewById(R.id.action_a);
-        mActionButtonb = (FloatingActionButton) findViewById(R.id.action_b);
-        mActionButtonc = (FloatingActionButton) findViewById(R.id.action_c);
     }
 
     //计算高度
@@ -280,7 +257,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (img != null && img.destImage.isRecycled()) {
                     img.destImage.recycle();
                     img.destImage = null;
-                    System.gc(); //
+                    System.gc();
                 }
             }
             finally{
@@ -410,10 +387,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void setListener() {
         imageViewMore.setOnClickListener(this);
         textViewTiShi.setOnClickListener(this);
-//        imageShare.setOnClickListener(this);
+        imageViewMore.setOnClickListener(this);
         imageLoad.setOnClickListener(this);
         imageViewRoate.setOnClickListener(this);
-        textViewMatrix.setOnClickListener(this);
         textViewRoate.setOnClickListener(this);
         textViewTag.setOnClickListener(this);
         imageViewCrop.setOnClickListener(this);
@@ -421,21 +397,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         textViewWea.setOnClickListener(this);
         textViewMovRec.setOnClickListener(this);
         textViewSetting.setOnClickListener(this);
-        mTvmore.setOnClickListener(this);
-        mActionButtonA.setOnClickListener(this);
-        mActionButtonb.setOnClickListener(this);
-        mActionButtonc.setOnClickListener(this);
-        mActionsMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
-            @Override
-            public void onMenuExpanded() {
-
-            }
-
-            @Override
-            public void onMenuCollapsed() {
-
-            }
-        });
+        mActionsMenu.setOnClickListener(this);
+        tvVideo.setOnClickListener(this);
+        llCamera.setOnClickListener(this);
+        llPhoto.setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
@@ -456,14 +421,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent_1);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 break;
-            case R.id.loadmaterial:
+            case R.id.ll_photo:
                 Intent intent=new Intent(MainActivity.this, PhotoListActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
             break;
             case R.id.textmovie:
-                //视频推荐
+                //电影推荐
                 closeMenu();
+                Intent intentWeaRec =new Intent(MainActivity.this, MovieActivity.class);
+                startActivity(intentWeaRec);
                 break;
             case R.id.textweather:
                 //天气提醒
@@ -472,10 +439,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intentWea);
                 break;
             case R.id.textmovierec:
-                //电影推荐
-                closeMenu();
-                Intent intentWeaRec =new Intent(MainActivity.this, MovieActivity.class);
-                startActivity(intentWeaRec);
+               //空
                 break;
             case R.id.textseting:
                 //设置
@@ -514,7 +478,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                break;
             case R.id.loadimage:
                 flag=false;
-                imageViewTest.setProgress(0);
                 //load
                 if(path==null){
                     if(photoName==null||photoName.length()==0){
@@ -533,7 +496,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                             public void run() {
                                 Toast.makeText(MainActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
                                 flag=true;
-                                setColor();
                             }
                         });
                     }
@@ -563,37 +525,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivityForResult(intent2, 1);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 break;
-            case R.id.lujing:
-                if(!isShowMoew){
-                    isShowMoew=true;
-                    recyclerView.setVisibility(View.GONE);
-                    mRecyclerFilter.setVisibility(View.VISIBLE);
-                }else {
-                    isShowMoew=false;
-                    recyclerView.setVisibility(View.VISIBLE);
-                    mRecyclerFilter.setVisibility(View.GONE);
-                }
-                break;
-            case R.id.action_a:
+            case R.id.ll_camera:
                 startCamera();
                 break;
-            case R.id.action_b:
-                File destDis = new File(Environment.getExternalStorageDirectory()+"/yukun");
-                if (!destDis.exists()) {
-                    destDis.mkdirs();
-                }
-                lists.clear();
-                File[] filess=destDis.listFiles();
-                for (int i = 0; i < filess.length; i++) {
-                    lists.add(filess[i]+"");
-                }
-                //打开Matria图库
-                Intent intent_maps=new Intent(MainActivity.this,ListDetailActivity.class);
-                intent_maps.putStringArrayListExtra("photo",lists);
-                startActivity(intent_maps);
-                overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                break;
-            case R.id.action_c:
+            case R.id.fl_btn:
                 //分享
                 File destDir= FileUtil.createFile();
                 if(photoName==null||photoName.length()==0){
@@ -603,7 +538,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 final File f = new File(destDir, photoName);
                 Toast.makeText(MainActivity.this, "正在下载...", Toast.LENGTH_SHORT).show();
                 flag=false;
-                imageViewTest.setProgress(0);
                 bitmap = ImageUtils.createViewBitmap(layoutContain, layoutContain.getWidth(), layoutContain.getHeight());
                 new Thread(new Runnable() {
                     @Override
@@ -615,15 +549,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                                 Toast.makeText(MainActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
                                 share(f.getPath());
                                 flag=true;
-                                setColor();
                             }
                         });
                     }
                 }).start();
                 break;
+            case R.id.tv_video:
+                Intent iVideo=new Intent(this, PlayActivity.class);
+                startActivity(iVideo);
+                overridePendingTransition(R.anim.right_in,R.anim.left_out);
+                break;
         }
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -807,39 +744,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 FileUtil.showToast(MainActivity.this,rotate);
             }
         });
-    }
-
-    private void setColor() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (flag){
-                    if(count==100){
-                        final int randomcolor =random.nextInt(ranColor.length);
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                imageViewTest.setColorRGB(ranColor[randomcolor]);
-                            }
-                        });
-                        count=0;
-                    }else {
-                        count++;
-                    }
-                    try {
-                        Thread.sleep(20);
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                imageViewTest.setProgress(count);
-                            }
-                        });
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
     }
     
     public void Back(View view) {

@@ -20,30 +20,51 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimens_50">
-            <TextView
-                android:id="@+id/lujing"
-                android:layout_weight="1"
-                android:textSize="18sp"
-                android:text="增强滤镜"
-                android:textStyle="bold"
-                android:textColor="@color/color_44fc2c"
-                android:gravity="center"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent" />
+                android:id="@+id/ll_camera"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@mipmap/ic_camera"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:textSize="18sp"
+                    android:text="相机"
+                    android:layout_marginLeft="8dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_44fc2c"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
             <View
                 android:background="#363636"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"/>
-            <TextView
-                android:id="@+id/loadmaterial"
-                android:layout_weight="1"
-                android:textSize="18sp"
-                android:textColor="@color/color_44fc2c"
-                android:text="图 库"
-                android:gravity="center"
-                android:textStyle="bold"
+            <LinearLayout
+                android:id="@+id/ll_photo"
                 android:layout_width="0dp"
-                android:layout_height="match_parent" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@mipmap/pic"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:textSize="18sp"
+                    android:textColor="@color/color_44fc2c"
+                    android:text="图 库"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
         </LinearLayout>
         <View
             android:background="#363636"

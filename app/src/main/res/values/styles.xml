@@ -33,6 +33,9 @@
         <attr name="count" format="integer" />
         <attr name="tryTimes" format="integer" />
 
+  <!--  <attr name="android:touchscreenBlocksFocus" format="boolean" />
+    <attr name="android:keyboardNavigationCluster" format="boolean" />-->
+
     <declare-styleable name="GestureLockViewGroup">
         <attr name="color_no_finger_inner_circle" />
         <attr name="color_no_finger_outer_circle" />

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView android:layout_width="match_parent"
+               android:id="@+id/iv_bg"
+               android:scaleType="centerCrop"
+               android:layout_height="match_parent"/>
+    <TextView android:layout_width="match_parent"
+              android:layout_marginTop="140dp"
+              android:gravity="center"
+              android:id="@+id/tv_remind"
+              android:text="Media 创造奇迹"
+              android:textSize="28sp"
+              android:textColor="@color/colorAccent"
+              android:layout_height="wrap_content"/>
+    <TextView android:layout_width="match_parent"
+              android:gravity="center"
+              android:layout_marginBottom="30dp"
+              android:layout_alignParentBottom="true"
+              android:text="拍摄,记录你我永恒的瞬间"
+              android:textSize="20sp"
+              android:textColor="@color/white"
+              android:layout_height="wrap_content"/>
+</RelativeLayout>

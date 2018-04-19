@@ -1,0 +1,46 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ykk.pluglin_video">
+
+    <application>
+        <activity android:name=".LoadingActivity"/>
+        <activity android:name=".BaseActivity">
+        </activity>
+        <activity android:name=".video.VideoFileActivity">
+        </activity>
+        <activity android:name=".video.PhotoViewActivity">
+        </activity>
+        <activity
+            android:name=".video.VideoPlayActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"> <!-- or android:screenOrientation="landscape" -->
+        </activity>
+        <activity
+            android:name=".video.MainActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".ChooseActivity">
+        </activity>
+        <activity
+            android:name="com.ykk.pluglin_video.play.PlayActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".play.JokeDetailActivity">
+        </activity>
+        <activity android:name=".play.AboutUsActivity">
+        </activity>
+        <activity android:name=".play.ImageDetailActivity">
+        </activity>
+        <activity android:name=".play.MyCollectActivity">
+        </activity>
+        <activity android:name=".play.TextDetailActivity">
+        </activity>
+        <activity android:name=".play.HistoryTodayActivity">
+        </activity>
+        <activity android:name=".play.ChatActivity">
+        </activity>
+        <activity android:name=".play.PlayMainActivity">
+        </activity>
+
+    </application>
+
+</manifest>

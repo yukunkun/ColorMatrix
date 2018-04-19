@@ -55,7 +55,7 @@ public class SetAdapter extends BaseAdapter {
         }else{
             convertView= LayoutInflater.from(context).inflate(R.layout.setting_2,null);
             ((TextView)convertView.findViewById(R.id.setting_con)).setText(arrayList.get(position-1));
-            if(position==1||position==2||position==3){
+            if(position==1||position==2){
                 ((TextView)convertView.findViewById(R.id.setting_con)).setTextColor(context.getResources().getColor(R.color.color_44fc2c));
             }else {
                 ((TextView)convertView.findViewById(R.id.setting_con)).setTextColor(context.getResources().getColor(R.color.color_whit));

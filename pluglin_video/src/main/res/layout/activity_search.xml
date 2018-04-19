@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:layout_height="50dp">
+        <ImageView
+            android:layout_width="45dp"
+            android:src="@mipmap/search"
+            android:id="@+id/search"
+            android:padding="8dp"
+            android:layout_height="match_parent"/>
+
+        <EditText android:layout_width="match_parent"
+                  android:textSize="16sp"
+                  android:id="@+id/ed_text"
+                  android:layout_toRightOf="@+id/search"
+                  android:singleLine="true"
+                  android:textColorHint="@color/color_ededed"
+                  android:textColor="@color/color_write"
+                  android:layout_marginRight="50dp"
+                  android:layout_marginLeft="0dp"
+                  android:hint="多个词请用空格隔开"
+                  android:drawablePadding="10dp"
+                  android:imeOptions="actionSearch"
+                  android:layout_height="match_parent"/>
+        <TextView android:layout_width="wrap_content"
+                   android:id="@+id/tv_cancel"
+                  android:layout_alignParentRight="true"
+                  android:text="取消"
+                  android:textSize="18sp"
+                  android:textColor="@color/color_write"
+                  android:gravity="center"
+                   android:layout_marginRight="10dp"
+                   android:layout_height="match_parent"/>
+    </RelativeLayout>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout android:layout_width="match_parent"
+                                                       android:id="@+id/smartLayout"
+                                                       android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:background="@color/color_write"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</LinearLayout>

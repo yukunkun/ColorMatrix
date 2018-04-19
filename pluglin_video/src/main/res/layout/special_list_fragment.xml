@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                         android:layout_width="match_parent"
+                                         android:layout_height="match_parent"
+                                         xmlns:yk="http://schemas.android.com/apk/res-auto"
+                                         android:background="@color/color_write"
+                                         >
+    <com.ykk.pluglin_video.views.WaterLoadView
+
+        android:layout_width="match_parent"
+        android:id="@+id/water_load"
+        android:layout_height="100dp"
+        yk:circleColor="#00ff40"
+        yk:circleTop="85"
+        yk:circleSmallRadio="8"
+        yk:loadTime="1000" />
+    <com.ykk.pluglin_video.views.RetailMeNotLayout
+        android:id="@+id/l_retail_me_not"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>

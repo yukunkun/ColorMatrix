@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <FrameLayout android:layout_width="match_parent"
+                 android:id="@+id/fl_layout"
+                 android:layout_marginBottom="56dp"
+                 android:layout_height="match_parent">
+    </FrameLayout>
+    <View android:layout_width="match_parent"
+          android:background="@color/color_eaeaea"
+          android:layout_alignParentBottom="true"
+          android:layout_marginBottom="56dp"
+          android:layout_height="0.5dp"
+          android:id="@+id/view"/>
+        <RadioGroup android:layout_width="match_parent"
+                    android:id="@+id/rg"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    android:background="@color/color_write"
+                    android:layout_height="56dp"
+                    android:layout_alignParentBottom="true">
+            <RadioButton android:id="@+id/index"
+                         android:layout_width="0dp"
+                         android:layout_weight="1"
+                         android:layout_height="wrap_content"
+                         android:button="@null"
+                         android:gravity="center"
+                         android:drawableTop="@drawable/live_section_index"/>
+            <RadioButton android:layout_width="0dp"
+                         android:layout_weight="1"
+                         android:id="@+id/collect"
+                         android:button="@null"
+                         android:gravity="center"
+                         android:drawableTop="@drawable/live_section_circle"
+                         android:layout_height="wrap_content"/>
+            <RadioButton android:layout_width="0dp"
+                         android:layout_weight="1"
+                         android:button="@null"
+                         android:id="@+id/me"
+                         android:drawableTop="@drawable/live_section_me"
+                         android:gravity="center"
+                         android:layout_height="wrap_content"/>
+        </RadioGroup>
+</RelativeLayout>

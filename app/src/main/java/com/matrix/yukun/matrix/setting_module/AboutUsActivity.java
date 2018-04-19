@@ -1,13 +1,11 @@
 package com.matrix.yukun.matrix.setting_module;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -16,6 +14,7 @@ import com.tencent.bugly.beta.Beta;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class AboutUsActivity extends AppCompatActivity {
@@ -24,11 +23,13 @@ public class AboutUsActivity extends AppCompatActivity {
     RelativeLayout rea;
     @BindView(R.id.scrollview)
     ListView mListview;
+    @BindView(R.id.iv_icon)
+    ImageView ivIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_us);
+        setContentView(R.layout.activity_about_us_video);
         ButterKnife.bind(this);
         init();
         setListener();
@@ -43,40 +44,28 @@ public class AboutUsActivity extends AppCompatActivity {
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
+                switch (position) {
 
                     case 0:
-                        Intent intent=new Intent(AboutUsActivity.this,AgreeActivity.class);
+                        Intent intent = new Intent(AboutUsActivity.this, AgreeActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.right_in,R.anim.left_out);
+                        overridePendingTransition(R.anim.right_in, R.anim.left_out);
                         break;
                     case 1:
-                        Intent intent1=new Intent(AboutUsActivity.this,IntroduceActivity.class);
+                        Intent intent1 = new Intent(AboutUsActivity.this, IntroduceActivity.class);
                         startActivity(intent1);
-                        overridePendingTransition(R.anim.right_in,R.anim.left_out);
+                        overridePendingTransition(R.anim.right_in, R.anim.left_out);
                         break;
                     case 2:
-
+                        FankuiDialog noteCommentDialog = FankuiDialog.newInstance(0);
+                        noteCommentDialog.show(getSupportFragmentManager(), "NoteDetailActivity");
                         break;
                     case 3:
-
-                        break;
-                    case 4:
-                        FankuiDialog noteCommentDialog=FankuiDialog.newInstance(0);
-                        noteCommentDialog.show(getSupportFragmentManager(),"NoteDetailActivity");
-                        break;
-                    case 5:
                         Beta.checkUpgrade();
-                    case 6:
                         break;
                 }
             }
         });
-    }
-
-    public void AboutBack(View view) {
-        finish();
-        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 
     @Override
@@ -84,5 +73,11 @@ public class AboutUsActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
         overridePendingTransition(R.anim.right_in, R.anim.left_out);
+    }
+
+    @OnClick(R.id.iv_icon)
+    public void onViewClicked() {
+        finish();
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 }

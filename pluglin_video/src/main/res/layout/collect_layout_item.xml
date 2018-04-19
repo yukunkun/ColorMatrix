@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:background="@drawable/shape_collect"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="40dp">
+        <de.hdodenhof.circleimageview.CircleImageView android:layout_width="30dp"
+                                                      android:id="@+id/ci_head"
+                                                      app:civ_border_width="1dp"
+                                                      app:civ_border_color="@color/color_94abaaaa"
+                                                      android:src="@mipmap/tool_icon"
+                                                      android:layout_marginLeft="5dp"
+                                                      android:layout_centerVertical="true"
+                                                      android:layout_height="30dp"/>
+        <TextView android:layout_width="match_parent"
+                  android:id="@+id/tv_name"
+                  android:text=""
+                  android:singleLine="true"
+                  android:ellipsize="end"
+                  android:paddingRight="5dp"
+                  android:textColor="@color/color_494949"
+                  android:gravity="center_vertical"
+                  android:textSize="14sp"
+                  android:layout_centerVertical="true"
+                  android:layout_toRightOf="@id/ci_head"
+                  android:paddingLeft="10dp"
+                  android:layout_height="40dp"/>
+        <TextView android:layout_width="wrap_content"
+                  android:id="@+id/tv_times"
+                  android:text=""
+                  android:layout_alignParentRight="true"
+                  android:paddingRight="10dp"
+                  android:layout_centerVertical="true"
+                  android:ellipsize="end"
+                  android:singleLine="true"
+                  android:layout_marginTop="10dp"
+                  android:textColor="@color/color_494949"
+                  android:gravity="center_vertical"
+                  android:textSize="16sp"
+                  android:layout_height="20dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+        <ImageView android:layout_width="match_parent"
+                   android:id="@+id/im_cover"
+                   android:transitionName="shareView"
+                   android:layout_marginTop="5dp"
+                   android:scaleType="centerCrop"
+                   android:layout_height="180dp"/>
+        <com.haozhang.lib.SlantedTextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/stv"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            app:slantedBackgroundColor="@color/color_b4f905b8"
+            app:slantedLength="25dp"
+            app:slantedTextColor="@color/color_write"
+            app:slantedTextSize="10sp"
+        />
+    </RelativeLayout>
+    <TextView android:layout_width="match_parent"
+              android:id="@+id/tv_title"
+              android:text=""
+              android:paddingRight="10dp"
+              android:maxLines="2"
+              android:ellipsize="end"
+              android:layout_marginBottom="4dp"
+              android:layout_marginTop="4dp"
+              android:textColor="@color/color_494949"
+              android:gravity="center_vertical"
+              android:textSize="14sp"
+              android:paddingLeft="10dp"
+              android:layout_height="40dp"/>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="38dp">
+        <View android:layout_height="0.5dp"
+              android:background="@color/color_94abaaaa"
+              android:layout_width="match_parent"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:id="@+id/tv_play_times"
+                  android:layout_marginLeft="10dp"
+                  android:layout_centerVertical="true"
+                  android:ellipsize="end"
+                  android:text="移除"
+                  android:singleLine="true"
+                  android:layout_marginTop="10dp"
+                  android:textColor="@color/color_878585"
+                  android:gravity="center_vertical"
+                  android:textSize="15sp"
+                  android:layout_height="20dp"/>
+        <ImageView android:layout_width="35dp"
+                   android:padding="8dp"
+                   android:id="@+id/iv_share"
+                   android:src="@mipmap/skip"
+                   android:layout_centerVertical="true"
+                   android:layout_marginRight="5dp"
+                   android:layout_alignParentRight="true"
+                   android:layout_height="35dp"/>
+    </RelativeLayout>
+</LinearLayout>

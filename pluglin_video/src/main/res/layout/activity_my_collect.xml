@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingTop="15dp"
+    android:background="@color/colorPrimary"
+    android:layout_height="match_parent"
+>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:id="@+id/rl"
+                    android:background="@color/colorPrimary"
+                    android:layout_height="50dp">
+        <ImageView android:layout_width="50dp"
+                   android:padding="8dp"
+                   android:id="@+id/iv_back"
+                   android:src="@mipmap/ic_back"
+                   android:layout_height="match_parent"/>
+        <TextView android:layout_width="wrap_content"
+                  android:gravity="center"
+                  android:layout_centerInParent="true"
+                  android:text="我的收藏"
+                  android:textSize="18sp"
+                  android:textColor="@color/color_write"
+                  android:layout_height="match_parent"/>
+        <TextView android:layout_width="wrap_content"
+                  android:gravity="center"
+                  android:layout_alignParentRight="true"
+                  android:text="编辑"
+                  android:id="@+id/tv_deal"
+                  android:layout_marginRight="10dp"
+                  android:textSize="16sp"
+                  android:textColor="@color/color_write"
+                  android:layout_height="match_parent"/>
+        <View android:layout_height="0.5dp"
+              android:background="@color/color_b1b1b1"
+              android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"/>
+    </RelativeLayout>
+    <android.support.v4.widget.SwipeRefreshLayout android:layout_width="match_parent"
+                                                  android:layout_below="@+id/rl"
+                                                  android:id="@+id/sw"
+                                                  android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
+                                                android:id="@+id/rv_collect"
+                                                android:background="@color/color_eaeaea"
+                                                android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:id="@+id/default_bg"
+                    android:visibility="gone"
+                    android:layout_height="match_parent">
+        <TextView android:layout_width="match_parent"
+                  android:text="你还没有收藏呦！"
+                  android:gravity="center"
+                  android:textSize="18sp"
+                  android:layout_centerInParent="true"
+                  android:layout_height="wrap_content"/>
+    </RelativeLayout>
+</RelativeLayout>

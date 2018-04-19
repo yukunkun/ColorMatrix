@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <RelativeLayout android:layout_width="wrap_content"
+                    android:layout_height="30dp">
+        <TextView android:layout_width="wrap_content"
+                  android:text="音效："
+                  android:id="@+id/tv_voice"
+                  android:gravity="center_vertical"
+                  android:textColor="@color/white"
+                  android:layout_height="match_parent"/>
+        <RadioGroup android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/rg_voice"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@+id/tv_voice"
+                    android:layout_height="30dp">
+            <RadioButton android:layout_width="wrap_content"
+                      android:text="音效1"
+                      android:button="@null"
+                      android:layout_marginLeft="10dp"
+                      android:id="@+id/tv_no_voice"
+                      android:textSize="14sp"
+                      android:textColor="@drawable/selector_button"
+                      android:layout_height="match_parent"/>
+            <RadioButton android:layout_width="wrap_content"
+                      android:text="音效2"
+                      android:id="@+id/tv_voice_1"
+                      android:button="@null"
+                      android:textSize="14sp"
+                      android:layout_marginLeft="10dp"
+                      android:layout_toRightOf="@+id/tv_no_voice"
+                      android:gravity="center_vertical"
+                      android:textColor="@drawable/selector_button"
+                      android:layout_height="match_parent"/>
+            <RadioButton android:layout_width="wrap_content"
+                      android:text="静音"
+                      android:id="@+id/tv_voice_2"
+                      android:textSize="14sp"
+                      android:button="@null"
+                      android:layout_marginLeft="10dp"
+                      android:layout_toRightOf="@id/tv_voice_1"
+                      android:gravity="center_vertical"
+                      android:textColor="@drawable/selector_button"
+                      android:layout_height="match_parent"/>
+        </RadioGroup>
+    </RelativeLayout>
+    <RelativeLayout android:layout_width="wrap_content"
+                    android:layout_height="30dp">
+        <TextView android:layout_width="wrap_content"
+                  android:text="屏幕比例："
+                  android:id="@+id/tv_sp"
+                  android:gravity="center_vertical"
+                  android:textColor="@color/white"
+                  android:layout_height="match_parent"/>
+        <RadioGroup android:layout_width="wrap_content"
+                    android:id="@+id/rg_screen"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@+id/tv_sp"
+                    android:orientation="horizontal"
+                    android:layout_height="30dp">
+            <RadioButton android:layout_width="wrap_content"
+                      android:text="全屏"
+                      android:layout_marginLeft="10dp"
+                      android:id="@+id/tv_all"
+                      android:textSize="14sp"
+                      android:button="@null"
+                      android:gravity="center_vertical"
+                      android:textColor="@drawable/selector_button"
+                      android:layout_height="match_parent"/>
+            <RadioButton android:layout_width="wrap_content"
+                      android:text="4:3"
+                      android:id="@+id/tv_43"
+                      android:button="@null"
+                      android:textSize="14sp"
+                      android:layout_marginLeft="10dp"
+                      android:layout_toRightOf="@+id/tv_all"
+                      android:gravity="center_vertical"
+                      android:textColor="@drawable/selector_button"
+                      android:layout_height="match_parent"/>
+            <RadioButton android:layout_width="wrap_content"
+                      android:text="2:1"
+                      android:id="@+id/tv_169"
+                      android:button="@null"
+                      android:textSize="14sp"
+                      android:layout_marginLeft="10dp"
+                      android:layout_toRightOf="@id/tv_43"
+                      android:gravity="center_vertical"
+                      android:textColor="@drawable/selector_button"
+                      android:layout_height="match_parent"/>
+
+        </RadioGroup>
+
+    </RelativeLayout>
+    <RelativeLayout android:layout_width="wrap_content"
+                    android:layout_height="30dp">
+        <TextView android:layout_width="wrap_content"
+                  android:text="亮度："
+                  android:id="@+id/tv_light"
+                  android:gravity="center_vertical"
+                  android:textColor="@color/white"
+                  android:layout_height="match_parent"/>
+        <SeekBar android:layout_width="150dp"
+                 android:id="@+id/sb_light"
+                 android:layout_marginLeft="10dp"
+                 android:layout_toRightOf="@+id/tv_light"
+                 android:layout_height="match_parent"/>
+
+    </RelativeLayout>
+</LinearLayout>

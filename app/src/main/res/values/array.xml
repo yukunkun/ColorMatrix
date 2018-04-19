@@ -7,7 +7,6 @@
     </array>
     <array name="setting">
         <item>电影推荐</item>
-        <item>视频精选</item>
         <item>天气预报</item>
         <item>Matrix图库</item>
         <item>聊天机器人</item>
@@ -21,33 +20,8 @@
     <array name="aboutus">
         <item>简介</item>
         <item>用户协议</item>
-        <item>直播间(内部使用)</item>
-        <item>观看直播(内部使用)</item>
         <item>问题反馈</item>
         <item>版本升级</item>
         <item>版本号</item>
     </array>
-    <array name="gift">
-        <item>糖果</item>
-        <item>拉勾</item>
-        <item>皇冠</item>
-        <item>小花</item>
-        <item>甜甜圈</item>
-        <item>礼物</item>
-        <item>钻石</item>
-        <item>灯笼</item>
-        <item>金币</item>
-        <item>红包</item>
-        <item>黄金</item>
-        <item>六六六</item>
-        <item>二三三</item>
-        <item>NO</item>
-        <item>软妹子</item>
-        <item>wow</item>
-        <item>帽子</item>
-        <item>铃铛</item>
-        <item>袜子</item>
-        <item>鱼儿</item>
-    </array>
-
 </resources>

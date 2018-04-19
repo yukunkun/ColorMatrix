@@ -10,27 +10,22 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.bean.AppConstants;
+import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.chat_module.ChatActivity;
 import com.matrix.yukun.matrix.gesture_module.GestureActivity;
 import com.matrix.yukun.matrix.image_module.activity.ListDetailActivity;
 import com.matrix.yukun.matrix.movie_module.MovieActivity;
-import com.matrix.yukun.matrix.task.LogUtils;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.wallpaper_module.WallpaperActivity;
 import com.matrix.yukun.matrix.weather_module.WeatherActivity;
 import com.mcxtzhang.pathanimlib.StoreHouseAnimView;
 import com.mcxtzhang.pathanimlib.res.StoreHousePath;
 import com.mcxtzhang.pathanimlib.utils.PathParserUtils;
-import com.tencent.bugly.beta.Beta;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -41,7 +36,7 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class SettingActivity extends AppCompatActivity {
 
-    @BindView(R.id.mListview)
+    @BindView(R2.id.mListview)
     ListView mListview;
     private ArrayList<String> lists=new ArrayList<>();
     private static boolean isNight=false;
@@ -60,7 +55,8 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void setAdapter() {
-        mListview.setAdapter(new SetAdapter(getApplicationContext()));
+        SetAdapter setAdapter = new SetAdapter(this);
+        mListview.setAdapter(setAdapter);
         OverScrollDecoratorHelper.setUpOverScroll(mListview);
     }
 
@@ -80,15 +76,11 @@ public class SettingActivity extends AppCompatActivity {
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);
                         break;
                     case 2:
-
-                        overridePendingTransition(R.anim.right_in,R.anim.left_out);
-                        break;
-                    case 3:
                         Intent intent3=new Intent(SettingActivity.this,WeatherActivity.class);
                         startActivity(intent3);
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);
                         break;
-                    case 4:
+                    case 3:
                         File destDis = new File(Environment.getExternalStorageDirectory()+"/yukun");
                         if (!destDis.exists()) {
                             destDis.mkdirs();
@@ -105,7 +97,7 @@ public class SettingActivity extends AppCompatActivity {
                         startActivity(intent_maps);
                         overridePendingTransition(R.anim.right_in, R.anim.left_out);
                         break;
-                    case 5:
+                    case 4:
                         Intent intent=new Intent(SettingActivity.this,ChatActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);
@@ -113,17 +105,17 @@ public class SettingActivity extends AppCompatActivity {
                     /*case 6:
                         setNightMode();
                         break;*/
-                    case 6:
+                    case 5:
                         Intent getsure=new Intent(SettingActivity.this,GestureActivity.class);
                         startActivity(getsure);
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);
                         break;
-                    case 7:
+                    case 6:
                         Intent intentWall=new Intent(SettingActivity.this,WallpaperActivity.class);
                         startActivity(intentWall);
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);
                         break;
-                    case 8:
+                    case 7:
                         Intent intentUs=new Intent(SettingActivity.this,AboutUsActivity.class);
                         startActivity(intentUs);
                         overridePendingTransition(R.anim.right_in,R.anim.left_out);

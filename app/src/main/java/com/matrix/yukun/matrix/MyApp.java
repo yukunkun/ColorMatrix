@@ -9,13 +9,16 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
+import com.ykk.pluglin_video.MyApplication;
+
+import org.litepal.LitePalApplication;
 
 import java.util.List;
 
 /**
  * Created by yukun on 17-1-24.
  */
-public class MyApp extends Application {
+public class MyApp extends MyApplication {
     public  static MyApp myApp;
     @Override
     public void onCreate() {

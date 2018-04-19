@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout android:layout_width="match_parent"
+                    android:id="@+id/rl"
+                    android:background="@color/colorPrimary"
+                    android:layout_height="50dp">
+        <TextView android:layout_width="wrap_content"
+                  android:textSize="18sp"
+                  android:id="@+id/tv_title"
+                  android:textColor="@color/color_write"
+                  android:text=""
+                  android:layout_marginLeft="50dp"
+                  android:layout_marginRight="50dp"
+                  android:gravity="center"
+                  android:singleLine="true"
+                  android:ellipsize="marquee"
+                  android:marqueeRepeatLimit="marquee_forever"
+                  android:layout_centerInParent="true"
+                  android:layout_height="match_parent"/>
+        <ImageView android:layout_width="40dp"
+                   android:id="@+id/iv_me"
+                   android:src="@mipmap/icon_back"
+                   android:layout_marginTop="0dp"
+                   android:layout_centerVertical="true"
+                   android:padding="8dp"
+                   android:layout_height="match_parent"/>
+        <ImageView android:layout_width="40dp"
+                   android:id="@+id/iv_share"
+                   android:src="@mipmap/share"
+                   android:layout_alignParentRight="true"
+                   android:layout_marginTop="0dp"
+                   android:padding="8dp"
+                   android:layout_height="match_parent"/>
+    </RelativeLayout>
+    <WebView android:layout_width="match_parent"
+             android:layout_below="@id/rl"
+             android:id="@+id/webview"
+             android:layout_height="match_parent">
+    </WebView>
+    <ProgressBar android:layout_width="50dp"
+                 android:id="@+id/progressbar"
+                 android:layout_centerInParent="true"
+                 android:layout_height="50dp"/>
+
+</RelativeLayout>

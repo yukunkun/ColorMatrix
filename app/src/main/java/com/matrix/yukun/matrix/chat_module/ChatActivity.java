@@ -1,14 +1,10 @@
 package com.matrix.yukun.matrix.chat_module;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -24,7 +20,6 @@ import android.widget.TextView;
 
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.util.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +53,7 @@ public class ChatActivity extends AppCompatActivity implements ChatControl.View 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.activity_chat_video);
         ButterKnife.bind(this);
 //        firstTime=System.currentTimeMillis();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
