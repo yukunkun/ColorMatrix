@@ -31,7 +31,7 @@
 ![S70401-16020219.jpg](http://upload-images.jianshu.io/upload_images/3001453-f966e3a6c737ff50.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![S70401-16014880.jpg](http://upload-images.jianshu.io/upload_images/3001453-cdcb4993d4790e40.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![S70401-16065199.jpg](http://upload-images.jianshu.io/upload_images/3001453-8915d1fae0bd7d7c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![S70401-16073051.jpg](http://upload-images.jianshu.io/upload_images/3001453-34ab35af3d0a8b3b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![S70401-16073051.jpg](http://upload-images.jianshu.io/upload_images/3001453-34ab35af3d0a8b3b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) 
 #### compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
 #### 第三方的path动画，一个很酷炫的path动画。
 ####  使用的第三方主要为:       
