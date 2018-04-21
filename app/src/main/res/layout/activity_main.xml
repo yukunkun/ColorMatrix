@@ -37,19 +37,23 @@
 
                     <com.matrix.yukun.matrix.selfview.view.MyRelativeLayout
                         android:id="@+id/my_relat"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:background="@color/color_47ffffff"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
                         <ImageView
                             android:id="@+id/iv_image"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:scaleType="fitCenter" />
                     </com.matrix.yukun.matrix.selfview.view.MyRelativeLayout>
 
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:visibility="visible"
                     android:id="@+id/texttishi"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
