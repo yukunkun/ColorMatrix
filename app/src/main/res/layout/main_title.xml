@@ -39,22 +39,36 @@
         android:src="@mipmap/abc_ic_menu_cut_mtrl_alpha"
         android:layout_width="@dimen/dimens_40"
         android:layout_height="match_parent" />
+
     <RelativeLayout
+        android:layout_centerVertical="true"
+        android:background="@drawable/shap_menu_con"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_marginLeft="60dp"
+        android:layout_height="32dp">
+        <TextView
+            android:id="@+id/tv_matrix"
+            android:text="matrix"
+            android:layout_centerVertical="true"
+            android:background="@drawable/shap_matrix_bg"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_whit"
+            android:layout_width="65dp"
+            android:layout_height="match_parent" />
      <TextView
-         android:layout_marginLeft="65dp"
          android:id="@+id/tv_video"
-         android:padding="5dp"
+         android:layout_toRightOf="@+id/tv_matrix"
          android:text="娱 乐"
-         android:layout_centerVertical="true"
-         android:background="@drawable/shap_video_bg"
          android:textAllCaps="false"
+         android:layout_centerVertical="true"
          android:gravity="center"
-         android:textSize="15sp"
-         android:textStyle="normal"
+         android:textSize="16sp"
+         android:textStyle="bold"
          android:textColor="@color/color_30f209"
-         android:layout_width="65dp"
-         android:layout_height="wrap_content" />
+         android:layout_width="58dp"
+         android:layout_height="match_parent" />
     </RelativeLayout>
 </RelativeLayout>

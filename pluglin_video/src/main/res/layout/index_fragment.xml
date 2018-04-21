@@ -3,9 +3,6 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <View android:layout_height="20dp"
-          android:background="@color/colorPrimary"
-          android:layout_width="match_parent"/>
     <RelativeLayout android:layout_width="match_parent"
                     android:background="@color/colorPrimary"
                     android:layout_height="50dp">

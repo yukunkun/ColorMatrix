@@ -62,6 +62,7 @@ import com.matrix.yukun.matrix.util.SpacesItemDecoration;
 import com.matrix.yukun.matrix.weather_module.WeatherActivity;
 import com.tencent.bugly.beta.Beta;
 import com.ykk.pluglin_video.play.PlayActivity;
+import com.ykk.pluglin_video.play.PlayMainActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -555,7 +556,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }).start();
                 break;
             case R.id.tv_video:
-                Intent iVideo=new Intent(this, PlayActivity.class);
+                Intent iVideo=new Intent(this, PlayMainActivity.class);
                 startActivity(iVideo);
                 overridePendingTransition(R.anim.right_in,R.anim.left_out);
                 break;

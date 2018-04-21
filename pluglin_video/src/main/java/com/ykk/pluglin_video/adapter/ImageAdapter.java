@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.ykk.pluglin_video.R;
 import com.ykk.pluglin_video.R2;
 import com.ykk.pluglin_video.entity.CollectsInfo;
+import com.ykk.pluglin_video.entity.ImageInfo;
 import com.ykk.pluglin_video.entity.RecInfo;
 import com.ykk.pluglin_video.play.ImageDetailActivity;
 import com.ykk.pluglin_video.utils.ScreenUtils;
@@ -37,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
-    List<RecInfo> jokeInfoList;
+    List<ImageInfo> jokeInfoList;
     boolean isVertical=true;
     private int mWidth;
 
@@ -46,7 +47,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
-    public ImageAdapter(Context context, List<RecInfo> jokeInfoList) {
+    public ImageAdapter(Context context, List<ImageInfo> jokeInfoList) {
         this.context = context;
         this.jokeInfoList = jokeInfoList;
     }
@@ -61,22 +62,38 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof MHolder) {
-            final RecInfo recInfo = jokeInfoList.get(position);
-            ((MHolder) holder).mTvName.setText(recInfo.getUser_name());
+            final ImageInfo recInfo = jokeInfoList.get(position);
+            ((MHolder) holder).mTvName.setText(recInfo.getUsername());
             ((MHolder) holder).mTvTitle.setText(recInfo.getText());
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-            String time=format.format(new Date(Long.valueOf(recInfo.getCreate_time())*1000));
-
-            ((MHolder) holder).mTvTimes.setText(time);
-            ((MHolder) holder).mTvPlayTimes.setText(recInfo.getPlay_time()+"次");
-            Glide.with(context).load(recInfo.getCover()).into(((MHolder) holder).mImCover);
+            ((MHolder) holder).mTvPlayTimes.setText(recInfo.getComment()+"次");
+            ((MHolder) holder).mTvCommentName.setText(recInfo.getTop_commentsName());
+            if(recInfo.getTop_commentsContent().isEmpty()){
+                ((MHolder) holder).mTvCommen.setVisibility(View.GONE);
+            }else {
+                ((MHolder) holder).mTvCommen.setVisibility(View.VISIBLE);
+                ((MHolder) holder).mTvCommen.setText(recInfo.getTop_commentsContent());
+            }
+            Glide.with(context).load(recInfo.getImage()).error(R.drawable.head_4).into(((MHolder) holder).mImCover);
+            Glide.with(context).load(recInfo.getTop_commentsHeader()).placeholder(R.mipmap.tool_icon).into(((MHolder) holder).mCiCommentHead);
             Glide.with(context).load(recInfo.getHeader()).into(((MHolder) holder).mCiHead);
+            ((MHolder) holder).mTvTimes.setText(recInfo.getPasstime().substring(0,10));
+
+            if(((MHolder) holder).mImCover.getHeight()>ScreenUtils.dp2Px(context,180)){
+                ViewGroup.LayoutParams layoutParams=((MHolder) holder).mImCover.getLayoutParams();
+                layoutParams.height=ScreenUtils.dp2Px(context,180);
+                ((MHolder) holder).mImCover.setLayoutParams(layoutParams);
+
+            }
+            if("".equals(recInfo.getImage())){
+                ((MHolder) holder).mImCover.setVisibility(View.GONE);
+            }else {
+                ((MHolder) holder).mImCover.setVisibility(View.VISIBLE);
+            }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(context, ImageDetailActivity.class);
-                    intent.putExtra("url",recInfo.getCover());
-                    intent.putExtra("isGif",recInfo.isGif());
+                    intent.putExtra("url",recInfo.getImage());
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     if(Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT_WATCH){
                         context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context,((MHolder) holder).mImCover,"shareView").toBundle());
@@ -89,7 +106,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((MHolder) holder).mImShare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    shareSend(context,recInfo.getShare_url());
+                    shareSend(context,recInfo.getImage());
                 }
             });
 
@@ -98,7 +115,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 @Override
                 public void onClick(View v) {
 
-                    List<CollectsInfo> newsList = DataSupport.where("cover = ?", recInfo.getCover()).find(CollectsInfo.class);
+                    List<CollectsInfo> newsList = DataSupport.where("cover = ?", recInfo.getImage()).find(CollectsInfo.class);
                     if(newsList.size()>0){
                         Toast.makeText(context, "已经添加到收藏了-_-", Toast.LENGTH_SHORT).show();
                         //存储了
@@ -106,12 +123,12 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     }else {
                         CollectsInfo collectInfo=new CollectsInfo();
                         collectInfo.setHeader(recInfo.getHeader());
-                        collectInfo.setCover(recInfo.getCover());
+                        collectInfo.setCover(recInfo.getImage());
                         collectInfo.setTitle(recInfo.getText());
-                        collectInfo.setName(recInfo.getUser_name());
+                        collectInfo.setName(recInfo.getUsername());
                         collectInfo.setType(2);
-                        collectInfo.setPlay_url(recInfo.getCover());
-                        collectInfo.setGif(recInfo.isGif());
+                        collectInfo.setPlay_url(recInfo.getImage());
+                        collectInfo.setGif(false);
                         collectInfo.save();
                         Toast.makeText(context, "添加到收藏成功", Toast.LENGTH_SHORT).show();
                         ((MHolder) holder).mImCollect.setImageResource(R.mipmap.collection_fill);
@@ -152,7 +169,12 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         ImageView mImShare;
         @BindView(R2.id.iv_collect)
         ImageView mImCollect;
-
+        @BindView(R2.id.ci_comment_head)
+        CircleImageView mCiCommentHead;
+        @BindView(R2.id.tv_comment_name)
+        TextView mTvCommentName;
+        @BindView(R2.id.tv_comment)
+        TextView mTvCommen;
         public MHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

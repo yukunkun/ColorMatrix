@@ -11,7 +11,6 @@
                                                       android:id="@+id/ci_head"
                                                       app:civ_border_width="1dp"
                                                       app:civ_border_color="@color/color_94abaaaa"
-                                                      android:src="@mipmap/tool_icon"
                                                       android:layout_marginLeft="10dp"
                                                       android:layout_centerVertical="true"
                                                       android:layout_height="40dp"/>
@@ -48,7 +47,7 @@
                    android:id="@+id/im_cover"
                    android:scaleType="center"
                    android:layout_marginTop="5dp"
-                   android:layout_height="wrap_content"/>
+                   android:layout_height="200dp"/>
     </RelativeLayout>
     <TextView android:layout_width="match_parent"
               android:id="@+id/tv_title"
@@ -68,15 +67,36 @@
         <View android:layout_height="0.5dp"
               android:background="@color/color_94abaaaa"
               android:layout_width="match_parent"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ci_comment_head"
+            app:civ_border_width="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            app:civ_border_color="@color/color_94abaaaa"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/ci_comment_head"
+            android:id="@+id/tv_comment_name"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/color_6c6c6c"
+            android:layout_marginLeft="5dp"
+            android:textStyle="normal"
+            android:textSize="15sp"
+            android:layout_height="match_parent" />
+
         <ImageView android:layout_width="25dp"
                    android:id="@+id/iv_play"
+                   android:layout_toRightOf="@+id/tv_comment_name"
                    android:src="@mipmap/comment"
                    android:layout_marginLeft="10dp"
                    android:layout_centerVertical="true"
                    android:layout_height="25dp"/>
         <TextView android:layout_width="wrap_content"
                   android:id="@+id/tv_play_times"
-                  android:text="6"
+                  android:text=""
                   android:layout_toRightOf="@id/iv_play"
                   android:paddingRight="10dp"
                   android:layout_centerVertical="true"
@@ -106,6 +126,21 @@
                    android:layout_centerVertical="true"
                    android:layout_height="35dp"/>
     </RelativeLayout>
+    <View android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/color_eaeaea"
+        android:layout_height="0.5dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/tv_comment"
+        android:textSize="15sp"
+        android:textColor="@color/color_494949"
+        android:layout_marginLeft="5dp"
+        android:padding="8dp"
+        android:maxLines="5"
+        android:background="@color/color_write"
+        android:layout_height="wrap_content" />
     <View android:layout_width="match_parent"
           android:background="@color/color_eaeaea"
           android:layout_height="10dp"/>
