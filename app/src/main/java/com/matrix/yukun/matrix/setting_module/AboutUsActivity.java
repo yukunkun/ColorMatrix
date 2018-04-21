@@ -7,35 +7,27 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-
 import com.matrix.yukun.matrix.R;
 import com.tencent.bugly.beta.Beta;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class AboutUsActivity extends AppCompatActivity {
 
-    @BindView(R.id.rea)
-    RelativeLayout rea;
-    @BindView(R.id.scrollview)
     ListView mListview;
-    @BindView(R.id.iv_icon)
     ImageView ivIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_us_video);
-        ButterKnife.bind(this);
+        setContentView(R.layout.activity_about_us);
         init();
         setListener();
     }
 
     private void init() {
+        mListview =findViewById(R.id.listview);
+        ivIcon=findViewById(R.id.iv_back);
         mListview.setAdapter(new AboutUsAdapter(getApplicationContext()));
         OverScrollDecoratorHelper.setUpOverScroll(mListview);
     }
@@ -66,6 +58,13 @@ public class AboutUsActivity extends AppCompatActivity {
                 }
             }
         });
+        ivIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.left_in, R.anim.right_out);
+            }
+        });
     }
 
     @Override
@@ -73,11 +72,5 @@ public class AboutUsActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
         overridePendingTransition(R.anim.right_in, R.anim.left_out);
-    }
-
-    @OnClick(R.id.iv_icon)
-    public void onViewClicked() {
-        finish();
-        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 }

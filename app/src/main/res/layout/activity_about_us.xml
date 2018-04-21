@@ -27,7 +27,7 @@
             android:layout_height="match_parent" />
     </RelativeLayout>
     <ListView
-        android:id="@+id/scrollview"
+        android:id="@+id/listview"
         android:layout_below="@id/rea"
         android:layoutAnimation="@anim/layout_anim"
         android:layout_width="match_parent"
