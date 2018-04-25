@@ -46,8 +46,7 @@
                             android:id="@+id/iv_image"
                             android:layout_centerInParent="true"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:scaleType="fitCenter" />
+                            android:layout_height="wrap_content" />
                     </com.matrix.yukun.matrix.selfview.view.MyRelativeLayout>
 
                 </RelativeLayout>
@@ -79,6 +78,8 @@
                         android:textColor="#ffffff"
                         android:textSize="20sp" />
                 </RelativeLayout>
+
+                <include layout="@layout/ll_rotato_contain"/>
 
                 <com.matrix.yukun.matrix.selfview.WaterLoadView
                     android:id="@+id/waterload"

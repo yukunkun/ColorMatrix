@@ -36,7 +36,7 @@ public class BitmapUtil {
         return newBM;
     }
     //色度的调节
-    public static Bitmap handleColorBmp(Bitmap mTempBmp,Bitmap seekBitmap,int progress,int rotate){
+    public static Bitmap handleColorBmp(Bitmap mTempBmp,Bitmap mBitSeek,int progress,int rotate){
         Bitmap bitmap;
         // 创建一个相同尺寸的可变的位图区,用于绘制调色后的图片
         Canvas canvas = new Canvas(mTempBmp); // 得到画笔对象
@@ -46,12 +46,12 @@ public class BitmapUtil {
         ColorMatrix colorMatrix = new ColorMatrix();
         colorMatrix.setRotate(rotate,progress-100);
         paint.setColorFilter(new ColorMatrixColorFilter(colorMatrix));// 设置颜色变换效果
-        canvas.drawBitmap(seekBitmap, 0, 0, paint); // 将颜色变化后的图片输出到新创建的位图区
+        canvas.drawBitmap(mBitSeek, 0, 0, paint); // 将颜色变化后的图片输出到新创建的位图区
         // 返回新的位图，也即调色处理后的图片
         return mTempBmp;
     }
     //亮度的调节
-    public static Bitmap handleColorMatrixBmp(Bitmap mTempBmp,Bitmap seekBitmap,int progress){
+    public static Bitmap handleColorMatrixBmp(Bitmap mTempBmp,Bitmap mBitSeek,int progress){
         // 创建一个相同尺寸的可变的位图区,用于绘制调色后的图片
         Canvas canvas = new Canvas(mTempBmp); // 得到画笔对象
         Paint paint = new Paint(); // 新建paint
@@ -59,7 +59,7 @@ public class BitmapUtil {
         ColorMatrix mSaturationMatrix = new ColorMatrix();
         mSaturationMatrix.setSaturation(progress);
         paint.setColorFilter(new ColorMatrixColorFilter(mSaturationMatrix));// 设置颜色变换效果
-        canvas.drawBitmap(seekBitmap, 0, 0, paint); // 将颜色变化后的图片输出到新创建的位图区
+        canvas.drawBitmap(mBitSeek, 0, 0, paint); // 将颜色变化后的图片输出到新创建的位图区
         return mTempBmp;
     }
     //从新绘制

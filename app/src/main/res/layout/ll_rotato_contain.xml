@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ll_rotato"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:background="@color/color_454444"
+        android:gravity="center_horizontal"
+        android:layout_alignParentRight="true"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/tv_rotate"
+                android:layout_width="wrap_content"
+                android:text="旋转"
+                android:textColor="@color/color_write"
+                android:gravity="center"
+                android:layout_marginLeft="8dp"
+                android:textSize="16dp"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/iv_rotate"
+                android:src="@mipmap/ic_refresh_dark"
+                android:layout_width="@dimen/dimens_40"
+                android:padding="8dp"
+                android:layout_height="@dimen/dimens_40" />
+
+        </LinearLayout>
+        <View
+            android:layout_width="60dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/color_lines"
+            android:layout_height="0.5dp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:src="@mipmap/icon_big"
+            android:layout_height="wrap_content" />
+        <com.matrix.yukun.matrix.selfview.VerticalSeekBar
+            android:id="@+id/vertical_seek"
+            android:layout_width="30dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>

@@ -49,6 +49,7 @@ import com.matrix.yukun.matrix.image_module.bean.EventDetail;
 import com.matrix.yukun.matrix.main_module.filters.IImageFilter;
 import com.matrix.yukun.matrix.main_module.filters.Image;
 import com.matrix.yukun.matrix.movie_module.MovieActivity;
+import com.matrix.yukun.matrix.selfview.VerticalSeekBar;
 import com.matrix.yukun.matrix.selfview.WaterLoadView;
 import com.matrix.yukun.matrix.selfview.view.MyRelativeLayout;
 import com.matrix.yukun.matrix.setting_module.SettingActivity;
@@ -91,16 +92,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private PopupWindow mPopupWindow;
     private SeekBar seekBarBaoHe;
     private SeekBar seekBarLight;
-    private Bitmap mTempBmp;
-    private Bitmap mOriginBmp;
+    private Bitmap mBitCompress;
+    private Bitmap mBitOrigin;
+    private Bitmap mBitPath;
+    private Bitmap mBitSeek;
     private int pos;
-    private Bitmap bitmapOri;
-    private Bitmap seekBitmap;
     private RelativeLayout textViewTiShi;
     private int rotate=0;
     private ImageView textRotate;
-    private Bitmap bitmapRoate;
-    private ImageView imageViewRoate;
+    private Bitmap mBitRotate;
     private int roate=0;
     private ValueAnimator animator;
     private MyRelativeLayout layoutContain;
@@ -128,6 +128,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView tvVideo;
     private LinearLayout llCamera;
     private LinearLayout llPhoto;
+    private LinearLayout mLlContain;
+    private TextView mTvRotate;
+    private VerticalSeekBar mVerticalSeekBar;
+    private ImageView mIvRotate;
+    private ImageView mIvMorebig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +153,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         imageLoad = (ImageView) findViewById(R.id.loadimage);
         layout = (LinearLayout) findViewById(R.id.linfuntion);
         imageViewMore = (ImageView) findViewById(R.id.imagemore);
-        imageViewRoate = (ImageView) findViewById(R.id.imagerotate);
         llCamera = (LinearLayout) findViewById(R.id.ll_camera);
         mWaterLoadView = (WaterLoadView) findViewById(R.id.waterload);
         imageViewCrop = (ImageView) findViewById(R.id.imagecrop);
@@ -164,6 +168,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         reaContain = (RelativeLayout) findViewById(R.id.contain);
         layoutContain=(MyRelativeLayout)findViewById(R.id.my_relat);
         tvVideo = findViewById(R.id.tv_video);
+        mLlContain = findViewById(R.id.ll_rotato);
+        mTvRotate = findViewById(R.id.tv_rotate);
+        mIvRotate = findViewById(R.id.iv_rotate);
+        mIvMorebig = findViewById(R.id.image_big);
+        mVerticalSeekBar = findViewById(R.id.vertical_seek);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
         mLinearLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
@@ -183,6 +192,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         layoutParams.height= (int) (height*0.55);
         reaContain.setLayoutParams(layoutParams);
         radias=width/4;   //菜单的半径为屏幕高度的1/4
+        mVerticalSeekBar.setMaxProgress(20);
+        mVerticalSeekBar.setProgress(1);
     }
 
     private void setAdapter() {
@@ -210,20 +221,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Subscribe(threadMode=ThreadMode.MAIN)
     public void getMorePos(EventMorePos event){
         int posmore = event.pos;
-        mFilterAdapter.setSelectPosition(posmore);
-        mFilterAdapter.notifyDataSetChanged();
         detailBitmap(posmore);
 
     }
 
     private void detailBitmap(int posmore) {
-        if(bitmapOri==null){
+        if(mBitPath==null){
             Toast.makeText(MainActivity.this, "请选择图片", Toast.LENGTH_SHORT).show();
             return;
         }
         //得到不同的ColorMatrix,并且返回回来
         IImageFilter filter = (IImageFilter) mFilterAdapter.getItem(posmore);
-        new processImageTask(filter,mOriginBmp).execute();
+        new processImageTask(filter,mBitOrigin).execute();
     }
 
 
@@ -238,7 +247,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
             super.onPreExecute();
             mWaterLoadView.setVisibility(View.VISIBLE);
         }
@@ -277,23 +285,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 mWaterLoadView.setVisibility(View.GONE);
                 super.onPostExecute(result);
                 imageViewTest.setImageBitmap(result);
-                seekBitmap=result;//进度的Bitmap
-                bitmapRoate=result;//旋转的Bitmap
+                mBitSeek=result;//进度的Bitmap
+                mBitRotate=result;//旋转的Bitmap
                 Bitmap bitmap= ImageUtils.compressBitmap(result);//图片处理,压缩大小
-                mTempBmp= BitmapUtil.mTempBit(bitmap);
+                mBitCompress= BitmapUtil.mTempBit(bitmap);
             }
 //            textView.setVisibility(View.GONE);
         }
     }
 
     private void setBitmapColor(int pos) {
-        if(bitmapOri==null){
+        if(mBitPath==null){
             Toast.makeText(MainActivity.this, "请选择图片", Toast.LENGTH_SHORT).show();
             return;
         }
         //得到不同的ColorMatrix,并且返回回来
         ColorMatrix colorMatrix = BitmapUtil.matrixTrans(pos);
-        handleColorRotateBmp(colorMatrix, bitmapOri) ;
+        handleColorRotateBmp(colorMatrix, mBitPath) ;
     }
 
     @Subscribe(threadMode=ThreadMode.MAIN)
@@ -304,7 +312,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             return;
         }
         imageViewCrop.setVisibility(View.VISIBLE);
-        imageViewRoate.setVisibility(View.VISIBLE);
         textViewTiShi.setVisibility(View.GONE);
         layout.setVisibility(View.VISIBLE);
         imageViewMore.setVisibility(View.VISIBLE);
@@ -313,8 +320,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void detailImage() {
 
-        if(mOriginBmp!=null){
-            mOriginBmp.recycle();
+        if(mBitOrigin!=null){
+            mBitOrigin.recycle();
         }
 //        //压缩大小
 //        Bitmap bitmapCopy=BitmapFactory.decodeFile(path,options).copy(Bitmap.Config.ARGB_4444,true);
@@ -330,59 +337,60 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //            Bitmap bitmap = FileUtil.compressImage(bitmapCopy).copy(Bitmap.Config.ARGB_8888,true);
 //            int height = (int) ( bitmap.getHeight() * (1024.0 / bitmap.getWidth()) );
 //            Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 1024, height, true);
-//            mOriginBmp=scaled;
+//            mBitOrigin=scaled;
 //        }else {
-//            mOriginBmp=bitmapCopy;
+//            mBitOrigin=bitmapCopy;
 //        }
 
         Bitmap bitmap= ImageUtils.getSmallBitmap(path);//图片处理,压缩大小
-        mOriginBmp=bitmap;
-        mTempBmp = Bitmap.createBitmap(mOriginBmp.getWidth(), mOriginBmp.getHeight(),
+        mBitOrigin=bitmap;
+        mBitCompress = Bitmap.createBitmap(mBitOrigin.getWidth(), mBitOrigin.getHeight(),
                 Bitmap.Config.ARGB_4444);
-        bitmapOri=Bitmap.createBitmap(mOriginBmp.getWidth(), mOriginBmp.getHeight(),
+        mBitPath=Bitmap.createBitmap(mBitOrigin.getWidth(), mBitOrigin.getHeight(),
                 Bitmap.Config.ARGB_4444);
-        seekBitmap=mOriginBmp;
-        bitmapRoate=mOriginBmp;
+        mBitSeek=mBitOrigin;
+        mBitRotate=mBitOrigin;
         //得到第一个原图
         ColorMatrix colorMatrix = BitmapUtil.matrixTrans(0);
-        handleColorRotateBmp(colorMatrix, bitmapOri) ;
+        handleColorRotateBmp(colorMatrix, mBitPath) ;
     }
 
 
     public void getCrop(Bitmap bitmap){
-        if(mOriginBmp!=null){
-            mOriginBmp.recycle();
+        if(mBitOrigin!=null){
+            mBitOrigin.recycle();
         }
-        mOriginBmp=bitmap;
-        mTempBmp = Bitmap.createBitmap(mOriginBmp.getWidth(), mOriginBmp.getHeight(),
+        mBitOrigin=bitmap;
+        mBitCompress = Bitmap.createBitmap(mBitOrigin.getWidth(), mBitOrigin.getHeight(),
                 Bitmap.Config.ARGB_4444);
-        bitmapOri=Bitmap.createBitmap(mOriginBmp.getWidth(), mOriginBmp.getHeight(),
+        mBitPath=Bitmap.createBitmap(mBitOrigin.getWidth(), mBitOrigin.getHeight(),
                 Bitmap.Config.ARGB_4444);
-        seekBitmap=mOriginBmp;
-        bitmapRoate=mOriginBmp;
+        mBitSeek=mBitOrigin;
+        mBitRotate=mBitOrigin;
         //得到第一个原图
         ColorMatrix colorMatrix = BitmapUtil.matrixTrans(0);
-        handleColorRotateBmp(colorMatrix, bitmapOri) ;
+        handleColorRotateBmp(colorMatrix, mBitPath) ;
     }
 
     //从新绘制
     private void handleColorRotateBmp(ColorMatrix colorMatrix,Bitmap bitmaps){
-        Bitmap bitmap = BitmapUtil.handleColorRotateBmp(colorMatrix, mOriginBmp, bitmaps);
+        Bitmap bitmap = BitmapUtil.handleColorRotateBmp(colorMatrix, mBitOrigin, bitmaps);
         imageViewTest.setImageBitmap(bitmap);
-        seekBitmap=bitmap;//进度的Bitmap
-        bitmapRoate=bitmap;//旋转的Bitmap
-        mTempBmp= BitmapUtil.mTempBit(bitmap);
+        mBitSeek=bitmap;//进度的Bitmap
+        mBitRotate=bitmap;//旋转的Bitmap
+        mBitCompress= BitmapUtil.mTempBit(bitmap);
     }
     //旋转
     private void handleColorRoate(int progress){
-        if(bitmapRoate==null){
+        if(mBitRotate==null){
             return;
         }
-        Bitmap bitmap = BitmapUtil.rotateBitmap(bitmapRoate, progress);
+        Bitmap bitmap = BitmapUtil.rotateBitmap(mBitRotate, progress);
         imageViewTest.setImageBitmap(null);
         imageViewTest.setImageBitmap(bitmap);
-        mTempBmp= BitmapUtil.mTempBit(bitmap);
-        seekBitmap=bitmap;//进度的Bitmap
+        mBitCompress= BitmapUtil.mTempBit(bitmap);
+        mBitSeek=bitmap;//进度的Bitmap
+        mTvRotate.setText((rotate+1)%4*90+"°");
     }
 
     private void setListener() {
@@ -390,7 +398,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         textViewTiShi.setOnClickListener(this);
         imageViewMore.setOnClickListener(this);
         imageLoad.setOnClickListener(this);
-        imageViewRoate.setOnClickListener(this);
+        mIvRotate.setOnClickListener(this);
         textViewRoate.setOnClickListener(this);
         textViewTag.setOnClickListener(this);
         imageViewCrop.setOnClickListener(this);
@@ -402,6 +410,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tvVideo.setOnClickListener(this);
         llCamera.setOnClickListener(this);
         llPhoto.setOnClickListener(this);
+        mIvMorebig.setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
@@ -410,6 +419,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.imagemore:
                 //popuwindow的展示
                 if(!isShow){
+                    if(mLlContain.getVisibility()==View.VISIBLE){
+                        mLlContain.setVisibility(View.GONE);
+                    }
                     showMore();
                     isShow=true;
                 }else {
@@ -486,6 +498,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         return;
                     }
                 }
+                mLlContain.setVisibility(View.GONE);
                 bitmap = ImageUtils.createViewBitmap(layoutContain, layoutContain.getWidth(), layoutContain.getHeight());
                 Toast.makeText(MainActivity.this, "正在下载...", Toast.LENGTH_SHORT).show();
                 new Thread(new Runnable() {
@@ -502,7 +515,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     }
                 }).start();
                 break;
-            case R.id.imagerotate:
+                //变大的contain
+            case R.id.image_big:
+                if(mPopupWindow!=null&&mPopupWindow.isShowing()){
+                    mPopupWindow.dismiss();
+                    isShow=!isShow;
+                }
+                if(mLlContain.getVisibility()==View.VISIBLE){
+                    mLlContain.setVisibility(View.GONE);
+                }else {
+                    mLlContain.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.iv_rotate:
                 handleColorRoate(roate);
                 roate++;
                 break;
@@ -517,13 +542,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 textViewTag.setVisibility(View.GONE);
                 break;
             case R.id.imagecrop:
-                Intent intent2 = new Intent("com.android.camera.action.CROP");
-                intent2.setDataAndType(Uri.fromFile(new File(path)), "image/*");
-                intent2.putExtra("crop", "true");
-                intent2.putExtra("scale", true);
-                intent2.putExtra("return-data", false);//默认不输出.防止图片失真
-                intent2.putExtra("noFaceDetection", true);
-                startActivityForResult(intent2, 1);
+                Intent intent2 = new Intent(this,CropActivity.class);
+                intent2.putExtra("path",path);
+                startActivity(intent2);
+//                Intent intent2 = new Intent("com.android.camera.action.CROP");
+//                intent2.setDataAndType(Uri.fromFile(new File(path)), "image/*");
+//                intent2.putExtra("crop", "true");
+//                intent2.putExtra("scale", true);
+//                intent2.putExtra("return-data", false);//默认不输出.防止图片失真
+//                intent2.putExtra("noFaceDetection", true);
+//                startActivityForResult(intent2, 1);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 break;
             case R.id.ll_camera:
@@ -536,6 +564,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     Toast.makeText(MainActivity.this, "请先选择图片", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                mLlContain.setVisibility(View.GONE);
                 final File f = new File(destDir, photoName);
                 Toast.makeText(MainActivity.this, "正在下载...", Toast.LENGTH_SHORT).show();
                 flag=false;
@@ -561,6 +590,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 overridePendingTransition(R.anim.right_in,R.anim.left_out);
                 break;
         }
+        mVerticalSeekBar.setOnSlideChangeListener(new VerticalSeekBar.SlideChangeListener() {
+            @Override
+            public void onStart(VerticalSeekBar slideView, int progress) {
+
+            }
+
+            @Override
+            public void onProgress(VerticalSeekBar slideView, int progress) {
+                if(mBitRotate==null){
+                    return;
+                }
+                Bitmap bitmap = BitmapUtil.bigBitmap(mBitRotate,progress/10f+0.1f,progress/10f+0.1f);
+                ViewGroup.LayoutParams layoutParams=imageViewTest.getLayoutParams();
+                layoutParams.width=bitmap.getWidth();
+                layoutParams.height=bitmap.getHeight();
+                imageViewTest.setLayoutParams(layoutParams);
+                imageViewTest.setImageBitmap(null);
+                imageViewTest.setImageBitmap(bitmap);
+                mBitCompress= BitmapUtil.mTempBit(bitmap);
+                mBitSeek=bitmap;//进度的Bitmap
+                mBitOrigin=bitmap;
+                mBitPath=bitmap;
+
+
+            }
+
+            @Override
+            public void onStop(VerticalSeekBar slideView, int progress) {
+
+            }
+        });
     }
 
     @Override
@@ -693,10 +753,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
                 if(b){
-                    if(bitmapOri!=null){
-                        Bitmap bitmap = BitmapUtil.handleColorBmp(mTempBmp, seekBitmap, progress, rotate);
+                    if(mBitPath!=null){
+                        Bitmap bitmap = BitmapUtil.handleColorBmp(mBitCompress, mBitSeek, progress, rotate);
                         imageViewTest.setImageBitmap(bitmap);
-                        bitmapRoate=bitmap;
+                        mBitRotate=bitmap;
                     }
                 }
             }
@@ -715,10 +775,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
                 if(b){
-                    if(bitmapOri!=null){
-                        Bitmap bitmap = BitmapUtil.handleColorMatrixBmp(mTempBmp, seekBitmap, progress);
+                    if(mBitPath!=null){
+                        Bitmap bitmap = BitmapUtil.handleColorMatrixBmp(mBitCompress, mBitSeek, progress);
                         imageViewTest.setImageBitmap(bitmap);
-                        bitmapRoate=bitmap;
+                        mBitRotate=bitmap;
                     }
                 }
             }
