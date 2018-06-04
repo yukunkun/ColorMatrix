@@ -7,46 +7,28 @@ import java.util.List;
  */
 public class WeaLifePoint {
 
-    /**
-     * basic : {"city":"成都","cnty":"中国","id":"CN101270101","lat":"30.670000","lon":"104.071000","update":{"loc":"2017-03-05 21:49","utc":"2017-03-05 13:49"}}
-     * status : ok
-     * suggestion : {"air":{"brf":"较差","txt":"气象条件较不利于空气污染物稀释、扩散和清除，请适当减少室外活动时间。"},"comf":{"brf":"较舒适","txt":"白天天气阴沉，会感到有点儿凉，但大部分人完全可以接受。"},"cw":{"brf":"不宜","txt":"不宜洗车，未来24小时内有雨，如果在此期间洗车，雨水和路上的泥水可能会再次弄脏您的爱车。"},"drsg":{"brf":"较冷","txt":"建议着厚外套加毛衣等服装。年老体弱者宜着大衣、呢外套加羊毛衫。"},"flu":{"brf":"较易发","txt":"天凉，昼夜温差较大，较易发生感冒，请适当增减衣服，体质较弱的朋友请注意适当防护。"},"sport":{"brf":"较适宜","txt":"阴天，较适宜进行各种户内外运动。"},"trav":{"brf":"适宜","txt":"天气较好，温度适宜，总体来说还是好天气哦，这样的天气适宜旅游，您可以尽情地享受大自然的风光。"},"uv":{"brf":"最弱","txt":"属弱紫外线辐射天气，无需特别防护。若长期在户外，建议涂擦SPF在8-12之间的防晒护肤品。"}}
-     */
+    private List<HeWeather6Bean> HeWeather6;
 
-    private List<HeWeather5Bean> HeWeather5;
-
-    public List<HeWeather5Bean> getHeWeather5() {
-        return HeWeather5;
+    public List<HeWeather6Bean> getHeWeather6() {
+        return HeWeather6;
     }
 
-    public void setHeWeather5(List<HeWeather5Bean> HeWeather5) {
-        this.HeWeather5 = HeWeather5;
+    public void setHeWeather6(List<HeWeather6Bean> HeWeather6) {
+        this.HeWeather6 = HeWeather6;
     }
 
-    public static class HeWeather5Bean {
+    public static class HeWeather6Bean {
         /**
-         * city : 成都
-         * cnty : 中国
-         * id : CN101270101
-         * lat : 30.670000
-         * lon : 104.071000
-         * update : {"loc":"2017-03-05 21:49","utc":"2017-03-05 13:49"}
+         * basic : {"cid":"CN101270101","location":"成都","parent_city":"成都","admin_area":"四川","cnty":"中国","lat":"30.65946198","lon":"104.06573486","tz":"+8.00"}
+         * update : {"loc":"2018-06-04 20:49","utc":"2018-06-04 12:49"}
+         * status : ok
+         * lifestyle : [{"type":"comf","brf":"较舒适","txt":"今天夜间天气晴好，您在这种天气条件下，会感觉凉爽、舒适，偏热。"},{"type":"drsg","brf":"热","txt":"天气热，建议着短裙、短裤、短薄外套、T恤等夏季服装。"},{"type":"flu","brf":"少发","txt":"各项气象条件适宜，无明显降温过程，发生感冒机率较低。"},{"type":"sport","brf":"较适宜","txt":"天气较好，户外运动请注意防晒，推荐您在室内进行低强度运动。"},{"type":"trav","brf":"适宜","txt":"天气较好，温度适宜，是个好天气哦。这样的天气适宜旅游，您可以尽情地享受大自然的风光。"},{"type":"uv","brf":"强","txt":"紫外线辐射强，建议涂擦SPF20左右、PA++的防晒护肤品。避免在10点至14点暴露于日光下。"},{"type":"cw","brf":"较适宜","txt":"较适宜洗车，未来一天无雨，风力较小，擦洗一新的汽车至少能保持一天。"},{"type":"air","brf":"较差","txt":"气象条件较不利于空气污染物稀释、扩散和清除，请适当减少室外活动时间。"}]
          */
 
         private BasicBean basic;
+        private UpdateBean update;
         private String status;
-        /**
-         * air : {"brf":"较差","txt":"气象条件较不利于空气污染物稀释、扩散和清除，请适当减少室外活动时间。"}
-         * comf : {"brf":"较舒适","txt":"白天天气阴沉，会感到有点儿凉，但大部分人完全可以接受。"}
-         * cw : {"brf":"不宜","txt":"不宜洗车，未来24小时内有雨，如果在此期间洗车，雨水和路上的泥水可能会再次弄脏您的爱车。"}
-         * drsg : {"brf":"较冷","txt":"建议着厚外套加毛衣等服装。年老体弱者宜着大衣、呢外套加羊毛衫。"}
-         * flu : {"brf":"较易发","txt":"天凉，昼夜温差较大，较易发生感冒，请适当增减衣服，体质较弱的朋友请注意适当防护。"}
-         * sport : {"brf":"较适宜","txt":"阴天，较适宜进行各种户内外运动。"}
-         * trav : {"brf":"适宜","txt":"天气较好，温度适宜，总体来说还是好天气哦，这样的天气适宜旅游，您可以尽情地享受大自然的风光。"}
-         * uv : {"brf":"最弱","txt":"属弱紫外线辐射天气，无需特别防护。若长期在户外，建议涂擦SPF在8-12之间的防晒护肤品。"}
-         */
-
-        private SuggestionBean suggestion;
+        private List<LifestyleBean> lifestyle;
 
         public BasicBean getBasic() {
             return basic;
@@ -54,6 +36,14 @@ public class WeaLifePoint {
 
         public void setBasic(BasicBean basic) {
             this.basic = basic;
+        }
+
+        public UpdateBean getUpdate() {
+            return update;
+        }
+
+        public void setUpdate(UpdateBean update) {
+            this.update = update;
         }
 
         public String getStatus() {
@@ -64,33 +54,65 @@ public class WeaLifePoint {
             this.status = status;
         }
 
-        public SuggestionBean getSuggestion() {
-            return suggestion;
+        public List<LifestyleBean> getLifestyle() {
+            return lifestyle;
         }
 
-        public void setSuggestion(SuggestionBean suggestion) {
-            this.suggestion = suggestion;
+        public void setLifestyle(List<LifestyleBean> lifestyle) {
+            this.lifestyle = lifestyle;
         }
 
         public static class BasicBean {
-            private String city;
-            private String cnty;
-            private String id;
-            private String lat;
-            private String lon;
             /**
-             * loc : 2017-03-05 21:49
-             * utc : 2017-03-05 13:49
+             * cid : CN101270101
+             * location : 成都
+             * parent_city : 成都
+             * admin_area : 四川
+             * cnty : 中国
+             * lat : 30.65946198
+             * lon : 104.06573486
+             * tz : +8.00
              */
 
-            private UpdateBean update;
+            private String cid;
+            private String location;
+            private String parent_city;
+            private String admin_area;
+            private String cnty;
+            private String lat;
+            private String lon;
+            private String tz;
 
-            public String getCity() {
-                return city;
+            public String getCid() {
+                return cid;
             }
 
-            public void setCity(String city) {
-                this.city = city;
+            public void setCid(String cid) {
+                this.cid = cid;
+            }
+
+            public String getLocation() {
+                return location;
+            }
+
+            public void setLocation(String location) {
+                this.location = location;
+            }
+
+            public String getParent_city() {
+                return parent_city;
+            }
+
+            public void setParent_city(String parent_city) {
+                this.parent_city = parent_city;
+            }
+
+            public String getAdmin_area() {
+                return admin_area;
+            }
+
+            public void setAdmin_area(String admin_area) {
+                this.admin_area = admin_area;
             }
 
             public String getCnty() {
@@ -99,14 +121,6 @@ public class WeaLifePoint {
 
             public void setCnty(String cnty) {
                 this.cnty = cnty;
-            }
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
             }
 
             public String getLat() {
@@ -125,422 +139,75 @@ public class WeaLifePoint {
                 this.lon = lon;
             }
 
-            public UpdateBean getUpdate() {
-                return update;
+            public String getTz() {
+                return tz;
             }
 
-            public void setUpdate(UpdateBean update) {
-                this.update = update;
-            }
-
-            public static class UpdateBean {
-                private String loc;
-                private String utc;
-
-                public String getLoc() {
-                    return loc;
-                }
-
-                public void setLoc(String loc) {
-                    this.loc = loc;
-                }
-
-                public String getUtc() {
-                    return utc;
-                }
-
-                public void setUtc(String utc) {
-                    this.utc = utc;
-                }
-            }
-
-            @Override
-            public String toString() {
-                return "BasicBean{" +
-                        "city='" + city + '\'' +
-                        ", cnty='" + cnty + '\'' +
-                        ", id='" + id + '\'' +
-                        ", lat='" + lat + '\'' +
-                        ", lon='" + lon + '\'' +
-                        ", update=" + update +
-                        '}';
+            public void setTz(String tz) {
+                this.tz = tz;
             }
         }
 
-        public static class SuggestionBean {
+        public static class UpdateBean {
             /**
-             * brf : 较差
-             * txt : 气象条件较不利于空气污染物稀释、扩散和清除，请适当减少室外活动时间。
+             * loc : 2018-06-04 20:49
+             * utc : 2018-06-04 12:49
              */
 
-//            private AirBean air;
+            private String loc;
+            private String utc;
+
+            public String getLoc() {
+                return loc;
+            }
+
+            public void setLoc(String loc) {
+                this.loc = loc;
+            }
+
+            public String getUtc() {
+                return utc;
+            }
+
+            public void setUtc(String utc) {
+                this.utc = utc;
+            }
+        }
+
+        public static class LifestyleBean {
             /**
+             * type : comf
              * brf : 较舒适
-             * txt : 白天天气阴沉，会感到有点儿凉，但大部分人完全可以接受。
+             * txt : 今天夜间天气晴好，您在这种天气条件下，会感觉凉爽、舒适，偏热。
              */
 
-            private ComfBean comf;
-            /**
-             * brf : 不宜
-             * txt : 不宜洗车，未来24小时内有雨，如果在此期间洗车，雨水和路上的泥水可能会再次弄脏您的爱车。
-             */
+            private String type;
+            private String brf;
+            private String txt;
 
-            private CwBean cw;
-            /**
-             * brf : 较冷
-             * txt : 建议着厚外套加毛衣等服装。年老体弱者宜着大衣、呢外套加羊毛衫。
-             */
-
-            private DrsgBean drsg;
-            /**
-             * brf : 较易发
-             * txt : 天凉，昼夜温差较大，较易发生感冒，请适当增减衣服，体质较弱的朋友请注意适当防护。
-             */
-
-            private FluBean flu;
-            /**
-             * brf : 较适宜
-             * txt : 阴天，较适宜进行各种户内外运动。
-             */
-
-            private SportBean sport;
-            /**
-             * brf : 适宜
-             * txt : 天气较好，温度适宜，总体来说还是好天气哦，这样的天气适宜旅游，您可以尽情地享受大自然的风光。
-             */
-
-            private TravBean trav;
-            /**
-             * brf : 最弱
-             * txt : 属弱紫外线辐射天气，无需特别防护。若长期在户外，建议涂擦SPF在8-12之间的防晒护肤品。
-             */
-
-            private UvBean uv;
-
-//            public AirBean getAir() {
-//                return air;
-//            }
-//
-//            public void setAir(AirBean air) {
-//                this.air = air;
-//            }
-
-            public ComfBean getComf() {
-                return comf;
+            public String getType() {
+                return type;
             }
 
-            public void setComf(ComfBean comf) {
-                this.comf = comf;
+            public void setType(String type) {
+                this.type = type;
             }
 
-            public CwBean getCw() {
-                return cw;
+            public String getBrf() {
+                return brf;
             }
 
-            public void setCw(CwBean cw) {
-                this.cw = cw;
+            public void setBrf(String brf) {
+                this.brf = brf;
             }
 
-            public DrsgBean getDrsg() {
-                return drsg;
+            public String getTxt() {
+                return txt;
             }
 
-            public void setDrsg(DrsgBean drsg) {
-                this.drsg = drsg;
-            }
-
-            public FluBean getFlu() {
-                return flu;
-            }
-
-            public void setFlu(FluBean flu) {
-                this.flu = flu;
-            }
-
-            public SportBean getSport() {
-                return sport;
-            }
-
-            public void setSport(SportBean sport) {
-                this.sport = sport;
-            }
-
-            public TravBean getTrav() {
-                return trav;
-            }
-
-            public void setTrav(TravBean trav) {
-                this.trav = trav;
-            }
-
-            public UvBean getUv() {
-                return uv;
-            }
-
-            public void setUv(UvBean uv) {
-                this.uv = uv;
-            }
-
-//            public static class AirBean {
-//                private String brf;
-//                private String txt;
-//
-//                public String getBrf() {
-//                    return brf;
-//                }
-//
-//                public void setBrf(String brf) {
-//                    this.brf = brf;
-//                }
-//
-//                public String getTxt() {
-//                    return txt;
-//                }
-//
-//                public void setTxt(String txt) {
-//                    this.txt = txt;
-//                }
-//
-//                @Override
-//                public String toString() {
-//                    return "AirBean{" +
-//                            "brf='" + brf + '\'' +
-//                            ", txt='" + txt + '\'' +
-//                            '}';
-//                }
-//            }
-
-            public static class ComfBean {
-                private String brf;
-                private String txt;
-
-                public String getBrf() {
-                    return brf;
-                }
-
-                public void setBrf(String brf) {
-                    this.brf = brf;
-                }
-
-                public String getTxt() {
-                    return txt;
-                }
-
-                public void setTxt(String txt) {
-                    this.txt = txt;
-                }
-
-                @Override
-                public String toString() {
-                    return "ComfBean{" +
-                            "brf='" + brf + '\'' +
-                            ", txt='" + txt + '\'' +
-                            '}';
-                }
-            }
-
-            public static class CwBean {
-                private String brf;
-                private String txt;
-
-                public String getBrf() {
-                    return brf;
-                }
-
-                public void setBrf(String brf) {
-                    this.brf = brf;
-                }
-
-                public String getTxt() {
-                    return txt;
-                }
-
-                public void setTxt(String txt) {
-                    this.txt = txt;
-                }
-
-                @Override
-                public String toString() {
-                    return "CwBean{" +
-                            "brf='" + brf + '\'' +
-                            ", txt='" + txt + '\'' +
-                            '}';
-                }
-            }
-
-            public static class DrsgBean {
-                private String brf;
-                private String txt;
-
-                public String getBrf() {
-                    return brf;
-                }
-
-                public void setBrf(String brf) {
-                    this.brf = brf;
-                }
-
-                public String getTxt() {
-                    return txt;
-                }
-
-                public void setTxt(String txt) {
-                    this.txt = txt;
-                }
-
-                @Override
-                public String toString() {
-                    return "DrsgBean{" +
-                            "brf='" + brf + '\'' +
-                            ", txt='" + txt + '\'' +
-                            '}';
-                }
-            }
-
-            public static class FluBean {
-                private String brf;
-                private String txt;
-
-                public String getBrf() {
-                    return brf;
-                }
-
-                public void setBrf(String brf) {
-                    this.brf = brf;
-                }
-
-                public String getTxt() {
-                    return txt;
-                }
-
-                public void setTxt(String txt) {
-                    this.txt = txt;
-                }
-
-                @Override
-                public String toString() {
-                    return "FluBean{" +
-                            "brf='" + brf + '\'' +
-                            ", txt='" + txt + '\'' +
-                            '}';
-                }
-            }
-
-            public static class SportBean {
-                private String brf;
-                private String txt;
-
-                public String getBrf() {
-                    return brf;
-                }
-
-                public void setBrf(String brf) {
-                    this.brf = brf;
-                }
-
-                public String getTxt() {
-                    return txt;
-                }
-
-                public void setTxt(String txt) {
-                    this.txt = txt;
-                }
-
-                @Override
-                public String toString() {
-                    return "SportBean{" +
-                            "brf='" + brf + '\'' +
-                            ", txt='" + txt + '\'' +
-                            '}';
-                }
-            }
-
-            public static class TravBean {
-                private String brf;
-                private String txt;
-
-                public String getBrf() {
-                    return brf;
-                }
-
-                public void setBrf(String brf) {
-                    this.brf = brf;
-                }
-
-                public String getTxt() {
-                    return txt;
-                }
-
-                public void setTxt(String txt) {
-                    this.txt = txt;
-                }
-
-                @Override
-                public String toString() {
-                    return "TravBean{" +
-                            "brf='" + brf + '\'' +
-                            ", txt='" + txt + '\'' +
-                            '}';
-                }
-            }
-
-            public static class UvBean {
-                private String brf;
-                private String txt;
-
-                public String getBrf() {
-                    return brf;
-                }
-
-                public void setBrf(String brf) {
-                    this.brf = brf;
-                }
-
-                public String getTxt() {
-                    return txt;
-                }
-
-                public void setTxt(String txt) {
-                    this.txt = txt;
-                }
-
-                @Override
-                public String toString() {
-                    return "UvBean{" +
-                            "brf='" + brf + '\'' +
-                            ", txt='" + txt + '\'' +
-                            '}';
-                }
-            }
-
-            @Override
-            public String toString() {
-                return "SuggestionBean{" +
-                        ", comf=" + comf +
-                        ", cw=" + cw +
-                        ", drsg=" + drsg +
-                        ", flu=" + flu +
-                        ", sport=" + sport +
-                        ", trav=" + trav +
-                        ", uv=" + uv +
-                        '}';
+            public void setTxt(String txt) {
+                this.txt = txt;
             }
         }
-
-        @Override
-        public String toString() {
-            return "HeWeather5Bean{" +
-                    "basic=" + basic +
-                    ", status='" + status + '\'' +
-                    ", suggestion=" + suggestion +
-                    '}';
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "WeaLifePoint{" +
-                "HeWeather5=" + HeWeather5 +
-                '}';
     }
 }

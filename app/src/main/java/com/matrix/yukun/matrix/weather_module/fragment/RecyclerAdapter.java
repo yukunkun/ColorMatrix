@@ -18,9 +18,9 @@ import java.util.List;
  */
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
-    List<WeaHours.HeWeather5Bean.HourlyForecastBean> forecastBeen;
+    List<WeaHours.HeWeather6Bean.HourlyBean> forecastBeen;
 
-    public RecyclerAdapter(Context context,List<WeaHours.HeWeather5Bean.HourlyForecastBean> forecastBeen) {
+    public RecyclerAdapter(Context context,List<WeaHours.HeWeather6Bean.HourlyBean> forecastBeen) {
         this.forecastBeen = forecastBeen;
         this.context = context;
     }
@@ -33,14 +33,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        WeaHours.HeWeather5Bean.HourlyForecastBean castBean = forecastBeen.get(position);
-        ((MyHolder)holder).textViewTime.setText(castBean.getDate().substring(11,castBean.getDate().length()));
-        ((MyHolder)holder).textViewTianqi.setText(castBean.getCond().getTxt());
+        WeaHours.HeWeather6Bean.HourlyBean castBean = forecastBeen.get(position);
+        ((MyHolder)holder).textViewTime.setText(castBean.getTime().substring(11,castBean.getTime().length()));
+        ((MyHolder)holder).textViewTianqi.setText(castBean.getCond_txt());
         ((MyHolder)holder).textViewWendu.setText(castBean.getTmp()+"℃");
         ((MyHolder)holder).textViewShidu.setText("湿度:"+castBean.getHum()+ "%");
         ((MyHolder)holder).textViewJiangshui.setText("降水:"+castBean.getPop()+"mm");
         ((MyHolder)holder).textViewQiya.setText("气压:"+castBean.getPres());
-        ((MyHolder)holder).textViewFengxiang.setText(castBean.getWind().getDir()+":"+castBean.getWind().getSc());
+        ((MyHolder)holder).textViewFengxiang.setText(castBean.getWind_dir()+":"+castBean.getWind_sc());
     }
 
     @Override

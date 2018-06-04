@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -13,7 +13,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitApi {
     static String baseUrl = "https://api.douban.com/";
     static String leshiBaseurl = "http://api.letvcloud.com/";
-    static String weabaseurl="https://free-api.heweather.com/v5/";
+//    static String weabaseurl="https://free-api.heweather.com/v5/";
+    static String weabaseurl="https://free-api.heweather.com/s6/";
     static String leshiliveurl = "http://api.open.lecloud.com/";
 
     static String chatUrl = "http://op.juhe.cn/";
@@ -29,7 +30,7 @@ public class RetrofitApi {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(httpClientBuilder.build())
                 .baseUrl(baseUrl)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())  //使用RxJava不能忘记
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())  //使用RxJava不能忘记
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -44,7 +45,7 @@ public class RetrofitApi {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(httpClientBuilder.build())
                 .baseUrl(weabaseurl)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())  //使用RxJava不能忘记
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())  //使用RxJava不能忘记
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -59,7 +60,7 @@ public class RetrofitApi {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(httpClientBuilder.build())
                 .baseUrl(leshiBaseurl)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())  //使用RxJava不能忘记
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())  //使用RxJava不能忘记
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return retrofit;
@@ -73,7 +74,7 @@ public class RetrofitApi {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(httpClientBuilder.build())
                 .baseUrl(leshiliveurl)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())  //使用RxJava不能忘记
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())  //使用RxJava不能忘记
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return retrofit;
@@ -87,7 +88,7 @@ public class RetrofitApi {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(httpClientBuilder.build())
                 .baseUrl(chatUrl)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())  //使用RxJava不能忘记
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())  //使用RxJava不能忘记
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

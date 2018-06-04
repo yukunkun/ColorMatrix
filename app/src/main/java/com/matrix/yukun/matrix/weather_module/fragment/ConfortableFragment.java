@@ -151,10 +151,13 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
 
     @Override
     public void getLifeInfo(WeaLifePoint weaLifePoint) {
-        confAir.setText(weaLifePoint.getHeWeather5().get(0).getSuggestion().getComf().getBrf());
-        todayTime.setText(weaLifePoint.getHeWeather5().get(0).getBasic().getUpdate().getLoc());
-        todayCity.setText(weaLifePoint.getHeWeather5().get(0).getBasic().getCity());
-        myListAdapter = new MyListAdapter(getContext(), weaLifePoint.getHeWeather5().get(0).getSuggestion());
+        if(weaLifePoint.getHeWeather6().get(0).getStatus()!="ok"){
+            return;
+        }
+        confAir.setText(weaLifePoint.getHeWeather6().get(0).getLifestyle().get(0).getBrf());
+        todayTime.setText(weaLifePoint.getHeWeather6().get(0).getUpdate().getLoc());
+        todayCity.setText(weaLifePoint.getHeWeather6().get(0).getBasic().getLocation());
+        myListAdapter = new MyListAdapter(getContext(), weaLifePoint.getHeWeather6().get(0).getLifestyle());
         mylistview.setAdapter(myListAdapter);
         scrollView.fullScroll(ScrollView.FOCUS_UP);
     }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -208,7 +209,7 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
     @Override
     public void getHoursInfo(WeaHours weaHours) {
         recyclerViews.setLayoutManager(linearLayoutManager);
-        recyclerAdapter = new RecyclerAdapter(getContext(), weaHours.getHeWeather5().get(0).getHourly_forecast());
+        recyclerAdapter = new RecyclerAdapter(getContext(), weaHours.getHeWeather6().get(0).getHourly());
         recyclerViews.setAdapter(recyclerAdapter);
         // Horizontal
         OverScrollDecoratorHelper.setUpOverScroll(recyclerViews, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
@@ -216,17 +217,18 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
 
     @Override
     public void getInfo(WeaNow weaNow) {
-        WeaNow.HeWeather5Bean.BasicBean basic = weaNow.getHeWeather5().get(0).getBasic();
-        WeaNow.HeWeather5Bean.NowBean now = weaNow.getHeWeather5().get(0).getNow();
-        todayCity.setText(basic.getCity());
-        String loc = basic.getUpdate().getLoc();
+        WeaNow.HeWeather6Bean.BasicBean basic = weaNow.getHeWeather6().get(0).getBasic();
+        WeaNow.HeWeather6Bean.NowBean now = weaNow.getHeWeather6().get(0).getNow();
+        WeaNow.HeWeather6Bean.UpdateBean update = weaNow.getHeWeather6().get(0).getUpdate();
+        todayCity.setText(basic.getLocation());
+        String loc = update.getLoc();
         //时间
         todayTime.setText(loc);
         //天气
-        todayClass.setText(now.getCond().getTxt());
-        if (now.getCond().getTxt().length() <= 4 && now.getCond().getTxt().length() >= 3) {
+        todayClass.setText(now.getCond_txt());
+        if (now.getCond_txt().length() <= 4 && now.getCond_txt().length() >= 3) {
             todayClass.setTextSize(34);
-        } else if (now.getCond().getTxt().length() > 4) {
+        } else if (now.getCond_txt().length() > 4) {
             todayClass.setTextSize(30);
         }
         todayWendu.setText(now.getFl() + "℃");
@@ -236,12 +238,12 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         today4.setText("气压:" + now.getPres());
         today5.setText("温度:" + now.getTmp());
         today6.setText("能见度:" + now.getVis() + "km");
-        todayPower1.setText("风向:" + now.getWind().getDir());
-        todayPower2.setText("风力:" + now.getWind().getSc());
-        todayPower3.setText("风速:" + now.getWind().getSpd() + "kmph");
-        String code = now.getCond().getCode();
+        todayPower1.setText("风向:" + now.getWind_dir());
+        todayPower2.setText("风力:" + now.getWind_deg());
+        todayPower3.setText("风速:" + now.getWind_spd() + "kmph");
+        String code = now.getCond_code();
         EventBus.getDefault().post(new OnEventpos(Integer.valueOf(code)));
-        Notifications.start(getContext(), basic.getCity() + ":" + now.getFl() + "℃");
+        Notifications.start(getContext(), basic.getLocation() + ":" + now.getFl() + "℃");
     }
 
     @Override
@@ -267,13 +269,13 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
                 mWaterload.setVisibility(View.VISIBLE);
 
                 topPresent.getInfo(city);
-                topPresent.getDestory(city);
+//                topPresent.getDestory(city);
                 topPresent.getHours(city);
                 break;
             case R.id.today_refreshs:
                 mWaterload.setVisibility(View.VISIBLE);
                 topPresent.getInfo(city);
-                topPresent.getDestory(city);
+//                topPresent.getDestory(city);
                 topPresent.getHours(city);
                 break;
             case R.id.today_tomorrow:

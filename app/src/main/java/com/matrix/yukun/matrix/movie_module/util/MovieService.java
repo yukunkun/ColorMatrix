@@ -20,26 +20,42 @@ import rx.Observable;
  */
 public interface MovieService {
 
+//    @GET("v2/movie/top250")
+//    Observable<HttpResult<Subjects>> getTopMovie(@Query("start") int start, @Query("count") int count);
+//    @GET("v2/movie/in_theaters")
+//    Observable<HttpResult<Subjects>> getNewMovie(@Query("start") int start, @Query("count") int count);
+//    @GET("v2/movie/coming_soon")
+//    Observable<HttpResult<Subjects>> getSoonMovie(@Query("start") int start, @Query("count") int count);
     @GET("v2/movie/top250")
-    Observable<HttpResult<Subjects>> getTopMovie(@Query("start") int start, @Query("count") int count);
+    Call<HttpResult<Subjects>> getTopMovie(@Query("start") int start, @Query("count") int count);
     @GET("v2/movie/in_theaters")
-    Observable<HttpResult<Subjects>> getNewMovie(@Query("start") int start, @Query("count") int count);
+    Call<HttpResult<Subjects>> getNewMovie(@Query("start") int start, @Query("count") int count);
     @GET("v2/movie/coming_soon")
-    Observable<HttpResult<Subjects>> getSoonMovie(@Query("start") int start, @Query("count") int count);
+    Call<HttpResult<Subjects>> getSoonMovie(@Query("start") int start, @Query("count") int count);
+
+//    @GET("weather/now")
+//    Observable<WeaNow> getNow(@Query("location") String city, @Query("key") String key);
+    //    @GET("s6/weather/hourly")
+//    Observable<WeaHours> getHourly(@Query("location") String city, @Query("key") String key);
     //weather API
-    @GET("forecast")
-    Observable<WeaTomorrow> getTomorrow(@Query("city") String city, @Query("key") String key);
-    @GET("now")
-    Observable<WeaNow> getNow(@Query("city") String city, @Query("key") String key);
-    @GET("hourly")
-    Observable<WeaHours> getHourly(@Query("city") String city, @Query("key") String key);
-    @GET("suggestion")
-    Observable<WeaLifePoint> getLife(@Query("city") String city, @Query("key") String key);
-    @GET("alarm")
-    Observable<WeaDestory> getAlarm(@Query("city") String city, @Query("key") String key);
+//    @GET("s6/weather/forecast")
+//    Observable<WeaTomorrow> getTomorrow(@Query("location") String city, @Query("key") String key);
+    //    @GET("weather/suggestion")
+//    Observable<WeaLifePoint> getLife(@Query("location") String city, @Query("key") String key);
+//    @GET("weather/suggestion")
+//    Call<WeaLifePoint> getLife(@Query("location") String city, @Query("key") String key);
+    @GET("weather/forecast")
+    Call<WeaTomorrow> getTomorrows(@Query("location") String city, @Query("key") String key);
+    @GET("weather/now")
+    Call<WeaNow> getNows(@Query("location") String city, @Query("key") String key);
+    @GET("weather/hourly")
+    Call<WeaHours> getHourlys(@Query("location") String city, @Query("key") String key);
+    @GET("weather/lifestyle")
+    Call<WeaLifePoint> getLifes(@Query("location") String city, @Query("key") String key);
+    @GET("weather/alarm")
+    Observable<WeaDestory> getAlarm(@Query("location") String city, @Query("key") String key);
 
     //chat API
     @GET("robot/index")
     Call<ChatInfo> getChat(@Query("info") String info, @Query("key") String key);
 }
-

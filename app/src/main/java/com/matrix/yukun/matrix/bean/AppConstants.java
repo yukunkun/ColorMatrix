@@ -21,7 +21,7 @@ public class AppConstants {
     public static final String HEWEATHER_KEY = "449354b040d04805a3737fbcdb3c1339";
 
     public static final String APPID="1105962710";
-    public static final String BANNER_ADID="3040126180953688\n";
+    public static final String BANNER_ADID="3040126180953688";
 
     public static final String user_unique="cnsmvgmgt8";
     public static final String timestamp=getCurrentTime();
@@ -32,7 +32,7 @@ public class AppConstants {
     public static final String ChatAppId="12b5b1b14c7e1d25f18902728b9655b6";
     public static ArrayList<Integer> integers=new ArrayList<>();
     public static List<Integer> giftFlows=new ArrayList<>();
-
+    public static String HEWEANowURL="https://free-api.heweather.com/s6/weather/now";
     public static String getCurrentTime(){
         long l = System.currentTimeMillis();
         return l+"";

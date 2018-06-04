@@ -209,32 +209,33 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
 
     @Override
     public void getInfo(WeaTomorrow weaTomorrow) {
-        WeaTomorrow.HeWeather5Bean.BasicBean basic = weaTomorrow.getHeWeather5().get(0).getBasic();
-        WeaTomorrow.HeWeather5Bean.DailyForecastBean castBean = weaTomorrow.getHeWeather5().get(0).getDaily_forecast().get(0);
-        todayCity.setText(/*basic.getProv()+*/basic.getCity());
-        String loc = basic.getUpdate().getLoc();
+        WeaTomorrow.HeWeather6Bean.BasicBean basic = weaTomorrow.getHeWeather6().get(0).getBasic();
+        WeaTomorrow.HeWeather6Bean.UpdateBean update = weaTomorrow.getHeWeather6().get(0).getUpdate();
+        WeaTomorrow.HeWeather6Bean.DailyForecastBean castBean = weaTomorrow.getHeWeather6().get(0).getDaily_forecast().get(0);
+        todayCity.setText(/*basic.getProv()+*/basic.getLocation());
+        String loc = update.getLoc();
         //时间
         todayTime.setText(loc);
         //天气
-        todayClass.setText(castBean.getCond().getTxt_d());
-        if (castBean.getCond().getTxt_d().length() <= 4 && castBean.getCond().getTxt_d().length() >= 3) {
+        todayClass.setText(castBean.getCond_txt_d());
+        if (castBean.getCond_txt_d().length() <= 4 && castBean.getCond_txt_d().length() >= 3) {
             todayClass.setTextSize(34);
-        } else if (castBean.getCond().getTxt_d().length() > 4) {
+        } else if (castBean.getCond_txt_d().length() > 4) {
             todayClass.setTextSize(30);
         }
-        todayWendu.setText((Integer.valueOf(castBean.getTmp().getMax()) + Integer.valueOf(castBean.getTmp().getMin())) / 2 + "℃");
-        todayPower1.setText("风向:" + castBean.getWind().getDir());
-        todayPower2.setText("风力:" + castBean.getWind().getSc());
-        todayPower3.setText("风速:" + castBean.getWind().getSpd() + "kmph");
-        String code = castBean.getCond().getCode_d();
+        todayWendu.setText((Integer.valueOf(castBean.getTmp_max()) + Integer.valueOf(castBean.getTmp_min())) / 2 + "℃");
+        todayPower1.setText("风向:" + castBean.getWind_dir());
+        todayPower2.setText("风力:" + castBean.getWind_sc());
+        todayPower3.setText("风速:" + castBean.getWind_spd() + "kmph");
+        String code = castBean.getCond_code_d();
         EventBus.getDefault().post(new OnEventpos(Integer.valueOf(code)));
-        tomorrowYue.setText("月出:" + castBean.getAstro().getMr() + "h,月落:" + castBean.getAstro().getMs() + "h");
-        tomorrowRi.setText("日出:" + castBean.getAstro().getSr() + "h,日落:" + castBean.getAstro().getSs() + "h");
-        tomorrowBai.setText("白天:" + castBean.getCond().getTxt_d());
-        tomorrowHei.setText("晚上:" + castBean.getCond().getTxt_n());
+        tomorrowYue.setText("月出:" + castBean.getMr() + "h,月落:" + castBean.getMs() + "h");
+        tomorrowRi.setText("日出:" + castBean.getSr() + "h,日落:" + castBean.getSs() + "h");
+        tomorrowBai.setText("白天:" + castBean.getCond_txt_d());
+        tomorrowHei.setText("晚上:" + castBean.getCond_txt_n());
 
         recyclerViews.setLayoutManager(linearLayoutManager);
-        recyclerTomorrowAdapter = new RecyclerTomorrowAdapter(getContext(), weaTomorrow.getHeWeather5().get(0).getDaily_forecast());
+        recyclerTomorrowAdapter = new RecyclerTomorrowAdapter(getContext(), weaTomorrow.getHeWeather6().get(0).getDaily_forecast());
         recyclerViews.setAdapter(recyclerTomorrowAdapter);
         OverScrollDecoratorHelper.setUpOverScroll(recyclerViews, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
     }

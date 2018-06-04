@@ -67,7 +67,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((MHolder) holder).mTvTitle.setText(recInfo.getText());
             ((MHolder) holder).mTvPlayTimes.setText(recInfo.getComment()+"次");
             ((MHolder) holder).mTvCommentName.setText(recInfo.getTop_commentsName());
-            if(recInfo.getTop_commentsContent().isEmpty()){
+            if(recInfo.getTop_commentsContent()==null){
                 ((MHolder) holder).mTvCommen.setVisibility(View.GONE);
             }else {
                 ((MHolder) holder).mTvCommen.setVisibility(View.VISIBLE);

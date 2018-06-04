@@ -1,10 +1,17 @@
 package com.matrix.yukun.matrix.movie_module.present;
 
+import com.matrix.yukun.matrix.movie_module.bean.HttpResult;
 import com.matrix.yukun.matrix.movie_module.bean.Subjects;
 import com.matrix.yukun.matrix.movie_module.fragment.SoonMoiveFragment;
+import com.matrix.yukun.matrix.movie_module.util.MovieService;
+import com.matrix.yukun.matrix.movie_module.util.RetrofitApi;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -21,23 +28,36 @@ public class SoonMoviePresent implements BasePresentImpl {
     }
 
     public void getInfo(int start){
-        Subscription subscribe = RetrofitUtils.getSoonMovie(start, 10).subscribe(new Subscriber<List<Subjects>>() {
+        Retrofit retrofituil = RetrofitApi.getInstance().retrofituil();
+        retrofituil.create(MovieService.class).getSoonMovie(start,10).enqueue(new Callback<HttpResult<Subjects>>() {
             @Override
-            public void onCompleted() {
+            public void onResponse(Call<HttpResult<Subjects>> call, Response<HttpResult<Subjects>> response) {
                 mView.dismissDialogs();
+                mView.getInfo(response.body().getSubjects());
             }
 
             @Override
-            public void onError(Throwable e) {
-                mView.showMessage(e.toString());
+            public void onFailure(Call<HttpResult<Subjects>> call, Throwable t) {
+                mView.showMessage(t.toString());
             }
-
-            @Override
-            public void onNext(List<Subjects> subjects) {
-                mView.getInfo(subjects);
-            }
-         });
-        compositeSubscription.addAll(subscribe);
+        });
+//        Subscription subscribe = RetrofitUtils.getSoonMovie(start, 10).subscribe(new Subscriber<List<Subjects>>() {
+//            @Override
+//            public void onCompleted() {
+//                mView.dismissDialogs();
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                mView.showMessage(e.toString());
+//            }
+//
+//            @Override
+//            public void onNext(List<Subjects> subjects) {
+//                mView.getInfo(subjects);
+//            }
+//         });
+//        compositeSubscription.addAll(subscribe);
     }
 
     @Override

@@ -311,7 +311,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if(path==null||path.length()==0){
             return;
         }
-        imageViewCrop.setVisibility(View.VISIBLE);
+        imageViewCrop.setVisibility(View.GONE);
         textViewTiShi.setVisibility(View.GONE);
         layout.setVisibility(View.VISIBLE);
         imageViewMore.setVisibility(View.VISIBLE);

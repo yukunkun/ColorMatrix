@@ -19,9 +19,9 @@ import java.util.List;
  */
 public class RecyclerTomorrowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
-    List<WeaTomorrow.HeWeather5Bean.DailyForecastBean> forecastBeen;
+    List<WeaTomorrow.HeWeather6Bean.DailyForecastBean> forecastBeen;
 
-    public RecyclerTomorrowAdapter(Context context, List<WeaTomorrow.HeWeather5Bean.DailyForecastBean> forecastBeen) {
+    public RecyclerTomorrowAdapter(Context context, List<WeaTomorrow.HeWeather6Bean.DailyForecastBean> forecastBeen) {
         this.forecastBeen = forecastBeen;
         this.context = context;
     }
@@ -34,15 +34,15 @@ public class RecyclerTomorrowAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        WeaTomorrow.HeWeather5Bean.DailyForecastBean castBean = forecastBeen.get(position);
+        WeaTomorrow.HeWeather6Bean.DailyForecastBean castBean = forecastBeen.get(position);
         ((MyHolder)holder).textViewTime.setText(castBean.getDate().substring(5,castBean.getDate().length()));
-        ((MyHolder)holder).textViewTianqi.setText(castBean.getCond().getTxt_d());
-        ((MyHolder)holder).textViewWendu.setText(castBean.getTmp().getMin() +"℃~"+castBean.getTmp().getMax()+"℃");
+        ((MyHolder)holder).textViewTianqi.setText(castBean.getCond_txt_d());
+        ((MyHolder)holder).textViewWendu.setText(castBean.getTmp_min()+"℃~"+castBean.getTmp_max()+"℃");
         ((MyHolder)holder).textViewShidu.setText("湿度:"+castBean.getHum()+ "%");
         ((MyHolder)holder).textViewJiangshui.setText("降水:"+castBean.getPop()+"mm");
         ((MyHolder)holder).textViewQiya.setText("气压:"+castBean.getPres());
-        ((MyHolder)holder).textViewFengxiang.setText(castBean.getWind().getDir()+":"+castBean.getWind().getSc());
-        ((MyHolder)holder).textViewRichu.setText("日出:"+castBean.getAstro().getSr()+"h");
+        ((MyHolder)holder).textViewFengxiang.setText(castBean.getWind_dir()+":"+castBean.getWind_sc());
+//        ((MyHolder)holder).textViewRichu.setText("日出:"+castBean.getAstro().getSr()+"h");
         ((MyHolder)holder).textViewNengjiandu.setText("能见度:"+castBean.getVis());
     }
 
@@ -64,7 +64,6 @@ public class RecyclerTomorrowAdapter extends RecyclerView.Adapter<RecyclerView.V
             textViewQiya=(TextView) itemView.findViewById(R.id.today_qiya);
             textViewRichu= (TextView) itemView.findViewById(R.id.today_richu);
             textViewNengjiandu= (TextView) itemView.findViewById(R.id.today_nengjiandu);
-
         }
     }
 }

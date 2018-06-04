@@ -7,7 +7,7 @@ import com.matrix.yukun.matrix.movie_module.present.BasePresentImpl;
  */
 public interface TodayPresentImpl extends BasePresentImpl {
     void getInfo(String city);
-    void getDestory(String city);
+//    void getDestory(String city);
     void getHours(String city);
 
 }

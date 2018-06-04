@@ -7,48 +7,28 @@ import java.util.List;
  */
 public class WeaTomorrow {
 
-    /**
-     * basic : {"city":"北京","cnty":"中国","id":"CN101010100","lat":"39.904000","lon":"116.391000","update":{"loc":"2017-03-05 21:49","utc":"2017-03-05 13:49"}}
-     * daily_forecast : [{"astro":{"mr":"11:02","ms":"00:29","sr":"06:41","ss":"18:10"},"cond":{"code_d":"101","code_n":"101","txt_d":"多云","txt_n":"多云"},"date":"2017-03-05","hum":"24","pcpn":"0.0","pop":"0","pres":"1025","tmp":{"max":"11","min":"-1"},"uv":"3","vis":"10","wind":{"deg":"334","dir":"无持续风向","sc":"4-5","spd":"19"}},{"astro":{"mr":"11:52","ms":"01:35","sr":"06:39","ss":"18:11"},"cond":{"code_d":"101","code_n":"100","txt_d":"多云","txt_n":"晴"},"date":"2017-03-06","hum":"23","pcpn":"0.0","pop":"0","pres":"1024","tmp":{"max":"9","min":"-3"},"uv":"3","vis":"10","wind":{"deg":"322","dir":"无持续风向","sc":"3-4","spd":"13"}},{"astro":{"mr":"12:48","ms":"02:35","sr":"06:38","ss":"18:12"},"cond":{"code_d":"100","code_n":"100","txt_d":"晴","txt_n":"晴"},"date":"2017-03-07","hum":"22","pcpn":"0.0","pop":"0","pres":"1024","tmp":{"max":"8","min":"-1"},"uv":"3","vis":"10","wind":{"deg":"319","dir":"北风","sc":"3-4","spd":"13"}}]
-     * status : ok
-     */
 
-    private List<HeWeather5Bean> HeWeather5;
+    private List<HeWeather6Bean> HeWeather6;
 
-    public List<HeWeather5Bean> getHeWeather5() {
-        return HeWeather5;
+    public List<HeWeather6Bean> getHeWeather6() {
+        return HeWeather6;
     }
 
-    public void setHeWeather5(List<HeWeather5Bean> HeWeather5) {
-        this.HeWeather5 = HeWeather5;
+    public void setHeWeather6(List<HeWeather6Bean> HeWeather6) {
+        this.HeWeather6 = HeWeather6;
     }
 
-    public static class HeWeather5Bean {
+    public static class HeWeather6Bean {
         /**
-         * city : 北京
-         * cnty : 中国
-         * id : CN101010100
-         * lat : 39.904000
-         * lon : 116.391000
-         * update : {"loc":"2017-03-05 21:49","utc":"2017-03-05 13:49"}
+         * basic : {"cid":"CN101010100","location":"北京","parent_city":"北京","admin_area":"北京","cnty":"中国","lat":"39.90498734","lon":"116.40528870","tz":"8.0"}
+         * daily_forecast : [{"cond_code_d":"103","cond_code_n":"101","cond_txt_d":"晴间多云","cond_txt_n":"多云","date":"2017-10-26","hum":"57","pcpn":"0.0","pop":"0","pres":"1020","tmp_max":"16","tmp_min":"8","uv_index":"3","vis":"16","wind_deg":"0","wind_dir":"无持续风向","wind_sc":"微风","wind_spd":"5"},{"cond_code_d":"101","cond_code_n":"501","cond_txt_d":"多云","cond_txt_n":"雾","date":"2017-10-27","hum":"56","pcpn":"0.0","pop":"0","pres":"1018","tmp_max":"18","tmp_min":"9","uv_index":"3","vis":"20","wind_deg":"187","wind_dir":"南风","wind_sc":"微风","wind_spd":"6"},{"cond_code_d":"101","cond_code_n":"101","cond_txt_d":"多云","cond_txt_n":"多云","date":"2017-10-28","hum":"26","pcpn":"0.0","pop":"0","pres":"1029","tmp_max":"17","tmp_min":"5","uv_index":"2","vis":"20","wind_deg":"2","wind_dir":"北风","wind_sc":"3-4","wind_spd":"19"}]
+         * status : ok
+         * update : {"loc":"2017-10-26 23:09","utc":"2017-10-26 15:09"}
          */
 
         private BasicBean basic;
         private String status;
-        /**
-         * astro : {"mr":"11:02","ms":"00:29","sr":"06:41","ss":"18:10"}
-         * cond : {"code_d":"101","code_n":"101","txt_d":"多云","txt_n":"多云"}
-         * date : 2017-03-05
-         * hum : 24
-         * pcpn : 0.0
-         * pop : 0
-         * pres : 1025
-         * tmp : {"max":"11","min":"-1"}
-         * uv : 3
-         * vis : 10
-         * wind : {"deg":"334","dir":"无持续风向","sc":"4-5","spd":"19"}
-         */
-
+        private UpdateBean update;
         private List<DailyForecastBean> daily_forecast;
 
         public BasicBean getBasic() {
@@ -67,6 +47,14 @@ public class WeaTomorrow {
             this.status = status;
         }
 
+        public UpdateBean getUpdate() {
+            return update;
+        }
+
+        public void setUpdate(UpdateBean update) {
+            this.update = update;
+        }
+
         public List<DailyForecastBean> getDaily_forecast() {
             return daily_forecast;
         }
@@ -76,24 +64,56 @@ public class WeaTomorrow {
         }
 
         public static class BasicBean {
-            private String city;
-            private String cnty;
-            private String id;
-            private String lat;
-            private String lon;
             /**
-             * loc : 2017-03-05 21:49
-             * utc : 2017-03-05 13:49
+             * cid : CN101010100
+             * location : 北京
+             * parent_city : 北京
+             * admin_area : 北京
+             * cnty : 中国
+             * lat : 39.90498734
+             * lon : 116.40528870
+             * tz : 8.0
              */
 
-            private UpdateBean update;
+            private String cid;
+            private String location;
+            private String parent_city;
+            private String admin_area;
+            private String cnty;
+            private String lat;
+            private String lon;
+            private String tz;
 
-            public String getCity() {
-                return city;
+            public String getCid() {
+                return cid;
             }
 
-            public void setCity(String city) {
-                this.city = city;
+            public void setCid(String cid) {
+                this.cid = cid;
+            }
+
+            public String getLocation() {
+                return location;
+            }
+
+            public void setLocation(String location) {
+                this.location = location;
+            }
+
+            public String getParent_city() {
+                return parent_city;
+            }
+
+            public void setParent_city(String parent_city) {
+                this.parent_city = parent_city;
+            }
+
+            public String getAdmin_area() {
+                return admin_area;
+            }
+
+            public void setAdmin_area(String admin_area) {
+                this.admin_area = admin_area;
             }
 
             public String getCnty() {
@@ -102,14 +122,6 @@ public class WeaTomorrow {
 
             public void setCnty(String cnty) {
                 this.cnty = cnty;
-            }
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
             }
 
             public String getLat() {
@@ -128,89 +140,146 @@ public class WeaTomorrow {
                 this.lon = lon;
             }
 
-            public UpdateBean getUpdate() {
-                return update;
+            public String getTz() {
+                return tz;
             }
 
-            public void setUpdate(UpdateBean update) {
-                this.update = update;
+            public void setTz(String tz) {
+                this.tz = tz;
+            }
+        }
+
+        public static class UpdateBean {
+            /**
+             * loc : 2017-10-26 23:09
+             * utc : 2017-10-26 15:09
+             */
+
+            private String loc;
+            private String utc;
+
+            public String getLoc() {
+                return loc;
             }
 
-            public static class UpdateBean {
-                private String loc;
-                private String utc;
+            public void setLoc(String loc) {
+                this.loc = loc;
+            }
 
-                public String getLoc() {
-                    return loc;
-                }
+            public String getUtc() {
+                return utc;
+            }
 
-                public void setLoc(String loc) {
-                    this.loc = loc;
-                }
-
-                public String getUtc() {
-                    return utc;
-                }
-
-                public void setUtc(String utc) {
-                    this.utc = utc;
-                }
+            public void setUtc(String utc) {
+                this.utc = utc;
             }
         }
 
         public static class DailyForecastBean {
             /**
-             * mr : 11:02
-             * ms : 00:29
-             * sr : 06:41
-             * ss : 18:10
+             * cond_code_d : 103
+             * cond_code_n : 101
+             * cond_txt_d : 晴间多云
+             * cond_txt_n : 多云
+             * date : 2017-10-26
+             * hum : 57
+             * pcpn : 0.0
+             * pop : 0
+             * pres : 1020
+             * tmp_max : 16
+             * tmp_min : 8
+             * uv_index : 3
+             * vis : 16
+             * wind_deg : 0
+             * wind_dir : 无持续风向
+             * wind_sc : 微风
+             * wind_spd : 5
              */
 
-            private AstroBean astro;
-            /**
-             * code_d : 101
-             * code_n : 101
-             * txt_d : 多云
-             * txt_n : 多云
-             */
-
-            private CondBean cond;
+            private String cond_code_d;
+            private String cond_code_n;
+            private String cond_txt_d;
+            private String cond_txt_n;
             private String date;
             private String hum;
             private String pcpn;
             private String pop;
             private String pres;
-            /**
-             * max : 11
-             * min : -1
-             */
-
-            private TmpBean tmp;
-            private String uv;
+            private String tmp_max;
+            private String tmp_min;
+            private String uv_index;
             private String vis;
-            /**
-             * deg : 334
-             * dir : 无持续风向
-             * sc : 4-5
-             * spd : 19
-             */
+            private String wind_deg;
+            private String wind_dir;
+            private String wind_sc;
+            private String wind_spd;
+            private String sr;
+            private String ss;
+            private String mr;
+            private String ms;
 
-            private WindBean wind;
-
-            public AstroBean getAstro() {
-                return astro;
+            public String getSr() {
+                return sr;
             }
 
-            public void setAstro(AstroBean astro) {
-                this.astro = astro;
+            public void setSr(String sr) {
+                this.sr = sr;
             }
 
-            public CondBean getCond() {
-                return cond;
+            public String getSs() {
+                return ss;
             }
 
-            public void setCond(CondBean cond) {
-                this.cond = cond;
+            public void setSs(String ss) {
+                this.ss = ss;
+            }
+
+            public String getMr() {
+                return mr;
+            }
+
+            public void setMr(String mr) {
+                this.mr = mr;
+            }
+
+            public String getMs() {
+                return ms;
+            }
+
+            public void setMs(String ms) {
+                this.ms = ms;
+            }
+
+            public String getCond_code_d() {
+                return cond_code_d;
+            }
+
+            public void setCond_code_d(String cond_code_d) {
+                this.cond_code_d = cond_code_d;
+            }
+
+            public String getCond_code_n() {
+                return cond_code_n;
+            }
+
+            public void setCond_code_n(String cond_code_n) {
+                this.cond_code_n = cond_code_n;
+            }
+
+            public String getCond_txt_d() {
+                return cond_txt_d;
+            }
+
+            public void setCond_txt_d(String cond_txt_d) {
+                this.cond_txt_d = cond_txt_d;
+            }
+
+            public String getCond_txt_n() {
+                return cond_txt_n;
+            }
+
+            public void setCond_txt_n(String cond_txt_n) {
+                this.cond_txt_n = cond_txt_n;
             }
 
             public String getDate() {
@@ -253,20 +322,28 @@ public class WeaTomorrow {
                 this.pres = pres;
             }
 
-            public TmpBean getTmp() {
-                return tmp;
+            public String getTmp_max() {
+                return tmp_max;
             }
 
-            public void setTmp(TmpBean tmp) {
-                this.tmp = tmp;
+            public void setTmp_max(String tmp_max) {
+                this.tmp_max = tmp_max;
             }
 
-            public String getUv() {
-                return uv;
+            public String getTmp_min() {
+                return tmp_min;
             }
 
-            public void setUv(String uv) {
-                this.uv = uv;
+            public void setTmp_min(String tmp_min) {
+                this.tmp_min = tmp_min;
+            }
+
+            public String getUv_index() {
+                return uv_index;
+            }
+
+            public void setUv_index(String uv_index) {
+                this.uv_index = uv_index;
             }
 
             public String getVis() {
@@ -277,150 +354,36 @@ public class WeaTomorrow {
                 this.vis = vis;
             }
 
-            public WindBean getWind() {
-                return wind;
+            public String getWind_deg() {
+                return wind_deg;
             }
 
-            public void setWind(WindBean wind) {
-                this.wind = wind;
+            public void setWind_deg(String wind_deg) {
+                this.wind_deg = wind_deg;
             }
 
-            public static class AstroBean {
-                private String mr;
-                private String ms;
-                private String sr;
-                private String ss;
-
-                public String getMr() {
-                    return mr;
-                }
-
-                public void setMr(String mr) {
-                    this.mr = mr;
-                }
-
-                public String getMs() {
-                    return ms;
-                }
-
-                public void setMs(String ms) {
-                    this.ms = ms;
-                }
-
-                public String getSr() {
-                    return sr;
-                }
-
-                public void setSr(String sr) {
-                    this.sr = sr;
-                }
-
-                public String getSs() {
-                    return ss;
-                }
-
-                public void setSs(String ss) {
-                    this.ss = ss;
-                }
+            public String getWind_dir() {
+                return wind_dir;
             }
 
-            public static class CondBean {
-                private String code_d;
-                private String code_n;
-                private String txt_d;
-                private String txt_n;
-
-                public String getCode_d() {
-                    return code_d;
-                }
-
-                public void setCode_d(String code_d) {
-                    this.code_d = code_d;
-                }
-
-                public String getCode_n() {
-                    return code_n;
-                }
-
-                public void setCode_n(String code_n) {
-                    this.code_n = code_n;
-                }
-
-                public String getTxt_d() {
-                    return txt_d;
-                }
-
-                public void setTxt_d(String txt_d) {
-                    this.txt_d = txt_d;
-                }
-
-                public String getTxt_n() {
-                    return txt_n;
-                }
-
-                public void setTxt_n(String txt_n) {
-                    this.txt_n = txt_n;
-                }
+            public void setWind_dir(String wind_dir) {
+                this.wind_dir = wind_dir;
             }
 
-            public static class TmpBean {
-                private String max;
-                private String min;
-
-                public String getMax() {
-                    return max;
-                }
-
-                public void setMax(String max) {
-                    this.max = max;
-                }
-
-                public String getMin() {
-                    return min;
-                }
-
-                public void setMin(String min) {
-                    this.min = min;
-                }
+            public String getWind_sc() {
+                return wind_sc;
             }
 
-            public static class WindBean {
-                private String deg;
-                private String dir;
-                private String sc;
-                private String spd;
+            public void setWind_sc(String wind_sc) {
+                this.wind_sc = wind_sc;
+            }
 
-                public String getDeg() {
-                    return deg;
-                }
+            public String getWind_spd() {
+                return wind_spd;
+            }
 
-                public void setDeg(String deg) {
-                    this.deg = deg;
-                }
-
-                public String getDir() {
-                    return dir;
-                }
-
-                public void setDir(String dir) {
-                    this.dir = dir;
-                }
-
-                public String getSc() {
-                    return sc;
-                }
-
-                public void setSc(String sc) {
-                    this.sc = sc;
-                }
-
-                public String getSpd() {
-                    return spd;
-                }
-
-                public void setSpd(String spd) {
-                    this.spd = spd;
-                }
+            public void setWind_spd(String wind_spd) {
+                this.wind_spd = wind_spd;
             }
         }
     }

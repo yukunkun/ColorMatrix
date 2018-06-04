@@ -53,7 +53,7 @@ public class ChatActivity extends AppCompatActivity implements ChatControl.View 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_video);
+        setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
 //        firstTime=System.currentTimeMillis();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
