@@ -98,7 +98,7 @@
         android:name=".MyApp"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/tool_icon"
+        android:icon="@mipmap/tool_icon_black"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -158,6 +158,15 @@
         <activity
             android:name=".camera_module.CameraActivity"
             android:screenOrientation="portrait" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.xykj.customview.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/camera"/>
+        </provider>
         <activity android:name=".movie_module.MovieActivity" />
         <activity android:name=".movie_module.activity.TopDetailActivity" />
         <activity android:name=".movie_module.MovieBaseActivity" />

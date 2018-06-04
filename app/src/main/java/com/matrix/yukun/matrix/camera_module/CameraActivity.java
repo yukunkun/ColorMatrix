@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.os.Bundle;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.bean.AppConstants;
 import com.matrix.yukun.matrix.image_module.bean.EventDetail;
+import com.matrix.yukun.matrix.util.BitmapUtil;
 import com.matrix.yukun.matrix.util.FileUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,6 +40,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     private boolean tag=true;
     private String path1="";
     private String mFilePath;
+    private File mFile;
 
 
     @Override
@@ -47,7 +50,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         init();
         setListener();
         if(tag=true){
-            openCamera();
+            useCamera();
         }
     }
 
@@ -59,27 +62,21 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         layout = (RelativeLayout) findViewById(R.id.deal);
     }
 
-    private void openCamera() {
-        tag = false;
-        //设置自定义存储路径
-        mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" +AppConstants.PATH;
-        //存储文件夹操作
-        File outFilePath = new File(mFilePath);
-        if (!outFilePath.exists()) {
-            outFilePath.mkdirs();
-        }
-        //设置自定义照片的名字
-        String fileNames = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-        mFilePath = mFilePath + "/" + fileNames + ".jpg";
-        path1 = mFilePath;
-        fileName=fileNames + ".jpg";
-        File outFile = new File(mFilePath);
-        Uri uri = Uri.fromFile(outFile);
-        //拍照
+    private void useCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        String fileNames = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+
+        mFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+
+                AppConstants.PATH+"/" + fileNames + ".jpg");
+        mFile.getParentFile().mkdirs();
+        path1 = mFile.getAbsolutePath();
+        fileName=fileNames + ".jpg";
+        //改变Uri  com.xykj.customview.fileprovider注意和xml中的一致
+        Uri uri = FileProvider.getUriForFile(this, "com.xykj.customview.fileprovider", mFile);
+        //添加权限
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(intent, 1);
-
     }
 
     private void setListener() {
@@ -128,17 +125,12 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
         imageViewCamera.setImageResource(R.mipmap.beijing_1);
         BitmapFactory.Options options = new BitmapFactory.Options();
         if (requestCode == 1&&options!=null) {
-            File file=new File(path1);
-            if(!file.isFile()){
-                return;
-            }
-            Bitmap bitmapCopy=BitmapFactory.decodeFile(path1,options).copy(Bitmap.Config.ARGB_4444,true);
-            imageViewCamera.setImageBitmap(bitmapCopy);// 将图片显示在ImageView里
+            imageViewCamera.setImageBitmap(BitmapFactory.decodeFile(mFile.getAbsolutePath()));
+            path1=mFile.getAbsolutePath();
         }
     }
 }

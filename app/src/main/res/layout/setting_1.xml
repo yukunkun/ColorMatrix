@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimens_100">
         <ImageView
-            android:src="@mipmap/tool_icon"
+            android:src="@mipmap/tool_icon_black"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />

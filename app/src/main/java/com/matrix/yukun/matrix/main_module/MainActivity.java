@@ -133,6 +133,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private VerticalSeekBar mVerticalSeekBar;
     private ImageView mIvRotate;
     private ImageView mIvMorebig;
+    private int width;
+    private int height;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -223,6 +225,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         int posmore = event.pos;
         detailBitmap(posmore);
 
+
     }
 
     private void detailBitmap(int posmore) {
@@ -289,6 +292,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 mBitRotate=result;//旋转的Bitmap
                 Bitmap bitmap= ImageUtils.compressBitmap(result);//图片处理,压缩大小
                 mBitCompress= BitmapUtil.mTempBit(bitmap);
+                ViewGroup.LayoutParams layoutParams=imageViewTest.getLayoutParams();
+                layoutParams.width=width;
+                layoutParams.height=height;
+                imageViewTest.setLayoutParams(layoutParams);
             }
 //            textView.setVisibility(View.GONE);
         }
@@ -303,7 +310,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ColorMatrix colorMatrix = BitmapUtil.matrixTrans(pos);
         handleColorRotateBmp(colorMatrix, mBitPath) ;
     }
-
+    //图片回调
     @Subscribe(threadMode=ThreadMode.MAIN)
     public void getDetail(EventDetail event){
         path = event.path;
@@ -390,7 +397,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         imageViewTest.setImageBitmap(bitmap);
         mBitCompress= BitmapUtil.mTempBit(bitmap);
         mBitSeek=bitmap;//进度的Bitmap
-        mTvRotate.setText((rotate+1)%4*90+"°");
+        mTvRotate.setText(90+roate%4*90+"°");
     }
 
     private void setListener() {
@@ -461,34 +468,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intentSet);
                 overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 break;
-//            case R.id.shareimage:
-                //分享
-//                File destDir= FileUtil.createFile();
-//                if(photoName==null||photoName.length()==0){
-//                    Toast.makeText(MainActivity.this, "请先选择图片", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                final File f = new File(destDir, photoName);
-//                Toast.makeText(MainActivity.this, "正在下载...", Toast.LENGTH_SHORT).show();
-//                flag=false;
-//                imageViewTest.setProgress(0);
-//                bitmap = ImageUtils.createViewBitmap(layoutContain, layoutContain.getWidth(), layoutContain.getHeight());
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        FileUtil.loadImage(bitmap,photoName);
-//                        handler.post(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                Toast.makeText(MainActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
-//                                share(f.getPath());
-//                                flag=true;
-//                                setColor();
-//                            }
-//                        });
-//                    }
-//                }).start();
-//                break;
             case R.id.loadimage:
                 flag=false;
                 //load
@@ -602,18 +581,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     return;
                 }
                 Bitmap bitmap = BitmapUtil.bigBitmap(mBitRotate,progress/10f+0.1f,progress/10f+0.1f);
+
                 ViewGroup.LayoutParams layoutParams=imageViewTest.getLayoutParams();
                 layoutParams.width=bitmap.getWidth();
                 layoutParams.height=bitmap.getHeight();
                 imageViewTest.setLayoutParams(layoutParams);
+                width=bitmap.getWidth();
+                height=bitmap.getHeight();
                 imageViewTest.setImageBitmap(null);
                 imageViewTest.setImageBitmap(bitmap);
                 mBitCompress= BitmapUtil.mTempBit(bitmap);
                 mBitSeek=bitmap;//进度的Bitmap
-                mBitOrigin=bitmap;
                 mBitPath=bitmap;
-
-
             }
 
             @Override
