@@ -151,7 +151,7 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
 
     @Override
     public void getLifeInfo(WeaLifePoint weaLifePoint) {
-        if(weaLifePoint.getHeWeather6().get(0).getStatus()!="ok"){
+        if(!weaLifePoint.getHeWeather6().get(0).getStatus().equals("ok")){
             return;
         }
         confAir.setText(weaLifePoint.getHeWeather6().get(0).getLifestyle().get(0).getBrf());

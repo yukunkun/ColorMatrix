@@ -42,7 +42,7 @@ public class RecyclerTomorrowAdapter extends RecyclerView.Adapter<RecyclerView.V
         ((MyHolder)holder).textViewJiangshui.setText("降水:"+castBean.getPop()+"mm");
         ((MyHolder)holder).textViewQiya.setText("气压:"+castBean.getPres());
         ((MyHolder)holder).textViewFengxiang.setText(castBean.getWind_dir()+":"+castBean.getWind_sc());
-//        ((MyHolder)holder).textViewRichu.setText("日出:"+castBean.getAstro().getSr()+"h");
+        ((MyHolder)holder).textViewRichu.setText("日出:"+castBean.getSr()+"h");
         ((MyHolder)holder).textViewNengjiandu.setText("能见度:"+castBean.getVis());
     }
 

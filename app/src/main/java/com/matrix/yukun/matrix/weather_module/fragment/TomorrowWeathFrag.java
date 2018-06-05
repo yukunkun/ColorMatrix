@@ -209,6 +209,9 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
 
     @Override
     public void getInfo(WeaTomorrow weaTomorrow) {
+        if(!weaTomorrow.getHeWeather6().get(0).getStatus().equals("ok")){
+            return;
+        }
         WeaTomorrow.HeWeather6Bean.BasicBean basic = weaTomorrow.getHeWeather6().get(0).getBasic();
         WeaTomorrow.HeWeather6Bean.UpdateBean update = weaTomorrow.getHeWeather6().get(0).getUpdate();
         WeaTomorrow.HeWeather6Bean.DailyForecastBean castBean = weaTomorrow.getHeWeather6().get(0).getDaily_forecast().get(0);

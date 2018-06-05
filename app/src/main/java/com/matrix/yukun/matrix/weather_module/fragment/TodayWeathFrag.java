@@ -217,6 +217,9 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
 
     @Override
     public void getInfo(WeaNow weaNow) {
+        if(!weaNow.getHeWeather6().get(0).getStatus().equals("ok")){
+            return;
+        }
         WeaNow.HeWeather6Bean.BasicBean basic = weaNow.getHeWeather6().get(0).getBasic();
         WeaNow.HeWeather6Bean.NowBean now = weaNow.getHeWeather6().get(0).getNow();
         WeaNow.HeWeather6Bean.UpdateBean update = weaNow.getHeWeather6().get(0).getUpdate();
