@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ColorMatrix.iml" filepath="$PROJECT_DIR$/ColorMatrix.iml" />
-      <module fileurl="file://D:\project\ColorMatrix\Matrix.iml" filepath="D:\project\ColorMatrix\Matrix.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/pluglin_video/pluglin_video.iml" filepath="$PROJECT_DIR$/pluglin_video/pluglin_video.iml" />
     </modules>

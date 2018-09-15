@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import okhttp3.Call;
@@ -96,8 +97,10 @@ public class JokeFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 jokeInfoList.clear();
+                Random random=new Random();
+                int nextInt = random.nextInt(30);
                 mJokeAdapter.notifyDataSetChanged();
-                page=1;
+                page=nextInt;
                 getInfo();
                 mSw.setRefreshing(false);
             }
@@ -138,11 +141,13 @@ public class JokeFragment extends BaseFragment {
     }
 
     private void getInfo() {
+        Random random=new Random();
+        int nextInt = random.nextInt(30);
         NetworkUtils.networkGet(url)
                 .addParams("key", NetworkUtils.APPKEY)
                 .addParams("time", mTime + "")
                 .addParams("sort", "desc")
-                .addParams("page", page + "")
+                .addParams("page", nextInt + "")
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {

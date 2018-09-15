@@ -94,6 +94,8 @@ public class PlayFragment extends BaseFragment {
     private ImageFragment mInstance3;
     private JokeFragment mInstance4;
     private TextFragment mInstance5;
+    private SpecialTxtFragment mInstance2;
+    private RecFragment mInstance;
 
     public static PlayFragment getInstance() {
         PlayFragment playFragment = new PlayFragment();
@@ -112,15 +114,15 @@ public class PlayFragment extends BaseFragment {
         for (int i = 0; i < mStringArray.length; i++) {
             mTablayout.addTab(mTablayout.newTab().setText(mStringArray[i]));
         }
-        RecFragment instance = RecFragment.getInstance();
+        mInstance = RecFragment.getInstance();
         mInstance1 = VideoFragment.getInstance();
-        SpecialTxtFragment instance2 = SpecialTxtFragment.getInstance();
+//        mInstance2 = SpecialTxtFragment.getInstance();
         mInstance3 = ImageFragment.getInstance();
         mInstance4 = JokeFragment.getInstance();
         mInstance5 = TextFragment.getInstance();
-        mFragments.add(instance);
+        mFragments.add(mInstance);
         mFragments.add(mInstance1);
-        mFragments.add(instance2);
+//        mFragments.add(mInstance2);
         mFragments.add(mInstance3);
         mFragments.add(mInstance4);
         mFragments.add(mInstance5);
@@ -162,7 +164,7 @@ public class PlayFragment extends BaseFragment {
             @Override
             public void onPageSelected(int position) {
                 mTablayout.setScrollPosition(position, 0, true);
-                if (position == 0 || position == 2 || position == 3 || position == 4) {
+                if (position == 0 || position == 3) {
                     mIvSetting.setVisibility(View.GONE);
                 } else {
                     mIvSetting.setVisibility(View.VISIBLE);
@@ -190,13 +192,13 @@ public class PlayFragment extends BaseFragment {
                     if (mViewpager.getCurrentItem() == 1) {
                         mInstance1.getLayoutTag(true);
                     }
-                    if (mViewpager.getCurrentItem() == 3) {
+                    if (mViewpager.getCurrentItem() == 2) {
                         mInstance3.getLayoutTag(true);
                     }
-                    if (mViewpager.getCurrentItem() == 4) {
+                    if (mViewpager.getCurrentItem() == 3) {
                         mInstance4.getLayoutTag(true);
                     }
-                    if (mViewpager.getCurrentItem() == 5) {
+                    if (mViewpager.getCurrentItem() == 4) {
                         mInstance5.getLayoutTag(true);
                     }
                     break;
@@ -205,13 +207,13 @@ public class PlayFragment extends BaseFragment {
                     if (mViewpager.getCurrentItem() == 1) {
                         mInstance1.getLayoutTag(false);
                     }
-                    if (mViewpager.getCurrentItem() == 3) {
+                    if (mViewpager.getCurrentItem() == 2) {
                         mInstance3.getLayoutTag(false);
                     }
-                    if (mViewpager.getCurrentItem() == 4) {
+                    if (mViewpager.getCurrentItem() == 3) {
                         mInstance4.getLayoutTag(false);
                     }
-                    if (mViewpager.getCurrentItem() == 5) {
+                    if (mViewpager.getCurrentItem() == 4) {
                         mInstance5.getLayoutTag(false);
                     }
                     break;

@@ -4,18 +4,32 @@ import android.animation.ObjectAnimator;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.ykk.pluglin_video.R;
 import com.ykk.pluglin_video.BaseActivity;
 import com.ykk.pluglin_video.R2;
+import com.ykk.pluglin_video.entity.NewsInfo;
+import com.ykk.pluglin_video.netutils.NetworkUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.Call;
 
 public class AboutUsActivity extends BaseActivity {
 

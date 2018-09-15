@@ -92,7 +92,6 @@ public class MyCollectFragment extends BaseFragment {
         if (i == R.id.iv_back) {
         } else if (i == R.id.tv_deal) {
             delete();
-
         }
     }
 
