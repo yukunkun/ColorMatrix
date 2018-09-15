@@ -206,17 +206,14 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             if (i == R.id.tv_video) {
                 mCategroyCallBack.choosePos(1);
 
-            } else if (i == R.id.tv_txt) {
+            } else if (i == R.id.tv_image) {
                 mCategroyCallBack.choosePos(2);
 
-            } else if (i == R.id.tv_image) {
+            } else if (i == R.id.tv_joke) {
                 mCategroyCallBack.choosePos(3);
 
-            } else if (i == R.id.tv_joke) {
-                mCategroyCallBack.choosePos(4);
-
             } else if (i == R.id.tv_essay) {
-                mCategroyCallBack.choosePos(5);
+                mCategroyCallBack.choosePos(4);
 
             }
         }
