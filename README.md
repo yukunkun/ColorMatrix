@@ -38,7 +38,7 @@
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'com.android.support:design:23.2.1'
-    compile 'com.android.support:recyclerview-v7:23.2.1'
+    compile 'com.android.support:recyclerview-v7:23.2.1' 
     compile 'com.android.support:cardview-v7:23.2.1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'cn.jiguang.sdk:jcore:1.1.0'
