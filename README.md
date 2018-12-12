@@ -1,4 +1,7 @@
 #  ColorMatrix 的使用
+
+## [VideoSpecial](https://github.com/yukunkun/VideoSpecial) 这里是`ColorMatrix`迁移的项目，在原项目的基础上做了很多的改变，功能更加的饱满
+
 ##  在应用宝上可以搜索下载APP MatrixPhoto,就是基于这个 　
 ####  功能主要来至于 [自定义控件三部曲之绘图篇（八）——Paint之ColorMatrix与滤镜效果](http://blog.csdn.net/harvic880925/article/details/51187277)
 ####  这里主要使用了ColorMatrix这个类   
