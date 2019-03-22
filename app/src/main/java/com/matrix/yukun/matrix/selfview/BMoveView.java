@@ -13,26 +13,21 @@ import android.view.animation.LinearInterpolator;
 
 import com.matrix.yukun.matrix.R;
 
-
 /**
- * Created by yukun on 17-4-27.
+ * Created by yukun on 18-11-12.
  */
 public class BMoveView extends View {
 
     private int mWidth;
     private int mHeight;
-    private Paint mPaint=new Paint();
+    private Paint mPaint;
+    private Paint mPaintLine;
     private RectF mRectF;
-    private int boardWidth=50;
-    private int maxCircle=360;
+    private int mBoardWidth=50;
     private int firstPos;  //第一次点击位置
-    private int lastPos;  //第二次点击位置
-    private int lineControl; //下面控制线条的起始位置
-
     private int mRoationx=0;
-
-    private int radio=5;
-    private int position=0;//点击到了那个button
+    private int mRadio=5;
+    private int position=0;//点击到的button位置
     private int mLineEndLength;
     private int mLineLength;
     private int mCircleColor;
@@ -41,59 +36,8 @@ public class BMoveView extends View {
     private int mLineWidth;
     private int mCircleDuration;
     private int mCircleCenterColor;
-    private int mCircleRadio;
-
-    public void setTwoPos(int firstPos,int lastPos) {
-        this.firstPos = firstPos;
-        this.lastPos=lastPos;
-        devidePos();
-    }
-
-    //判断两次的位置,选择不同动画
-    private void devidePos() {
-        setRoationx(0);
-        if(firstPos==0){
-            if(lastPos==1){
-                leftToRigth(lastPos, 1);
-            } else if(lastPos==2){
-                leftToRigth(lastPos, 2);
-            }
-        }else if(firstPos==1){
-            if(lastPos==0){
-                leftToRigth(lastPos, -1);
-            } else if(lastPos==2){
-                leftToRigth(lastPos, 1);
-            }
-        }
-        else if(firstPos==2){
-            if(lastPos==0){
-                leftToRigth(lastPos, -2);
-            } else if(lastPos==1){
-                leftToRigth(lastPos, -1);
-            }
-        }
-    }
-
-    /**
-     *
-     * @param lastPos 上一次的位置
-     * @param startLineineLastPosition 正为向右,负为想左,如果是1.则跨度为一,如果是2,则跨度为2;
-     */
-    private void leftToRigth(int lastPos, int startLineineLastPosition) {
-        setPosition(lastPos);
-        startAnim();
-        lineControl=lastPos-startLineineLastPosition;//下面控制线条的起始位置
-        startLineAnim(startLineineLastPosition);
-        startLineEndAnim(startLineineLastPosition);
-    }
-
-    public void setRoationx(int roationx) {
-        mRoationx = roationx;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
+    private int mCirclemRadio;
+    private int mButonCount;
 
     public BMoveView(Context context) {
         super(context);
@@ -138,13 +82,49 @@ public class BMoveView extends View {
                     mCircleDuration = a.getInt(attr,500);
                     break;
                 case R.styleable.BMoveView_circleRadio:
-                    mCircleRadio = a.getInt(attr,500);
+                    mCirclemRadio = a.getInt(attr,500);
+                    break;
+                case R.styleable.BMoveView_buttonCount:
+                    mButonCount = a.getInt(attr,3);
                     break;
             }
         }
         a.recycle();
-        boardWidth=dip2px(context,mCircleRadio);
-        radio=dip2px(context,mLineWidth);
+        mBoardWidth=dip2px(context,mCirclemRadio);
+        mRadio=dip2px(context,mLineWidth);
+        mPaint=new Paint();
+        mPaintLine = new Paint();
+    }
+
+    /**
+     * 初始化第一次的位置
+     * @param firstPos
+     * @param lastPos
+     */
+    public void setTwoPos(int firstPos,int lastPos) {
+        this.firstPos = firstPos;
+        this.position=lastPos;
+        this.mRoationx = 0;
+        //动画的方法 （lastPos-firstPos）两次相减得到需要移动的距离
+        leftToRigth(lastPos - firstPos);
+    }
+    /**
+     * button个数
+     * @param butonCount
+     */
+
+    public void setButonCount(int butonCount) {
+        mButonCount = butonCount;
+    }
+
+    /**
+     *
+     * @param startLineLastPosition 正为向右,负为想左,如果是1.则跨度为一,如果是2,则跨度为2;
+     */
+    private void leftToRigth(int startLineLastPosition) {
+        startAnim();
+        startLineAnim(startLineLastPosition);
+        startLineEndAnim(startLineLastPosition);
     }
 
     @Override
@@ -165,28 +145,29 @@ public class BMoveView extends View {
         //画弧度
         mPaint.setColor(mCircleColor);
         mPaint.setAntiAlias(true);
-        mPaint.setStyle(Paint.Style.FILL);
-        //位置计算比较麻烦,用比例
-        mRectF=new RectF(mWidth/6-boardWidth+position*mWidth/3,mHeight/2-boardWidth,mWidth/6+boardWidth+position*mWidth/3,mHeight/2+boardWidth);
-        canvas.drawArc(mRectF,90,mRoationx,true,mPaint);
+        mPaint.setStrokeWidth(mRadio);
+        mPaint.setStyle(Paint.Style.STROKE);//只有边
+        //画圆弧的矩形位置
+        mRectF=new RectF(mWidth/(mButonCount*2)-mBoardWidth+position*mWidth/mButonCount,mHeight/2-mBoardWidth,mWidth/(mButonCount*2)+mBoardWidth+position*mWidth/mButonCount,mHeight/2+mBoardWidth);
+        canvas.drawArc(mRectF,90,mRoationx,false,mPaint);
         //画圆覆盖
-        mPaint.reset();
-        mPaint.setColor(mCircleCenterColor);
-        mPaint.setAntiAlias(true);
-        mPaint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(mWidth/6+(position)*mWidth/3,mHeight/2,boardWidth-radio,mPaint);
+        mPaintLine.setColor(Color.BLUE);
+        mPaintLine.setAntiAlias(true);
+        mPaintLine.setStyle(Paint.Style.FILL);
+        //可以画内圆圈的颜色
+//        canvas.drawArc(mRectF,90,mRoationx,true,mPaintLine);
         //画线条
-        mPaint.setColor(mLineColor);
-        mPaint.setStrokeWidth(radio);
+        mPaintLine.setColor(mLineColor);
+        mPaintLine.setStrokeWidth(mRadio);
         //起始和结束不同,每次动画结束位置是相同的,控制起始点和结束点
-        canvas.drawLine(mWidth/6+lineControl*mWidth/3+mLineEndLength,mHeight/2+boardWidth-radio/2,mWidth/6+lineControl*mWidth/3+mLineLength,mHeight/2+boardWidth-radio/2, mPaint);
+        canvas.drawLine(mWidth/(mButonCount*2)+firstPos*mWidth/mButonCount+mLineEndLength,mHeight/2+mBoardWidth,mWidth/(mButonCount*2)+firstPos*mWidth/mButonCount+mLineLength,mHeight/2+mBoardWidth, mPaintLine);
     }
 
     //圆圈的动画
     public void startAnim(){
-        ValueAnimator animator = ValueAnimator.ofInt(0,maxCircle);
+        ValueAnimator animator = ValueAnimator.ofInt(0,360);
         animator.setDuration(mCircleDuration);
-        animator.setStartDelay(mLineDuration);
+        animator.setStartDelay(mCircleDuration);
         animator.setInterpolator(new LinearInterpolator());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -197,9 +178,10 @@ public class BMoveView extends View {
         });
         animator.start();
     }
+
     //线条开始的动画
-    public void startLineAnim(int startLineineLastPosition){
-        ValueAnimator animator = ValueAnimator.ofInt(0,(mWidth/3)*startLineineLastPosition);
+    private void startLineAnim(int startLineLastPosition){
+        ValueAnimator animator = ValueAnimator.ofInt(0,(mWidth/mButonCount)*startLineLastPosition);
         animator.setDuration(mLineDuration);
         animator.setInterpolator(new LinearInterpolator());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -211,9 +193,10 @@ public class BMoveView extends View {
         });
         animator.start();
     }
+
     //线条结束的动画
-    public void startLineEndAnim(int endLineineLastPosition){
-        ValueAnimator animator = ValueAnimator.ofInt(0,(mWidth/3)*endLineineLastPosition);
+    private void startLineEndAnim(int startLineLastPosition){
+        ValueAnimator animator = ValueAnimator.ofInt(0,(mWidth/mButonCount)*startLineLastPosition);
         animator.setDuration(mCircleDuration);
         animator.setInterpolator(new LinearInterpolator());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -225,7 +208,8 @@ public class BMoveView extends View {
         });
         animator.start();
     }
-    public static int dip2px(Context context, float dpValue) {
+
+    private static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }

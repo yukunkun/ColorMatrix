@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".gif_module.activity.ChooseImageActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_50">
+        <TextView
+            android:text="相册"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/color_black"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_back"
+            android:padding="@dimen/dimens_8"
+            android:src="@mipmap/joke_back"
+            android:layout_width="@dimen/dimens_50"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_complete"
+            android:text="完成(0)"
+            android:layout_marginRight="@dimen/dimens_5"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/color_eaffd9"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_bfbfbf"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

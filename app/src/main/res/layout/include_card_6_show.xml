@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_b1697ffa"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_height="@dimen/dimens_50">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ci"
+                android:layout_marginLeft="@dimen/dimens_5"
+                android:padding="@dimen/dimens_10"
+                android:src="@mipmap/tool_icon_black"
+                android:layout_width="@dimen/dimens_50"
+                android:layout_height="@dimen/dimens_50" />
+            <TextView
+                android:text="Matrix Photo"
+                android:textSize="14sp"
+                android:textColor="@color/color_text"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/ci"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <include layout="@layout/include_line_no_marg"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp">
+            <RelativeLayout
+                android:id="@+id/rl"
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
+                android:layout_height="@dimen/dimens_50">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/header"
+                    android:padding="@dimen/dimens_8"
+                    android:src="@mipmap/snail_image"
+                    android:layout_width="@dimen/dimens_50"
+                    android:layout_height="@dimen/dimens_50" />
+                <LinearLayout
+                    android:layout_toRightOf="@+id/header"
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_tool_con"
+                        android:text="强烈推荐"
+                        android:textSize="12sp"
+                        android:textColor="@color/color_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_below="@+id/tv_tool_con"
+                        android:text="集娱乐生活工具"
+                        android:textSize="12sp"
+                        android:textColor="@color/color_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </RelativeLayout>
+            <TextView
+                android:layout_below="@+id/rl"
+                android:layout_width="wrap_content"
+                android:text="扫一扫,你就知道"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/dimens_20"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_marginBottom="@dimen/dimens_10"
+                android:layout_marginRight="@dimen/dimens_10"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/iv_green"
+                android:src="@drawable/blue_app_store"
+                android:layout_width="@dimen/dimens_120"
+                android:layout_height="@dimen/dimens_120" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,22 +1,23 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'com.android.library'
-//apply plugin: 'com.jakewharton.butterknife'
-//apply plugin: 'android-apt'
+apply plugin: 'com.mob.sdk'
 apply plugin: 'com.jakewharton.butterknife'
 
 
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
+    def currentVersionCode = getVersionCode()
+    def currentVersionName = getVersionName()
+
     defaultConfig {
         applicationId "com.matrix.yukun.matrix"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 17
-        versionName "2.8.1 版"
+        versionCode currentVersionCode
+        versionName currentVersionName
         ndk {
             //设置支持的SO库架构
-            abiFilters 'armeabi' , 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+            abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
         multiDexEnabled true
 
@@ -35,51 +36,131 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dexOptions {
+        jumboMode = true
+        javaMaxHeapSize "4g"
+    }
 
-
-//    configurations {
-//        all*.exclude group: 'com.android.support', module: 'support-v4'
-//    }
+}
+MobSDK {
+    appKey "28c93db53e68e"
+    appSecret "93992a55fb6f7a45a0a73ebadd5bc5ec"
+    gui false
+    ShareSDK {
+        //平台配置信息
+        devInfo {
+            QQ {
+                appId "1105962710"
+                appKey "6Iw3OhfBgSDw8ef7"
+                shareByAppClient true
+            }
+            QZone {
+                appId "1105962710"
+                appKey "6Iw3OhfBgSDw8ef7"
+                shareByAppClient true
+            }
+        }
+    }
 }
 
+/**
+ * 版本号
+ * @return
+ */
+def getVersionCode() {// 获取版本号
+    def versionFile = file('version.properties')// 读取第一步新建的文件
+    if (versionFile.canRead()) {// 判断文件读取异常
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionFile))
+        def versionCode = versionProps['VERSION_CODE'].toInteger()// 读取文件里面的版本号
+        def runTasks = gradle.startParameter.taskNames
+        if ('assembleRelease' in runTasks) {//仅在assembleRelease任务是增加版本号,其他渠道包在此分别配置
+            // 版本号自增之后再写入文件（此处是关键，版本号自增+1）
+            versionProps['VERSION_CODE'] = (++versionCode).toString()
+            versionProps.store(versionFile.newWriter(), null)
+        }
+        return versionCode // 返回自增之后的版本号
+    } else {
+        throw new GradleException("Could not find version.properties!")
+    }
+}
+
+/**
+ * 版本名字
+ * @return
+ */
+def getVersionName() {
+    def versionFile = file('version.properties')// 读取第一步新建的文件
+    if (versionFile.canRead()) {// 判断文件读取异常
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionFile))
+        def versionCode = "2.8." + versionProps['VERSION_CODE'].toString() + "版"// 读取文件里面的版本号
+        def runTasks = gradle.startParameter.taskNames
+        if ('assembleRelease' in runTasks) {//仅在assembleRelease任务是增加版本号,其他渠道包在此分别配置
+            // 版本号自增之后再写入文件（此处是关键，版本号自增+1）
+//            versionProps['VERSION_CODE'] = (++versionCode).toString()
+//            versionProps.store(versionFile.newWriter(), null)
+        }
+        return versionCode // 返回自增之后的版本号
+    } else {
+        throw new GradleException("Could not find version.properties!")
+    }
+}
+
+
 dependencies {
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.github.bumptech.glide:glide:3.5.2'
-    compile 'com.android.support:design:26.1.0'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'com.android.support:cardview-v7:26.1.0'
-    compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'cn.jiguang.sdk:jcore:1.1.0'
-    compile files('libs/GDTUnionSDK.4.9.542.min.jar')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.github.bumptech.glide:glide:3.5.2'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'cn.jiguang.sdk:jcore:1.1.0'
     //bugly
-    //    compile 'com.tencent.bugly:crashreport:latest.release'
-    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
-    compile 'com.edmodo:cropper:1.0.1'
-    compile 'com.github.castorflex.smoothprogressbar:library-circular:1.0.1'
+    implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    implementation 'com.edmodo:cropper:1.0.1'
+    implementation 'com.github.castorflex.smoothprogressbar:library-circular:1.0.1'
     // rxjava的相关
-    compile 'io.reactivex:rxjava:1.2.1'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'io.reactivex:rxjava:1.2.1'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     //butterknife
-    compile 'com.jakewharton:butterknife:8.4.0'
+    implementation 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-//    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'jp.wasabeef:glide-transformations:2.0.1'
-    compile 'me.everything:overscroll-decor-android:1.0.4'
-    compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
-    //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    compile 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:0.7.0'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.haozhang.libary:android-slanted-textview:1.2'
-    compile 'com.getbase:floatingactionbutton:1.10.1'
-    compile 'com.github.chrisbanes.photoview:library:1.2.4'
-    compile files('libs/Msc.jar')
-    compile files('libs/Sunflower.jar')
-    compile project(':pluglin_video')
+    implementation 'jp.wasabeef:glide-transformations:2.0.1'
+    implementation 'me.everything:overscroll-decor-android:1.0.4'
+    implementation 'com.github.mcxtzhang:PathAnimView:V1.0.0'
+    implementation 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:0.7.0'
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.haozhang.libary:android-slanted-textview:1.2'
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
+    implementation 'com.github.chrisbanes.photoview:library:1.2.4'
+    implementation 'com.isanwenyu.highlight:highlight:1.8.0'
+    implementation 'org.litepal.android:core:1.6.0'
+    implementation 'com.zhy:okhttputils:2.6.2'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.bigkoo:convenientbanner:2.0.5'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.4-6'
+    implementation 'com.google.zxing:core:3.3.0'
+    implementation 'com.jrummyapps:colorpicker:2.1.6'
+    implementation 'com.android.support:palette-v7:24.2.1'
+    implementation 'com.wang.avi:library:2.1.3'
+    implementation 'joda-time:joda-time:2.9.4'
+    implementation 'com.contrarywind:Android-PickerView:4.1.6'
+    implementation 'jp.wasabeef:blurry:3.0.0'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
+//    compile 'com.googlecode.mp4parser:isoparser:1.1.21' //videocompressor里有这个jar包
+    implementation files('libs/Msc.jar')
+    implementation files('libs/Sunflower.jar')
+    implementation project(':pluglin_special')
+    implementation files('libs/android-query-full.0.26.7.jar')
+    implementation files('libs/ZBarDecoder.jar')
+    implementation project(path: ':Photoeditor')
+    implementation project(path: ':videocompressor')
+
 }

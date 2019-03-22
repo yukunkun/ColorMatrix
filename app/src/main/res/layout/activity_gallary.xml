@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".gif_module.activity.GallaryActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_50">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:padding="@dimen/dimens_8"
+            android:src="@mipmap/joke_back"
+            android:layout_width="@dimen/dimens_50"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textSize="18sp"
+            android:text="预览图片"
+            android:layout_centerInParent="true"
+            android:textColor="@color/color_282828"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_comp"
+            android:textSize="16sp"
+            android:text="完成"
+            android:layout_marginRight="@dimen/dimens_10"
+            android:layout_alignParentRight="true"
+            android:textColor="@drawable/selector_qrcode_product"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

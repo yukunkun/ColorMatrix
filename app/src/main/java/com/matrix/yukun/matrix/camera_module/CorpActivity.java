@@ -4,14 +4,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import com.edmodo.cropper.CropImageView;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.bean.EventByte;
+import com.matrix.yukun.matrix.constant.EventByte;
 
 import org.greenrobot.eventbus.EventBus;
 

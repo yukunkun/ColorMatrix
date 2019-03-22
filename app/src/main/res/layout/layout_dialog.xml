@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:background="#9b9b9b"
     android:orientation="vertical">
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -79,6 +78,20 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="取消" />
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#cccccc" />
+
+        <TextView
+            android:id="@+id/tv_del"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_btn"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="删除" />
 
         <TextView
             android:layout_width="1dp"

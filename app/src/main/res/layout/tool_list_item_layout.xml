@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:background="@color/color_b5ffffff"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/ll_contain"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="@dimen/dimens_50">
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_tool_calandar"
+            android:layout_width="@dimen/dimens_30"
+            android:layout_height="@dimen/dimens_30" />
+        <TextView
+            android:id="@+id/tv_tool_name"
+            android:layout_width="match_parent"
+            android:layout_toRightOf="@id/iv_image"
+            android:textColor="@color/color_282828"
+            android:text=""
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dimens_10"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/titlebar_back_icon"
+            android:layout_width="@dimen/dimens_30"
+            android:layout_height="@dimen/dimens_30" />
+    </RelativeLayout>
+    <TextView
+        android:layout_marginLeft="0dp"
+        android:layout_width="match_parent"
+        android:background="@color/color_5a383737"
+        android:layout_gravity="center_vertical"
+        android:layout_height="0.5dp"/>
+</LinearLayout>

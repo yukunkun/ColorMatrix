@@ -17,7 +17,6 @@
             <LinearLayout
                 android:onClick="MovieBack"
                 android:background="?android:attr/actionBarItemBackground"
-                android:id="@+id/academy_back"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
                 <ImageView
@@ -52,6 +51,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
+        android:background="@color/color_black"
         android:id="@+id/mViewPager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"

@@ -4,95 +4,46 @@
     package="com.matrix.yukun.matrix">
 
     <uses-sdk
-        android:minSdkVersion="18"
-        android:targetSdkVersion="25" />
+        android:minSdkVersion="19"
+        android:targetSdkVersion="26" />
 
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COASE_UPDATES" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.READ_SETTINGS" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <!-- 保存资源到SD卡 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     // 极光推送
     // AppKey 0c7613d6df2ec04de1521110
     // Master Secret 5b24a25afcdff0d132af6b75
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    //云点播
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    //live
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
-
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-
-    <!-- 允许程序改变网络连接状态 -->
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <!-- 读取联系人权限，上传联系人需要用到此权限 -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <!-- 配置权限，用来记录应用配置信息 -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-
-    <!-- 允许挂载和反挂载文件系统 -->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <!-- 允许程序向外部存储设备写数据 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 允许程序打开网络套接字 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 允许程序获取网络相关信息 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- 允许程序向外部存储设备写数据 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 允许程序写音频数据 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <!-- 允许程序使用PowerManager WakeLocks以防止处理器休眠或者屏幕锁屏 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!-- 允许程序获取Wifi网络状态信息 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- 允许程序使用设备的camera -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!-- 允许程序使用闪光灯 -->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <!-- 允许程序获得设备信息 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
-    <uses-feature android:name="android.hardware.camera.autofocus" />
     <!-- 声明程序使用camera和自动对焦功能 -->
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MyApp"
@@ -102,11 +53,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:icon, android:theme">
+        tools:replace="android:icon,android:label">
+
+        <!--
+        android:name=".main_module.SplashActivity"
+        .gif_module.activity.GifProActivity
+        -->
         <activity
             android:name=".main_module.SplashActivity"
             android:configChanges="keyboard|screenSize|orientation|layoutDirection"
-            android:launchMode="singleInstance">
+            android:largeHeap="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -136,12 +93,33 @@
                 android:name="android.service.wallpaper"
                 android:resource="@xml/livewallpaper" />
         </service>
+        //下载服务
+        <service android:name=".download_module.service.DownLoadService" />
+        <service android:name=".download_module.service.DownLoadService$InnerService" />
+        <service android:name=".download_module.service.DownloadNotificationService" />
 
+        <activity
+            android:name="cn.sharesdk.tencent.qq.ReceiveActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent100371282" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:theme="@android:style/Theme.Translucent" />
-        <activity android:name=".image_module.activity.PhotoListActivity" />
-        <activity android:name=".image_module.activity.ListDetailActivity" />
+        <activity
+            android:name=".image_module.activity.PhotoListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".image_module.activity.ListDetailActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".BaseActivity" />
         <activity android:name=".main_module.MainActivity" />
         <activity
@@ -152,12 +130,17 @@
             android:name="com.qq.e.comm.DownloadService"
             android:exported="false" />
 
-        <activity android:name=".setting_module.IntroduceActivity" />
-        <activity android:name=".setting_module.AgreeActivity" />
+        <activity
+            android:name=".setting_module.IntroduceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".setting_module.AgreeActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".camera_module.CorpActivity" />
         <activity
             android:name=".camera_module.CameraActivity"
             android:screenOrientation="portrait" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.xykj.customview.fileprovider"
@@ -165,24 +148,195 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/camera"/>
+                android:resource="@xml/camera" />
         </provider>
-        <activity android:name=".movie_module.MovieActivity" />
-        <activity android:name=".movie_module.activity.TopDetailActivity" />
-        <activity android:name=".movie_module.MovieBaseActivity" />
-        <activity android:name=".weather_module.WeatherActivity" />
-        <activity android:name=".setting_module.SettingActivity" />
-        <activity android:name=".setting_module.AboutUsActivity" />
-        <activity android:name=".gesture_module.GestureActivity"></activity>
-        <activity android:name=".main_module.LockActivity"></activity>
-        <activity android:name=".setting_module.PhotoActivity"></activity>
-        <activity android:name=".main_module.FaceActivity"></activity>
+
+        <activity
+            android:name=".movie_module.MovieActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".movie_module.activity.TopDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".movie_module.MovieBaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".weather_module.WeatherActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".setting_module.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".setting_module.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gesture_module.GestureActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main_module.LockActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".setting_module.PhotoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main_module.FaceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".wallpaper_module.WallpaperActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".main_module.CropActivity" />
+        //play
+        <activity
+            android:name=".video_module.video.VideoFileActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".video_module.video.PhotoViewActivity" />
+        <activity
+            android:name=".video_module.video.VideoPlayActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"> <!-- or android:screenOrientation="landscape" -->
+        </activity>
+        <activity
+            android:name=".video_module.video.ProductVideoActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".video_module.play.JokeDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.AboutUsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.ImageDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.MyCollectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.TextDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.HistoryTodayActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".chat_module.ChatActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
-        <activity android:name=".chat_module.ChatPersonActivity"></activity>
-        <activity android:name=".wallpaper_module.WallpaperActivity"></activity>
-        <activity android:name=".main_module.CropActivity"></activity>
-    </application>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.PlayMainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.ToolsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".barrage_module.BarrageActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize|stateAlwaysHidden" />
+        <activity
+            android:name=".calarder_module.activity.CalandarActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".calarder_module.TripartiteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".qrcode_module.QRCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".qrcode_module.QRImageCropActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".qrcode_module.MyQRCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.ShareActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".dictionary_module.DictionaryActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize|stateAlwaysHidden" />
+        <activity
+            android:name=".phone_module.ContactActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.VideoDetailPlayActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.VerticalVideoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.VideoCommentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.ReViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.HistoryPlayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.AttentionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.PersonActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".download_module.DownLoadActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.VideoSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".download_module.MyDownloadActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.BriefVersionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gif_module.activity.GifProActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gif_module.activity.ImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gif_module.activity.GIFVideoClipActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gif_module.activity.ChooseImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gif_module.activity.CropGifImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gif_module.activity.GIFImageProActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gif_module.activity.GallaryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gif_module.activity.GIFActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gif_module.activity.GIFVideoProActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".video_module.play.MyGallaryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gif_module.activity.GifShareActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/gif" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".main_module.SearchActivity"
+                android:theme="@style/Transparent"
+                android:screenOrientation="portrait"/>
+    </application>
 </manifest>

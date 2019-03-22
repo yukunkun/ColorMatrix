@@ -4,5 +4,45 @@
     <string name="aboutus">关于我们</string>
     <string name="wapper">透明壁纸</string>
     <!--<string name="app_name">剪 图</string>-->
+    <string name="hello_world">测试AudioRecord，实现录音功能</string>
+
+    <string name="error_no_sdcard">没有SD卡，无法存储录音数据</string>
+    <string name="error_state_record">正在录音中，请先停止录音</string>
+    <string name="error_unknown">无法识别的错误</string>
+    <string name="about_us">我们是一个集原创作品展示、作品分享、技术合成为一体的，聚合创作人的作品与技术交流平台。
+        通过真正意义上的娱乐实用完美呈现原创者们的优秀创作！
+        通过在线展示、分享、交流，这将助力专业的创作者们随时随地获取灵感，甚至于随手创作，
+        将自己最新的作品分享到平台，与众多的圈内朋友一同交流、学习、进步！
+        创作者主页、作品展示等专业自媒体属性与高质量的素材库和技术教程将使广大的专业用户及爱好者在工作与学习之外实现更多的创作价值与圈内交流
+        ，让创作得以升华并实现其价值！ 我们还将进一步配合忙碌的从业者们完善他们的工作，从获取创作的灵感来改善对美丽的理解，
+        到创作的完成提交，再到线上管理、远程共享交流......基于作品展示与完善的分享机制将使过去繁琐的作品提交与客户审核变得便捷可靠。
+        愿我们在这个平台展现更多的美丽与技术,我们从一而终,对待每一个人,将不留余力。
+    </string>
+    <string name="color_picker">颜色选择</string>
+    <string name="please_enter_msg">请输入文字</string>
+
+    <string name="moren">默认</string>
+    <string name="life">生活</string>
+    <string name="work">工作</string>
+    <string name="other">其它</string>
+    <string name="not_start">未开始</string>
+    <string name="finish">完成</string>
+    <string name="not_finish">过时</string>
+    <string name="share_content">分享是一种快乐，感谢有您的陪伴，让我们更加有动力</string>
+    <string name="title_content">好好扮演自己的角色，走好人生的每一次彩排，Go for it!</string>
+    <string name="load_error">努力加油中 `~`</string>
+    <string name="xinhua_dir">新华字典</string>
+    <string name="internet">网络</string>
+    <string name="more_comment">更多评论</string>
+    <string name="comment">评论</string>
+    <string-array name="calendar_week">
+        <item>日</item>
+        <item>一</item>
+        <item>二</item>
+        <item>三</item>
+        <item>四</item>
+        <item>五</item>
+        <item>六</item>
+    </string-array>
 
 </resources>

@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/back_image"
         android:scaleType="centerCrop"
-        android:src="@mipmap/wea_chuqing"
+        android:src="@mipmap/yintian"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <FrameLayout
@@ -18,12 +18,6 @@
         android:layout_marginBottom="@dimen/dimens_50"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-   <!-- <View
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="51dp"
-        android:background="@color/color_bfbfbf"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>-->
     <RelativeLayout
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
@@ -36,6 +30,7 @@
             yk:lineColor="@color/color_54fa3e"
             yk:lineDuration="150"
             yk:lineWidth="3"
+            yk:buttonCount="3"
             yk:circleDuration="500"
             yk:circleCenterColor="@color/color_ff181818"
             yk:circleRadio="22"

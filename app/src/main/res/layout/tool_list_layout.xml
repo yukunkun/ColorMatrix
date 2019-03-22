@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="@dimen/dimens_10"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_height="1dp"/>
+    <LinearLayout
+        android:background="@color/color_7dffffff"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:background="@color/color_ff2930"
+            android:layout_width="3dp"
+            android:gravity="center_vertical"
+            android:layout_height="30dp" />
+        <TextView
+            android:paddingLeft="@dimen/dimens_10"
+            android:textSize="17sp"
+            android:gravity="center_vertical"
+            android:text="生活助手"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_45" />
+    </LinearLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <com.matrix.yukun.matrix.video_module.views.NoScrolledListView
+        android:id="@+id/listview"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.matrix.yukun.matrix.video_module.views.NoScrolledListView>
+</LinearLayout>

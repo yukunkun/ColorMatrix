@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_img_bg"
+    tools:context=".gif_module.activity.GifProActivity">
+    <ImageView
+        android:id="@+id/iv_back"
+        android:src="@mipmap/joke_back"
+        android:padding="@dimen/dimens_8"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_width="@dimen/dimens_50"
+        android:layout_height="@dimen/dimens_45" />
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:text="GIF"
+        android:textColor="@color/colorAccent"
+        android:typeface="monospace"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp" />
+    <ImageView
+        android:id="@+id/iv_gif"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/icon_tool_gif"
+        android:padding="@dimen/dimens_8"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_width="@dimen/dimens_50"
+        android:layout_height="@dimen/dimens_45" />
+    <View
+        android:background="@color/color_bfbfbf"
+        android:layout_below="@+id/iv_back"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+    </View>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/dimens_45"
+        android:layout_marginRight="@dimen/dimens_45"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.CardView
+            android:id="@+id/card"
+            android:layout_centerInParent="true"
+            app:cardBackgroundColor="@color/colorAccent"
+            app:cardElevation="@dimen/dimens_10"
+            app:cardCornerRadius="@dimen/dimens_8"
+            android:layout_width="match_parent"
+            android:layout_height="290dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="GIF制作"
+                    android:textColor="@color/color_whit"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimens_45" />
+                <include layout="@layout/include_line_no_marg"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/color_whit"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:id="@+id/rl_image"
+                        android:layout_marginTop="@dimen/dimens_60"
+                        android:clickable="true"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:layout_centerInParent="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_centerHorizontal="true"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/iv_image"
+                                android:layout_centerHorizontal="true"
+                                android:src="@mipmap/icon_gif_image"
+                                android:layout_width="@dimen/dimens_35"
+                                android:layout_height="@dimen/dimens_35" />
+                            <TextView
+                                android:text="图片选取"
+                                android:gravity="center"
+                                android:textSize="16sp"
+                                android:textColor="@color/colorAccent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/dimens_10"
+                                android:layout_toRightOf="@+id/iv_image"
+                                android:layout_centerHorizontal="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <View
+                            android:layout_marginTop="@dimen/dimens_40"
+                            android:layout_marginRight="@dimen/dimens_50"
+                            android:layout_marginLeft="@dimen/dimens_50"
+                            android:background="@color/colorAccent"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_video"
+                        android:clickable="true"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:layout_marginTop="@dimen/dimens_10"
+                        android:layout_centerInParent="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_centerHorizontal="true"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_centerHorizontal="true"
+                                android:src="@mipmap/icon_gif_video"
+                                android:layout_width="@dimen/dimens_35"
+                                android:layout_height="@dimen/dimens_35" />
+                            <TextView
+                                android:text="视频选取"
+                                android:gravity="center"
+                                android:textSize="16sp"
+                                android:textColor="@color/colorAccent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/dimens_10"
+                                android:layout_toRightOf="@+id/iv_image"
+                                android:layout_centerHorizontal="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <View
+                            android:layout_marginTop="@dimen/dimens_40"
+                            android:layout_marginRight="@dimen/dimens_50"
+                            android:layout_marginLeft="@dimen/dimens_50"
+                            android:background="@color/colorAccent"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
+</RelativeLayout>

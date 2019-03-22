@@ -1,9 +1,6 @@
 package com.matrix.yukun.matrix.weather_module.present;
 
-import com.google.gson.Gson;
-import com.matrix.yukun.matrix.bean.AppConstants;
-import com.matrix.yukun.matrix.movie_module.present.BasePresentImpl;
-import com.matrix.yukun.matrix.movie_module.present.RetrofitUtils;
+import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.movie_module.util.MovieService;
 import com.matrix.yukun.matrix.movie_module.util.RetrofitApi;
 import com.matrix.yukun.matrix.weather_module.bean.WeaTomorrow;
@@ -13,8 +10,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import rx.Subscriber;
-import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -33,7 +28,7 @@ public class TomorrowPresent implements TomorrowPresentImpl {
     @Override
     public void getTomorrow(String city) {
         Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
-        retrofit.create(MovieService.class).getTomorrows(city, AppConstants.HEWEATHER_KEY)
+        retrofit.create(MovieService.class).getTomorrows(city, AppConstant.HEWEATHER_KEY)
                 .enqueue(new Callback<WeaTomorrow>() {
                     @Override
                     public void onResponse(Call<WeaTomorrow> call, Response<WeaTomorrow> response) {

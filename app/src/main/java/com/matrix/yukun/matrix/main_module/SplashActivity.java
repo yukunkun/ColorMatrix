@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
@@ -15,10 +17,23 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
+import com.example.lyf.yflibrary.PermissionUtil;
+import com.example.pluglin_special.SpecialActivity;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.download_module.service.DownLoadEngine;
+import com.matrix.yukun.matrix.download_module.service.DownLoadService;
+import com.matrix.yukun.matrix.util.PermissionUtils;
+import com.matrix.yukun.matrix.util.log.LogUtil;
+import com.matrix.yukun.matrix.video_module.MyApplication;
+import com.matrix.yukun.matrix.video_module.entity.UserInfo;
+import com.matrix.yukun.matrix.video_module.play.BriefVersionActivity;
+import com.matrix.yukun.matrix.video_module.play.PlayMainActivity;
+import com.matrix.yukun.matrix.video_module.utils.SPUtils;
 import com.qq.e.ads.splash.SplashAD;
 import com.qq.e.ads.splash.SplashADListener;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,35 +61,25 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
     }
 
     private void getPermiss() {
-        List<String> permissingList = new ArrayList<String>();
-        if (ContextCompat.checkSelfPermission(SplashActivity.this,
-                Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED){
-            permissingList.add(Manifest.permission.READ_PHONE_STATE);
-        }
-        if (ContextCompat.checkSelfPermission(SplashActivity.this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            permissingList.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-        }
-        if (ContextCompat.checkSelfPermission(SplashActivity.this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            permissingList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
-        if (ContextCompat.checkSelfPermission(SplashActivity.this,
-                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-            permissingList.add(Manifest.permission.CAMERA);
-        }
-        if(permissingList.size()>0){
-            String[] permissings=permissingList.toArray(new String[permissingList.size()]);
-            ActivityCompat.requestPermissions(SplashActivity.this,permissings,1);
-        }else {
+        final List<String> permissingList = new ArrayList<String>();
+        permissingList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        permissingList.add(Manifest.permission.CAMERA);
+        permissingList.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        permissingList.add(Manifest.permission.READ_PHONE_STATE);
+        permissingList.add(Manifest.permission.READ_CONTACTS);
+        permissingList.add(Manifest.permission.RECORD_AUDIO);
+        final PermissionUtils permissionUtils = PermissionUtils.getInstance(this);
+        List<String> list = permissionUtils.setPermission(permissingList);
+        if(list.size()==0){
             requestAds();
+        }else {
+            permissionUtils.start();
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-
             case 1: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 ) {
@@ -82,7 +87,7 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
                     for (int result : grantResults) {
                         if(result!= PackageManager.PERMISSION_GRANTED){
                             AlertDialog dialog = new AlertDialog.Builder(this)
-                                    .setMessage("需要赋予访问存储的权限，不开启将无法正常工作！且可能被强制退出登录")
+                                    .setMessage("需要赋予权限，不开启将无法正常工作！且可能被强制退出登录")
                                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
@@ -92,7 +97,8 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
                                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            finish();
+//                                            finish();
+                                            requestAds();
                                         }
                                     }).create();
                             dialog.show();
@@ -108,11 +114,16 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
 
     //光告接入
     private void requestAds() {
+        //获取到userinfo
+        List<UserInfo> all = DataSupport.findAll(UserInfo.class);
+        if(all.size()>0){
+            MyApplication.setUserInfo(all.get(0));
+        }
         new SplashAD(this, relativeLayout, appId, adId, new SplashADListener() {
             @Override
             public void onADDismissed() {
                 //显示完毕
-                Log.i("---ads","onADDismissed");
+                LogUtil.i("---ads","onADDismissed");
                 conJump=true;
                 forward();
             }
@@ -120,20 +131,19 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
             @Override
             public void onNoAD(int i) {
                 //加载失败
-                Log.i("---ads","onNoAD:"+i);
+                LogUtil.i("---ads","onNoAD:"+i);
+                conJump=true;
                 forward();
             }
 
             @Override
             public void onADPresent() {
-                Log.i("---ads","onADPresent");
-
+                LogUtil.i("---ads","onADPresent");
             }
 
             @Override
             public void onADClicked() {
-                Log.i("---ads","onADClicked");
-
+                LogUtil.i("---ads","onADClicked");
             }
 
             @Override
@@ -152,14 +162,9 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
     @Override
     protected void onResume() {
         super.onResume();
-        if(conJump){
-            forward();
-        }
-        conJump=true;
     }
 
     private void forward() {
-        Log.i("---conJump",conJump+"");
         if(conJump){
             Intent intent;
             if(!isFace().equals("a")){
@@ -167,12 +172,14 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
             }else if(istrue()){
                 intent=new Intent(this,LockActivity.class);
             }else {
-                intent=new Intent(this,MainActivity.class);
+                if(SPUtils.getInstance().getBoolean("isbrief")){
+                    intent=new Intent(this, BriefVersionActivity.class);
+                }else {
+                    intent=new Intent(this, PlayMainActivity.class);
+                }
             }
             startActivity(intent);
             finish();
-        }else {
-            conJump=false;
         }
     }
 

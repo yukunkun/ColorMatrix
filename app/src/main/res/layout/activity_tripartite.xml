@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout android:background="@color/color_whit"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:background="@color/color_whit"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:fitsSystemWindows="false">
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="false"
+            app:layout_scrollFlags="exitUntilCollapsed">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_all"
+                    android:layout_width="50dp"
+                    android:padding="10dp"
+                    android:src="@mipmap/icon_calandar_all"
+                    android:layout_height="50dp" />
+                <ImageView
+                    android:id="@+id/iv_today"
+                    android:layout_width="50dp"
+                    android:padding="10dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/icon_today"
+                    android:layout_height="50dp" />
+                <TextView
+                    android:id="@+id/tv_calandar"
+                    android:layout_width="wrap_content"
+                    android:text="日历"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerInParent="true"
+                    android:layout_alignBaseline="@+id/iv_today"
+                    android:textColor="@color/color_2c2c2c"
+                    android:textSize="20sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+    <include layout="@layout/layout_schedule" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="20dp"
+        app:backgroundTint ="@color/color_00ff00"
+        app:rippleColor="@color/color_ffe100"
+        app:fabSize="mini"
+        android:src="@mipmap/icon_brush"/>
+
+</android.support.design.widget.CoordinatorLayout>

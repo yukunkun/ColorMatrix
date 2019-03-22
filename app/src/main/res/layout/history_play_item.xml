@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:scaleType="centerCrop"
+            android:transitionName="shareView"
+            android:layout_marginTop="@dimen/dimens_10"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_marginBottom="@dimen/dimens_10"
+            android:layout_width="@dimen/dimens_170"
+            android:layout_height="@dimen/dimens_100" />
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="@dimen/dimens_30"
+            android:layout_marginTop="@dimen/dimens_5"
+            android:src="@mipmap/icon_delete"
+            android:padding="@dimen/dimens_5"
+            android:layout_marginRight="@dimen/dimens_5"
+            android:layout_alignParentRight="true"
+            android:layout_height="@dimen/dimens_30" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:textSize="16sp"
+            android:layout_marginTop="@dimen/dimens_10"
+            android:text=""
+            android:singleLine="true"
+            android:layout_marginRight="@dimen/dimens_45"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_toRightOf="@+id/iv_cover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_des"
+            android:textSize="17sp"
+            android:layout_marginTop="@dimen/dimens_5"
+            android:layout_below="@+id/tv_title"
+            android:text=""
+            android:maxLines="2"
+            android:textColor="@color/color_494949"
+            android:layout_marginRight="@dimen/dimens_10"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_toRightOf="@+id/iv_cover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_time"
+            android:textSize="14sp"
+            android:layout_marginTop="@dimen/dimens_5"
+            android:layout_below="@+id/tv_des"
+            android:text=""
+            android:textColor="@color/colorAccent"
+            android:singleLine="true"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_toRightOf="@+id/iv_cover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+</LinearLayout>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_3e878787"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="50dp">
+        <TextView
+            android:text="背景"
+            android:textColor="@color/color_b5fffffff"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.matrix.yukun.matrix.barrage_module.views.CircleTextView
+            android:id="@+id/ctv_bg"
+            android:layout_marginLeft="20dp"
+            android:layout_width="30dp"
+            app:backColor="#7b7b7b"
+            android:layout_height="30dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="50dp">
+        <TextView
+            android:text="文字颜色"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/color_b5fffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.matrix.yukun.matrix.barrage_module.views.CircleTextView
+            android:id="@+id/ctv_tv_color"
+            android:layout_marginLeft="20dp"
+            android:layout_width="30dp"
+            app:backColor="@color/color_00ff00"
+            android:layout_height="30dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="50dp">
+        <TextView
+            android:text="文字样式"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/color_b5fffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/ctv_style_big"
+            android:text="加粗"
+            android:textColor="@color/color_b3ffffff"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:background="@drawable/shape_text_unselected"
+            android:layout_marginLeft="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <TextView
+            android:id="@+id/ctv_style_xie"
+            android:background="@drawable/shape_text_unselected"
+            android:layout_marginLeft="20dp"
+            android:text="倾斜"
+            android:textColor="@color/color_b3ffffff"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="50dp">
+        <TextView
+            android:text="文字大小"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/color_b5fffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+       <SeekBar
+           android:id="@+id/sb_text_size"
+           android:layout_marginLeft="10dp"
+           android:layout_marginRight="50dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="50dp">
+        <TextView
+            android:text="文字速度"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/color_b5fffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <SeekBar
+            android:id="@+id/sb_text_speed"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="50dp">
+        <TextView
+            android:text="确认"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="@drawable/shape_send_bg"
+            android:layout_marginLeft="10dp"
+            android:textSize="14sp"
+            android:textColor="@color/color_00ff00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

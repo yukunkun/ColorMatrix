@@ -14,7 +14,7 @@ import com.matrix.yukun.matrix.selfview.CropImageView;
 import com.matrix.yukun.matrix.util.BitmapUtil;
 import com.matrix.yukun.matrix.util.ImageUtils;
 import com.matrix.yukun.matrix.util.ScreenUtils;
-import com.ykk.pluglin_video.utils.ToastUtils;
+import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 

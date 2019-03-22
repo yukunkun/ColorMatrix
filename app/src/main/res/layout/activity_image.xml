@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_whit"
+    android:orientation="vertical"
+    tools:context=".gif_module.activity.ImageActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_50">
+        <TextView
+            android:text="选择文件"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/color_black"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_back"
+            android:padding="@dimen/dimens_5"
+            android:src="@mipmap/joke_back"
+            android:layout_width="@dimen/dimens_45"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_bfbfbf"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+    </RelativeLayout>
+    <GridView
+        android:paddingTop="@dimen/dimens_5"
+        android:id="@+id/grideview"
+        android:columnWidth="25dp"
+        android:background="@color/color_63000000"
+        android:numColumns="3"
+        android:layoutAnimation="@anim/layout_anim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

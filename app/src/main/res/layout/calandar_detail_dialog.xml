@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:background="@drawable/shape_detail_calandar"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:background="@color/color_b1697ffa"
+            android:gravity="center"
+            android:text="日程"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/include_line_no_marg"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="10dp"
+                    android:background="@drawable/shape_calandar_left_color_red"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/tv_categray"
+                    android:text="分类"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:textColor="@color/color_2c2c2c"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <LinearLayout
+                    android:paddingLeft="10dp"
+                    android:layout_toRightOf="@+id/tv_categray"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/tv_default"
+                        android:gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_carlandar_type_bg"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp" />
+                </LinearLayout>
+            </RelativeLayout>
+            <include layout="@layout/include_line_no_marg"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="10dp"
+                    android:background="@drawable/shape_calandar_left_color"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:text="标题"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:textColor="@color/color_2c2c2c"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/et_title"
+                    android:layout_toRightOf="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:hint=""
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/shape_carlandar_type_bg"
+                    android:layout_marginRight="20dp"
+                    android:layout_height="35dp" />
+            </RelativeLayout>
+            <include layout="@layout/include_line_no_marg"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="10dp"
+                    android:background="@drawable/shape_calandar_left_color_blue"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/tvs_time"
+                    android:text="时间"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:textColor="@color/color_2c2c2c"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/tv_real_time"
+                    android:text=""
+                    android:layout_toRightOf="@+id/tvs_time"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:textColor="@color/color_8a8a8a"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_toRightOf="@+id/tv_real_time"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:background="@drawable/shape_carlandar_type_bg"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_height="35dp" />
+            </RelativeLayout>
+            <include layout="@layout/include_line_no_marg"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="10dp"
+                    android:background="@drawable/shape_calandar_left_color_yello"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:text="地点"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:textColor="@color/color_2c2c2c"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/tv_please" />
+                <TextView
+                    android:id="@+id/tvs_please"
+                    android:layout_toRightOf="@+id/tv_please"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:hint=""
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/shape_carlandar_type_bg"
+                    android:layout_marginRight="20dp"
+                    android:layout_height="35dp" />
+            </RelativeLayout>
+            <include layout="@layout/include_line_no_marg"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="10dp"
+                    android:background="@drawable/shape_calandar_left_color_green"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:text="日程"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:textColor="@color/color_2c2c2c"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+            <include layout="@layout/include_line_no_marg"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:gravity="start"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/shape_calandar_con"
+                android:layout_marginRight="20dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

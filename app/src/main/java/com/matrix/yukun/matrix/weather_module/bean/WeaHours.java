@@ -147,6 +147,20 @@ public class WeaHours {
             public void setTz(String tz) {
                 this.tz = tz;
             }
+
+            @Override
+            public String toString() {
+                return "BasicBean{" +
+                        "cid='" + cid + '\'' +
+                        ", location='" + location + '\'' +
+                        ", parent_city='" + parent_city + '\'' +
+                        ", admin_area='" + admin_area + '\'' +
+                        ", cnty='" + cnty + '\'' +
+                        ", lat='" + lat + '\'' +
+                        ", lon='" + lon + '\'' +
+                        ", tz='" + tz + '\'' +
+                        '}';
+            }
         }
 
         public static class UpdateBean {
@@ -172,6 +186,14 @@ public class WeaHours {
 
             public void setUtc(String utc) {
                 this.utc = utc;
+            }
+
+            @Override
+            public String toString() {
+                return "UpdateBean{" +
+                        "loc='" + loc + '\'' +
+                        ", utc='" + utc + '\'' +
+                        '}';
             }
         }
 
@@ -299,6 +321,24 @@ public class WeaHours {
             public void setWind_spd(String wind_spd) {
                 this.wind_spd = wind_spd;
             }
+
         }
+
+        @Override
+        public String toString() {
+            return "HeWeather6Bean{" +
+                    "basic=" + basic +
+                    ", status='" + status + '\'' +
+                    ", update=" + update +
+                    ", hourly=" + hourly +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "WeaHours{" +
+                "HeWeather6=" + HeWeather6 +
+                '}';
     }
 }

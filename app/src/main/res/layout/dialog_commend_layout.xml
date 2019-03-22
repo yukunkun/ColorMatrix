@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/rl_layout"
+    android:background="@color/color_4b000000"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/iv_erweima"
+        android:src="@drawable/icon_erweima"
+        android:layout_centerInParent="true"
+        android:layout_width="180dp"
+        android:layout_height="180dp" />
+    <TextView
+        android:layout_below="@+id/iv_erweima"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/color_whit"
+        android:text="打开微信扫一扫，点击下载"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

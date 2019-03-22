@@ -277,6 +277,17 @@ public class ImageUtils {
         return bitmap;
     }
 
+    public static Bitmap createViewBitmap(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bitmap);
+        /** 如果不设置canvas画布为白色，则生成透明 */
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        return bitmap;
+    }
+
 
     public static Bitmap getimage(String srcPath, float hh, float ww) {
         if (hh <= 0 || ww <= 0) {
@@ -512,7 +523,7 @@ public class ImageUtils {
         options.inJustDecodeBounds=true;
         BitmapFactory.decodeFile(path, options);
         //得到这个比例   并赋予option里面的inSampleSize
-        options.inSampleSize = calculateInSampleSizes(options, 320, 480);
+        options.inSampleSize =1 /*calculateInSampleSizes(options, 320, 480)*/;
         //设置为false，即将要生成bitmap对象啦
         options.inJustDecodeBounds = false;
         //有了这个option，我们可以生成bitmap对象了

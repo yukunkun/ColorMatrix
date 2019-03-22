@@ -5,7 +5,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="titlebar">60dp</dimen>
+    <dimen name="dimens_3">3dp</dimen>
     <dimen name="dimens_5">5dp</dimen>
+    <dimen name="dimens_8">8dp</dimen>
     <dimen name="dimens_10">10dp</dimen>
     <dimen name="dimens_12">12dp</dimen>
     <dimen name="dimens_20">20dp</dimen>
@@ -14,19 +16,31 @@
     <dimen name="dimens_35">35dp</dimen>
     <dimen name="dimens_40">40dp</dimen>
     <dimen name="dimens_45">45dp</dimen>
-    <dimen name="dimens_50">55dp</dimen>
+    <dimen name="dimens_50">50dp</dimen>
+    <dimen name="dimens_55">55dp</dimen>
     <dimen name="dimens_60">60dp</dimen>
+    <dimen name="dimens_65">65dp</dimen>
     <dimen name="dimens_70">70dp</dimen>
     <dimen name="dimens_80">80dp</dimen>
     <dimen name="dimens_90">90dp</dimen>
     <dimen name="dimens_100">100dp</dimen>
-    <dimen name="dimens_110">110dp</dimen>
     <dimen name="dimens_120">120dp</dimen>
     <dimen name="dimens_130">130dp</dimen>
     <dimen name="dimens_140">140dp</dimen>
     <dimen name="dimens_150">150dp</dimen>
     <dimen name="dimens_170">170dp</dimen>
+    <dimen name="dimens_190">190dp</dimen>
     <dimen name="dimens_200">200dp</dimen>
+    <dimen name="dimens_210">210dp</dimen>
     <dimen name="dimens_220">220dp</dimen>
     <dimen name="dimens_240">240dp</dimen>
+    <dimen name="dimens_260">260dp</dimen>
+    <dimen name="dimens_280">280dp</dimen>
+
+    <dimen name="week_bar_height">36dp</dimen>
+    <dimen name="week_calendar_height">48dp</dimen>
+    <dimen name="month_calendar_height">288dp</dimen>
+    <dimen name="calendar_min_distance">5dp</dimen>
+    <dimen name="auto_scroll_distance">15dp</dimen>
+    <integer name="calendar_text_size">13</integer>
 </resources>

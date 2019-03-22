@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/iv_image"
+        android:scaleType="centerCrop"
+        android:layout_width="@dimen/dimens_90"
+        android:layout_height="@dimen/dimens_100" />
+    <ImageView
+        android:id="@+id/iv_del"
+        android:src="@mipmap/icon_gif_gif"
+        android:layout_width="@dimen/dimens_20"
+        android:layout_marginTop="@dimen/dimens_8"
+        android:layout_marginRight="@dimen/dimens_8"
+        android:layout_alignParentRight="true"
+        android:layout_height="@dimen/dimens_20" />
+</RelativeLayout>

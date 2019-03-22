@@ -45,7 +45,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
-        return forecastBeen.size();
+        if(forecastBeen!=null){
+            return forecastBeen.size();
+        }else {
+            return 0;
+        }
     }
     class MyHolder extends RecyclerView.ViewHolder {
         TextView textViewTime,textViewTianqi,textViewWendu,textViewShidu,textViewFengxiang

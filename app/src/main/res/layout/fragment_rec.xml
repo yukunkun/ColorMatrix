@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/color_write"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout android:layout_width="match_parent"
+                                                      android:id="@+id/sw"
+                                                      android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
+                                                    android:id="@+id/rv_joke"
+                                                    android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    <RelativeLayout
+        android:id="@+id/rl_remind"
+        android:visibility="visible"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_remind"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/icon_remind_cry"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp" />
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tv_remind"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/iv_remind"
+            android:text="@string/load_error"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_video_contain"
+        android:clickable="true"
+        android:layout_marginBottom="@dimen/dimens_45"
+        android:layout_marginRight="@dimen/dimens_5"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        android:layout_width="190dp"
+        android:layout_height="105dp">
+        <VideoView
+            android:id="@+id/jzps_player"
+            android:transitionName="shareView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            />
+        <ImageView
+            android:id="@+id/iv_close_video"
+            android:padding="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_close_video"
+            android:layout_width="@dimen/dimens_35"
+            android:layout_height="@dimen/dimens_35" />
+        <ImageView
+            android:id="@+id/iv_play_video"
+            android:padding="5dp"
+            android:layout_alignParentBottom="true"
+            android:src="@mipmap/icon_video_play"
+            android:layout_width="@dimen/dimens_35"
+            android:layout_height="@dimen/dimens_35" />
+    </RelativeLayout>
+</RelativeLayout>

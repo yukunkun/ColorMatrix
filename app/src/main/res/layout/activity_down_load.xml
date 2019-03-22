@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_whit"
+    android:orientation="vertical"
+    tools:context=".download_module.DownLoadActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_45">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@mipmap/joke_back"
+            android:padding="@dimen/dimens_5"
+            android:layout_width="@dimen/dimens_45"
+            android:layout_height="match_parent" />
+        <TextView
+            android:text="下载视频"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/color_text"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_more"
+            android:clickable="true"
+            android:layout_alignParentRight="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@mipmap/icon_phone_more"
+            android:padding="@dimen/dimens_8"
+            android:layout_width="@dimen/dimens_45"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="@dimen/dimens_10"
+        android:layout_height="@dimen/dimens_45">
+        <RadioGroup
+            android:id="@+id/rg"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/rb_download"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dimens_5"
+                android:paddingTop="@dimen/dimens_3"
+                android:paddingRight="@dimen/dimens_5"
+                android:paddingBottom="@dimen/dimens_3"
+                android:background="@drawable/selector_download"
+                android:text="下载中"
+                android:textSize="14sp"
+                android:textColor="@drawable/selector_download_color"
+                android:layout_width="@dimen/dimens_100"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:id="@+id/rb_downloaded"
+                android:text="已下载"
+                android:layout_toRightOf="@+id/tv_downloaded"
+                android:gravity="center"
+                android:button="@null"
+                android:textSize="14sp"
+                android:paddingLeft="@dimen/dimens_5"
+                android:paddingTop="@dimen/dimens_3"
+                android:paddingRight="@dimen/dimens_5"
+                android:paddingBottom="@dimen/dimens_3"
+                android:textColor="@drawable/selector_download_color"
+                android:background="@drawable/selector_downloaded"
+                android:layout_width="@dimen/dimens_100"
+                android:layout_height="wrap_content" />
+        </RadioGroup>
+    </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/fl_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+</LinearLayout>

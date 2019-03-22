@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_whit"
+    tools:context=".video_module.play.AttentionActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_45">
+            <ImageView
+                android:id="@+id/iv_back"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@mipmap/joke_back"
+                android:padding="@dimen/dimens_5"
+                android:layout_width="@dimen/dimens_45"
+                android:layout_height="match_parent" />
+            <TextView
+                android:text="关注人员"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/color_text"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+        <include layout="@layout/include_line_no_marg"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+            <RelativeLayout
+                android:id="@+id/rl_remind"
+                android:visibility="visible"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dimens_50"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_remind"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/icon_remind_cry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp" />
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/tv_remind"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/iv_remind"
+                    android:text="您还没有关注~-~"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/color_write"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
+        android:background="@color/color_whit"
+        android:layout_height="@dimen/dimens_260">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:id="@+id/coll"
+            app:title="我的"
+            app:expandedTitleMarginStart="20dp"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:layout_height="wrap_content">
+            <RelativeLayout android:layout_width="match_parent"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.8"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_bury"
+                    android:src="@mipmap/bg_header_nav"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="@dimen/dimens_120"
+                    android:id="@+id/iv_icon"
+                    android:transitionName="shareView"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:layout_marginTop="40dp"
+                    android:src="@mipmap/snail_image"
+                    android:layout_marginBottom="10dp"
+                    android:layout_height="@dimen/dimens_120"/>
+                <TextView android:layout_width="wrap_content"
+                    android:id="@+id/tv_name"
+                    android:layout_below="@+id/iv_icon"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/color_ff0008"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_height="20dp"/>
+                <TextView android:layout_width="wrap_content"
+                    android:id="@+id/tv_version"
+                    android:layout_below="@+id/tv_name"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/color_ff0008"
+                    android:layout_centerHorizontal="true"
+                    android:text="V 1.1.0"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:background="@drawable/shape_rec_bg"
+                    android:layout_height="20dp"/>
+            </RelativeLayout>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                android:gravity="center"
+                android:layout_marginLeft="-15dp"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                <RelativeLayout
+                    android:id="@+id/rl_header"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/circleview"
+                        android:layout_width="@dimen/dimens_50"
+                        android:layout_height="@dimen/dimens_50" />
+                </RelativeLayout>
+
+            </android.support.v7.widget.Toolbar>
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_gravity="right"
+                android:padding="@dimen/dimens_10"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dimens_10"
+                android:src="@mipmap/icon_lianjie"
+                android:layout_marginRight="@dimen/dimens_10"
+                android:layout_width="@dimen/dimens_45"
+                android:layout_height="@dimen/dimens_45"/>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@color/color_e9e7e7"
+        android:layout_height="800dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.matrix.yukun.matrix.video_module.views.NoScrolledListView
+                android:id="@+id/lv_list"
+                android:background="@color/color_whit"
+                android:paddingTop="@dimen/dimens_20"
+                android:divider="@null"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.matrix.yukun.matrix.video_module.views.NoScrolledListView>
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    // layout_anchor 依附的view
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/icon_share"
+        android:layout_margin="5dp"
+        app:fab_size="mini"
+        app:fab_colorPressed="@color/color_282828"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="bottom|right"/>
+
+</android.support.design.widget.CoordinatorLayout>

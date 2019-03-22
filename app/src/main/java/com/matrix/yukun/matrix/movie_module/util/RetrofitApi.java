@@ -13,8 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitApi {
     static String baseUrl = "https://api.douban.com/";
     static String leshiBaseurl = "http://api.letvcloud.com/";
-//    static String weabaseurl="https://free-api.heweather.com/v5/";
-    static String weabaseurl="https://free-api.heweather.com/s6/";
+    static String weabaseurl="https://free-api.heweather.com/s6/"; //https://free-api.heweather.com/s6/
     static String leshiliveurl = "http://api.open.lecloud.com/";
 
     static String chatUrl = "http://op.juhe.cn/";

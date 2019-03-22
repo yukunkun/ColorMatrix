@@ -1,28 +1,5 @@
 package com.matrix.yukun.matrix.weather_module.present;
 
-import android.support.annotation.MainThread;
-import android.util.Log;
-
-import com.matrix.yukun.matrix.bean.AppConstants;
-import com.matrix.yukun.matrix.movie_module.bean.Subjects;
-import com.matrix.yukun.matrix.movie_module.util.ApiException;
-import com.matrix.yukun.matrix.movie_module.util.MovieService;
-import com.matrix.yukun.matrix.movie_module.util.RetrofitApi;
-import com.matrix.yukun.matrix.weather_module.bean.WeaDestory;
-import com.matrix.yukun.matrix.weather_module.bean.WeaHours;
-import com.matrix.yukun.matrix.weather_module.bean.WeaLifePoint;
-import com.matrix.yukun.matrix.weather_module.bean.WeaNow;
-import com.matrix.yukun.matrix.weather_module.bean.WeaTomorrow;
-
-import java.util.List;
-
-import retrofit2.Retrofit;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
-
 /**
  * Created by yukun on 17-3-6.
  */
@@ -31,7 +8,7 @@ public class WeatherNet {
 //    public  static Observable<WeaNow> getNow(String city){
 //
 //        Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
-//        return retrofit.create(MovieService.class).getNow(city, AppConstants.HEWEATHER_KEY)
+//        return retrofit.create(MovieService.class).getNow(city, AppConstant.HEWEATHER_KEY)
 //                .filter(new Func1<WeaNow, Boolean>() {
 //                    @Override
 //                    public Boolean call(WeaNow weaNow) {
@@ -60,7 +37,7 @@ public class WeatherNet {
 //    public  static Observable<WeaDestory> getDestory(String city){
         // 该接口变为付费接口了,暂时不显示
 //        Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
-//        return retrofit.create(MovieService.class).getAlarm(city, AppConstants.HEWEATHER_KEY)
+//        return retrofit.create(MovieService.class).getAlarm(city, AppConstant.HEWEATHER_KEY)
 //                .filter(new Func1<WeaDestory, Boolean>() {
 //                    @Override
 //                    public Boolean call(WeaDestory weaDestory) {
@@ -91,7 +68,7 @@ public class WeatherNet {
 //    public  static Observable<WeaHours> getHours(String city){
 //
 //        Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
-//        return retrofit.create(MovieService.class).getHourly(city, AppConstants.HEWEATHER_KEY)
+//        return retrofit.create(MovieService.class).getHourly(city, AppConstant.HEWEATHER_KEY)
 //                .filter(new Func1<WeaHours, Boolean>() {
 //                    @Override
 //                    public Boolean call(WeaHours weaHours) {
@@ -120,7 +97,7 @@ public class WeatherNet {
 //    public  static Observable<WeaTomorrow> getTomorrow(String city){
 //
 //        Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
-//        return retrofit.create(MovieService.class).getTomorrow(city, AppConstants.HEWEATHER_KEY)
+//        return retrofit.create(MovieService.class).getTomorrow(city, AppConstant.HEWEATHER_KEY)
 //                .filter(new Func1<WeaTomorrow, Boolean>() {
 //                    @Override
 //                    public Boolean call(WeaTomorrow weaHours) {
@@ -148,7 +125,7 @@ public class WeatherNet {
 //    public  static Observable<WeaLifePoint> getConfortable(String city){
 //
 //        Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
-//        return retrofit.create(MovieService.class).getLife(city, AppConstants.HEWEATHER_KEY)
+//        return retrofit.create(MovieService.class).getLife(city, AppConstant.HEWEATHER_KEY)
 //        .filter(new Func1<WeaLifePoint, Boolean>() {
 //                    @Override
 //                    public Boolean call(WeaLifePoint weaHours) {

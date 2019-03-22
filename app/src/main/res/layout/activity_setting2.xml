@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/ll"
+    android:background="@color/color_eaeaea"
+    android:layout_height="match_parent"
+    tools:context=".video_module.play.ShareActivity">
+    <RelativeLayout android:layout_width="match_parent"
+        android:background="@color/color_whit"
+        android:layout_height="50dp">
+        <ImageView android:layout_width="50dp"
+            android:padding="10dp"
+            android:id="@+id/iv_back"
+            android:src="@mipmap/joke_back"
+            android:layout_height="50dp"/>
+        <TextView android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:text="卡片分享"
+            android:textSize="18sp"
+            android:textColor="@color/color_black"
+            android:layout_height="match_parent"/>
+        <View android:layout_height="0.5dp"
+            android:background="@color/color_b1b1b1"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"/>
+    </RelativeLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_card"
+        android:layout_marginTop="@dimen/dimens_30"
+        android:layout_width="match_parent"
+        android:layout_height="430dp">
+    </android.support.v4.view.ViewPager>
+    <RadioGroup
+        android:id="@+id/rg_layout"
+        android:layout_marginTop="@dimen/dimens_12"
+        android:paddingLeft="@dimen/dimens_10"
+        android:paddingRight="@dimen/dimens_10"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:button="@null"
+            android:background="@drawable/selector_share_select"
+            android:layout_width="8dp"
+            android:layout_height="8dp" />
+        <RadioButton
+            android:button="@null"
+            android:layout_marginLeft="@dimen/dimens_5"
+            android:background="@drawable/selector_share_select"
+            android:layout_width="8dp"
+            android:layout_height="8dp" />
+        <RadioButton
+            android:button="@null"
+            android:layout_marginLeft="@dimen/dimens_5"
+            android:background="@drawable/selector_share_select"
+            android:layout_width="8dp"
+            android:layout_height="8dp" />
+        <RadioButton
+            android:button="@null"
+            android:layout_marginLeft="@dimen/dimens_5"
+            android:background="@drawable/selector_share_select"
+            android:layout_width="8dp"
+            android:layout_height="8dp" />
+        <RadioButton
+            android:button="@null"
+            android:layout_marginLeft="@dimen/dimens_5"
+            android:background="@drawable/selector_share_select"
+            android:layout_width="8dp"
+            android:layout_height="8dp" />
+        <RadioButton
+            android:button="@null"
+            android:layout_marginLeft="@dimen/dimens_5"
+            android:background="@drawable/selector_share_select"
+            android:layout_width="8dp"
+            android:layout_height="8dp" />
+    </RadioGroup>
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_save"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:textSize="14sp"
+                android:background="@drawable/selector_share_btn"
+                android:textColor="@color/color_whit"
+                android:text="保存卡片"
+                android:layout_height="@dimen/dimens_45" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:id="@+id/tv_share"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:textSize="14sp"
+                android:background="@drawable/selector_share_btn"
+                android:textColor="@color/color_whit"
+                android:text="分享卡片"
+                android:layout_height="@dimen/dimens_45" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

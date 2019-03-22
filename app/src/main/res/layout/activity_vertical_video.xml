@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rl_root"
+    tools:context=".video_module.play.VerticalVideoActivity">
+    <RelativeLayout
+        android:background="@color/color_black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <VideoView
+            android:id="@+id/videoview"
+            android:layout_centerInParent="true"
+            android:transitionName="shareView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_marginBottom="@dimen/dimens_60"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_alignParentRight="true"
+                android:text=""
+                android:paddingLeft="@dimen/dimens_5"
+                android:textColor="@color/color_b9b9b9"
+                android:layout_marginRight="@dimen/dimens_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <SeekBar
+                android:id="@+id/seekbar"
+                android:visibility="gone"
+                android:layout_toLeftOf="@id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="@dimen/dimens_10"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_zan"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/icon_liked"
+            android:layout_width="50dp"
+            android:visibility="gone"
+            android:layout_height="50dp" />
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/shape_video_top"
+        android:layout_height="@dimen/dimens_60">
+        <ImageView
+            android:id="@+id/iv_more"
+            android:layout_width="@dimen/dimens_45"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/dimens_10"
+            android:layout_height="@dimen/dimens_50" />
+    </RelativeLayout>
+</RelativeLayout>

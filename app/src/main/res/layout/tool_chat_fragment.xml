@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/ll_photo"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="@dimen/dimens_100">
+            <ImageView
+                android:src="@mipmap/pic"
+                android:padding="@dimen/dimens_10"
+                android:layout_width="@dimen/dimens_50"
+                android:layout_height="@dimen/dimens_50" />
+            <TextView
+                android:gravity="center"
+                android:text="相册"
+                android:textColor="@color/color_black"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_camera"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="@dimen/dimens_100">
+            <ImageView
+                android:src="@mipmap/ic_camera"
+                android:padding="@dimen/dimens_8"
+                android:layout_width="@dimen/dimens_50"
+                android:layout_height="@dimen/dimens_50" />
+            <TextView
+                android:gravity="center"
+                android:text="相机"
+                android:textColor="@color/color_black"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_black"
     tools:context="com.matrix.yukun.matrix.camera_module.CameraActivity">
     <RelativeLayout
         android:id="@+id/title"
@@ -38,9 +39,8 @@
     <RelativeLayout
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="56dp">
+        android:layout_height="@dimen/dimens_45">
         <View
-            android:id="@+id/line"
             android:background="#363636"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
@@ -49,19 +49,7 @@
             android:layout_width="match_parent"
             android:weightSum="2"
             android:orientation="horizontal"
-            android:layout_height="@dimen/dimens_50">
-            <ImageView
-                android:id="@+id/cameraok"
-                android:layout_width="0dp"
-                android:padding="10dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@mipmap/ic_manage_dark"
-                android:layout_height="match_parent" />
-            <View
-                android:background="#363636"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"/>
+            android:layout_height="@dimen/dimens_45">
             <ImageView
                 android:id="@+id/cameracancler"
                 android:layout_width="0dp"
@@ -69,6 +57,18 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:src="@mipmap/abc_ic_clear_mtrl_alpha"
+                android:layout_height="match_parent" />
+            <View
+                android:background="#363636"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+            <ImageView
+                android:id="@+id/cameraok"
+                android:layout_width="0dp"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_manage_dark"
                 android:layout_height="match_parent" />
         </LinearLayout>
     </RelativeLayout>
@@ -86,7 +86,6 @@
             android:gravity="center_vertical"
             android:layout_height="wrap_content">
             <ProgressBar
-                android:id="@+id/progresssbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView

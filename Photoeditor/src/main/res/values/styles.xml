@@ -1,0 +1,31 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="EditorTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="EditorTheme.EditorInputTheme">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!-- BottomPopupDialog style -->
+    <style name="BottomPopupDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/BottomPopupDialogAnimationStyle</item>
+    </style>
+
+    <!-- BottomPopupDialog animation style -->
+    <style name="BottomPopupDialogAnimationStyle" parent="@android:style/Animation.Toast">
+        <item name="android:windowEnterAnimation">@anim/bottom_popup_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/bottom_popup_dialog_exit</item>
+    </style>
+
+</resources>

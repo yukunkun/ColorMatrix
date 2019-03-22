@@ -68,9 +68,4 @@ public class AboutUsAdapter extends BaseAdapter {
         String version = packInfo.versionName;
         return version;
     }
-
-//    @Override
-//    public int getViewTypeCount() {
-//        return 2;
-//    }
 }

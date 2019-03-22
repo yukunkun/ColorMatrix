@@ -19,7 +19,6 @@
             android:layout_width="@dimen/dimens_60"
             android:layout_height="match_parent" />
         <TextView
-            android:id="@+id/title_name"
             android:text="设置壁纸"
             android:gravity="center"
             android:textSize="18sp"
@@ -28,7 +27,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
         <ImageView
-            android:id="@+id/iv_person"
             android:layout_alignParentRight="true"
             android:padding="15dp"
             android:transitionName="share"

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_3e878787">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_40">
+        <TextView
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:text="历史纪录"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_clear"
+            android:padding="8dp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_clear_history"
+            android:layout_width="@dimen/dimens_40"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <View
+        android:background="@color/color_ececec"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <ListView
+        android:id="@+id/lv_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+</LinearLayout>

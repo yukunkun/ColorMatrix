@@ -30,7 +30,6 @@
             android:layout_width="@dimen/dimens_70"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/conf_shushi"
                 android:text="舒适度"
                 android:layout_weight="1"
                 android:paddingTop="1dp"
@@ -78,7 +77,6 @@
             android:layout_width="@dimen/dimens_70"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/conf_xiche"
                 android:text="穿衣指数"
                 android:layout_weight="1"
                 android:textSize="15sp"
@@ -121,7 +119,6 @@
             android:layout_width="@dimen/dimens_70"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/conf_jiayi"
                 android:text="感冒指数"
                 android:layout_weight="1"
                 android:textSize="15sp"
@@ -164,7 +161,6 @@
             android:layout_width="@dimen/dimens_70"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/conf_ganmao"
                 android:text="运动指数"
                 android:layout_weight="1"
                 android:textSize="15sp"
@@ -208,7 +204,6 @@
             android:layout_width="@dimen/dimens_70"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/conf_chuxing"
                 android:text="旅游指数"
                 android:layout_weight="1"
                 android:textSize="15sp"
@@ -252,7 +247,6 @@
             android:layout_width="@dimen/dimens_70"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/conf_lvyou"
                 android:text="防晒指数"
                 android:layout_weight="1"
                 android:textSize="15sp"
@@ -295,7 +289,6 @@
             android:layout_width="@dimen/dimens_70"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/conf_ziwaixian"
                 android:text="洗车指数"
                 android:layout_weight="1"
                 android:textSize="15sp"

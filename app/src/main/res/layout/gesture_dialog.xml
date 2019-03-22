@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/shape_gesture_bg"
+    android:layout_height="match_parent">
+    <TextView
+        android:text="设置手势密码"
+        android:layout_marginTop="@dimen/dimens_20"
+        android:gravity="center_horizontal"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:layout_width="140dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/secret_nine"
+        android:layout_marginTop="@dimen/dimens_12"
+        android:layout_height="140dp" />
+    <View android:layout_height="1dp"
+          android:layout_width="match_parent"
+          android:background="@color/color_line"
+          android:layout_marginTop="@dimen/dimens_25"
+        />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/iv_cancel"
+                android:padding="12dp"
+                android:src="@mipmap/icon_choose_cancel"
+                android:layout_width="@dimen/dimens_40"
+                android:layout_height="@dimen/dimens_40" />
+            <View
+                android:layout_height="@dimen/dimens_40"
+                android:layout_width="1dp"
+                android:layout_marginLeft="@dimen/dimens_12"
+                android:layout_marginRight="@dimen/dimens_12"
+                android:background="@color/color_line"
+                />
+            <ImageView
+                android:id="@+id/iv_sure"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:layout_toRightOf="@+id/iv_cancel"
+                android:src="@mipmap/icon_choose_sure"
+                android:layout_width="@dimen/dimens_40"
+                android:layout_height="@dimen/dimens_40" />
+        </LinearLayout>
+</LinearLayout>

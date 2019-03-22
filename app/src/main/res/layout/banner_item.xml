@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/iv_banner"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <com.haozhang.lib.SlantedTextView
+        android:id="@+id/stv"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="@dimen/dimens_50"
+        android:layout_height="@dimen/dimens_50"
+        android:gravity="center"
+        app:slantedMode="right_bottom"
+        app:slantedBackgroundColor="@color/color_b4f905b8"
+        app:slantedLength="@dimen/dimens_35"
+        app:slantedText="热门"
+        app:slantedTextColor="@color/color_write"
+        app:slantedTextSize="14sp"
+        />
+    <TextView
+        android:id="@+id/tv_rec"
+        android:layout_marginTop="@dimen/dimens_10"
+        android:layout_marginLeft="@dimen/dimens_10"
+        android:text="推荐:"
+        android:background="@drawable/shape_banner_recommend"
+        android:paddingLeft="@dimen/dimens_5"
+        android:paddingRight="@dimen/dimens_5"
+        android:paddingTop="@dimen/dimens_3"
+        android:textSize="14sp"
+        android:paddingBottom="@dimen/dimens_3"
+        android:textStyle="italic"
+        android:textColor="@color/color_1296db"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_marginTop="@dimen/dimens_10"
+        android:layout_marginLeft="@dimen/dimens_10"
+        android:paddingTop="@dimen/dimens_3"
+        android:layout_marginRight="@dimen/dimens_10"
+        android:textSize="16sp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_toRightOf="@+id/tv_rec"
+        android:paddingBottom="@dimen/dimens_3"
+        android:textColor="@color/color_b5fffffff"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

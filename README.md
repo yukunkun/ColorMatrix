@@ -1,72 +1,48 @@
-#  ColorMatrix 的使用
+##  多工具娱乐集合APP （应用宝已经上线 搜索MatrixPhoto即可下载）
+#### 这是对matrixphoto的一个迁移，matrixphoto功能上做了很多的修改，添加了很多的工具集合，比如zxing的二维码扫面，二维码生成，添加了爱心弹幕的功能模块，备忘录记录琐事，还有原来的天气模块，在平时的一些开发中难免也会使用到这些东西，这个也可以作为一些迁移使用。首页调用了一些开源的API。包括和风天气，聚合数据等，使它形成了一个完整的APP功能。一键卡片分享功能，提高分享的美观性。设计了黑夜模式的切换，使用也比较简单可以查看
+[超简单的 Android夜晚模式实现](https://www.jianshu.com/p/f1c09e483b11)  这儿有实现
 
-## [VideoSpecial](https://github.com/yukunkun/VideoSpecial) 这里是`ColorMatrix`迁移的项目，在原项目的基础上做了很多的改变，功能更加的饱满
-##  在应用宝上可以搜索下载APP MatrixPhoto,就是基于这个 　  
-####  功能主要来至于 [自定义控件三部曲之绘图篇（八）——Paint之ColorMatrix与滤镜效果](http://blog.csdn.net/harvic880925/article/details/51187277) 
-####  这里主要使用了ColorMatrix这个类
-####  有很多简单的布局,类似与一个小的APP  　　   
-####  利用色彩矩阵,对bitmap的颜色加以改变,添加滤镜效果,有一些自定义view,增加效果,对图片处理,裁剪,变换.
-####  自定义图库,使用contentProvide,加载本地图库
-####  --------------------------------------------------------------------------------------------------------
-#### 有些地方使用了不同的模式写的，这也是后来接触之后才修改的     
-###  movie_module 
-#### 使用的retrofit MVP模式写的，也就是尝试着用一下，用的比较基础的方式 
-#### 这里调用的豆瓣的API，使用第三方的接口，在项目中很多地方使用了overscroll，使用弹簧效果 
-#### 在详情页调用的豆瓣的网页，使用了webview、   　  
-####  ---------------------------------------------------------------------------------------------------------
-###  weather_module　
-#### 这儿也是后来加上的，使用的retrofit MVP模式写的，主要是一个天气预报的模块。   
-#### 调用了和风天气的免费API，这里有需要的可以试着调用一下。
-#### 分为今天的天气，明天的天气，和舒适度三个模块，分别调用了和风天气的不同接口来呈现的。 
-#### 当中接入了腾讯给广告联盟的的banner广告。
-####  ---------------------------------------------------------------------------------------------------------
-### 手势密码(gesture_module) 
-#### 添加了手势锁,就是那种9个圆圈的手势密码,仿QQ的手势锁
-#### 新增人脸识别模块,采用的是科大讯飞的人脸识别技术,对app的身份进行验证,分别使用了人脸注册和人脸检测,使用相似度来判断是否为同一个人.
-####  ---------------------------------------------------------------------------------------------------------
-#### 添加图灵智能机器人对话,智能聊天.　        
-####  ---------------------------------------------------------------------------------------------------------
-#### 使用了一些简单的属性动画   动画使用的类 ValueAnimator 和 BounceInterpolator  
-#### 颜色的渐变使用了ArgbEvaluator 属于动画的部分，在weather_module/Animutils里有使用的部分动画，有需要的可以试用一下
-####  ---------------------------------------------------------------------------------------------------------
-![S70401-16001073.jpg](http://upload-images.jianshu.io/upload_images/3001453-0f19ff4218784a44.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![S70401-16020219.jpg](http://upload-images.jianshu.io/upload_images/3001453-f966e3a6c737ff50.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![S70401-16014880.jpg](http://upload-images.jianshu.io/upload_images/3001453-cdcb4993d4790e40.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![S70401-16065199.jpg](http://upload-images.jianshu.io/upload_images/3001453-8915d1fae0bd7d7c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![S70401-16073051.jpg](http://upload-images.jianshu.io/upload_images/3001453-34ab35af3d0a8b3b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) 
-#### compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
-#### 第三方的path动画，一个很酷炫的path动画。
-####  使用的第三方主要为:       
-    compile 'com.android.support:appcompat-v7:23.2.1'
-    compile 'com.github.bumptech.glide:glide:3.5.2'
-    compile 'com.android.support:design:23.2.1'
-    compile 'com.android.support:recyclerview-v7:23.2.1' 
-    compile 'com.android.support:cardview-v7:23.2.1'
-    compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'cn.jiguang.sdk:jcore:1.1.0'
-    compile files('libs/GDTUnionSDK.4.9.542.min.jar')
-    //bugly
-    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
-    compile 'com.edmodo:cropper:1.0.1'
-    compile 'com.github.castorflex.smoothprogressbar:library-circular:1.0.1'
-    // rxjava的相关
-    compile 'io.reactivex:rxjava:1.2.1'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    //butterknife
-    compile 'com.jakewharton:butterknife:8.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'jp.wasabeef:glide-transformations:2.0.1'
-    compile 'com.contrarywind:Android-PickerView:3.0.7'
-    compile 'cn.qqtheme.framework:WheelPicker:1.4.3'
-    compile 'me.everything:overscroll-decor-android:1.0.4'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.haozhang.libary:android-slanted-textview:1.2'
+#### 部分页面截图
+![S81212-10302629.jpg](https://upload-images.jianshu.io/upload_images/3001453-eb8cfbc5dce17a40.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10310255.jpg](https://upload-images.jianshu.io/upload_images/3001453-d13534b2bb20deba.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10310666.jpg](https://upload-images.jianshu.io/upload_images/3001453-50fea1848e9c0687.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10311954.jpg](https://upload-images.jianshu.io/upload_images/3001453-29aeb4788f1c52d8.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10313965.jpg](https://upload-images.jianshu.io/upload_images/3001453-cd0f07a36a58df45.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10314652.jpg](https://upload-images.jianshu.io/upload_images/3001453-54c150f7726d6a8e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-11061530.jpg](https://upload-images.jianshu.io/upload_images/3001453-d87fa8014a5cf180.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10320229.jpg](https://upload-images.jianshu.io/upload_images/3001453-a4a313b02fa74e4d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10320748.jpg](https://upload-images.jianshu.io/upload_images/3001453-59015ccbe1fb5ac8.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10334831.jpg](https://upload-images.jianshu.io/upload_images/3001453-d00ec5ef7851b978.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10340634.jpg](https://upload-images.jianshu.io/upload_images/3001453-dd13e54f59b4952f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10343856.jpg](https://upload-images.jianshu.io/upload_images/3001453-13dcbb05cd6f3757.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10353286.jpg](https://upload-images.jianshu.io/upload_images/3001453-921d879f3807c6cc.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10354562.jpg](https://upload-images.jianshu.io/upload_images/3001453-91370523df922534.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10360296.jpg](https://upload-images.jianshu.io/upload_images/3001453-ae6eda9364975a7b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10363071.jpg](https://upload-images.jianshu.io/upload_images/3001453-3c6a900f9f86a909.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10363600.jpg](https://upload-images.jianshu.io/upload_images/3001453-8325de14896eac48.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10363948.jpg](https://upload-images.jianshu.io/upload_images/3001453-69e95130ed77b70f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10365742.jpg](https://upload-images.jianshu.io/upload_images/3001453-8f4ff112cddc8a9c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![S81212-10370087.jpg](https://upload-images.jianshu.io/upload_images/3001453-92c239133bab99bc.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+#### 项目中也使用了很多第三方
+        compile 'com.github.bumptech.glide:glide:3.5.2'
+        compile 'com.android.support:design:26.1.0'
+        compile 'com.android.support:recyclerview-v7:26.1.0'
+        compile 'com.android.support:cardview-v7:26.1.0'
+        compile 'org.greenrobot:eventbus:3.0.0'
+        compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+        compile 'com.edmodo:cropper:1.0.1'
+        compile 'com.github.castorflex.smoothprogressbar:library-circular:1.0.1'
+        compile 'io.reactivex:rxjava:1.2.1'
+        compile 'io.reactivex:rxandroid:1.2.1'
+        compile 'com.squareup.retrofit2:retrofit:2.3.0'
+        compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+        compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+        compile 'com.jakewharton:butterknife:8.4.0'
+        annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+        compile 'jp.wasabeef:glide-transformations:2.0.1'
+        compile 'me.everything:overscroll-decor-android:1.0.4'
+        compile 'com.github.mcxtzhang:PathAnimView:V1.0.0'
+        compile 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:0.7.0'
+        compile 'de.hdodenhof:circleimageview:2.1.0'
+        compile 'com.haozhang.libary:android-slanted-textview:1.2'
+        compile 'com.getbase:floatingactionbutton:1.10.1'
+        compile 'com.github.chrisbanes.photoview:library:1.2.4'
+        compile 'com.isanwenyu.highlight:highlight:1.8.0'
+        compile 'org.litepal.android:core:1.6.0'
+        compile 'com.zhy:okhttputils:2.6.2'
+        compile 'com.google.code.gson:gson:2.8.2'
+        compile 'com.bigkoo:convenientbanner:2.0.5'
+        compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.4-6'
+        compile 'com.google.zxing:core:3.3.0'
+        compile 'com.jrummyapps:colorpicker:2.1.6'
+        compile 'com.wang.avi:library:2.1.3'
+        compile 'joda-time:joda-time:2.9.4'
+        compile 'com.contrarywind:Android-PickerView:4.1.6'
+        implementation project(':pluglin_special')
+        implementation files('libs/android-query-full.0.26.7.jar')
+        implementation files('libs/ZBarDecoder.jar')
 
 #### [下载](http://app.qq.com/#id=detail&appid=1105962710)
-![](http://upload-images.jianshu.io/upload_images/3001453-7fc76659461b6b8e.png)
-
+![应用宝下载地址](http://upload-images.jianshu.io/upload_images/3001453-7fc76659461b6b8e.png)

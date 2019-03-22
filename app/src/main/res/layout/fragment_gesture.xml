@@ -67,7 +67,7 @@
             android:id="@+id/tv_sure"
             android:textSize="18sp"
             android:text="创建手势"
-            android:textColor="@color/color_8c8c8c"
+            android:textColor="@color/color_ececec"
             android:gravity="center"
             android:background="@drawable/shape_gesture"
             android:layout_width="@dimen/dimens_240"
@@ -75,7 +75,7 @@
     </RelativeLayout>
     <TextView
         android:id="@+id/tv_reset"
-        android:textSize="15sp"
+        android:textSize="18sp"
         android:layout_alignParentBottom="true"
         android:text="确定要重置手势密码吗?"
         android:layout_marginBottom="20dp"

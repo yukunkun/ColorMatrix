@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="image_color">28dp</dimen>
+
+    <dimen name="image_color_margin">6dp</dimen>
+
+    <dimen name="image_mode_space">32dp</dimen>
+
+    <!--新标注textsize-->
+    <dimen name="F1">32sp</dimen>
+    <dimen name="F2">18sp</dimen>
+    <dimen name="F3">16sp</dimen>
+    <dimen name="F4">14sp</dimen>
+    <dimen name="F5">12sp</dimen>
+    <dimen name="F6">10sp</dimen>
+    <dimen name="F7">8sp</dimen>
+
+</resources>

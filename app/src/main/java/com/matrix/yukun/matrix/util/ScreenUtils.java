@@ -3,6 +3,8 @@ package com.matrix.yukun.matrix.util;
 import android.content.Context;
 import android.view.WindowManager;
 
+import com.matrix.yukun.matrix.MyApp;
+
 
 /**
  * Created by root on 15-9-6.shul
@@ -51,6 +53,11 @@ public class ScreenUtils {
 
     public static int dp2Px(Context context, float dp) {
         final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
+    }
+
+    public static int dip2Px( float dp) {
+        final float scale = MyApp.myApp.getResources().getDisplayMetrics().density;
         return (int) (dp * scale + 0.5f);
     }
 

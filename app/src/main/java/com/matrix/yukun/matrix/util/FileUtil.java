@@ -1,16 +1,20 @@
 package com.matrix.yukun.matrix.util;
 
+import android.annotation.SuppressLint;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Environment;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
-import com.matrix.yukun.matrix.bean.AppConstants;
+import com.matrix.yukun.matrix.constant.AppConstant;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -55,7 +59,7 @@ public class FileUtil {
      * @return
      */
     public static File createFile(){
-        File destDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+ AppConstants.PATH);
+        File destDir = new File(AppConstant.IMAGEPATH);
         if (!destDir.exists()) {
             destDir.mkdirs();
         }
@@ -71,6 +75,35 @@ public class FileUtil {
 
         File destDir = createFile();
 
+        File f = new File(destDir, photoName);
+        if(f.exists()){
+            f.delete();
+        }
+        try {
+            FileOutputStream out = new FileOutputStream(f);
+            bm.compress(Bitmap.CompressFormat.PNG, 0, out); //0 压缩率 30 是压缩率，表示压缩70%;
+            out.flush();
+            out.close();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    /**
+     * load
+     * @param bm
+     * @param photoName
+     */
+    public static void loadTempImage(Bitmap bm,String path,String photoName){
+
+        File destDir = new File(AppConstant.GIFPATH+"/"+path);
+        if(!destDir.exists()){
+            destDir.mkdirs();
+        }
         File f = new File(destDir, photoName);
         if(f.exists()){
             f.delete();
@@ -164,6 +197,30 @@ public class FileUtil {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static String formatFileSize(long length) {
+        String result = null;
+        int sub_string = 0;
+        // 如果文件长度大于1GB
+        if (length >= 1073741824) {
+            sub_string = String.valueOf((float) length / 1073741824).indexOf(
+                    ".");
+            result = ((float) length / 1073741824 + "000").substring(0,
+                    sub_string + 3) + "GB";
+        } else if (length >= 1048576) {
+            // 如果文件长度大于1MB且小于1GB,substring(int beginIndex, int endIndex)
+            sub_string = String.valueOf((float) length / 1048576).indexOf(".");
+            result = ((float) length / 1048576 + "000").substring(0,
+                    sub_string + 3) + "MB";
+        } else if (length >= 1024) {
+            // 如果文件长度大于1KB且小于1MB
+            sub_string = String.valueOf((float) length / 1024).indexOf(".");
+            result = ((float) length / 1024 + "000").substring(0,
+                    sub_string + 3) + "KB";
+        } else if (length < 1024)
+            result = Long.toString(length) + "B";
+        return result;
     }
 
 }

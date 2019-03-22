@@ -189,7 +189,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
             Glide.with(this).load(R.mipmap.wea_chuqing)
                     .into(imageView);
         }else if(pos<=104){
-                Glide.with(this).load(R.mipmap.chuntian)
+                Glide.with(this).load(R.mipmap.yintian)
                         .into(imageView);
         }else if(pos<=205){
             Glide.with(this).load(R.mipmap.feng1)

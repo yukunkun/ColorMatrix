@@ -1,12 +1,18 @@
 package com.matrix.yukun.matrix.chat_module;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -14,182 +20,296 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.matrix.yukun.matrix.MyApp;
+import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.R2;
+import com.matrix.yukun.matrix.chat_module.adapter.ChatAdapter;
+import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
+import com.matrix.yukun.matrix.chat_module.entity.ChatType;
+import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.util.getPhotoFromPhotoAlbum;
+import com.matrix.yukun.matrix.video_module.BaseActivity;
+import com.matrix.yukun.matrix.video_module.fragment.ToolFragment;
+import com.matrix.yukun.matrix.video_module.netutils.NetworkUtils;
+import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import butterknife.OnClick;
+import okhttp3.Call;
 
-public class ChatActivity extends AppCompatActivity implements ChatControl.View {
-
-    @BindView(R.id.name)
+public class ChatActivity extends BaseActivity {
+    @BindView(R2.id.iv_backs)
+    ImageView mIvBack;
+    private String chatUrl = "http://op.juhe.cn/robot/index";
+    private String KEY = "12b5b1b14c7e1d25f18902728b9655b6";
+    @BindView(R2.id.name)
     TextView mName;
-    @BindView(R.id.iv_person)
-    ImageView mIvPerson;
-    @BindView(R.id.title)
+    @BindView(R2.id.title)
     RelativeLayout mTitle;
-    @BindView(R.id.rv_chatview)
+    @BindView(R2.id.rv_chatview)
     RecyclerView mRvChatview;
-    @BindView(R.id.sr_refresh)
+    @BindView(R2.id.sr_refresh)
     SwipeRefreshLayout mSrRefresh;
-    @BindView(R.id.et_messg)
+    @BindView(R2.id.et_messg)
     EditText mEtMessg;
-    @BindView(R.id.send_btn)
+    @BindView(R2.id.send_btn)
     Button mSendBtn;
-    private ChatPresent mChatPresent;
+    @BindView(R2.id.bt_add)
+    Button mBtnAdd;
+    @BindView(R2.id.fl_contain)
+    FrameLayout mFlLayout;
     private ChatAdapter mChatAdapter;
-    private List<ChatListInfo> mChatInfos=new ArrayList<>();
+    private List<ChatListInfo> mChatInfos = new ArrayList<>();
     private double firstTime;
     private double lastTime;
-    private double timedevide=5000;
+    private double timedevide = 8000;
+    private Uri uri;
+    private File cameraSavePath;//拍照照片路径
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
-        ButterKnife.bind(this);
-//        firstTime=System.currentTimeMillis();
+    public int getLayout() {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        mChatPresent = new ChatPresent(this);
-        initView();
-        setListener();
-        //默认发送一条消息
-        mChatPresent.getInfo("how are you");
+        return R.layout.activity_chat_video;
     }
 
     @Override
     public void initView() {
-        LinearLayoutManager  linearLayoutManager=new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRvChatview.setLayoutManager(linearLayoutManager);
-        mChatAdapter = new ChatAdapter(this,mChatInfos);
+        getSupportFragmentManager().beginTransaction().add(R.id.fl_contain, ChatToolFragment.getInstance(this)).commit();
+        mChatAdapter = new ChatAdapter(this, mChatInfos);
         mRvChatview.setAdapter(mChatAdapter);
-        String spName = getSPString("name", "name");
-        if(!spName.equals("name")){
-            mName.setText(spName);
-        }
+        getInfo("你好");
+        setListener();
+        cameraSavePath = new File(AppConstant.IMAGEPATH +"/yk_"+System.currentTimeMillis()+".jpg");
     }
 
-    @Override
-    public void setListener() {
+    private void setListener() {
         mEtMessg.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEND||(event!=null&&event.getKeyCode()== KeyEvent.KEYCODE_ENTER)) {
+                if (actionId == EditorInfo.IME_ACTION_SEND || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                     SendInfo(mEtMessg.getText().toString());
                      /*隐藏软键盘*/
                     mEtMessg.setText("");
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(mEtMessg.getWindowToken(), 0);
                     return true;
-                }else
-                return true;
+                } else
+                    return true;
+            }
+        });
+
+        mEtMessg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFlLayout.setVisibility(View.GONE);
+            }
+        });
+        mEtMessg.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if(TextUtils.isEmpty(s.toString())){
+                        mBtnAdd.setVisibility(View.VISIBLE);
+                        mSendBtn.setVisibility(View.GONE);
+                    }else {
+                        mBtnAdd.setVisibility(View.GONE);
+                        mSendBtn.setVisibility(View.VISIBLE);
+                    }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
         mSrRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                mChatInfos.clear();
                 mChatAdapter.notifyDataSetChanged();
                 mSrRefresh.setRefreshing(false);
             }
         });
 
-        //个人信息
-        mIvPerson.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyApp.showToast("想知道我的隐私啊?就不告诉你");
-//                Intent intent=new Intent(ChatActivity.this,ChatPersonActivity.class);
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.right_in,R.anim.left_out);
-            }
-        });
         //发送消息
         mSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SendInfo(mEtMessg.getText().toString());
                 mEtMessg.setText("");
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(mEtMessg.getWindowToken(), 0);
+            }
+        });
+
+        mBtnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFlLayout.setVisibility(View.VISIBLE);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(mEtMessg.getWindowToken(), 0);
             }
         });
     }
 
-    private void SendInfo(String msg) {
-        if(null==msg||msg.length()==0){
-            MyApp.showToast("发送为空，请输入内容");
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String photoPath;
+        if (requestCode == 2 && resultCode == RESULT_OK) {
+            photoPath = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
+            sendImageMsg(photoPath);
+        }if (requestCode == 1 && resultCode == RESULT_OK) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                photoPath = String.valueOf(cameraSavePath);
+                sendImageMsg(photoPath);
+            } else {
+                photoPath = uri.getEncodedPath();
+                sendImageMsg(photoPath);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void sendImageMsg(String imagePath){
+        if(!TextUtils.isEmpty(imagePath)){
+            ChatListInfo chatListInfo = new ChatListInfo();
+            lastTime = System.currentTimeMillis();
+            if (lastTime - firstTime > timedevide) {
+                chatListInfo.setShowTime(true);
+            }
+            firstTime = lastTime;
+            chatListInfo.setTimeStamp(System.currentTimeMillis());
+            chatListInfo.setMsgType(ChatType.IMAGE.getName());
+            chatListInfo.setReceive(false);
+            chatListInfo.setImagePath(imagePath);
+            mChatInfos.add(chatListInfo);
+            mChatAdapter.notifyDataSetChanged();
+            mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
+            getMsg("我不喜欢图片");
+
+        }else {
+            ToastUtils.showToast("发送失败");
+        }
+    }
+
+    public void openPhoto(){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, 2);
+        mFlLayout.setVisibility(View.GONE);
+    }
+
+    public void openCamera(){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            uri = FileProvider.getUriForFile(ChatActivity.this, "com.xykj.customview.fileprovider", cameraSavePath);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        } else {
+            uri = Uri.fromFile(cameraSavePath);
+        }
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        this.startActivityForResult(intent, 1);
+        mFlLayout.setVisibility(View.GONE);
+
+    }
+
+    private void getInfo(String info) {
+        NetworkUtils.networkGet(chatUrl)
+                .addParams("info", info)
+                .addParams("key", KEY)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                getMsg("不想和你聊天了");
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject result = jsonObject.optJSONObject("result");
+                    String text = result.optString("text");
+                    getMsg(text);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void getMsg(String msg) {
+        if (msg == null) {
             return;
         }
-
-        ChatListInfo chatListInfo=new ChatListInfo();
-        lastTime=System.currentTimeMillis();
-        if(lastTime-firstTime>timedevide){
-            chatListInfo.setIsShowTime(true);
+        ChatListInfo chatListInfo = new ChatListInfo();
+        lastTime = System.currentTimeMillis();
+        if (lastTime - firstTime > timedevide) {
+            chatListInfo.setShowTime(true);
         }
-        chatListInfo.setMsgTime(lastTime);
-        firstTime=lastTime;
+        firstTime = lastTime;
         chatListInfo.setChatInfo(msg);
-        chatListInfo.setType(2);
+        chatListInfo.setTimeStamp(System.currentTimeMillis());
+        chatListInfo.setMsgType(ChatType.TEXT.getName());
+        chatListInfo.setReceive(true);
+
         mChatInfos.add(chatListInfo);
         mChatAdapter.notifyDataSetChanged();
-        mRvChatview.smoothScrollToPosition(mChatInfos.size()-1);
+        mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
+    }
 
-        if(msg.length()>30){
-            mChatPresent.getInfo(msg.substring(0,30));
-        }else {
-            if(msg.length()<=1){
-                mChatPresent.getInfo(msg+"吗");
-            }else {
-                mChatPresent.getInfo(msg);
+    private void SendInfo(String msg) {
+        if (null == msg || msg.length() == 0) {
+            return;
+        }
+        ChatListInfo chatListInfo = new ChatListInfo();
+
+        lastTime = System.currentTimeMillis();
+        if (lastTime - firstTime > timedevide) {
+            chatListInfo.setShowTime(true);
+        }
+        firstTime = lastTime;
+        chatListInfo.setMsgTime(System.currentTimeMillis());
+        chatListInfo.setChatInfo(msg);
+        chatListInfo.setReceive(false);
+        chatListInfo.setMsgType(ChatType.TEXT.getName());
+        mChatInfos.add(chatListInfo);
+        mChatAdapter.notifyDataSetChanged();
+        mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
+
+        if (msg.length() > 30) {
+            getInfo(msg.substring(0, 30));
+        } else {
+            if (msg.length() <= 1) {
+                getInfo(msg + "吗");
+            } else {
+                getInfo(msg);
             }
         }
     }
 
-    //消息回来的数据处理
-    @Override
-    public void getMsg(String msg) {
-        if(msg==null){
-            return;
-        }
-        ChatListInfo chatListInfo=new ChatListInfo();
-        lastTime=System.currentTimeMillis();
-        if(lastTime-firstTime>timedevide){
-            chatListInfo.setIsShowTime(true);
-        }
-        chatListInfo.setMsgTime(lastTime);
-        firstTime=lastTime;
-        chatListInfo.setChatInfo(msg);
-//        chatListInfo.setBitmap();
-        chatListInfo.setType(1);
-        mChatInfos.add(chatListInfo);
-        mChatAdapter.notifyDataSetChanged();
-        mRvChatview.smoothScrollToPosition(mChatInfos.size()-1);
-    }
-
-    public void ChatBack(View view) {
+    @OnClick(R2.id.iv_backs)
+    public void onViewClicked() {
         finish();
-        overridePendingTransition(R.anim.left_in,R.anim.right_out);
-    }
-
-    private String getSPString(String spName,String defeat){
-        SharedPreferences preferences=getSharedPreferences(spName, Context.MODE_PRIVATE);
-        String result = preferences.getString(spName,defeat);
-        return result;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(mChatAdapter!=null)
-        mChatAdapter.cancenToast();
     }
 }

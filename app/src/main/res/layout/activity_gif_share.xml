@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_black"
+    tools:context=".gif_module.activity.GifShareActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/giv1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_con"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_50">
+            <ImageView
+                android:id="@+id/iv_back"
+                android:src="@mipmap/ic_back"
+                android:padding="@dimen/dimens_12"
+                android:layout_width="@dimen/dimens_50"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/tv_title"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:singleLine="true"
+                android:textSize="15sp"
+                android:textColor="@color/color_whit"
+                android:focusableInTouchMode="true"
+                android:layout_centerInParent="true"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/iv_share"
+                android:src="@mipmap/icon_share"
+                android:layout_alignParentRight="true"
+                android:padding="14dp"
+                android:layout_width="@dimen/dimens_50"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/ll_con"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dimens_5"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="@dimen/dimens_60">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginLeft="0dp"
+                android:background="@color/color_8a8a8a"
+                android:layout_gravity="center_vertical"
+                android:layout_height="1dp">
+            </TextView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_30">
+                <ImageView
+                    android:id="@+id/iv_control"
+                    android:paddingTop="@dimen/dimens_5"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/icon_video_pause"
+                    android:layout_width="@dimen/dimens_35"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/color_whit"
+                    android:layout_marginRight="@dimen/dimens_10"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <SeekBar
+                    android:id="@+id/seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dimens_10"
+                    android:layout_marginRight="@dimen/dimens_70"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/color_whit"
+                    android:text="速度"
+                    android:gravity="center"
+                    android:layout_width="@dimen/dimens_50"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

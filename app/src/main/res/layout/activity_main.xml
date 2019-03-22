@@ -1,121 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:yk="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/color_000000">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <FrameLayout
-        android:id="@+id/frame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
             <!--title-->
             <include layout="@layout/main_title" />
-
             <RelativeLayout
                 android:id="@+id/contain"
                 android:layout_width="match_parent"
-                android:layout_height="320dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
-
-                    <com.matrix.yukun.matrix.selfview.view.MyRelativeLayout
-                        android:id="@+id/my_relat"
-                        android:background="@color/color_47ffffff"
-                        android:layout_centerInParent="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/iv_image"
-                            android:layout_centerInParent="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </com.matrix.yukun.matrix.selfview.view.MyRelativeLayout>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:visibility="visible"
-                    android:id="@+id/texttishi"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/tishi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="5dp"
-                        android:text="图库和编辑栏在上面呦     "
-                        android:textColor="#ffffff"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/tishitag"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/tishi"
-                        android:layout_marginTop="15dp"
-                        android:text="点击图片可添加文字呦     "
-                        android:textColor="#ffffff"
-                        android:textSize="20sp" />
-                </RelativeLayout>
-
-                <include layout="@layout/ll_rotato_contain"/>
-
-                <com.matrix.yukun.matrix.selfview.WaterLoadView
-                    android:id="@+id/waterload"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                android:layout_height="match_parent">
+                <com.matrix.yukun.matrix.selfview.view.MyRelativeLayout
+                    android:id="@+id/my_relat"
+                    android:background="@color/color_47ffffff"
                     android:layout_centerInParent="true"
-                    android:visibility="gone"
-                    yk:circleColor="#FF0077"
-                    yk:circleSmallRadio="7"
-                    yk:circleTop="80"
-                    yk:loadTime="1000" />
-
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <com.matrix.yukun.matrix.selfview.SelfImageView
+                        android:id="@+id/iv_image"
+                        android:layout_centerInParent="true"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/beijing_1"
+                        android:adjustViewBounds="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.matrix.yukun.matrix.selfview.view.MyRelativeLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_tool_bottom"
+                        android:background="@color/color_282828"
+                        android:orientation="vertical"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimens_50">
+                        <View
+                            android:background="#363636"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"/>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler"
+                            android:visibility="visible"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <LinearLayout
+                            android:id="@+id/ll_tool_choose"
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:visibility="gone"
+                            android:weightSum="2"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:id="@+id/iv_camera"
+                                android:layout_width="0dp"
+                                android:padding="12dp"
+                                android:layout_weight="1"
+                                android:src="@mipmap/ic_camera"
+                                android:layout_height="match_parent" />
+                            <View
+                                android:background="#363636"
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"/>
+                            <ImageView
+                                android:id="@+id/iv_photo"
+                                android:layout_width="0dp"
+                                android:padding="15dp"
+                                android:layout_weight="1"
+                                android:src="@mipmap/pic"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+                    </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
         <!--菜单-->
-        <include layout="@layout/main_menus" />
-    </FrameLayout>
-    <!--底部的布局-->
-    <include
-        layout="@layout/main_bottom"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fl_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/abc_ic_menu_share_mtrl_alpha"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        app:backgroundTint="@color/color_44fc2c"
-        app:rippleColor="@color/color_ff2323"
-        app:elevation="2dp"
-        app:pressedTranslationZ="3dp"
-        android:layout_marginBottom="@dimen/dimens_20"
-        android:layout_marginRight="@dimen/dimens_30" />
-
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/main_menus" />
+        </RelativeLayout>
 </RelativeLayout>
 
 </LinearLayout>

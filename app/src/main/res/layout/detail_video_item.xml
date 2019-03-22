@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_height="110dp">
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_marginTop="@dimen/dimens_10"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_width="160dp"
+            android:layout_height="90dp" />
+        <RelativeLayout
+            android:layout_toRightOf="@+id/iv_cover"
+            android:layout_marginTop="@dimen/dimens_10"
+            android:layout_marginLeft="@dimen/dimens_8"
+            android:layout_marginBottom="@dimen/dimens_10"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_marginTop="@dimen/dimens_8"
+                android:id="@+id/tv_slogn"
+                android:text=""
+                android:textColor="@color/color_ff181818"
+                android:textSize="17sp"
+                android:singleLine="true"
+                android:layout_marginRight="@dimen/dimens_10"
+                android:ellipsize="end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_below="@+id/tv_slogn"
+                android:layout_marginTop="@dimen/dimens_5"
+                android:id="@+id/tv_title"
+                android:text=""
+                android:textColor="@color/color_4b000000"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                android:layout_marginRight="@dimen/dimens_10"
+                android:maxLines="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_time"
+                android:textSize="12sp"
+                android:layout_alignParentRight="true"
+                android:text=""
+                android:textColor="@color/color_ff2323"
+                android:layout_marginRight="@dimen/dimens_8"
+                android:layout_alignParentBottom="true"
+                android:paddingBottom="@dimen/dimens_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content">
+            <include
+                layout="@layout/include_line_no_marg"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:background="@color/color_ff2930"
+            android:layout_width="3dp"
+            android:gravity="center_vertical"
+            android:layout_height="30dp" />
+        <TextView
+            android:paddingLeft="@dimen/dimens_10"
+            android:textSize="17sp"
+            android:gravity="center_vertical"
+            android:text="工具助手"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_45" />
+    </LinearLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

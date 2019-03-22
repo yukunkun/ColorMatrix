@@ -20,13 +20,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.FaceRequest;
+import com.iflytek.cloud.IdentityListener;
+import com.iflytek.cloud.IdentityResult;
+import com.iflytek.cloud.IdentityVerifier;
+import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RequestListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.util.CameraSizeUtils;
+import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -59,6 +65,7 @@ public class FaceFragment extends Fragment {
     private Camera.Size mBestPreviewSize;
     private FaceRequest mFace;
     private String mAuthId;
+    private IdentityVerifier mIdVerifier;
 
     @Nullable
     @Override
@@ -66,6 +73,18 @@ public class FaceFragment extends Fragment {
         View inflate = inflater.inflate(R.layout.fragment_face, null);
         ButterKnife.bind(this, inflate);
         initSurface();
+
+        mIdVerifier = IdentityVerifier.createVerifier(getContext(), new InitListener() {
+            @Override
+            public void onInit(int errorCode) {
+                showTip("引擎初始化："+errorCode);
+                if (ErrorCode.SUCCESS == errorCode) {
+                    showTip("引擎初始化成功");
+                } else {
+                    showTip("引擎初始化失败，错误码：" + errorCode);
+                }
+            }
+        });
         return inflate;
     }
 
@@ -86,6 +105,11 @@ public class FaceFragment extends Fragment {
             }
         });
         mSvCamera.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+
+    }
+
+    private void showTip(String value) {
+        ToastUtils.showToast(value);
     }
 
     private void closeCamer() {
@@ -185,13 +209,13 @@ public class FaceFragment extends Fragment {
             @Override
             public void onPictureTaken(byte[] data, Camera camera) {
                 //上传
-                onTakePhoto(data);
+//                onTakePhoto(data);
             }
         });
     }
 
     private void onTakePhoto(byte[] data) {
-
+        ToastUtils.showToast("developing...");
 //        byte[] bytes = getSmallBitmap(data);
         Bitmap bitmap = CameraSizeUtils.rotateBitmapByDegree(BitmapFactory.decodeByteArray(data, 0, data.length), -90);
         byte[] bytes = CameraSizeUtils.compressBitmap(bitmap, 150);
@@ -199,42 +223,91 @@ public class FaceFragment extends Fragment {
         mAuthId = "a" + longtime;
 //        mBitmap.setImageBitmap(bitmap);
 //        Log.i("----byte",/*bytes.length+*/" date:" + data.length);
-        mFace = new FaceRequest(getContext());
-        // 设置业务类型为注册
-        mFace.setParameter(SpeechConstant.WFR_SST, "reg");
-        // 设置auth_id
-        mFace.setParameter(SpeechConstant.AUTH_ID, mAuthId);
-        // imgData 为图片的二进制数据，listener 为处理注册结果的回调对象
-        mFace.sendRequest(bytes, new RequestListener() {
-            @Override
-            public void onEvent(int i, Bundle bundle) {
 
-            }
+        mIdVerifier.setParameter(SpeechConstant.PARAMS, null);
+        // 设置会话场景
+        mIdVerifier.setParameter(SpeechConstant.MFV_SCENES, "ifr");
+        // 设置会话类型
+        mIdVerifier.setParameter(SpeechConstant.MFV_SST, "enroll");
+        // 设置用户id
+        mIdVerifier.setParameter(SpeechConstant.AUTH_ID, mAuthId);
+        // 设置监听器，开始会话
+        mIdVerifier.startWorking(mEnrollListener);
 
-            @Override
-            public void onBufferReceived(byte[] bytes) {
-                String ret = new String(bytes);
-                try {
-                    mWaterloading.setVisibility(View.GONE);
-                    JSONObject jsonObject = new JSONObject(ret);
-                    String rst = jsonObject.optString("rst");
-                    MyApp.showToast("验证成功 " + rst);
-                    //成功后存储数据
-                    setSharePrefress("mAuthId", mAuthId);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+        // 子业务执行参数，若无可以传空字符传
+        StringBuffer params = new StringBuffer();
+        // 向子业务写入数据，人脸数据可以一次写入
+        mIdVerifier.writeData("ifr", params.toString(), data, 0, data.length);
+        // 停止写入
+        mIdVerifier.stopWrite("ifr");
 
-            @Override
-            public void onCompleted(SpeechError speechError) {
-                if (speechError != null) {
-                    mWaterloading.setVisibility(View.GONE);
-                    MyApp.showToast("识别错误:" + speechError.toString() + " 请重试");
-                }
-            }
-        });
+
+//        // imgData 为图片的二进制数据，listener 为处理注册结果的回调对象
+//        mIdVerifier.sendRequest(bytes, new RequestListener() {
+//            @Override
+//            public void onEvent(int i, Bundle bundle) {
+//                mWaterloading.setVisibility(View.GONE);
+//                MyApp.showToast("识别错误: " + i);
+//            }
+//
+//            @Override
+//            public void onBufferReceived(byte[] bytes) {
+//                String ret = new String(bytes);
+//                try {
+//                    mWaterloading.setVisibility(View.GONE);
+//                    JSONObject jsonObject = new JSONObject(ret);
+//                    String rst = jsonObject.optString("rst");
+//                    MyApp.showToast("验证成功 " + rst);
+//                    //成功后存储数据
+//                    setSharePrefress("mAuthId", mAuthId);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onCompleted(SpeechError speechError) {
+//                if (speechError != null) {
+//                    mWaterloading.setVisibility(View.GONE);
+//                    MyApp.showToast("识别错误:" + speechError.toString() + " 请重试");
+//                }
+//            }
+//        });
     }
+    /**
+     * 人脸注册监听器
+     */
+    private IdentityListener mEnrollListener = new IdentityListener() {
+
+        @Override
+        public void onResult(IdentityResult result, boolean islast) {
+            Log.i("-------------", result.getResultString());
+
+            try {
+                JSONObject object = new JSONObject(result.getResultString());
+                int ret = object.getInt("ret");
+
+                if (ErrorCode.SUCCESS == ret) {
+                    showTip("注册成功");
+                }else {
+                    showTip(new SpeechError(ret).getPlainDescription(true));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+        }
+
+        @Override
+        public void onError(SpeechError error) {
+
+            showTip(error.getPlainDescription(true));
+        }
+
+    };
 
     @Override
     public void onPause() {

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/ll"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_black"
+    tools:context=".gif_module.activity.CropGifImageActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_50">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:padding="@dimen/dimens_12"
+            android:src="@mipmap/ic_back"
+            android:layout_width="@dimen/dimens_50"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_centerInParent="true"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="@color/color_whit"
+            android:text="裁剪"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_complete"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/dimens_5"
+            android:paddingRight="@dimen/dimens_5"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="@color/color_whit"
+            android:text="完成"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.matrix.yukun.matrix.qrcode_module.cropper.CropImageView
+            android:id="@+id/CropImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dimens_100"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"
+            />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:background="@color/color_whit"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_100">
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+</LinearLayout>

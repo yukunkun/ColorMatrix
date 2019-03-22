@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.selfview.GestureLockViewGroup;
+import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -56,6 +57,8 @@ public class GestureFragment extends Fragment {
         View inflate = inflater.inflate(R.layout.fragment_gesture, null);
         ButterKnife.bind(this, inflate);
         setListener();
+        mTvSure.setBackground(getContext().getResources().getDrawable(R.drawable.shape_gesture_uncheck));
+        mTvSure.setClickable(false);
         return inflate;
     }
 
@@ -65,12 +68,19 @@ public class GestureFragment extends Fragment {
 
                     @Override
                     public void onUnmatchedExceedBoundary() {
+
                     }
 
                     @Override
                     public void onGestureEvent(boolean matched) {
-                        secretPos = 2;
-                        mTvInputTime.setText("第二次输入");
+                        secretPos ++ ;
+                        if(secretPos==2){
+                            mTvInputTime.setText("第二次输入");
+                            ToastUtils.showToast("第二次输入");
+                        }else if(secretPos==3){
+                            mTvSure.setClickable(true);
+                            mTvSure.setBackground(getContext().getResources().getDrawable(R.drawable.shape_gesture));
+                        }
                     }
 
                     @Override
@@ -94,10 +104,9 @@ public class GestureFragment extends Fragment {
     @OnClick({R.id.tv_sure, R.id.tv_reset})
     public void onClick(View view) {
         switch (view.getId()) {
-
             case R.id.tv_sure:
                 if (mEtSecret.getText().toString().length() == 0) {
-                    showAlterDialog();
+//                    showAlterDialog();
                     MyApp.showToast("请输入数字密码");
                 } else if (!isSame()) {
                     secretPos = 1;
@@ -105,6 +114,8 @@ public class GestureFragment extends Fragment {
                     mListSecond.clear();
                     MyApp.showToast("请保证两次的手势相同");
                     mTvInputTime.setText("第一次输入");
+                    mTvSure.setBackground(getContext().getResources().getDrawable(R.drawable.shape_gesture_uncheck));
+                    mTvSure.setClickable(false);
                 } else {
                     setSharePrefressSuccess("gesture", true);
                     setSharePrefress("secretStr", mEtSecret.getText().toString());

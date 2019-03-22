@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_whit"
+    android:layout_height="match_parent"
+    tools:context=".download_module.MyDownloadActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_45">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@mipmap/joke_back"
+            android:padding="@dimen/dimens_5"
+            android:layout_width="@dimen/dimens_45"
+            android:layout_height="match_parent" />
+        <TextView
+            android:text="已下载视频"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/color_text"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <FrameLayout
+        android:id="@+id/fl_contain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+</LinearLayout>

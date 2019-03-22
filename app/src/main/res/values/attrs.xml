@@ -7,6 +7,7 @@
     <attr name="circleDuration" format="integer" />
     <attr name="circleCenterColor" format="color"/>
     <attr name="circleRadio" format="integer" />
+    <attr name="buttonCount" format="integer" />
 
     <declare-styleable name="BMoveView">
         <attr name="circleColor" />
@@ -16,8 +17,14 @@
         <attr name="circleRadio"/>
         <attr name="lineDuration" />
         <attr name="circleDuration" />
+        <attr name="buttonCount"/>
     </declare-styleable>
 
+    <declare-styleable name="SideBar">
+        <attr name="scaleTime" format="integer"></attr>
+        <attr name="scaleItemCount" format="integer"></attr>
+
+    </declare-styleable>
     <!--WaterLoadView-->
     <attr name="circleSmallRadio" format="integer"/>
     <attr name="circleTop" format="integer"/>
@@ -48,5 +55,64 @@
         <attr name="bg" />
         <attr name="circleRadio" />
         <attr name="imageDevide"/>
+    </declare-styleable>
+
+    <attr name="titleText" format="string"/>
+    <attr name="titleTextColor" format="color"/>
+    <attr name="backColor" format="color"/>
+    <attr name="titleTextSize" format="dimension"/>
+
+    <declare-styleable name="CustomCircleView">
+        <attr name="titleText"/>
+        <attr name="titleTextColor"/>
+        <attr name="titleTextSize"/>
+        <attr name="backColor"/>
+    </declare-styleable>
+
+    <declare-styleable name="WeekBarView">
+    <attr name="week_text_color" format="color" />
+    <attr name="week_text_size" format="integer" />
+    </declare-styleable>
+
+
+    <declare-styleable name="MonthCalendarView">
+    <attr name="month_selected_text_color" format="color" />
+    <attr name="month_selected_circle_color" format="color" />
+    <attr name="month_selected_circle_today_color" format="color" />
+    <attr name="month_normal_text_color" format="color" />
+    <attr name="month_today_text_color" format="color" />
+    <attr name="month_lunar_text_color" format="color" />
+    <attr name="month_hint_circle_color" format="color" />
+    <attr name="month_holiday_color" format="color" />
+    <attr name="month_last_or_next_month_text_color" format="color" />
+    <attr name="month_day_text_size" format="integer" />
+    <attr name="month_day_lunar_text_size" format="integer" />
+    <attr name="month_show_task_hint" format="boolean" />
+    <attr name="month_show_lunar" format="boolean" />
+    <attr name="month_show_holiday_hint" format="boolean" />
+    <attr name="month_count" format="integer" />
+    </declare-styleable>
+        <declare-styleable name="WeekCalendarView">
+    <attr name="week_selected_text_color" format="color" />
+    <attr name="week_selected_circle_color" format="color" />
+    <attr name="week_selected_circle_today_color" format="color" />
+    <attr name="week_normal_text_color" format="color" />
+    <attr name="week_today_text_color" format="color" />
+    <attr name="week_hint_circle_color" format="color" />
+    <attr name="week_holiday_color" format="color" />
+    <attr name="week_lunar_text_color" format="color" />
+    <attr name="week_day_text_size" format="integer" />
+    <attr name="week_day_lunar_text_size" format="integer" />
+    <attr name="week_show_task_hint" format="boolean" />
+    <attr name="week_show_lunar" format="boolean" />
+    <attr name="week_show_holiday_hint" format="boolean" />
+    <attr name="week_count" format="integer" />
+    </declare-styleable>
+        <declare-styleable name="ScheduleLayout">
+    <attr name="default_view">
+        <enum name="month" value="0" />
+        <enum name="week" value="1" />
+    </attr>
+    <attr name="auto_change_month_row" format="boolean" />
     </declare-styleable>
 </resources>

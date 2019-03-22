@@ -3,16 +3,13 @@ package com.matrix.yukun.matrix;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.os.StrictMode;
 import android.widget.Toast;
 
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechUtility;
+import com.matrix.yukun.matrix.download_module.service.DownLoadService;
+import com.matrix.yukun.matrix.video_module.MyApplication;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
-import com.ykk.pluglin_video.MyApplication;
-
-import org.litepal.LitePalApplication;
-
 import java.util.List;
 
 /**
@@ -25,9 +22,9 @@ public class MyApp extends MyApplication {
         super.onCreate();
         myApp=this;
         //讯飞人脸识别
-        SpeechUtility.createUtility(getApplicationContext(), SpeechConstant.APPID+"=58833c92");
+//        SpeechUtility.createUtility(getApplicationContext(), SpeechConstant.APPID+"=58833c92");
+//        Setting.setShowLog(true);
         Beta.autoCheckUpgrade = false;//设置不自动检查
-//        Beta.initDelay = 9 * 1000; //自动监测时间
         Bugly.init(getApplicationContext(), "884e2d9286", false);
         //  内存泄漏监测
 //        if (LeakCanary.isInAnalyzerProcess(this)) {
@@ -37,6 +34,15 @@ public class MyApp extends MyApplication {
 //        }
 //        refWatcher = LeakCanary.install(this);
         String processName = getProcessName(this, android.os.Process.myPid());
+        // android 7.0系统解决拍照的问题
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
+        //mob
+//        MobSDK.init(this);
+        //服务
+        DownLoadService.start(this);
+//        DownLoadService.checkServiceIsHealthy(this);
     }
     //获取当前进程名字
     public static String getProcessName(Context cxt, int pid) {

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.matrix.yukun.matrix.video_module.views.SwipeItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/ll_con"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_title"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:textColor="@color/color_ff2930"
+            android:background="@color/color_e4e4e4"
+            android:paddingLeft="@dimen/dimens_10"
+            android:layout_height="@dimen/dimens_30" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cv_header"
+                android:layout_marginLeft="@dimen/dimens_20"
+                android:layout_width="@dimen/dimens_50"
+                android:src="@mipmap/me_icon"
+                android:layout_centerVertical="true"
+                app:civ_border_color="@color/color_714d4d4d"
+                app:civ_border_width="1dp"
+                android:layout_height="@dimen/dimens_50" />
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dimens_20"
+                android:text=""
+                android:gravity="center"
+                android:textSize="25sp"
+                android:layout_width="@dimen/dimens_50"
+                android:layout_height="@dimen/dimens_50" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="@dimen/dimens_10"
+                android:layout_toRightOf="@+id/tv_name"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_contact_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/color_text"
+                    android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/tv_number"
+                    android:layout_below="@+id/tv_contact_name"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginRight="@dimen/dimens_10"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_more"
+                    android:padding="@dimen/dimens_10"
+                    android:src="@mipmap/icon_phone_more"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="@dimen/dimens_40"
+                    android:layout_height="@dimen/dimens_40" />
+                <ImageView
+                    android:id="@+id/iv_msg"
+                    android:padding="@dimen/dimens_10"
+                    android:src="@mipmap/icon_phone_msg"
+                    android:layout_toLeftOf="@+id/iv_more"
+                    android:layout_width="@dimen/dimens_40"
+                    android:layout_height="@dimen/dimens_40" />
+                <ImageView
+                    android:id="@+id/iv_call"
+                    android:padding="@dimen/dimens_8"
+                    android:src="@mipmap/icon_phone_call"
+                    android:layout_toLeftOf="@+id/iv_msg"
+                    android:layout_width="@dimen/dimens_40"
+                    android:layout_height="@dimen/dimens_40" />
+            </RelativeLayout>
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_e4e4e4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/delete"
+            android:text="删除"
+            android:textColor="@color/color_c8ff4081"
+            android:textSize="16sp"
+            android:background="@color/color_write"
+            android:layout_width="80dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</com.matrix.yukun.matrix.video_module.views.SwipeItemLayout>

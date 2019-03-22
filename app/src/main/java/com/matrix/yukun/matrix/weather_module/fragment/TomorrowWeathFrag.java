@@ -1,7 +1,6 @@
 package com.matrix.yukun.matrix.weather_module.fragment;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -23,7 +22,7 @@ import android.widget.TextView;
 
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.bean.AppConstants;
+import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.movie_module.BaseFrag;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.selfview.WaterLoadView;
@@ -141,8 +140,8 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
     }
 
     private void getBanner() {
-        mBannerView = new BannerView(getActivity(), ADSize.BANNER, AppConstants.APPID,
-                AppConstants.BANNER_ADID);
+        mBannerView = new BannerView(getActivity(), ADSize.BANNER, AppConstant.APPID,
+                AppConstant.BANNER_ADID);
         mBannerView.setRefresh(30);
         mBannerView.setADListener(new AbstractBannerADListener() {
             @Override

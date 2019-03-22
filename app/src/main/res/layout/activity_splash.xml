@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/color_black"
     android:layout_height="match_parent"
     tools:context=".main_module.SplashActivity">
 
@@ -18,7 +19,7 @@
         <ImageView
             android:id="@+id/icon"
             android:layout_marginLeft="70dp"
-            android:src="@mipmap/tool_icon"
+            android:src="@mipmap/tool_icon_black"
             android:layout_width="90dp"
             android:scaleType="centerCrop"
             android:layout_height="@dimen/dimens_90" />

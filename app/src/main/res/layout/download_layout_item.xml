@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.matrix.yukun.matrix.video_module.views.SwipeItemLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/rl_item"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="@dimen/dimens_20"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_marginTop="@dimen/dimens_10"
+            android:layout_width="@dimen/dimens_70"
+            android:layout_height="@dimen/dimens_70" />
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:textSize="16sp"
+            android:textColor="@color/color_text"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:singleLine="true"
+            android:layout_marginRight="@dimen/dimens_10"
+            android:ellipsize="end"
+            android:layout_marginTop="@dimen/dimens_12"
+            android:layout_toRightOf="@+id/iv_cover"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_size"
+            android:layout_width="wrap_content"
+            android:textSize="14sp"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_marginTop="@dimen/dimens_10"
+            android:layout_toRightOf="@+id/iv_cover"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_ededed"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_8"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/tv_del"
+            android:text="删除"
+            android:textColor="@color/color_ff0008"
+            android:textSize="16sp"
+            android:background="@color/color_write"
+            android:layout_width="@dimen/dimens_80"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</com.matrix.yukun.matrix.video_module.views.SwipeItemLayout>

@@ -1,8 +1,6 @@
 package com.matrix.yukun.matrix.weather_module.present;
 
-import android.util.Log;
-
-import com.matrix.yukun.matrix.bean.AppConstants;
+import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.movie_module.util.MovieService;
 import com.matrix.yukun.matrix.movie_module.util.RetrofitApi;
 import com.matrix.yukun.matrix.weather_module.bean.WeaLifePoint;
@@ -12,8 +10,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import rx.Subscriber;
-import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -41,7 +37,7 @@ public class ConfortablePresent  implements ConfortablePresentImpl {
     @Override
     public void getInfo(String city) {
         Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
-        retrofit.create(MovieService.class).getLifes(city, AppConstants.HEWEATHER_KEY).enqueue(new Callback<WeaLifePoint>() {
+        retrofit.create(MovieService.class).getLifes(city, AppConstant.HEWEATHER_KEY).enqueue(new Callback<WeaLifePoint>() {
             @Override
             public void onResponse(Call<WeaLifePoint> call, Response<WeaLifePoint> response) {
                 mView.dismissDialogs();

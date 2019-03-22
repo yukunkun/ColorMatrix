@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_gravity="bottom"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:background="@drawable/gradient_mask_under">
+
+        <ImageView
+            android:id="@+id/ivCropCancel"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:contentDescription="@string/app_name"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center"
+            android:src="@drawable/alert_cancel"/>
+
+        <TextView
+            android:id="@+id/tvCropRestore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="102dp"
+            android:text="@string/editor_restore"
+            android:textColor="@color/C10"
+            android:textSize="@dimen/F3"/>
+
+        <TextView
+            android:id="@+id/ivCropRotate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/C10"
+            android:textSize="@dimen/F3"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="76dp"
+            android:text="旋转"
+            android:drawablePadding="8dp"
+            android:drawableLeft="@drawable/crop_image_rotate_left"/>
+
+        <ImageView
+            android:id="@+id/ivCropConfirm"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="14dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/alert_selected" />
+    </RelativeLayout>
+
+</LinearLayout>

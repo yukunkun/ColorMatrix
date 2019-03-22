@@ -2,14 +2,12 @@ package com.matrix.yukun.matrix.camera_module;
 
 import android.content.Intent;
 
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Path;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -17,10 +15,10 @@ import android.widget.Toast;
 
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.bean.AppConstants;
+import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.image_module.bean.EventDetail;
 import com.matrix.yukun.matrix.util.BitmapUtil;
-import com.matrix.yukun.matrix.util.FileUtil;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -32,7 +30,7 @@ import java.util.Date;
 public class CameraActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView imageViewCamera;
-    private ImageView imageViewBack;
+    private ImageView mIvBack;
     private ImageView imageViewOk;
     private ImageView imageViewCancler;
     private String fileName="";
@@ -56,7 +54,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
 
     private void init() {
         imageViewCamera = (ImageView) findViewById(R.id.cameraimageview);
-        imageViewBack = (ImageView) findViewById(R.id.cameraback);
+        mIvBack = (ImageView) findViewById(R.id.cameraback);
         imageViewOk = (ImageView) findViewById(R.id.cameraok);
         imageViewCancler = (ImageView) findViewById(R.id.cameracancler);
         layout = (RelativeLayout) findViewById(R.id.deal);
@@ -66,8 +64,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         String fileNames = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 
-        mFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+
-                AppConstants.PATH+"/" + fileNames + ".jpg");
+        mFile = new File( AppConstant.IMAGEPATH+"/"+ fileNames + ".jpg");
         mFile.getParentFile().mkdirs();
         path1 = mFile.getAbsolutePath();
         fileName=fileNames + ".jpg";
@@ -80,7 +77,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void setListener() {
-        imageViewBack.setOnClickListener(this);
+        mIvBack.setOnClickListener(this);
         imageViewOk.setOnClickListener(this);
         imageViewCancler.setOnClickListener(this);
     }
@@ -129,8 +126,11 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         imageViewCamera.setImageResource(R.mipmap.beijing_1);
         BitmapFactory.Options options = new BitmapFactory.Options();
         if (requestCode == 1&&options!=null) {
-            imageViewCamera.setImageBitmap(BitmapFactory.decodeFile(mFile.getAbsolutePath()));
-            path1=mFile.getAbsolutePath();
+            String imagePath = BitmapUtil.compressImage(mFile.getAbsolutePath());
+            imageViewCamera.setImageBitmap(BitmapFactory.decodeFile(imagePath));
+            path1=mFile.getPath();
+        }else {
+            finish();
         }
     }
 }

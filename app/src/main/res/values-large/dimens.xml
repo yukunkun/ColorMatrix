@@ -19,12 +19,10 @@
     <dimen name="dimens_80">90dp</dimen>
     <dimen name="dimens_90">100dp</dimen>
     <dimen name="dimens_100">120dp</dimen>
-    <dimen name="dimens_110">130dp</dimen>
     <dimen name="dimens_120">170dp</dimen>
     <dimen name="dimens_130">200dp</dimen>
     <dimen name="dimens_140">180dp</dimen>
     <dimen name="dimens_150">190dp</dimen>
-    <dimen name="dimens_170">200dp</dimen>
     <dimen name="dimens_200">220dp</dimen>
     <dimen name="dimens_220">230dp</dimen>
     <dimen name="dimens_240">260dp</dimen>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".gif_module.activity.GIFVideoClipActivity">
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_50">
+        <TextView
+            android:text="视频裁剪"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/color_black"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_back"
+            android:padding="@dimen/dimens_5"
+            android:src="@mipmap/joke_back"
+            android:layout_width="@dimen/dimens_45"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/rl_title"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:background="@color/color_black"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_240">
+            <VideoView
+                android:id="@+id/videoview"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <RelativeLayout
+                android:id="@+id/rl_play_contain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_play"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:src="@mipmap/icon_video_play"
+                    android:layout_centerInParent="true"
+                    android:layout_width="@dimen/dimens_45"
+                    android:layout_height="@dimen/dimens_45" />
+            </RelativeLayout>
+
+            <SeekBar
+                android:id="@+id/seekbar"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/dimens_3"
+                android:layout_marginRight="@dimen/dimens_60"
+                android:layout_marginLeft="@dimen/dimens_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_time"
+                android:gravity="center"
+                android:text="00:00/00:00"
+                android:textSize="10sp"
+                android:layout_marginBottom="@dimen/dimens_3"
+                android:layout_marginRight="@dimen/dimens_3"
+                android:textColor="@color/color_whit"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="@dimen/dimens_60"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dimens_10"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_40">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_gallary"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_marginRight="@dimen/dimens_70"
+                android:layout_height="match_parent">
+            </android.support.v7.widget.RecyclerView>
+            <TextView
+                android:id="@+id/tv_clip"
+                android:text="开始裁剪"
+                android:layout_marginRight="@dimen/dimens_5"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color_whit"
+                android:background="@drawable/shape_login_next_bg_unselect"
+                android:textSize="14sp"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:layout_width="@dimen/dimens_60"
+                android:layout_height="@dimen/dimens_30" />
+        </RelativeLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_marginTop="@dimen/dimens_12"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_80">
+        </android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/tv_product_gif"
+            android:text="开始制作GIF"
+            android:layout_marginRight="@dimen/dimens_5"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/dimens_10"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/color_whit"
+            android:background="@drawable/shape_login_next_bg_unselect"
+            android:textSize="14sp"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:layout_width="@dimen/dimens_100"
+            android:layout_height="@dimen/dimens_45" />
+
+    </LinearLayout>
+    <!--load-->
+    <RelativeLayout
+        android:id="@+id/rl_load"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@color/color_a1b6b6b6"
+        android:layout_height="match_parent">
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/av_load"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                app:indicatorName="BallTrianglePathIndicator"
+                android:layout_height="wrap_content"
+                app:indicatorColor="@color/colorAccent"
+                />
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_below="@+id/av_load"
+                android:layout_marginTop="@dimen/dimens_10"
+                android:text="加油奔跑中。。。"
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</RelativeLayout>

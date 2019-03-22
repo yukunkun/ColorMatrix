@@ -1,29 +1,16 @@
 package com.matrix.yukun.matrix.weather_module.present;
 
 
-import android.util.Log;
-
-import com.google.gson.Gson;
-import com.matrix.yukun.matrix.bean.AppConstants;
+import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.movie_module.util.MovieService;
 import com.matrix.yukun.matrix.movie_module.util.RetrofitApi;
-import com.matrix.yukun.matrix.weather_module.bean.WeaDestory;
 import com.matrix.yukun.matrix.weather_module.bean.WeaHours;
 import com.matrix.yukun.matrix.weather_module.bean.WeaNow;
 import com.matrix.yukun.matrix.weather_module.fragment.TodayWeathFrag;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
-import java.util.Arrays;
-
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import okhttp3.Protocol;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import rx.Subscriber;
-import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -36,7 +23,7 @@ public class TodayPresent implements TodayPresentImpl{
     @Override
     public void getInfo(String city) {
         Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
-        retrofit.create(MovieService.class).getNows(city,AppConstants.HEWEATHER_KEY).enqueue(new Callback<WeaNow>() {
+        retrofit.create(MovieService.class).getNows(city, AppConstant.HEWEATHER_KEY).enqueue(new Callback<WeaNow>() {
             @Override
             public void onResponse(retrofit2.Call<WeaNow> call, Response<WeaNow> response) {
                 mView.dismissDialogs();
@@ -94,9 +81,10 @@ public class TodayPresent implements TodayPresentImpl{
     @Override
     public void getHours(String city) {
         Retrofit retrofit = RetrofitApi.getInstance().retrofitWeaUil();
-        retrofit.create(MovieService.class).getHourlys(city,AppConstants.HEWEATHER_KEY).enqueue(new Callback<WeaHours>() {
+        retrofit.create(MovieService.class).getHourlys(city, AppConstant.HEWEATHER_KEY).enqueue(new Callback<WeaHours>() {
             @Override
             public void onResponse(retrofit2.Call<WeaHours> call, Response<WeaHours> response) {
+//                Log.i("-----------",response.body().toString());
                 mView.dismissDialogs();
                 mView.getHoursInfo(response.body());
             }

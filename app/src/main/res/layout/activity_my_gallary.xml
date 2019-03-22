@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/color_whit"
+    android:layout_height="match_parent"
+    tools:context=".video_module.play.MyGallaryActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_50">
+        <TextView
+            android:text="图库"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/color_black"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_back"
+            android:padding="@dimen/dimens_5"
+            android:src="@mipmap/joke_back"
+            android:layout_width="@dimen/dimens_45"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_bfbfbf"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+    </RelativeLayout>
+    <GridView
+        android:layout_marginTop="51dp"
+        android:paddingTop="@dimen/dimens_5"
+        android:id="@+id/grideview"
+        android:columnWidth="25dp"
+        android:numColumns="4"
+        android:verticalSpacing="@dimen/dimens_3"
+        android:horizontalSpacing="@dimen/dimens_3"
+        android:layoutAnimation="@anim/layout_anim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <RelativeLayout
+        android:id="@+id/rl_remind"
+        android:visibility="visible"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_remind"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/icon_remind_cry"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp" />
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tv_remind"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/iv_remind"
+            android:text="没有更多了~-~"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_black"
+    android:layout_height="match_parent"
+    tools:context=".gif_module.activity.GIFVideoProActivity">
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_50">
+        <TextView
+            android:text="视频GIF"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/color_whit"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_back"
+            android:padding="@dimen/dimens_5"
+            android:src="@mipmap/ic_back"
+            android:layout_width="@dimen/dimens_45"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_pro"
+            android:text="保存"
+            android:layout_marginRight="@dimen/dimens_10"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:textColor="@color/color_whit"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <RelativeLayout
+        android:layout_below="@+id/rl_title"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/giv1"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <SeekBar
+                android:id="@+id/seekbar"
+                android:visibility="gone"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/dimens_20"
+                android:layout_marginRight="@dimen/dimens_10"
+                android:layout_marginLeft="@dimen/dimens_10"
+                android:layout_height="wrap_content" />
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/btn_share"
+                android:layout_width="wrap_content"
+                android:src="@mipmap/icon_share"
+                app:fab_size="mini"
+                android:layout_marginRight="@dimen/dimens_20"
+                android:layout_marginBottom="@dimen/dimens_20"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_load"
+        android:visibility="gone"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@color/color_a1b6b6b6"
+        android:layout_height="match_parent">
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/av_load"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            app:indicatorName="BallTrianglePathIndicator"
+            android:layout_height="wrap_content"
+            app:indicatorColor="@color/colorAccent"
+            />
+        <TextView
+            android:id="@+id/tv_load"
+            android:layout_below="@+id/av_load"
+            android:layout_marginTop="@dimen/dimens_10"
+            android:text="加油奔跑中。。。"
+            android:textColor="@color/colorAccent"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</RelativeLayout>

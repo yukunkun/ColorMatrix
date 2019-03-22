@@ -22,7 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.bean.AppConstants;
+import com.matrix.yukun.matrix.constant.AppConstant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -272,10 +272,10 @@ public class MyRelativeLayout extends RelativeLayout {
                             if (Math.abs(firstX - event.getX()) > Math.abs(firstY - event.getY())) {
                                 if (firstX < event.getX()) {
                                     Log.d("HHH", "你应该是在右滑吧");
-                                    myRelativeTouchCallBack.touchMoveCallBack(AppConstants.MOVE_RIGHT);
+                                    myRelativeTouchCallBack.touchMoveCallBack(AppConstant.MOVE_RIGHT);
                                 } else {
                                     Log.d("HHH", "你应该是在左滑吧");
-                                    myRelativeTouchCallBack.touchMoveCallBack(AppConstants.MOVE_LEFT);
+                                    myRelativeTouchCallBack.touchMoveCallBack(AppConstant.MOVE_LEFT);
                                 }
                             }
                         }
@@ -383,7 +383,7 @@ public class MyRelativeLayout extends RelativeLayout {
                                 textView.setY(mEvent.getY() - mTv_height);
                                 //通知调用者我在平移
                                 if (myRelativeTouchCallBack != null)
-                                    myRelativeTouchCallBack.onTextViewMoving(textView);
+                                    myRelativeTouchCallBack.onmTvMovieing(textView);
                             }
 
                             if (spacing(firstX, firstY, event.getX(), event.getY()) > 2) {
@@ -418,13 +418,13 @@ public class MyRelativeLayout extends RelativeLayout {
                                 }
                                 //通知调用者我在旋转或者缩放
                                 if (myRelativeTouchCallBack != null)
-                                    myRelativeTouchCallBack.onTextViewMoving(textView);
+                                    myRelativeTouchCallBack.onmTvMovieing(textView);
                             }
                             break;
                         case MotionEvent.ACTION_UP:
                             //通知调用者我滑动结束了
                             if (myRelativeTouchCallBack != null)
-                                myRelativeTouchCallBack.onTextViewMovingDone();
+                                myRelativeTouchCallBack.onmTvMovieingDone();
                             mptrID1 = INVALID_POINTER_ID;
                             updateTextViewParams((TextView) v, mAngle, scale);
 
@@ -496,6 +496,8 @@ public class MyRelativeLayout extends RelativeLayout {
         final EditText editText = (EditText) view.findViewById(R.id.dialog_edittext);
         TextView cancel = (TextView) view.findViewById(R.id.tv_cancel);
         TextView ok = (TextView) view.findViewById(R.id.tv_ok);
+        TextView del = (TextView) view.findViewById(R.id.tv_del);
+
         ColorTagImageView colorTagImageView = (ColorTagImageView) view.findViewById(R.id.color_tag);
         colorTagImageView.setListener(new ColorTagImageView.OnColorTagChanges() {
             @Override
@@ -524,7 +526,17 @@ public class MyRelativeLayout extends RelativeLayout {
                 dialog.dismiss();
             }
         });
-
+        del.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isNew) {
+                    addTextView(null, currentX, currentY, "", colors[0], 0, 0);
+                } else {
+                    addTextView(textView, textView.getX(), textView.getY(), "", colors[0], textView.getTextSize(), textView.getRotation());
+                }
+                dialog.dismiss();
+            }
+        });
         cancel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -907,9 +919,9 @@ public class MyRelativeLayout extends RelativeLayout {
     public interface MyRelativeTouchCallBack {
         void touchMoveCallBack(int direction);
 
-        void onTextViewMoving(TextView textView);
+        void onmTvMovieing(TextView textView);
 
-        void onTextViewMovingDone();
+        void onmTvMovieingDone();
     }
 
 }

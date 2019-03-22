@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/shape_share_bg"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_marginTop="@dimen/dimens_10"
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_20">
+        <TextView
+            android:id="@+id/tv_share"
+            android:layout_centerInParent="true"
+            android:text="分享到"
+            android:textColor="@color/color_line"
+            android:paddingRight="@dimen/dimens_10"
+            android:paddingLeft="@dimen/dimens_10"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tv_share"
+            android:layout_width="match_parent"
+            android:background="@color/color_back_all"
+            android:layout_height="1dp"/>
+        <View
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_share"
+            android:layout_width="match_parent"
+            android:background="@color/color_back_all"
+            android:layout_height="1dp"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_below="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dimens_10"
+        android:layout_marginBottom="@dimen/dimens_20"
+        android:paddingLeft="@dimen/dimens_40"
+        android:paddingRight="@dimen/dimens_40"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_share_qq"
+                android:src="@drawable/selector_qq_share"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_35" />
+            <TextView
+                android:layout_marginTop="@dimen/dimens_5"
+                android:gravity="center"
+                android:text="qq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_share_zone"
+                android:src="@drawable/selector_qq_zone_share"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_35" />
+            <TextView
+                android:layout_marginTop="@dimen/dimens_5"
+                android:gravity="center"
+                android:text="空间"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_share_more"
+                android:src="@drawable/selector_more_share"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_35" />
+            <TextView
+                android:layout_marginTop="@dimen/dimens_5"
+                android:gravity="center"
+                android:text="更多"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</RelativeLayout>

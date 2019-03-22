@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:sidebar="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/color_whit"
+    tools:context=".phone_module.ContactActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/color_whit"
+        android:layout_height="@dimen/dimens_50">
+        <ImageView
+            android:src="@mipmap/joke_back"
+            android:padding="@dimen/dimens_8"
+            android:id="@+id/iv_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:gravity="center"
+            android:textSize="17sp"
+            android:layout_centerInParent="true"
+            android:text="号码归属地查询"
+            android:textColor="@color/color_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_contact"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:layout_alignParentRight="true"
+            android:text="电话本"
+            android:paddingRight="@dimen/dimens_10"
+            android:paddingLeft="@dimen/dimens_10"
+            android:textColor="@drawable/selector_qrcode_product"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/rv_phone_list"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+        <com.matrix.yukun.matrix.video_module.views.SideBar
+            android:id="@+id/sidebar"
+            android:textColor="@color/color_c8ff4081"
+            android:textSize="15sp"
+            android:paddingRight="10dp"
+            android:paddingTop="@dimen/dimens_10"
+            android:paddingBottom="@dimen/dimens_10"
+            sidebar:scaleTime="1"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+</LinearLayout>

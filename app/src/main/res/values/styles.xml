@@ -3,10 +3,12 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimaryDark">#232323</item>
+        <item name="colorPrimaryDark">#6c6c6c</item>
         <item name="colorPrimary">#607D8B</item>
         <item name="colorAccent">@color/colorAccent</item>
+<!--
         <item name="android:windowBackground">@android:color/transparent</item>
+-->
         <!--<item name="android:windowIsTranslucent">true</item>-->
         <!--<item name="android:windowNoTitle">true</item>-->
     </style>
@@ -19,14 +21,8 @@
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
-    <style name="popwindow_style">
-        <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
-        <!-- 指定显示的动画xml -->
-        <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
-        <!-- 指定消失的动画xml -->
-    </style>
 
-        <attr name="color_no_finger_inner_circle" format="color" />
+    <attr name="color_no_finger_inner_circle" format="color" />
         <attr name="color_no_finger_outer_circle" format="color" />
         <attr name="color_finger_on" format="color" />
         <attr name="color_finger_up" format="color" />
@@ -44,5 +40,32 @@
         <attr name="count" />
         <attr name="tryTimes" />
     </declare-styleable>
+    <style name="SpinnerStyle">
+        <item name="colorAccent">#ddffffff</item>
+        <item name="colorControlNormal">#ddffffff</item> <!--改变了spinner的颜色  -->
+    </style>
+    <style name="RatingBar_CustomColor" parent="@android:style/Widget.Holo.RatingBar.Indicator">
+        <!--Background Color-->
+        <item name="colorControlNormal">#D7D7D7</item>
+        <!--Progress Color-->
+        <item name="colorControlActivated">#ff2323</item>
+    </style>
+
+    <style name="TitleMorePopAnimationStyle">
+        <item name="android:windowEnterAnimation">@anim/title_more_pop_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/title_more_pop_out_anim</item>
+    </style>
+
+    <style name="comment">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="Transparent" parent="AppTheme">
+    　　<item name="android:windowBackground">@color/color_00000000</item>
+    　　<item name="android:windowIsTranslucent">true</item>
+       <item name="android:windowAnimationStyle">@anim/activity_back_anim</item>
+     </style>
+    　
 
 </resources>

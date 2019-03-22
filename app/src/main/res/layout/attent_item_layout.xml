@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/cv_header"
+            android:layout_marginTop="@dimen/dimens_20"
+            android:layout_marginBottom="@dimen/dimens_20"
+            android:layout_marginLeft="@dimen/dimens_20"
+            app:civ_border_color="@color/color_8a8a8a"
+            app:civ_border_width="1dp"
+            android:layout_width="@dimen/dimens_50"
+            android:layout_height="@dimen/dimens_50" />
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_centerInParent="true"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="18sp"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:textColor="@color/colorAccent"
+            android:layout_marginRight="@dimen/dimens_70"
+            android:layout_toRightOf="@+id/cv_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_attent"
+            android:background="@drawable/shape_collect_bg_checked"
+            android:layout_marginRight="@dimen/dimens_10"
+            android:text="- 关注"
+            android:paddingLeft="@dimen/dimens_8"
+            android:paddingTop="@dimen/dimens_3"
+            android:paddingBottom="@dimen/dimens_3"
+            android:paddingRight="@dimen/dimens_8"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="14sp"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:textColor="@color/color_e9e7e7"
+            android:layout_width="@dimen/dimens_50"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+</LinearLayout>

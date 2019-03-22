@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/color_whit"
+    android:layout_height="match_parent"
+    tools:context=".video_module.play.PersonActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_45">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@mipmap/joke_back"
+            android:padding="@dimen/dimens_5"
+            android:layout_width="@dimen/dimens_45"
+            android:layout_height="match_parent" />
+        <TextView
+            android:text="个人信息"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/color_text"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:background="@color/color_write"
+        android:layout_height="match_parent">
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:fitsSystemWindows="true"
+            android:background="@color/color_whit"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+                    <ImageView
+                        android:id="@+id/iv_header_bg"
+                        android:scaleType="centerCrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <RelativeLayout
+                        android:layout_marginLeft="@dimen/dimens_20"
+                        android:layout_marginRight="@dimen/dimens_20"
+                        android:layout_marginBottom="@dimen/dimens_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/iv_avator"
+                            android:src="@mipmap/snail_image"
+                            android:transitionName="shareView"
+                            android:layout_width="@dimen/dimens_80"
+                            android:layout_marginTop="@dimen/dimens_20"
+                            android:layout_centerHorizontal="true"
+                            android:layout_height="@dimen/dimens_80" />
+                        <LinearLayout
+                            android:layout_below="@+id/iv_avator"
+                            android:layout_marginTop="@dimen/dimens_40"
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/tv_col"
+                                android:paddingLeft="@dimen/dimens_20"
+                                android:paddingRight="@dimen/dimens_20"
+                                android:paddingBottom="@dimen/dimens_3"
+                                android:paddingTop="@dimen/dimens_3"
+                                android:gravity="center"
+                                android:singleLine="true"
+                                android:textSize="16sp"
+                                android:background="@drawable/shape_collect_bg_unchecked"
+                                android:textColor="@color/color_ff2323"
+                                android:text="+ 收藏"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/tv_attent"
+                                android:gravity="center"
+                                android:singleLine="true"
+                                android:paddingLeft="@dimen/dimens_20"
+                                android:paddingRight="@dimen/dimens_20"
+                                android:paddingBottom="@dimen/dimens_3"
+                                android:paddingTop="@dimen/dimens_3"
+                                android:layout_marginLeft="@dimen/dimens_20"
+                                android:textSize="16sp"
+                                android:background="@drawable/shape_collect_bg_unchecked"
+                                android:textColor="@color/color_ff2323"
+                                android:text="+ 关注"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:background="@color/color_81e9e9e9"
+                    android:layout_height="@dimen/dimens_10"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                android:gravity="center_vertical"
+                android:layout_height="@dimen/dimens_50">
+                <LinearLayout
+                    android:id="@+id/ll_coll"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_height="match_parent">
+                    <View
+                        android:layout_width="2dp"
+                        android:background="@color/colorAccent"
+                        android:layout_height="@dimen/dimens_30"/>
+                    <TextView
+                        android:text="作品"
+                        android:gravity="center_horizontal"
+                        android:textSize="14sp"
+                        android:layout_marginLeft="@dimen/dimens_20"
+                        android:textColor="@color/colorAccent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <include layout="@layout/include_line_no_marg"/>
+        </android.support.design.widget.AppBarLayout>
+        <RelativeLayout
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:background="@color/color_eaeaea"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </android.support.v7.widget.RecyclerView>
+            <RelativeLayout
+                android:id="@+id/rl_remind"
+                android:visibility="visible"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_remind"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/icon_remind_cry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp" />
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/tv_remind"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/iv_remind"
+                    android:text="您还没有作品呦~-~"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+</LinearLayout>

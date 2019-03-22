@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/iv_comment_bg"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_170" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cv_header"
+                android:layout_marginTop="@dimen/dimens_10"
+                android:layout_marginLeft="@dimen/dimens_20"
+                app:civ_border_color="@color/color_bfbfbf"
+                app:civ_border_width="1dp"
+                android:layout_marginBottom="@dimen/dimens_10"
+                android:layout_width="@dimen/dimens_60"
+                android:layout_height="@dimen/dimens_60" />
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:layout_marginRight="@dimen/dimens_10"
+                android:layout_toRightOf="@+id/cv_header"
+                android:textColor="@color/color_2c2c2c"
+                android:layout_marginTop="@dimen/dimens_20"
+                android:layout_marginLeft="@dimen/dimens_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_des"
+            android:paddingRight="@dimen/dimens_20"
+            android:paddingLeft="@dimen/dimens_20"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/dimens_10"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>
