@@ -23,6 +23,7 @@ import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.download_module.service.DownLoadEngine;
 import com.matrix.yukun.matrix.download_module.service.DownLoadService;
+import com.matrix.yukun.matrix.main_module.search.DBSearchInfo;
 import com.matrix.yukun.matrix.util.PermissionUtils;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.MyApplication;
@@ -58,6 +59,8 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
 
     private void init() {
         relativeLayout = (RelativeLayout) findViewById(R.id.container);
+        //删除100天以前的历史数据
+        DataSupport.deleteAllAsync(DBSearchInfo.class,"timeStamp < ? ", System.currentTimeMillis()-100*24*60*60*1000+"");
     }
 
     private void getPermiss() {

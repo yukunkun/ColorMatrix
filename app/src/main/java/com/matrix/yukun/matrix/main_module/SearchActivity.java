@@ -30,12 +30,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.main_module.search.DBSearchInfo;
 import com.matrix.yukun.matrix.util.ScreenUtils;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.matrix.yukun.matrix.video_module.utils.ScreenUtil;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.wang.avi.AVLoadingIndicatorView;
+
+import org.litepal.crud.DataSupport;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -52,7 +58,9 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     LinearLayout mLlRoot;
     @BindView(R.id.av_load)
     AVLoadingIndicatorView mAVLoadingIndicatorView;
+    private int limit=50;
     private EditText mEditText;
+    private List<DBSearchInfo> mDBSearchInfoList=new ArrayList<>();
 
     public static void start(Context context, View view){
         Intent intent=new Intent(context,SearchActivity.class);
@@ -71,7 +79,6 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void initView() {
       startShowView();
-
     }
 
     private void startShowView() {
@@ -112,8 +119,11 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
      * @param query
      */
     private void searchkey(String query) {
-        mAVLoadingIndicatorView.setVisibility(View.GONE);
-        mIvLoadFail.setVisibility(View.VISIBLE);
+
+        LogUtil.i("=======size",DataSupport.findAll(DBSearchInfo.class).size()+" "+query);
+        List<DBSearchInfo> publishdate_desc = DataSupport.select("description = ?",query).order("publishdate desc").limit(limit).find(DBSearchInfo.class);
+        LogUtil.i("=======",publishdate_desc.toString());
+
     }
 
     private void dismissLoadView(){

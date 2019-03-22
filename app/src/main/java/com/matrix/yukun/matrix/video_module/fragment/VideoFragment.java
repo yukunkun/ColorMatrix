@@ -17,12 +17,10 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 import android.widget.VideoView;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.matrix.yukun.matrix.video_module.adapter.ShareCallBack;
+import com.matrix.yukun.matrix.main_module.search.DBSearchInfo;
 import com.matrix.yukun.matrix.video_module.adapter.VideoAdapter;
 import com.matrix.yukun.matrix.video_module.dialog.ShareDialog;
 import com.matrix.yukun.matrix.video_module.entity.CollectsInfo;
@@ -35,9 +33,7 @@ import com.matrix.yukun.matrix.video_module.BaseFragment;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
-import com.matrix.yukun.matrix.video_module.video.VideoPlayActivity;
 import com.zhy.http.okhttp.callback.StringCallback;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -257,12 +253,13 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
                         }
                         List<EyesInfo> jokeList = gson.fromJson(itemList.toString(), new TypeToken<List<EyesInfo>>(){}.getType());
                         eyesInfos.addAll(jokeList);
+                        url=jsonObject.optString("nextPageUrl");
                         for (int i = 0; i < jokeList.size(); i++) {
                             if(!jokeList.get(i).getType().equals("video")){
                                 eyesInfos.remove(jokeList.get(i));
                             }
                         }
-                        url=jsonObject.optString("nextPageUrl");
+                        savaToDB(url);
                         mJokeAdapter.notifyDataSetChanged();
                         mSw.setRefreshing(false);
 
@@ -272,6 +269,16 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
             }
         });
     }
+
+    private void savaToDB(String nextUrl) {
+        for (int i = 0; i < eyesInfos.size(); i++) {
+            List<DBSearchInfo> all = DataSupport.findAll(DBSearchInfo.class, eyesInfos.get(i).getData().getId());
+            if(all.size()==0){//存储
+                DBSearchInfo.countToSearchInfo(eyesInfos.get(i), nextUrl).save();
+            }
+        }
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateVideo(EventVideo eventVideo){
         if(eventVideo.mEyesInfo.getData().getPlayUrl()!=null && eventVideo.type==2){
