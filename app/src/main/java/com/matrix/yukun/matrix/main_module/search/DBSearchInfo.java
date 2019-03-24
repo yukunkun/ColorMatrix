@@ -9,12 +9,11 @@ import org.litepal.crud.DataSupport;
  */
 public class DBSearchInfo extends DataSupport {
 
-    private int id;
+    private int videoId;
     private String title;
     private long timeStamp;
     private String slogan;
     private String description;
-    private String library;
     private String videoImage;
     private String playUrl;
     private long publicTime;
@@ -27,7 +26,7 @@ public class DBSearchInfo extends DataSupport {
     public static DBSearchInfo countToSearchInfo(EyesInfo eyesInfo,String nextUrl){
         EyesInfo.DataBean data = eyesInfo.getData();
         DBSearchInfo dbSearchInfo=new DBSearchInfo();
-        dbSearchInfo.setId(data.getId());
+        dbSearchInfo.setVideoId(data.getId());
         dbSearchInfo.setTimeStamp(System.currentTimeMillis());
         dbSearchInfo.setTitle(data.getTitle());
         dbSearchInfo.setSlogan(data.getSlogan());
@@ -69,12 +68,13 @@ public class DBSearchInfo extends DataSupport {
         this.searchType = searchType;
     }
 
-    public int getId() {
-        return id;
+
+    public int getVideoId() {
+        return videoId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setVideoId(int videoId) {
+        this.videoId = videoId;
     }
 
     public String getTitle() {
@@ -117,13 +117,6 @@ public class DBSearchInfo extends DataSupport {
         this.description = description;
     }
 
-    public String getLibrary() {
-        return library;
-    }
-
-    public void setLibrary(String library) {
-        this.library = library;
-    }
 
     public String getVideoImage() {
         return videoImage;
@@ -176,12 +169,11 @@ public class DBSearchInfo extends DataSupport {
     @Override
     public String toString() {
         return "DBSearchInfo{" +
-                "id=" + id +
+                "videoId=" + videoId +
                 ", title='" + title + '\'' +
                 ", timeStamp=" + timeStamp +
                 ", slogan='" + slogan + '\'' +
                 ", description='" + description + '\'' +
-                ", library='" + library + '\'' +
                 ", videoImage='" + videoImage + '\'' +
                 ", playUrl='" + playUrl + '\'' +
                 ", publicTime=" + publicTime +

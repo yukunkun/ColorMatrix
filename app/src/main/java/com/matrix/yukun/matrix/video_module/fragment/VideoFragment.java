@@ -21,6 +21,7 @@ import android.widget.VideoView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.main_module.search.DBSearchInfo;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.adapter.VideoAdapter;
 import com.matrix.yukun.matrix.video_module.dialog.ShareDialog;
 import com.matrix.yukun.matrix.video_module.entity.CollectsInfo;
@@ -272,7 +273,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
 
     private void savaToDB(String nextUrl) {
         for (int i = 0; i < eyesInfos.size(); i++) {
-            List<DBSearchInfo> all = DataSupport.findAll(DBSearchInfo.class, eyesInfos.get(i).getData().getId());
+            List<DBSearchInfo> all = DataSupport.where("title = ?",eyesInfos.get(i).getData().getTitle()).find(DBSearchInfo.class);
             if(all.size()==0){//存储
                 DBSearchInfo.countToSearchInfo(eyesInfos.get(i), nextUrl).save();
             }

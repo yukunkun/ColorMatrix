@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:paddingTop="@dimen/dimens_10"
+    android:paddingBottom="@dimen/dimens_10"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_height="80dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/cv_avatar"
+            app:civ_border_width="1dp"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_centerVertical="true"
+            app:civ_border_color="@color/color_8c8c8c"
+            android:layout_width="@dimen/dimens_60"
+            android:layout_height="@dimen/dimens_60" />
+        <RelativeLayout
+            android:layout_toRightOf="@+id/cv_avatar"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/dimens_20"
+            android:layout_centerVertical="true"
+            android:layout_height="60dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:maxLines="1"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_line"
+                    android:layout_marginRight="@dimen/dimens_10"
+                    android:ellipsize="end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_des"
+                    android:maxLines="1"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_595959"
+                    android:layout_marginTop="@dimen/dimens_3"
+                    android:layout_below="@+id/tv_title"
+                    android:layout_marginRight="@dimen/dimens_10"
+                    android:ellipsize="end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+    </RelativeLayout>
+        <View
+            android:background="@color/color_bfbfbf"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dimens_80"
+            android:layout_marginRight="@dimen/dimens_10"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+    </RelativeLayout>
+</RelativeLayout>

@@ -3,6 +3,7 @@ package com.matrix.yukun.matrix.video_module.play;
 import android.animation.Animator;
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -58,6 +59,10 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     private int mType;
     private List<EyesInfo> mEyesInfos=new ArrayList<>();
     private VideoAdapter mJokeAdapter;
+
+    public static void start(Context context,EyesInfo eyesInfo,String nextUrl,int type){
+        Intent intent=new Intent(context,PersonActivity.class);
+    }
 
     @Override
     public int getLayout() {

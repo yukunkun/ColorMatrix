@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -31,6 +33,7 @@ import android.widget.RelativeLayout;
 
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.search.DBSearchInfo;
+import com.matrix.yukun.matrix.main_module.search.RVSerchAdapter;
 import com.matrix.yukun.matrix.util.ScreenUtils;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
@@ -58,9 +61,13 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     LinearLayout mLlRoot;
     @BindView(R.id.av_load)
     AVLoadingIndicatorView mAVLoadingIndicatorView;
+    @BindView(R.id.recyclerview)
+    RecyclerView mRecyclerView;
     private int limit=50;
     private EditText mEditText;
     private List<DBSearchInfo> mDBSearchInfoList=new ArrayList<>();
+    private LinearLayoutManager mLinearLayoutManager;
+    private RVSerchAdapter mRvSerchAdapter;
 
     public static void start(Context context, View view){
         Intent intent=new Intent(context,SearchActivity.class);
@@ -79,6 +86,14 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void initView() {
       startShowView();
+      initRV();
+    }
+
+    private void initRV() {
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mRvSerchAdapter = new RVSerchAdapter(this,mDBSearchInfoList);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mRecyclerView.setAdapter(mRvSerchAdapter);
     }
 
     private void startShowView() {
@@ -119,11 +134,27 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
      * @param query
      */
     private void searchkey(String query) {
-
-        LogUtil.i("=======size",DataSupport.findAll(DBSearchInfo.class).size()+" "+query);
-        List<DBSearchInfo> publishdate_desc = DataSupport.select("description = ?",query).order("publishdate desc").limit(limit).find(DBSearchInfo.class);
-        LogUtil.i("=======",publishdate_desc.toString());
-
+        mDBSearchInfoList.clear();
+        mRvSerchAdapter.notifyDataSetChanged();
+        List<DBSearchInfo> publishdate_desc = DataSupport.where("description like ? or title like ? or slogan like ?","%"+query+"%","%"+query+"%","%"+query+"%").find(DBSearchInfo.class);
+        if(publishdate_desc.size()>0){
+            for (int i = 0; i < publishdate_desc.size(); i++) {
+                if(publishdate_desc.get(i).getTitle().indexOf(query)!=-1 || publishdate_desc.get(i).getSlogan().indexOf(query)!=-1){
+                    publishdate_desc.get(i).setSearchType(1);
+                }else if(publishdate_desc.get(i).getDescription().indexOf(query)!=-1){
+                    publishdate_desc.get(i).setSearchType(2);
+                }
+            }
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mDBSearchInfoList.addAll(publishdate_desc);
+            mAVLoadingIndicatorView.setVisibility(View.GONE);
+            mIvLoadFail.setVisibility(View.GONE);
+            showLlLoadSuccessView();
+        }else {
+            mRecyclerView.setVisibility(View.GONE);
+            mAVLoadingIndicatorView.setVisibility(View.GONE);
+            mIvLoadFail.setVisibility(View.VISIBLE);
+        }
     }
 
     private void dismissLoadView(){
@@ -205,7 +236,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
             @Override
             public void onAnimationEnd(Animator animation) {
-
+                LogUtil.i("=========",mDBSearchInfoList.size()+"");
+                mRvSerchAdapter.update(mDBSearchInfoList);
             }
 
             @Override
@@ -236,8 +268,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(event.getAction()==KeyEvent.ACTION_DOWN){
-            LogUtil.i("========","close");
-            removeSoftKey();
+//            removeSoftKey();
             startAnimation(mLayout);
             return true;
         }
