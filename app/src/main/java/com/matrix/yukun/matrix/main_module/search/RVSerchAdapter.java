@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.play.PersonActivity;
+import com.matrix.yukun.matrix.video_module.play.VideoDetailPlayActivity;
+import com.matrix.yukun.matrix.video_module.video.VideoPlayActivity;
 
 import java.util.List;
 import java.util.zip.Inflater;
@@ -60,8 +62,7 @@ public class RVSerchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    PersonActivity.start(mContext,DBSearchInfo.countToEyeInfo(dbSearchInfo),dbSearchInfo.getNextUrl(),0);
-
+                    PersonActivity.start(mContext,DBSearchInfo.countToEyeInfo(dbSearchInfo),dbSearchInfo.getNextUrl());
                 }
             });
         }else if(holder instanceof VideoHolder){
@@ -73,7 +74,7 @@ public class RVSerchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    VideoDetailPlayActivity.start(mContext,DBSearchInfo.countToEyeInfo(dbSearchInfo),dbSearchInfo.getNextUrl());
                 }
             });
         }

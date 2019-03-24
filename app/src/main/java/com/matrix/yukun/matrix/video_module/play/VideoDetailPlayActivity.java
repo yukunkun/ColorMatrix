@@ -2,6 +2,7 @@ package com.matrix.yukun.matrix.video_module.play;
 
 import android.animation.Animator;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -55,6 +56,15 @@ public class VideoDetailPlayActivity extends BaseActivity {
     private List<Fragment> mFragmentList=new ArrayList<>();
     private String[] mStrings;
     private FloatingActionButton mFloatingActionButton;
+
+    public static void start(Context context, EyesInfo eyesInfo, String nextUrl){
+        Intent intent=new Intent(context,VideoDetailPlayActivity.class);
+        intent.putExtra("next_url",nextUrl);
+        intent.putExtra("eyesInfo",eyesInfo);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
     @Override
     public int getLayout() {
         return R.layout.activity_video_detail_play;

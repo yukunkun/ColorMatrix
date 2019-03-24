@@ -60,8 +60,12 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     private List<EyesInfo> mEyesInfos=new ArrayList<>();
     private VideoAdapter mJokeAdapter;
 
-    public static void start(Context context,EyesInfo eyesInfo,String nextUrl,int type){
+    public static void start(Context context,EyesInfo eyesInfo,String nextUrl){
         Intent intent=new Intent(context,PersonActivity.class);
+        intent.putExtra("next_url",nextUrl);
+        intent.putExtra("eyesInfo",eyesInfo);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.matrix.yukun.matrix.video_module.video;
 
+import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -26,6 +27,7 @@ public class VideoPlayActivity extends BaseActivity {
     private String mVideoCover;
     private String mVideoTitle;
     private int mType;
+
 
     @Override
     public int getLayout() {
