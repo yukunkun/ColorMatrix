@@ -11,7 +11,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import com.example.pluglin_special.SpecialActivity;
 import com.matrix.yukun.matrix.chat_module.ChatActivity;
 import com.matrix.yukun.matrix.download_module.DownLoadActivity;
 import com.matrix.yukun.matrix.main_module.SearchActivity;
+import com.matrix.yukun.matrix.util.ScreenUtils;
 import com.matrix.yukun.matrix.video_module.MyApplication;
 import com.matrix.yukun.matrix.video_module.dialog.SettingFragmentDialog;
 import com.matrix.yukun.matrix.video_module.entity.EventCategrayPos;
@@ -107,6 +110,8 @@ public class PlayFragment extends BaseFragment {
     TextView mTvSig;
     @BindView(R2.id.iv_search)
     ImageView mIvSearch ;
+    @BindView(R.id.ll_drawable)
+    LinearLayout mLayout;
 
     private MViewPagerAdapter mMViewPagerAdapter;
     private String[] mStringArray;
@@ -136,6 +141,7 @@ public class PlayFragment extends BaseFragment {
         for (int i = 0; i < mStringArray.length; i++) {
             mTablayout.addTab(mTablayout.newTab().setText(mStringArray[i]));
         }
+        setDrawableWidth();
         mInstance = RecFragment.getInstance();
         mInstance1 = VideoFragment.getInstance();
         mInstance2 = VerticalVideoFragment.getInstance();
@@ -158,6 +164,12 @@ public class PlayFragment extends BaseFragment {
             mTvSig.setText("签名："+MyApplication.userInfo.getText());
             mTvClose.setText("退出");
         }
+    }
+
+    private void setDrawableWidth() {
+        ViewGroup.LayoutParams layoutParams = mLayout.getLayoutParams();
+        layoutParams.width= ScreenUtils.instance().getWidth(getContext())*4/5;
+        mLayout.setLayoutParams(layoutParams);
     }
 
     private void setAdapter() {

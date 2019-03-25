@@ -1,7 +1,11 @@
 package com.matrix.yukun.matrix.main_module.search;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +32,7 @@ public class RVSerchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private Context mContext;
     private List<DBSearchInfo> mDBSearchInfos;
+    private String query;
 
     public RVSerchAdapter(Context context, List<DBSearchInfo> DBSearchInfos) {
         mContext = context;
@@ -36,8 +41,10 @@ public class RVSerchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public void update(List<DBSearchInfo> mDBSearchInfos){
         this.mDBSearchInfos=mDBSearchInfos;
-        LogUtil.i("===========ad",this.mDBSearchInfos.toString());
         notifyDataSetChanged();
+    }
+    public void setQuery(String query){
+        this.query=query;
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -56,8 +63,20 @@ public class RVSerchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final DBSearchInfo dbSearchInfo = mDBSearchInfos.get(position);
         if(holder instanceof HeaderHolder){
-            ((HeaderHolder) holder).mTVTitle.setText(dbSearchInfo.getTitle());
-            ((HeaderHolder) holder).mTVDes.setText(dbSearchInfo.getSlogan());
+            if(dbSearchInfo.getTitle().indexOf(query)!=-1){
+                SpannableString spannableString = new SpannableString(dbSearchInfo.getTitle());
+                spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c8ff4081")), dbSearchInfo.getTitle().indexOf(query),dbSearchInfo.getTitle().indexOf(query)+query.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ((HeaderHolder) holder).mTVTitle.setText(spannableString);
+            }else {
+                ((HeaderHolder) holder).mTVTitle.setText(dbSearchInfo.getTitle());
+            }
+            if(dbSearchInfo.getSlogan().indexOf(query)!=-1){
+                SpannableString des = new SpannableString(dbSearchInfo.getSlogan());
+                des.setSpan(new ForegroundColorSpan(Color.parseColor("#c8ff4081")), dbSearchInfo.getSlogan().indexOf(query),dbSearchInfo.getSlogan().indexOf(query)+query.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ((HeaderHolder) holder).mTVDes.setText(des);
+            }else {
+                ((HeaderHolder) holder).mTVDes.setText(dbSearchInfo.getSlogan());
+            }
             Glide.with(mContext).load(dbSearchInfo.getAvatar()).into(((HeaderHolder) holder).mCircleImageView);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -67,7 +86,9 @@ public class RVSerchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             });
         }else if(holder instanceof VideoHolder){
             ((VideoHolder) holder).mTvTitle.setText(dbSearchInfo.getTitle());
-            ((VideoHolder) holder).mTvDes.setText(dbSearchInfo.getDescription());
+            SpannableString des = new SpannableString(dbSearchInfo.getDescription());
+            des.setSpan(new ForegroundColorSpan(Color.parseColor("#c8ff4081")), dbSearchInfo.getDescription().indexOf(query),dbSearchInfo.getDescription().indexOf(query)+query.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ((VideoHolder) holder).mTvDes.setText(des);
             ((VideoHolder) holder).mTvslogan.setText(dbSearchInfo.getSlogan());
             Glide.with(mContext).load(dbSearchInfo.getAvatar()).into(((VideoHolder) holder).mCircleImageView);
             Glide.with(mContext).load(dbSearchInfo.getVideoImage()).into(((VideoHolder) holder).mIvCover);
@@ -99,8 +120,8 @@ public class RVSerchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         CircleImageView mCircleImageView;
         public HeaderHolder(View itemView) {
             super(itemView);
-            mTVTitle=itemView.findViewById(R.id.tv_title);
-            mTVDes=itemView.findViewById(R.id.tv_des);
+            mTVTitle=itemView.findViewById(R.id.tv_des);
+            mTVDes=itemView.findViewById(R.id.tv_title);
             mCircleImageView=itemView.findViewById(R.id.cv_avatar);
         }
     }

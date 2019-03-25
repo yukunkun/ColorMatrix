@@ -135,6 +135,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
      */
     private void searchkey(String query) {
         mDBSearchInfoList.clear();
+        mRvSerchAdapter.setQuery(query);
         mRvSerchAdapter.notifyDataSetChanged();
         List<DBSearchInfo> publishdate_desc = DataSupport.where("description like ? or title like ? or slogan like ?","%"+query+"%","%"+query+"%","%"+query+"%").find(DBSearchInfo.class);
         if(publishdate_desc.size()>0){

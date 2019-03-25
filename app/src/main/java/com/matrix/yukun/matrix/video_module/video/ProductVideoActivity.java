@@ -437,7 +437,7 @@ public class ProductVideoActivity extends BaseActivity implements CameraControle
 
         } else if (i == R.id.iv_play) {
             if (!isMedia) {
-                mIvPlay.setImageResource(R.mipmap.ic_pause);
+                mIvPlay.setImageResource(R.mipmap.ic_video_pause);
                 startTimer();
                 cnt = 0;
                 //录制开始

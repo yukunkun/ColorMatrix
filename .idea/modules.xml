@@ -6,7 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/Photoeditor/Photoeditor.iml" filepath="$PROJECT_DIR$/Photoeditor/Photoeditor.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/pluglin_special/pluglin_special.iml" filepath="$PROJECT_DIR$/pluglin_special/pluglin_special.iml" />
-      <module fileurl="file://D:\project\ColorMatrix\pluglin_video\pluglin_video.iml" filepath="D:\project\ColorMatrix\pluglin_video\pluglin_video.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pluglin_video/pluglin_video.iml" filepath="$PROJECT_DIR$/pluglin_video/pluglin_video.iml" />
       <module fileurl="file://$PROJECT_DIR$/videocompressor/videocompressor.iml" filepath="$PROJECT_DIR$/videocompressor/videocompressor.iml" />
     </modules>
   </component>
