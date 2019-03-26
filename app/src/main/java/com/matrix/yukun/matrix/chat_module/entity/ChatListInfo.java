@@ -12,6 +12,7 @@ public class ChatListInfo extends DataSupport{
 
     private String mChatInfo;
     private int type;
+    private int typeSn;
     private Bitmap mBitmap;
     private double msgTime;
     private String msgType;
@@ -74,6 +75,14 @@ public class ChatListInfo extends DataSupport{
 
     public void setBitmap(Bitmap bitmap) {
         mBitmap = bitmap;
+    }
+
+    public int getTypeSn() {
+        return typeSn;
+    }
+
+    public void setTypeSn(int typeSn) {
+        this.typeSn = typeSn;
     }
 
     public String getChatInfo() {

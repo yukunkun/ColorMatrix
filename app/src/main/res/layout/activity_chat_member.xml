@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".chat_module.ChatMemberActivity">
+    <RelativeLayout
+        android:id="@+id/title"
+        android:background="@color/color_write"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:padding="8dp"
+            android:id="@+id/iv_backs"
+            android:src="@mipmap/joke_back"
+            android:layout_width="@dimen/dimens_50"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/name"
+            android:text="客服助手"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/color_494949"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            />
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_eaeaea"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp" />
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <ScrollView
+        android:id="@+id/sc_contain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/rl_chat_mem"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_70">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/cv_men"
+                    android:src="@drawable/head_7"
+                    android:layout_width="@dimen/dimens_50"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dimens_20"
+                    android:layout_height="@dimen/dimens_50" />
+                <TextView
+                    android:text="客服机器人"
+                    android:layout_toRightOf="@+id/cv_men"
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_text"
+                    android:layout_marginLeft="@dimen/dimens_10"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <include layout="@layout/include_line_no_marg"/>
+            <RelativeLayout
+                android:id="@+id/rl_chat_womem"
+                android:layout_width="match_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:layout_height="@dimen/dimens_70">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/cv_women"
+                    android:src="@drawable/head_2"
+                    android:layout_width="@dimen/dimens_50"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dimens_20"
+                    android:layout_height="@dimen/dimens_50" />
+                <TextView
+                    android:text="聊天小蜜"
+                    android:layout_toRightOf="@+id/cv_women"
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_text"
+                    android:layout_marginLeft="@dimen/dimens_10"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <include layout="@layout/include_line_no_marg"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

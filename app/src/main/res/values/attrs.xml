@@ -115,4 +115,9 @@
     </attr>
     <attr name="auto_change_month_row" format="boolean" />
     </declare-styleable>
+    <!--刷新header-->
+    <declare-styleable name="SuperSwipeRefreshLayout">
+        <attr format="integer" name="header_view_height"/>
+        <attr format="integer" name="default_circle_target"/>
+    </declare-styleable>
 </resources>

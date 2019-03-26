@@ -17,10 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.pluglin_special.SpecialActivity;
-import com.matrix.yukun.matrix.chat_module.ChatActivity;
+import com.matrix.yukun.matrix.chat_module.ChatMemberActivity;
 import com.matrix.yukun.matrix.download_module.DownLoadActivity;
 import com.matrix.yukun.matrix.main_module.SearchActivity;
 import com.matrix.yukun.matrix.util.ScreenUtils;
@@ -39,7 +38,6 @@ import com.matrix.yukun.matrix.video_module.BaseFragment;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.video_module.play.ShareActivity;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -346,9 +344,7 @@ public class PlayFragment extends BaseFragment {
             }
 
         } else if (i == R.id.iv_chat) {
-            Intent intentChat = new Intent(getContext(), ChatActivity.class);
-            startActivity(intentChat);
-            ((Activity) getContext()).overridePendingTransition(R.anim.rotate, R.anim.rotate_out);
+            ChatMemberActivity.start(getContext());
             closeDrawLayout();
 
         } else if (i == R.id.iv_setting) {

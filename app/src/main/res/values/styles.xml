@@ -66,6 +66,5 @@
     　　<item name="android:windowIsTranslucent">true</item>
        <item name="android:windowAnimationStyle">@anim/activity_back_anim</item>
      </style>
-    　
 
 </resources>

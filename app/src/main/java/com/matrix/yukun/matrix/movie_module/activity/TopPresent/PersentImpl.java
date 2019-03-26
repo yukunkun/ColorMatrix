@@ -7,5 +7,4 @@ import com.matrix.yukun.matrix.movie_module.present.BasePresentImpl;
  */
 public interface PersentImpl extends BasePresentImpl{
     void setWebUri(int pos);
-
 }

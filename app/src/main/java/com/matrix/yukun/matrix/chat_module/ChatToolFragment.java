@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.chat_module.mvp.ChatBaseActivity;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
 
 /**
@@ -41,9 +42,9 @@ public class ChatToolFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         int id = v.getId();
         if(id==R.id.ll_photo){
-            ((ChatActivity)mContext).openPhoto();
+            ((ChatBaseActivity)mContext).openPhoto();
         }else if(id==R.id.ll_camera){
-            ((ChatActivity)mContext).openCamera();
+            ((ChatBaseActivity)mContext).openCamera();
         }
     }
 }

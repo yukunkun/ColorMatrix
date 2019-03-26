@@ -1,8 +1,6 @@
 package com.matrix.yukun.matrix.video_module.fragment;
 
 import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -16,16 +14,11 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
-import android.transition.Slide;
 import android.transition.Transition;
-import android.transition.TransitionSet;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -37,6 +30,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
+import com.matrix.yukun.matrix.chat_module.ChatMemberActivity;
 import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.gesture_module.GestureActivity;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
@@ -45,7 +39,6 @@ import com.matrix.yukun.matrix.video_module.common.AppBarStateChangeListener;
 import com.matrix.yukun.matrix.video_module.dialog.ShareDialog;
 import com.matrix.yukun.matrix.video_module.entity.EventUpdateHeader;
 import com.matrix.yukun.matrix.video_module.play.AboutUsActivity;
-import com.matrix.yukun.matrix.chat_module.ChatActivity;
 import com.matrix.yukun.matrix.video_module.play.LoginActivity;
 import com.matrix.yukun.matrix.video_module.play.MyGallaryActivity;
 import com.matrix.yukun.matrix.video_module.play.ShareActivity;
@@ -210,7 +203,7 @@ public class AboutUsFragment extends BaseFragment {
                 Class aClass = null;
                 switch (position) {
                     case 0:
-                        aClass = ChatActivity.class;
+                        aClass = ChatMemberActivity.class;
                         break;
                     case 1:
                         aClass = GestureActivity.class;

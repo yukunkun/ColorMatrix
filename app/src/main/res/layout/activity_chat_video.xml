@@ -1,50 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_write">
-
+    android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/title"
         android:background="@color/color_write"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="@dimen/dimens_50">
         <ImageView
-            android:padding="1dp"
+            android:padding="8dp"
             android:id="@+id/iv_backs"
             android:src="@mipmap/joke_back"
-            android:layout_width="40dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:layout_width="@dimen/dimens_50"
             android:layout_height="match_parent" />
         <TextView
             android:id="@+id/name"
             android:text="私人客服"
             android:gravity="center"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/color_494949"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-        />
+            android:layout_height="match_parent" />
+        <ImageView
+            android:padding="@dimen/dimens_12"
+            android:layout_alignParentRight="true"
+            android:id="@+id/iv_member"
+            android:visibility="gone"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:src="@mipmap/icon_member_list"
+            android:layout_width="@dimen/dimens_50"
+            android:layout_height="match_parent" />
         <View
             android:layout_alignParentBottom="true"
             android:background="@color/color_eaeaea"
             android:layout_width="match_parent"
             android:layout_height="0.5dp" />
     </RelativeLayout>
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout
         android:layout_below="@id/title"
         android:id="@+id/sr_refresh"
         android:layout_marginBottom="45dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <com.matrix.yukun.matrix.selfview.CubeRecyclerView
             android:id="@+id/rv_chatview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout>
 
     <LinearLayout
         android:layout_alignParentBottom="true"

@@ -218,7 +218,7 @@
             android:name=".video_module.play.HistoryTodayActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".chat_module.ChatActivity"
+            android:name=".chat_module.mvp.ChatBaseActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".video_module.play.PlayMainActivity"
@@ -335,8 +335,15 @@
                 <data android:mimeType="image/gif" />
             </intent-filter>
         </activity>
-        <activity android:name=".main_module.SearchActivity"
-                android:theme="@style/Transparent"
-                android:screenOrientation="portrait"/>
+        <activity
+            android:name=".main_module.SearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent" />
+        <activity
+            android:name=".chat_module.ChatMemberActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".chat_module.ChatBaseActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
+
 </manifest>
