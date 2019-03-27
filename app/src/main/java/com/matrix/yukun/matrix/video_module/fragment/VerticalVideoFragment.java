@@ -18,6 +18,12 @@ import com.matrix.yukun.matrix.video_module.adapter.RVPlayAllAdapter;
 import com.matrix.yukun.matrix.video_module.adapter.RVVerticalAdapter;
 import com.matrix.yukun.matrix.video_module.entity.PlayAllBean;
 import com.matrix.yukun.matrix.video_module.utils.SpacesDoubleDecoration;
+import com.scwang.smartrefresh.header.BezierCircleHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -36,14 +42,11 @@ import okhttp3.Call;
  * date:   On 2018/12/25
  */
 public class VerticalVideoFragment extends BaseFragment {
-    //  https://www.apiopen.top/satinGodApi?type=1&page=1
-    //  https://www.apiopen.top/satinCommentApi?id=27610708&page=1
-
     private RecyclerView mRecyclerView;
     private RVPlayAllAdapter mRvVerticalAdapter;
     private String url="https://www.apiopen.top/satinGodApi";
     private List<PlayAllBean> mPlayAllBeans=new ArrayList<>();
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private SmartRefreshLayout mSwipeRefreshLayout;
     private int page=1;
     private GridLayoutManager mLayoutManager;
     private RelativeLayout mLayout;
@@ -94,9 +97,10 @@ public class VerticalVideoFragment extends BaseFragment {
                                 mPlayAllBeans.remove(playAllBeans.get(i));
                             }
                         }
+                        mSwipeRefreshLayout.finishRefresh();
+                        mSwipeRefreshLayout.finishLoadmore();
                         mLayout.setVisibility(View.GONE);
                         mRvVerticalAdapter.notifyDataSetChanged();
-                        mSwipeRefreshLayout.setRefreshing(false);
                         if(page==1){
                             DataSupport.deleteAll(PlayAllBean.class);
                             for (int i = 0; i < mPlayAllBeans.size(); i++) {
@@ -110,6 +114,7 @@ public class VerticalVideoFragment extends BaseFragment {
             }
             @Override
             public void onError(Call call, Exception e, int id) {
+                mSwipeRefreshLayout.finishRefresh();
                 List<PlayAllBean> all = DataSupport.findAll(PlayAllBean.class);
                 if(all.size()>0){
                     mPlayAllBeans.clear();
@@ -117,38 +122,24 @@ public class VerticalVideoFragment extends BaseFragment {
                     mLayout.setVisibility(View.GONE);
                     mRvVerticalAdapter.notifyDataSetChanged();
                 }
-                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
     }
 
     private void initListener() {
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mSwipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh(RefreshLayout refreshlayout) {
                 page=1;
                 initData(page);
             }
         });
-
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        mSwipeRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if(newState==RecyclerView.SCROLL_STATE_IDLE){
-                    int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
-                    if(lastVisibleItemPosition==mLayoutManager.getItemCount()-1){
-                        page++;
-                        initData(page);
-                    }
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                page++;
+                initData(page);
             }
         });
-
     }
 }

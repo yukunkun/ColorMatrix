@@ -8,17 +8,17 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:layout_width="wrap_content"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:layout_width="match_parent"
             android:id="@+id/srl_layout"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <android.support.v7.widget.RecyclerView
                 android:background="@color/color_ececec"
                 android:id="@+id/recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </android.support.v7.widget.RecyclerView>
-        </android.support.v4.widget.SwipeRefreshLayout>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </LinearLayout>
     <RelativeLayout
         android:id="@+id/rl_remind"
