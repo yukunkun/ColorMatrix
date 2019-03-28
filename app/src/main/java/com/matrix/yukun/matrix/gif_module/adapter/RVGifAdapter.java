@@ -17,7 +17,6 @@ import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.video_module.play.ImageDetailActivity;
-import com.scwang.smartrefresh.header.waveswipe.DisplayUtil;
 
 import java.io.File;
 import java.io.IOException;

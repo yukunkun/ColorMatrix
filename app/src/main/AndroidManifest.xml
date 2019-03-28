@@ -342,8 +342,10 @@
         <activity
             android:name=".chat_module.ChatMemberActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".chat_module.ChatBaseActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".chat_module.ChatBaseActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".video_module.play.ImageSearchActivity"></activity>
     </application>
 
 </manifest>

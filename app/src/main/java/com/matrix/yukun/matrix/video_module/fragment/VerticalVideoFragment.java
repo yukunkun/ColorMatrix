@@ -15,14 +15,11 @@ import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
 import com.matrix.yukun.matrix.video_module.adapter.RVPlayAllAdapter;
-import com.matrix.yukun.matrix.video_module.adapter.RVVerticalAdapter;
 import com.matrix.yukun.matrix.video_module.entity.PlayAllBean;
 import com.matrix.yukun.matrix.video_module.utils.SpacesDoubleDecoration;
-import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -98,7 +95,7 @@ public class VerticalVideoFragment extends BaseFragment {
                             }
                         }
                         mSwipeRefreshLayout.finishRefresh();
-                        mSwipeRefreshLayout.finishLoadmore();
+                        mSwipeRefreshLayout.finishLoadMore();
                         mLayout.setVisibility(View.GONE);
                         mRvVerticalAdapter.notifyDataSetChanged();
                         if(page==1){
@@ -134,9 +131,9 @@ public class VerticalVideoFragment extends BaseFragment {
                 initData(page);
             }
         });
-        mSwipeRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+        mSwipeRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
+            public void onLoadMore(RefreshLayout refreshlayout) {
                 page++;
                 initData(page);
             }

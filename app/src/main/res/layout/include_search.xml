@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:src="@drawable/search_bg"
+        android:scaleType="centerCrop"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartrefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <com.scwang.smartrefresh.header.FunGameHitBlockHeader
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never" />
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_marginRight="@dimen/dimens_10"
+        android:layout_width="wrap_content"
+        android:id="@+id/card_view"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        app:cardCornerRadius="@dimen/dimens_10"
+        android:layout_height="@dimen/dimens_50">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/iv_search"
+                android:src="@mipmap/icon_search_skip"
+                android:padding="@dimen/dimens_10"
+                android:text="搜索"
+                android:textSize="16sp"
+                android:textColor="#1296db"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <ImageView
+                android:layout_toRightOf="@+id/iv_search"
+                android:src="@mipmap/icon_left"
+                android:padding="@dimen/dimens_10"
+                android:layout_width="@dimen/dimens_50"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

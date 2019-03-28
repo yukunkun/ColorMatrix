@@ -119,8 +119,7 @@
     <color name="result_view">#b0000000</color>
     <color name="viewfinder_mask">#60000000</color>
     <color name="possible_result_points">#c0ffff00</color>
-
-
+    <color name="color_2299ee">#2299ee</color>
 
 
 </resources>

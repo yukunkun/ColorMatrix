@@ -1,11 +1,15 @@
 package com.matrix.yukun.matrix.video_module.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -17,9 +21,19 @@ import com.matrix.yukun.matrix.video_module.adapter.ShareCallBack;
 import com.matrix.yukun.matrix.video_module.dialog.ShareDialog;
 import com.matrix.yukun.matrix.video_module.entity.ImageInfo;
 import com.matrix.yukun.matrix.video_module.netutils.NetworkUtils;
+import com.matrix.yukun.matrix.video_module.play.ImageSearchActivity;
 import com.matrix.yukun.matrix.video_module.utils.SpacesDoubleDecoration;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
 import com.matrix.yukun.matrix.R2;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.OnTwoLevelListener;
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.RefreshState;
+import com.scwang.smartrefresh.layout.header.TwoLevelHeader;
+import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
+import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONArray;
@@ -39,11 +53,12 @@ import okhttp3.Call;
 
 public class ImageFragment extends BaseFragment {
     String url="https://www.apiopen.top/meituApi";
+    private View mFloor;
+    private TwoLevelHeader mHeader;
+    private SmartRefreshLayout mSmartRefreshLayout;
     int page = 50;
-    @BindView(R2.id.rv_joke)
+    @BindView(R2.id.recyclerview)
     RecyclerView mRvJoke;
-    @BindView(R2.id.sw)
-    SwipeRefreshLayout mSw;
     @BindView(R2.id.rl_remind)
     RelativeLayout mLayoutRemind;
     List<ImageInfo> jokeInfoList=new ArrayList<>();
@@ -52,6 +67,9 @@ public class ImageFragment extends BaseFragment {
     boolean isVertical=true;
     private GridLayoutManager mGridLayoutManager;
     private SpacesDoubleDecoration mSpacesDoubleDecoration;
+    private RelativeLayout mIvRoot;
+    private CardView mCardView;
+    private SmartRefreshLayout mRefreshGame;
 
     public static ImageFragment getInstance() {
         ImageFragment recFragment = new ImageFragment();
@@ -60,11 +78,17 @@ public class ImageFragment extends BaseFragment {
 
     @Override
     public int getLayout() {
-        return R.layout.fragment_rec;
+        return R.layout.fragment_image;
     }
 
     @Override
     public void initView(View inflate, Bundle savedInstanceState) {
+        mSmartRefreshLayout = inflate.findViewById(R.id.refreshLayout);
+        mFloor = inflate.findViewById(R.id.secondfloor);
+        mHeader = inflate.findViewById(R.id.header);
+        mIvRoot = inflate.findViewById(R.id.secondfloor_content);
+        mCardView = inflate.findViewById(R.id.card_view);
+        mRefreshGame = inflate.findViewById(R.id.smartrefresh);
         mLayoutManager = new LinearLayoutManager(getContext());
         mGridLayoutManager = new GridLayoutManager(getContext(),2);
         if(isVertical){
@@ -81,6 +105,8 @@ public class ImageFragment extends BaseFragment {
                 shareDialog.show(getFragmentManager(),"");
             }
         });
+        mRefreshGame.setPrimaryColorsId(R.color.color_2299ee, R.color.color_whit);
+
         mRvJoke.setAdapter(mJokeAdapter);
         getInfo(true);
         setListener();
@@ -98,31 +124,11 @@ public class ImageFragment extends BaseFragment {
         mJokeAdapter.setTextViewWidth(isTag);
         mJokeAdapter.notifyDataSetChanged();
     }
-
+//
     private void setListener() {
-        mSw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mSmartRefreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener(){
             @Override
-            public void onRefresh() {
-                Random random=new Random();
-                int nextInt = random.nextInt(30);
-                jokeInfoList.clear();
-                mJokeAdapter.notifyDataSetChanged();
-                page=nextInt;
-                getInfo(true);
-                mSw.setRefreshing(false);
-            }
-        });
-
-        mRvJoke.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                //竖向
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 if(isVertical){
                     int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
                     if(lastVisibleItemPosition==mLayoutManager.getItemCount()-1){
@@ -137,10 +143,49 @@ public class ImageFragment extends BaseFragment {
                         getInfo(false);
                     }
                 }
+                mSmartRefreshLayout.finishLoadMore(20);
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                Random random=new Random();
+                int nextInt = random.nextInt(30);
+                jokeInfoList.clear();
+                mJokeAdapter.notifyDataSetChanged();
+                page=nextInt;
+                getInfo(true);
+                refreshLayout.finishRefresh(20);
+            }
+            @Override
+            public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent, int offset, int headerHeight, int maxDragHeight) {
+                mFloor.setTranslationY(Math.min(offset - mFloor.getHeight(), mSmartRefreshLayout.getLayout().getHeight() - mFloor.getHeight()));
             }
         });
-    }
 
+        mHeader.setOnTwoLevelListener(new OnTwoLevelListener() {
+            @Override
+            public boolean onTwoLevel(@NonNull RefreshLayout refreshLayout) {
+                mIvRoot.animate().alpha(1).setDuration(2000);
+                refreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+//                        mHeader.finishTwoLevel();
+//                        mIvRoot.animate().alpha(0).setDuration(1000);
+                    }
+                },5000);
+                return true;//true 将会展开二楼状态 false 关闭刷新
+            }
+        });
+        mCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageSearchActivity.start(getContext());
+                mHeader.finishTwoLevel();
+                mIvRoot.animate().alpha(0).setDuration(1000);
+            }
+        });
+
+    }
     private void getInfo(final boolean isFirst) {
         Random random=new Random();
         int nextInt = random.nextInt(25);
@@ -155,7 +200,8 @@ public class ImageFragment extends BaseFragment {
                     jokeInfoList.addAll(all);
                     mJokeAdapter.notifyDataSetChanged();
                     mLayoutRemind.setVisibility(View.GONE);
-                    mSw.setRefreshing(false);
+                    mSmartRefreshLayout.finishLoadMore();
+                    mSmartRefreshLayout.finishRefresh();
                 }
             }
 
@@ -180,7 +226,6 @@ public class ImageFragment extends BaseFragment {
                     }else {
                         Toast.makeText(getContext(), "请求错误", Toast.LENGTH_SHORT).show();
                     }
-
 
                 } catch (Exception e) {
                     e.printStackTrace();
