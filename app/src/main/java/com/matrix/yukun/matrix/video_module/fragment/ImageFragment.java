@@ -70,6 +70,7 @@ public class ImageFragment extends BaseFragment {
     private RelativeLayout mIvRoot;
     private CardView mCardView;
     private SmartRefreshLayout mRefreshGame;
+    private ImageView mIvSecondBack;
 
     public static ImageFragment getInstance() {
         ImageFragment recFragment = new ImageFragment();
@@ -89,6 +90,7 @@ public class ImageFragment extends BaseFragment {
         mIvRoot = inflate.findViewById(R.id.secondfloor_content);
         mCardView = inflate.findViewById(R.id.card_view);
         mRefreshGame = inflate.findViewById(R.id.smartrefresh);
+        mIvSecondBack = inflate.findViewById(R.id.iv_second_back);
         mLayoutManager = new LinearLayoutManager(getContext());
         mGridLayoutManager = new GridLayoutManager(getContext(),2);
         if(isVertical){
@@ -166,13 +168,6 @@ public class ImageFragment extends BaseFragment {
             @Override
             public boolean onTwoLevel(@NonNull RefreshLayout refreshLayout) {
                 mIvRoot.animate().alpha(1).setDuration(2000);
-                refreshLayout.getLayout().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-//                        mHeader.finishTwoLevel();
-//                        mIvRoot.animate().alpha(0).setDuration(1000);
-                    }
-                },5000);
                 return true;//true 将会展开二楼状态 false 关闭刷新
             }
         });
@@ -180,6 +175,13 @@ public class ImageFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 ImageSearchActivity.start(getContext());
+                mHeader.finishTwoLevel();
+                mIvRoot.animate().alpha(0).setDuration(1000);
+            }
+        });
+        mIvSecondBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 mHeader.finishTwoLevel();
                 mIvRoot.animate().alpha(0).setDuration(1000);
             }

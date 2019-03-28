@@ -22,11 +22,22 @@
         android:layout_height="match_parent"
         android:overScrollMode="never" />
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
+    <ImageView
+        android:id="@+id/iv_second_back"
+        android:padding="@dimen/dimens_8"
+        android:src="@mipmap/icon_second_up"
+        android:clickable="true"
+        android:layout_centerVertical="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_marginLeft="@dimen/dimens_10"
+        android:layout_width="@dimen/dimens_50"
+        android:layout_height="@dimen/dimens_50" />
     <android.support.v7.widget.CardView
         android:layout_marginRight="@dimen/dimens_10"
         android:layout_width="wrap_content"
         android:id="@+id/card_view"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         app:cardCornerRadius="@dimen/dimens_10"
