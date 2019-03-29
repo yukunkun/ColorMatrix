@@ -26,6 +26,7 @@ import com.matrix.yukun.matrix.util.ScreenUtils;
 import com.matrix.yukun.matrix.video_module.MyApplication;
 import com.matrix.yukun.matrix.video_module.dialog.SettingFragmentDialog;
 import com.matrix.yukun.matrix.video_module.entity.EventCategrayPos;
+import com.matrix.yukun.matrix.video_module.entity.EventShowSecond;
 import com.matrix.yukun.matrix.video_module.entity.EventUpdateHeader;
 import com.matrix.yukun.matrix.video_module.entity.UserInfo;
 import com.matrix.yukun.matrix.video_module.play.AboutUsActivity;
@@ -82,8 +83,6 @@ public class PlayFragment extends BaseFragment {
     RelativeLayout mRlChangeModul;
     @BindView(R2.id.im_ball)
     ImageView mImBall;
-    @BindView(R2.id.iv_setting)
-    ImageView mIvSetting;
     @BindView(R2.id.rl_me)
     RelativeLayout mRlMe;
     @BindView(R2.id.tv_close)
@@ -110,7 +109,6 @@ public class PlayFragment extends BaseFragment {
     ImageView mIvSearch ;
     @BindView(R.id.ll_drawable)
     LinearLayout mLayout;
-
     private MViewPagerAdapter mMViewPagerAdapter;
     private String[] mStringArray;
     List<Fragment> mFragments = new ArrayList<>();
@@ -176,6 +174,13 @@ public class PlayFragment extends BaseFragment {
         mViewpager.setOffscreenPageLimit(5);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventCategrayPos event) {
+        /* Do something */
+        if (event.pos < 1000) {
+            mViewpager.setCurrentItem(event.pos);
+        }
+    }
     private void setListener() {
         mTablayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -199,17 +204,12 @@ public class PlayFragment extends BaseFragment {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
-
             @Override
             public void onPageSelected(int position) {
                 mTablayout.setScrollPosition(position, 0, true);
                 mInstance.getCurrentSelectViewPager(position);
                 mInstance1.getCurrentSelectViewPager(position);
-                if (position == 0 || position == 2 || position == 3) {
-                    mIvSetting.setVisibility(View.GONE);
-                } else {
-                    mIvSetting.setVisibility(View.VISIBLE);
-                }
+                EventBus.getDefault().post(new EventShowSecond(position));
             }
 
             @Override
@@ -229,48 +229,7 @@ public class PlayFragment extends BaseFragment {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(EventCategrayPos event) {
-        /* Do something */
-        if (event.pos < 1000) {
-            mViewpager.setCurrentItem(event.pos);
-        } else {
-            switch (event.pos) {
-                //横向列表
-                case 1001:
-                    if (mViewpager.getCurrentItem() == 1) {
-                        mInstance1.getLayoutTag(true);
-                    }
-                    if (mViewpager.getCurrentItem() == 2) {
-                        mInstance3.getLayoutTag(true);
-                    }
-                    if (mViewpager.getCurrentItem() == 4) {
-                        mInstance4.getLayoutTag(true);
-                    }
-                    if (mViewpager.getCurrentItem() == 5) {
-                        mInstance5.getLayoutTag(true);
-                    }
-                    break;
-                //格子列表
-                case 1002:
-                    if (mViewpager.getCurrentItem() == 1) {
-                        mInstance1.getLayoutTag(false);
-                    }
-                    if (mViewpager.getCurrentItem() == 2) {
-                        mInstance3.getLayoutTag(false);
-                    }
-                    if (mViewpager.getCurrentItem() == 4) {
-                        mInstance4.getLayoutTag(false);
-                    }
-                    if (mViewpager.getCurrentItem() == 5) {
-                        mInstance5.getLayoutTag(false);
-                    }
-                    break;
-            }
-        }
-    }
-
-    @OnClick({R2.id.iv_chat, R2.id.iv_setting, R2.id.iv_main, R2.id.head, R2.id.iv_close, R2.id.rl_collect, R2.id.rl_main,R2.id.iv_search,
+    @OnClick({R2.id.iv_chat, R2.id.iv_main, R2.id.head, R2.id.iv_close, R2.id.rl_collect, R2.id.rl_main,R2.id.iv_search,
             R2.id.rl_movie, R2.id.rl_change_modul, R2.id.rl_me, R2.id.tv_close,R2.id.rl_bg_special,R2.id.iv_share,R.id.rl_down})
     public void onClick(View view) {
         int i = view.getId();
@@ -278,7 +237,6 @@ public class PlayFragment extends BaseFragment {
             if (!mDrawlayout.isDrawerOpen(Gravity.LEFT)) {
                 mDrawlayout.openDrawer(Gravity.LEFT);
             }
-
         } else if (i == R.id.iv_close) {
             closeDrawLayout();
         } else if (i == R.id.rl_main) {
@@ -318,7 +276,6 @@ public class PlayFragment extends BaseFragment {
             mTvName.setText("$_$");
             mTvSig.setText(getContext().getResources().getString(R.string.title_content));
             mTvClose.setText("登录");
-
             DataSupport.deleteAll(UserInfo.class);
             MyApplication.setUserInfo(null);
             Intent intent=new Intent(getContext(),LoginActivity.class);
@@ -342,14 +299,10 @@ public class PlayFragment extends BaseFragment {
                     ((Activity)getContext()).overridePendingTransition(R.anim.rotate,R.anim.rotate_out);
                 }
             }
-
         } else if (i == R.id.iv_chat) {
             ChatMemberActivity.start(getContext());
             closeDrawLayout();
 
-        } else if (i == R.id.iv_setting) {
-            SettingFragmentDialog settingFragment = SettingFragmentDialog.getInstance();
-            settingFragment.show(getChildFragmentManager(), "");
         }else if(i == R.id.iv_share){
             Intent intent=new Intent(getContext(), ShareActivity.class);
             startActivity(intent);

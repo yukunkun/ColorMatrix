@@ -1,12 +1,15 @@
 package com.matrix.yukun.matrix.video_module.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -15,19 +18,33 @@ import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
+import com.matrix.yukun.matrix.video_module.adapter.JokeAdapter;
 import com.matrix.yukun.matrix.video_module.adapter.TextAdapter;
+import com.matrix.yukun.matrix.video_module.entity.EventShowSecond;
+import com.matrix.yukun.matrix.video_module.entity.JokeInfo;
 import com.matrix.yukun.matrix.video_module.entity.NewsInfo;
 import com.matrix.yukun.matrix.video_module.netutils.NetworkUtils;
+import com.matrix.yukun.matrix.video_module.play.ImageSearchActivity;
 import com.matrix.yukun.matrix.video_module.utils.SpacesDoubleDecoration;
 import com.matrix.yukun.matrix.video_module.views.SwipeItemLayout;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.OnTwoLevelListener;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.TwoLevelHeader;
+import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import okhttp3.Call;
@@ -38,18 +55,18 @@ import okhttp3.Call;
 
 public class TextFragment extends BaseFragment {
     String url="https://www.apiopen.top/journalismApi";
-    @BindView(R2.id.rv_joke)
-    RecyclerView mRvJoke;
-    @BindView(R2.id.sw)
-    SwipeRefreshLayout mSw;
-    @BindView(R2.id.rl_remind)
-    RelativeLayout mLayoutRemind;
     List<NewsInfo> jokeInfoList=new ArrayList<>();
     private TextAdapter mTextAdapter;
     private LinearLayoutManager mLayoutManager;
-    boolean isVertical=true;
-    private GridLayoutManager mGridLayoutManager;
-    private SpacesDoubleDecoration mSpacesDoubleDecoration;
+    private TwoLevelHeader mHeader;
+    private SmartRefreshLayout mSmartRefreshLayout;
+    private RelativeLayout mIvRoot;
+    private CardView mCardView;
+    private SmartRefreshLayout mRefreshGame;
+    private ImageView mIvSecondBack;
+    private RecyclerView mRvJoke;
+    private RelativeLayout mLayoutRemind;
+    private View mFloor;
 
     public static TextFragment getInstance() {
         TextFragment recFragment = new TextFragment();
@@ -58,30 +75,24 @@ public class TextFragment extends BaseFragment {
 
     @Override
     public int getLayout() {
-        return R.layout.fragment_rec;
-    }
-
-    public void getLayoutTag(boolean isTag){
-        isVertical=isTag;
-        if(isVertical){
-            mRvJoke.setLayoutManager(mLayoutManager);
-        }else {
-            mRvJoke.setLayoutManager(mGridLayoutManager);
-            mSpacesDoubleDecoration=new SpacesDoubleDecoration(0,1,1,0);
-            mRvJoke.addItemDecoration(mSpacesDoubleDecoration);
-        }
-        mTextAdapter.notifyDataSetChanged();
+        return R.layout.fragment_image;
     }
 
     @Override
     public void initView(View inflate, Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        mSmartRefreshLayout = inflate.findViewById(R.id.refreshLayout);
+        mFloor = inflate.findViewById(R.id.secondfloor);
+        mHeader = inflate.findViewById(R.id.header);
+        mIvRoot = inflate.findViewById(R.id.secondfloor_content);
+        mCardView = inflate.findViewById(R.id.card_view);
+        mRefreshGame = inflate.findViewById(R.id.smartrefresh);
+        mIvSecondBack = inflate.findViewById(R.id.iv_second_back);
+        mRvJoke = inflate.findViewById(R.id.recyclerview);
+        mLayoutRemind = inflate.findViewById(R.id.rl_remind);
         mLayoutManager = new LinearLayoutManager(getContext());
-        mGridLayoutManager=new GridLayoutManager(getContext(),2);
-        if(isVertical){
-            mRvJoke.setLayoutManager(mLayoutManager);
-        }else {
-            mRvJoke.setLayoutManager(mGridLayoutManager);
-        }
+        mRefreshGame.setPrimaryColorsId(R.color.color_2299ee, R.color.color_whit);
+        mRvJoke.setLayoutManager(mLayoutManager);
         mTextAdapter = new TextAdapter(getContext(),jokeInfoList);
         mRvJoke.setAdapter(mTextAdapter);
         mRvJoke.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(getContext()));
@@ -90,40 +101,55 @@ public class TextFragment extends BaseFragment {
         setListener();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getViewpagerPos(EventShowSecond showSecond){
+        if(showSecond.selectPosition!=5){
+            mHeader.finishTwoLevel();
+            mIvRoot.animate().alpha(0).setDuration(1000);
+        }
+    }
     private void setListener() {
-        mSw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mSmartRefreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener(){
             @Override
-            public void onRefresh() {
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                mSmartRefreshLayout.finishLoadMore(20);
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 jokeInfoList.clear();
                 getOneDayInfo();
+                refreshLayout.finishRefresh(20);
+            }
+            @Override
+            public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent, int offset, int headerHeight, int maxDragHeight) {
+                mFloor.setTranslationY(Math.min(offset - mFloor.getHeight(), mSmartRefreshLayout.getLayout().getHeight() - mFloor.getHeight()));
             }
         });
 
-        mRvJoke.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        mHeader.setOnTwoLevelListener(new OnTwoLevelListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
+            public boolean onTwoLevel(@NonNull RefreshLayout refreshLayout) {
+                mIvRoot.animate().alpha(1).setDuration(2000);
+                return true;//true 将会展开二楼状态 false 关闭刷新
             }
-
+        });
+        mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if(isVertical){
-                    int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
-                    if(lastVisibleItemPosition==mLayoutManager.getItemCount()-1){
-//                        getOneDayInfo();
-                    }
-                }else {
-                    //格子布局
-                    int lastVisibleItemPosition = mGridLayoutManager.findLastVisibleItemPosition();
-                    if(lastVisibleItemPosition==mGridLayoutManager.getItemCount()-1){
-//                        getOneDayInfo();
-                    }
-                }
+            public void onClick(View v) {
+                ImageSearchActivity.start(getContext());
+                mHeader.finishTwoLevel();
+                mIvRoot.animate().alpha(0).setDuration(1000);
+            }
+        });
+        mIvSecondBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHeader.finishTwoLevel();
+                mIvRoot.animate().alpha(0).setDuration(1000);
             }
         });
     }
-
 
     private void getOneDayInfo() {
         NetworkUtils.networkGet(url)
@@ -157,13 +183,18 @@ public class TextFragment extends BaseFragment {
                     if(jokeInfoList.size()>0){
                         mLayoutRemind.setVisibility(View.GONE);
                     }
-
-                    mSw.setRefreshing(false);
+                    mSmartRefreshLayout.finishLoadMore();
+                    mSmartRefreshLayout.finishRefresh();
                     mTextAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 }

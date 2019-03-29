@@ -80,7 +80,7 @@ public class RVHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     Intent intent = new Intent(mContext, VideoDetailPlayActivity.class);
                     intent.putExtra("eyesInfo",mEyesInfo);
                     intent.putExtra("next_url",historyPlay.getNextUrl());
-                    intent.putExtra("type",1);//小视频界面要用
+                    intent.putExtra("type",0);//小视频界面要用
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     if(Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT_WATCH){
                         mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) mContext,((MyHolder) holder).mImageView,"shareView").toBundle());

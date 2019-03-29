@@ -36,6 +36,19 @@
         <item>搞笑</item>
         <item>essay</item>
     </string-array>
+    <string-array name="search">
+        <item>美女</item>
+        <item>壁纸</item>
+        <item>明星</item>
+        <item>摄影</item>
+        <item>动漫</item>
+        <item>宠物</item>
+        <item>动物</item>
+        <item>影视</item>
+        <item>搞笑</item>
+        <item>设计</item>
+        <item>儿童文艺</item>
+    </string-array>
     <string-array name="name">
         <item>(り红装一世</item>
         <item>若离，必弃。</item>

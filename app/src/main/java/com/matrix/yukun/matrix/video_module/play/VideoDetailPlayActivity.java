@@ -108,9 +108,9 @@ public class VideoDetailPlayActivity extends BaseActivity {
         }
         VideoDetailFragment videoDetailFragment=VideoDetailFragment.getInstance(mEyesInfo,mNextUrl,mType);
         VideoListFragment videoListFragment=VideoListFragment.getInstance(mEyesInfo,mNextUrl,mType);
-        VideoDetailComment videoDetailComment= VideoDetailComment.getInstance((ArrayList<EyesInfo.DataBean.TagsBean>) mEyesInfo.getData().getTags());
         mFragmentList.add(videoDetailFragment);
         if(mType==1||mType==2){
+            VideoDetailComment videoDetailComment= VideoDetailComment.getInstance((ArrayList<EyesInfo.DataBean.TagsBean>) mEyesInfo.getData().getTags());
             mFragmentList.add(videoDetailComment);
         }
         mFragmentList.add(videoListFragment);
@@ -143,7 +143,7 @@ public class VideoDetailPlayActivity extends BaseActivity {
     private void saveToDB(){
         List<HistoryPlay> historyPlays = DataSupport.where("play_url = ?", mEyesInfo.getData().getPlayUrl()).find(HistoryPlay.class);
         if(historyPlays.size()==0){
-            HistoryPlay.setHistoryInfo(mEyesInfo,mNextUrl,mType);
+            HistoryPlay.setHistoryInfo(mEyesInfo,mNextUrl,0);
         }
     }
 

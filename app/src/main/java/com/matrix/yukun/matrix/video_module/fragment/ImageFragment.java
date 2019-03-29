@@ -19,6 +19,7 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.video_module.adapter.ImageAdapter;
 import com.matrix.yukun.matrix.video_module.adapter.ShareCallBack;
 import com.matrix.yukun.matrix.video_module.dialog.ShareDialog;
+import com.matrix.yukun.matrix.video_module.entity.EventShowSecond;
 import com.matrix.yukun.matrix.video_module.entity.ImageInfo;
 import com.matrix.yukun.matrix.video_module.netutils.NetworkUtils;
 import com.matrix.yukun.matrix.video_module.play.ImageSearchActivity;
@@ -36,6 +37,9 @@ import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
@@ -51,26 +55,21 @@ import okhttp3.Call;
  * Created by yukun on 17-11-17.
  */
 
-public class ImageFragment extends BaseFragment {
+public class ImageFragment extends BaseFragment implements ShareCallBack {
     String url="https://www.apiopen.top/meituApi";
     private View mFloor;
     private TwoLevelHeader mHeader;
     private SmartRefreshLayout mSmartRefreshLayout;
-    int page = 50;
-    @BindView(R2.id.recyclerview)
-    RecyclerView mRvJoke;
-    @BindView(R2.id.rl_remind)
-    RelativeLayout mLayoutRemind;
-    List<ImageInfo> jokeInfoList=new ArrayList<>();
+    private int page = 50;
+    private List<ImageInfo> jokeInfoList=new ArrayList<>();
     private ImageAdapter mJokeAdapter;
     private LinearLayoutManager mLayoutManager;
-    boolean isVertical=true;
-    private GridLayoutManager mGridLayoutManager;
-    private SpacesDoubleDecoration mSpacesDoubleDecoration;
     private RelativeLayout mIvRoot;
     private CardView mCardView;
     private SmartRefreshLayout mRefreshGame;
     private ImageView mIvSecondBack;
+    private RecyclerView mRvJoke;
+    private RelativeLayout mLayoutRemind;
 
     public static ImageFragment getInstance() {
         ImageFragment recFragment = new ImageFragment();
@@ -84,6 +83,7 @@ public class ImageFragment extends BaseFragment {
 
     @Override
     public void initView(View inflate, Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         mSmartRefreshLayout = inflate.findViewById(R.id.refreshLayout);
         mFloor = inflate.findViewById(R.id.secondfloor);
         mHeader = inflate.findViewById(R.id.header);
@@ -91,59 +91,34 @@ public class ImageFragment extends BaseFragment {
         mCardView = inflate.findViewById(R.id.card_view);
         mRefreshGame = inflate.findViewById(R.id.smartrefresh);
         mIvSecondBack = inflate.findViewById(R.id.iv_second_back);
+        mRvJoke = inflate.findViewById(R.id.recyclerview);
+        mLayoutRemind = inflate.findViewById(R.id.rl_remind);
         mLayoutManager = new LinearLayoutManager(getContext());
-        mGridLayoutManager = new GridLayoutManager(getContext(),2);
-        if(isVertical){
-            mRvJoke.setLayoutManager(mLayoutManager);
-        }else {
-            mRvJoke.setLayoutManager(mGridLayoutManager);
-        }
+        mRvJoke.setLayoutManager(mLayoutManager);
         mJokeAdapter = new ImageAdapter(getContext(),jokeInfoList);
-        mJokeAdapter.setShareCallBack(new ShareCallBack() {
-            @Override
-            public void onShareCallback(int pos) {
-                ImageInfo imageInfo = jokeInfoList.get(pos);
-                ShareDialog shareDialog=ShareDialog.getInstance(getString(R.string.title_content),imageInfo.getUrl(),imageInfo.getUrl());
-                shareDialog.show(getFragmentManager(),"");
-            }
-        });
+        mJokeAdapter.setShareCallBack(this);
         mRefreshGame.setPrimaryColorsId(R.color.color_2299ee, R.color.color_whit);
-
         mRvJoke.setAdapter(mJokeAdapter);
         getInfo(true);
         setListener();
     }
 
-    public void getLayoutTag(boolean isTag){
-        isVertical=isTag;
-        if(isVertical){
-            mRvJoke.setLayoutManager(mLayoutManager);
-        }else {
-            mRvJoke.setLayoutManager(mGridLayoutManager);
-            mSpacesDoubleDecoration=new SpacesDoubleDecoration(0,1,1,0);
-            mRvJoke.addItemDecoration(mSpacesDoubleDecoration);
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getViewpagerPos(EventShowSecond showSecond){
+        if(showSecond.selectPosition!=3){
+            mHeader.finishTwoLevel();
+            mIvRoot.animate().alpha(0).setDuration(1000);
         }
-        mJokeAdapter.setTextViewWidth(isTag);
-        mJokeAdapter.notifyDataSetChanged();
     }
-//
+
     private void setListener() {
         mSmartRefreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener(){
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                if(isVertical){
-                    int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
-                    if(lastVisibleItemPosition==mLayoutManager.getItemCount()-1){
-                        page++;
-                        getInfo(false);
-                    }
-                }else {
-                    //格子布局
-                    int lastVisibleItemPosition = mGridLayoutManager.findLastVisibleItemPosition();
-                    if(lastVisibleItemPosition==mGridLayoutManager.getItemCount()-1){
-                        page++;
-                        getInfo(false);
-                    }
+                int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
+                if(lastVisibleItemPosition==mLayoutManager.getItemCount()-1){
+                    page++;
+                    getInfo(false);
                 }
                 mSmartRefreshLayout.finishLoadMore(20);
             }
@@ -186,8 +161,8 @@ public class ImageFragment extends BaseFragment {
                 mIvRoot.animate().alpha(0).setDuration(1000);
             }
         });
-
     }
+
     private void getInfo(final boolean isFirst) {
         Random random=new Random();
         int nextInt = random.nextInt(25);
@@ -206,7 +181,6 @@ public class ImageFragment extends BaseFragment {
                     mSmartRefreshLayout.finishRefresh();
                 }
             }
-
             @Override
             public void onResponse(String response, int id) {
                 try {
@@ -234,5 +208,18 @@ public class ImageFragment extends BaseFragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onShareCallback(int pos) {
+        ImageInfo imageInfo = jokeInfoList.get(pos);
+        ShareDialog shareDialog=ShareDialog.getInstance(getString(R.string.title_content),imageInfo.getUrl(),imageInfo.getUrl());
+        shareDialog.show(getFragmentManager(),"");
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 }

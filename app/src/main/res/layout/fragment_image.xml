@@ -23,7 +23,7 @@
             <RelativeLayout
                 android:id="@+id/secondfloor_content"
                 android:layout_width="match_parent"
-                android:alpha="1"
+                android:alpha="0"
                 android:layout_height="match_parent">
                 <include layout="@layout/include_search" />
             </RelativeLayout>

@@ -1196,7 +1196,7 @@ public class CubeSwipeRefreshLayout extends ViewGroup {
     }
 
     /**
-     * Adapter
+     * RVSearchImageAdapter
      */
     public class OnPullRefreshListenerAdapter implements OnPullRefreshListener {
 

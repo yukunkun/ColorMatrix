@@ -1,9 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".video_module.play.ImageSearchActivity">
-
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/include_line_no_marg"/>
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:background="@color/color_whit"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                app:layout_scrollFlags="scroll|enterAlways"
+                android:layout_height="@dimen/dimens_45">
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@mipmap/joke_back"
+                    android:padding="@dimen/dimens_5"
+                    android:layout_width="@dimen/dimens_45"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:text="图片"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_text"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+            <include layout="@layout/include_line_no_marg"/>
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tablayout"
+                app:tabGravity="fill"
+                app:tabMode="scrollable"
+                app:tabMinWidth="80dp"
+                app:tabTextColor="@color/color_2b2b2b"
+                app:tabSelectedTextColor="@color/bg_blue"
+                app:tabIndicatorColor="@color/bg_blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </android.support.design.widget.TabLayout>
+            <com.matrix.yukun.matrix.video_module.utils.TagLayout
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="40dp">
+            </com.matrix.yukun.matrix.video_module.utils.TagLayout>
+        </android.support.design.widget.AppBarLayout>
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_height="match_parent"
+        android:id="@+id/viewpager">
+    </android.support.v4.view.ViewPager>
+</android.support.design.widget.CoordinatorLayout>
