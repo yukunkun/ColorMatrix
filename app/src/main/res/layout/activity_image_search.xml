@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".video_module.play.ImageSearchActivity">
-    <include layout="@layout/include_line_no_marg"/>
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:background="@color/color_whit"
@@ -44,11 +43,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </android.support.design.widget.TabLayout>
-            <com.matrix.yukun.matrix.video_module.utils.TagLayout
-                android:layout_width="match_parent"
-                android:visibility="gone"
-                android:layout_height="40dp">
-            </com.matrix.yukun.matrix.video_module.utils.TagLayout>
         </android.support.design.widget.AppBarLayout>
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"

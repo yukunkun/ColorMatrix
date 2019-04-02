@@ -87,7 +87,7 @@ public class SearchImageFragment extends BaseFragment {
     private void initData() {
         GetBuilder getBuilder = NetworkUtils.networkGet(url)
                 .addParams("pn",pn+"")
-                .addParams("rn","30")
+                .addParams("rn","50")
                 .addParams("tag1", tag1)
                 .addParams("tag2", tag2)
                 .addParams("ie", "utf-8");
