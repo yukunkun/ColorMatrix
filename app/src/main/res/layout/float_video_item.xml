@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/rl_video_contain"
+        android:layout_marginBottom="@dimen/dimens_45"
+        android:layout_marginRight="@dimen/dimens_5"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="190dp"
+        android:layout_height="105dp">
+        <VideoView
+            android:id="@+id/jzps_player"
+            android:clickable="true"
+            android:transitionName="shareView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            />
+        <ImageView
+            android:id="@+id/iv_close_video"
+            android:padding="5dp"
+            android:clickable="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_close_video"
+            android:layout_width="@dimen/dimens_35"
+            android:layout_height="@dimen/dimens_35" />
+        <ImageView
+            android:id="@+id/iv_play_video"
+            android:padding="5dp"
+            android:clickable="true"
+            android:layout_alignParentBottom="true"
+            android:src="@mipmap/icon_video_play"
+            android:layout_width="@dimen/dimens_35"
+            android:layout_height="@dimen/dimens_35" />
+    </RelativeLayout>
+</LinearLayout>

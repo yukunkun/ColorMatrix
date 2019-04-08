@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import com.example.pluglin_special.SpecialActivity;
 import com.matrix.yukun.matrix.chat_module.ChatMemberActivity;
 import com.matrix.yukun.matrix.download_module.DownLoadActivity;
 import com.matrix.yukun.matrix.main_module.SearchActivity;
+import com.matrix.yukun.matrix.selfview.floatingview.FloatingViewManager;
 import com.matrix.yukun.matrix.util.ScreenUtils;
 import com.matrix.yukun.matrix.video_module.MyApplication;
 import com.matrix.yukun.matrix.video_module.dialog.SettingFragmentDialog;
@@ -39,6 +41,8 @@ import com.matrix.yukun.matrix.video_module.BaseFragment;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.video_module.play.ShareActivity;
+import com.matrix.yukun.matrix.video_module.utils.ScreenUtil;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -46,6 +50,7 @@ import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -171,7 +176,7 @@ public class PlayFragment extends BaseFragment {
     private void setAdapter() {
         mMViewPagerAdapter = new MViewPagerAdapter(getChildFragmentManager(), mFragments, mStringArray);
         mViewpager.setAdapter(mMViewPagerAdapter);
-        mViewpager.setOffscreenPageLimit(5);
+        mViewpager.setOffscreenPageLimit(2);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -207,8 +212,6 @@ public class PlayFragment extends BaseFragment {
             @Override
             public void onPageSelected(int position) {
                 mTablayout.setScrollPosition(position, 0, true);
-                mInstance.getCurrentSelectViewPager(position);
-                mInstance1.getCurrentSelectViewPager(position);
                 EventBus.getDefault().post(new EventShowSecond(position));
             }
 

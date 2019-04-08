@@ -57,21 +57,13 @@ import okhttp3.Call;
  * Created by yukun on 17-11-17.
  */
 
-public class RecFragment extends BaseFragment implements View.OnClickListener, EyeRecAdapter.ShareCallBack {
+public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCallBack {
     String url = "http://baobab.kaiyanapp.com/api/v4/tabs/selected?num=5&page=0";
     @BindView(R2.id.rv_joke)
     RecyclerView mRvJoke;
     @BindView(R2.id.sw)
     SwipeRefreshLayout mSw;
     List<EyesInfo> eyesInfos=new ArrayList<>();
-    @BindView(R2.id.rl_video_contain)
-    RelativeLayout mLayoutVideo;
-    @BindView(R2.id.jzps_player)
-    VideoView mVideoView;
-    @BindView(R2.id.iv_close_video)
-    ImageView mIvCloseVideo;
-    @BindView(R2.id.iv_play_video)
-    ImageView mIvVideoPlay;
     @BindView(R2.id.rl_remind)
     RelativeLayout mLayoutBg;
     @BindView(R2.id.tv_remind)
@@ -94,7 +86,6 @@ public class RecFragment extends BaseFragment implements View.OnClickListener, E
 
     @Override
     public void initView(View inflate, Bundle savedInstanceState) {
-        EventBus.getDefault().register(this);
         mLayoutManager = new LinearLayoutManager(getContext());
         mTvRemind.setText("加油奔跑中。。。");
         mLayoutBg.setVisibility(View.VISIBLE);
@@ -113,7 +104,7 @@ public class RecFragment extends BaseFragment implements View.OnClickListener, E
     @Override
     public void onShareCallback(int pos) {
         EyesInfo eyesInfo = eyesInfos.get(pos);
-        ShareDialog shareDialog=ShareDialog.getInstance(eyesInfo.getData().getTitle(),eyesInfo.getData().getWebUrl().getForWeibo(),eyesInfo.getData().getCover().getDetail());
+        ShareDialog shareDialog=ShareDialog.getInstance(eyesInfo.getData().getTitle(),eyesInfo.getData().getPlayUrl(),eyesInfo.getData().getCover().getDetail());
         shareDialog.show(getChildFragmentManager(),"");
     }
 
@@ -176,71 +167,28 @@ public class RecFragment extends BaseFragment implements View.OnClickListener, E
                 EventBus.getDefault().post(new EventCategrayPos(pos));
             }
         });
-        mIvCloseVideo.setOnClickListener(this);
-        mIvVideoPlay.setOnClickListener(this);
-        // 不知道为什么 ，魅族使用 videoview.setOnTouchListener没反应，其他手机可以
-        mLayoutVideo.setOnTouchListener(new View.OnTouchListener() {
-            private float mX;
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                     case MotionEvent.ACTION_DOWN://0
-                         mX = event.getX();
-                         return false;
-                     case MotionEvent.ACTION_UP://1
-                         startPlayActivity();
-                         break;
-                     case MotionEvent.ACTION_MOVE://2
-                         //右滑动移除
-                         float  x = event.getX();
-                         if(x-mX>25){
-                             setRemoveAnimation();
-                         }
-                        break;
-                }
-                return true;
-            }
-        });
-    }
 
-    private void startPlayActivity() {
-        Intent intent = new Intent(getContext(), VideoDetailPlayActivity.class);
-        intent.putExtra("eyesInfo",mEventVideo.mEyesInfo);
-        intent.putExtra("next_url",url);
-        intent.putExtra("type",1);//小视频界面要用
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT_WATCH){
-            getContext().startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) getContext(),mLayoutVideo,"shareView").toBundle());
-        }else {
-            getContext().startActivity(intent);
-            ((Activity)getContext()).overridePendingTransition(R.anim.rotate,R.anim.rotate_out);
-        }
-    }
-
-    /**
-     * video移动的动画
-     */
-    private void setRemoveAnimation() {
-        TranslateAnimation translateAnimation=new TranslateAnimation(0,mLayoutVideo.getWidth(),0,0);
-        translateAnimation.setDuration(1000);
-        mLayoutVideo.startAnimation(translateAnimation);
-        translateAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                mVideoView.stopPlayback();
-                mLayoutVideo.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
+//        mLayoutVideo.setOnTouchListener(new View.OnTouchListener() {
+//            private float mX;
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                     case MotionEvent.ACTION_DOWN://0
+//                         mX = event.getX();
+//                         return false;
+//                     case MotionEvent.ACTION_UP://1
+//                         startPlayActivity();
+//                         break;
+//                     case MotionEvent.ACTION_MOVE://2
+//                         //右滑动移除
+//                         float  x = event.getX();
+//                         if(x-mX>25){
+//                         }
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
     }
 
     private void getInfo() {
@@ -299,57 +247,6 @@ public class RecFragment extends BaseFragment implements View.OnClickListener, E
                 }
             }
         });
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void updateVideo(EventVideo eventVideo){
-        if(eventVideo.mEyesInfo.getData().getPlayUrl()!=null && eventVideo.type==1){
-            mEventVideo=eventVideo;
-            mLayoutVideo.setVisibility(View.VISIBLE);
-            mVideoView.setVideoURI(Uri.parse(eventVideo.mEyesInfo.getData().getPlayUrl()));
-            mVideoView.start();
-            mIvVideoPlay.setImageResource(R.mipmap.icon_video_play);
-        }
-    }
-
-    public void getCurrentSelectViewPager(int position){
-        if(mLayoutVideo!=null){
-            if(mLayoutVideo.getVisibility()!=View.GONE){
-                if(position==0){
-                    updatePlayButton(false);
-                }else{
-                    updatePlayButton(true);
-                }
-            }
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.iv_close_video:
-                setRemoveAnimation();
-                break;
-            case R.id.iv_play_video:
-                updatePlayButton(mVideoView.isPlaying());
-                break;
-        }
-    }
-
-    private void updatePlayButton(boolean playing) {
-        if(playing){
-            mIvVideoPlay.setImageResource(R.mipmap.icon_video_pause);
-            mVideoView.pause();
-        }else {
-            mIvVideoPlay.setImageResource(R.mipmap.icon_video_play);
-            mVideoView.start();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        EventBus.getDefault().unregister(this);
-        super.onDestroy();
     }
 
 }

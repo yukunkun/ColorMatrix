@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -23,6 +25,7 @@ import com.matrix.yukun.matrix.download_module.service.DownLoadEngine;
 import com.matrix.yukun.matrix.download_module.service.DownLoadManager;
 import com.matrix.yukun.matrix.download_module.service.DownLoadServiceImpl;
 import com.matrix.yukun.matrix.download_module.service.DownloadNotificationService;
+import com.matrix.yukun.matrix.selfview.floatingview.FloatingViewManager;
 import com.matrix.yukun.matrix.task.LogUtils;
 import com.matrix.yukun.matrix.util.NetStates;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
@@ -78,6 +81,31 @@ public class VideoDetailPlayActivity extends BaseActivity {
         mTabLayout = findViewById(R.id.tl_video);
         mViewPager = findViewById(R.id.vp_video);
         mFloatingActionButton = findViewById(R.id.bt_download);
+        checkFloatPermissiom();
+        FloatingViewManager.getInstance(this).removeFloatingView();
+    }
+
+    private void checkFloatPermissiom() {
+        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.M){
+            if(!Settings.canDrawOverlays(this)){
+                //没有悬浮窗权限,跳转申请
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("申请悬浮窗权限").setMessage("小窗口播放需要给与悬浮窗权限")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setPositiveButton("设置", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                                startActivity(intent);
+                            }
+                        }).show();
+            }
+        }
     }
 
     @Override

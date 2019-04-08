@@ -4,20 +4,31 @@ package com.matrix.yukun.matrix.video_module.play;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.IdRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.VideoView;
+
+import com.matrix.yukun.matrix.selfview.floatingview.FloatingViewManager;
 import com.matrix.yukun.matrix.video_module.dialog.GestureDialog;
+import com.matrix.yukun.matrix.video_module.entity.EventVideo;
+import com.matrix.yukun.matrix.video_module.entity.EyesInfo;
 import com.matrix.yukun.matrix.video_module.fragment.AboutUsFragment;
 import com.matrix.yukun.matrix.video_module.fragment.PlayFragment;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
@@ -25,14 +36,21 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.video_module.fragment.ToolFragment;
 import com.matrix.yukun.matrix.video_module.utils.SPUtils;
+import com.matrix.yukun.matrix.video_module.utils.ScreenUtil;
+import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.tencent.bugly.beta.Beta;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
-public class PlayMainActivity extends BaseActivity {
+public class PlayMainActivity extends BaseActivity implements View.OnClickListener, MediaPlayer.OnPreparedListener {
 
     @BindView(R2.id.rg)
     RadioGroup mRg;
@@ -41,6 +59,11 @@ public class PlayMainActivity extends BaseActivity {
     private boolean isNight;
     private Button mBtColloct;
     private ToolFragment mToolFragment;
+    private VideoView mVideoView;
+    private ImageView mCloseVideo;
+    private ImageView mPlayVideo;
+    private String mNextUrl;
+    private EyesInfo mEyesInfo;
 
     @Override
     public int getLayout() {
@@ -56,6 +79,7 @@ public class PlayMainActivity extends BaseActivity {
     @Override
     public void initView() {
         Beta.checkUpgrade();
+        EventBus.getDefault().register(this);
         PlayFragment playFragment= PlayFragment.getInstance();
         mFragments.add(playFragment);
 //        MyCollectFragment myCollectFragment= MyCollectFragment.getInstance();
@@ -173,7 +197,68 @@ public class PlayMainActivity extends BaseActivity {
         return true;
     }
 
-//    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateVideo(EventVideo eventVideo){
+        mEyesInfo = eventVideo.mEyesInfo;
+        mNextUrl = eventVideo.mNextUrl;
+        if(mEyesInfo.getData().getPlayUrl()!=null){
+            if(Build.VERSION.SDK_INT>Build.VERSION_CODES.M){
+                if(Settings.canDrawOverlays(this)){
+                    View view= LayoutInflater.from(this).inflate(R.layout.float_video_item,null);
+                    mVideoView = view.findViewById(R.id.jzps_player);
+                    mCloseVideo = view.findViewById(R.id.iv_close_video);
+                    mPlayVideo = view.findViewById(R.id.iv_play_video);
+                    mPlayVideo.setOnClickListener(this);
+                    mCloseVideo.setOnClickListener(this);
+                    mVideoView.setOnClickListener(this);
+                    mVideoView.setVideoURI(Uri.parse(mEyesInfo.getData().getPlayUrl()));
+                    mVideoView.setOnPreparedListener(this);
+                    FloatingViewManager.Configs configs = new FloatingViewManager.Configs();
+                    configs.floatingViewX = ScreenUtil.getDisplayWidth();   // 设置悬浮窗的X坐标
+                    configs.floatingViewY = ScreenUtil.getDisplayHeight();  // 设置悬浮窗的Y坐标
+                    configs.overMargin = -ScreenUtil.dip2px(8); // 设置悬浮窗距离边缘的外边距
+                    FloatingViewManager.getInstance(this).addFloatingView(view,configs);
+                }
+            }
+        }
+    }
+    @Override
+    public void onPrepared(MediaPlayer mp) {
+        mp.start();
+    }
+
+    private void updatePlayButton(boolean playing) {
+        if(playing){
+            mPlayVideo.setImageResource(R.mipmap.icon_video_pause);
+            mVideoView.pause();
+        }else {
+            mPlayVideo.setImageResource(R.mipmap.icon_video_play);
+            mVideoView.start();
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_close_video:
+                FloatingViewManager.getInstance(this).removeFloatingView();
+                break;
+            case R.id.iv_play_video:
+                updatePlayButton(mVideoView.isPlaying());
+                break;
+            case R.id.jzps_player:
+//                if(!FloatingViewManager.getInstance(this).isMove()){
+                    VideoDetailPlayActivity.start(this,mEyesInfo,mNextUrl);
+//                }
+                break;
+        }
+    }
+    //    @Override
 //    public boolean onKeyDown(int keyCode, KeyEvent event) {
 //        if (keyCode == KeyEvent.KEYCODE_BACK) {
 //            Intent home = new Intent(Intent.ACTION_MAIN);

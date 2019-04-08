@@ -52,7 +52,7 @@ import okhttp3.Call;
  * Created by yukun on 17-11-17.
  */
 
-public class VideoFragment extends BaseFragment implements View.OnClickListener, VideoAdapter.ItemClickCallBack {
+public class VideoFragment extends BaseFragment implements VideoAdapter.ItemClickCallBack {
     String url = "http://baobab.kaiyanapp.com/api/v4/tabs/selected?num=5&page=0";
     int page = 1;
     @BindView(R2.id.rv_joke)
@@ -65,14 +65,6 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
     private boolean isVertical=true;
     private GridLayoutManager mGridLayoutManager;
     private SpacesDoubleDecoration mSpacesDoubleDecoration;
-    @BindView(R2.id.rl_video_contain)
-    RelativeLayout mLayoutVideo;
-    @BindView(R2.id.jzps_player)
-    VideoView mVideoView;
-    @BindView(R2.id.iv_close_video)
-    ImageView mIvCloseVideo;
-    @BindView(R2.id.iv_play_video)
-    ImageView mIvVideoPlay;
     @BindView(R2.id.rl_remind)
     RelativeLayout  mLayoutRemind;
     private EventVideo mEventVideo;
@@ -89,7 +81,6 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void initView(View inflate, Bundle savedInstanceState) {
-        EventBus.getDefault().register(this);
         mLayoutManager = new LinearLayoutManager(getContext());
         mGridLayoutManager = new GridLayoutManager(getContext(),2);
         if(isVertical){
@@ -158,71 +149,9 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
-
-        mIvCloseVideo.setOnClickListener(this);
-        mLayoutVideo.setOnTouchListener(new View.OnTouchListener() {
-            private float mX;
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN://0
-                        mX = event.getX();
-                        return false;
-                    case MotionEvent.ACTION_UP://1
-                        startPlayActivity();
-                        break;
-                    case MotionEvent.ACTION_MOVE://2
-                        //右滑动移除
-                        float  x = event.getX();
-                        if(x-mX>25){
-                            setRemoveAnimation();
-                        }
-                        break;
-                }
-                return true;
-            }
-        });
     }
 
-    private void startPlayActivity() {
-        Intent intent = new Intent(getContext(), VideoDetailPlayActivity.class);
-        intent.putExtra("eyesInfo",mEventVideo.mEyesInfo);
-        intent.putExtra("next_url",url);
-        intent.putExtra("type",2);//小视频界面要用
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT_WATCH){
-            getContext().startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) getContext(),mLayoutVideo,"shareView").toBundle());
-        }else {
-            getContext().startActivity(intent);
-            ((Activity)getContext()).overridePendingTransition(R.anim.rotate,R.anim.rotate_out);
-        }
-    }
 
-    /**
-     * video移动的动画
-     */
-    private void setRemoveAnimation() {
-        TranslateAnimation translateAnimation=new TranslateAnimation(0,mLayoutVideo.getWidth(),0,0);
-        translateAnimation.setDuration(1000);
-        mLayoutVideo.startAnimation(translateAnimation);
-        translateAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                mVideoView.stopPlayback();
-                mLayoutVideo.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-    }
 
     private void getInfo() {
         if(TextUtils.isEmpty(url) || url.equals("null")){
@@ -280,63 +209,10 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void updateVideo(EventVideo eventVideo){
-        if(eventVideo.mEyesInfo.getData().getPlayUrl()!=null && eventVideo.type==2){
-            mEventVideo=eventVideo;
-            mLayoutVideo.setVisibility(View.VISIBLE);
-            mVideoView.setVideoURI(Uri.parse(eventVideo.mEyesInfo.getData().getPlayUrl()));
-            mVideoView.start();
-            mIvVideoPlay.setImageResource(R.mipmap.icon_video_play);
-        }
-    }
-    public void getCurrentSelectViewPager(int position){
-        if(mLayoutVideo!=null){
-            if(mLayoutVideo.getVisibility()!=View.GONE){
-                if(position==1){
-                    updatePlayButton(false);
-                }else{
-                    updatePlayButton(true);
-                }
-            }
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.iv_close_video:
-                setRemoveAnimation();
-//                mVideoView.stopPlayback();
-//                mVideoView=null;
-//                mLayoutVideo.setVisibility(View.GONE);
-                break;
-            case R.id.iv_play_video:
-                updatePlayButton(mVideoView.isPlaying());
-                break;
-        }
-    }
-
-    private void updatePlayButton(boolean playing) {
-        if(playing){
-            mIvVideoPlay.setImageResource(R.mipmap.icon_video_pause);
-            mVideoView.pause();
-        }else {
-            mIvVideoPlay.setImageResource(R.mipmap.icon_video_play);
-            mVideoView.start();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        EventBus.getDefault().unregister(this);
-        super.onDestroy();
-    }
-
     @Override
     public void onShareCallback(int pos) {
         EyesInfo eyesInfo = eyesInfos.get(pos);
-        ShareDialog shareDialog=ShareDialog.getInstance(eyesInfo.getData().getTitle(),eyesInfo.getData().getWebUrl().getForWeibo(),eyesInfo.getData().getCover().getDetail());
+        ShareDialog shareDialog=ShareDialog.getInstance(eyesInfo.getData().getTitle(),eyesInfo.getData().getPlayUrl(),eyesInfo.getData().getCover().getDetail());
         shareDialog.show(getChildFragmentManager(),"");
     }
 
