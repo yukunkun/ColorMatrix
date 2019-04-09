@@ -1,6 +1,8 @@
 package com.matrix.yukun.matrix.video_module.play;
 
 import android.animation.Animator;
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -60,12 +62,17 @@ public class VideoDetailPlayActivity extends BaseActivity {
     private String[] mStrings;
     private FloatingActionButton mFloatingActionButton;
 
-    public static void start(Context context, EyesInfo eyesInfo, String nextUrl){
+    public static void start(Context context, EyesInfo eyesInfo, String nextUrl,View view){
         Intent intent=new Intent(context,VideoDetailPlayActivity.class);
         intent.putExtra("next_url",nextUrl);
         intent.putExtra("eyesInfo",eyesInfo);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT_WATCH){
+            context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context,view,"shareView").toBundle());
+        }else {
+            context.startActivity(intent);
+            ((Activity)context).overridePendingTransition(R.anim.rotate,R.anim.rotate_out);
+        }
     }
 
     @Override

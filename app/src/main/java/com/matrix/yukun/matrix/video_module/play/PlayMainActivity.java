@@ -38,6 +38,7 @@ import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.video_module.fragment.ToolFragment;
 import com.matrix.yukun.matrix.video_module.utils.SPUtils;
 import com.matrix.yukun.matrix.video_module.utils.ScreenUtil;
+import com.matrix.yukun.matrix.video_module.utils.ScreenUtils;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.tencent.bugly.beta.Beta;
 
@@ -219,7 +220,7 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
                     mVideoView.setOnPreparedListener(this);
                     FloatingViewManager.Configs configs = new FloatingViewManager.Configs();
                     configs.floatingViewX = ScreenUtil.getDisplayWidth();   // 设置悬浮窗的X坐标
-                    configs.floatingViewY = ScreenUtil.getDisplayHeight();  // 设置悬浮窗的Y坐标
+                    configs.floatingViewY = ScreenUtil.getDisplayHeight()-ScreenUtils.dp2Px(this,200);  // 设置悬浮窗的Y坐标
                     configs.overMargin = -ScreenUtil.dip2px(8); // 设置悬浮窗距离边缘的外边距
                     FloatingViewManager.getInstance(this).addFloatingView(view,configs);
                 }
@@ -256,7 +257,7 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
                 updatePlayButton(mVideoView.isPlaying());
                 break;
             case R.id.rl_con:
-                VideoDetailPlayActivity.start(this,mEyesInfo,mNextUrl);
+                VideoDetailPlayActivity.start(this,mEyesInfo,mNextUrl,mVideoView);
                 break;
         }
     }

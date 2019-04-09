@@ -60,7 +60,7 @@ public class RVSerchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         final DBSearchInfo dbSearchInfo = mDBSearchInfos.get(position);
         if(holder instanceof HeaderHolder){
             if(dbSearchInfo.getTitle().indexOf(query)!=-1){
@@ -95,7 +95,7 @@ public class RVSerchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    VideoDetailPlayActivity.start(mContext,DBSearchInfo.countToEyeInfo(dbSearchInfo),dbSearchInfo.getNextUrl());
+                    VideoDetailPlayActivity.start(mContext,DBSearchInfo.countToEyeInfo(dbSearchInfo),dbSearchInfo.getNextUrl(),((VideoHolder) holder).mIvCover);
                 }
             });
         }
