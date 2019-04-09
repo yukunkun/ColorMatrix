@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
 import com.matrix.yukun.matrix.selfview.floatingview.FloatingViewManager;
@@ -64,6 +65,7 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
     private ImageView mPlayVideo;
     private String mNextUrl;
     private EyesInfo mEyesInfo;
+    private RelativeLayout mLayout;
 
     @Override
     public int getLayout() {
@@ -208,8 +210,10 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
                     mVideoView = view.findViewById(R.id.jzps_player);
                     mCloseVideo = view.findViewById(R.id.iv_close_video);
                     mPlayVideo = view.findViewById(R.id.iv_play_video);
+                    mLayout = view.findViewById(R.id.rl_con);
                     mPlayVideo.setOnClickListener(this);
                     mCloseVideo.setOnClickListener(this);
+                    mLayout.setOnClickListener(this);
                     mVideoView.setOnClickListener(this);
                     mVideoView.setVideoURI(Uri.parse(mEyesInfo.getData().getPlayUrl()));
                     mVideoView.setOnPreparedListener(this);
@@ -251,10 +255,8 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
             case R.id.iv_play_video:
                 updatePlayButton(mVideoView.isPlaying());
                 break;
-            case R.id.jzps_player:
-//                if(!FloatingViewManager.getInstance(this).isMove()){
-                    VideoDetailPlayActivity.start(this,mEyesInfo,mNextUrl);
-//                }
+            case R.id.rl_con:
+                VideoDetailPlayActivity.start(this,mEyesInfo,mNextUrl);
                 break;
         }
     }

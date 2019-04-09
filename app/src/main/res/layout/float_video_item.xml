@@ -24,6 +24,12 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             />
+        <RelativeLayout
+            android:id="@+id/rl_con"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </RelativeLayout>
         <ImageView
             android:id="@+id/iv_close_video"
             android:padding="5dp"
