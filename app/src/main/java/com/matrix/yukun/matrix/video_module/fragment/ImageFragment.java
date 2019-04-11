@@ -83,7 +83,9 @@ public class ImageFragment extends BaseFragment implements ShareCallBack {
 
     @Override
     public void initView(View inflate, Bundle savedInstanceState) {
-        EventBus.getDefault().register(this);
+        if(!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
         mSmartRefreshLayout = inflate.findViewById(R.id.refreshLayout);
         mFloor = inflate.findViewById(R.id.secondfloor);
         mHeader = inflate.findViewById(R.id.header);
