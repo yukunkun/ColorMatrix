@@ -67,7 +67,7 @@ public class VideoDetailPlayActivity extends BaseActivity {
         intent.putExtra("next_url",nextUrl);
         intent.putExtra("eyesInfo",eyesInfo);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT_WATCH){
+        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT_WATCH&&((Activity) context).isTaskRoot()){
             context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context,view,"shareView").toBundle());
         }else {
             context.startActivity(intent);

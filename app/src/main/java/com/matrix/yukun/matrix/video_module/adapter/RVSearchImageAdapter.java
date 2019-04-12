@@ -47,12 +47,12 @@ public class RVSearchImageAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof MHolder) {
             final SearchImageInfo searchImageInfo = jokeInfoList.get(position);
-            if(!TextUtils.isEmpty(searchImageInfo.getImage_url())){
+            if(!TextUtils.isEmpty(searchImageInfo.getThumbnail_url())){
                 ViewGroup.LayoutParams layoutParams = ((MHolder) holder).mIvCover.getLayoutParams();
-                float v = (searchImageInfo.getImage_height() / (float)searchImageInfo.getImage_width());
+                float v = (searchImageInfo.getThumb_large_height() / (float)searchImageInfo.getThumb_large_width());
                 layoutParams.height=(int)(ScreenUtils.instance().getWidth(context)/3.0*v);
                 ((MHolder) holder).mIvCover.setLayoutParams(layoutParams);
-                Glide.with(context).load(searchImageInfo.getImage_url()).into(((MHolder) holder).mIvCover);
+                Glide.with(context).load(searchImageInfo.getThumbnail_url()).into(((MHolder) holder).mIvCover);
                 ((MHolder) holder).mTvDes.setText(searchImageInfo.getAbs());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
