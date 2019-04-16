@@ -1,7 +1,5 @@
 package com.matrix.yukun.matrix.video_module.fragment;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -126,6 +124,7 @@ public class ToolFragment extends BaseFragment implements View.OnClickListener {
         integers.add(R.mipmap.icon_tool_weather);
         integers.add(R.mipmap.icon_tool_calandar);
         integers.add(R.mipmap.icon_tool_gif);
+        integers.add(R.mipmap.icon_tool_net);
         return integers;
     }
 

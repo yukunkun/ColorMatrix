@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -48,6 +49,8 @@ public class DictionaryActivity extends BaseActivity {
     TextView mTvJijie;
     @BindView(R2.id.tv_xiangjie)
     TextView mTvXiangjie;
+    @BindView(R2.id.ll_con)
+    LinearLayout  mLayout;
     private DictionaryBean mDictionaryBean;
 
     @Override
@@ -93,6 +96,7 @@ public class DictionaryActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(response.toString());
                     int error_code = jsonObject.optInt("error_code");
                     if (error_code == 0) {
+                        mLayout.setVisibility(View.VISIBLE);
                         JSONObject result = jsonObject.optJSONObject("result");
                         Gson gson = new Gson();
                         mDictionaryBean = gson.fromJson(result.toString(), DictionaryBean.class);

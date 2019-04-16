@@ -120,4 +120,31 @@
         <attr format="integer" name="header_view_height"/>
         <attr format="integer" name="default_circle_target"/>
     </declare-styleable>
+
+    <!-- 仪表盘自定义属性 -->
+    <attr name="color_dial_lower" format="color"/>
+    <attr name="color_dial_middle" format="color"/>
+    <attr name="color_dial_high" format="color"/>
+    <attr name="text_size_dial" format="dimension"/>
+    <attr name="stroke_width_dial" format="dimension"/>
+    <attr name="radius_circle_dial" format="dimension"/>
+    <attr name="text_title_dial" format="string"/>
+    <attr name="text_title_size" format="dimension"/>
+    <attr name="text_title_color" format="color"/>
+    <attr name="text_size_value" format="dimension"/>
+    <attr name="animator_play_time" format="integer"/>
+
+    <declare-styleable name="ClockView">
+        <attr name="color_dial_lower"/>
+        <attr name="color_dial_middle"/>
+        <attr name="color_dial_high"/>
+        <attr name="text_size_dial"/>
+        <attr name="stroke_width_dial"/>
+        <attr name="radius_circle_dial"/>
+        <attr name="text_title_dial"/>
+        <attr name="text_title_size"/>
+        <attr name="text_title_color"/>
+        <attr name="text_size_value"/>
+        <attr name="animator_play_time"/>
+    </declare-styleable>
 </resources>

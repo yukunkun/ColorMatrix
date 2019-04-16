@@ -69,6 +69,7 @@
         <item>今日天气</item>
         <item>备忘录</item>
         <item>GIF制作</item>
+        <item>网络检测</item>
     </string-array>
 
     <string-array name="about_us_list">

@@ -9,7 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.util.ScreenUtils;
@@ -44,7 +48,7 @@ public class RVSearchImageAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof MHolder) {
             final SearchImageInfo searchImageInfo = jokeInfoList.get(position);
             if(!TextUtils.isEmpty(searchImageInfo.getThumbnail_url())){
@@ -53,6 +57,7 @@ public class RVSearchImageAdapter extends RecyclerView.Adapter<RecyclerView.View
                 layoutParams.height=(int)(ScreenUtils.instance().getWidth(context)/3.0*v);
                 ((MHolder) holder).mIvCover.setLayoutParams(layoutParams);
                 Glide.with(context).load(searchImageInfo.getThumbnail_url()).into(((MHolder) holder).mIvCover);
+                Glide.with(context).load(searchImageInfo.getImage_url()).into(((MHolder) holder).mIvCover);
                 ((MHolder) holder).mTvDes.setText(searchImageInfo.getAbs());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

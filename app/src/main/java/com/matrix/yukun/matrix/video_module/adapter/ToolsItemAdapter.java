@@ -19,6 +19,7 @@ import com.matrix.yukun.matrix.barrage_module.BarrageActivity;
 import com.matrix.yukun.matrix.calarder_module.TripartiteActivity;
 import com.matrix.yukun.matrix.gif_module.activity.GifProActivity;
 import com.matrix.yukun.matrix.main_module.MainActivity;
+import com.matrix.yukun.matrix.net_module.NetActivity;
 import com.matrix.yukun.matrix.qrcode_module.QRCodeActivity;
 import com.matrix.yukun.matrix.selfview.guideview.Guide;
 import com.matrix.yukun.matrix.selfview.guideview.GuideBuilder;
@@ -58,6 +59,8 @@ public class ToolsItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mClassMap.put("今日天气", WeatherActivity.class);
         mClassMap.put("备忘录", TripartiteActivity.class);
         mClassMap.put("GIF制作", GifProActivity.class);
+        mClassMap.put("网络检测", NetActivity.class);
+
     }
 
     public void updateData(List<String>  listName){

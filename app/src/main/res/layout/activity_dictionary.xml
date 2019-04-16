@@ -80,8 +80,10 @@
             android:orientation="vertical"
             android:layout_height="match_parent">
             <LinearLayout
+                android:id="@+id/ll_con"
                 android:background="@color/color_whit"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="@dimen/dimens_130">
