@@ -7,22 +7,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
-
-import com.example.lyf.yflibrary.PermissionUtil;
-import com.example.pluglin_special.SpecialActivity;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.download_module.service.DownLoadEngine;
-import com.matrix.yukun.matrix.download_module.service.DownLoadService;
 import com.matrix.yukun.matrix.main_module.search.DBSearchInfo;
 import com.matrix.yukun.matrix.util.PermissionUtils;
 import com.matrix.yukun.matrix.util.log.LogUtil;
@@ -33,9 +24,7 @@ import com.matrix.yukun.matrix.video_module.play.PlayMainActivity;
 import com.matrix.yukun.matrix.video_module.utils.SPUtils;
 import com.qq.e.ads.splash.SplashAD;
 import com.qq.e.ads.splash.SplashADListener;
-
 import org.litepal.crud.DataSupport;
-
 import java.util.ArrayList;
 import java.util.List;
 

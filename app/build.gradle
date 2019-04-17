@@ -155,13 +155,13 @@ dependencies {
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
     implementation 'jp.wasabeef:blurry:3.0.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
-//    compile 'com.googlecode.mp4parser:isoparser:1.1.21' //videocompressor里有这个jar包
+    implementation 'cn.jzvd:jiaozivideoplayer:6.0.2'
+    //    compile 'com.googlecode.mp4parser:isoparser:1.1.21' //videocompressor里有这个jar包
     implementation files('libs/Msc.jar')
     implementation files('libs/Sunflower.jar')
-    implementation project(':pluglin_special')
     implementation files('libs/android-query-full.0.26.7.jar')
     implementation files('libs/ZBarDecoder.jar')
     implementation project(path: ':Photoeditor')
     implementation project(path: ':videocompressor')
-
+    implementation files('libs/GDTUnionSDK.4.9.542.min.jar')
 }

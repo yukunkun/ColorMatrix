@@ -20,7 +20,7 @@
                    android:layout_height="match_parent"/>
         <ImageView android:layout_width="50dp"
                    android:id="@+id/im_play"
-                   android:src="@mipmap/play_icon"
+                   android:src="@mipmap/icon_main_play"
                    android:layout_centerInParent="true"
                    android:layout_height="50dp"/>
     </RelativeLayout>

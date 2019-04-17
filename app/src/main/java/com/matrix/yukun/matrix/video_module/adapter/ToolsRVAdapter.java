@@ -1,45 +1,19 @@
 package com.matrix.yukun.matrix.video_module.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.example.pluglin_special.SpecialActivity;
-import com.matrix.yukun.matrix.barrage_module.BarrageActivity;
-import com.matrix.yukun.matrix.calarder_module.TripartiteActivity;
-import com.matrix.yukun.matrix.main_module.MainActivity;
-import com.matrix.yukun.matrix.selfview.guideview.Guide;
-import com.matrix.yukun.matrix.selfview.guideview.GuideBuilder;
 import com.matrix.yukun.matrix.video_module.fragment.DevidemToolFragment;
 import com.matrix.yukun.matrix.video_module.utils.SPUtils;
-import com.matrix.yukun.matrix.video_module.utils.ScreenUtils;
-import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
-import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
-import com.matrix.yukun.matrix.video_module.utils.component.MutiComponent;
-import com.matrix.yukun.matrix.video_module.video.ProductVideoActivity;
-import com.matrix.yukun.matrix.video_module.views.NoScrolledGridView;
 import com.matrix.yukun.matrix.video_module.views.NoScrolledListView;
-import com.matrix.yukun.matrix.weather_module.WeatherActivity;
-
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

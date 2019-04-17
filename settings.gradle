@@ -1,1 +1,1 @@
-include ':app', ':Photoeditor', ':pluglin_special', ':videocompressor'
+include ':app', ':Photoeditor', ':videocompressor'

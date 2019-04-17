@@ -10,12 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-import com.example.pluglin_special.SpecialActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.barrage_module.BarrageActivity;
+import com.matrix.yukun.matrix.btmovie_module.SpecialActivity;
 import com.matrix.yukun.matrix.calarder_module.TripartiteActivity;
 import com.matrix.yukun.matrix.gif_module.activity.GifProActivity;
 import com.matrix.yukun.matrix.main_module.MainActivity;
@@ -29,11 +28,9 @@ import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.video_module.utils.component.MutiComponent;
 import com.matrix.yukun.matrix.video_module.video.ProductVideoActivity;
 import com.matrix.yukun.matrix.weather_module.WeatherActivity;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

@@ -28,7 +28,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp"
             app:civ_border_width="1dp"
-            app:civ_border_color="@color/shouye_lv_tv"
+            app:civ_border_color="@color/color_eaffd9"
             android:layout_height="60dp"/>
         <TextView android:layout_width="wrap_content"
                   android:id="@+id/rl_bg_special"

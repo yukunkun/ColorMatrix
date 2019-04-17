@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_whit">
+    <FrameLayout
+        android:id="@+id/fl_layout"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_height="match_parent">
+    </FrameLayout>
+    <LinearLayout
+        android:background="@color/color_back"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:src="@mipmap/ic_back"
+            android:padding="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/iv_main"
+            android:src="@mipmap/icon_list"
+            android:padding="12dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+        <RadioGroup
+            android:id="@+id/rg_layout"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="4"
+            android:layout_height="match_parent">
+            <RadioButton
+                android:visibility="gone"
+                android:id="@+id/rb_left"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="五五"
+                android:textColor="@drawable/selector_main_text"
+                android:layout_height="match_parent" />
+            <RadioButton
+                android:visibility="gone"
+                android:id="@+id/rb_center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Quick"
+                android:textColor="@drawable/selector_main_text"
+                android:layout_height="match_parent" />
+            <RadioButton
+                android:id="@+id/rb_right"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="BT电影"
+                android:textColor="@drawable/selector_main_text"
+                android:layout_height="match_parent" />
+            <RadioButton
+                android:visibility="gone"
+                android:id="@+id/rb_four"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="金瓜"
+                android:textColor="@drawable/selector_main_text"
+                android:layout_height="match_parent" />
+        </RadioGroup>
+    </LinearLayout>
+</RelativeLayout>
