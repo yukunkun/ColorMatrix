@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:background="@color/color_whit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_50">
+    <ImageView
+        android:id="@+id/iv_back"
+        android:src="@mipmap/joke_back"
+        android:padding="@dimen/dimens_10"
+        android:layout_width="@dimen/dimens_50"
+        android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/tv_history"
+        android:textSize="15sp"
+        android:textColor="@color/color_282828"
+        android:gravity="center"
+        android:layout_alignParentRight="true"
+        android:text="清除"
+        android:layout_marginRight="@dimen/dimens_10"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+    <TextView
+        android:textSize="17sp"
+        android:textColor="@color/color_black"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:text="历史数据"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+</android.widget.LinearLayout>

@@ -190,7 +190,7 @@ public class ClockView extends View {
         canvas.rotate(360 - 135 - 2.7f * i);        //坐标系总旋转角度为360度
 
         int textBaseLine = (int) (0 + (fontMetrics.bottom - fontMetrics.top) /2 - fontMetrics.bottom);
-        canvas.drawText(String.valueOf(i/10)+"M", 0, textBaseLine, pointerPaint);
+        canvas.drawText(String.valueOf(i/20)+"M", 0, textBaseLine, pointerPaint);
         canvas.restore();
     }
 

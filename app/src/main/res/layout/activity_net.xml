@@ -165,7 +165,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
-                <RelativeLayout
+               <RelativeLayout
                     android:layout_width="match_parent"
                     android:gravity="center_vertical"
                     android:layout_marginTop="@dimen/dimens_10"
@@ -205,26 +205,26 @@
                         app:backColor="#7b7b7b"
                         android:layout_height="30dp" />
                 </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="@dimen/dimens_10"
-                    android:layout_height="@dimen/dimens_40">
-                    <TextView
-                        android:text="背景颜色"
-                        android:textSize="18sp"
-                        android:textColor="@color/color_181818"
-                        android:layout_marginLeft="@dimen/dimens_20"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <com.matrix.yukun.matrix.barrage_module.views.CircleTextView
-                        android:id="@+id/ctv__bg"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/dimens_20"
-                        android:layout_width="30dp"
-                        app:backColor="#7b7b7b"
-                        android:layout_height="30dp" />
-                </RelativeLayout>
+                 <RelativeLayout
+                      android:layout_width="match_parent"
+                      android:gravity="center_vertical"
+                      android:layout_marginTop="@dimen/dimens_10"
+                      android:layout_height="@dimen/dimens_40">
+                      <TextView
+                          android:text="背景颜色"
+                          android:textSize="18sp"
+                          android:textColor="@color/color_181818"
+                          android:layout_marginLeft="@dimen/dimens_20"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content" />
+                      <com.matrix.yukun.matrix.barrage_module.views.CircleTextView
+                          android:id="@+id/ctv_bg"
+                          android:layout_alignParentRight="true"
+                          android:layout_marginRight="@dimen/dimens_20"
+                          android:layout_width="30dp"
+                          app:backColor="#7b7b7b"
+                          android:layout_height="30dp" />
+                  </RelativeLayout>-->
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

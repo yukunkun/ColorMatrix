@@ -345,10 +345,23 @@
             android:name=".chat_module.ChatMemberActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".chat_module.ChatBaseActivity"
+            android:name=".video_module.play.ImageSearchActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".video_module.play.ImageSearchActivity" />
-        <activity android:name=".net_module.NetActivity"></activity>
+        <activity
+            android:name=".net_module.NetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".btmovie_module.activity.DownLoadActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".btmovie_module.BaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".btmovie_module.SpecialActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".net_module.HIstoryActivity" />
+        <activity android:name=".net_module.Activity" />
+        <activity android:name=".net_module.HistoryActivity"></activity>
     </application>
 
 </manifest>
