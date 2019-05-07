@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/rl_banner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/rl_banner"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+        </RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_banner_close"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:src="@mipmap/edit_close_btn"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_height="30dp" />
+    </RelativeLayout>
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </WebView>
+</LinearLayout>

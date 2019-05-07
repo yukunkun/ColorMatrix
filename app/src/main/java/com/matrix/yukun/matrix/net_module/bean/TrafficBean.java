@@ -174,6 +174,12 @@ public class TrafficBean {
             mTimer = null;
         }
     }
+    /**
+     * 停止网速监听计算
+     */
+    public double getTotalNet() {
+        return TrafficStats.getTotalRxBytes()+TrafficStats.getTotalTxBytes();
+    }
 
     /**
      * 获取当前应用uid

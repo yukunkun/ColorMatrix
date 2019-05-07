@@ -40,6 +40,23 @@ android {
         jumboMode = true
         javaMaxHeapSize "4g"
     }
+    // 签名
+    signingConfigs {
+
+        debug {
+            keyAlias 'matrix'
+            keyPassword '123456'
+            storePassword '123456'
+            storeFile file('../Matrix.jks')
+        }
+
+        release {
+            keyAlias 'matrix'
+            keyPassword '123456'
+            storePassword '123456'
+            storeFile file('../Matrix.jks')
+        }
+    }
 
 }
 MobSDK {

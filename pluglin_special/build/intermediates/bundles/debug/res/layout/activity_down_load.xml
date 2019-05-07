@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_whit"
+    tools:context=".activity.DownLoadActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:src="@mipmap/icon_left"
+            android:layout_width="50dp"
+            android:padding="10dp"
+            android:layout_height="50dp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_centerVertical="true"
+        android:id="@+id/iv_image"
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:src="@drawable/xiaoyou"
+        android:scaleType="centerCrop"
+        android:layout_height="250dp" />
+    <TextView
+        android:layout_below="@+id/iv_image"
+        android:text="扫描下载最新app"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@color/color_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.pluglin_special" >
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="26" />
+
+    <application>
+        <activity android:name="com.example.pluglin_special.SpecialActivity" />
+        <activity android:name="com.example.pluglin_special.activity.DownLoadActivity" />
+    </application>
+
+</manifest>

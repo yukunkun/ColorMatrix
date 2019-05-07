@@ -59,7 +59,7 @@ public class NetActivity extends BaseActivity {
     CircleTextView mCtvBg;
     private TextView mTvFUpload;
     private TextView mTvFDownload;
-    private RelativeLayout mRlFContain;
+    private LinearLayout mRlFContain;
     private int type=0;
     @ColorInt int mFColorBf;
     private  Handler handler = new Handler() {
@@ -70,7 +70,6 @@ public class NetActivity extends BaseActivity {
                 }
                 if (msg.what == 2) {
                     mTvFUpload.setText(String.format("%.2f", msg.obj) + "kb/s");
-                    mClockView.setCompleteDegree((float) ((double)msg.obj/1024*20));
                 }
                 super.handleMessage(msg);
             }
@@ -99,8 +98,12 @@ public class NetActivity extends BaseActivity {
     @Override
     public void initDate() {
         mTrafficBean = new TrafficBean(NetActivity.this, handler);
-        double netUploadSpeed = mTrafficBean.getNetUploadSpeed();
-        mClockView.setCompleteDegree((float)(netUploadSpeed/1024*20));
+        double netUploadSpeed = mTrafficBean.getTotalNet()/1024/1024;
+        if(netUploadSpeed>1024){
+            mClockView.setCompleteDegree((float) (100));
+        }else {
+            mClockView.setCompleteDegree((float) (netUploadSpeed/10));
+        }
     }
 
     @Override

@@ -29,7 +29,7 @@ public class ClockView extends View {
     private static final int DEFAULT_STROKE_WIDTH = 8;
     private static final int DEFAULT_RADIUS_DIAL = 128;
     private static final int DEAFAULT_TITLE_SIZE = 16;
-    private static final int DEFAULT_VALUE_SIZE = 28;
+    private static final int DEFAULT_VALUE_SIZE = 20;
     private static final int DEFAULT_ANIM_PLAY_TIME = 2000;
 
     private int colorDialLower;
@@ -190,7 +190,7 @@ public class ClockView extends View {
         canvas.rotate(360 - 135 - 2.7f * i);        //坐标系总旋转角度为360度
 
         int textBaseLine = (int) (0 + (fontMetrics.bottom - fontMetrics.top) /2 - fontMetrics.bottom);
-        canvas.drawText(String.valueOf(i/20)+"M", 0, textBaseLine, pointerPaint);
+        canvas.drawText(String.valueOf(i*10)+"M", 0, textBaseLine, pointerPaint);
         canvas.restore();
     }
 
@@ -208,7 +208,7 @@ public class ClockView extends View {
             titlePaint.setColor(colorDialHigh);
         }
         titlePaint.setTextSize(valueTextSize);
-        canvas.drawText(currentValue + "%", 0, radiusDial * 2/3, titlePaint);
+        canvas.drawText(String.format("%.2f",currentValue*10) + "M", 0, radiusDial * 2/3, titlePaint);
     }
 
     private void drawPointer(Canvas canvas){
