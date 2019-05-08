@@ -1,4 +1,4 @@
-package com.matrix.yukun.matrix.chat_module.mvp;
+package com.matrix.yukun.matrix.chat_module;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -22,11 +23,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
-import com.matrix.yukun.matrix.chat_module.ChatMemberActivity;
-import com.matrix.yukun.matrix.chat_module.ChatToolFragment;
 import com.matrix.yukun.matrix.chat_module.adapter.ChatAdapter;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.entity.ChatType;
+import com.matrix.yukun.matrix.chat_module.mvp.BasePresenter;
+import com.matrix.yukun.matrix.chat_module.mvp.ChatControler;
+import com.matrix.yukun.matrix.chat_module.mvp.ChatPresenter;
+import com.matrix.yukun.matrix.chat_module.mvp.MVPBaseActivity;
 import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
 import com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout;
@@ -93,16 +96,14 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
 
     @Override
     public int getLayout() {
-
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         return R.layout.activity_chat_video;
     }
 
     @Override
     public void initView() {
         type=getIntent().getIntExtra("type",0);
-//        Presenter
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//        linearLayoutManager.setStackFromEnd(true);
         mRvChatview.setLayoutManager(linearLayoutManager);
         getSupportFragmentManager().beginTransaction().add(R.id.fl_contain, ChatToolFragment.getInstance(this)).commit();
         View view=LayoutInflater.from(this).inflate(R.layout.chat_header_view,null);
@@ -114,7 +115,6 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         }
         mChatAdapter = new ChatAdapter(this, mChatInfos);
         mRvChatview.setAdapter(mChatAdapter);
-//        getInfo("你好");
         setListener();
         loadHistoryMessage();
         cameraSavePath = new File(AppConstant.IMAGEPATH +"/yk_"+System.currentTimeMillis()+".jpg");
@@ -122,8 +122,24 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
 
     @Override
     public void initListener() {
-
+        //软键盘挡住消息的问题
+        mRvChatview.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                if (bottom < oldBottom) {
+                    mRvChatview.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mChatAdapter.getItemCount() > 0) {
+                                mRvChatview.smoothScrollToPosition(mChatAdapter.getItemCount() - 1);
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
+
 
     @Override
     public void initDate() {

@@ -99,11 +99,11 @@ public class NetActivity extends BaseActivity {
     public void initDate() {
         mTrafficBean = new TrafficBean(NetActivity.this, handler);
         double netUploadSpeed = mTrafficBean.getTotalNet()/1024/1024;
-        if(netUploadSpeed>1024){
-            mClockView.setCompleteDegree((float) (100));
-        }else {
+//        if(netUploadSpeed>1024){
+//            mClockView.setCompleteDegree((float) (100));
+//        }else {
             mClockView.setCompleteDegree((float) (netUploadSpeed/10));
-        }
+//        }
     }
 
     @Override

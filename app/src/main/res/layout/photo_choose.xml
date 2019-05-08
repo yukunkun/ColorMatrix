@@ -32,7 +32,7 @@
         <TextView
             android:layout_below="@+id/iv_camera"
             android:layout_marginTop="@dimen/dimens_10"
-            android:text="打开相册"
+            android:text="打开相机"
             android:textColor="@color/green_btn"
             android:gravity="center"
             android:layout_width="match_parent"
@@ -64,7 +64,7 @@
         <TextView
             android:layout_below="@+id/iv_photo"
             android:layout_marginTop="@dimen/dimens_10"
-            android:text="打开相机"
+            android:text="打开相册"
             android:textColor="@color/green_btn"
             android:gravity="center"
             android:layout_width="match_parent"

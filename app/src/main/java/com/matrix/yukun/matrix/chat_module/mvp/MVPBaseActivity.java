@@ -1,7 +1,11 @@
 package com.matrix.yukun.matrix.chat_module.mvp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import butterknife.ButterKnife;
 
@@ -20,6 +24,17 @@ public abstract class MVPBaseActivity<T extends BasePresenter> extends AppCompat
         initView();
         initDate();
         initListener();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm == null) return super.dispatchTouchEvent(ev);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     protected abstract T createPresenter();

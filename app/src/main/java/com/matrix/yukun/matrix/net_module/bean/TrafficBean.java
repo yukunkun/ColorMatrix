@@ -178,7 +178,7 @@ public class TrafficBean {
      * 停止网速监听计算
      */
     public double getTotalNet() {
-        return TrafficStats.getTotalRxBytes()+TrafficStats.getTotalTxBytes();
+        return TrafficStats.getMobileTxBytes()+TrafficStats.getMobileRxBytes();
     }
 
     /**

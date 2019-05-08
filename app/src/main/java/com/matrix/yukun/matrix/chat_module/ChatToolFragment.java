@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.chat_module.mvp.ChatBaseActivity;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
 
 /**

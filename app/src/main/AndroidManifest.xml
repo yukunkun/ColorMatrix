@@ -220,9 +220,6 @@
             android:name=".video_module.play.HistoryTodayActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".chat_module.mvp.ChatBaseActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".video_module.play.PlayMainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
@@ -341,6 +338,11 @@
             android:name=".main_module.SearchActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Transparent" />
+
+        <activity
+            android:name=".chat_module.ChatBaseActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".chat_module.ChatMemberActivity"
             android:screenOrientation="portrait" />
@@ -359,9 +361,8 @@
         <activity
             android:name=".btmovie_module.SpecialActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".net_module.HIstoryActivity" />
-        <activity android:name=".net_module.Activity" />
-        <activity android:name=".net_module.HistoryActivity"></activity>
+        <activity android:name=".net_module.HistoryActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
