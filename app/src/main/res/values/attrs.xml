@@ -147,4 +147,23 @@
         <attr name="text_size_value"/>
         <attr name="animator_play_time"/>
     </declare-styleable>
+
+    <!-- 自定义录音波动 -->
+    <declare-styleable name="HorVoiceView">
+        <attr format="color" name="voiceLineColor"/>
+        <attr format="dimension" name="voiceLineWidth"/>
+        <attr format="dimension" name="voiceLineHeight"/>
+        <attr format="dimension" name="voiceLineMaxHeight"/>
+        <attr format="color" name="voiceTextColor"/>
+        <attr format="dimension" name="voiceTextSize"/>
+    </declare-styleable>
+
+    <!-- 自定义录音播放 -->
+    <declare-styleable name="RecordStartView">
+        <attr format="color" name="mRingColor"/>
+        <attr format="color" name="mCenterColor"/>
+        <attr format="color" name="mRingProgressColor"/>
+        <attr format="dimension" name="mRingWidth"/>
+        <attr format="integer" name="mRingMax"/>
+    </declare-styleable>
 </resources>

@@ -70,33 +70,208 @@
                 android:id="@+id/iv_photo"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
+                android:padding="@dimen/dimens_3"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:src="@mipmap/icon_gif_image"
+                android:src="@mipmap/icon_chat_voice"
                 android:layout_height="@dimen/dimens_30" />
+            <!--image color 515151-->
             <ImageView
                 android:id="@+id/iv_voice"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:src="@mipmap/icon_gif_image"
+                android:src="@mipmap/icon_chat_image"
                 android:layout_height="@dimen/dimens_30" />
             <ImageView
                 android:id="@+id/iv_emoje"
+                android:padding="@dimen/dimens_3"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:src="@mipmap/icon_gif_image"
+                android:src="@mipmap/icon_chat_biaoqing"
                 android:layout_height="@dimen/dimens_30" />
         </LinearLayout>
     </LinearLayout>
     <FrameLayout
         android:id="@+id/fl_contain"
-        android:visibility="gone"
+        android:visibility="visible"
         android:background="@color/color_whit"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_210">
+        android:layout_height="250dp">
+
+        <!--相册-->
+        <RelativeLayout
+            android:id="@+id/select_pic_view"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:visibility="gone">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/select_img_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="48dp"
+                ></android.support.v7.widget.RecyclerView>
+
+            <RelativeLayout
+                android:id="@+id/bottom_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_50"
+                android:layout_alignParentBottom="true"
+                >
+                <TextView
+                    android:id="@+id/image_album"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="相册"
+                    android:textSize="16sp"
+                    android:textColor="@color/C1"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/image_editor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/image_album"
+                    android:layout_marginLeft="15dp"
+                    android:text="编辑"
+                    android:enabled="false"
+                    android:textSize="16sp"
+                    android:textColor="@color/C3"
+                    android:layout_centerVertical="true"/>
+
+                <CheckBox
+                    android:id="@+id/cb_origin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/image_editor"
+                    android:layout_marginLeft="14dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="16dp"
+                    android:text="原图"
+                    android:textColor="@color/C1"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btn_send_photo"
+                    android:layout_width="86dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:text="发送"
+                    android:textSize="16sp"
+                    android:textColor="@color/C2"
+                    android:background="@color/white"
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+        <!--更多-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            android:visibility="gone"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/ll_photo"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_height="@dimen/dimens_120">
+                <ImageView
+                    android:src="@mipmap/icon_chat_photo"
+                    android:padding="@dimen/dimens_10"
+                    android:layout_width="@dimen/dimens_50"
+                    android:layout_height="@dimen/dimens_50" />
+                <TextView
+                    android:gravity="center"
+                    android:text="相册"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_camera"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_height="@dimen/dimens_120">
+                <ImageView
+                    android:src="@mipmap/icon_chat_camera"
+                    android:padding="@dimen/dimens_8"
+                    android:layout_width="@dimen/dimens_50"
+                    android:layout_height="@dimen/dimens_50" />
+                <TextView
+                    android:gravity="center"
+                    android:text="相机"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_file"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_height="@dimen/dimens_120">
+                <ImageView
+                    android:src="@mipmap/icon_chat_file"
+                    android:padding="@dimen/dimens_10"
+                    android:layout_width="@dimen/dimens_50"
+                    android:layout_height="@dimen/dimens_50" />
+                <TextView
+                    android:gravity="center"
+                    android:text="文件"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_shake"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_height="@dimen/dimens_120">
+                <ImageView
+                    android:src="@mipmap/icon_chat_shake"
+                    android:padding="@dimen/dimens_10"
+                    android:layout_width="@dimen/dimens_50"
+                    android:layout_height="@dimen/dimens_50" />
+                <TextView
+                    android:gravity="center"
+                    android:text="抖一抖"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/rl_voice"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <include layout="@layout/fragment_chat_record"/>
+        </RelativeLayout>
     </FrameLayout>
 </LinearLayout>

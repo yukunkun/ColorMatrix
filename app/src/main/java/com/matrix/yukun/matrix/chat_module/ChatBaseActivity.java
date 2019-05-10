@@ -26,9 +26,11 @@ import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.chat_module.adapter.ChatAdapter;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.entity.ChatType;
+import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
 import com.matrix.yukun.matrix.chat_module.mvp.BasePresenter;
 import com.matrix.yukun.matrix.chat_module.mvp.ChatControler;
 import com.matrix.yukun.matrix.chat_module.mvp.ChatPresenter;
+import com.matrix.yukun.matrix.chat_module.mvp.InputPanel;
 import com.matrix.yukun.matrix.chat_module.mvp.MVPBaseActivity;
 import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
@@ -47,7 +49,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import okhttp3.Call;
 
-public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.View{
+public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.View, InputListener {
     @BindView(R2.id.iv_backs)
     ImageView mIvBack;
     @BindView(R2.id.iv_member)
@@ -68,6 +70,8 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
     Button mBtnAdd;
     @BindView(R2.id.fl_contain)
     FrameLayout mFlLayout;
+    @BindView(R2.id.fl)
+    FrameLayout mRootView;
     public static int TYPE_MEM=1;
     public static int TYPE_WOMEM=2;
     private String chatUrl = "http://op.juhe.cn/robot/index";
@@ -82,6 +86,7 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
     private int type;
     private int limit=50;
     private int skip=0;
+    private InputPanel mInputPanel;
 
     public static void start(Context context,int type){
         Intent intent=new Intent(context,ChatBaseActivity.class);
@@ -103,9 +108,8 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
     public void initView() {
         type=getIntent().getIntExtra("type",0);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-//        linearLayoutManager.setStackFromEnd(true);
         mRvChatview.setLayoutManager(linearLayoutManager);
-        getSupportFragmentManager().beginTransaction().add(R.id.fl_contain, ChatToolFragment.getInstance(this)).commit();
+//        getSupportFragmentManager().beginTransaction().add(R.id.fl_contain, ChatToolFragment.getInstance(this)).commit();
         View view=LayoutInflater.from(this).inflate(R.layout.chat_header_view,null);
         mSrRefresh.setHeaderView(view);
         if(type==TYPE_MEM){
@@ -115,6 +119,7 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         }
         mChatAdapter = new ChatAdapter(this, mChatInfos);
         mRvChatview.setAdapter(mChatAdapter);
+        mInputPanel = new InputPanel(this,mRootView,this);
         setListener();
         loadHistoryMessage();
         cameraSavePath = new File(AppConstant.IMAGEPATH +"/yk_"+System.currentTimeMillis()+".jpg");

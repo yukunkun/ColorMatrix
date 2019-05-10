@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.matrix.yukun.matrix.selfview.voice.AudioRecordLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/record_layout"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/btn_record"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/ic_chat_record"
+        />
+
+    <com.matrix.yukun.matrix.selfview.voice.AuditionButton
+        android:id="@+id/img_playView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="false"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="18dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_chat_record_audition"
+        android:visibility="invisible"
+        />
+
+    <com.matrix.yukun.matrix.selfview.voice.AuditionButton
+        android:id="@+id/img_delView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="false"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="18dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_chat_record_delete"
+        android:visibility="invisible"
+        />
+
+    <TextView
+        android:id="@+id/tv_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_record"
+        android:layout_marginTop="@dimen/dimens_25"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dimens_20"
+        android:text="按住说话"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/primary_text"
+        android:textSize="16sp"
+        android:visibility="visible"
+        />
+
+    <com.matrix.yukun.matrix.selfview.voice.HorVoiceView
+        android:id="@+id/horvoiceview"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_above="@id/btn_record"
+        android:visibility="gone"
+        app:voiceLineColor="@color/primary_text"
+        app:voiceLineHeight="2dp"
+        app:voiceLineWidth="18dp"
+        app:voiceTextColor="@color/primary_text"
+        />
+</com.matrix.yukun.matrix.selfview.voice.AudioRecordLayout>
