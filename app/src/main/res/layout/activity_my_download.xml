@@ -27,6 +27,7 @@
             android:layout_height="match_parent" />
     </RelativeLayout>
     <include layout="@layout/include_line_no_marg"/>
+
     <FrameLayout
         android:id="@+id/fl_contain"
         android:layout_width="match_parent"

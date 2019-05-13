@@ -1,20 +1,18 @@
 package com.matrix.yukun.matrix.chat_module;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
-import android.support.v7.widget.LinearLayoutManager;import android.text.Editable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -26,6 +24,7 @@ import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.chat_module.adapter.ChatAdapter;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.entity.ChatType;
+import com.matrix.yukun.matrix.chat_module.entity.Photo;
 import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
 import com.matrix.yukun.matrix.chat_module.mvp.BasePresenter;
 import com.matrix.yukun.matrix.chat_module.mvp.ChatControler;
@@ -36,7 +35,9 @@ import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
 import com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout;
 import com.matrix.yukun.matrix.util.getPhotoFromPhotoAlbum;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.netutils.NetworkUtils;
+import com.matrix.yukun.matrix.video_module.utils.ScreenUtil;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import org.json.JSONException;
@@ -62,14 +63,6 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
     CubeRecyclerView mRvChatview;
     @BindView(R2.id.sr_refresh)
     CubeSwipeRefreshLayout mSrRefresh;
-    @BindView(R2.id.et_messg)
-    EditText mEtMessg;
-    @BindView(R2.id.send_btn)
-    Button mSendBtn;
-    @BindView(R2.id.bt_add)
-    Button mBtnAdd;
-    @BindView(R2.id.fl_contain)
-    FrameLayout mFlLayout;
     @BindView(R2.id.fl)
     FrameLayout mRootView;
     public static int TYPE_MEM=1;
@@ -84,9 +77,10 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
     private Uri uri;
     private File cameraSavePath;//拍照照片路径
     private int type;
-    private int limit=50;
+    private int limit=10;
     private int skip=0;
     private InputPanel mInputPanel;
+    private boolean isFirst;
 
     public static void start(Context context,int type){
         Intent intent=new Intent(context,ChatBaseActivity.class);
@@ -109,7 +103,6 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         type=getIntent().getIntExtra("type",0);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRvChatview.setLayoutManager(linearLayoutManager);
-//        getSupportFragmentManager().beginTransaction().add(R.id.fl_contain, ChatToolFragment.getInstance(this)).commit();
         View view=LayoutInflater.from(this).inflate(R.layout.chat_header_view,null);
         mSrRefresh.setHeaderView(view);
         if(type==TYPE_MEM){
@@ -131,16 +124,29 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         mRvChatview.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                if (bottom < oldBottom) {
-                    mRvChatview.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (mChatAdapter.getItemCount() > 0) {
-                                mRvChatview.smoothScrollToPosition(mChatAdapter.getItemCount() - 1);
+                if(!isFirst){
+                    if (bottom < oldBottom) {
+                        mRvChatview.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (mChatAdapter.getItemCount() > 0) {
+                                    mRvChatview.smoothScrollToPosition(mChatAdapter.getItemCount() - 1);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
+                    isFirst=true;
                 }
+            }
+        });
+
+        mRvChatview.setOnFlingListener(new RecyclerView.OnFlingListener() {
+            @Override
+            public boolean onFling(int velocityX, int velocityY) {
+                if(velocityY<0){
+                    mInputPanel.dismissLayout();
+                }
+                return false;
             }
         });
     }
@@ -153,59 +159,21 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
 
     private void loadHistoryMessage() {
         List<ChatListInfo> chatListInfos = DataSupport.where("typeSn = ?",type+"").limit(limit).offset(skip).find(ChatListInfo.class);
+        List<ChatListInfo> list=new ArrayList();
+        list.addAll(mChatInfos);
+        mChatInfos.clear();
         mChatInfos.addAll(chatListInfos);
+        mChatInfos.addAll(list);
         mChatAdapter.notifyDataSetChanged();
-        mRvChatview.scrollToPosition(mChatInfos.size()-1);
+        mRvChatview.scrollToPosition(chatListInfos.size()-1);
     }
 
     private void setListener() {
-        mEtMessg.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEND || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    SendInfo(mEtMessg.getText().toString());
-                    /*隐藏软键盘*/
-                    mEtMessg.setText("");
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(mEtMessg.getWindowToken(), 0);
-                    return true;
-                } else
-                    return true;
-            }
-        });
-
-        mEtMessg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mFlLayout.setVisibility(View.GONE);
-            }
-        });
-        mEtMessg.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(TextUtils.isEmpty(s.toString())){
-                    mBtnAdd.setVisibility(View.VISIBLE);
-                    mSendBtn.setVisibility(View.GONE);
-                }else {
-                    mBtnAdd.setVisibility(View.GONE);
-                    mSendBtn.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
         mSrRefresh.setOnPullRefreshListener(new CubeSwipeRefreshLayout.OnPullRefreshListener() {
             @Override
             public void onRefresh() {
+                skip=mChatInfos.size();
+                loadHistoryMessage();
                 mSrRefresh.setRefreshing(false);
             }
 
@@ -215,26 +183,6 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
 
             @Override
             public void onPullEnable(boolean enable) {
-            }
-        });
-
-        //发送消息
-        mSendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SendInfo(mEtMessg.getText().toString());
-                mEtMessg.setText("");
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(mEtMessg.getWindowToken(), 0);
-            }
-        });
-
-        mBtnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mFlLayout.setVisibility(View.VISIBLE);
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(mEtMessg.getWindowToken(), 0);
             }
         });
     }
@@ -275,7 +223,6 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
             mChatAdapter.notifyDataSetChanged();
             mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
             getMsg("我不喜欢图片");
-
         }else {
             ToastUtils.showToast("发送失败");
         }
@@ -286,7 +233,6 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         intent.setAction(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, 2);
-        mFlLayout.setVisibility(View.GONE);
     }
 
     public void openCamera(){
@@ -299,8 +245,6 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         }
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         this.startActivityForResult(intent, 1);
-        mFlLayout.setVisibility(View.GONE);
-
     }
 
     private void getInfo(String info) {
@@ -349,6 +293,8 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
     }
 
+
+
     private void SendInfo(String msg) {
         if (null == msg || msg.length() == 0) {
             return;
@@ -388,5 +334,34 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         }if(view.getId()==R.id.iv_member){
             ChatMemberActivity.start(this);
         }
+    }
+
+    @Override
+    public void onSendMessageClick(String msg) {
+        SendInfo(msg);
+    }
+
+    @Override
+    public void onPictureClick(List<Photo> picPath) {
+        for (int i = 0; i < picPath.size(); i++) {
+            sendImageMsg(picPath.get(i).path);
+        }
+        mInputPanel.dismissLayout();
+    }
+
+    @Override
+    public void onBottomMove(int position) {
+        translateTop(position);
+    }
+
+    private void translateTop(int pos){
+        ObjectAnimator animator;
+        if(pos>0) {
+            animator= ObjectAnimator.ofFloat(mRvChatview, "translationY",ScreenUtil.dip2px(pos),0 );
+        }else {
+            animator= ObjectAnimator.ofFloat(mRvChatview, "translationY",0, ScreenUtil.dip2px(pos));
+        }
+        animator.setDuration(200);
+        animator.start(); //启动
     }
 }

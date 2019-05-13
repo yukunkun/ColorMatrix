@@ -3,6 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:id="@+id/ll_bottom"
+    android:clickable="true"
+    android:background="@color/color_whit"
     android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,7 +70,7 @@
             android:layout_marginBottom="@dimen/dimens_3"
             android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/iv_photo"
+                android:id="@+id/iv_voice"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:padding="@dimen/dimens_3"
@@ -77,7 +80,7 @@
                 android:layout_height="@dimen/dimens_30" />
             <!--image color 515151-->
             <ImageView
-                android:id="@+id/iv_voice"
+                android:id="@+id/iv_picture"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:layout_weight="1"
@@ -85,7 +88,7 @@
                 android:src="@mipmap/icon_chat_image"
                 android:layout_height="@dimen/dimens_30" />
             <ImageView
-                android:id="@+id/iv_emoje"
+                android:id="@+id/iv_emoji"
                 android:padding="@dimen/dimens_3"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
@@ -95,13 +98,6 @@
                 android:layout_height="@dimen/dimens_30" />
         </LinearLayout>
     </LinearLayout>
-    <FrameLayout
-        android:id="@+id/fl_contain"
-        android:visibility="visible"
-        android:background="@color/color_whit"
-        android:layout_width="match_parent"
-        android:layout_height="250dp">
-
         <!--相册-->
         <RelativeLayout
             android:id="@+id/select_pic_view"
@@ -131,7 +127,6 @@
                     android:textSize="16sp"
                     android:textColor="@color/C1"
                     android:layout_centerVertical="true"/>
-
                 <TextView
                     android:id="@+id/image_editor"
                     android:layout_width="wrap_content"
@@ -146,6 +141,7 @@
 
                 <CheckBox
                     android:id="@+id/cb_origin"
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_toRightOf="@+id/image_editor"
@@ -172,11 +168,13 @@
         </RelativeLayout>
         <!--更多-->
         <LinearLayout
+            android:id="@+id/ll_more_fuction"
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:weightSum="4"
+            android:background="@color/color_whit"
             android:visibility="gone"
-            android:layout_height="match_parent">
+            android:layout_height="250dp">
             <LinearLayout
                 android:id="@+id/ll_photo"
                 android:layout_width="0dp"
@@ -266,12 +264,20 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
-        <RelativeLayout
+        <!-- voice -->
+        <!--<RelativeLayout
             android:id="@+id/rl_voice"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <include layout="@layout/fragment_chat_record"/>
-        </RelativeLayout>
+        </RelativeLayout>-->
+
+    <FrameLayout
+        android:id="@+id/fl_contain"
+        android:visibility="gone"
+        android:background="@color/color_whit"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
     </FrameLayout>
 </LinearLayout>

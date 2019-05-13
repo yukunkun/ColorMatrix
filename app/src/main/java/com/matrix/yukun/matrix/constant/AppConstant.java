@@ -28,4 +28,6 @@ public class AppConstant {
     public static final String format="json";
     public static final String JUHE_DIR_APPKEY="c3564ef1b3cccb2d3c9f06656e9a6e5d";
     public static final String JUHE_PHONE_APPKEY="e232241b95458275f5c9ffc0db90dccb";
+    public static final String LOG = PATH+"/log";
+
 }
