@@ -48,7 +48,7 @@
         android:id="@+id/sr_refresh"
         android:layout_marginBottom="85dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         <com.matrix.yukun.matrix.selfview.CubeRecyclerView
             android:id="@+id/rv_chatview"
             android:layout_width="match_parent"

@@ -35,6 +35,8 @@
     <string name="internet">网络</string>
     <string name="more_comment">更多评论</string>
     <string name="comment">评论</string>
+    <string name="rebote">客服机器人</string>
+    <string name="robote_secretor">小蜜</string>
     <string-array name="calendar_week">
         <item>日</item>
         <item>一</item>

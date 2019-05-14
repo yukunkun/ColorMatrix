@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
  * date:   On 2019/3/26
  */
 public abstract class MVPBaseActivity<T extends BasePresenter> extends AppCompatActivity {
-    T mPresenter;
+    public T mPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

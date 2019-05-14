@@ -10,6 +10,7 @@ public interface ChatControler {
 
     interface View extends BaseView{
 
+        void getRoboteMessage(String msg);
     }
 
     abstract class Presenter extends BasePresenter<ChatControler.View> {

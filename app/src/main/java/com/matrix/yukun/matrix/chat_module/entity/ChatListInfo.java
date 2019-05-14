@@ -17,7 +17,7 @@ public class ChatListInfo extends DataSupport{
     private double msgTime;
     private String msgType;
     private boolean isReceive;
-    private long timeStamp;
+    private long timeStamp;    //时间戳
     private boolean isShowTime;
     private String imagePath;
 
@@ -99,5 +99,21 @@ public class ChatListInfo extends DataSupport{
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "ChatListInfo{" +
+                "mChatInfo='" + mChatInfo + '\'' +
+                ", timeStamp=" + timeStamp +
+                ", msgTime=" + msgTime +
+                ", type=" + type +
+                ", typeSn=" + typeSn +
+                ", mBitmap=" + mBitmap +
+                ", msgType='" + msgType +
+                ", isReceive=" + isReceive +
+                ", isShowTime=" + isShowTime +
+                ", imagePath='" + imagePath + '\'' +
+                '}';
     }
 }

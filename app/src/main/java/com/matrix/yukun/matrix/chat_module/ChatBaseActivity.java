@@ -1,6 +1,4 @@
 package com.matrix.yukun.matrix.chat_module;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,13 +6,10 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -23,7 +18,6 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.chat_module.adapter.ChatAdapter;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
-import com.matrix.yukun.matrix.chat_module.entity.ChatType;
 import com.matrix.yukun.matrix.chat_module.entity.Photo;
 import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
 import com.matrix.yukun.matrix.chat_module.mvp.BasePresenter;
@@ -34,21 +28,12 @@ import com.matrix.yukun.matrix.chat_module.mvp.MVPBaseActivity;
 import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
 import com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout;
-import com.matrix.yukun.matrix.util.getPhotoFromPhotoAlbum;
-import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.matrix.yukun.matrix.video_module.netutils.NetworkUtils;
-import com.matrix.yukun.matrix.video_module.utils.ScreenUtil;
-import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.litepal.crud.DataSupport;
+import com.matrix.yukun.matrix.util.getPhotoFromPhotoAlbum;import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
-import okhttp3.Call;
 
 public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.View, InputListener {
     @BindView(R2.id.iv_backs)
@@ -65,22 +50,18 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
     CubeSwipeRefreshLayout mSrRefresh;
     @BindView(R2.id.fl)
     FrameLayout mRootView;
+    ChatPresenter mChatPresenter;
     public static int TYPE_MEM=1;
     public static int TYPE_WOMEM=2;
-    private String chatUrl = "http://op.juhe.cn/robot/index";
-    private String KEY = "12b5b1b14c7e1d25f18902728b9655b6";
     private ChatAdapter mChatAdapter;
     private List<ChatListInfo> mChatInfos = new ArrayList<>();
-    private double firstTime;
-    private double lastTime;
-    private double timedevide = 8000;
     private Uri uri;
     private File cameraSavePath;//拍照照片路径
     private int type;
-    private int limit=10;
-    private int skip=0;
     private InputPanel mInputPanel;
     private boolean isFirst;
+    private int skip;
+    private LinearLayoutManager mLinearLayoutManager;
 
     public static void start(Context context,int type){
         Intent intent=new Intent(context,ChatBaseActivity.class);
@@ -101,21 +82,22 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
     @Override
     public void initView() {
         type=getIntent().getIntExtra("type",0);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mRvChatview.setLayoutManager(linearLayoutManager);
+        cameraSavePath = new File(AppConstant.IMAGEPATH +"/yk_"+System.currentTimeMillis()+".jpg");
+        mChatPresenter= (ChatPresenter) mPresenter;
         View view=LayoutInflater.from(this).inflate(R.layout.chat_header_view,null);
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mRvChatview.setLayoutManager(mLinearLayoutManager);
         mSrRefresh.setHeaderView(view);
         if(type==TYPE_MEM){
-            mName.setText("客服机器人");
+            mName.setText(R.string.rebote);
         }else if (type==TYPE_WOMEM){
-            mName.setText("小蜜");
+            mName.setText(R.string.robote_secretor);
         }
         mChatAdapter = new ChatAdapter(this, mChatInfos);
         mRvChatview.setAdapter(mChatAdapter);
         mInputPanel = new InputPanel(this,mRootView,this);
         setListener();
         loadHistoryMessage();
-        cameraSavePath = new File(AppConstant.IMAGEPATH +"/yk_"+System.currentTimeMillis()+".jpg");
     }
 
     @Override
@@ -124,18 +106,15 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         mRvChatview.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                if(!isFirst){
-                    if (bottom < oldBottom) {
-                        mRvChatview.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (mChatAdapter.getItemCount() > 0) {
-                                    mRvChatview.smoothScrollToPosition(mChatAdapter.getItemCount() - 1);
-                                }
+                if (bottom < oldBottom) {
+                    mRvChatview.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mChatAdapter.getItemCount() > 0) {
+                                mRvChatview.smoothScrollToPosition(mChatAdapter.getItemCount()-1);
                             }
-                        });
-                    }
-                    isFirst=true;
+                        }
+                    });
                 }
             }
         });
@@ -151,21 +130,26 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         });
     }
 
-
     @Override
     public void initDate() {
 
     }
 
+    /**
+     * 加载历史消息
+     */
     private void loadHistoryMessage() {
-        List<ChatListInfo> chatListInfos = DataSupport.where("typeSn = ?",type+"").limit(limit).offset(skip).find(ChatListInfo.class);
-        List<ChatListInfo> list=new ArrayList();
-        list.addAll(mChatInfos);
-        mChatInfos.clear();
-        mChatInfos.addAll(chatListInfos);
-        mChatInfos.addAll(list);
-        mChatAdapter.notifyDataSetChanged();
-        mRvChatview.scrollToPosition(chatListInfos.size()-1);
+        List<ChatListInfo> chatListInfos = mChatPresenter.loadHistoryMsg(type,skip);
+        List<ChatListInfo> list = new ArrayList();
+        if(chatListInfos.size()>0){
+            list.addAll(mChatInfos);
+            mChatInfos.clear();
+            mChatInfos.addAll(chatListInfos);
+            mChatInfos.addAll(list);
+            mChatAdapter.notifyDataSetChanged();
+            mRvChatview.scrollToPosition(chatListInfos.size() - 1);
+//            mRvChatview.smoothScrollToPosition(mChatAdapter.getItemCount()-1); //有动画
+        }
     }
 
     private void setListener() {
@@ -207,22 +191,11 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
 
     private void sendImageMsg(String imagePath){
         if(!TextUtils.isEmpty(imagePath)){
-            ChatListInfo chatListInfo = new ChatListInfo();
-            lastTime = System.currentTimeMillis();
-            if (lastTime - firstTime > timedevide) {
-                chatListInfo.setShowTime(true);
-            }
-            firstTime = lastTime;
-            chatListInfo.setTimeStamp(System.currentTimeMillis());
-            chatListInfo.setMsgType(ChatType.IMAGE.getName());
-            chatListInfo.setReceive(false);
-            chatListInfo.setTypeSn(type);
-            chatListInfo.setImagePath(imagePath);
-            mChatInfos.add(chatListInfo);
-            chatListInfo.save();
+            ChatListInfo imageChatInfo = mChatPresenter.createImageChatInfo(imagePath, type, false);
+            mChatInfos.add(imageChatInfo);
             mChatAdapter.notifyDataSetChanged();
             mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
-            getMsg("我不喜欢图片");
+            sendDefaultMsg("我不喜欢图片");
         }else {
             ToastUtils.showToast("发送失败");
         }
@@ -247,84 +220,34 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         this.startActivityForResult(intent, 1);
     }
 
-    private void getInfo(String info) {
-        NetworkUtils.networkGet(chatUrl)
-                .addParams("info", info)
-                .addParams("key", KEY)
-                .build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                getMsg("不想和你聊天了");
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONObject result = jsonObject.optJSONObject("result");
-                    String text = result.optString("text");
-                    getMsg(text);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+    @Override
+    public void getRoboteMessage(String msg) {
+        sendDefaultMsg(msg);
     }
 
-    public void getMsg(String msg) {
-        if (msg == null) {
-            return;
-        }
-        ChatListInfo chatListInfo = new ChatListInfo();
-        lastTime = System.currentTimeMillis();
-        if (lastTime - firstTime > timedevide) {
-            chatListInfo.setShowTime(true);
-        }
-        firstTime = lastTime;
-        chatListInfo.setChatInfo(msg);
-        chatListInfo.setTypeSn(type);
-        chatListInfo.setTimeStamp(System.currentTimeMillis());
-        chatListInfo.setMsgType(ChatType.TEXT.getName());
-        chatListInfo.setReceive(true);
-        //保存到数据库
-        chatListInfo.save();
-        mChatInfos.add(chatListInfo);
+    public void sendDefaultMsg(String msg) {
+        ChatListInfo chatInfo = mChatPresenter.createTextChatInfo(msg, type,true);
+        mChatInfos.add(chatInfo);
         mChatAdapter.notifyDataSetChanged();
         mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
     }
 
-
-
-    private void SendInfo(String msg) {
-        if (null == msg || msg.length() == 0) {
-            return;
-        }
-        ChatListInfo chatListInfo = new ChatListInfo();
-
-        lastTime = System.currentTimeMillis();
-        if (lastTime - firstTime > timedevide) {
-            chatListInfo.setShowTime(true);
-        }
-        firstTime = lastTime;
-        chatListInfo.setMsgTime(System.currentTimeMillis());
-        chatListInfo.setChatInfo(msg);
-        chatListInfo.setTypeSn(type);
-        chatListInfo.setReceive(false);
-        chatListInfo.setMsgType(ChatType.TEXT.getName());
-        mChatInfos.add(chatListInfo);
+    /**
+     * 发送
+     * @param msg
+     */
+    private void sendInfo(String msg) {
+        String sendMsg;
+        ChatListInfo chatInfo = mChatPresenter.createTextChatInfo(msg, type,false);
+        mChatInfos.add(chatInfo);
         mChatAdapter.notifyDataSetChanged();
         mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
-        chatListInfo.save();
         if (msg.length() > 30) {
-            //保存到数据库
-            getInfo(msg.substring(0, 30));
+            sendMsg=msg.substring(0, 30);
         } else {
-            if (msg.length() <= 1) {
-                getInfo(msg + "吗");
-            } else {
-                getInfo(msg);
-            }
+            sendMsg=msg;
         }
+        mChatPresenter.sendRoboteMessage(sendMsg);
     }
 
     @OnClick({R2.id.iv_backs,R2.id.iv_member})
@@ -338,7 +261,7 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
 
     @Override
     public void onSendMessageClick(String msg) {
-        SendInfo(msg);
+        sendInfo(msg);
     }
 
     @Override
@@ -351,17 +274,10 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
 
     @Override
     public void onBottomMove(int position) {
-        translateTop(position);
+        translateTop(position+50);
     }
 
     private void translateTop(int pos){
-        ObjectAnimator animator;
-        if(pos>0) {
-            animator= ObjectAnimator.ofFloat(mRvChatview, "translationY",ScreenUtil.dip2px(pos),0 );
-        }else {
-            animator= ObjectAnimator.ofFloat(mRvChatview, "translationY",0, ScreenUtil.dip2px(pos));
-        }
-        animator.setDuration(200);
-        animator.start(); //启动
+        mChatPresenter.translateTop(mRvChatview,pos);
     }
 }
