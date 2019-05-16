@@ -49,7 +49,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         mHorVoiceView = (HorVoiceView) mRootView.findViewById(R.id.horvoiceview);
         mCancel = (Button) mRootView.findViewById(R.id.btn_cancel);
         mSend = (Button) mRootView.findViewById(R.id.btn_send);
-        LogUtil.i("录音长度" + mVoiceClipMessage.getDuration());
+//        LogUtil.i("录音长度" + mVoiceClipMessage.getDuration());
 //        mDuration = mVoiceClipMessage.getDuration() * 1000;
         mPlay.setMaxTime(mDuration);
         mHorVoiceView.setText(showTimeCount(mDuration));
@@ -59,9 +59,9 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     private void initListener() {
         mSend.setOnClickListener(this);
         mCancel.setOnClickListener(this);
-        mPlay.setOnClickListener(new NoDoubleClickListener() {
+        mPlay.setOnClickListener(new View.OnClickListener() {
             @Override
-            protected void onNoDoubleClick(View v) {
+            public void onClick(View v) {
                 LogUtil.i("开启播放" + isPlay);
                 if (isPlay) {
                     mPlay.restore();
@@ -73,6 +73,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                 }
             }
         });
+
         mPlay.setOnPlayListener(new PlayStartView.OnPlayListener() {
             @Override
             public void onStartPlay() {
@@ -113,7 +114,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         if (v.getId() == R.id.btn_cancel) {
 //            PlayerManager.getInstance().stop();
 //            //从栈中将当前fragment退出
-//            getFragmentManager().popBackStack();
+            getFragmentManager().popBackStack();
         }
         else if (v.getId() == R.id.btn_send) {
 //            PlayerManager.getInstance().stop();

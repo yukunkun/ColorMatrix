@@ -1,6 +1,7 @@
 package com.matrix.yukun.matrix.chat_module.fragment.voicefragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,18 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.chat_module.ChatBaseActivity;
 import com.matrix.yukun.matrix.selfview.voice.AudioRecordLayout;
-import com.matrix.yukun.matrix.util.log.LogUtil;
 
 /**
  * @author Wangxx
  * @date 2017/2/8
  */
+@SuppressLint("ValidFragment")
 public class RecordFragment extends Fragment {
     private AudioRecordLayout mAudioRecordLayout;
     private View              mRootView;
-    private ChatContainer     mChatContainer;
-    private BaseChatActivity  mChatActivity;
+    private View     mChatContainer;
+    private ChatBaseActivity mChatActivity;
 
     /**
      * Fragment必须要有空的构造函数，否则直接crash。因为Fragment源码中用到反射构造了对象，是无参数的构造函数
@@ -31,9 +33,9 @@ public class RecordFragment extends Fragment {
 
     }
 
-    public RecordFragment(ChatContainer chatContainer, BaseChatActivity chatActivity) {
+    public RecordFragment(View chatContainer, Activity chatActivity) {
         this.mChatContainer = chatContainer;
-        this.mChatActivity = chatActivity;
+        this.mChatActivity = (ChatBaseActivity)chatActivity;
     }
 
     @Override
@@ -47,7 +49,6 @@ public class RecordFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mAudioRecordLayout = (AudioRecordLayout) mRootView.findViewById(R.id.record_layout);
         mAudioRecordLayout.setChatActivity(mChatActivity);
-
         mAudioRecordLayout.setOnRecordStatusListener(new AudioRecordLayout.onRecordStatusListener() {
 
             @Override
@@ -67,7 +68,7 @@ public class RecordFragment extends Fragment {
             public void onAuditionStart(/*VoiceClipMessage vcm*/) {
 //                LogUtil.e("试听" + vcm.getDuration());
 //                //将当前fragment加入到返回栈中
-//                getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.voice_view, new PlayFragment(mChatContainer, vcm)).commit();
+                getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fl_contain, new PlayFragment(/*mChatContainer, vcm*/)).commit();
             }
 
             @Override

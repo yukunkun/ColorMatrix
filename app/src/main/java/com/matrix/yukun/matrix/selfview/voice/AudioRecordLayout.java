@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.chat_module.ChatBaseActivity;
 import com.matrix.yukun.matrix.chat_module.inputListener.VoiceRecordListener;
 
 import java.io.File;
@@ -127,9 +128,9 @@ public class AudioRecordLayout extends RelativeLayout implements VoiceRecordList
      */
     private RecordStatus mStatus = RecordStatus.PREPARE_RECORD;
 
-    private Activity mActivity;
+    private ChatBaseActivity mActivity;
 
-    public void setChatActivity(Activity chatActivity) {
+    public void setChatActivity(ChatBaseActivity chatActivity) {
         this.mActivity = chatActivity;
     }
 
@@ -149,10 +150,10 @@ public class AudioRecordLayout extends RelativeLayout implements VoiceRecordList
                     if (currentTime >= mRecordMax) {
 //                        VoiceClipMessage vcm = CubeEngine.getInstance().getMediaService().stopVoiceClipRecording();
 //                        if (vcm != null && mOnRecordStatusListener != null) {
-//                            //mOnRecordStatusListener.onAuditionStart(vcm);
+                            mOnRecordStatusListener.onAuditionStart(/*vcm*/);
 //                            mOnRecordStatusListener.onRecordComplete(vcm);
 //                            mStatus = RecordStatus.CANCEL_RECORD;
-//                            updateButton();
+                            updateButton();
 //                            mAuditionBtn.setSelected(false);
 //                            mDeleteVoiceBtn.setSelected(false);
 //                        }
@@ -275,7 +276,7 @@ public class AudioRecordLayout extends RelativeLayout implements VoiceRecordList
 //                        return true;
 //                    }
 //                    //开始录制
-//                    mStatus = RecordStatus.START_RECORD;
+                    mStatus = RecordStatus.START_RECORD;
 //                    CubeEngine.getInstance().getMediaService().startVoiceClipRecording(this);
                     updateButton();
                     mHorVoiceView.setText("00:00");
@@ -324,15 +325,15 @@ public class AudioRecordLayout extends RelativeLayout implements VoiceRecordList
                 }
                 else if (containPlayView()) {
 //                    VoiceClipMessage vcm = CubeEngine.getInstance().getMediaService().stopVoiceClipRecording();
-//                    if (vcm != null && mOnRecordStatusListener != null) {
-//                        mOnRecordStatusListener.onAuditionStart(vcm);
-//                    }
+                    if (/*vcm != null &&*/ mOnRecordStatusListener != null) {
+                        mOnRecordStatusListener.onAuditionStart(/*vcm*/);
+                    }
                 }
                 else if (containRecordBtn()) {
 //                    VoiceClipMessage vcm = CubeEngine.getInstance().getMediaService().stopVoiceClipRecording();
-//                    if (vcm != null && mOnRecordStatusListener != null) {
-//                        mOnRecordStatusListener.onRecordComplete(vcm);
-//                    }
+                    if (/*vcm != null && */ mOnRecordStatusListener != null) {
+                        mOnRecordStatusListener.onRecordComplete(/*vcm*/);
+                    }
                 }
                 updateButton();
                 mAuditionBtn.setSelected(false);

@@ -59,7 +59,7 @@ public class AuditionButton extends AppCompatImageView {
     public AuditionButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setColor(context.getResources().getColor(R.color.primary_text));
+        mPaint.setColor(context.getResources().getColor(R.color.C3));
         mPaint.setStrokeWidth(2);
         mPaint.setStyle(Paint.Style.STROKE);
     }

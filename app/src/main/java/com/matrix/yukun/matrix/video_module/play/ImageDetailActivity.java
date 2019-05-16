@@ -3,16 +3,20 @@ package com.matrix.yukun.matrix.video_module.play;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.matrix.yukun.matrix.video_module.dialog.ImageDownLoadDialog;
 import com.matrix.yukun.matrix.video_module.utils.DownLoadUtils;
@@ -38,6 +42,8 @@ public class ImageDetailActivity extends BaseActivity {
     ImageView mIvImage;
     @BindView(R2.id.rl)
     RelativeLayout mRl;
+    @BindView(R2.id.progress_bar)
+    ProgressBar mProgressBar;
     private boolean mIsGif;
 
 
@@ -57,12 +63,28 @@ public class ImageDetailActivity extends BaseActivity {
     public void initView() {
         downloadurl = getIntent().getStringExtra("url");
         mIsGif = getIntent().getBooleanExtra("isGif",false);
-        if (mIsGif) {
-            Glide.with(ImageDetailActivity.this).load(downloadurl).asGif().into(mIvImage);
-            mPhotoview.setVisibility(View.GONE);
-        } else {
-            Glide.with(this).load(downloadurl).into(mPhotoview);
-        }
+        Glide.with(this).load(downloadurl).into(new GlideDrawableImageViewTarget(mPhotoview){
+            @Override
+            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
+                super.onResourceReady(resource, animation);
+                mProgressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                super.onLoadFailed(e, errorDrawable);
+                ToastUtils.showToast( "图片加载失败");
+                mProgressBar.setVisibility(View.GONE);
+            }
+        });
+
+
+//        if (mIsGif) {
+//            Glide.with(ImageDetailActivity.this).load(downloadurl).asGif().into(downloadurl);
+//            mPhotoview.setVisibility(View.GONE);
+//        } else {
+//            Glide.with(this).load(downloadurl).into(mPhotoview);
+//        }
     }
 
     @OnClick({R2.id.iv_more, R2.id.iv_back})

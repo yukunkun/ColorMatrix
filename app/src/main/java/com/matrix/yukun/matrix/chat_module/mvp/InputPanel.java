@@ -1,5 +1,6 @@
 package com.matrix.yukun.matrix.chat_module.mvp;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -24,8 +25,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.chat_module.ChatBaseActivity;
 import com.matrix.yukun.matrix.chat_module.adapter.ChatPictureAdapter;
 import com.matrix.yukun.matrix.chat_module.entity.Photo;
+import com.matrix.yukun.matrix.chat_module.fragment.voicefragment.RecordFragment;
 import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
 import com.matrix.yukun.matrix.util.KeyBoardUtil;
 import com.matrix.yukun.matrix.util.SpacesItemDecoration;
@@ -366,6 +369,7 @@ public class InputPanel implements View.OnClickListener {
 
     private void showVoice(){
         mFrameLayout.setVisibility(View.VISIBLE);
+        (((ChatBaseActivity)mContext).getSupportFragmentManager()).beginTransaction().replace(R.id.fl_contain, new RecordFragment(mRootView,(Activity)mContext)).commit();
     }
 
     private void showEmoji(){
