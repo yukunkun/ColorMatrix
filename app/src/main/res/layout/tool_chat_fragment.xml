@@ -4,11 +4,14 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
+    <!--更多-->
     <LinearLayout
+        android:id="@+id/ll_more_fuction"
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:weightSum="4"
-        android:layout_height="match_parent">
+        android:background="@color/color_whit"
+        android:layout_height="250dp">
         <LinearLayout
             android:id="@+id/ll_photo"
             android:layout_width="0dp"
@@ -17,9 +20,9 @@
             android:clickable="true"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_height="@dimen/dimens_100">
+            android:layout_height="@dimen/dimens_120">
             <ImageView
-                android:src="@mipmap/pic"
+                android:src="@mipmap/icon_chat_photo"
                 android:padding="@dimen/dimens_10"
                 android:layout_width="@dimen/dimens_50"
                 android:layout_height="@dimen/dimens_50" />
@@ -39,15 +42,59 @@
             android:clickable="true"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_height="@dimen/dimens_100">
+            android:layout_height="@dimen/dimens_120">
             <ImageView
-                android:src="@mipmap/ic_camera"
+                android:src="@mipmap/icon_chat_camera"
                 android:padding="@dimen/dimens_8"
                 android:layout_width="@dimen/dimens_50"
                 android:layout_height="@dimen/dimens_50" />
             <TextView
                 android:gravity="center"
                 android:text="相机"
+                android:textColor="@color/color_black"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_file"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="@dimen/dimens_120">
+            <ImageView
+                android:src="@mipmap/icon_chat_file"
+                android:padding="@dimen/dimens_10"
+                android:layout_width="@dimen/dimens_50"
+                android:layout_height="@dimen/dimens_50" />
+            <TextView
+                android:gravity="center"
+                android:text="文件"
+                android:textColor="@color/color_black"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_shake"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="@dimen/dimens_120">
+            <ImageView
+                android:src="@mipmap/icon_chat_shake"
+                android:padding="@dimen/dimens_10"
+                android:layout_width="@dimen/dimens_50"
+                android:layout_height="@dimen/dimens_50" />
+            <TextView
+                android:gravity="center"
+                android:text="抖一抖"
                 android:textColor="@color/color_black"
                 android:textSize="16sp"
                 android:layout_width="match_parent"

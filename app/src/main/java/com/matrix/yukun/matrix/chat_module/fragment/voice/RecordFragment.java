@@ -1,4 +1,4 @@
-package com.matrix.yukun.matrix.chat_module.fragment.voicefragment;
+package com.matrix.yukun.matrix.chat_module.fragment.voice;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

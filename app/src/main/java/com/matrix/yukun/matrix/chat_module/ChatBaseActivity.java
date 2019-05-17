@@ -1,12 +1,10 @@
 package com.matrix.yukun.matrix.chat_module;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +27,8 @@ import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
 import com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout;
 import com.matrix.yukun.matrix.util.getPhotoFromPhotoAlbum;import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
+import com.miracle.view.imageeditor.bean.EditorResult;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,13 +55,12 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
     public static int TYPE_WOMEM=2;
     private ChatAdapter mChatAdapter;
     private List<ChatListInfo> mChatInfos = new ArrayList<>();
-    private Uri uri;
-    private File cameraSavePath;//拍照照片路径
     private int type;
     private InputPanel mInputPanel;
-    private boolean isFirst;
     private int skip;
     private LinearLayoutManager mLinearLayoutManager;
+    private Uri uri;
+    private File cameraSavePath;//拍照照片路径
 
     public static void start(Context context,int type){
         Intent intent=new Intent(context,ChatBaseActivity.class);
@@ -82,8 +81,8 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
     @Override
     public void initView() {
         type=getIntent().getIntExtra("type",0);
-        cameraSavePath = new File(AppConstant.IMAGEPATH +"/yk_"+System.currentTimeMillis()+".jpg");
         mChatPresenter= (ChatPresenter) mPresenter;
+        cameraSavePath = new File(AppConstant.IMAGEPATH +"/yk_"+System.currentTimeMillis()+".jpg");
         View view=LayoutInflater.from(this).inflate(R.layout.chat_header_view,null);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRvChatview.setLayoutManager(mLinearLayoutManager);
@@ -118,14 +117,11 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
                 }
             }
         });
-
-        mRvChatview.setOnFlingListener(new RecyclerView.OnFlingListener() {
+        //点击
+        this.mRvChatview.setEventListener(new CubeRecyclerView.OnEventListener() {
             @Override
-            public boolean onFling(int velocityX, int velocityY) {
-                if(velocityY<0){
-                    mInputPanel.dismissLayout();
-                }
-                return false;
+            public void onStartTouch() {
+                mInputPanel.dismissLayout();
             }
         });
     }
@@ -185,6 +181,11 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
                 photoPath = uri.getEncodedPath();
                 sendImageMsg(photoPath);
             }
+        }if (resultCode == RESULT_OK && requestCode == InputPanel.ACTION_REQUEST_EDITOR) {
+            if(data!=null){
+                EditorResult editorResult = (EditorResult) data.getSerializableExtra(Activity.RESULT_OK + "");
+                sendImageMsg(editorResult.getEditor2SavedPath());
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -199,25 +200,6 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         }else {
             ToastUtils.showToast("发送失败");
         }
-    }
-
-    public void openPhoto(){
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, 2);
-    }
-
-    public void openCamera(){
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            uri = FileProvider.getUriForFile(ChatBaseActivity.this, "com.xykj.customview.fileprovider", cameraSavePath);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        } else {
-            uri = Uri.fromFile(cameraSavePath);
-        }
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        this.startActivityForResult(intent, 1);
     }
 
     @Override
@@ -274,10 +256,7 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
 
     @Override
     public void onBottomMove(int position) {
-        translateTop(position+50);
+
     }
 
-    private void translateTop(int pos){
-        mChatPresenter.translateTop(mRvChatview,pos);
-    }
 }

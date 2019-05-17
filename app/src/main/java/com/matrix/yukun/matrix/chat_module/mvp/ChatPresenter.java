@@ -2,9 +2,11 @@ package com.matrix.yukun.matrix.chat_module.mvp;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.entity.ChatType;
+import com.matrix.yukun.matrix.util.RecyclerViewUtil;
 import com.matrix.yukun.matrix.video_module.netutils.NetworkUtils;
 import com.matrix.yukun.matrix.video_module.utils.ScreenUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -31,7 +33,6 @@ public class ChatPresenter extends ChatControler.Presenter {
     public ChatPresenter(Context context, ChatControler.View view) {
         super(context, view);
     }
-
     /**
      * 拼接消息
      * @param msg
@@ -108,18 +109,5 @@ public class ChatPresenter extends ChatControler.Presenter {
             Collections.reverse(chatListInfos);
         }
         return chatListInfos;
-    }
-
-    public void translateTop(View view,int pos){
-        ObjectAnimator animator;
-        if(pos>0) {
-            animator= ObjectAnimator.ofFloat(view, "translationY", ScreenUtil.dip2px(pos),0 );
-        }else {
-            animator= ObjectAnimator.ofFloat(view, "translationY",0, ScreenUtil.dip2px(pos));
-        }
-        animator.setStartDelay(50);
-        animator.setDuration(300);
-        animator.start(); //启动
-
     }
 }
