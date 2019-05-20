@@ -23,7 +23,6 @@ import com.matrix.yukun.matrix.chat_module.mvp.ChatControler;
 import com.matrix.yukun.matrix.chat_module.mvp.ChatPresenter;
 import com.matrix.yukun.matrix.chat_module.mvp.InputPanel;
 import com.matrix.yukun.matrix.chat_module.mvp.MVPBaseActivity;
-import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
 import com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout;
 import com.matrix.yukun.matrix.util.getPhotoFromPhotoAlbum;import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
@@ -82,7 +81,6 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
     public void initView() {
         type=getIntent().getIntExtra("type",0);
         mChatPresenter= (ChatPresenter) mPresenter;
-        cameraSavePath = new File(AppConstant.IMAGEPATH +"/yk_"+System.currentTimeMillis()+".jpg");
         View view=LayoutInflater.from(this).inflate(R.layout.chat_header_view,null);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRvChatview.setLayoutManager(mLinearLayoutManager);
@@ -174,6 +172,7 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
             photoPath = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
             sendImageMsg(photoPath);
         }if (requestCode == 1 && resultCode == RESULT_OK) {
+            cameraSavePath = new File(InputPanel.cameraSavePath);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 photoPath = String.valueOf(cameraSavePath);
                 sendImageMsg(photoPath);
@@ -193,9 +192,7 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
     private void sendImageMsg(String imagePath){
         if(!TextUtils.isEmpty(imagePath)){
             ChatListInfo imageChatInfo = mChatPresenter.createImageChatInfo(imagePath, type, false);
-            mChatInfos.add(imageChatInfo);
-            mChatAdapter.notifyDataSetChanged();
-            mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
+            notifyAdapter(imageChatInfo);
             sendDefaultMsg("我不喜欢图片");
         }else {
             ToastUtils.showToast("发送失败");
@@ -221,15 +218,19 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
     private void sendInfo(String msg) {
         String sendMsg;
         ChatListInfo chatInfo = mChatPresenter.createTextChatInfo(msg, type,false);
-        mChatInfos.add(chatInfo);
-        mChatAdapter.notifyDataSetChanged();
-        mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
+        notifyAdapter(chatInfo);
         if (msg.length() > 30) {
             sendMsg=msg.substring(0, 30);
         } else {
             sendMsg=msg;
         }
         mChatPresenter.sendRoboteMessage(sendMsg);
+    }
+
+    public void sendShakeListener(){
+        ChatListInfo chatListInfo = mChatPresenter.sendShakeListener(type);
+        notifyAdapter(chatListInfo);
+        mChatPresenter.sendRoboteMessage(getString(R.string.shake_you));
     }
 
     @OnClick({R2.id.iv_backs,R2.id.iv_member})
@@ -257,6 +258,12 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
     @Override
     public void onBottomMove(int position) {
 
+    }
+
+    private void  notifyAdapter(ChatListInfo chatListInfo){
+        mChatInfos.add(chatListInfo);
+        mChatAdapter.notifyDataSetChanged();
+        mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
     }
 
 }

@@ -37,6 +37,7 @@
     <string name="comment">评论</string>
     <string name="rebote">客服机器人</string>
     <string name="robote_secretor">小蜜</string>
+    <string name="shake_you">抖你一下</string>
     <string-array name="calendar_week">
         <item>日</item>
         <item>一</item>

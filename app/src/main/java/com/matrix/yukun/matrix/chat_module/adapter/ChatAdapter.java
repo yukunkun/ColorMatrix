@@ -11,9 +11,12 @@ import com.matrix.yukun.matrix.chat_module.entity.ChatType;
 import com.matrix.yukun.matrix.chat_module.holder.LeftTextHolder;
 import com.matrix.yukun.matrix.chat_module.holder.RightImageHolder;
 import com.matrix.yukun.matrix.chat_module.holder.RightTextHolder;
+import com.matrix.yukun.matrix.chat_module.holder.ShakeHolder;
 import com.matrix.yukun.matrix.chat_module.holderwrapper.LeftTextHolderWrapper;
 import com.matrix.yukun.matrix.chat_module.holderwrapper.RightImageHolderWrapper;
 import com.matrix.yukun.matrix.chat_module.holderwrapper.RightTextHolderWrapper;
+import com.matrix.yukun.matrix.chat_module.holderwrapper.ShakeHolderWrapper;
+
 import java.util.List;
 
 /**
@@ -22,9 +25,6 @@ import java.util.List;
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private List<ChatListInfo> mChatInfos;
-    private int LEFTCONTENT=0;
-    private int RIGHTCONTENT=1;
-    private int RIGHTIMAGE=3;
 
     public ChatAdapter(Context context, List<ChatListInfo> chatInfos) {
         mContext = context;
@@ -34,13 +34,19 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        if(viewType==LEFTCONTENT){
+        if(viewType== ChatMesageType.LEFTCONTENT.getValue()){
             view = LayoutInflater.from(mContext).inflate(R.layout.chat_left_item,null);
             return new LeftTextHolder(view);
-        }else if(viewType==RIGHTCONTENT){
+        }else if(viewType==ChatMesageType.RIGHTCONTENT.getValue()){
             view= LayoutInflater.from(mContext).inflate(R.layout.chat_right_item,null);
             return new RightTextHolder(view);
-        }else if(viewType==RIGHTIMAGE){
+        }else if(viewType==ChatMesageType.RIGHTIMAGE.getValue()){
+            view= LayoutInflater.from(mContext).inflate(R.layout.chat_right_image_item,null);
+            return new RightImageHolder(view);
+        } else if(viewType==ChatMesageType.SHAKEWINDOW.getValue()){
+            view= LayoutInflater.from(mContext).inflate(R.layout.chat_shake_layout,null);
+            return new ShakeHolder(view);
+        } else if(viewType==ChatMesageType.FILEMESSAGE.getValue()){
             view= LayoutInflater.from(mContext).inflate(R.layout.chat_right_image_item,null);
             return new RightImageHolder(view);
         }
@@ -60,6 +66,14 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             //右边文本的布局
             RightImageHolderWrapper.getInstance().content(mContext,chatListInfo, (RightImageHolder) holder);
         }
+        else if(holder instanceof ShakeHolder){
+            //抖一抖
+            ShakeHolderWrapper.getInstance().content(mContext,chatListInfo, (ShakeHolder) holder);
+        }
+//        else if(holder instanceof RightImageHolder){
+            //文件
+//            RightImageHolderWrapper.getInstance().content(mContext,chatListInfo, (RightImageHolder) holder);
+//        }
     }
 
     @Override
@@ -71,14 +85,20 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public int getItemViewType(int position) {
         if(mChatInfos.get(position).isReceive()){// 接收的
             if(mChatInfos.get(position).getMsgType().equals(ChatType.TEXT.getName())){
-                return LEFTCONTENT; //文本
+                return ChatMesageType.LEFTCONTENT.getValue(); //文本
             }
         }else { //发送端
             if(mChatInfos.get(position).getMsgType().equals(ChatType.TEXT.getName())){
-                return RIGHTCONTENT;//文本
+                return ChatMesageType.RIGHTCONTENT.getValue();//文本
             }
             if(mChatInfos.get(position).getMsgType().equals(ChatType.IMAGE.getName())){
-                return RIGHTIMAGE; //图片
+                return ChatMesageType.RIGHTIMAGE.getValue(); //图片
+            }
+            if(mChatInfos.get(position).getMsgType().equals(ChatType.SHAKE.getName())){
+                return ChatMesageType.SHAKEWINDOW.getValue(); //抖一抖
+            }
+            if(mChatInfos.get(position).getMsgType().equals(ChatType.FILE.getName())){
+                return ChatMesageType.FILEMESSAGE.getValue(); //文件
             }
         }
         return position;

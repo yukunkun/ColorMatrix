@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        app:civ_border_color="@color/color_lines"
+        app:civ_border_width="1dp"
+        android:id="@+id/ci_right_head"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/tool_icon"
+        android:layout_width="@dimen/dimens_45"
+        android:layout_height="@dimen/dimens_45"/>
+    <TextView
+        android:layout_toLeftOf="@+id/ci_right_head"
+        android:text=" 抖了你一下"
+        android:textIsSelectable="true"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:drawableLeft="@mipmap/icon_chat_shake"
+        android:background="@drawable/balloon_r_pressed"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/tv_right_content"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

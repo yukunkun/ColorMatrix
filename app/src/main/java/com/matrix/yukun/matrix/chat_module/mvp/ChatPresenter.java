@@ -7,6 +7,7 @@ import android.view.View;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.entity.ChatType;
 import com.matrix.yukun.matrix.util.RecyclerViewUtil;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.netutils.NetworkUtils;
 import com.matrix.yukun.matrix.video_module.utils.ScreenUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -109,5 +110,22 @@ public class ChatPresenter extends ChatControler.Presenter {
             Collections.reverse(chatListInfos);
         }
         return chatListInfos;
+    }
+
+    public ChatListInfo sendShakeListener(int type){
+        ChatListInfo chatListInfo = new ChatListInfo();
+        lastTime = System.currentTimeMillis();
+        if (lastTime - firstTime > timedevide) {
+            chatListInfo.setShowTime(true);
+        }
+        firstTime = lastTime;
+        chatListInfo.setTimeStamp(System.currentTimeMillis());
+        chatListInfo.setMsgTime(System.currentTimeMillis());
+        chatListInfo.setTypeSn(type);
+        chatListInfo.setReceive(false);
+        chatListInfo.setMsgType(ChatType.SHAKE.getName());
+        //保存到数据库
+        chatListInfo.save();
+        return chatListInfo;
     }
 }

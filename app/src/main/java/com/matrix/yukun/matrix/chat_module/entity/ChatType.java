@@ -8,6 +8,8 @@ public enum ChatType {
 
     IMAGE("image",0),
     TEXT("text",1),
+    SHAKE("shake",2),
+    FILE("file",3),
     UNKNOW("unknow",-1);
 
     private String name ;

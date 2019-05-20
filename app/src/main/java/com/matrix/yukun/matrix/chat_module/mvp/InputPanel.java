@@ -40,6 +40,7 @@ import com.matrix.yukun.matrix.main_module.MainActivity;
 import com.matrix.yukun.matrix.util.KeyBoardUtil;
 import com.matrix.yukun.matrix.util.SpacesItemDecoration;
 import com.matrix.yukun.matrix.util.log.LogUtil;
+import com.matrix.yukun.matrix.video_module.common.Constanct;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.miracle.view.imageeditor.bean.EditorSetup;
 
@@ -75,6 +76,7 @@ public class InputPanel implements View.OnClickListener {
     private ChatPictureAdapter mChatPictureAdapter;
     private List<Photo> imgSendList = new ArrayList<>();
     public final static int ACTION_REQUEST_EDITOR=3;
+    public static String cameraSavePath;
 
     public InputPanel(Context context,View rootView, InputListener inputListener) {
         mRootView = rootView;
@@ -356,6 +358,8 @@ public class InputPanel implements View.OnClickListener {
 
     private void showMore(){
         mFrameLayout.setVisibility(View.VISIBLE);
+        cameraSavePath= AppConstant.IMAGEPATH+"/yk_"+System.currentTimeMillis()+".png";
         (((ChatBaseActivity)mContext).getSupportFragmentManager()).popBackStack();
-        (((ChatBaseActivity)mContext).getSupportFragmentManager()).beginTransaction().replace(R.id.fl_contain, ChatToolFragment.getInstance(mContext)).commit();    }
+        (((ChatBaseActivity)mContext).getSupportFragmentManager()).beginTransaction().replace(R.id.fl_contain, ChatToolFragment.getInstance(mContext,cameraSavePath)).commit();
+    }
 }

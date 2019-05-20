@@ -26,12 +26,15 @@ public class ChatToolFragment extends BaseFragment implements View.OnClickListen
 
     private LinearLayout mLlPhoto;
     private LinearLayout mLlCamera;
+    private LinearLayout mLlShake;
+    private LinearLayout mLlFile;
     private static Context mContext;
     private Uri uri;
-    private File cameraSavePath;//拍照照片路径
+    public static File cameraSavePath;//拍照照片路径
 
-    public static ChatToolFragment getInstance(Context context){
+    public static ChatToolFragment getInstance(Context context,String mCameraSavePath){
         mContext=context;
+        cameraSavePath=new File(mCameraSavePath);
         ChatToolFragment chatToolFragment=new ChatToolFragment();
         return chatToolFragment;
     }
@@ -44,9 +47,12 @@ public class ChatToolFragment extends BaseFragment implements View.OnClickListen
     public void initView(View inflate, Bundle savedInstanceState) {
         mLlPhoto = inflate.findViewById(R.id.ll_photo);
         mLlCamera = inflate.findViewById(R.id.ll_camera);
+        mLlShake = inflate.findViewById(R.id.ll_shake);
+        mLlFile = inflate.findViewById(R.id.ll_file);
         mLlPhoto.setOnClickListener(this);
         mLlCamera.setOnClickListener(this);
-        cameraSavePath = new File(AppConstant.IMAGEPATH +"/yk_"+System.currentTimeMillis()+".jpg");
+        mLlShake.setOnClickListener(this);
+        mLlFile.setOnClickListener(this);
 
     }
 
@@ -57,6 +63,12 @@ public class ChatToolFragment extends BaseFragment implements View.OnClickListen
            openPhoto();
         }else if(id==R.id.ll_camera){
            openCamera();
+        }
+        else if(id==R.id.ll_shake){
+            //发送shake
+            ((ChatBaseActivity)(mContext)).sendShakeListener();
+        }
+        else if(id==R.id.ll_file){
         }
     }
 
@@ -78,4 +90,14 @@ public class ChatToolFragment extends BaseFragment implements View.OnClickListen
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         ((Activity)mContext).startActivityForResult(intent, 1);
     }
+
+//    ShakeClickListener mShakeClickListener;
+//
+//    public void setShakeClickListener(ShakeClickListener shakeClickListener) {
+//        mShakeClickListener = shakeClickListener;
+//    }
+//
+//    public interface ShakeClickListener{
+//        void shakeClickListener();
+//    }
 }
