@@ -168,10 +168,15 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         String photoPath;
-        if (requestCode == 2 && resultCode == RESULT_OK) {
+        if (requestCode == InputPanel.ACTION_REQUEST_IMAGE && resultCode == RESULT_OK) {
             photoPath = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
             sendImageMsg(photoPath);
-        }if (requestCode == 1 && resultCode == RESULT_OK) {
+        }
+        if (requestCode == InputPanel.ACTION_REQUEST_VIDEO && resultCode == RESULT_OK) { //视频
+            String videoPath = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
+
+        }
+        if (requestCode == InputPanel.ACTION_REQUEST_CAMERA && resultCode == RESULT_OK) {
             cameraSavePath = new File(InputPanel.cameraSavePath);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 photoPath = String.valueOf(cameraSavePath);

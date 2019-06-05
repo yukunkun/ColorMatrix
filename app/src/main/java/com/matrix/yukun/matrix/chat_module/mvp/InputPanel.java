@@ -75,8 +75,12 @@ public class InputPanel implements View.OnClickListener {
     private LinearLayoutManager mLinearLayoutManager;
     private ChatPictureAdapter mChatPictureAdapter;
     private List<Photo> imgSendList = new ArrayList<>();
+    public final static int ACTION_REQUEST_CAMERA=1;
+    public final static int ACTION_REQUEST_IMAGE=2;
     public final static int ACTION_REQUEST_EDITOR=3;
+    public final static int ACTION_REQUEST_VIDEO=4;
     public static String cameraSavePath;
+    private ImageView mIvVideo;
 
     public InputPanel(Context context,View rootView, InputListener inputListener) {
         mRootView = rootView;
@@ -94,6 +98,7 @@ public class InputPanel implements View.OnClickListener {
         mIvPicture = mRootView.findViewById(R.id.iv_picture);
         mIvEmoji = mRootView.findViewById(R.id.iv_emoji);
         mIvVoice = mRootView.findViewById(R.id.iv_voice);
+        mIvVideo = mRootView.findViewById(R.id.iv_video);
         mFrameLayout = mRootView.findViewById(R.id.fl_contain);
         mRlSelectPicture = mRootView.findViewById(R.id.select_pic_view);
         //select picture
@@ -145,6 +150,7 @@ public class InputPanel implements View.OnClickListener {
         mBtImageSend.setOnClickListener(this);
         mTvEdit.setOnClickListener(this);
         mTvPhoto.setOnClickListener(this);
+        mIvVideo.setOnClickListener(this);
         mEtMessage.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -182,6 +188,12 @@ public class InputPanel implements View.OnClickListener {
                     return true;
             }
         });
+        mEtMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                taggleToSend();
+            }
+        });
     }
 
     @Override
@@ -198,6 +210,9 @@ public class InputPanel implements View.OnClickListener {
             case R.id.iv_picture:
                 taggleToPicture();
                 showSelectPicture();
+                break;
+            case R.id.iv_video :
+                openVideo();
                 break;
             case R.id.iv_emoji :
                 taggleToEmoji();
@@ -224,11 +239,18 @@ public class InputPanel implements View.OnClickListener {
         }
     }
 
+    private void openVideo() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_PICK);
+        intent.setType("video/*");
+        ((Activity)mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_VIDEO);
+    }
+
     private void openPhoto(){
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_PICK);
         intent.setType("image/*");
-        ((Activity)mContext).startActivityForResult(intent, 2);
+        ((Activity)mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_IMAGE);
     }
 
     private void showSelectPicture() {
