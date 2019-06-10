@@ -70,6 +70,7 @@ public class ChatToolFragment extends BaseFragment implements View.OnClickListen
             ((ChatBaseActivity)(mContext)).sendShakeListener();
         }
         else if(id==R.id.ll_file){
+            openFile();
         }
     }
 
@@ -78,6 +79,13 @@ public class ChatToolFragment extends BaseFragment implements View.OnClickListen
         intent.setAction(Intent.ACTION_PICK);
         intent.setType("image/*");
         ((Activity)mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_IMAGE);
+    }
+
+    private void openFile(){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_PICK);
+        intent.setType("file/*");
+        ((Activity)mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_FILE);
     }
 
     private void openCamera(){

@@ -79,6 +79,7 @@ public class InputPanel implements View.OnClickListener {
     public final static int ACTION_REQUEST_IMAGE=2;
     public final static int ACTION_REQUEST_EDITOR=3;
     public final static int ACTION_REQUEST_VIDEO=4;
+    public final static int ACTION_REQUEST_FILE=5;
     public static String cameraSavePath;
     private ImageView mIvVideo;
 

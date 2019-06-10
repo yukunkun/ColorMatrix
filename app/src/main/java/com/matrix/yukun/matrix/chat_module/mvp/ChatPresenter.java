@@ -128,4 +128,40 @@ public class ChatPresenter extends ChatControler.Presenter {
         chatListInfo.save();
         return chatListInfo;
     }
+
+    public ChatListInfo createVideoChatInfo(String videoPath,int type,boolean isReceive){
+        ChatListInfo chatListInfo = new ChatListInfo();
+        lastTime = System.currentTimeMillis();
+        if (lastTime - firstTime > timedevide) {
+            chatListInfo.setShowTime(true);
+        }
+        firstTime = lastTime;
+        chatListInfo.setTimeStamp(System.currentTimeMillis());
+        chatListInfo.setMsgTime(System.currentTimeMillis());
+        chatListInfo.setVideoPath(videoPath);
+        chatListInfo.setTypeSn(type);
+        chatListInfo.setReceive(isReceive);
+        chatListInfo.setMsgType(ChatType.VIDEO.getName());
+        //保存到数据库
+        chatListInfo.save();
+        return chatListInfo;
+    }
+
+    public ChatListInfo createFileChatInfo(String filePath,int type,boolean isReceive){
+        ChatListInfo chatListInfo = new ChatListInfo();
+        lastTime = System.currentTimeMillis();
+        if (lastTime - firstTime > timedevide) {
+            chatListInfo.setShowTime(true);
+        }
+        firstTime = lastTime;
+        chatListInfo.setTimeStamp(System.currentTimeMillis());
+        chatListInfo.setMsgTime(System.currentTimeMillis());
+        chatListInfo.setFilePath(filePath);
+        chatListInfo.setTypeSn(type);
+        chatListInfo.setReceive(isReceive);
+        chatListInfo.setMsgType(ChatType.FILE.getName());
+        //保存到数据库
+        chatListInfo.save();
+        return chatListInfo;
+    }
 }

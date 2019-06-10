@@ -16,6 +16,7 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.chat_module.adapter.ChatAdapter;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
+import com.matrix.yukun.matrix.chat_module.entity.ChatType;
 import com.matrix.yukun.matrix.chat_module.entity.Photo;
 import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
 import com.matrix.yukun.matrix.chat_module.mvp.BasePresenter;
@@ -58,7 +59,6 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
     private InputPanel mInputPanel;
     private int skip;
     private LinearLayoutManager mLinearLayoutManager;
-    private Uri uri;
     private File cameraSavePath;//拍照照片路径
 
     public static void start(Context context,int type){
@@ -169,22 +169,36 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         String photoPath;
         if (requestCode == InputPanel.ACTION_REQUEST_IMAGE && resultCode == RESULT_OK) {
-            photoPath = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
-            sendImageMsg(photoPath);
+            if(data.getData()!=null){
+                photoPath = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
+                sendImageMsg(photoPath);
+            }else {
+                ToastUtils.showToast("send message error");
+            }
         }
         if (requestCode == InputPanel.ACTION_REQUEST_VIDEO && resultCode == RESULT_OK) { //视频
             String videoPath = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
-
+            ChatListInfo videoChatInfo = mChatPresenter.createVideoChatInfo(videoPath, type, false);
+            mChatInfos.add(videoChatInfo);
+            mChatAdapter.notifyDataSetChanged();
+            mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
+        }
+        if (requestCode == InputPanel.ACTION_REQUEST_FILE && resultCode == RESULT_OK) { //文件
+            String videoPath = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
+            ChatListInfo videoChatInfo = mChatPresenter.createFileChatInfo(videoPath, type, false);
+            mChatInfos.add(videoChatInfo);
+            mChatAdapter.notifyDataSetChanged();
+            mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
         }
         if (requestCode == InputPanel.ACTION_REQUEST_CAMERA && resultCode == RESULT_OK) {
             cameraSavePath = new File(InputPanel.cameraSavePath);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 photoPath = String.valueOf(cameraSavePath);
                 sendImageMsg(photoPath);
-            } else {
-                photoPath = uri.getEncodedPath();
-                sendImageMsg(photoPath);
-            }
+//            } else {
+//                photoPath = String.valueOf(cameraSavePath);
+//                sendImageMsg(photoPath);
+//            }
         }if (resultCode == RESULT_OK && requestCode == InputPanel.ACTION_REQUEST_EDITOR) {
             if(data!=null){
                 EditorResult editorResult = (EditorResult) data.getSerializableExtra(Activity.RESULT_OK + "");

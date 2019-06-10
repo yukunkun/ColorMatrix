@@ -1,6 +1,8 @@
 package com.matrix.yukun.matrix.video_module.video;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -33,6 +35,15 @@ public class VideoPlayActivity extends BaseActivity {
     public int getLayout() {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         return R.layout.activity_video_play;
+    }
+
+    public static void start(Context context,String video_path,String video_cover,String video_title){
+        Intent intent=new Intent(context,VideoPlayActivity.class);
+        intent.putExtra("video_path",video_path);
+        intent.putExtra("video_cover",video_cover);
+        intent.putExtra("video_title",video_title);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     @Override
