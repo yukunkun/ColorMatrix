@@ -20,6 +20,7 @@ public class AppConstant {
     public static final String GIFLOAD = PATH+"/gif";
     public static final String GIFVIDEO = PATH+"/gifvideo";
     public static final String VIDEOPATH = PATH+"/video";
+    public static final String VOICEPATH = PATH+"/voice";
     public static final String HEWEATHER_KEY = "449354b040d04805a3737fbcdb3c1339"; //
     public static final String APP_STORE="https://android.myapp.com/myapp/detail.htm?apkName=com.matrix.yukun.matrix";
     public static final String APP_ICON_URl="https://upload-images.jianshu.io/upload_images/3001453-9261aeda99deaa4d.png";

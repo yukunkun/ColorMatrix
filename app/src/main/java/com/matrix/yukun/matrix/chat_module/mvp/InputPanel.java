@@ -19,6 +19,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -37,6 +39,7 @@ import com.matrix.yukun.matrix.chat_module.fragment.voice.RecordFragment;
 import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
 import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.main_module.MainActivity;
+import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.util.KeyBoardUtil;
 import com.matrix.yukun.matrix.util.SpacesItemDecoration;
 import com.matrix.yukun.matrix.util.log.LogUtil;
@@ -54,7 +57,7 @@ import java.util.List;
  * date:   On 2019/5/10
  */
 public class InputPanel implements View.OnClickListener {
-    public String TAG="InputPanel";
+    public String TAG = "InputPanel";
     private View mRootView;
     private InputListener mInputListener;
     private Context mContext;
@@ -66,7 +69,7 @@ public class InputPanel implements View.OnClickListener {
     private RelativeLayout mRlSelectPicture;
     private ImageView mIvVoice;
     private ImageView mIvEmoji;
-    private int MAX_IMAGE=50;
+    private int MAX_IMAGE = 50;
     private List<Photo> imgList = new ArrayList<>();
     private RecyclerView mRvSelectList;
     private TextView mTvEdit;
@@ -75,17 +78,18 @@ public class InputPanel implements View.OnClickListener {
     private LinearLayoutManager mLinearLayoutManager;
     private ChatPictureAdapter mChatPictureAdapter;
     private List<Photo> imgSendList = new ArrayList<>();
-    public final static int ACTION_REQUEST_CAMERA=1;
-    public final static int ACTION_REQUEST_IMAGE=2;
-    public final static int ACTION_REQUEST_EDITOR=3;
-    public final static int ACTION_REQUEST_VIDEO=4;
-    public final static int ACTION_REQUEST_FILE=5;
+    public final static int ACTION_REQUEST_CAMERA = 1;
+    public final static int ACTION_REQUEST_IMAGE = 2;
+    public final static int ACTION_REQUEST_EDITOR = 3;
+    public final static int ACTION_REQUEST_VIDEO = 4;
+    public final static int ACTION_REQUEST_FILE = 5;
     public static String cameraSavePath;
     private ImageView mIvVideo;
+    private CheckBox mCheckBox;
 
-    public InputPanel(Context context,View rootView, InputListener inputListener) {
+    public InputPanel(Context context, View rootView, InputListener inputListener) {
         mRootView = rootView;
-        mContext=context;
+        mContext = context;
         mInputListener = inputListener;
         initView();
         initData();
@@ -107,33 +111,35 @@ public class InputPanel implements View.OnClickListener {
         mTvEdit = mRootView.findViewById(R.id.image_editor);
         mTvPhoto = mRootView.findViewById(R.id.image_album);
         mBtImageSend = mRootView.findViewById(R.id.btn_send_photo);
+        mCheckBox = mRootView.findViewById(R.id.cb_origin);
     }
 
     private void initData() {
-        mLinearLayoutManager = new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false);
+        mLinearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         mRvSelectList.setLayoutManager(mLinearLayoutManager);
-        mChatPictureAdapter = new ChatPictureAdapter(mContext,imgList);
+        mChatPictureAdapter = new ChatPictureAdapter(mContext, imgList);
         mRvSelectList.setAdapter(mChatPictureAdapter);
         mRvSelectList.addItemDecoration(new SpacesItemDecoration(5));
         mChatPictureAdapter.setOnItemClickListener(new ChatPictureAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
-                if(imgList.get(pos).selected){
-                    imgList.get(pos).selected=false;
+                if (imgList.get(pos).selected) {
+                    imgList.get(pos).selected = false;
                     imgSendList.remove(imgList.get(pos));
-                }else {
-                    if(imgSendList.size()>9){
+                } else {
+                    if (imgSendList.size() >= 9) {
                         ToastUtils.showToast("最多发送九张图片");
                         return;
-                    }else {
-                        imgList.get(pos).selected=true;
+                    } else {
+                        imgList.get(pos).selected = true;
                         imgSendList.add(imgList.get(pos));
                     }
                 }
-                if(imgSendList.size()==1){
+                updateCheck();
+                if (imgSendList.size() == 1) {
                     mTvEdit.setEnabled(true);
                     mTvEdit.setTextColor(mContext.getResources().getColor(R.color.C2));
-                }else {
+                } else {
                     mTvEdit.setEnabled(false);
                     mTvEdit.setTextColor(mContext.getResources().getColor(R.color.C3));
                 }
@@ -160,10 +166,10 @@ public class InputPanel implements View.OnClickListener {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(TextUtils.isEmpty(s.toString())){
+                if (TextUtils.isEmpty(s.toString())) {
                     mBtAdd.setVisibility(View.VISIBLE);
                     mBtSend.setVisibility(View.GONE);
-                }else {
+                } else {
                     mBtAdd.setVisibility(View.GONE);
                     mBtSend.setVisibility(View.VISIBLE);
                 }
@@ -183,7 +189,7 @@ public class InputPanel implements View.OnClickListener {
                     mInputListener.onSendMessageClick(mEtMessage.getText().toString());
                     /*隐藏软键盘*/
                     mEtMessage.setText("");
-                    KeyBoardUtil.closeKeyboard(mContext,mEtMessage);
+                    KeyBoardUtil.closeKeyboard(mContext, mEtMessage);
                     return true;
                 } else
                     return true;
@@ -195,47 +201,68 @@ public class InputPanel implements View.OnClickListener {
                 taggleToSend();
             }
         });
+        mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    updateCheck();
+                }else {
+                    mCheckBox.setText("原图");
+                }
+            }
+        });
+    }
+
+    private void updateCheck() {
+        if(mCheckBox.isChecked()){
+            long size=0;
+            for (int i = 0; i < imgSendList.size(); i++) {
+                File file=new File(imgSendList.get(i).path);
+                size+=size+file.length();
+            }
+            mCheckBox.setText("原图 "+ FileUtil.formatFileSize(size));
+        }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.bt_add :
+        switch (v.getId()) {
+            case R.id.bt_add:
                 taggleToMore();
                 break;
-            case R.id.send_btn :
+            case R.id.send_btn:
                 mInputListener.onSendMessageClick(mEtMessage.getText().toString().trim());
                 mEtMessage.setText("");
-                KeyBoardUtil.closeKeyboard(mContext,mEtMessage);
+                KeyBoardUtil.closeKeyboard(mContext, mEtMessage);
                 break;
             case R.id.iv_picture:
                 taggleToPicture();
                 showSelectPicture();
                 break;
-            case R.id.iv_video :
+            case R.id.iv_video:
                 openVideo();
                 break;
-            case R.id.iv_emoji :
+            case R.id.iv_emoji:
                 taggleToEmoji();
                 break;
-            case R.id.iv_voice :
+            case R.id.iv_voice:
                 taggleToVoice();
                 break;
-            case R.id.btn_send_photo :
+            case R.id.btn_send_photo:
                 mInputListener.onPictureClick(imgSendList);
                 taggleToSend();
                 updateImageList();
                 break;
-                //相册
-            case R.id.image_album :
+            //相册
+            case R.id.image_album:
                 openPhoto();
                 break;
-                //编辑
-            case R.id.image_editor :
-                File file=new File(imgSendList.get(0).path);
-                EditorSetup setup = new EditorSetup(file.getPath(), file.getPath(), AppConstant.IMAGEPATH+"/"+file.getName(), true);
+            //编辑
+            case R.id.image_editor:
+                File file = new File(imgSendList.get(0).path);
+                EditorSetup setup = new EditorSetup(file.getPath(), file.getPath(), AppConstant.IMAGEPATH + "/" + file.getName(), true);
                 Intent intent = ImageEditorActivity.Companion.intent(mContext, setup);
-                ((Activity)mContext).startActivityForResult(intent, ACTION_REQUEST_EDITOR);
+                ((Activity) mContext).startActivityForResult(intent, ACTION_REQUEST_EDITOR);
                 break;
         }
     }
@@ -244,14 +271,14 @@ public class InputPanel implements View.OnClickListener {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_PICK);
         intent.setType("video/*");
-        ((Activity)mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_VIDEO);
+        ((Activity) mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_VIDEO);
     }
 
-    private void openPhoto(){
+    private void openPhoto() {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_PICK);
         intent.setType("image/*");
-        ((Activity)mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_IMAGE);
+        ((Activity) mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_IMAGE);
     }
 
     private void showSelectPicture() {
@@ -260,18 +287,17 @@ public class InputPanel implements View.OnClickListener {
         String[] projections = null;
         ContentResolver contentResolver = mContext.getContentResolver();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            projections = new String[] {
+            projections = new String[]{
                     MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA, MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.DATE_TAKEN, MediaStore.Images.Media.MIME_TYPE, MediaStore.Images.Media.WIDTH, MediaStore.Images.Media.HEIGHT, MediaStore.Images.Media.SIZE
             };
-        }
-        else {
-            projections = new String[] {
+        } else {
+            projections = new String[]{
                     MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA, MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.DATE_TAKEN, MediaStore.Images.Media.MIME_TYPE, MediaStore.Images.Media.SIZE
             };
         }
         Cursor mCursor = (contentResolver).query(contentUri, projections, null, null, sortOrder);
         if (mCursor == null) {
-           return;
+            return;
         }
         // Take 100 images
         Uri mediaUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
@@ -299,34 +325,34 @@ public class InputPanel implements View.OnClickListener {
         }
     }
 
-    public void dismissLayout(){
+    public void dismissLayout() {
         taggleToSend();
     }
 
     //清空图片集合
     private void updateImageList() {
         for (int i = 0; i < imgList.size(); i++) {
-            imgList.get(i).selected=false;
+            imgList.get(i).selected = false;
         }
         imgSendList.clear();
         mChatPictureAdapter.notifyDataSetChanged();
     }
 
-    private void taggleToSend(){
+    private void taggleToSend() {
         dismissMore();
         dismissVoice();
         dismissEmoji();
         dismissPicture();
     }
 
-    private void taggleToPicture(){
+    private void taggleToPicture() {
         dismissMore();
         dismissVoice();
         dismissEmoji();
         showPicture();
     }
 
-    private void taggleToVoice(){
+    private void taggleToVoice() {
         dismissPicture();
         dismissEmoji();
         dismissMore();
@@ -334,55 +360,56 @@ public class InputPanel implements View.OnClickListener {
 
     }
 
-    private void taggleToMore(){
+    private void taggleToMore() {
         dismissPicture();
         dismissVoice();
         dismissEmoji();
         showMore();
     }
-    private void taggleToEmoji(){
+
+    private void taggleToEmoji() {
         dismissMore();
         dismissVoice();
         dismissPicture();
         showEmoji();
     }
 
-    private void dismissPicture(){
+    private void dismissPicture() {
         mRlSelectPicture.setVisibility(View.GONE);
     }
 
-    private void dismissVoice(){
+    private void dismissVoice() {
         mFrameLayout.setVisibility(View.GONE);
     }
 
-    private void dismissEmoji(){
+    private void dismissEmoji() {
         mFrameLayout.setVisibility(View.GONE);
     }
 
-    private void dismissMore(){
+    private void dismissMore() {
         mFrameLayout.setVisibility(View.GONE);
     }
 
-    private void showPicture(){
+    private void showPicture() {
         mRlSelectPicture.setVisibility(View.VISIBLE);
     }
 
-    private void showVoice(){
+    private void showVoice() {
         mFrameLayout.setVisibility(View.VISIBLE);
-        (((ChatBaseActivity)mContext).getSupportFragmentManager()).popBackStack();
-        (((ChatBaseActivity)mContext).getSupportFragmentManager()).beginTransaction().replace(R.id.fl_contain, new RecordFragment(mRootView,(Activity)mContext)).commit();
+        (((ChatBaseActivity) mContext).getSupportFragmentManager()).popBackStack();
+        (((ChatBaseActivity) mContext).getSupportFragmentManager()).beginTransaction().replace(R.id.fl_contain, new RecordFragment(mRootView, (Activity) mContext)).commit();
     }
 
-    private void showEmoji(){
+    private void showEmoji() {
         mFrameLayout.setVisibility(View.VISIBLE);
-        (((ChatBaseActivity)mContext).getSupportFragmentManager()).popBackStack();
-        (((ChatBaseActivity)mContext).getSupportFragmentManager()).beginTransaction().replace(R.id.fl_contain, new EmojiFragment(mRootView,(Activity)mContext)).commit();
+        (((ChatBaseActivity) mContext).getSupportFragmentManager()).popBackStack();
+        (((ChatBaseActivity) mContext).getSupportFragmentManager()).beginTransaction().replace(R.id.fl_contain, new EmojiFragment(mRootView, (Activity) mContext)).commit();
     }
 
-    private void showMore(){
+    private void showMore() {
         mFrameLayout.setVisibility(View.VISIBLE);
-        cameraSavePath= AppConstant.IMAGEPATH+"/yk_"+System.currentTimeMillis()+".png";
-        (((ChatBaseActivity)mContext).getSupportFragmentManager()).popBackStack();
-        (((ChatBaseActivity)mContext).getSupportFragmentManager()).beginTransaction().replace(R.id.fl_contain, ChatToolFragment.getInstance(mContext,cameraSavePath)).commit();
+        cameraSavePath = AppConstant.IMAGEPATH + "/yk_" + System.currentTimeMillis() + ".png";
+        (((ChatBaseActivity) mContext).getSupportFragmentManager()).popBackStack();
+        (((ChatBaseActivity) mContext).getSupportFragmentManager()).beginTransaction().replace(R.id.fl_contain, ChatToolFragment.getInstance(mContext, cameraSavePath)).commit();
     }
 }
