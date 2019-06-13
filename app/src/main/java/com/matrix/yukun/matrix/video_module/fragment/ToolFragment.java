@@ -120,10 +120,10 @@ public class ToolFragment extends BaseFragment implements View.OnClickListener {
         integers.add(R.mipmap.icon_tool_video);
         integers.add(R.mipmap.icon_tool_danmu);
         integers.add(R.mipmap.icon_tool_erweima);
-        integers.add(R.mipmap.icon_tool_movie);
         integers.add(R.mipmap.icon_tool_weather);
         integers.add(R.mipmap.icon_tool_calandar);
         integers.add(R.mipmap.icon_tool_gif);
+        integers.add(R.mipmap.icon_tool_note);
         integers.add(R.mipmap.icon_tool_net);
         return integers;
     }

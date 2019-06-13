@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.btmovie_module.SpecialActivity;
 import com.matrix.yukun.matrix.dictionary_module.DictionaryActivity;
 import com.matrix.yukun.matrix.phone_module.ContactActivity;
 import com.matrix.yukun.matrix.video_module.entity.SortModel;
@@ -39,10 +40,12 @@ public class LVToolAdapter extends BaseAdapter {
 
         mListImage.add(R.mipmap.icon_tool_history);
         mListImage.add(R.mipmap.icon_tool_zidian);
+        mListImage.add(R.mipmap.icon_tool_movie);
         mListImage.add(R.mipmap.icon_tool_phone);
 
         mClassMap.put("历史今日", HistoryTodayActivity.class);
         mClassMap.put("新华字典", DictionaryActivity.class);
+        mClassMap.put("BT电影", SpecialActivity.class);
         mClassMap.put("电话查询", ContactActivity.class);
 
     }
