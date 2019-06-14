@@ -199,7 +199,6 @@ public class ClockView extends View {
         titlePaint.setTextSize(titleDialSize);
         canvas.rotate( -47.7f);       //恢复坐标系为起始中心位置
         canvas.drawText(titleDial, 0, -radiusDial / 3, titlePaint);
-
         if (currentValue <= 20){
             titlePaint.setColor(colorDialLower);
         }else if (currentValue <= 80){
