@@ -271,11 +271,7 @@ public class AudioRecordLayout extends RelativeLayout implements VoiceRecordList
                 mTime = tempTime;
                 //判断当前按下的坐标是否在按钮范围里面
                 if (containRecordBtn()) {
-//                    if (CubeEngine.getInstance().getSession().isCalling()) {
-//                        ToastUtil.showToastTime(mContext, R.string.in_calling_tips, 1000);
-//                        return true;
-//                    }
-//                    //开始录制
+                   //开始录制
                     mStatus = RecordStatus.START_RECORD;
 //                    CubeEngine.getInstance().getMediaService().startVoiceClipRecording(this);
                     updateButton();
@@ -333,6 +329,10 @@ public class AudioRecordLayout extends RelativeLayout implements VoiceRecordList
 //                    VoiceClipMessage vcm = CubeEngine.getInstance().getMediaService().stopVoiceClipRecording();
                     if (/*vcm != null && */ mOnRecordStatusListener != null) {
                         mOnRecordStatusListener.onRecordComplete(/*vcm*/);
+                    }
+                }else {
+                    if (/*vcm != null &&*/ mOnRecordStatusListener != null) {
+                        mOnRecordStatusListener.onRecordCancel(/*vcm*/);
                     }
                 }
                 updateButton();

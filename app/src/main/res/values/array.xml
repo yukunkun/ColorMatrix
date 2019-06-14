@@ -65,10 +65,10 @@
         <item>摄像</item>
         <item>手机弹幕</item>
         <item>二维码生成</item>
-        <item>BT电影</item>
         <item>今日天气</item>
         <item>备忘录</item>
         <item>GIF制作</item>
+        <item>日记本</item>
         <item>网络检测</item>
     </string-array>
 
@@ -90,6 +90,7 @@
     <string-array name="tool_life">
         <item>历史今日</item>
         <item>新华字典</item>
+        <item>BT电影</item>
         <item>电话查询</item>
     </string-array>
 

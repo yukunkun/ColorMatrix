@@ -77,5 +77,11 @@ public class DataUtils {
         res = simpleDateFormat.format(date);
         return res;
     }
-
+    public static String getNoteTime(long times){
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH点");
+        Date date = new Date(times);
+        res = simpleDateFormat.format(date);
+        return res;
+    }
 }

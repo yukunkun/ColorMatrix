@@ -9,7 +9,9 @@ public enum ChatMesageType {
     RIGHTCONTENT("RIGHTCONTENT",2), //右边的文本
     RIGHTIMAGE("RIGHTIMAGE",3), //图片
     SHAKEWINDOW("SHAKEWINDOW",4), //抖一抖
-    FILEMESSAGE("FILEMESSAGE",5); //文件
+    FILEMESSAGE("FILEMESSAGE",5), //文件
+    VIDEOMESSAGE("VIDEOMESSAGE",6); //视频
+
 
 
     private String type;

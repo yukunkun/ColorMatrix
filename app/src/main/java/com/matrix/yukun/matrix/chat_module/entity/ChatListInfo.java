@@ -20,6 +20,8 @@ public class ChatListInfo extends DataSupport{
     private long timeStamp;    //时间戳
     private boolean isShowTime;
     private String imagePath;
+    private String videoPath;
+    private String filePath;
 
     public String getImagePath() {
         return imagePath;
@@ -101,19 +103,37 @@ public class ChatListInfo extends DataSupport{
         this.type = type;
     }
 
+    public String getVideoPath() {
+        return videoPath;
+    }
+
+    public void setVideoPath(String videoPath) {
+        this.videoPath = videoPath;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
     @Override
     public String toString() {
         return "ChatListInfo{" +
                 "mChatInfo='" + mChatInfo + '\'' +
-                ", timeStamp=" + timeStamp +
-                ", msgTime=" + msgTime +
                 ", type=" + type +
                 ", typeSn=" + typeSn +
                 ", mBitmap=" + mBitmap +
-                ", msgType='" + msgType +
+                ", msgTime=" + msgTime +
+                ", msgType='" + msgType + '\'' +
                 ", isReceive=" + isReceive +
+                ", timeStamp=" + timeStamp +
                 ", isShowTime=" + isShowTime +
                 ", imagePath='" + imagePath + '\'' +
+                ", videoPath='" + videoPath + '\'' +
+                ", filePath='" + filePath + '\'' +
                 '}';
     }
 }

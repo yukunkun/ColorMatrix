@@ -9,12 +9,16 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.entity.ChatType;
 import com.matrix.yukun.matrix.chat_module.holder.LeftTextHolder;
+import com.matrix.yukun.matrix.chat_module.holder.RightFileHolder;
 import com.matrix.yukun.matrix.chat_module.holder.RightImageHolder;
 import com.matrix.yukun.matrix.chat_module.holder.RightTextHolder;
+import com.matrix.yukun.matrix.chat_module.holder.RightVideoHolder;
 import com.matrix.yukun.matrix.chat_module.holder.ShakeHolder;
 import com.matrix.yukun.matrix.chat_module.holderwrapper.LeftTextHolderWrapper;
+import com.matrix.yukun.matrix.chat_module.holderwrapper.RightFileHolderWrapper;
 import com.matrix.yukun.matrix.chat_module.holderwrapper.RightImageHolderWrapper;
 import com.matrix.yukun.matrix.chat_module.holderwrapper.RightTextHolderWrapper;
+import com.matrix.yukun.matrix.chat_module.holderwrapper.RightVideoHolderWrapper;
 import com.matrix.yukun.matrix.chat_module.holderwrapper.ShakeHolderWrapper;
 
 import java.util.List;
@@ -46,9 +50,12 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else if(viewType==ChatMesageType.SHAKEWINDOW.getValue()){
             view= LayoutInflater.from(mContext).inflate(R.layout.chat_shake_layout,null);
             return new ShakeHolder(view);
+        }  else if(viewType==ChatMesageType.VIDEOMESSAGE.getValue()){
+            view= LayoutInflater.from(mContext).inflate(R.layout.chat_right_video_item,null);
+            return new RightVideoHolder(view);
         } else if(viewType==ChatMesageType.FILEMESSAGE.getValue()){
-            view= LayoutInflater.from(mContext).inflate(R.layout.chat_right_image_item,null);
-            return new RightImageHolder(view);
+            view= LayoutInflater.from(mContext).inflate(R.layout.chat_right_file_item,null);
+            return new RightFileHolder(view);
         }
         return null;
     }
@@ -70,10 +77,14 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             //抖一抖
             ShakeHolderWrapper.getInstance().content(mContext,chatListInfo, (ShakeHolder) holder);
         }
-//        else if(holder instanceof RightImageHolder){
+        else if(holder instanceof RightFileHolder){
             //文件
-//            RightImageHolderWrapper.getInstance().content(mContext,chatListInfo, (RightImageHolder) holder);
-//        }
+            RightFileHolderWrapper.getInstance().content(mContext,chatListInfo, (RightFileHolder) holder);
+        }
+        else if(holder instanceof RightVideoHolder){
+            //视频
+            RightVideoHolderWrapper.getInstance().content(mContext,chatListInfo, (RightVideoHolder) holder);
+        }
     }
 
     @Override
@@ -99,6 +110,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
             if(mChatInfos.get(position).getMsgType().equals(ChatType.FILE.getName())){
                 return ChatMesageType.FILEMESSAGE.getValue(); //文件
+            }
+            if(mChatInfos.get(position).getMsgType().equals(ChatType.VIDEO.getName())){
+                return ChatMesageType.VIDEOMESSAGE.getValue(); //文件
             }
         }
         return position;

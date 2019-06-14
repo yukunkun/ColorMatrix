@@ -23,8 +23,8 @@
                 android:layout_marginBottom="@dimen/dimens_5"
                 android:layout_marginTop="5dip"
                 android:layout_weight="1.0"
-                android:hint="message"
-                android:textColorHint="@color/color_2b2b2b"
+                android:hint="说点什么..."
+                android:textColorHint="@color/color_94abaaaa"
                 android:background="@drawable/chat_bottombar_input"
                 android:imeOptions="actionSend"
                 android:singleLine="true"
@@ -88,6 +88,14 @@
                 android:src="@mipmap/icon_chat_image"
                 android:layout_height="@dimen/dimens_30" />
             <ImageView
+                android:id="@+id/iv_video"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:src="@mipmap/icon_chat_video"
+                android:layout_height="@dimen/dimens_30" />
+            <ImageView
                 android:id="@+id/iv_emoji"
                 android:padding="@dimen/dimens_3"
                 android:background="?android:attr/selectableItemBackground"
@@ -141,7 +149,7 @@
 
                 <CheckBox
                     android:id="@+id/cb_origin"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_toRightOf="@+id/image_editor"

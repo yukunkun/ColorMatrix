@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/color_whit"
+    android:layout_width="match_parent"
+    android:clickable="true"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="@dimen/dimens_50"
+            android:paddingTop="@dimen/dimens_5"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_circle"
+                android:layout_marginLeft="@dimen/dimens_20"
+                android:src="@mipmap/icon_note_circle"
+                android:layout_marginBottom="@dimen/dimens_3"
+                android:layout_width="@dimen/dimens_20"
+                android:layout_height="@dimen/dimens_20" />
+            <TextView
+                android:id="@+id/line"
+                android:layout_width="2dp"
+                android:layout_marginLeft="29dp"
+                android:background="@color/color_1296db"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_marginBottom="@dimen/dimens_10"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_time"
+                android:singleLine="true"
+                android:layout_toRightOf="@+id/iv_circle"
+                android:layout_marginTop="@dimen/dimens_8"
+                android:ellipsize="end"
+                android:textSize="14sp"
+                android:layout_marginRight="@dimen/dimens_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_title"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textSize="18sp"
+                android:layout_marginTop="@dimen/dimens_5"
+                android:textColor="@color/color_text"
+                android:layout_marginRight="@dimen/dimens_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_below="@+id/tv_title"
+                android:layout_marginTop="@dimen/dimens_5"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textSize="16sp"
+                android:textColor="@color/color_text"
+                android:layout_marginRight="@dimen/dimens_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".note_module.activity.NoteActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/color_whit"
+        android:layout_height="@dimen/dimens_50">
+        <ImageView
+            android:src="@mipmap/joke_back"
+            android:padding="@dimen/dimens_8"
+            android:background="?android:attr/selectableItemBackground"
+            android:id="@+id/iv_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:gravity="center"
+            android:textSize="17sp"
+            android:layout_centerInParent="true"
+            android:text="日记桌面"
+            android:textColor="@color/color_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_setting"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@mipmap/icon_note_setting"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dimens_10"
+            android:text=""
+            android:textColor="@drawable/selector_qrcode_product"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/smartrefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </android.support.v7.widget.RecyclerView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dimens_20"
+            android:src="@mipmap/add"
+            app:rippleColor="@color/color_b450fc"
+            app:fab_size="mini"
+            android:layout_marginBottom="@dimen/dimens_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_remind"
+            android:layout_width="wrap_content"
+            android:text="您还没有日记呦~-~"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</LinearLayout>

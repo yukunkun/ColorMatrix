@@ -338,11 +338,10 @@
             android:name=".main_module.SearchActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Transparent" />
-
         <activity
             android:name=".chat_module.ChatBaseActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".chat_module.ChatMemberActivity"
             android:screenOrientation="portrait" />
@@ -361,7 +360,17 @@
         <activity
             android:name=".btmovie_module.SpecialActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".net_module.HistoryActivity"
+        <activity
+            android:name=".net_module.HistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".note_module.activity.NoteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".note_module.activity.NoteEditActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize|stateAlwaysHidden" />
+        <activity android:name=".note_module.activity.NotePreviewActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

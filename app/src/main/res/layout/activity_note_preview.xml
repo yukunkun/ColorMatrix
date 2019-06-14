@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".note_module.activity.NotePreviewActivity">
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:background="@color/color_whit"
+        android:layout_height="@dimen/dimens_50">
+        <ImageView
+            android:src="@mipmap/joke_back"
+            android:padding="@dimen/dimens_8"
+            android:background="?android:attr/selectableItemBackground"
+            android:id="@+id/iv_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:gravity="center"
+            android:textSize="17sp"
+            android:layout_centerInParent="true"
+            android:text="我的日记"
+            android:textColor="@color/color_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_save"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:text="保存"
+            android:textColor="@color/color_black"
+            android:layout_width="@dimen/dimens_50"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_setting"
+            android:gravity="center"
+            android:layout_toLeftOf="@+id/tv_save"
+            android:textSize="17sp"
+            android:padding="@dimen/dimens_12"
+            android:src="@mipmap/ic_setting"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_width="@dimen/dimens_50"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <ScrollView
+        android:id="@+id/sc"
+        android:padding="@dimen/dimens_5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_content"
+            android:textSize="18sp"
+            android:layout_marginTop="@dimen/dimens_5"
+            android:textColor="@color/color_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ScrollView>
+</LinearLayout>

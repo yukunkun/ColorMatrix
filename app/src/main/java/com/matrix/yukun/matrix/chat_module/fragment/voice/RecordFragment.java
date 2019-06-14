@@ -19,7 +19,7 @@ import com.matrix.yukun.matrix.selfview.voice.AudioRecordLayout;
  * @date 2017/2/8
  */
 @SuppressLint("ValidFragment")
-public class RecordFragment extends Fragment {
+public class RecordFragment extends Fragment implements MediaRecordListener {
     private AudioRecordLayout mAudioRecordLayout;
     private View              mRootView;
     private View     mChatContainer;
@@ -49,16 +49,19 @@ public class RecordFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mAudioRecordLayout = (AudioRecordLayout) mRootView.findViewById(R.id.record_layout);
         mAudioRecordLayout.setChatActivity(mChatActivity);
+        VoiceManager.getInstance().setMediaRecordListener(this);
         mAudioRecordLayout.setOnRecordStatusListener(new AudioRecordLayout.onRecordStatusListener() {
 
             @Override
             public void onRecordStart() {
                 Log.v("test", "开始");
+                VoiceManager.getInstance().startRecord();
             }
 
             @Override
             public void onRecordComplete(/*VoiceClipMessage vcm*/) {
                 Log.v("test", "完成");
+                VoiceManager.getInstance().stop();
 //                boolean isSecret = mChatContainer.mSessionType == CubeSessionType.Secret;
 //                VoiceClipMessage voiceClipMessage = MessageManager.getInstance().buildVoiceMessage(mChatContainer.mChatActivity, CubeSessionType.P2P, SpUtil.getCubeId(), mChatContainer.mChatId, vcm, isSecret);
 //                MessageManager.getInstance().sendMessage(mChatContainer.mChatActivity, voiceClipMessage).subscribe();
@@ -66,9 +69,9 @@ public class RecordFragment extends Fragment {
 
             @Override
             public void onAuditionStart(/*VoiceClipMessage vcm*/) {
-//                LogUtil.e("试听" + vcm.getDuration());
+                Log.e("test","试听");
 //                //将当前fragment加入到返回栈中
-                getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fl_contain, new PlayFragment(/*mChatContainer, vcm*/)).commit();
+                VoiceManager.getInstance().stop();
             }
 
             @Override
@@ -76,5 +79,21 @@ public class RecordFragment extends Fragment {
                 Log.v("test", "取消");
             }
         });
+    }
+
+    @Override
+    public void start(String path) {
+
+    }
+
+    @Override
+    public void recordStop(String path) {
+        getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fl_contain, new PlayFragment(/*mChatContainer, vcm*/)).commit();
+
+    }
+
+    @Override
+    public void recordFail() {
+
     }
 }

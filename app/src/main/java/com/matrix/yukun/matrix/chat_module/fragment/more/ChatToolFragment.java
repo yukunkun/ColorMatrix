@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.ChatBaseActivity;
+import com.matrix.yukun.matrix.chat_module.mvp.InputPanel;
 import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
 
@@ -69,6 +70,7 @@ public class ChatToolFragment extends BaseFragment implements View.OnClickListen
             ((ChatBaseActivity)(mContext)).sendShakeListener();
         }
         else if(id==R.id.ll_file){
+            openFile();
         }
     }
 
@@ -76,7 +78,14 @@ public class ChatToolFragment extends BaseFragment implements View.OnClickListen
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_PICK);
         intent.setType("image/*");
-        ((Activity)mContext).startActivityForResult(intent, 2);
+        ((Activity)mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_IMAGE);
+    }
+
+    private void openFile(){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_PICK);
+        intent.setType("file/*");
+        ((Activity)mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_FILE);
     }
 
     private void openCamera(){
@@ -88,7 +97,7 @@ public class ChatToolFragment extends BaseFragment implements View.OnClickListen
             uri = Uri.fromFile(cameraSavePath);
         }
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        ((Activity)mContext).startActivityForResult(intent, 1);
+        ((Activity)mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_CAMERA);
     }
 
 //    ShakeClickListener mShakeClickListener;
