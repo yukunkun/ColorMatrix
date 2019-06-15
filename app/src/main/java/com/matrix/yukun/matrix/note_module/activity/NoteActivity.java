@@ -132,7 +132,6 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
     public void alertEdit(){
         final EditText et = new EditText(this);
         new AlertDialog.Builder(this).setTitle("请输入密码")
-                .setIcon(android.R.drawable.sym_def_app_icon)
                 .setView(et)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
