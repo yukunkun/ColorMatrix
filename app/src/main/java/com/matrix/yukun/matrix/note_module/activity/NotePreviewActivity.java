@@ -1,6 +1,8 @@
 package com.matrix.yukun.matrix.note_module.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -9,6 +11,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -19,7 +22,10 @@ import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.util.Base64Encode;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
+import com.matrix.yukun.matrix.video_module.utils.SPUtils;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
+
+import java.io.File;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
@@ -36,6 +42,7 @@ public class NotePreviewActivity extends BaseActivity implements View.OnClickLis
     private TextView mTvSave;
     private FloatingActionButton mFab;
     private FloatingToolbar mFloatingToolbar;
+    private LinearLayout mLlBg;
 
     public static void start(Context context, String title, String content){
         Intent intent=new Intent(context, NotePreviewActivity.class);
@@ -62,6 +69,7 @@ public class NotePreviewActivity extends BaseActivity implements View.OnClickLis
         mPath = getIntent().getStringExtra("path");
         mIvBack = findViewById(R.id.iv_back);
         mIvSetting = findViewById(R.id.iv_setting);
+        mLlBg = findViewById(R.id.ll_bg);
         mRlTitle = findViewById(R.id.rl_title);
         mTvSave = findViewById(R.id.tv_save);
         mFab = findViewById(R.id.fab);
@@ -78,6 +86,16 @@ public class NotePreviewActivity extends BaseActivity implements View.OnClickLis
         }else if(!TextUtils.isEmpty(mPath)) {
             String decrypt = Base64Encode.setDecrypt(FileUtil.read(mPath));
             mTvcontent.setText(decrypt);
+        }
+        if(SPUtils.getInstance().getNoteSize()>0){
+            mTvcontent.setTextSize(SPUtils.getInstance().getNoteSize());
+        }
+        if(SPUtils.getInstance().getNoteColor()!=0){
+            mTvcontent.setTextColor(SPUtils.getInstance().getNoteColor());
+        }
+        if(SPUtils.getInstance().getNoteBg()!=0){
+            mLlBg.setBackgroundColor(SPUtils.getInstance().getNoteBg());
+            mRlTitle.setBackgroundColor(SPUtils.getInstance().getNoteBg());
         }
     }
 
@@ -96,8 +114,10 @@ public class NotePreviewActivity extends BaseActivity implements View.OnClickLis
                         share(mTvcontent.getText().toString());
                         break;
                     case R.id.menu_out:
+                        noteOut();
                         break;
                     case R.id.menu_del:
+                        deleteNote();
                         break;
                     case R.id.menu_logout:
                         break;
@@ -110,6 +130,45 @@ public class NotePreviewActivity extends BaseActivity implements View.OnClickLis
 
             }
         });
+    }
+
+    private void deleteNote() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("删除日记")
+                .setMessage("亲，是否删除日记?")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).setPositiveButton("删除", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(TextUtils.isEmpty(mPath)){
+                    File file=new File(mPath);
+                    file.delete();
+                }
+                finish();
+            }
+        }).show();
+    }
+
+    private void noteOut() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("导出日记")
+                .setMessage("亲，是否导出日记到手机?")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).setPositiveButton("导出", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                FileUtil.write(AppConstant.PATH,System.currentTimeMillis()+".txt",mTvcontent.getText().toString());
+                ToastUtils.showToast("日记已经保存到"+AppConstant.PATH);
+            }
+        }).show();
     }
 
     @Override

@@ -1,12 +1,17 @@
 package com.matrix.yukun.matrix.note_module.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.note_module.adapter.RVNoteAdapter;
@@ -14,7 +19,9 @@ import com.matrix.yukun.matrix.note_module.bean.NoteBean;
 import com.matrix.yukun.matrix.util.Base64Encode;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
+import com.matrix.yukun.matrix.video_module.utils.SPUtils;
 import com.matrix.yukun.matrix.video_module.utils.SpacesDoubleDecoration;
+import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -36,6 +43,8 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
     private RVNoteAdapter mRvNoteAdapter;
     private TextView mTvRemind;
     private ImageView ivSetting;
+    private String password;
+    private boolean isShow;
 
     @Override
     public int getLayout() {
@@ -81,7 +90,14 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
         mRvNoteAdapter = new RVNoteAdapter(this, mNoteBeans);
         mRvList.addItemDecoration(new SpacesDoubleDecoration(0,0,0,10));
         mRvList.setAdapter(mRvNoteAdapter);
-        readFile();
+        String notePassword = SPUtils.getInstance().getNotePassword();
+        if(!TextUtils.isEmpty(notePassword)){
+            isShow=true;
+            password=notePassword;
+            alertEdit();
+        }else {
+            readFile();
+        }
     }
 
     private void readFile() {
@@ -108,11 +124,29 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onRestart() {
+        super.onRestart();
         readFile();
     }
 
+    public void alertEdit(){
+        final EditText et = new EditText(this);
+        new AlertDialog.Builder(this).setTitle("请输入密码")
+                .setIcon(android.R.drawable.sym_def_app_icon)
+                .setView(et)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(et.getText().toString().equals(password)){
+                            readFile();
+                            isShow=false;
+                        }else {
+                            ToastUtils.showToast("密码不正确");
+                            mTvRemind.setText("偷看日记是需要密码的呦~-~");
+                        }
+                    }
+                }).setNegativeButton("取消",null).show();
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -120,10 +154,18 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.fab:
-                NoteEditActivity.start(this);
+                if(isShow){
+                    alertEdit();
+                }else {
+                    NoteEditActivity.start(this);
+                }
                 break;
             case R.id.iv_setting:
-                NoteSettingActivity.start(this);
+                if(isShow){
+                    alertEdit();
+                }else {
+                    NoteSettingActivity.start(this);
+                }
                 break;
         }
     }

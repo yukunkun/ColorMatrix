@@ -77,7 +77,11 @@
                 <EditText
                     android:id="@+id/et_password"
                     android:visibility="gone"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:password="true"
                     android:phoneNumber="true"
+                    android:maxLength="6"
                     android:layout_marginRight="@dimen/dimens_5"
                     android:layout_toLeftOf="@+id/cb_play"
                     android:layout_width="70dp"
@@ -110,6 +114,10 @@
                     android:id="@+id/et_edit_size"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/dimens_10"
+                    android:singleLine="true"
+                    android:hint="1-30"
+                    android:gravity="center"
+                    android:maxLength="2"
                     android:phoneNumber="true"
                     android:layout_width="70dp"
                     android:layout_height="match_parent" />
@@ -188,6 +196,10 @@
                     android:id="@+id/et_note_size"
                     android:phoneNumber="true"
                     android:layout_alignParentRight="true"
+                    android:singleLine="true"
+                    android:maxLength="2"
+                    android:gravity="center"
+                    android:hint="1-30"
                     android:layout_marginRight="@dimen/dimens_10"
                     android:layout_width="70dp"
                     android:layout_height="match_parent" />

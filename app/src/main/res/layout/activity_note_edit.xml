@@ -4,10 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/ll_bg"
     tools:context=".note_module.activity.NoteEditActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/color_whit"
+        android:id="@+id/rl_title"
         android:layout_height="@dimen/dimens_50">
         <ImageView
             android:src="@mipmap/joke_back"
@@ -39,6 +41,7 @@
     </RelativeLayout>
     <include layout="@layout/include_line_no_marg"/>
     <RelativeLayout
+        android:id="@+id/rl_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <EditText

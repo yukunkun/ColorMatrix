@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:id="@+id/ll_bg"
     android:layout_height="match_parent"
     tools:context=".note_module.activity.NotePreviewActivity">
     <RelativeLayout
