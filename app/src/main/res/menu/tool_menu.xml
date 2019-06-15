@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_share"
+        android:orderInCategory="25"
+        android:title="分享"
+        android:icon="@mipmap/icon_note_share"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_out"
+        android:orderInCategory="25"
+        android:title="导出"
+        android:icon="@mipmap/icon_note_out"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_del"
+        android:orderInCategory="25"
+        android:title="删除"
+        android:icon="@mipmap/icon_note_del"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_logout"
+        android:orderInCategory="25"
+        android:title="退出"
+        android:icon="@mipmap/icon_note_logout"
+        app:showAsAction="never"/>
+</menu>

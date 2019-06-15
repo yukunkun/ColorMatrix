@@ -66,11 +66,53 @@
             android:layout_width="match_parent"
             android:layout_marginBottom="@dimen/dimens_50"
             android:layout_height="match_parent" />
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:clickable="true"
-            android:background="@color/color_line"
+            android:orientation="vertical"
             android:layout_alignParentBottom="true"
-            android:layout_height="@dimen/dimens_50"></LinearLayout>
+            android:layout_height="@dimen/dimens_50">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:weightSum="4"
+                android:orientation="horizontal"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_text_add"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:padding="@dimen/dimens_12"
+                    android:src="@mipmap/icon_note_add"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:id="@+id/iv_text_reduce"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:padding="@dimen/dimens_12"
+                    android:src="@mipmap/icon_note_reduce"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:id="@+id/iv_text_color"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:padding="@dimen/dimens_12"
+                    android:src="@mipmap/icon_note_text"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:id="@+id/iv_text_bg"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:padding="@dimen/dimens_12"
+                    android:src="@mipmap/icon_note_text_bg"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <View
+                android:layout_height="1dp"
+                android:background="@color/color_line"
+                android:layout_width="match_parent"/>
+        </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

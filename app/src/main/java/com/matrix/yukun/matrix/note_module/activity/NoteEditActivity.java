@@ -20,6 +20,10 @@ public class NoteEditActivity extends BaseActivity implements View.OnClickListen
     private EditText mEtContent;
     private ImageView mIvBack;
     private TextView mTvPreView;
+    private ImageView mIvTextAdd;
+    private ImageView mIvTextColor;
+    private ImageView mIvTextBg;
+    private ImageView mIvTextReduce;
 
     public static void start (Context context){
         Intent intent=new Intent(context, NoteEditActivity.class);
@@ -44,12 +48,20 @@ public class NoteEditActivity extends BaseActivity implements View.OnClickListen
         mEtContent = findViewById(R.id.et_context);
         mIvBack = findViewById(R.id.iv_back);
         mTvPreView = findViewById(R.id.tv_save);
+        mIvTextAdd = findViewById(R.id.iv_text_add);
+        mIvTextReduce = findViewById(R.id.iv_text_reduce);
+        mIvTextColor = findViewById(R.id.iv_text_color);
+        mIvTextBg = findViewById(R.id.iv_text_bg);
     }
 
     @Override
     public void initListener() {
         mIvBack.setOnClickListener(this);
         mTvPreView.setOnClickListener(this);
+        mIvTextAdd.setOnClickListener(this);
+        mIvTextReduce.setOnClickListener(this);
+        mIvTextColor.setOnClickListener(this);
+        mIvTextBg.setOnClickListener(this);
     }
 
     @Override
@@ -64,6 +76,14 @@ public class NoteEditActivity extends BaseActivity implements View.OnClickListen
                 }else {
                     ToastUtils.showToast("请留下你的日记足迹");
                 }
+                break;
+            case R.id.iv_text_add:
+                break;
+            case R.id.iv_text_reduce:
+                break;
+            case R.id.iv_text_color:
+                break;
+            case R.id.iv_text_bg:
                 break;
         }
     }

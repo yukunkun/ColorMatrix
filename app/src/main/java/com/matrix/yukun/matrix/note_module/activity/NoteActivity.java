@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.note_module.adapter.RVNoteAdapter;
@@ -36,6 +35,7 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayoutManager mLinearLayoutManager;
     private RVNoteAdapter mRvNoteAdapter;
     private TextView mTvRemind;
+    private ImageView ivSetting;
 
     @Override
     public int getLayout() {
@@ -49,6 +49,7 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
         mSmartLayout = findViewById(R.id.smartrefresh);
         mRvList = findViewById(R.id.recyclerview);
         mTvRemind = findViewById(R.id.tv_remind);
+        ivSetting = findViewById(R.id.iv_setting);
         mFab = findViewById(R.id.fab);
         mSmartLayout.autoRefresh();
     }
@@ -57,6 +58,7 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
     public void initListener() {
         mIvBack.setOnClickListener(this);
         mFab.setOnClickListener(this);
+        ivSetting.setOnClickListener(this);
         mSmartLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -120,9 +122,9 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
             case R.id.fab:
                 NoteEditActivity.start(this);
                 break;
-           /* case R.id.iv_back:
-                finish();
-                break;*/
+            case R.id.iv_setting:
+                NoteSettingActivity.start(this);
+                break;
         }
     }
 }

@@ -173,6 +173,7 @@ dependencies {
     implementation 'jp.wasabeef:blurry:3.0.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
     implementation 'cn.jzvd:jiaozivideoplayer:6.0.2'
+    implementation 'com.github.rubensousa:floatingtoolbar:1.5.1'
     //    compile 'com.googlecode.mp4parser:isoparser:1.1.21' //videocompressor里有这个jar包
     implementation files('libs/Msc.jar')
     implementation files('libs/Sunflower.jar')

@@ -32,6 +32,7 @@
             android:textSize="17sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
+            android:background="?android:attr/selectableItemBackground"
             android:text="保存"
             android:textColor="@color/color_black"
             android:layout_width="@dimen/dimens_50"
@@ -42,22 +43,46 @@
             android:layout_toLeftOf="@+id/tv_save"
             android:textSize="17sp"
             android:padding="@dimen/dimens_12"
-            android:src="@mipmap/ic_setting"
+            android:src="@mipmap/icon_note_setting"
             android:background="?android:attr/selectableItemBackground"
             android:layout_width="@dimen/dimens_50"
             android:layout_height="match_parent" />
     </RelativeLayout>
-    <ScrollView
-        android:id="@+id/sc"
-        android:padding="@dimen/dimens_5"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/tv_content"
-            android:textSize="18sp"
-            android:layout_marginTop="@dimen/dimens_5"
-            android:textColor="@color/color_text"
+        <ScrollView
+            android:id="@+id/sc"
+            android:padding="@dimen/dimens_5"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </ScrollView>
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_content"
+                android:textSize="18sp"
+                android:layout_marginTop="@dimen/dimens_5"
+                android:textColor="@color/color_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </ScrollView>
+        <com.github.rubensousa.floatingtoolbar.FloatingToolbar
+            android:id="@+id/floatingToolbar"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:background="@color/colorAccent"
+            android:layout_height="@dimen/dimens_50"
+            app:floatingMenu="@menu/tool_menu"
+            android:layout_gravity="bottom" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dimens_10"
+            android:layout_marginBottom="@dimen/dimens_60"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
+            android:layout_gravity="bottom|end"
+            android:src="@mipmap/icon_brush" />
+    </RelativeLayout>
 </LinearLayout>

@@ -4,13 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.github.rubensousa.floatingtoolbar.FloatingToolbar;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.util.Base64Encode;
@@ -31,6 +34,8 @@ public class NotePreviewActivity extends BaseActivity implements View.OnClickLis
     private TextView mTvcontent;
     private RelativeLayout mRlTitle;
     private TextView mTvSave;
+    private FloatingActionButton mFab;
+    private FloatingToolbar mFloatingToolbar;
 
     public static void start(Context context, String title, String content){
         Intent intent=new Intent(context, NotePreviewActivity.class);
@@ -59,8 +64,11 @@ public class NotePreviewActivity extends BaseActivity implements View.OnClickLis
         mIvSetting = findViewById(R.id.iv_setting);
         mRlTitle = findViewById(R.id.rl_title);
         mTvSave = findViewById(R.id.tv_save);
+        mFab = findViewById(R.id.fab);
+        mFloatingToolbar = findViewById(R.id.floatingToolbar);
         mSc = findViewById(R.id.sc);
         mTvcontent = findViewById(R.id.tv_content);
+        mFloatingToolbar.attachFab(mFab);
     }
 
     @Override
@@ -80,16 +88,28 @@ public class NotePreviewActivity extends BaseActivity implements View.OnClickLis
         mIvSetting.setOnClickListener(this);
         mTvSave.setOnClickListener(this);
         OverScrollDecoratorHelper.setUpOverScroll(mSc);
-//        mSc.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-//            @Override
-//            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                if(scrollY>0){
-//                    mRlTitle.setVisibility(View.GONE);
-//                }else {
-//                    mRlTitle.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
+        mFloatingToolbar.setClickListener(new FloatingToolbar.ItemClickListener() {
+            @Override
+            public void onItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.menu_share:
+                        share(mTvcontent.getText().toString());
+                        break;
+                    case R.id.menu_out:
+                        break;
+                    case R.id.menu_del:
+                        break;
+                    case R.id.menu_logout:
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onItemLongClick(MenuItem item) {
+
+            }
+        });
     }
 
     @Override
@@ -99,6 +119,7 @@ public class NotePreviewActivity extends BaseActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.iv_setting:
+                NoteSettingActivity.start(this);
                 break;
             case R.id.tv_save:
                 long currentTimeMillis = System.currentTimeMillis();
@@ -110,5 +131,14 @@ public class NotePreviewActivity extends BaseActivity implements View.OnClickLis
                 ToastUtils.showToast("保存成功");
                 break;
         }
+    }
+
+    private void share(String text){
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain"); // 纯文本
+        intent.putExtra(Intent.EXTRA_SUBJECT, "分享连接");
+        intent.putExtra(Intent.EXTRA_TEXT, text);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(Intent.createChooser(intent, ""));
     }
 }
