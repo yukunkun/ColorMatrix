@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.ChatBaseActivity;
 import com.matrix.yukun.matrix.chat_module.mvp.InputPanel;
-import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
 
 import java.io.File;
@@ -83,8 +82,9 @@ public class ChatToolFragment extends BaseFragment implements View.OnClickListen
 
     private void openFile(){
         Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_PICK);
-        intent.setType("file/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
         ((Activity)mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_FILE);
     }
 

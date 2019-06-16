@@ -88,37 +88,38 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRvList.setLayoutManager(mLinearLayoutManager);
         mRvNoteAdapter = new RVNoteAdapter(this, mNoteBeans);
-        mRvList.addItemDecoration(new SpacesDoubleDecoration(0,0,0,10));
+        mRvList.addItemDecoration(new SpacesDoubleDecoration(0, 0, 0, 10));
         mRvList.setAdapter(mRvNoteAdapter);
         String notePassword = SPUtils.getInstance().getNotePassword();
-        if(!TextUtils.isEmpty(notePassword)){
-            isShow=true;
-            password=notePassword;
+        if (!TextUtils.isEmpty(notePassword)) {
+            isShow = true;
+            password = notePassword;
+            mTvRemind.setText("偷看日记是需要密码的呦~-~");
             alertEdit();
-        }else {
+        } else {
             readFile();
         }
     }
 
     private void readFile() {
-        File file=new File(AppConstant.NOTEPATH);
+        File file = new File(AppConstant.NOTEPATH);
         File[] listFiles = file.listFiles();
         mNoteBeans.clear();
         for (int i = 0; i < listFiles.length; i++) {
-            NoteBean noteBean=new NoteBean();
+            NoteBean noteBean = new NoteBean();
             noteBean.setFilePath(listFiles[i].getAbsolutePath());
             String decrypt = Base64Encode.setDecrypt(FileUtil.read(listFiles[i].getAbsolutePath()));
             String[] split = decrypt.split("\n\n");
             noteBean.setTitle(split[0]);
             noteBean.setContent(split[1]);
-            noteBean.setName(listFiles[i].getName().substring(0,listFiles[i].getName().length()-4));
+            noteBean.setName(listFiles[i].getName().substring(0, listFiles[i].getName().length() - 4));
             mNoteBeans.add(noteBean);
         }
         Collections.reverse(mNoteBeans);
-        if(mNoteBeans.size()>0){
+        if (mNoteBeans.size() > 0) {
             mTvRemind.setVisibility(View.GONE);
             mRvNoteAdapter.notifyDataSetChanged();
-        }else {
+        } else {
             mTvRemind.setVisibility(View.VISIBLE);
         }
     }
@@ -129,23 +130,23 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
         readFile();
     }
 
-    public void alertEdit(){
+    public void alertEdit() {
         final EditText et = new EditText(this);
         new AlertDialog.Builder(this).setTitle("请输入密码")
                 .setView(et)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if(et.getText().toString().equals(password)){
+                        if (et.getText().toString().equals(password)) {
                             readFile();
-                            isShow=false;
-                        }else {
+                            isShow = false;
+                        } else {
                             ToastUtils.showToast("密码不正确");
-                            mTvRemind.setText("偷看日记是需要密码的呦~-~");
                         }
                     }
-                }).setNegativeButton("取消",null).show();
+                }).setNegativeButton("取消", null).show();
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -153,16 +154,16 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.fab:
-                if(isShow){
+                if (isShow) {
                     alertEdit();
-                }else {
+                } else {
                     NoteEditActivity.start(this);
                 }
                 break;
             case R.id.iv_setting:
-                if(isShow){
+                if (isShow) {
                     alertEdit();
-                }else {
+                } else {
                     NoteSettingActivity.start(this);
                 }
                 break;

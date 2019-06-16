@@ -144,7 +144,7 @@ public class NotePreviewActivity extends BaseActivity implements View.OnClickLis
                 }).setPositiveButton("删除", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(TextUtils.isEmpty(mPath)){
+                if(!TextUtils.isEmpty(mPath)){
                     File file=new File(mPath);
                     file.delete();
                 }
@@ -183,7 +183,9 @@ public class NotePreviewActivity extends BaseActivity implements View.OnClickLis
             case R.id.tv_save:
                 long currentTimeMillis = System.currentTimeMillis();
                 if(TextUtils.isEmpty(mPath)){
-                    FileUtil.write(AppConstant.NOTEPATH,currentTimeMillis+".txt", Base64Encode.setEncryption(mTvcontent.getText().toString()));
+                    String fileName=currentTimeMillis+".txt";
+                    FileUtil.write(AppConstant.NOTEPATH,fileName, Base64Encode.setEncryption(mTvcontent.getText().toString()));
+                    mPath=AppConstant.NOTEPATH+File.separator+fileName;
                 }else {
 
                 }
