@@ -25,7 +25,7 @@
         android:src="@mipmap/tool_icon"
         android:layout_width="@dimen/dimens_45"
         android:layout_height="@dimen/dimens_45"/>
-    <TextView
+    <com.matrix.yukun.matrix.chat_module.emoji.CubeEmoticonTextView
         android:layout_below="@+id/rigth_time"
         android:layout_toLeftOf="@+id/ci_right_head"
         android:text=""

@@ -7,7 +7,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.chat_module.emoji.EmoticonManager;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
+import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 
 /**
  * author: kun .
@@ -51,6 +54,24 @@ public class EmojiPreFragment extends BaseFragment implements AdapterView.OnItem
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String displayText="";
+        if(position==EmoticonAdapter.EMOJI_PER_PAGE||(Integer.valueOf(mPos)==2&&position==10)){
+            displayText ="/DEL";
+        }else {
+            displayText = EmoticonManager.getDisplayText(position+EmoticonAdapter.EMOJI_PER_PAGE*Integer.valueOf(mPos));
+        }
+        if(mOnEmojiClickListener!=null){
+            mOnEmojiClickListener.onEmojClickListener(displayText);
+        }
+    }
 
+    public static OnEmojiClickListener mOnEmojiClickListener;
+
+    public static void setOnEmojiClickListener(OnEmojiClickListener onEmojiClickListener) {
+        mOnEmojiClickListener = onEmojiClickListener;
+    }
+
+    public interface OnEmojiClickListener{
+        void onEmojClickListener(String s);
     }
 }

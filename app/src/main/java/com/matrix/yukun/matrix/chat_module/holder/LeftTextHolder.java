@@ -6,19 +6,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.chat_module.emoji.CubeEmoticonTextView;
 
 /**
  * author: kun .
  * date:   On 2019/3/14
  */
 public class LeftTextHolder extends RecyclerView.ViewHolder {
-    public TextView mTextViewLeft;
+    public CubeEmoticonTextView mTextViewLeft;
     public ImageView mImageViewLeft;
     public TextView mTextViewLeftTime;
     public LeftTextHolder(View itemView) {
         super(itemView);
         mTextViewLeftTime= (TextView) itemView.findViewById(R.id.left_time);
-        mTextViewLeft= (TextView) itemView.findViewById(R.id.tv_left_content);
+        mTextViewLeft= (CubeEmoticonTextView) itemView.findViewById(R.id.tv_left_content);
         mImageViewLeft=(ImageView)itemView.findViewById(R.id.ci_left_head);
     }
 }
