@@ -1,4 +1,4 @@
-package com.shixinyun.cubeware.ui.chat.panel.input.emoticon.adapter;
+package com.matrix.yukun.matrix.chat_module.fragment.emoji;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -9,20 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import com.shixinyun.cubeware.R;
-import com.shixinyun.cubeware.ui.chat.panel.input.emoticon.EmoticonView;
-import com.shixinyun.cubeware.ui.chat.panel.input.emoticon.manager.EmoticonManager;
 
-/**
- * 表情适配器
- *
- * @author Wangxx
- * @date 2017/1/4
- */
+import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.chat_module.emoji.EmoticonManager;
+
 public class EmoticonAdapter extends BaseAdapter {
 
     private Context context;
     private int     startIndex;
+    public static final int EMOJI_PER_PAGE=27;
 
     public EmoticonAdapter(Context mContext, int startIndex) {
         this.context = mContext;
@@ -31,7 +26,7 @@ public class EmoticonAdapter extends BaseAdapter {
 
     public int getCount() {
         int count = EmoticonManager.getDisplayCount() - startIndex + 1;
-        count = Math.min(count, EmoticonView.EMOJI_PER_PAGE + 1);
+        count = Math.min(count, EMOJI_PER_PAGE + 1);
         return count;
     }
 
@@ -52,8 +47,8 @@ public class EmoticonAdapter extends BaseAdapter {
         ImageView imgEmoticon = (ImageView) convertView.findViewById(R.id.img_emoticon);
         int count = EmoticonManager.getDisplayCount();
         int index = startIndex + position;
-        if (position == EmoticonView.EMOJI_PER_PAGE || index == count) {
-            imgEmoticon.setBackgroundResource(R.drawable.ic_emoji_del);
+        if (position == EMOJI_PER_PAGE || index == count) {
+            imgEmoticon.setBackgroundResource(R.mipmap.ic_emoji_del);
         }
         else if (index < count) {
             imgEmoticon.setBackground(EmoticonManager.getDisplayDrawable(context, index));

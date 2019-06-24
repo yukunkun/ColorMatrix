@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/view_space_8"
+    android:paddingBottom="@dimen/dimens_8"
     android:paddingTop="6dp"
     >
 
     <ImageView
         android:id="@+id/img_emoticon"
-        android:layout_width="@dimen/view_height_28"
-        android:layout_height="@dimen/view_height_28"
+        android:layout_width="@dimen/dimens_30"
+        android:layout_height="@dimen/dimens_30"
         android:layout_centerHorizontal="true"
         >
     </ImageView>

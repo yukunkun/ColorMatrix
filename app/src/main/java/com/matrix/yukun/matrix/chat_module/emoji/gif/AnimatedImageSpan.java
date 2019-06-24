@@ -1,4 +1,4 @@
-package com.shixinyun.cubeware.ui.chat.panel.input.emoticon.gif;
+package com.matrix.yukun.matrix.chat_module.emoji.gif;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -6,7 +6,8 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.style.DynamicDrawableSpan;
 import android.widget.TextView;
-import com.commonutils.utils.ThreadUtil;
+
+import com.matrix.yukun.matrix.util.ThreadUtil;
 
 public class AnimatedImageSpan extends DynamicDrawableSpan {
 

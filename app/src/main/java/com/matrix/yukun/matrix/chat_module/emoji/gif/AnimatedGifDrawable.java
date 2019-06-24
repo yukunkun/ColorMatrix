@@ -1,10 +1,9 @@
-package com.shixinyun.cubeware.ui.chat.panel.input.emoticon.gif;
+package com.matrix.yukun.matrix.chat_module.emoji.gif;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import com.shixinyun.cubeware.utils.ImageUtil;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -61,7 +60,9 @@ public class AnimatedGifDrawable extends AnimationDrawable {
 
     public void clearBitmap() {
         for (Bitmap bitmap : bitmaps) {
-            ImageUtil.recycleBitmap(bitmap);
+            if(bitmap!=null&&!bitmap.isRecycled()){
+                bitmap.recycle();
+            }
         }
     }
 

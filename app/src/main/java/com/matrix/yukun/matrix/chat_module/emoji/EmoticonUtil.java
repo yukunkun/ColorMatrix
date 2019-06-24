@@ -1,4 +1,4 @@
-package com.shixinyun.cubeware.ui.chat.panel.input.emoticon;
+package com.matrix.yukun.matrix.chat_module.emoji;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -13,11 +13,8 @@ import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
-import com.shixinyun.cubeware.ui.chat.panel.input.emoticon.gif.AnimatedGifDrawable;
-import com.shixinyun.cubeware.ui.chat.panel.input.emoticon.gif.AnimatedImageSpan;
-import com.shixinyun.cubeware.ui.chat.panel.input.emoticon.manager.EmoticonManager;
-
+import com.matrix.yukun.matrix.chat_module.emoji.gif.AnimatedGifDrawable;
+import com.matrix.yukun.matrix.chat_module.emoji.gif.AnimatedImageSpan;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
