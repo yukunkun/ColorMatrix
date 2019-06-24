@@ -161,7 +161,7 @@ public class InputPanel implements View.OnClickListener, EmojiPreFragment.OnEmoj
             int start = this.mEtMessage.getSelectionStart();
             int end = this.mEtMessage.getSelectionEnd();
             start = (start < 0 ? 0 : start);
-            end = (start < 0 ? 0 : end);
+            end = (end < 0 ? 0 : end);
             editable.replace(start, end, key);
         }
         this.mEtMessage.requestFocus();
@@ -254,6 +254,7 @@ public class InputPanel implements View.OnClickListener, EmojiPreFragment.OnEmoj
                 mInputListener.onSendMessageClick(mEtMessage.getText().toString().trim());
                 mEtMessage.setText("");
                 KeyBoardUtil.closeKeyboard(mContext, mEtMessage);
+                dismissLayout();
                 break;
             case R.id.iv_picture:
                 taggleToPicture();

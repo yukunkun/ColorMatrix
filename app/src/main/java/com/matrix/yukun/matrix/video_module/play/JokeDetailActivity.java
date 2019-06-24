@@ -1,6 +1,9 @@
 package com.matrix.yukun.matrix.video_module.play;
 
 import android.animation.Animator;
+import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.view.View;
@@ -8,6 +11,7 @@ import android.view.ViewAnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.matrix.yukun.matrix.chat_module.emoji.CubeEmoticonTextView;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
@@ -23,12 +27,24 @@ public class JokeDetailActivity extends BaseActivity {
     @BindView(R2.id.iv_share)
     ImageView mIvShare;
     @BindView(R2.id.tv_content)
-    TextView mTvContent;
+    CubeEmoticonTextView mTvContent;
     private String mContent;
 
     @Override
     public int getLayout() {
         return R.layout.activity_joke_detail;
+    }
+
+    public static void start(Context context,String content,View view){
+        Intent intent=new Intent(context,JokeDetailActivity.class);
+        intent.putExtra("content",content);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT_WATCH){
+            context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context,view,"shareiew").toBundle());
+        }else {
+            context.startActivity(intent);
+            ((Activity)context).overridePendingTransition(R.anim.rotate,R.anim.rotate_out);
+        }
     }
 
     @Override
@@ -47,6 +63,7 @@ public class JokeDetailActivity extends BaseActivity {
                             view.getHeight() / 2, 0,
                             Math.max(view.getWidth() / 2,
                                     view.getHeight() / 2));
+                    animationTop.setDuration(500);
                     animationTop.start();
                 }
             }
