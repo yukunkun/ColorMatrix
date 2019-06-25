@@ -253,8 +253,8 @@ public class InputPanel implements View.OnClickListener, EmojiPreFragment.OnEmoj
             case R.id.send_btn:
                 mInputListener.onSendMessageClick(mEtMessage.getText().toString().trim());
                 mEtMessage.setText("");
-                KeyBoardUtil.closeKeyboard(mContext, mEtMessage);
-                dismissLayout();
+//                KeyBoardUtil.closeKeyboard(mContext, mEtMessage);
+//                dismissLayout();
                 break;
             case R.id.iv_picture:
                 taggleToPicture();

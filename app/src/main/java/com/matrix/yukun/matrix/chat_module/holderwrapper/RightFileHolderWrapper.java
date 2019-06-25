@@ -54,7 +54,7 @@ public class RightFileHolderWrapper {
         }else {
             Glide.with(mContext).load(MyApplication.getUserInfo().getImg()).into((holder).mImageViewRight);
         }
-        File file=new File(chatListInfo.getFilePath());
+        File file=new File(chatListInfo.getFilePath()+"");
         holder.mTvFileName.setText(file.getName());
         holder.mTvFileSize.setText(FileUtil.formatFileSize(file.length()));
         (holder).mImageViewRight.setOnClickListener(new View.OnClickListener() {
