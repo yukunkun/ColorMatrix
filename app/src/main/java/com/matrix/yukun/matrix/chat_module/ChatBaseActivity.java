@@ -285,4 +285,9 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
     }
 
+    public void sendVoiceMsg(String voicePath){
+        ChatListInfo chatListInfo = mChatPresenter.creatVoiceChatInfo(voicePath,type,false);
+        notifyAdapter(chatListInfo);
+    }
+
 }

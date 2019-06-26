@@ -38,28 +38,24 @@ public class VoiceManager {
 
     }
 
-    public void startRecord(){
+    public void startRecord(final String name){
         Thread thread=new Thread(new Runnable() {
             @Override
             public void run() {
-                start();
+                start(name);
             }
         });
         thread.start();
     }
 
-    private void start(){
-        if(isRecord){
+    private void start(String name){
+        if(!isRecord){
             isRecord=true;
             mMediaRecorder = new MediaRecorder();
             //创建录音文件
-            mRecorderFile = new File(AppConstant.IMAGEPATH+AppConstant.VOICEPATH+
-                    System.currentTimeMillis() + ".m4a");
-            if (!mRecorderFile.getParentFile().exists()) mRecorderFile.getParentFile().mkdirs();
-            try {
-                mRecorderFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
+            mRecorderFile = new File(AppConstant.VOICEPATH,name);
+            if (!mRecorderFile.getParentFile().exists()) {
+                mRecorderFile.getParentFile().mkdirs();
             }
             //从麦克风采集
             mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -86,7 +82,6 @@ public class VoiceManager {
             mMediaRecordListener.recordFail();
             isRecord=false;
         }
-
     }
 
     public void stop(){

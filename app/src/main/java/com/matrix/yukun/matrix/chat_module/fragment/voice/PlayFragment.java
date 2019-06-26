@@ -1,6 +1,7 @@
 package com.matrix.yukun.matrix.chat_module.fragment.voice;
 
 import android.annotation.SuppressLint;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.chat_module.ChatBaseActivity;
 import com.matrix.yukun.matrix.selfview.voice.HorVoiceView;
 import com.matrix.yukun.matrix.selfview.voice.PlayStartView;
 import com.matrix.yukun.matrix.util.log.LogUtil;
@@ -27,13 +29,11 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     private Button        mCancel;
     private Button        mSend;
     private boolean       isPlay;
-//    private VoiceClipMessage mVoiceClipMessage = null;
-//    private ChatContainer mChatContainer;
     private int           mDuration;
+    private  String       mVoicePath;
 
-    public PlayFragment(/*ChatContainer chatContainer, VoiceClipMessage vcm*/) {
-//        this.mVoiceClipMessage = vcm;
-//        this.mChatContainer = chatContainer;
+    public PlayFragment(String path) {
+        mVoicePath=path;
     }
 
     @Override
@@ -77,23 +77,28 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         mPlay.setOnPlayListener(new PlayStartView.OnPlayListener() {
             @Override
             public void onStartPlay() {
-//                PlayerManager.getInstance().play(mVoiceClipMessage.getFile().getAbsolutePath(), new PlayerManager.PlayCallback() {
-//                    @Override
-//                    public void onPrepared() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//
-//                    @Override
-//                    public void stop() {
-//                        mHorVoiceView.setText(showTimeCount(mDuration));
-//                        mHorVoiceView.stopRecord();
-//                    }
-//                });
+                PlayerManager.getInstance().play(mVoicePath, new PlayerManager.PlayCallback() {
+                    @Override
+                    public void onPrepared() {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onProgress(MediaPlayer mp, int currentPosition, int duration) {
+
+                    }
+
+                    @Override
+                    public void stop() {
+                        mHorVoiceView.setText(showTimeCount(mDuration));
+                        mHorVoiceView.stopRecord();
+                    }
+                });
             }
 
             @Override
@@ -104,7 +109,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onStopPlay() {
-//                PlayerManager.getInstance().stop();
+                PlayerManager.getInstance().stop();
             }
         });
     }
@@ -112,15 +117,13 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_cancel) {
-//            PlayerManager.getInstance().stop();
+            PlayerManager.getInstance().stop();
 //            //从栈中将当前fragment退出
             getFragmentManager().popBackStack();
         }
         else if (v.getId() == R.id.btn_send) {
-//            PlayerManager.getInstance().stop();
-//            boolean isSecret = mChatContainer.mSessionType == CubeSessionType.Secret;
-//            VoiceClipMessage voiceClipMessage = MessageManager.getInstance().buildVoiceMessage(mChatContainer.mChatActivity, CubeSessionType.P2P, SpUtil.getCubeId(), mChatContainer.mChatId, mVoiceClipMessage, isSecret);
-//            MessageManager.getInstance().sendMessage(mChatContainer.mChatActivity, voiceClipMessage).subscribe();
+            PlayerManager.getInstance().stop();
+            ((ChatBaseActivity)getContext()).sendVoiceMsg(mVoicePath);
             //从栈中将当前fragment退出
             getFragmentManager().popBackStack();
         }
