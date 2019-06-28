@@ -79,7 +79,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
             public void onStartPlay() {
                 PlayerManager.getInstance().play(mVoicePath, new PlayerManager.PlayCallback() {
                     @Override
-                    public void onPrepared() {
+                    public void onPrepared(MediaPlayer mediaPlayer) {
 
                     }
 
@@ -88,10 +88,6 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
                     }
 
-                    @Override
-                    public void onProgress(MediaPlayer mp, int currentPosition, int duration) {
-
-                    }
 
                     @Override
                     public void stop() {

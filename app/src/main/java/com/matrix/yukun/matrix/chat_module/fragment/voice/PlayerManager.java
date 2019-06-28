@@ -5,6 +5,8 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.util.log.LogUtil;
@@ -142,7 +144,7 @@ public class PlayerManager {
             this.mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
-                    callback.onPrepared();
+                    callback.onPrepared(mp);
                     mediaPlayer.start();
                     requestAudioFocus();
                 }
@@ -161,7 +163,6 @@ public class PlayerManager {
             e.printStackTrace();
         }
     }
-
     /**
      * 停止播放
      */
@@ -352,20 +353,12 @@ public class PlayerManager {
         /**
          * 准备完毕
          */
-        void onPrepared();
+        void onPrepared(MediaPlayer mediaPlayer);
 
         /**
          * 播放完成
          */
         void onComplete();
-        /**
-         * 播放进度
-         * @param mp
-         * @param currentPosition
-         * @param duration
-         */
-        void onProgress(MediaPlayer mp, int currentPosition, int duration);
-
         /**
          * 停止播放
          */

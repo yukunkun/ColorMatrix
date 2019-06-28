@@ -3,6 +3,8 @@ package com.matrix.yukun.matrix.chat_module.holderwrapper;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -26,6 +28,8 @@ import java.text.SimpleDateFormat;
 public class RightVoiceHolderWrapper {
     static RightVoiceHolderWrapper mRightTextHolderWrapper;
     Context mContext;
+    private MediaPlayer mPlayer;
+
 
     public static RightVoiceHolderWrapper getInstance(){
         if(mRightTextHolderWrapper==null){
@@ -76,23 +80,19 @@ public class RightVoiceHolderWrapper {
                     holder.mIvPlay.setImageResource(R.mipmap.icon_video_pause);
                     PlayerManager.getInstance().play(chatListInfo.getVideoPath(), new PlayerManager.PlayCallback() {
                         @Override
-                        public void onPrepared() {
-
+                        public void onPrepared(MediaPlayer mediaPlayer) {
+                            mPlayer = mediaPlayer;
+                            holder.mSeekBar.setMax(mPlayer.getDuration());
+                            mHandler.sendEmptyMessage(1);
                         }
-
                         @Override
                         public void onComplete() {
                             holder.mIvPlay.setImageResource(R.mipmap.icon_video_play);
                             holder.mSeekBar.setVisibility(View.GONE);
+                            if(mHandler!=null){
+                                mHandler.removeMessages(1);
+                            }
                         }
-
-                        @Override
-                        public void onProgress(MediaPlayer mp, int currentPosition, int duration) {
-                            LogUtil.i("======",currentPosition+" "+duration);
-                            holder.mSeekBar.setMax(duration/1000);
-                            holder.mSeekBar.setProgress(currentPosition/1000);
-                        }
-
                         @Override
                         public void stop() {
 
@@ -100,6 +100,19 @@ public class RightVoiceHolderWrapper {
                     });
                 }
             }
+
+            Handler mHandler=new Handler(){
+                @Override
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
+                    switch (msg.what){
+                        case 1:
+                            holder.mSeekBar.setProgress(mPlayer.getCurrentPosition());
+                            mHandler.sendEmptyMessageDelayed(1,500);
+                            break;
+                    }
+                }
+            };
         });
     }
 }
