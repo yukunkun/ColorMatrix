@@ -29,11 +29,12 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     private Button        mCancel;
     private Button        mSend;
     private boolean       isPlay;
-    private int           mDuration;
+    private long           mDuration;
     private  String       mVoicePath;
 
-    public PlayFragment(String path) {
+    public PlayFragment(String path,long second) {
         mVoicePath=path;
+        mDuration=second* 1000;
     }
 
     @Override
@@ -51,7 +52,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         mSend = (Button) mRootView.findViewById(R.id.btn_send);
 //        LogUtil.i("录音长度" + mVoiceClipMessage.getDuration());
 //        mDuration = mVoiceClipMessage.getDuration() * 1000;
-        mPlay.setMaxTime(mDuration);
+        mPlay.setMaxTime((int) mDuration);
         mHorVoiceView.setText(showTimeCount(mDuration));
         initListener();
     }
@@ -73,7 +74,6 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                 }
             }
         });
-
         mPlay.setOnPlayListener(new PlayStartView.OnPlayListener() {
             @Override
             public void onStartPlay() {
@@ -85,7 +85,6 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
                     @Override
                     public void onComplete() {
-
                     }
 
 
@@ -119,7 +118,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         }
         else if (v.getId() == R.id.btn_send) {
             PlayerManager.getInstance().stop();
-            ((ChatBaseActivity)getContext()).sendVoiceMsg(mVoicePath);
+            ((ChatBaseActivity)getContext()).sendVoiceMsg(mVoicePath,mDuration);
             //从栈中将当前fragment退出
             getFragmentManager().popBackStack();
         }

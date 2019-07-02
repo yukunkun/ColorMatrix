@@ -90,12 +90,12 @@ public class VoiceManager {
             mStopRecorderTime = System.currentTimeMillis();
             final int second = (int) (mStopRecorderTime - mStartRecorderTime) / 1000;
             //按住时间小于3秒钟，算作录取失败，不进行发送
-            if (second < 3){
+            if (second < 1){
                 mMediaRecordListener.recordFail();
                 isRecord=false;
                 return;
             }
-            mMediaRecordListener.recordStop(mRecorderFile.getAbsolutePath());
+            mMediaRecordListener.recordStop(mRecorderFile.getAbsolutePath(),second);
         } catch (Exception e) {
             e.printStackTrace();
         }

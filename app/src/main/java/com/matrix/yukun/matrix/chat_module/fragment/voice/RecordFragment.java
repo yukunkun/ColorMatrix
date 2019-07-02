@@ -25,6 +25,8 @@ public class RecordFragment extends Fragment implements MediaRecordListener {
     private View     mChatContainer;
     private ChatBaseActivity mChatActivity;
     private String mVoiceName;
+    private String mPath;
+    private long mDuration;
 
     /**
      * Fragment必须要有空的构造函数，否则直接crash。因为Fragment源码中用到反射构造了对象，是无参数的构造函数
@@ -62,8 +64,9 @@ public class RecordFragment extends Fragment implements MediaRecordListener {
 
             @Override
             public void onRecordComplete(/*VoiceClipMessage vcm*/) {
-                Log.v("test", "完成");
+                Log.i("test", "完成");
                 VoiceManager.getInstance().stop();
+                ((ChatBaseActivity)getContext()).sendVoiceMsg(mPath,mDuration);
 //                boolean isSecret = mChatContainer.mSessionType == CubeSessionType.Secret;
 //                VoiceClipMessage voiceClipMessage = MessageManager.getInstance().buildVoiceMessage(mChatContainer.mChatActivity, CubeSessionType.P2P, SpUtil.getCubeId(), mChatContainer.mChatId, vcm, isSecret);
 //                MessageManager.getInstance().sendMessage(mChatContainer.mChatActivity, voiceClipMessage).subscribe();
@@ -89,8 +92,10 @@ public class RecordFragment extends Fragment implements MediaRecordListener {
     }
 
     @Override
-    public void recordStop(String path) {
-        getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fl_contain, new PlayFragment(path)).commit();
+    public void recordStop(String path,long s) {
+        mPath = path;
+        mDuration = s;
+        getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fl_contain, new PlayFragment(path,s)).commit();
 
     }
 

@@ -10,6 +10,7 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
+import com.matrix.yukun.matrix.chat_module.entity.EventVoiceClick;
 import com.matrix.yukun.matrix.chat_module.fragment.voice.PlayerManager;
 import com.matrix.yukun.matrix.chat_module.holder.RightTextHolder;
 import com.matrix.yukun.matrix.chat_module.holder.RightVoiceHolder;
@@ -18,6 +19,8 @@ import com.matrix.yukun.matrix.video_module.MyApplication;
 import com.matrix.yukun.matrix.video_module.play.AboutUsActivity;
 import com.matrix.yukun.matrix.video_module.play.JokeDetailActivity;
 import com.matrix.yukun.matrix.video_module.play.LoginActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 
@@ -30,6 +33,19 @@ public class RightVoiceHolderWrapper {
     Context mContext;
     private MediaPlayer mPlayer;
 
+    Handler mHandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1:
+                    mVoiceHolder.mSeekBar.setProgress(mPlayer.getCurrentPosition());
+                    mHandler.sendEmptyMessageDelayed(1,500);
+                    break;
+            }
+        }
+    };
+    private RightVoiceHolder mVoiceHolder;
 
     public static RightVoiceHolderWrapper getInstance(){
         if(mRightTextHolderWrapper==null){
@@ -54,6 +70,36 @@ public class RightVoiceHolderWrapper {
             Glide.with(mContext).load(MyApplication.getUserInfo().getImg()).into((holder).mImageViewRight);
         }
 
+        if(!chatListInfo.isAudioIsPlay()){
+            holder.mSeekBar.setVisibility(View.GONE);
+            holder.mIvPlay.setImageResource(R.mipmap.icon_video_play);
+        }else {
+            mVoiceHolder=holder;
+            holder.mSeekBar.setVisibility(View.VISIBLE);
+            holder.mIvPlay.setImageResource(R.mipmap.icon_video_pause);
+            PlayerManager.getInstance().play(chatListInfo.getVideoPath(), new PlayerManager.PlayCallback() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    mPlayer = mediaPlayer;
+                    holder.mSeekBar.setMax(mPlayer.getDuration());
+                    holder.mSeekBar.setProgress(0);
+                    mHandler.sendEmptyMessage(1);
+                }
+                @Override
+                public void onComplete() {
+                    holder.mIvPlay.setImageResource(R.mipmap.icon_video_play);
+                    holder.mSeekBar.setVisibility(View.GONE);
+                    if(mHandler!=null){
+                        mHandler.removeMessages(1);
+                    }
+                }
+                @Override
+                public void stop() {
+
+                }
+            });
+        }
+
         (holder).mImageViewRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,47 +118,8 @@ public class RightVoiceHolderWrapper {
         holder.mIvPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(PlayerManager.getInstance().isPlaying()){
-                    holder.mIvPlay.setImageResource(R.mipmap.icon_video_play);
-                    PlayerManager.getInstance().pause();
-                }else {
-                    holder.mSeekBar.setVisibility(View.VISIBLE);
-                    holder.mIvPlay.setImageResource(R.mipmap.icon_video_pause);
-                    PlayerManager.getInstance().play(chatListInfo.getVideoPath(), new PlayerManager.PlayCallback() {
-                        @Override
-                        public void onPrepared(MediaPlayer mediaPlayer) {
-                            mPlayer = mediaPlayer;
-                            holder.mSeekBar.setMax(mPlayer.getDuration());
-                            mHandler.sendEmptyMessage(1);
-                        }
-                        @Override
-                        public void onComplete() {
-                            holder.mIvPlay.setImageResource(R.mipmap.icon_video_play);
-                            holder.mSeekBar.setVisibility(View.GONE);
-                            if(mHandler!=null){
-                                mHandler.removeMessages(1);
-                            }
-                        }
-                        @Override
-                        public void stop() {
-
-                        }
-                    });
-                }
+                EventBus.getDefault().post(new EventVoiceClick(chatListInfo));
             }
-
-            Handler mHandler=new Handler(){
-                @Override
-                public void handleMessage(Message msg) {
-                    super.handleMessage(msg);
-                    switch (msg.what){
-                        case 1:
-                            holder.mSeekBar.setProgress(mPlayer.getCurrentPosition());
-                            mHandler.sendEmptyMessageDelayed(1,500);
-                            break;
-                    }
-                }
-            };
         });
     }
 }

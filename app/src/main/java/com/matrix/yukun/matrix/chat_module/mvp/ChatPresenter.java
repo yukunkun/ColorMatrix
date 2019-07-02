@@ -165,7 +165,7 @@ public class ChatPresenter extends ChatControler.Presenter {
         return chatListInfo;
     }
 
-    public ChatListInfo creatVoiceChatInfo(String filePath,int type,boolean isReceive){
+    public ChatListInfo creatVoiceChatInfo(String filePath, long duration, int type, boolean isReceive){
         ChatListInfo chatListInfo = new ChatListInfo();
         lastTime = System.currentTimeMillis();
         if (lastTime - firstTime > timedevide) {
@@ -176,6 +176,7 @@ public class ChatPresenter extends ChatControler.Presenter {
         chatListInfo.setMsgTime(System.currentTimeMillis());
         chatListInfo.setVideoPath(filePath);
         chatListInfo.setTypeSn(type);
+        chatListInfo.setDuration(duration);
         chatListInfo.setReceive(isReceive);
         chatListInfo.setMsgType(ChatType.VOICE.getName());
         //保存到数据库

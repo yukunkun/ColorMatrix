@@ -14,7 +14,7 @@ public class ChatListInfo extends DataSupport{
     private int type;
     private int typeSn;
     private Bitmap mBitmap;
-    private double msgTime;
+    private long msgTime;
     private String msgType;
     private boolean isReceive;
     private long timeStamp;    //时间戳
@@ -22,6 +22,8 @@ public class ChatListInfo extends DataSupport{
     private String imagePath;
     private String videoPath;
     private String filePath;
+    private boolean audioIsPlay;
+    private long duration;
 
     public String getImagePath() {
         return imagePath;
@@ -67,8 +69,16 @@ public class ChatListInfo extends DataSupport{
         return msgTime;
     }
 
-    public void setMsgTime(double msgTime) {
+    public void setMsgTime(long msgTime) {
         this.msgTime = msgTime;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 
     public Bitmap getBitmap() {
@@ -119,6 +129,14 @@ public class ChatListInfo extends DataSupport{
         this.filePath = filePath;
     }
 
+    public boolean isAudioIsPlay() {
+        return audioIsPlay;
+    }
+
+    public void setAudioIsPlay(boolean audioIsPlay) {
+        this.audioIsPlay = audioIsPlay;
+    }
+
     @Override
     public String toString() {
         return "ChatListInfo{" +
@@ -134,6 +152,7 @@ public class ChatListInfo extends DataSupport{
                 ", imagePath='" + imagePath + '\'' +
                 ", videoPath='" + videoPath + '\'' +
                 ", filePath='" + filePath + '\'' +
+                ", audioIsPlay='" + audioIsPlay + '\'' +
                 '}';
     }
 }
