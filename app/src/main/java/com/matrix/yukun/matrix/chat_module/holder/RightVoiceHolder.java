@@ -16,13 +16,14 @@ import com.matrix.yukun.matrix.chat_module.emoji.CubeEmoticonTextView;
 public class RightVoiceHolder extends RecyclerView.ViewHolder {
     public CubeEmoticonTextView mTextViewRight;
     public ImageView mImageViewRight,mIvPlay;
-    public TextView mTextViewRightTime;
+    public TextView mTextViewRightTime,tvSenond;
     public SeekBar mSeekBar;
 
     public RightVoiceHolder(View itemView) {
         super(itemView);
         mTextViewRightTime= (TextView) itemView.findViewById(R.id.rigth_time);
         mImageViewRight = (ImageView) itemView.findViewById(R.id.ci_right_head);
+        tvSenond=itemView.findViewById(R.id.tv_second);
         mSeekBar=itemView.findViewById(R.id.seekbar);
         mIvPlay=itemView.findViewById(R.id.iv_play);
     }

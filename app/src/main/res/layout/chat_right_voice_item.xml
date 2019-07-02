@@ -50,6 +50,14 @@
                 android:layout_marginLeft="@dimen/dimens_3"
                 android:layout_width="@dimen/dimens_30"
                 android:layout_height="@dimen/dimens_30" />
+            <TextView
+                android:id="@+id/tv_second"
+                android:layout_marginLeft="@dimen/dimens_5"
+                android:layout_toRightOf="@+id/iv_play"
+                android:layout_width="wrap_content"
+                android:layout_alignBaseline="@+id/iv_play"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content" />
             <ImageView
                 android:src="@mipmap/icon_chat_voice_msg"
                 android:layout_marginRight="@dimen/dimens_3"

@@ -69,7 +69,7 @@ public class RightVoiceHolderWrapper {
         }else {
             Glide.with(mContext).load(MyApplication.getUserInfo().getImg()).into((holder).mImageViewRight);
         }
-
+        holder.tvSenond.setText(chatListInfo.getDuration()/1000+"''");
         if(!chatListInfo.isAudioIsPlay()){
             holder.mSeekBar.setVisibility(View.GONE);
             holder.mIvPlay.setImageResource(R.mipmap.icon_video_play);
