@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.activity.GaiaSearchActivity;
 import com.matrix.yukun.matrix.gaia_module.adapter.RVGaiaAdapter;
@@ -62,6 +63,7 @@ public class GaiaFragment extends BaseFragment {
         rvList.setLayoutManager(mGridLayoutManager);
         mRvGaiaAdapter = new RVGaiaAdapter(R.layout.gaia_index_layout_item,mGaiaIndexBeans);
         rvList.setAdapter(mRvGaiaAdapter);
+        mRvGaiaAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         initData();
     }
 
