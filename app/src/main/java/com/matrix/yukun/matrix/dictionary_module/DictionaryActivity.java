@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;

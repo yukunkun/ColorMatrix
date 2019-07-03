@@ -21,10 +21,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -39,13 +37,10 @@ import com.matrix.yukun.matrix.chat_module.fragment.emoji.EmojiPreFragment;
 import com.matrix.yukun.matrix.chat_module.fragment.more.ChatToolFragment;
 import com.matrix.yukun.matrix.chat_module.fragment.voice.RecordFragment;
 import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
-import com.matrix.yukun.matrix.constant.AppConstant;
-import com.matrix.yukun.matrix.main_module.MainActivity;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.util.KeyBoardUtil;
 import com.matrix.yukun.matrix.util.SpacesItemDecoration;
-import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.matrix.yukun.matrix.video_module.common.Constanct;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.miracle.view.imageeditor.bean.EditorSetup;
 

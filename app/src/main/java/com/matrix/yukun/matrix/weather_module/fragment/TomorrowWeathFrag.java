@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.movie_module.BaseFrag;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.selfview.WaterLoadView;

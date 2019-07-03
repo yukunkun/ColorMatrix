@@ -51,7 +51,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:label">
-        <activity android:name=".note_module.activity.NoteSettingActivity"></activity>
+        <activity android:name=".note_module.activity.NoteSettingActivity" />
         <!--
         android:name=".main_module.SplashActivity"
         .gif_module.activity.GifProActivity
@@ -130,7 +130,6 @@
         <activity
             android:name=".setting_module.AgreeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".camera_module.CorpActivity" />
         <activity
             android:name=".camera_module.CameraActivity"
             android:screenOrientation="portrait" />
@@ -363,6 +362,8 @@
             android:windowSoftInputMode="stateVisible|adjustResize|stateAlwaysHidden" />
         <activity
             android:name=".note_module.activity.NotePreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".gaia_module.activity.GaiaSearchActivity"
             android:screenOrientation="portrait" />
     </application>
 

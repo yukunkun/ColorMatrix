@@ -1,14 +1,11 @@
 package com.matrix.yukun.matrix.video_module.play;
 
 import android.animation.Animator;
-import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -21,7 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.download_module.DownLoadActivity;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.matrix.yukun.matrix.R;

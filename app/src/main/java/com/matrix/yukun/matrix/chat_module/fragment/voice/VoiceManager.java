@@ -2,8 +2,7 @@ package com.matrix.yukun.matrix.chat_module.fragment.voice;
 
 import android.media.MediaRecorder;
 
-import com.matrix.yukun.matrix.chat_module.inputListener.VoiceRecordListener;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import java.io.File;
 import java.io.IOException;
 

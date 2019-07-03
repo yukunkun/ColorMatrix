@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 import java.io.File;
 import java.util.ArrayList;

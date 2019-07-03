@@ -19,7 +19,6 @@
             android:paddingTop="4dp"
                     android:id="@+id/rg"
                     android:orientation="horizontal"
-                    android:weightSum="3"
                     android:background="@color/color_write"
                     android:layout_height="54dp"
                     android:layout_alignParentBottom="true">
@@ -32,6 +31,15 @@
                          android:button="@null"
                          android:gravity="center"
                          android:drawableTop="@drawable/live_section_index"/>
+                <RadioButton android:id="@+id/gaia"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="gaia"
+                    android:textColor="@drawable/selector_main_text"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:drawableTop="@drawable/live_section_gaia"/>
             <RadioButton android:layout_width="0dp"
                          android:layout_weight="1"
                          android:id="@+id/collect"
@@ -49,6 +57,6 @@
                          android:textColor="@drawable/selector_main_text"
                          android:drawableTop="@drawable/live_section_me"
                          android:gravity="center"
-                         android:layout_height="match_parent"/>
+                         android:layout_height="wrap_content"/>
         </RadioGroup>
 </RelativeLayout>

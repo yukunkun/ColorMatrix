@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.video_module.utils.DownLoadUtils;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 

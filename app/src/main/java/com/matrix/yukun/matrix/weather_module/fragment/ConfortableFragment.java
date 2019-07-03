@@ -1,6 +1,5 @@
 package com.matrix.yukun.matrix.weather_module.fragment;
 
-import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,7 +18,7 @@ import com.matrix.yukun.matrix.movie_module.BaseFrag;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.selfview.MyListView;
 import com.matrix.yukun.matrix.selfview.WaterLoadView;
-import com.matrix.yukun.matrix.task.AddressInitTask;
+import com.matrix.yukun.matrix.util.task.AddressInitTask;
 import com.matrix.yukun.matrix.weather_module.animutils.AnimUtils;
 import com.matrix.yukun.matrix.weather_module.bean.EventCity;
 import com.matrix.yukun.matrix.weather_module.bean.EventDay;

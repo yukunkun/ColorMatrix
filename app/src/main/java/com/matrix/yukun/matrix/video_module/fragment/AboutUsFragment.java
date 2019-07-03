@@ -31,7 +31,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.chat_module.ChatMemberActivity;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.gesture_module.GestureActivity;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
 import com.matrix.yukun.matrix.video_module.MyApplication;

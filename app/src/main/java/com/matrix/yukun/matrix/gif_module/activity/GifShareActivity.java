@@ -17,12 +17,11 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.util.DataUtils;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.matrix.yukun.matrix.video_module.dialog.ShareDialog;
 import com.matrix.yukun.matrix.video_module.play.ImageDetailActivity;
-import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 
 import java.io.File;
 import java.io.IOException;

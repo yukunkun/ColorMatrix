@@ -7,11 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,32 +19,22 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
-import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.selfview.BMoveView;
-import com.matrix.yukun.matrix.util.GetCity;
-import com.matrix.yukun.matrix.util.ScreenUtils;
 import com.matrix.yukun.matrix.weather_module.bean.EventDay;
 import com.matrix.yukun.matrix.weather_module.fragment.ConfortableFragment;
 import com.matrix.yukun.matrix.weather_module.fragment.TodayWeathFrag;
 import com.matrix.yukun.matrix.weather_module.fragment.TomorrowWeathFrag;
 import com.matrix.yukun.matrix.weather_module.present.WeatherPreImpl;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.TimerTask;
-
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl {
 

@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.util.BitmapUtil;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.matrix.yukun.matrix.video_module.entity.EventUpdateHeader;

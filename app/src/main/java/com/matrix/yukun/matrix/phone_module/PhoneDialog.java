@@ -8,7 +8,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.util.ScreenUtils;
 import com.matrix.yukun.matrix.video_module.BaseCenterDialog;
 import com.zhy.http.okhttp.OkHttpUtils;

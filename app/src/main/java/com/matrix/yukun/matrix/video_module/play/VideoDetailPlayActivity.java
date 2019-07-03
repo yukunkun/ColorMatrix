@@ -1,6 +1,5 @@
 package com.matrix.yukun.matrix.video_module.play;
 
-import android.animation.Animator;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
@@ -9,26 +8,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.download_module.service.DownLoadEngine;
-import com.matrix.yukun.matrix.download_module.service.DownLoadManager;
-import com.matrix.yukun.matrix.download_module.service.DownLoadServiceImpl;
 import com.matrix.yukun.matrix.download_module.service.DownloadNotificationService;
 import com.matrix.yukun.matrix.selfview.floatingview.FloatingViewManager;
-import com.matrix.yukun.matrix.task.LogUtils;
 import com.matrix.yukun.matrix.util.NetStates;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.matrix.yukun.matrix.video_module.entity.EventVideo;

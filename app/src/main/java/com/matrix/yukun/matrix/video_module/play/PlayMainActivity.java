@@ -31,6 +31,7 @@ import com.matrix.yukun.matrix.video_module.dialog.GestureDialog;
 import com.matrix.yukun.matrix.video_module.entity.EventVideo;
 import com.matrix.yukun.matrix.video_module.entity.EyesInfo;
 import com.matrix.yukun.matrix.video_module.fragment.AboutUsFragment;
+import com.matrix.yukun.matrix.video_module.fragment.GaiaFragment;
 import com.matrix.yukun.matrix.video_module.fragment.PlayFragment;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.matrix.yukun.matrix.R;
@@ -67,6 +68,7 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
     private String mNextUrl;
     private EyesInfo mEyesInfo;
     private RelativeLayout mLayout;
+    private GaiaFragment mGaiaFragment;
 
     @Override
     public int getLayout() {
@@ -85,12 +87,12 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
         EventBus.getDefault().register(this);
         PlayFragment playFragment= PlayFragment.getInstance();
         mFragments.add(playFragment);
-//        MyCollectFragment myCollectFragment= MyCollectFragment.getInstance();
+        mGaiaFragment = GaiaFragment.getInstance();
+        mFragments.add(mGaiaFragment);
         mToolFragment = ToolFragment.getInstance();
         mFragments.add(mToolFragment);
         AboutUsFragment aboutUsFragment= AboutUsFragment.getInstance();
         mFragments.add(aboutUsFragment);
-
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.fl_layout, playFragment);
         fragmentTransaction.commit();
@@ -114,16 +116,21 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
                     ((RadioButton) (mRg.getChildAt(0))).setChecked(true);
                     bottomViewAnimation(mRg.getChildAt(0));
                     show(0);
-
-                } else if (checkedId == R.id.collect) {
+                }
+                else if (checkedId == R.id.gaia) {
                     ((RadioButton) (mRg.getChildAt(1))).setChecked(true);
                     bottomViewAnimation(mRg.getChildAt(1));
                     show(1);
 
-                } else if (checkedId == R.id.me) {
+                }else if (checkedId == R.id.collect) {
                     ((RadioButton) (mRg.getChildAt(2))).setChecked(true);
                     bottomViewAnimation(mRg.getChildAt(2));
                     show(2);
+
+                } else if (checkedId == R.id.me) {
+                    ((RadioButton) (mRg.getChildAt(3))).setChecked(true);
+                    bottomViewAnimation(mRg.getChildAt(3));
+                    show(3);
                 }
             }
         });

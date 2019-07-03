@@ -1,19 +1,14 @@
 package com.matrix.yukun.matrix.gif_module.activity;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
 import android.media.ExifInterface;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -26,7 +21,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.gif_module.adapter.RVCropAdapter;
 import com.matrix.yukun.matrix.gif_module.bean.ImageBean;
 import com.matrix.yukun.matrix.gif_module.dialog.LoadDialog;
@@ -35,9 +30,7 @@ import com.matrix.yukun.matrix.qrcode_module.cropper.CropImageView;
 import com.matrix.yukun.matrix.qrcode_module.cropper.FileDownloadUtil;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.util.ScreenUtils;
-import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
-import com.matrix.yukun.matrix.video_module.utils.ScreenUtil;
 import com.matrix.yukun.matrix.video_module.utils.SpacesDoubleDecoration;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 

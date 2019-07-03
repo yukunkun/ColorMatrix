@@ -2,7 +2,7 @@ package com.matrix.yukun.matrix.download_module.service;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.download_module.bean.DownLoadError;
 import com.matrix.yukun.matrix.download_module.bean.FileInfo;
 import com.matrix.yukun.matrix.util.log.LogUtil;

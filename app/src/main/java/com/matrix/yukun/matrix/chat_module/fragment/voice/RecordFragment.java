@@ -95,7 +95,6 @@ public class RecordFragment extends Fragment implements MediaRecordListener {
     @Override
     public void recordStop(String path,long s) {
         if(isSend){
-            VoiceManager.getInstance().stop();
             ((ChatBaseActivity)getContext()).sendVoiceMsg(mPath,mDuration);
         }else {
             getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fl_contain, new PlayFragment(path,s)).commit();

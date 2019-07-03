@@ -20,14 +20,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import zhy.com.highlight.HighLight;
-import zhy.com.highlight.interfaces.HighLightInterface;
-import zhy.com.highlight.position.OnBottomPosCallback;
-import zhy.com.highlight.position.OnLeftPosCallback;
-import zhy.com.highlight.shape.CircleLightShape;
-import zhy.com.highlight.shape.RectLightShape;
-import zhy.com.highlight.view.HightLightView;
-
 public class ToolsActivity extends BaseActivity implements View.OnClickListener {
 
 
@@ -74,7 +66,6 @@ public class ToolsActivity extends BaseActivity implements View.OnClickListener 
                                     .getViewTreeObserver()
                                     .removeGlobalOnLayoutListener(this);
                         }
-                        showHighLight(mTvTitle);
                     }
                 });
     }
@@ -87,21 +78,6 @@ public class ToolsActivity extends BaseActivity implements View.OnClickListener 
         mListImage.add(R.mipmap.icon_tool_erweima);
         mListImage.add(R.mipmap.icon_tool_movie);
         mListImage.add(R.mipmap.icon_tool_weather);
-        showHighLight(mTvTitle);
-    }
-
-    private void showHighLight(TextView tvTitle) {
-        HighLight highLight = new HighLight(this);
-        highLight.autoRemove(true)
-                .enableNext()
-                .addHighLight(tvTitle,R.layout.info_know,new OnBottomPosCallback(5),new CircleLightShape())//矩形去除圆角
-                .setOnRemoveCallback(new HighLightInterface.OnRemoveCallback() {
-                    @Override
-                    public void onRemove() {
-                        ToastUtils.showToast("remove");
-                    }
-                })
-                .show();
     }
 
     @Override
