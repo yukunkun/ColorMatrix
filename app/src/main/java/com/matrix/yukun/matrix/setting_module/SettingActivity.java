@@ -23,9 +23,6 @@ import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.video_module.play.MyGallaryActivity;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.wallpaper_module.WallpaperActivity;
-import com.mcxtzhang.pathanimlib.StoreHouseAnimView;
-import com.mcxtzhang.pathanimlib.res.StoreHousePath;
-import com.mcxtzhang.pathanimlib.utils.PathParserUtils;
 import com.tencent.bugly.beta.Beta;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,10 +43,6 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
-        StoreHouseAnimView mAnimView = (StoreHouseAnimView)findViewById(R.id.storeHouseAnimView);
-        mAnimView.setColorBg(Color.WHITE).setColorFg(Color.BLACK);
-        mAnimView.setSourcePath(PathParserUtils.getPathFromArrayFloatList(StoreHousePath.getPath("SETTING",0.4f,5)));
-        mAnimView.setPathMaxLength(400).setAnimTime(2000).startAnim();
         setAdapter();
         setListener();
     }

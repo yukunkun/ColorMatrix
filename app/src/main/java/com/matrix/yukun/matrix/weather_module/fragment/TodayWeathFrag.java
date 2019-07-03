@@ -1,14 +1,11 @@
 package com.matrix.yukun.matrix.weather_module.fragment;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.movie_module.BaseFrag;
@@ -34,16 +30,10 @@ import com.matrix.yukun.matrix.weather_module.bean.WeaHours;
 import com.matrix.yukun.matrix.weather_module.bean.WeaNow;
 import com.matrix.yukun.matrix.weather_module.present.TodayFragmentImpl;
 import com.matrix.yukun.matrix.weather_module.present.TodayPresent;
-import com.mcxtzhang.pathanimlib.StoreHouseAnimView;
-import com.mcxtzhang.pathanimlib.res.StoreHousePath;
-import com.mcxtzhang.pathanimlib.utils.PathParserUtils;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
@@ -119,14 +109,9 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
     private LinearLayoutManager linearLayoutManager;
     private RecyclerAdapter recyclerAdapter;
     private String city;
-    private StoreHouseAnimView mAnimView;
-    //    private StoreHouseAnimView todayTime;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-//        progressDialog = new ProgressDialog(getContext());
-//        progressDialog.setMessage("刷新中...");
-//        progressDialog.show();
         Bundle arguments = getArguments();
         city = arguments.getString("city");
         topPresent = new TodayPresent(this, city);
@@ -154,10 +139,6 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
         mWaterload.setVisibility(View.VISIBLE);
         OverScrollDecoratorHelper.setUpOverScroll(scrollview);
         //动画
-        mAnimView = (StoreHouseAnimView) inflate.findViewById(R.id.pathAnimView1);
-        mAnimView.setColorBg(Color.GRAY).setColorFg(Color.WHITE);
-        mAnimView.setSourcePath(PathParserUtils.getPathFromArrayFloatList(StoreHousePath.getPath("today", 0.45f, 5)));
-        mAnimView.setPathMaxLength(150).setAnimTime(2000).startAnim();
         setListener();
         return inflate;
     }
@@ -341,10 +322,5 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        if (mAnimView != null) {
-            mAnimView.stopAnim();
-        }
-
     }
-
 }

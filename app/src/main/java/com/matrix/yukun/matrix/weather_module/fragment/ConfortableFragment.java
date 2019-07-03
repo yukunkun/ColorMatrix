@@ -25,9 +25,7 @@ import com.matrix.yukun.matrix.weather_module.bean.EventDay;
 import com.matrix.yukun.matrix.weather_module.bean.WeaLifePoint;
 import com.matrix.yukun.matrix.weather_module.present.ConforableFragImpl;
 import com.matrix.yukun.matrix.weather_module.present.ConfortablePresent;
-import com.mcxtzhang.pathanimlib.PathAnimView;
-import com.mcxtzhang.pathanimlib.res.StoreHousePath;
-import com.mcxtzhang.pathanimlib.utils.PathParserUtils;
+import com.scwang.smartrefresh.header.storehouse.StoreHousePath;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -76,8 +74,6 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
     private ConfortablePresent mPresent;
     private String city;
     private MyListAdapter myListAdapter;
-    private PathAnimView mAnimView;
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,10 +103,6 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
         // Horizontal
         OverScrollDecoratorHelper.setUpOverScroll(scrollView);
         mWaterload.setVisibility(View.VISIBLE);
-        mAnimView = (PathAnimView) inflate.findViewById(R.id.pathAnimView1);
-        mAnimView.setColorBg(Color.GRAY).setColorFg(Color.WHITE);
-        mAnimView.setSourcePath(PathParserUtils.getPathFromArrayFloatList(StoreHousePath.getPath("comfortable", 0.35f, 5)));
-        mAnimView.startAnim();
         setListener();
 //        mPresent.getInfo(city);
         return inflate;
@@ -192,8 +184,5 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        if (mAnimView != null) {
-            mAnimView.stopAnim();
-        }
     }
 }

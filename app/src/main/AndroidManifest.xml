@@ -365,6 +365,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".gaia_module.activity.GaiaSearchActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".setting_module.ResponsbilityActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

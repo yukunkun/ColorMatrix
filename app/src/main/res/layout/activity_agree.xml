@@ -14,14 +14,6 @@
             android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
             android:layout_width="@dimen/dimens_60"
             android:layout_height="match_parent" />
-        <com.mcxtzhang.pathanimlib.StoreHouseAnimView
-            android:id="@+id/storeHouseAnimView"
-            android:layout_width="135dp"
-            android:layout_alignParentRight="true"
-            android:paddingTop="25dp"
-            android:layout_centerVertical="true"
-            android:paddingLeft="2dp"
-            android:layout_height="wrap_content" />
     </RelativeLayout>
     <WebView
         android:layout_marginTop="@dimen/dimens_60"
