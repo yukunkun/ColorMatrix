@@ -6,15 +6,16 @@ import android.content.Intent;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 
-public class GaiaSearchActivity extends BaseActivity {
+public class MaterialActivity extends BaseActivity {
 
     public static void start(Context context){
-        Intent intent=new Intent(context,GaiaSearchActivity.class);
+        Intent intent=new Intent(context,MaterialActivity.class);
         context.startActivity(intent);
     }
+
     @Override
     public int getLayout() {
-        return R.layout.activity_gaia_search;
+        return R.layout.activity_material;
     }
 
     @Override

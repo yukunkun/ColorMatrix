@@ -7,7 +7,8 @@
         android:layout_marginLeft="@dimen/dimens_5"
         android:layout_marginRight="@dimen/dimens_5"
         android:layout_marginBottom="@dimen/dimens_5"
-        android:background="@color/color_text"
+        android:src="@mipmap/bg_header_nav"
+        android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimens_200" />
 </RelativeLayout>

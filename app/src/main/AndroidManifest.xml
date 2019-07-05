@@ -363,10 +363,15 @@
         <activity
             android:name=".note_module.activity.NotePreviewActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".gaia_module.activity.GaiaSearchActivity"
+        <activity
+            android:name=".gaia_module.activity.GaiaSearchActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".setting_module.ResponsbilityActivity"
+        <activity
+            android:name=".setting_module.ResponsbilityActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".gaia_module.activity.ProductActivity" />
+        <activity android:name=".gaia_module.activity.MaterialActivity" />
+        <activity android:name=".gaia_module.activity.GaiaPlayActivity"></activity>
     </application>
 
 </manifest>

@@ -89,6 +89,8 @@ public class RightVoiceHolderWrapper {
                 public void onComplete() {
                     holder.mIvPlay.setImageResource(R.mipmap.icon_video_play);
                     holder.mSeekBar.setVisibility(View.GONE);
+                    chatListInfo.setAudioIsPlay(false);
+                    chatListInfo.saveOrUpdate();
                     if(mHandler!=null){
                         mHandler.removeMessages(1);
                     }
