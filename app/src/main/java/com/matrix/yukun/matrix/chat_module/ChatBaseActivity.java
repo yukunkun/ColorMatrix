@@ -3,7 +3,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -16,7 +16,6 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.chat_module.adapter.ChatAdapter;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
-import com.matrix.yukun.matrix.chat_module.entity.ChatType;
 import com.matrix.yukun.matrix.chat_module.entity.Photo;
 import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
 import com.matrix.yukun.matrix.chat_module.mvp.BasePresenter;
@@ -26,7 +25,8 @@ import com.matrix.yukun.matrix.chat_module.mvp.InputPanel;
 import com.matrix.yukun.matrix.chat_module.mvp.MVPBaseActivity;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
 import com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout;
-import com.matrix.yukun.matrix.util.getPhotoFromPhotoAlbum;import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.util.GetPhotoFromPhotoAlbum;
+import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.miracle.view.imageeditor.bean.EditorResult;
 
 import java.io.File;
@@ -170,25 +170,29 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         String photoPath;
         if (requestCode == InputPanel.ACTION_REQUEST_IMAGE && resultCode == RESULT_OK) {
             if(data.getData()!=null){
-                photoPath = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
+                photoPath = GetPhotoFromPhotoAlbum.getPath(this, data.getData());
                 sendImageMsg(photoPath);
             }else {
                 ToastUtils.showToast("send message error");
             }
         }
         if (requestCode == InputPanel.ACTION_REQUEST_VIDEO && resultCode == RESULT_OK) { //视频
-            String videoPath = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
+            String videoPath = GetPhotoFromPhotoAlbum.getPath(this, data.getData());
             ChatListInfo videoChatInfo = mChatPresenter.createVideoChatInfo(videoPath, type, false);
             mChatInfos.add(videoChatInfo);
             mChatAdapter.notifyDataSetChanged();
             mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
         }
         if (requestCode == InputPanel.ACTION_REQUEST_FILE && resultCode == RESULT_OK) { //文件
-            String videoPath = getPhotoFromPhotoAlbum.getRealPathFromUri(this, data.getData());
-            ChatListInfo videoChatInfo = mChatPresenter.createFileChatInfo(videoPath, type, false);
-            mChatInfos.add(videoChatInfo);
-            mChatAdapter.notifyDataSetChanged();
-            mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
+             String videoPath = GetPhotoFromPhotoAlbum.getPath(this, data.getData());
+            if(!TextUtils.isEmpty(videoPath)){
+                ChatListInfo videoChatInfo = mChatPresenter.createFileChatInfo(videoPath, type, false);
+                mChatInfos.add(videoChatInfo);
+                mChatAdapter.notifyDataSetChanged();
+                mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
+            }else {
+                ToastUtils.showToast("文件选择失败");
+            }
         }
         if (requestCode == InputPanel.ACTION_REQUEST_CAMERA && resultCode == RESULT_OK) {
             cameraSavePath = new File(InputPanel.cameraSavePath);

@@ -57,6 +57,7 @@
             android:layout_width="match_parent"
             android:textColor="@color/color_text"
             android:singleLine="true"
+            android:text="error"
             android:ellipsize="middle"
             android:layout_height="wrap_content" />
         <TextView
@@ -68,6 +69,7 @@
             android:layout_toRightOf="@+id/iv_image"
             android:layout_below="@+id/tv_name"
             android:singleLine="true"
+            android:text="0B"
             android:textColor="@color/color_back"
             android:textSize="14sp"
             android:ellipsize="middle"

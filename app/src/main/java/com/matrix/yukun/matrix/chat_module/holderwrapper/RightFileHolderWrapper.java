@@ -2,24 +2,16 @@ package com.matrix.yukun.matrix.chat_module.holderwrapper;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.holder.RightFileHolder;
-import com.matrix.yukun.matrix.chat_module.holder.RightVideoHolder;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.video_module.MyApplication;
 import com.matrix.yukun.matrix.video_module.play.AboutUsActivity;
 import com.matrix.yukun.matrix.video_module.play.LoginActivity;
-import com.matrix.yukun.matrix.video_module.utils.FileUtils;
-import com.matrix.yukun.matrix.video_module.utils.ScreenUtils;
-import com.matrix.yukun.matrix.video_module.video.VideoPlayActivity;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -55,28 +47,32 @@ public class RightFileHolderWrapper {
             Glide.with(mContext).load(MyApplication.getUserInfo().getImg()).into((holder).mImageViewRight);
         }
         File file=new File(chatListInfo.getFilePath());
-        holder.mTvFileName.setText(file.getName());
-        holder.mTvFileSize.setText(FileUtil.formatFileSize(file.length()));
-        (holder).mImageViewRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(MyApplication.userInfo!=null) {
-                    Intent intent=new Intent(mContext, AboutUsActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mContext.startActivity(intent);
-                }else {
-                    Intent intent=new Intent(mContext, LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mContext.startActivity(intent);
+        if(file.exists()){
+            holder.mTvFileName.setText(file.getName());
+            holder.mTvFileSize.setText(FileUtil.formatFileSize(file.length()));
+            (holder).mImageViewRight.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(MyApplication.userInfo!=null) {
+                        Intent intent=new Intent(mContext, AboutUsActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContext.startActivity(intent);
+                    }else {
+                        Intent intent=new Intent(mContext, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContext.startActivity(intent);
+                    }
                 }
-            }
-        });
-        holder.mLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FileUtil.openFile(context,new File(chatListInfo.getFilePath()));
-            }
-        });
+            });
+            holder.mLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FileUtil.openFile(context,new File(chatListInfo.getFilePath()));
+                }
+            });
+        }
+
+
     }
 
 }
