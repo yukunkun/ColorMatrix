@@ -33,7 +33,8 @@
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView android:layout_width="match_parent"
+        <com.matrix.yukun.matrix.chat_module.emoji.CubeEmoticonTextView
+            android:layout_width="match_parent"
             android:gravity="center"
             android:layout_gravity="center"
             android:background="@color/color_write"

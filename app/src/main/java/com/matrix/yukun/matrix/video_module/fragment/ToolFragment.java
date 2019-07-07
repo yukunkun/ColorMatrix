@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import zhy.com.highlight.HighLight;
 
 /**
  * Created by Administrator on 2018/10/28.
@@ -40,7 +39,6 @@ public class ToolFragment extends BaseFragment implements View.OnClickListener {
     private ToolsRVAdapter mToolsRVAdapter;
     private List<String> mListName;
     private TextView mTvTitle;
-    private HighLight mHightLight;
     private Guide guide;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ImageView mIvShare;
@@ -148,36 +146,9 @@ public class ToolFragment extends BaseFragment implements View.OnClickListener {
                         long guide_time = SPUtils.getInstance().getLong("guide_time");
                         long currentTimeMillis = System.currentTimeMillis();
                         if(currentTimeMillis-guide_time>/*2*24*60*60*1000*/10000){
-//                            showGuideView(mTvTitle);
                         }
                     }
                 });
-    }
-
-    private void showGuideView(TextView tvTitle) {
-//        GuideBuilder builder = new GuideBuilder();
-//        builder.setTargetView(tvTitle)
-//                .setFullingViewId(R.id.id_contain)
-//                .setAlpha(150)
-//                .setHighTargetCorner(10)
-//                .setHighTargetPadding(5)
-//                .setOverlayTarget(false)
-//                .setOutsideTouchable(false);
-//        builder.setOnVisibilityChangedListener(new GuideBuilder.OnVisibilityChangedListener() {
-//            @Override public void onShown() {
-//
-//            }
-//
-//            @Override public void onDismiss() {
-//                long currentTimeMillis = System.currentTimeMillis();
-//                SPUtils.getInstance().saveLong("guide_time",currentTimeMillis);
-//            }
-//        });
-//
-//        builder.addComponent(new MutiComponent());
-//        guide = builder.createGuide();
-//        guide.setShouldCheckLocInWindow(true);
-//        guide.show(getActivity());
     }
 
     @Override

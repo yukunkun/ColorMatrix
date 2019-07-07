@@ -1,12 +1,10 @@
 package com.matrix.yukun.matrix.video_module.play;
 
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.transition.Explode;
 import android.transition.Slide;
 import android.transition.TransitionSet;
 import android.util.DisplayMetrics;
@@ -20,7 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.matrix.yukun.matrix.video_module.dialog.ShareDialog;
 import com.matrix.yukun.matrix.video_module.fragment.BaseCardFragment;

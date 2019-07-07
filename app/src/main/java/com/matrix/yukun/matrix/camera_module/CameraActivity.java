@@ -3,7 +3,6 @@ package com.matrix.yukun.matrix.camera_module;
 import android.content.Intent;
 
 import android.graphics.BitmapFactory;
-import android.graphics.Path;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.os.Bundle;
@@ -15,10 +14,9 @@ import android.widget.Toast;
 
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.image_module.bean.EventDetail;
 import com.matrix.yukun.matrix.util.BitmapUtil;
-import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
 

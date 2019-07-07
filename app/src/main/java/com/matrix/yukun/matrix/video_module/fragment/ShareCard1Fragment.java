@@ -9,7 +9,7 @@ import android.transition.Scene;
 import android.transition.TransitionManager;
 import android.view.View;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.util.ImageUtils;
 

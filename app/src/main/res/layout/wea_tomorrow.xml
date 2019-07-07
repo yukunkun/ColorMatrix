@@ -19,10 +19,12 @@
                 android:layout_width="@dimen/dimens_60"
                 android:layout_height="match_parent" />
         </LinearLayout>
-            <com.mcxtzhang.pathanimlib.StoreHouseAnimView
+            <TextView
                 android:id="@+id/pathAnimView1"
-                android:layout_width="102dp"
+                android:text="Tomorrow"
+                android:gravity="center"
                 android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:paddingTop="18dp"/>
         <ImageView

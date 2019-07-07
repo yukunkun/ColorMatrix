@@ -3,26 +3,16 @@ package com.matrix.yukun.matrix.gif_module.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.constant.AppConstant;
 import com.matrix.yukun.matrix.video_module.play.ImageDetailActivity;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-
-import pl.droidsonroids.gif.GifDrawable;
 
 /**
  * author: kun .

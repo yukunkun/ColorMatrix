@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.setting_module.AgreeActivity;
 import com.matrix.yukun.matrix.setting_module.FankuiDialog;
 import com.matrix.yukun.matrix.setting_module.IntroduceActivity;

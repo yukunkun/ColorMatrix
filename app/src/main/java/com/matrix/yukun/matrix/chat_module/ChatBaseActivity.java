@@ -1,9 +1,8 @@
 package com.matrix.yukun.matrix.chat_module;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -16,6 +15,7 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.chat_module.adapter.ChatAdapter;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
+import com.matrix.yukun.matrix.chat_module.entity.EventVoiceClick;
 import com.matrix.yukun.matrix.chat_module.entity.Photo;
 import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
 import com.matrix.yukun.matrix.chat_module.mvp.BasePresenter;
@@ -26,12 +26,18 @@ import com.matrix.yukun.matrix.chat_module.mvp.MVPBaseActivity;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
 import com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout;
 import com.matrix.yukun.matrix.util.GetPhotoFromPhotoAlbum;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.miracle.view.imageeditor.bean.EditorResult;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -79,6 +85,7 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
 
     @Override
     public void initView() {
+        EventBus.getDefault().register(this);
         type=getIntent().getIntExtra("type",0);
         mChatPresenter= (ChatPresenter) mPresenter;
         View view=LayoutInflater.from(this).inflate(R.layout.chat_header_view,null);
@@ -289,4 +296,28 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         mRvChatview.smoothScrollToPosition(mChatInfos.size() - 1);
     }
 
+    public void sendVoiceMsg(String voicePath,long mDuration){
+        ChatListInfo chatListInfo = mChatPresenter.creatVoiceChatInfo(voicePath,mDuration,type,false);
+        notifyAdapter(chatListInfo);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getVoiceClick(EventVoiceClick eventVoiceClick){
+        ChatListInfo chatListInfo = eventVoiceClick.chatListInfo;
+        for (int i = 0; i < mChatInfos.size(); i++) {
+            if(chatListInfo.getTimeStamp()==mChatInfos.get(i).getTimeStamp()){
+                mChatInfos.get(i).setAudioIsPlay(true);
+            }else {
+                mChatInfos.get(i).setAudioIsPlay(false);
+            }
+        }
+        LogUtil.i("======",mChatInfos.toString());
+        mChatAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

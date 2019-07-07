@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.movie_module.BaseFrag;
 import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
 import com.matrix.yukun.matrix.selfview.WaterLoadView;
@@ -30,12 +30,10 @@ import com.matrix.yukun.matrix.weather_module.animutils.AnimUtils;
 import com.matrix.yukun.matrix.weather_module.bean.WeaTomorrow;
 import com.matrix.yukun.matrix.weather_module.present.TomorrowFragmentImpl;
 import com.matrix.yukun.matrix.weather_module.present.TomorrowPresent;
-import com.mcxtzhang.pathanimlib.StoreHouseAnimView;
-import com.mcxtzhang.pathanimlib.res.StoreHousePath;
-import com.mcxtzhang.pathanimlib.utils.PathParserUtils;
 import com.qq.e.ads.banner.ADSize;
 import com.qq.e.ads.banner.AbstractBannerADListener;
 import com.qq.e.ads.banner.BannerView;
+import com.scwang.smartrefresh.header.storehouse.StoreHousePath;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -100,7 +98,6 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
     private LinearLayoutManager linearLayoutManager;
     private RecyclerTomorrowAdapter recyclerTomorrowAdapter;
     private BannerView mBannerView;
-    private StoreHouseAnimView mAnimView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -129,11 +126,6 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
         // Horizontal
         OverScrollDecoratorHelper.setUpOverScroll(scrollView);
         mWaterload.setVisibility(View.VISIBLE);
-        //动画
-        mAnimView = (StoreHouseAnimView) inflate.findViewById(R.id.pathAnimView1);
-        mAnimView.setColorBg(Color.GRAY).setColorFg(Color.WHITE);
-        mAnimView.setSourcePath(PathParserUtils.getPathFromArrayFloatList(StoreHousePath.getPath("tomorrow", 0.4f, 5)));
-        mAnimView.setPathMaxLength(150).setAnimTime(2000).startAnim();
         setListener();
         getBanner();
         return inflate;
@@ -288,9 +280,6 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        if (mAnimView != null) {
-            mAnimView.stopAnim();
-        }
     }
 
     @Override

@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.github.rubensousa.floatingtoolbar.FloatingToolbar;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.util.Base64Encode;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.video_module.BaseActivity;

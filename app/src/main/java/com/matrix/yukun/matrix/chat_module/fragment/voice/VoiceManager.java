@@ -2,8 +2,7 @@ package com.matrix.yukun.matrix.chat_module.fragment.voice;
 
 import android.media.MediaRecorder;
 
-import com.matrix.yukun.matrix.chat_module.inputListener.VoiceRecordListener;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import java.io.File;
 import java.io.IOException;
 
@@ -38,28 +37,24 @@ public class VoiceManager {
 
     }
 
-    public void startRecord(){
+    public void startRecord(final String name){
         Thread thread=new Thread(new Runnable() {
             @Override
             public void run() {
-                start();
+                start(name);
             }
         });
         thread.start();
     }
 
-    private void start(){
-        if(isRecord){
+    private void start(String name){
+        if(!isRecord){
             isRecord=true;
             mMediaRecorder = new MediaRecorder();
             //创建录音文件
-            mRecorderFile = new File(AppConstant.IMAGEPATH+AppConstant.VOICEPATH+
-                    System.currentTimeMillis() + ".m4a");
-            if (!mRecorderFile.getParentFile().exists()) mRecorderFile.getParentFile().mkdirs();
-            try {
-                mRecorderFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
+            mRecorderFile = new File(AppConstant.VOICEPATH,name);
+            if (!mRecorderFile.getParentFile().exists()) {
+                mRecorderFile.getParentFile().mkdirs();
             }
             //从麦克风采集
             mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -86,7 +81,6 @@ public class VoiceManager {
             mMediaRecordListener.recordFail();
             isRecord=false;
         }
-
     }
 
     public void stop(){
@@ -95,12 +89,12 @@ public class VoiceManager {
             mStopRecorderTime = System.currentTimeMillis();
             final int second = (int) (mStopRecorderTime - mStartRecorderTime) / 1000;
             //按住时间小于3秒钟，算作录取失败，不进行发送
-            if (second < 3){
+            if (second < 1){
                 mMediaRecordListener.recordFail();
                 isRecord=false;
                 return;
             }
-            mMediaRecordListener.recordStop(mRecorderFile.getAbsolutePath());
+            mMediaRecordListener.recordStop(mRecorderFile.getAbsolutePath(),second);
         } catch (Exception e) {
             e.printStackTrace();
         }

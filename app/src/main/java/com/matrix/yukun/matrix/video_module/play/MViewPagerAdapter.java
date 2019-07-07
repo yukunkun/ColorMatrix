@@ -28,6 +28,7 @@ public class MViewPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return mTitleList.length;
     }
+
     @Override
     public CharSequence getPageTitle(int position) {
         return mTitleList[position];//页卡标题

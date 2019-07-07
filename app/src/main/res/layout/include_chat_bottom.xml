@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-            <EditText
+            <com.matrix.yukun.matrix.chat_module.emoji.CubeEmoticonEditText
                 android:id="@+id/et_messg"
                 android:layout_marginLeft="10dp"
                 android:layout_width="0dp"

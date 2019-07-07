@@ -1,7 +1,7 @@
 package com.matrix.yukun.matrix.weather_module.present;
 
 
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.movie_module.util.MovieService;
 import com.matrix.yukun.matrix.movie_module.util.RetrofitApi;
 import com.matrix.yukun.matrix.weather_module.bean.WeaHours;

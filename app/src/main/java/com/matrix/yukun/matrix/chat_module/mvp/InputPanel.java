@@ -21,10 +21,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,18 +30,17 @@ import com.imageeditor.ImageEditorActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.ChatBaseActivity;
 import com.matrix.yukun.matrix.chat_module.adapter.ChatPictureAdapter;
+import com.matrix.yukun.matrix.chat_module.emoji.CubeEmoticonEditText;
 import com.matrix.yukun.matrix.chat_module.entity.Photo;
 import com.matrix.yukun.matrix.chat_module.fragment.emoji.EmojiFragment;
+import com.matrix.yukun.matrix.chat_module.fragment.emoji.EmojiPreFragment;
 import com.matrix.yukun.matrix.chat_module.fragment.more.ChatToolFragment;
 import com.matrix.yukun.matrix.chat_module.fragment.voice.RecordFragment;
 import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
-import com.matrix.yukun.matrix.constant.AppConstant;
-import com.matrix.yukun.matrix.main_module.MainActivity;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.util.KeyBoardUtil;
 import com.matrix.yukun.matrix.util.SpacesItemDecoration;
-import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.matrix.yukun.matrix.video_module.common.Constanct;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.miracle.view.imageeditor.bean.EditorSetup;
 
@@ -56,12 +53,12 @@ import java.util.List;
  * author: kun .
  * date:   On 2019/5/10
  */
-public class InputPanel implements View.OnClickListener {
+public class InputPanel implements View.OnClickListener, EmojiPreFragment.OnEmojiClickListener {
     public String TAG = "InputPanel";
     private View mRootView;
     private InputListener mInputListener;
     private Context mContext;
-    private EditText mEtMessage;
+    private CubeEmoticonEditText mEtMessage;
     private Button mBtSend;
     private Button mBtAdd;
     private ImageView mIvPicture;
@@ -148,6 +145,23 @@ public class InputPanel implements View.OnClickListener {
         });
     }
 
+    @Override
+    public void onEmojClickListener(String key){
+        this.mEtMessage.requestFocus();
+        Editable editable = this.mEtMessage.getText();
+        if (key.equals("/DEL")) {
+            this.mEtMessage.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
+        }
+        else {
+            int start = this.mEtMessage.getSelectionStart();
+            int end = this.mEtMessage.getSelectionEnd();
+            start = (start < 0 ? 0 : start);
+            end = (end < 0 ? 0 : end);
+            editable.replace(start, end, key);
+        }
+        this.mEtMessage.requestFocus();
+    };
+
     private void initListener() {
         mBtAdd.setOnClickListener(this);
         mBtSend.setOnClickListener(this);
@@ -158,6 +172,7 @@ public class InputPanel implements View.OnClickListener {
         mTvEdit.setOnClickListener(this);
         mTvPhoto.setOnClickListener(this);
         mIvVideo.setOnClickListener(this);
+        EmojiPreFragment.setOnEmojiClickListener(this);
         mEtMessage.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -233,7 +248,8 @@ public class InputPanel implements View.OnClickListener {
             case R.id.send_btn:
                 mInputListener.onSendMessageClick(mEtMessage.getText().toString().trim());
                 mEtMessage.setText("");
-                KeyBoardUtil.closeKeyboard(mContext, mEtMessage);
+//                KeyBoardUtil.closeKeyboard(mContext, mEtMessage);
+//                dismissLayout();
                 break;
             case R.id.iv_picture:
                 taggleToPicture();

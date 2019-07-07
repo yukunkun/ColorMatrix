@@ -24,6 +24,10 @@ public class RecordFragment extends Fragment implements MediaRecordListener {
     private View              mRootView;
     private View     mChatContainer;
     private ChatBaseActivity mChatActivity;
+    private String mVoiceName;
+    private String mPath;
+    private long mDuration;
+    private boolean isSend;
 
     /**
      * Fragment必须要有空的构造函数，否则直接crash。因为Fragment源码中用到反射构造了对象，是无参数的构造函数
@@ -55,13 +59,15 @@ public class RecordFragment extends Fragment implements MediaRecordListener {
             @Override
             public void onRecordStart() {
                 Log.v("test", "开始");
-                VoiceManager.getInstance().startRecord();
+                isSend=false;
+                mVoiceName = System.currentTimeMillis()+".aac";
+                VoiceManager.getInstance().startRecord(mVoiceName);
             }
 
             @Override
             public void onRecordComplete(/*VoiceClipMessage vcm*/) {
-                Log.v("test", "完成");
-                VoiceManager.getInstance().stop();
+                Log.i("test", "完成");
+                isSend=true;
 //                boolean isSecret = mChatContainer.mSessionType == CubeSessionType.Secret;
 //                VoiceClipMessage voiceClipMessage = MessageManager.getInstance().buildVoiceMessage(mChatContainer.mChatActivity, CubeSessionType.P2P, SpUtil.getCubeId(), mChatContainer.mChatId, vcm, isSecret);
 //                MessageManager.getInstance().sendMessage(mChatContainer.mChatActivity, voiceClipMessage).subscribe();
@@ -87,9 +93,12 @@ public class RecordFragment extends Fragment implements MediaRecordListener {
     }
 
     @Override
-    public void recordStop(String path) {
-        getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fl_contain, new PlayFragment(/*mChatContainer, vcm*/)).commit();
-
+    public void recordStop(String path,long s) {
+        if(isSend){
+            ((ChatBaseActivity)getContext()).sendVoiceMsg(mPath,mDuration);
+        }else {
+            getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fl_contain, new PlayFragment(path,s)).commit();
+        }
     }
 
     @Override

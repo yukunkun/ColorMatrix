@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.holder.LeftTextHolder;
+import com.matrix.yukun.matrix.video_module.play.JokeDetailActivity;
 
 import java.text.SimpleDateFormat;
 
@@ -25,7 +26,7 @@ public class LeftTextHolderWrapper {
         return mLeftTextHolderWrapper;
     }
 
-    public void content(Context context, ChatListInfo chatListInfo,LeftTextHolder holder){
+    public void content(Context context, final ChatListInfo chatListInfo, final LeftTextHolder holder){
         this.mContext=context;
         if(chatListInfo.isShowTime()){
             SimpleDateFormat formatter = new SimpleDateFormat("MM月dd日 HH:mm:ss");//获取当前时间
@@ -36,6 +37,12 @@ public class LeftTextHolderWrapper {
             (holder).mTextViewLeftTime.setVisibility(View.GONE);
         }
         (holder).mTextViewLeft.setText(chatListInfo.getChatInfo());
+        holder.mTextViewLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JokeDetailActivity.start(mContext,chatListInfo.getChatInfo(),(holder).mTextViewLeft);
+            }
+        });
         Glide.with(context).load(chatListInfo.getBitmap()).placeholder(R.drawable.head_7).into((holder).mImageViewLeft);
     }
 }

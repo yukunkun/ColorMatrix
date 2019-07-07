@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,13 +13,10 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.matrix.yukun.matrix.R2;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.gif_module.adapter.RVGifAdapter;
-import com.matrix.yukun.matrix.gif_module.bean.ImageBean;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.video_module.adapter.EyeRecAdapter;
-import com.matrix.yukun.matrix.video_module.entity.EyesInfo;
 import com.matrix.yukun.matrix.video_module.utils.SpacesDoubleDecoration;
 
 import java.io.File;

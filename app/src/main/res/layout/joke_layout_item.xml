@@ -35,7 +35,7 @@
     <TextView android:layout_width="match_parent"
               android:id="@+id/tv_joke"
               android:text=""
-              android:transitionName="shareView"
+              android:transitionName="shareview"
               android:textColor="@color/color_494949"
               android:textSize="18sp"
               android:layout_centerVertical="true"

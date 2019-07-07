@@ -31,8 +31,9 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.chat_module.ChatMemberActivity;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.gesture_module.GestureActivity;
+import com.matrix.yukun.matrix.setting_module.ResponsbilityActivity;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
 import com.matrix.yukun.matrix.video_module.MyApplication;
 import com.matrix.yukun.matrix.video_module.common.AppBarStateChangeListener;
@@ -216,6 +217,9 @@ public class AboutUsFragment extends BaseFragment {
                         break;
                     case 4:
                         aClass = ShareActivity.class;
+                        break;
+                    case 5:
+                        aClass = ResponsbilityActivity.class;
                         break;
                 }
                 if (aClass != null) {

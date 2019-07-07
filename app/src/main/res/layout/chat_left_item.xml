@@ -24,14 +24,14 @@
         android:src="@mipmap/tool_icon"
         android:layout_width="@dimen/dimens_45"
         android:layout_height="@dimen/dimens_45"/>
-    <TextView
+    <com.matrix.yukun.matrix.chat_module.emoji.CubeEmoticonTextView
         android:layout_below="@+id/left_time"
         android:layout_toRightOf="@+id/ci_left_head"
         android:text=""
         android:layout_marginLeft="5dp"
         android:textSize="18sp"
-        android:textIsSelectable="true"
         android:gravity="center_vertical"
+        android:transitionName="shareview"
         android:background="@drawable/balloon_l_pressed"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"

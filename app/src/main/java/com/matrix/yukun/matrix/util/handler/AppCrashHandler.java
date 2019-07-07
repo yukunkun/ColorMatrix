@@ -5,8 +5,7 @@ import android.os.Build;
 import android.os.Looper;
 import android.widget.Toast;
 
-import com.matrix.yukun.matrix.constant.AppConstant;
-import com.matrix.yukun.matrix.util.ActivityManager;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.util.DeviceUtil;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 

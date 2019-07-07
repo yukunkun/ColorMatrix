@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:makeramen="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/color_whit"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/cover"
+        android:layout_width="match_parent"
+        android:layout_height="101dp"
+        android:scaleType="centerCrop"
+        android:transitionName="shareview"
+        makeramen:corner_radius="10dp"/>
+    <!--遮罩部分-->
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/work_grade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/cover"
+        android:layout_gravity="center_vertical"
+        android:gravity="end"
+        android:paddingEnd="8dp"
+        android:textColor="@color/white"
+        />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/is_official"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="8dp"
+        android:background="@mipmap/outh"
+        makeramen:corner_radius="5dp"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/is_4k"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/is_official"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:src="@mipmap/quality4"
+        makeramen:corner_radius="5dp" />
+
+    <TextView
+        android:id="@+id/work_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cover"
+        android:layout_marginTop="10dp"
+        android:lines="1"
+        android:ellipsize="end"
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="18dp"
+        android:textColor="@color/color_line"
+        android:textSize="12sp"/>
+</RelativeLayout>
+
+
+
+

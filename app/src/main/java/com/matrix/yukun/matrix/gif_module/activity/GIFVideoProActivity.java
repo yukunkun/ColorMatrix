@@ -2,7 +2,6 @@ package com.matrix.yukun.matrix.gif_module.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,13 +9,11 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.download_module.service.UIHandler;
 import com.matrix.yukun.matrix.gif_module.utils.gifencoder.GifEncoderListener;
 import com.matrix.yukun.matrix.gif_module.utils.gifencoder.GifExtractor;
-import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.matrix.yukun.matrix.video_module.dialog.ShareDialog;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;

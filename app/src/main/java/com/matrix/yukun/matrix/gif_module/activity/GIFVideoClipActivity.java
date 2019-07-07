@@ -17,7 +17,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.VideoView;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.download_module.service.UIHandler;
 import com.matrix.yukun.matrix.gif_module.adapter.RVVideoImageAdapter;
 import com.matrix.yukun.matrix.gif_module.bean.VideoInfo;

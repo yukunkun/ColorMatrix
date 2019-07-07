@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.constant.AppConstant;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.note_module.adapter.RVNoteAdapter;
 import com.matrix.yukun.matrix.note_module.bean.NoteBean;
 import com.matrix.yukun.matrix.util.Base64Encode;

@@ -11,6 +11,7 @@ public enum ChatType {
     SHAKE("shake",2),
     FILE("file",3),
     VIDEO("video",4),
+    VOICE("voice",5),
     UNKNOW("unknow",-1);
 
     private String name ;
