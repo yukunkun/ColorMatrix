@@ -96,7 +96,6 @@ public class GaiaFragment extends BaseFragment {
         setAnimation(ivProduct);
         setAnimation(ivSucai);
         initData();
-        initBanner();
         initListener();
     }
 
@@ -136,7 +135,7 @@ public class GaiaFragment extends BaseFragment {
                     if(mBannerInfos.size()==6){
                         mBannerInfos.remove(5);
                     }
-                    conBanner.notifyDataSetChanged();
+                    initBanner();
                 }
             }
 
@@ -217,6 +216,13 @@ public class GaiaFragment extends BaseFragment {
             });
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        conBanner.setCanLoop(false);
+    }
+
     /**
      * 设置旋转的动画
      */
