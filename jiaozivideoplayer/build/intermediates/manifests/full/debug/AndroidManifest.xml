@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.jzvd"
+    android:versionCode="92"
+    android:versionName="7.0.4" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="28" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+</manifest>

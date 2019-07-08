@@ -191,13 +191,6 @@ public class GaiaFragment extends BaseFragment {
         }
     }
 
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
     public class LocalImageHolderView implements Holder<BannerInfo> {
         private ImageView imageView;
 

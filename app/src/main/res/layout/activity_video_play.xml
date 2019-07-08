@@ -5,11 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <cn.jzvd.JZVideoPlayerStandard
-        android:id="@+id/videoplayer"
-        android:transitionName="shareView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+        <cn.jzvd.JzvdStd
+            android:id="@+id/videoplayer"
+            android:transitionName="shareView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 
     <RelativeLayout android:layout_width="match_parent"
                     android:id="@+id/rl_bg"

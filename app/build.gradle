@@ -57,7 +57,10 @@ android {
             storeFile file('../Matrix.jks')
         }
     }
-
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 }
 MobSDK {
     appKey "28c93db53e68e"
@@ -167,10 +170,11 @@ dependencies {
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
     implementation 'jp.wasabeef:blurry:3.0.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
-    implementation 'cn.jzvd:jiaozivideoplayer:6.0.2'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     //    compile 'com.googlecode.mp4parser:isoparser:1.1.21' //videocompressor里有这个jar包
     implementation project(path: ':Photoeditor')
     implementation project(path: ':videocompressor')
-    implementation files('libs/GDTUnionSDK.4.9.542.min.jar')
+    implementation project(path: ':jiaozivideoplayer')
+
+
 }

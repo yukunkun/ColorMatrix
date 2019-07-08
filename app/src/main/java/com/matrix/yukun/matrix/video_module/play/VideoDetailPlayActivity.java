@@ -38,14 +38,14 @@ import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.jzvd.JZVideoPlayerStandard;
+import cn.jzvd.JzvdStd;
 
 public class VideoDetailPlayActivity extends BaseActivity {
 
     private String mNextUrl;
     private int mType;
     private EyesInfo mEyesInfo;
-    private JZVideoPlayerStandard mVideoView;
+    private JzvdStd mVideoView;
     private ImageView mImCover;
     private RelativeLayout mRlBg;
     private TabLayout mTabLayout;
@@ -118,7 +118,7 @@ public class VideoDetailPlayActivity extends BaseActivity {
         }else {
             mStrings = getResources().getStringArray(R.array.video_detail_comment);
         }
-        mVideoView.setUp(mEyesInfo.getData().getPlayUrl(), JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, mEyesInfo.getData().getTitle());
+        mVideoView.setUp(mEyesInfo.getData().getPlayUrl(),mEyesInfo.getData().getTitle(), JzvdStd.SCREEN_NORMAL);
         //网络
         Glide.with(this).load(mEyesInfo.getData().getCover().getDetail()).into(mImCover);
         mRlBg.setOnTouchListener(new View.OnTouchListener() {
