@@ -23,7 +23,7 @@
             android:layout_height="match_parent"/>
         <TextView android:layout_width="wrap_content"
             android:gravity="center"
-            android:text="Gaiamount"
+            android:text="Gaia"
             android:textSize="18sp"
             android:textColor="@color/color_write"
             android:layout_centerHorizontal="true"
@@ -31,7 +31,6 @@
         <ImageView
             android:layout_width="40dp"
             android:clickable="true"
-            android:layout_marginRight="@dimen/dimens_5"
             android:background="?android:attr/selectableItemBackground"
             android:src="@mipmap/ic_explore_search_pressed"
             android:id="@+id/iv_search"

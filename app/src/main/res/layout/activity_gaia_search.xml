@@ -1,10 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/color_f4f4f4"
     android:layout_height="match_parent"
     tools:context=".gaia_module.activity.GaiaSearchActivity">
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_50">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:src="@mipmap/joke_back"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="@dimen/dimens_8"
+            android:layout_width="@dimen/dimens_50"
+            android:layout_height="match_parent" />
+        <RelativeLayout
+            android:layout_toRightOf="@id/iv_back"
+            android:layout_width="match_parent"
+            android:layout_centerVertical="true"
+            android:background="@color/color_whit"
+            android:layout_marginRight="@dimen/dimens_50"
+            android:layout_height="@dimen/dimens_35">
+            <ImageView
+                android:src="@mipmap/icon_gaia_search"
+                android:padding="@dimen/dimens_5"
+                android:layout_width="@dimen/dimens_30"
+                android:layout_height="match_parent" />
+            <EditText
+                android:id="@+id/et_search"
+                android:hint="@string/search"
+                android:textSize="15sp"
+                android:maxLength="10"
+                android:singleLine="true"
+                android:gravity="center_vertical"
+                android:background="@color/color_whit"
+                android:layout_marginLeft="@dimen/dimens_30"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_search"
+            android:src="@mipmap/joke_back"
+            android:layout_alignParentRight="true"
+            android:text="@string/search"
+            android:textColor="@color/colorAccent"
+            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="@dimen/dimens_5"
+            android:layout_width="@dimen/dimens_40"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout"
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabTextColor="@color/color_6c6c6c"
+        app:tabIndicatorColor="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v4.view.ViewPager>
 </LinearLayout>

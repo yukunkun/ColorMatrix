@@ -16,16 +16,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimens_210">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <cn.jzvd.JzvdStd
-                    android:id="@+id/jzvps_player"
-                    android:transitionName="shareView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
 
-            </LinearLayout>
+            <cn.jzvd.JZVideoPlayerStandard
+                android:id="@+id/jzvps_player"
+                android:transitionName="shareView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
             <RelativeLayout
                 android:id="@+id/rl_bg"
                 android:layout_width="match_parent"

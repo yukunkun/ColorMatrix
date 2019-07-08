@@ -21,6 +21,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.gaia_module.activity.GaiaPersonActivity;
+import com.matrix.yukun.matrix.gaia_module.activity.GaiaPlayActivity;
 import com.matrix.yukun.matrix.gaia_module.activity.GaiaSearchActivity;
 import com.matrix.yukun.matrix.gaia_module.activity.MaterialActivity;
 import com.matrix.yukun.matrix.gaia_module.activity.ProductActivity;
@@ -102,7 +104,7 @@ public class GaiaFragment extends BaseFragment {
         mRvGaiaAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                GaiaPlayActivity.start(getContext());
             }
         });
     }
@@ -178,6 +180,7 @@ public class GaiaFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_main:
+                GaiaPersonActivity.start(getContext());
                 break;
             case R.id.iv_search:
                 GaiaSearchActivity.start(getContext());

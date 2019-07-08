@@ -122,4 +122,9 @@
         <item>湛蓝</item>
         <item>红霞</item>
     </array>
+
+    <string-array name="gaia_search">
+        <item>作品推荐</item>
+        <item>素材收集</item>
+    </string-array>
 </resources>

@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".gaia_module.activity.MaterialActivity">
+    android:layout_height="match_parent"
+    tools:context=".gaia_module.activity.GaiaPersonActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/rl_contain"
         android:background="@color/color_whit"
-        android:layout_height="@dimen/dimens_50">
+        android:layout_height="50dp">
         <ImageView
             android:layout_width="@dimen/dimens_40"
             android:src="@mipmap/joke_back"
@@ -25,7 +25,7 @@
             android:layout_height="match_parent"/>
         <TextView android:layout_width="wrap_content"
             android:gravity="center"
-            android:text="素材收集"
+            android:text="个人展示"
             android:textSize="16sp"
             android:textColor="@color/color_text"
             android:layout_centerHorizontal="true"

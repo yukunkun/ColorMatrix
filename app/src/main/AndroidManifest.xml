@@ -345,9 +345,6 @@
             android:name=".btmovie_module.activity.DownLoadActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".btmovie_module.BaseActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".btmovie_module.SpecialActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -369,9 +366,18 @@
         <activity
             android:name=".setting_module.ResponsbilityActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".gaia_module.activity.ProductActivity" />
-        <activity android:name=".gaia_module.activity.MaterialActivity" />
-        <activity android:name=".gaia_module.activity.GaiaPlayActivity"></activity>
+        <activity
+            android:name=".gaia_module.activity.ProductActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gaia_module.activity.MaterialActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".gaia_module.activity.GaiaPlayActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity android:name=".gaia_module.activity.GaiaPersonActivity"
+            android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>
