@@ -6,4 +6,5 @@
     android:layout_height="match_parent"
     tools:context=".gaia_module.activity.ProductActivity">
 
+    
 </android.support.constraint.ConstraintLayout>
