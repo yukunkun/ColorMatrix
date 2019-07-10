@@ -1,5 +1,6 @@
 package com.matrix.yukun.matrix.gaia_module.net;
 
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONArray;
@@ -11,6 +12,7 @@ import okhttp3.Call;
 public abstract class GaiCallBack extends StringCallback {
     @Override
     public void onResponse(String response, int id) {
+        LogUtil.i(response.toString());
         JSONObject jsonObject= null;
         try {
             jsonObject = new JSONObject(response.toString());
@@ -38,6 +40,6 @@ public abstract class GaiCallBack extends StringCallback {
 
     @Override
     public void onError(Call call, Exception e, int id) {
-
+        LogUtil.i(e.toString());
     }
 }

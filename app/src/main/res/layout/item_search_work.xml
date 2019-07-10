@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--lhy:-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:orientation="vertical"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingTop="15dp">
+
+    <ImageView
+        android:transitionName="shareview"
+        android:layout_marginBottom="12dp"
+        android:id="@+id/work_cover"
+        android:layout_width="142dp"
+        android:scaleType="centerCrop"
+        android:layout_height="80dp"
+        android:layout_marginEnd="10dp" />
+
+    <TextView
+        android:id="@+id/work_duration"
+        android:layout_width="142dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/work_cover"
+        android:layout_alignEnd="@id/work_cover"
+        android:background="@drawable/gradient30to0_black"
+        android:gravity="end"
+        android:padding="4dp"
+        android:textColor="@color/white"
+        android:textSize="10sp"/>
+
+    <TextView
+        android:id="@+id/work_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/work_cover"
+        android:layout_toEndOf="@id/work_cover"
+        android:maxLines="2"
+        android:textColor="@color/color_494949"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/work_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/work_title"
+        android:layout_toEndOf="@id/work_cover"
+        android:maxLines="2"
+        android:textColor="@color/color_c6c6c6"
+        android:textSize="10sp"/>
+
+    <TextView
+        android:id="@+id/work_playcount_collcount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/work_cover"
+        android:layout_toEndOf="@id/work_cover"
+        android:maxLines="2"
+        android:textColor="@color/color_c6c6c6"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/work_create_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/work_playcount_collcount"
+        android:maxLines="2"
+        android:textColor="@color/color_c6c6c6"
+        android:textSize="12sp"/>
+
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_color"/>
+
+</RelativeLayout>

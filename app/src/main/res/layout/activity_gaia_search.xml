@@ -33,6 +33,7 @@
                 android:id="@+id/et_search"
                 android:hint="@string/search"
                 android:textSize="15sp"
+                android:layout_marginRight="@dimen/dimens_5"
                 android:maxLength="10"
                 android:singleLine="true"
                 android:gravity="center_vertical"
