@@ -19,6 +19,7 @@ import com.matrix.yukun.matrix.gaia_module.adapter.SearchWorkAdapter;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.gaia_module.net.GaiCallBack;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -97,7 +98,6 @@ public class WorkSearchFragment extends BaseFragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         OkHttpUtils.postString().url(Api.BASE_URL + Api.SEARCHWORK)
                 .content(jsonObject.toString())
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))

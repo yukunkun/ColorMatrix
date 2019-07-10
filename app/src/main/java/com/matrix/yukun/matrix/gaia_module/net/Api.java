@@ -7,4 +7,5 @@ public class Api {
     public static String RECOMEND="/cms/home/recommend";
     public static String SEARCHWORK="/works/search";
     public static String SEARCHMATRIL="/material/getList";
+    public static String PERSONURL="/creator/person/getList";
 }

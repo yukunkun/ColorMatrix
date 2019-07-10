@@ -26,8 +26,10 @@ public abstract class GaiCallBack extends StringCallback {
                 }
                 onDataSuccess(data,jsonObject.has("a"),jsonObject.has("b"),response);
             }else {
-                JSONArray ec = jsonObject.optJSONArray("ec");
-                onDateError(ec.toString());
+                if(jsonObject.has("ec")){
+                    JSONArray ec = jsonObject.optJSONArray("ec");
+                    onDateError(ec.toString());
+                }
             }
         } catch (JSONException e) {
 
