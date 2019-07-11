@@ -126,6 +126,7 @@ public class ProductPoolFragment extends BaseFragment {
                         mWorkPoolAdapter.notifyDataSetChanged();
                         smartLayout.finishLoadMore();
                     }else {
+                        smartLayout.finishLoadMore();
                         ToastUtils.showToast("没有更多了");
                     }
                 } else {

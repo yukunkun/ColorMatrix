@@ -51,6 +51,6 @@
         android:background="@drawable/gradient30to0_black"
         android:gravity="end"
         android:paddingEnd="8dp"
-        android:textColor="@color/color_666666"
+        android:textColor="@color/white"
         android:textSize="14sp"/>
 </RelativeLayout>

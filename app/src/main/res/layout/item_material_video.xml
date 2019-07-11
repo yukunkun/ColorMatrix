@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--lhy-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--图片展示区域-->
+        <include
+            android:id="@+id/rl_1"
+            layout="@layout/item_work_pool_capacity"/>
+
+        <!--文字展示区域-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_1"
+            android:layout_margin="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/work_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textColor="@color/color_666666"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+
+            <include layout="@layout/line_layout"/>
+
+            <!--评分和播放次数-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/work_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
+                    android:textColor="@color/color_999999"
+                    android:textSize="11sp"/>
+
+                <ImageView
+                    android:id="@+id/image_more"
+                    android:layout_alignParentRight="true"
+                    android:visibility="gone"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
+
+

@@ -87,7 +87,6 @@ public class GaiaFragment extends BaseFragment {
     ImageView ivProduct;
     @BindView(R.id.iv_sucai)
     ImageView ivSucai;
-    Unbinder unbinder;
     private GridLayoutManager mGridLayoutManager;
     private List<GaiaIndexBean> mGaiaIndexBeans = new ArrayList<>();
     private List<BannerInfo> mBannerInfos = new ArrayList<>();
