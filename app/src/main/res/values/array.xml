@@ -127,4 +127,42 @@
         <item>作品推荐</item>
         <item>素材收集</item>
     </string-array>
+
+    <string-array name="work_pool">
+        <item>所有</item>
+        <item>测试 样片</item>
+        <item>剪辑 调色</item>
+        <item>风景 旅行</item>
+        <item>短片</item>
+        <item>记录</item>
+        <item>商业 广告</item>
+        <item>MV</item>
+        <item>航拍</item>
+        <item>教程</item>
+        <item>艺术实验</item>
+        <item>家庭婚礼</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="material_video">
+        <item>所有</item>
+        <item>自然风光</item>
+        <item>人文民俗</item>
+        <item>城市建筑</item>
+        <item>生活饮食</item>
+        <item>天气气节</item>
+        <item>交通运输</item>
+        <item>节日庆典</item>
+        <item>商务职场</item>
+        <item>农业工业</item>
+        <item>教育医疗</item>
+        <item>文艺体娱</item>
+        <item>科学技术</item>
+        <item>动物植物</item>
+        <item>人物情感</item>
+        <item>航拍水下</item>
+        <item>延时升格</item>
+        <item>特效镜头</item>
+        <item>其他</item>
+    </string-array>
 </resources>

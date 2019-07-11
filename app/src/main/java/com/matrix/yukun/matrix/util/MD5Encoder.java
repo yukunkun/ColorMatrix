@@ -2,6 +2,7 @@ package com.matrix.yukun.matrix.util;
 
 import java.security.MessageDigest;
 
+
 public class MD5Encoder {
 	
 	public static String encode(String string) throws Exception {

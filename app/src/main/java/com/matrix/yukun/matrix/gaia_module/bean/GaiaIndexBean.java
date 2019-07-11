@@ -49,6 +49,8 @@ public class GaiaIndexBean {
     private int have4k;
     private String inputKey;
     private String key;
+    private int is4K;
+    private int isOfficial;
     private int likeCount;
     private int wid;
     private int id;
@@ -119,6 +121,14 @@ public class GaiaIndexBean {
         return type;
     }
 
+    public int getIsOfficial() {
+        return isOfficial;
+    }
+
+    public void setIsOfficial(int isOfficial) {
+        this.isOfficial = isOfficial;
+    }
+
     public void setType(String type) {
         this.type = type;
     }
@@ -129,6 +139,14 @@ public class GaiaIndexBean {
 
     public void setCommentCount(int commentCount) {
         this.commentCount = commentCount;
+    }
+
+    public int getIs4K() {
+        return is4K;
+    }
+
+    public void setIs4K(int is4k) {
+        this.is4K = is4k;
     }
 
     public String getCover() {

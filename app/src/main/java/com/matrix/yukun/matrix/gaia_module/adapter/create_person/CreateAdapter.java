@@ -1,6 +1,7 @@
 package com.matrix.yukun.matrix.gaia_module.adapter.create_person;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.matrix.yukun.matrix.gaia_module.adapter.create_person.rec_viewholder.
 import com.matrix.yukun.matrix.gaia_module.adapter.create_person.rec_viewholder.CreateViewHolder3;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.util.ImageUtils;
+import com.matrix.yukun.matrix.video_module.play.ImageDetailActivity;
 import com.matrix.yukun.matrix.video_module.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -109,32 +111,32 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((CreateViewHolder0)holder).textViewPlace.setText(personInfo.getAddress());
             }
             //头像
-            Glide.with(context).load(personInfo.getAvatar()).into(((CreateViewHolder0)holder).imageViewHead);
+            Glide.with(context).load(Api.COVER_PREFIX+personInfo.getAvatar()).placeholder(R.drawable.head_3).into(((CreateViewHolder0)holder).imageViewHead);
             ((CreateViewHolder0)holder).imageViewHead.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ImageDetailActivity.start(context,Api.COVER_PREFIX+personInfo.getAvatar(),false);
                 }
             });
             //聊天
             ((CreateViewHolder0)holder).imageViewChat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                 }
             });
 
             //关注
-            if (personInfo.getFocus()==1){
-                ((CreateViewHolder0)holder).textViewAttent.setBackground(context.getResources().getDrawable(R.drawable.create_person_attented));
-                ((CreateViewHolder0)holder).textViewAttent.setText("已关注");
-                ((CreateViewHolder0)holder).textViewAttent.setTextColor(context.getResources().getColor(R.color.color_9a9a9a));
-
-            }else {
-                ((CreateViewHolder0)holder).textViewAttent.setBackground(context.getResources().getDrawable(R.drawable.create_person_attent));
-                ((CreateViewHolder0)holder).textViewAttent.setText("关注");
-                ((CreateViewHolder0)holder).textViewAttent.setTextColor(context.getResources().getColor(R.color.color_ff5773));
-
-            }
+//            if (personInfo.getFocus()==1){
+//                ((CreateViewHolder0)holder).textViewAttent.setBackground(context.getResources().getDrawable(R.drawable.create_person_attented));
+//                ((CreateViewHolder0)holder).textViewAttent.setText("已关注");
+//                ((CreateViewHolder0)holder).textViewAttent.setTextColor(context.getResources().getColor(R.color.color_9a9a9a));
+//
+//            }else {
+//                ((CreateViewHolder0)holder).textViewAttent.setBackground(context.getResources().getDrawable(R.drawable.create_person_attent));
+//                ((CreateViewHolder0)holder).textViewAttent.setText("关注");
+//                ((CreateViewHolder0)holder).textViewAttent.setTextColor(context.getResources().getColor(R.color.color_ff5773));
+//
+//            }
 
         }if(holder instanceof CreateViewHolder){
             //共有的
@@ -153,10 +155,11 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((CreateViewHolder)holder).textViewPlace.setText(personInfo.getAddress());
             }
             //头像
-            Glide.with(context).load(personInfo.getAvatar()).into(((CreateViewHolder)holder).imageViewHead);
+            Glide.with(context).load(Api.COVER_PREFIX+personInfo.getAvatar()).placeholder(R.drawable.head_3).into(((CreateViewHolder)holder).imageViewHead);
             ((CreateViewHolder)holder).imageViewHead.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ImageDetailActivity.start(context,Api.COVER_PREFIX+personInfo.getAvatar(),false);
                 }
             });
             //聊天
@@ -166,16 +169,15 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
             //关注
-            if (personInfo.getFocus()==1){
-                ((CreateViewHolder)holder).textViewAttent.setBackground(context.getResources().getDrawable(R.drawable.create_person_attented));
-                ((CreateViewHolder)holder).textViewAttent.setText("已关注");
-                ((CreateViewHolder)holder).textViewAttent.setTextColor(context.getResources().getColor(R.color.color_9a9a9a));
-            }else {
-                ((CreateViewHolder)holder).textViewAttent.setBackground(context.getResources().getDrawable(R.drawable.create_person_attent));
-                ((CreateViewHolder)holder).textViewAttent.setText("关注");
-                ((CreateViewHolder)holder).textViewAttent.setTextColor(context.getResources().getColor(R.color.color_ff5773));
-            }
-
+//            if (personInfo.getFocus()==1){
+//                ((CreateViewHolder)holder).textViewAttent.setBackground(context.getResources().getDrawable(R.drawable.create_person_attented));
+//                ((CreateViewHolder)holder).textViewAttent.setText("已关注");
+//                ((CreateViewHolder)holder).textViewAttent.setTextColor(context.getResources().getColor(R.color.color_9a9a9a));
+//            }else {
+//                ((CreateViewHolder)holder).textViewAttent.setBackground(context.getResources().getDrawable(R.drawable.create_person_attent));
+//                ((CreateViewHolder)holder).textViewAttent.setText("关注");
+//                ((CreateViewHolder)holder).textViewAttent.setTextColor(context.getResources().getColor(R.color.color_ff5773));
+//            }
 
             //图片
             if(!worksInfo.getCoverImgInfos().get(0).getCover().isEmpty()&&worksInfo.getCoverImgInfos().get(0).getCover().length()!=0&&!"null".equals(worksInfo.getCoverImgInfos().get(0).getCover())){
@@ -215,10 +217,11 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((CreateViewHolder2)holder).textViewPlace.setText(personInfo.getAddress());
             }
             //头像
-            Glide.with(context).load(personInfo.getAvatar()).into(((CreateViewHolder2)holder).imageViewHead);
+            Glide.with(context).load(Api.COVER_PREFIX+personInfo.getAvatar()).placeholder(R.drawable.head_3).into(((CreateViewHolder2)holder).imageViewHead);
             ((CreateViewHolder2)holder).imageViewHead.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ImageDetailActivity.start(context,Api.COVER_PREFIX+personInfo.getAvatar(),false);
                 }
             });
             //聊天
@@ -228,15 +231,15 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
             //关注
-            if (personInfo.getFocus()==1){
-                ((CreateViewHolder2)holder).textViewAttent.setBackground(context.getResources().getDrawable(R.drawable.create_person_attented));
-                ((CreateViewHolder2)holder).textViewAttent.setText("已关注");
-                ((CreateViewHolder2)holder).textViewAttent.setTextColor(context.getResources().getColor(R.color.color_9a9a9a));
-            }else {
-                ((CreateViewHolder2)holder).textViewAttent.setBackground(context.getResources().getDrawable(R.drawable.create_person_attent));
-                ((CreateViewHolder2)holder).textViewAttent.setText("关注");
-                ((CreateViewHolder2)holder).textViewAttent.setTextColor(context.getResources().getColor(R.color.color_ff5773));
-            }
+//            if (personInfo.getFocus()==1){
+//                ((CreateViewHolder2)holder).textViewAttent.setBackground(context.getResources().getDrawable(R.drawable.create_person_attented));
+//                ((CreateViewHolder2)holder).textViewAttent.setText("已关注");
+//                ((CreateViewHolder2)holder).textViewAttent.setTextColor(context.getResources().getColor(R.color.color_9a9a9a));
+//            }else {
+//                ((CreateViewHolder2)holder).textViewAttent.setBackground(context.getResources().getDrawable(R.drawable.create_person_attent));
+//                ((CreateViewHolder2)holder).textViewAttent.setText("关注");
+//                ((CreateViewHolder2)holder).textViewAttent.setTextColor(context.getResources().getColor(R.color.color_ff5773));
+//            }
 
             //图片
             if(!worksInfo.getCoverImgInfos().get(0).getCover().isEmpty()&&worksInfo.getCoverImgInfos().get(0).getCover().length()!=0&&!"null".equals(worksInfo.getCoverImgInfos().get(0).getCover())){
@@ -264,12 +267,6 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
 //                Glide.with(context).load(Configs.COVER_PREFIX+worksInfo.getCoverImgInfos().get(1).getScreenshot()).placeholder(R.mipmap.bg_general).into(((CreateViewHolder2)holder).imageViewL2Map2);
             }
-
-//            ImageUtils.getInstance(context).showImage(((CreateViewHolder2)holder).imageViewL2Map1,
-//                    worksInfo.getCoverImgInfos().get(0).getCover(),worksInfo.getCoverImgInfos().get(0).getScreenshot());
-//
-//            ImageUtils.getInstance(context).showImage(((CreateViewHolder2)holder).imageViewL2Map2,
-//                    worksInfo.getCoverImgInfos().get(1).getCover(),worksInfo.getCoverImgInfos().get(1).getScreenshot());
 
             //视频播放页面
             ((CreateViewHolder2)holder).imageViewL2Map1.setOnClickListener(new View.OnClickListener() {
@@ -300,10 +297,12 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }else {
                 ((CreateViewHolder3)holder).textViewPlace.setText(personInfo.getAddress());
             }
-            Glide.with(context).load(personInfo.getAvatar()).into(((CreateViewHolder3)holder).imageViewHead);            //头像
+            //头像
+            Glide.with(context).load(Api.COVER_PREFIX+personInfo.getAvatar()).placeholder(R.drawable.head_3).into(((CreateViewHolder3)holder).imageViewHead);            //头像
             ((CreateViewHolder3)holder).imageViewHead.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ImageDetailActivity.start(context,Api.COVER_PREFIX+personInfo.getAvatar(),false);
                 }
             });
             //聊天
@@ -313,15 +312,15 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
             //关注
-            if (personInfo.getFocus()==1){
-                ((CreateViewHolder3)holder).textViewAttent.setBackgroundResource(R.drawable.create_person_attented);
-                ((CreateViewHolder3)holder).textViewAttent.setText("已关注");
-                ((CreateViewHolder3)holder).textViewAttent.setTextColor(context.getResources().getColor(R.color.color_9a9a9a));
-            }else {
-                ((CreateViewHolder3)holder).textViewAttent.setBackgroundResource(R.drawable.create_person_attent);
-                ((CreateViewHolder3)holder).textViewAttent.setText("关注");
-                ((CreateViewHolder3)holder).textViewAttent.setTextColor(context.getResources().getColor(R.color.color_ff5773));
-            }
+//            if (personInfo.getFocus()==1){
+//                ((CreateViewHolder3)holder).textViewAttent.setBackgroundResource(R.drawable.create_person_attented);
+//                ((CreateViewHolder3)holder).textViewAttent.setText("已关注");
+//                ((CreateViewHolder3)holder).textViewAttent.setTextColor(context.getResources().getColor(R.color.color_9a9a9a));
+//            }else {
+//                ((CreateViewHolder3)holder).textViewAttent.setBackgroundResource(R.drawable.create_person_attent);
+//                ((CreateViewHolder3)holder).textViewAttent.setText("关注");
+//                ((CreateViewHolder3)holder).textViewAttent.setTextColor(context.getResources().getColor(R.color.color_ff5773));
+//            }
             //图片
             if(!worksInfo.getCoverImgInfos().get(0).getCover().isEmpty()&&worksInfo.getCoverImgInfos().get(0).getCover().length()!=0&&!"null".equals(worksInfo.getCoverImgInfos().get(0).getCover())){
                 Glide.with(context).load(Api.COVER_PREFIX+worksInfo.getCoverImgInfos().get(0).getCover()).placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder3)holder).imageViewL3Map1);
@@ -346,7 +345,6 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }else if(flag==0){
                     Glide.with(context).load(Api.COVER_PREFIX+screenshot.replace(".","_18.")).placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder3)holder).imageViewL3Map2);
                 }
-//                Glide.with(context).load(Configs.COVER_PREFIX+worksInfo.getCoverImgInfos().get(1).getScreenshot()).placeholder(R.mipmap.bg_general).into(((CreateViewHolder3)holder).imageViewL3Map2);
             }
 
             if(!worksInfo.getCoverImgInfos().get(2).getCover().isEmpty()&&worksInfo.getCoverImgInfos().get(2).getCover().length()!=0&&!"null".equals(worksInfo.getCoverImgInfos().get(2).getCover())){
@@ -359,7 +357,6 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }else if(flag==0){
                     Glide.with(context).load(Api.COVER_PREFIX+screenshot.replace(".","_18.")).placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder3)holder).imageViewL3Map3);
                 }
-//                Glide.with(context).load(Configs.COVER_PREFIX+worksInfo.getCoverImgInfos().get(2).getScreenshot()).placeholder(R.mipmap.bg_general).into(((CreateViewHolder3)holder).imageViewL3Map3);
             }
             //视频播放页面
             ((CreateViewHolder3)holder).imageViewL3Map1.setOnClickListener(new View.OnClickListener() {

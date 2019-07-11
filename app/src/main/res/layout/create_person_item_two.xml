@@ -43,6 +43,7 @@
             android:id="@+id/create_attention"
             android:gravity="center"
             android:textSize="12sp"
+            android:text="好看"
             android:textColor="@color/color_ff5773"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"

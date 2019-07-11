@@ -53,7 +53,6 @@ public class WorkSearchFragment extends BaseFragment {
     List<GaiaIndexBean> mGaiaIndexBeans = new ArrayList<>();
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
-    Unbinder unbinder;
     private SearchWorkAdapter mSearchWorkAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private String key = "";
@@ -197,19 +196,5 @@ public class WorkSearchFragment extends BaseFragment {
                 initData(stype, key, pi);
                 break;
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 }

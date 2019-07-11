@@ -8,4 +8,5 @@ public class Api {
     public static String SEARCHWORK="/works/search";
     public static String SEARCHMATRIL="/material/getList";
     public static String PERSONURL="/creator/person/getList";
+    public static String LOGINURL="/account/_login";
 }

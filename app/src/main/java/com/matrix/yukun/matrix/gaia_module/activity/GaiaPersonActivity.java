@@ -97,6 +97,7 @@ public class GaiaPersonActivity extends BaseActivity {
                     try {
                         parasJson(new JSONObject(response));
                         mAdapter.notifyDataSetChanged();
+                        smRefresh.finishLoadMore();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

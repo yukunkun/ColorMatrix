@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.matrix.yukun.matrix.download_module.service.DownLoadService;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.MyApplication;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -19,7 +20,13 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
+
+import java.io.IOException;
 import java.util.List;
+
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
 
 /**
  * Created by yukun on 17-1-24.
@@ -104,5 +111,22 @@ public class MyApp extends MyApplication {
                 return new ClassicsFooter(context).setDrawableSize(20);
             }
         });
+    }
+
+    public static OkHttpClient getHttpClient(){
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Response response = chain.proceed(chain.request());
+                //存入Session
+                LogUtil.i("=========h",response.headers().toString()+"");
+                if (response.header("Set-Cookie") != null) {
+                    LogUtil.i("=========h",response.header("Set-Cookie"));
+                }
+                return response;
+            }
+
+        }).build();
+        return okHttpClient;
     }
 }
