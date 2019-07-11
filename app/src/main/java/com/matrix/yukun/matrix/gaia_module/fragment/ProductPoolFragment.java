@@ -99,6 +99,17 @@ public class ProductPoolFragment extends BaseFragment {
         });
     }
 
+    /***
+     * stype
+     *  0默认
+        1 最新发布
+        2 最多播放
+        3 最多搜藏
+        4 最多评论
+        5 最多下载
+     *
+     */
+
     private void initData(int pos) {
         JSONObject jsonObject = new JSONObject();
         try {

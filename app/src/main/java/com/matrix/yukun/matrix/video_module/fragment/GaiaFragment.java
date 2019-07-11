@@ -120,7 +120,11 @@ public class GaiaFragment extends BaseFragment {
         mRvGaiaAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                GaiaPlayActivity.start(getContext());
+                if(position<=8){
+                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getId(),0);
+                }else {
+                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getId(),1);
+                }
             }
         });
     }

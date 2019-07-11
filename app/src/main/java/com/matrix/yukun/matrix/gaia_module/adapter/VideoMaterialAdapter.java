@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.gaia_module.activity.GaiaPlayActivity;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.util.DataUtils;
@@ -92,7 +93,7 @@ public class VideoMaterialAdapter extends RecyclerView.Adapter<VideoMaterialAdap
             holder.is4k.setVisibility(View.GONE);
         }
 
-        holder.workCount.setText(videoInfo.getPlayCount()+"·播放");
+        holder.workCount.setText("播放·"+videoInfo.getPlayCount());
         //播放时长
         holder.workDuration.setText(DataUtils.secToTime(videoInfo.getDuration()));
         //作品名称
@@ -101,6 +102,7 @@ public class VideoMaterialAdapter extends RecyclerView.Adapter<VideoMaterialAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                GaiaPlayActivity.start(mContext,videoInfo.getId(),1);
             }
         });
     }
