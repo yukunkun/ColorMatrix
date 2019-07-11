@@ -53,8 +53,10 @@ public class MaterialPoolFragment extends BaseFragment {
     private VideoMaterialAdapter mVideoMaterialAdapter;
 
     public static MaterialPoolFragment getInstance(int position) {
-        pos=position;
         MaterialPoolFragment workSearchFragment = new MaterialPoolFragment();
+        Bundle bundle=new Bundle();
+        bundle.putInt("pos",position);
+        workSearchFragment.setArguments(bundle);
         return workSearchFragment;
     }
 
@@ -65,6 +67,7 @@ public class MaterialPoolFragment extends BaseFragment {
 
     @Override
     public void initView(View inflate, Bundle savedInstanceState) {
+        pos=getArguments().getInt("pos");
         mGridLayoutManager = new GridLayoutManager(getContext(),2);
         recyclerview.setLayoutManager(mGridLayoutManager);
         mVideoMaterialAdapter = new VideoMaterialAdapter(getContext(),mGaiaIndexBeans);

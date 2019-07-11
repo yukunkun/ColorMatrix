@@ -37,6 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import okhttp3.Call;
 import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
 
 /**
  * author: kun .
@@ -57,8 +58,10 @@ public class ProductPoolFragment extends BaseFragment {
     private WorkPoolAdapter mWorkPoolAdapter;
 
     public static ProductPoolFragment getInstance(int position) {
-        pos = position;
         ProductPoolFragment workSearchFragment = new ProductPoolFragment();
+        Bundle bundle=new Bundle();
+        bundle.putInt("pos",position);
+        workSearchFragment.setArguments(bundle);
         return workSearchFragment;
     }
 
@@ -69,6 +72,7 @@ public class ProductPoolFragment extends BaseFragment {
 
     @Override
     public void initView(View inflate, Bundle savedInstanceState) {
+        pos=getArguments().getInt("pos");
         mGridLayoutManager = new GridLayoutManager(getContext(),2);
         recyclerview.setLayoutManager(mGridLayoutManager);
         mWorkPoolAdapter = new WorkPoolAdapter(getContext(),mGaiaIndexBeans);
