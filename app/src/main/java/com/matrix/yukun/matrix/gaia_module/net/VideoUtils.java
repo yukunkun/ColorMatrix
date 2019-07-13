@@ -2,6 +2,7 @@ package com.matrix.yukun.matrix.gaia_module.net;
 
 import android.util.Log;
 
+import com.google.gson.JsonObject;
 import com.qq.e.comm.util.StringUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -122,7 +123,7 @@ public class VideoUtils {
         });
     }
 
-    public static void getMaterialRecomend(int t, String key,GetVideoListener getVideoListener){
+    public static void getMaterialRecomend(int t,GetVideoListener getVideoListener){
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("mid", t);

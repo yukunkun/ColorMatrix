@@ -95,11 +95,11 @@ public class GaiaPlayActivity extends BaseActivity {
     }
 
     private void initVideoView() {
-        getSupportFragmentManager().beginTransaction().add(R.id.fl,DetailFragment.instance(mId,mDetailInfo)).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fl,DetailFragment.instance(mId,mDetailInfo)).commitAllowingStateLoss();
     }
 
     private void initMaterialVide() {
-        getSupportFragmentManager().beginTransaction().add(R.id.fl,DetailFragment.instance(mId,mMaterialInfo)).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fl,DetailFragment.instance(mId,mMaterialInfo)).commitAllowingStateLoss();
     }
 
     @Override

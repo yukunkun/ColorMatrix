@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.activity.GaiaPlayActivity;
@@ -29,7 +30,9 @@ import com.matrix.yukun.matrix.gaia_module.net.VideoUtils;
 import com.matrix.yukun.matrix.util.DataUtils;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.util.ImageUtils;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
+import com.matrix.yukun.matrix.video_module.dialog.ShareDialog;
 import com.matrix.yukun.matrix.video_module.play.ImageDetailActivity;
 import com.qq.e.comm.util.StringUtil;
 
@@ -49,33 +52,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * date:   On 2019/7/5
  */
 public class DetailFragment extends BaseFragment {
-
-    @BindView(R.id.name)
-    TextView name;
-    @BindView(R.id.playcount_playtime)
-    TextView playcountPlaytime;
-    @BindView(R.id.avatar)
-    CircleImageView avatar;
-    @BindView(R.id.master)
-    TextView master;
-    @BindView(R.id.create_num)
-    TextView createNum;
-    @BindView(R.id.image_is_vip)
-    ImageView imageIsVip;
-    @BindView(R.id.add_attention)
-    ImageView addAttention;
-    @BindView(R.id.staff)
-    TextView staff;
-    @BindView(R.id.tag_1)
-    TextView tag1;
-    @BindView(R.id.tag_2)
-    TextView tag2;
-    @BindView(R.id.tag_3)
-    TextView tag3;
-    @BindView(R.id.tag)
-    TextView tag;
-    @BindView(R.id.back_story)
-    TextView backStory;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
     private long mId;
@@ -84,6 +60,19 @@ public class DetailFragment extends BaseFragment {
     private String[] stringArray;
     private List<GaiaIndexBean> mGaiaBeans=new ArrayList<>();
     private RVRecommendAdapter mRvRecommendAdapter;
+    private View mHeaderView;
+    private TextView mName;
+    private TextView mPlaycountPlaytime;
+    private CircleImageView mAvatar;
+    private TextView mMaster;
+    private TextView mCreateNum;
+    private TextView mStaff;
+    private TextView mTag1;
+    private TextView mTag2;
+    private TextView mTag3;
+    private TextView mTag;
+    private TextView mBackStory;
+    private ImageView mIvShare;
 
     public static DetailFragment instance(long id, VideoDetailInfo videoDetailInfo) {
         DetailFragment detailFragment = new DetailFragment();
@@ -121,55 +110,76 @@ public class DetailFragment extends BaseFragment {
         }else {
             mRvRecommendAdapter = new RVRecommendAdapter(R.layout.item_frag_player_rec,mGaiaBeans, VideoType.MATERIAL.getType());
         }
+        mHeaderView = LayoutInflater.from(getContext()).inflate(R.layout.gaia_detail_header, null);
+        mRvRecommendAdapter.addHeaderView(mHeaderView);
         recyclerview.setAdapter(mRvRecommendAdapter);
         initData();
         initListener();
     }
 
     private void initData() {
+        mName = mHeaderView.findViewById(R.id.name);
+        mPlaycountPlaytime = mHeaderView.findViewById(R.id.playcount_playtime);
+        mAvatar = mHeaderView.findViewById(R.id.avatar);
+        mMaster = mHeaderView.findViewById(R.id.master);
+        mCreateNum = mHeaderView.findViewById(R.id.create_num);
+        mIvShare = mHeaderView.findViewById(R.id.iv_share);
+        mStaff = mHeaderView.findViewById(R.id.staff);
+        mTag1 = mHeaderView.findViewById(R.id.tag_1);
+        mTag2 = mHeaderView.findViewById(R.id.tag_2);
+        mTag3 = mHeaderView.findViewById(R.id.tag_3);
+        mTag = mHeaderView.findViewById(R.id.tag);
+        mBackStory = mHeaderView.findViewById(R.id.back_story);
+        //分享
+        mIvShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareTo();
+            }
+        });
         if(mVideoDetailInfo!=null){
             VideoDetailInfo.WorksBean works = mVideoDetailInfo.getWorks();
             VideoDetailInfo.VideoInfoBean videoInfo = mVideoDetailInfo.getVideoInfo();
             //作品名称
             String worksName = works.getName();
             if (worksName.contains(".mp4")) {
-                name.setText(worksName.substring(0, worksName.length() - 4));
+                mName.setText(worksName.substring(0, worksName.length() - 4));
             }else {
-                name.setText(worksName);
+                mName.setText(worksName);
             }
             int creationCount = mVideoDetailInfo.getCreationCount();
             int likeCount = mVideoDetailInfo.getLikeCount();
 
-            createNum.setText(likeCount+"关注"+" "+creationCount+"创作");
+            mCreateNum.setText(likeCount+"关注"+" "+creationCount+"创作");
             //播放次数，和上传的时间
             if(mVideoDetailInfo.getWorks().getCreateTime()!=null&&!mVideoDetailInfo.getWorks().getCreateTime().equals("null")){
-                playcountPlaytime.setText((mVideoDetailInfo.getWorksProperties().getPlayCount())+"  发布于"+mVideoDetailInfo.getWorks().getCreateTime().substring(0,10));
+                mPlaycountPlaytime.setText((mVideoDetailInfo.getWorksProperties().getPlayCount())+"  发布于"+mVideoDetailInfo.getWorks().getCreateTime().substring(0,10));
             }
             /*分类的显示*/
             String type = works.getType();
             List<String> arrayList=getTags(type);
             if(arrayList!=null&&arrayList.size()!=0){
                 if(arrayList.size()==1){
-                    tag1.setVisibility(View.VISIBLE);
-                    tag1.setText(arrayList.get(0));
-                    tag1.setBackgroundResource(R.drawable.shape_detail_play);
+                    mTag1.setVisibility(View.VISIBLE);
+                    mTag1.setText(arrayList.get(0));
+                    mTag1.setBackgroundResource(R.drawable.shape_detail_play);
                 }else if(arrayList.size()==2){
-                    tag1.setVisibility(View.VISIBLE);
-                    tag1.setText(arrayList.get(0));
-                    tag2.setVisibility(View.VISIBLE);
-                    tag2.setText(arrayList.get(1));
-                    tag1.setBackgroundResource(R.drawable.shape_detail_play);
-                    tag2.setBackgroundResource(R.drawable.shape_detail_play);
+                    mTag1.setVisibility(View.VISIBLE);
+                    mTag1.setText(arrayList.get(0));
+                    mTag2.setVisibility(View.VISIBLE);
+                    mTag2.setText(arrayList.get(1));
+                    mTag1.setBackgroundResource(R.drawable.shape_detail_play);
+                    mTag2.setBackgroundResource(R.drawable.shape_detail_play);
                 }else if(arrayList.size()==3){
-                    tag1.setVisibility(View.VISIBLE);
-                    tag1.setText(arrayList.get(0));
-                    tag2.setVisibility(View.VISIBLE);
-                    tag2.setText(arrayList.get(1));
-                    tag3.setVisibility(View.VISIBLE);
-                    tag3.setText(arrayList.get(2));
-                    tag1.setBackgroundResource(R.drawable.shape_detail_play);
-                    tag2.setBackgroundResource(R.drawable.shape_detail_play);
-                    tag3.setBackgroundResource(R.drawable.shape_detail_play);
+                    mTag1.setVisibility(View.VISIBLE);
+                    mTag1.setText(arrayList.get(0));
+                    mTag2.setVisibility(View.VISIBLE);
+                    mTag2.setText(arrayList.get(1));
+                    mTag3.setVisibility(View.VISIBLE);
+                    mTag3.setText(arrayList.get(2));
+                    mTag1.setBackgroundResource(R.drawable.shape_detail_play);
+                    mTag2.setBackgroundResource(R.drawable.shape_detail_play);
+                    mTag3.setBackgroundResource(R.drawable.shape_detail_play);
                 }
             }
             //staff
@@ -194,44 +204,44 @@ public class DetailFragment extends BaseFragment {
                 if (v == i) {
                     staffStr.append(getString(R.string.framerate) + ":" + i + "|");
                 } else {
-                    staff.append(getString(R.string.framerate) + ":" + String.format("%.2f", v));
+                    mStaff.append(getString(R.string.framerate) + ":" + String.format("%.2f", v));
                 }
             }
             staffStr.append(getString(R.string.videosize) + ":" + FileUtil.formatFileSize(videoInfo.getSize()) + "|");
-            staff.setText(staffStr);
+            mStaff.setText(staffStr);
             //作品标签
             String s = works.getKeywords().isEmpty() ? "暂无" : works.getKeywords();
             if(!s.equals("暂无")){
-                tag.setVisibility(View.VISIBLE);
+                mTag.setVisibility(View.VISIBLE);
                 SpannableStringBuilder tagStr = new SpannableStringBuilder("标签：" + s);
-                tag.setText(tagStr);
+                mTag.setText(tagStr);
             }else {
-                tag.setVisibility(View.GONE);
+                mTag.setVisibility(View.GONE);
             }
             //作品背景
             String description = works.getDescription();
             if(description!=null&&description.length()!=0){
-                backStory.setVisibility(View.VISIBLE);
+                mBackStory.setVisibility(View.VISIBLE);
                 Spanned spanned = Html.fromHtml(description);
-                SpannableStringBuilder workBg = new SpannableStringBuilder("简介" + spanned);
-                backStory.setText(workBg);
+                SpannableStringBuilder workBg = new SpannableStringBuilder("简介:" + spanned);
+                mBackStory.setText(workBg);
             }else {
-                backStory.setVisibility(View.GONE);
+                mBackStory.setVisibility(View.GONE);
             }
 
             //头像
             VideoDetailInfo.UserBean user = mVideoDetailInfo.getUser();
             if (user.getAvatar() != null) {
-                Glide.with(getContext()).load(Api.COVER_PREFIX+user.getAvatar()).placeholder(R.drawable.head_2).into(avatar);
+                Glide.with(getContext()).load(Api.COVER_PREFIX+user.getAvatar()).placeholder(R.drawable.head_2).into(mAvatar);
             }
-            avatar.setOnClickListener(new View.OnClickListener() {
+            mAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ImageDetailActivity.start(getContext(),Api.COVER_PREFIX+user.getAvatar(),false);
                 }
             });
             //作者名称
-            master.setText(user.getNickName());
+            mMaster.setText(user.getNickName());
 
             VideoUtils.getVideoRecomend(mVideoDetailInfo.getWorks().getType(), mVideoDetailInfo.getWorks().getKeywords(), new VideoUtils.GetVideoListener() {
                 @Override
@@ -254,36 +264,35 @@ public class DetailFragment extends BaseFragment {
         }else if(mMaterialDetailInfo!=null){
             final MaterialDetailInfo.MaterialBean works = mMaterialDetailInfo.getMaterial();
             //作品头像
-            Glide.with(getContext()).load(Api.COVER_PREFIX + works.getAvatar()).placeholder(R.drawable.head_2).into(avatar);
-            master.setText(works.getNickName());
+            Glide.with(getContext()).load(Api.COVER_PREFIX + works.getAvatar()).placeholder(R.drawable.head_2).into(mAvatar);
+            mMaster.setText(works.getNickName());
             String description = works.getDescription();
             if(!"null".equals(description)&&description.length()!=0){
-                backStory.setText("缘起:"+Html.fromHtml(description));
+                mBackStory.setText("缘起:"+Html.fromHtml(description));
             }else {
-                backStory.setVisibility(View.VISIBLE);
+                mBackStory.setVisibility(View.VISIBLE);
             }
 
             String worksName = works.getName();
             if (worksName.contains(".mp4")) {
-                name.setText(worksName.substring(0, worksName.length() - 4));
+                mName.setText(worksName.substring(0, worksName.length() - 4));
             } else {
-                name.setText(worksName);
+                mName.setText(worksName);
             }
             //创作和粉丝
             int creationCount = works.getCreateCount();
             int likeCount = works.getFansCount();
-            createNum.setText("创作"+creationCount+" 粉丝"+likeCount);
+            mCreateNum.setText("创作"+creationCount+" 粉丝"+likeCount);
             //播放次数，和上传的时间
             if (mMaterialDetailInfo.getMaterial().getCreateTime() != null && !mMaterialDetailInfo.getMaterial().getCreateTime().equals("null")) {
                 Date d = new Date(works.getCreateTime().getTime());
                 SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd");
                 String time = sf.format(d);
-
-                playcountPlaytime.setText(mMaterialDetailInfo.getMaterial().getDownloadCount()+ "下载,"+works.getWorks_collectCount()+"收藏,"+"发布于"+ time/*.substring(0,10)*/);
+                mPlaycountPlaytime.setText(mMaterialDetailInfo.getMaterial().getDownloadCount()+ "下载,"+works.getWorks_collectCount()+"收藏,"+"发布于"+ time/*.substring(0,10)*/);
             }
 
             //头像的点击事件
-            avatar.setOnClickListener(new View.OnClickListener() {
+            mAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ImageDetailActivity.start(getContext(),Api.COVER_PREFIX + works.getAvatar(),false);
@@ -295,26 +304,26 @@ public class DetailFragment extends BaseFragment {
             List<String> arrayList = getTags(type);
             if (arrayList != null && arrayList.size() != 0) {
                 if (arrayList.size() == 1) {
-                    tag1.setVisibility(View.VISIBLE);
-                    tag1.setText(arrayList.get(0));
-                    tag1.setBackgroundResource(R.drawable.shape_detail_play);
+                    mTag1.setVisibility(View.VISIBLE);
+                    mTag1.setText(arrayList.get(0));
+                    mTag1.setBackgroundResource(R.drawable.shape_detail_play);
                 } else if (arrayList.size() == 2) {
-                    tag1.setVisibility(View.VISIBLE);
-                    tag1.setText(arrayList.get(0));
-                    tag2.setVisibility(View.VISIBLE);
-                    tag2.setText(arrayList.get(1));
-                    tag1.setBackgroundResource(R.drawable.shape_detail_play);
-                    tag2.setBackgroundResource(R.drawable.shape_detail_play);
+                    mTag1.setVisibility(View.VISIBLE);
+                    mTag1.setText(arrayList.get(0));
+                    mTag2.setVisibility(View.VISIBLE);
+                    mTag2.setText(arrayList.get(1));
+                    mTag1.setBackgroundResource(R.drawable.shape_detail_play);
+                    mTag2.setBackgroundResource(R.drawable.shape_detail_play);
                 } else if (arrayList.size() == 3) {
-                    tag1.setVisibility(View.VISIBLE);
-                    tag1.setText(arrayList.get(0));
-                    tag2.setVisibility(View.VISIBLE);
-                    tag2.setText(arrayList.get(1));
-                    tag3.setVisibility(View.VISIBLE);
-                    tag3.setText(arrayList.get(2));
-                    tag1.setBackgroundResource(R.drawable.shape_detail_play);
-                    tag2.setBackgroundResource(R.drawable.shape_detail_play);
-                    tag3.setBackgroundResource(R.drawable.shape_detail_play);
+                    mTag1.setVisibility(View.VISIBLE);
+                    mTag1.setText(arrayList.get(0));
+                    mTag2.setVisibility(View.VISIBLE);
+                    mTag2.setText(arrayList.get(1));
+                    mTag3.setVisibility(View.VISIBLE);
+                    mTag3.setText(arrayList.get(2));
+                    mTag1.setBackgroundResource(R.drawable.shape_detail_play);
+                    mTag2.setBackgroundResource(R.drawable.shape_detail_play);
+                    mTag3.setBackgroundResource(R.drawable.shape_detail_play);
                 }
             }
             //staff
@@ -328,8 +337,9 @@ public class DetailFragment extends BaseFragment {
             staffStr.append("拍摄" + ":" + works.getPhotographer() + "|");
             staffStr.append(getString(R.string.lens) + ":" + works.getLens() + "|");
             staffStr.append("编码" + ":" + mMaterialDetailInfo.getAudio().getCodec_long_name() + "");
-            staff.setText(staffStr.toString());
-            VideoUtils.getMaterialVideo((int) mId, new VideoUtils.GetVideoListener() {
+            mStaff.setText(staffStr.toString());
+
+            VideoUtils.getMaterialRecomend((int) mId, new VideoUtils.GetVideoListener() {
                 @Override
                 public void getVideo(String data) {
                     if(data!=null){
@@ -346,8 +356,33 @@ public class DetailFragment extends BaseFragment {
                 }
             });
         }
-
     }
+
+    /**
+     * 分享
+     */
+    private void shareTo() {
+        if(mVideoDetailInfo!=null){
+            String screenshot=mVideoDetailInfo.getVideoInfo().getScreenshot();
+            if(screenshot.endsWith(".png")){
+                screenshot=screenshot.replace(".png","_18.png");
+            }else {
+                screenshot=screenshot+".png";
+            }
+            ShareDialog instance = ShareDialog.getInstance(mVideoDetailInfo.getWorks().getName(), "https://www.gaiamount.com/video/" + mVideoDetailInfo.getWorksProperties().getId(), Api.COVER_PREFIX + screenshot);
+            instance.show(getChildFragmentManager(),"");
+        }else {
+            String screenshot=mMaterialDetailInfo.getMaterial().getScreenshot();
+            if(screenshot.endsWith(".png")){
+                screenshot=screenshot.replace(".png","_18.png");
+            }else {
+                screenshot=screenshot+".png";
+            }
+            ShareDialog instance = ShareDialog.getInstance(mMaterialDetailInfo.getMaterial().getName(), "https://gaiamount.com/footage/detail/" + mMaterialDetailInfo.getMaterial().getMid(), Api.COVER_PREFIX + screenshot);
+            instance.show(getChildFragmentManager(),"");
+        }
+    }
+
     private ArrayList getTags(String type) {
         ArrayList<String> stringarray=new ArrayList<>();
         String[] split = type.split(",");
@@ -390,27 +425,19 @@ public class DetailFragment extends BaseFragment {
             }
         }
         return "";
-
     }
+
     private void initListener() {
         mRvRecommendAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if(mVideoDetailInfo!=null){
-                    GaiaPlayActivity.start(getContext(),mVideoDetailInfo.getWorks().getVideoInfoId(),VideoType.WORK.getType());
+                    GaiaPlayActivity.start(getContext(),mGaiaBeans.get(position).getId(),VideoType.WORK.getType());
                 }else {
-                    GaiaPlayActivity.start(getContext(),mMaterialDetailInfo.getMaterial().getMid(),VideoType.MATERIAL.getType());
+                    GaiaPlayActivity.start(getContext(),mGaiaBeans.get(position).getMid(),VideoType.MATERIAL.getType());
                 }
+                getActivity().finish();
             }
         });
-    }
-
-
-    @OnClick({R.id.name, R.id.avatar})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.avatar:
-                break;
-        }
     }
 }

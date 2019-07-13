@@ -21,6 +21,11 @@ public class DataUtils {
         return date.getTime();
     }
 
+    /**
+     *
+     * @param time 秒
+     * @return
+     */
     public static String secToTime(int time) {
         String timeStr = null;
         int hour = 0;

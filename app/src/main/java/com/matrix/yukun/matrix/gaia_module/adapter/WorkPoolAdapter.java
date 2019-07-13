@@ -119,7 +119,6 @@ public class WorkPoolAdapter extends RecyclerView.Adapter<WorkPoolAdapter.WorkVi
                 GaiaPlayActivity.start(mContext,videoInfo.getId(), VideoType.WORK.getType());
             }
         });
-
     }
 
     @Override
