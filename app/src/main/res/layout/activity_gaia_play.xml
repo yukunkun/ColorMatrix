@@ -14,8 +14,9 @@
             android:layout_height="match_parent">
         </com.matrix.yukun.matrix.gaia_module.gaiaplayer.GaiaJzvdStd>
     </LinearLayout>
-    <TextView
-        android:background="@color/color_82181818"
+    <FrameLayout
+        android:id="@+id/fl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+    </FrameLayout>
 </LinearLayout>

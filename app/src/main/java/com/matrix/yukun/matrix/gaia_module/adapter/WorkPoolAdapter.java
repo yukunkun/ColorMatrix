@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.activity.GaiaPlayActivity;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
+import com.matrix.yukun.matrix.gaia_module.bean.VideoType;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.util.DataUtils;
 import com.matrix.yukun.matrix.util.log.LogUtil;
@@ -115,8 +116,7 @@ public class WorkPoolAdapter extends RecyclerView.Adapter<WorkPoolAdapter.WorkVi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GaiaPlayActivity.start(mContext,videoInfo.getId(),0);
-
+                GaiaPlayActivity.start(mContext,videoInfo.getId(), VideoType.WORK.getType());
             }
         });
 

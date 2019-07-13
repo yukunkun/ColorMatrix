@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--lhy:-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:background="@color/white"
+                android:paddingBottom="8dp"
+                android:paddingRight="@dimen/dimens_8"
+                android:paddingTop="@dimen/dimens_8"
+                android:paddingLeft="@dimen/dimens_8">
+    <!--cover-->
+    <ImageView
+        android:id="@+id/player_rec_cover"
+        android:layout_width="124dp"
+        android:scaleType="centerCrop"
+        android:layout_height="72dp"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/player_rec_is4k"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="1dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:background="@mipmap/quality4"/>
+    <!--遮罩部分-->
+    <LinearLayout
+        android:layout_width="124dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@id/player_rec_cover"
+        android:background="@drawable/gradient30to0_black"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/player_rec_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"/>
+    </LinearLayout>
+
+    <!--标题-->
+    <TextView
+        android:id="@+id/player_rec_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/dimens_12"
+        android:layout_toEndOf="@id/player_rec_cover"
+        android:maxHeight="40dp"
+        android:textColor="@color/color_666666"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/player_rec_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/player_rec_cover"
+        android:layout_alignStart="@id/player_rec_title"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/color_999999"
+        android:textSize="10sp"/>
+
+    <TextView
+        android:id="@+id/player_rec_publish_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/player_rec_author"
+        android:textColor="@color/color_999999"
+        android:textSize="10sp"/>
+
+</RelativeLayout>

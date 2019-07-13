@@ -31,6 +31,7 @@ import com.matrix.yukun.matrix.gaia_module.activity.ProductActivity;
 import com.matrix.yukun.matrix.gaia_module.adapter.RVGaiaAdapter;
 import com.matrix.yukun.matrix.gaia_module.bean.BannerInfo;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
+import com.matrix.yukun.matrix.gaia_module.bean.VideoType;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.gaia_module.net.GaiCallBack;
 import com.matrix.yukun.matrix.util.encrypt.AES128;
@@ -120,10 +121,10 @@ public class GaiaFragment extends BaseFragment {
         mRvGaiaAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if(position<=8){
-                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getId(),0);
+                if(position<8){
+                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getWid(), VideoType.WORK.getType());
                 }else {
-                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getId(),1);
+                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getWid(),VideoType.MATERIAL.getType());
                 }
             }
         });
@@ -203,28 +204,6 @@ public class GaiaFragment extends BaseFragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-//        OkHttpUtils.initClient(MyApp.getHttpClient()).postString().url(Api.BASE_URL+Api.LOGINURL)
-//                    .content(jsonObject.toString())
-//                    .mediaType(MediaType.parse("application/json; charset=utf-8"))
-//                    .build()
-//                    .execute(new GaiCallBack() {
-//            @Override
-//            protected void onDataSuccess(String data, boolean a, boolean b, String response) {
-//                LogUtil.i("=========",response);
-//            }
-//
-//            @Override
-//            public void onDateError(String error) {
-//                LogUtil.i("=========",error);
-//            }
-//
-//            @Override
-//            public void onError(Call call, Exception e, int id) {
-//                super.onError(call, e, id);
-//                LogUtil.i("=========e",e.toString());
-//            }
-//        });
     }
 
     @OnClick({R.id.iv_main, R.id.iv_search,R.id.iv_product, R.id.iv_sucai})
