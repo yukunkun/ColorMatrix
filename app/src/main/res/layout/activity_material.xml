@@ -1,9 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".gaia_module.activity.MaterialActivity">
-
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/rl_contain"
+        android:background="@color/color_whit"
+        android:layout_height="@dimen/dimens_50">
+        <ImageView
+            android:layout_width="@dimen/dimens_40"
+            android:src="@mipmap/joke_back"
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:id="@+id/iv_back"
+            android:paddingLeft="@dimen/dimens_3"
+            android:layout_marginTop="10dp"
+            android:paddingRight="8dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:layout_height="match_parent"/>
+        <TextView android:layout_width="wrap_content"
+            android:gravity="center"
+            android:text="素材收集"
+            android:textSize="16sp"
+            android:textColor="@color/color_text"
+            android:layout_centerHorizontal="true"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@mipmap/icon_gaia_search_work"
+            android:id="@+id/iv_search"
+            android:layout_marginTop="10dp"
+            android:padding="@dimen/dimens_8"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/colorAccent"
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabTextColor="@color/color_494949"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v4.view.ViewPager>
+</LinearLayout>

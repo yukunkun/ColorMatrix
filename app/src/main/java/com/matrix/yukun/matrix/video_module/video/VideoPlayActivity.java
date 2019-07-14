@@ -2,7 +2,6 @@ package com.matrix.yukun.matrix.video_module.video;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,12 +12,13 @@ import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import butterknife.BindView;
-import cn.jzvd.JZVideoPlayerStandard;
+import cn.jzvd.Jzvd;
+import cn.jzvd.JzvdStd;
 
 public class VideoPlayActivity extends BaseActivity {
 
     @BindView(R2.id.videoplayer)
-    JZVideoPlayerStandard mVideoplayer;
+    JzvdStd mVideoplayer;
     @BindView(R2.id.im_cover)
     ImageView mImCover;
     @BindView(R2.id.im_play)
@@ -52,7 +52,7 @@ public class VideoPlayActivity extends BaseActivity {
         mVideoCover = getIntent().getStringExtra("video_cover");
         mVideoTitle = getIntent().getStringExtra("video_title");
         mType = getIntent().getIntExtra("type",0);
-        mVideoplayer.setUp(mVideoPath, JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, mVideoTitle);
+        mVideoplayer.setUp(mVideoPath, mVideoTitle,Jzvd.SCREEN_NORMAL);
         //网络
         Glide.with(this).load(mVideoCover).into(mImCover);
         mRlBg.setOnTouchListener(new View.OnTouchListener() {

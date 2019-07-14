@@ -49,10 +49,24 @@ public class GaiaIndexBean {
     private int have4k;
     private String inputKey;
     private String key;
+    private int is4K;
+    private int isOfficial;
     private int likeCount;
     private int wid;
     private int id;
+    private int mid;
+
     private String playUrl;
+    /**
+     * time : {"date":22,"day":6,"hours":19,"minutes":22,"month":3,"nanos":0,"seconds":29,"time":1492860149000,"timezoneOffset":-480,"year":117}
+     */
+
+    private TimeBean time;
+    /**
+     * createTime : {"date":20,"day":3,"hours":14,"minutes":20,"month":11,"nanos":0,"seconds":2,"time":1513750802000,"timezoneOffset":-480,"year":117}
+     */
+
+    private CreateTimeBean createTime;
 
     public int getFlag() {
         return flag;
@@ -114,6 +128,14 @@ public class GaiaIndexBean {
         return type;
     }
 
+    public int getIsOfficial() {
+        return isOfficial;
+    }
+
+    public void setIsOfficial(int isOfficial) {
+        this.isOfficial = isOfficial;
+    }
+
     public void setType(String type) {
         this.type = type;
     }
@@ -124,6 +146,14 @@ public class GaiaIndexBean {
 
     public void setCommentCount(int commentCount) {
         this.commentCount = commentCount;
+    }
+
+    public int getIs4K() {
+        return is4K;
+    }
+
+    public void setIs4K(int is4k) {
+        this.is4K = is4k;
     }
 
     public String getCover() {
@@ -214,12 +244,12 @@ public class GaiaIndexBean {
         this.wid = wid;
     }
 
-    public int getId() {
-        return id;
+    public int getMid() {
+        return mid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setMid(int mid) {
+        this.mid = mid;
     }
 
     public String getPlayUrl() {
@@ -228,5 +258,290 @@ public class GaiaIndexBean {
 
     public void setPlayUrl(String playUrl) {
         this.playUrl = playUrl;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public TimeBean getTime() {
+        return time;
+    }
+
+    public void setTime(TimeBean time) {
+        this.time = time;
+    }
+
+    public CreateTimeBean getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(CreateTimeBean createTime) {
+        this.createTime = createTime;
+    }
+
+    public static class CreateTimeBean {
+
+        /**
+         * date : 19
+         * day : 2
+         * hours : 14
+         * minutes : 12
+         * month : 11
+         * nanos : 0
+         * seconds : 4
+         * time : 1513663924000
+         * timezoneOffset : -480
+         * year : 117
+         */
+
+        private int date;
+        private int day;
+        private int hours;
+        private int minutes;
+        private int month;
+        private int nanos;
+        private int seconds;
+        private long time;
+        private int timezoneOffset;
+        private int year;
+
+        public int getDate() {
+            return date;
+        }
+
+        public void setDate(int date) {
+            this.date = date;
+        }
+
+        public int getDay() {
+            return day;
+        }
+
+        public void setDay(int day) {
+            this.day = day;
+        }
+
+        public int getHours() {
+            return hours;
+        }
+
+        public void setHours(int hours) {
+            this.hours = hours;
+        }
+
+        public int getMinutes() {
+            return minutes;
+        }
+
+        public void setMinutes(int minutes) {
+            this.minutes = minutes;
+        }
+
+        public int getMonth() {
+            return month;
+        }
+
+        public void setMonth(int month) {
+            this.month = month;
+        }
+
+        public int getNanos() {
+            return nanos;
+        }
+
+        public void setNanos(int nanos) {
+            this.nanos = nanos;
+        }
+
+        public int getSeconds() {
+            return seconds;
+        }
+
+        public void setSeconds(int seconds) {
+            this.seconds = seconds;
+        }
+
+        public long getTime() {
+            return time;
+        }
+
+        public void setTime(long time) {
+            this.time = time;
+        }
+
+        public int getTimezoneOffset() {
+            return timezoneOffset;
+        }
+
+        public void setTimezoneOffset(int timezoneOffset) {
+            this.timezoneOffset = timezoneOffset;
+        }
+
+        public int getYear() {
+            return year;
+        }
+
+        public void setYear(int year) {
+            this.year = year;
+        }
+
+
+        @Override
+        public String toString() {
+            return "CreateTimeBean{" +
+                    "date=" + date +
+                    ", day=" + day +
+                    ", hours=" + hours +
+                    ", minutes=" + minutes +
+                    ", month=" + month +
+                    ", nanos=" + nanos +
+                    ", seconds=" + seconds +
+                    ", time=" + time +
+                    ", timezoneOffset=" + timezoneOffset +
+                    ", year=" + year +
+                    '}';
+        }
+    }
+    public static class TimeBean {
+        /**
+         * date : 22
+         * day : 6
+         * hours : 19
+         * minutes : 22
+         * month : 3
+         * nanos : 0
+         * seconds : 29
+         * time : 1492860149000
+         * timezoneOffset : -480
+         * year : 117
+         */
+
+        private int date;
+        private int day;
+        private int hours;
+        private int minutes;
+        private int month;
+        private int nanos;
+        private int seconds;
+        private long time;
+        private int timezoneOffset;
+        private int year;
+
+        public int getDate() {
+            return date;
+        }
+
+        public void setDate(int date) {
+            this.date = date;
+        }
+
+        public int getDay() {
+            return day;
+        }
+
+        public void setDay(int day) {
+            this.day = day;
+        }
+
+        public int getHours() {
+            return hours;
+        }
+
+        public void setHours(int hours) {
+            this.hours = hours;
+        }
+
+        public int getMinutes() {
+            return minutes;
+        }
+
+        public void setMinutes(int minutes) {
+            this.minutes = minutes;
+        }
+
+        public int getMonth() {
+            return month;
+        }
+
+        public void setMonth(int month) {
+            this.month = month;
+        }
+
+        public int getNanos() {
+            return nanos;
+        }
+
+        public void setNanos(int nanos) {
+            this.nanos = nanos;
+        }
+
+        public int getSeconds() {
+            return seconds;
+        }
+
+        public void setSeconds(int seconds) {
+            this.seconds = seconds;
+        }
+
+        public long getTime() {
+            return time;
+        }
+
+        public void setTime(long time) {
+            this.time = time;
+        }
+
+        public int getTimezoneOffset() {
+            return timezoneOffset;
+        }
+
+        public void setTimezoneOffset(int timezoneOffset) {
+            this.timezoneOffset = timezoneOffset;
+        }
+
+        public int getYear() {
+            return year;
+        }
+
+        public void setYear(int year) {
+            this.year = year;
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        return "GaiaIndexBean{" +
+                "flag=" + flag +
+                ", keywords='" + keywords + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", have1080=" + have1080 +
+                ", have2k=" + have2k +
+                ", avatar='" + avatar + '\'' +
+                ", screenshot='" + screenshot + '\'' +
+                ", type='" + type + '\'' +
+                ", commentCount=" + commentCount +
+                ", cover='" + cover + '\'' +
+                ", duration=" + duration +
+                ", playCount=" + playCount +
+                ", have720=" + have720 +
+                ", grade=" + grade +
+                ", name='" + name + '\'' +
+                ", have4k=" + have4k +
+                ", inputKey='" + inputKey + '\'' +
+                ", key='" + key + '\'' +
+                ", is4K=" + is4K +
+                ", isOfficial=" + isOfficial +
+                ", likeCount=" + likeCount +
+                ", wid=" + wid +
+                ", id=" + id +
+                ", playUrl='" + playUrl + '\'' +
+                ", time=" + time +
+                ", createTime=" + createTime +
+                '}';
     }
 }

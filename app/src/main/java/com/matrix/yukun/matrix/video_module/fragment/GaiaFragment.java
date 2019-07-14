@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
@@ -20,32 +21,52 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.gaia_module.activity.GaiaPersonActivity;
+import com.matrix.yukun.matrix.gaia_module.activity.GaiaPlayActivity;
 import com.matrix.yukun.matrix.gaia_module.activity.GaiaSearchActivity;
 import com.matrix.yukun.matrix.gaia_module.activity.MaterialActivity;
 import com.matrix.yukun.matrix.gaia_module.activity.ProductActivity;
 import com.matrix.yukun.matrix.gaia_module.adapter.RVGaiaAdapter;
 import com.matrix.yukun.matrix.gaia_module.bean.BannerInfo;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
+import com.matrix.yukun.matrix.gaia_module.bean.VideoType;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.gaia_module.net.GaiCallBack;
+import com.matrix.yukun.matrix.util.encrypt.AES128;
+import com.matrix.yukun.matrix.util.encrypt.SHA256;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
 import com.matrix.yukun.matrix.video_module.netutils.NetworkUtils;
 import com.matrix.yukun.matrix.video_module.utils.SpacesDoubleDecoration;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.Callback;
+import com.zhy.http.okhttp.cookie.CookieJarImpl;
+import com.zhy.http.okhttp.cookie.store.PersistentCookieStore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import okhttp3.Call;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.Headers;
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
 
 /**
  * author: kun .
@@ -67,7 +88,6 @@ public class GaiaFragment extends BaseFragment {
     ImageView ivProduct;
     @BindView(R.id.iv_sucai)
     ImageView ivSucai;
-    Unbinder unbinder;
     private GridLayoutManager mGridLayoutManager;
     private List<GaiaIndexBean> mGaiaIndexBeans = new ArrayList<>();
     private List<BannerInfo> mBannerInfos = new ArrayList<>();
@@ -94,7 +114,6 @@ public class GaiaFragment extends BaseFragment {
         setAnimation(ivProduct);
         setAnimation(ivSucai);
         initData();
-        initBanner();
         initListener();
     }
 
@@ -102,7 +121,11 @@ public class GaiaFragment extends BaseFragment {
         mRvGaiaAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                if(position<8){
+                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getWid(), VideoType.WORK.getType());
+                }else {
+                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getWid(),VideoType.MATERIAL.getType());
+                }
             }
         });
     }
@@ -134,7 +157,7 @@ public class GaiaFragment extends BaseFragment {
                     if(mBannerInfos.size()==6){
                         mBannerInfos.remove(5);
                     }
-                    conBanner.notifyDataSetChanged();
+                    initBanner();
                 }
             }
 
@@ -172,12 +195,22 @@ public class GaiaFragment extends BaseFragment {
                 ToastUtils.showToast(s);
             }
         });
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("c", "18200299278");
+            jsonObject.put("p", encyptPwd("18200299278", "123456789"));//AES加密
+            jsonObject.put("opr", 2+"");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @OnClick({R.id.iv_main, R.id.iv_search,R.id.iv_product, R.id.iv_sucai})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_main:
+                GaiaPersonActivity.start(getContext());
                 break;
             case R.id.iv_search:
                 GaiaSearchActivity.start(getContext());
@@ -189,13 +222,6 @@ public class GaiaFragment extends BaseFragment {
                 MaterialActivity.start(getContext());
                 break;
         }
-    }
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 
     public class LocalImageHolderView implements Holder<BannerInfo> {
@@ -221,6 +247,13 @@ public class GaiaFragment extends BaseFragment {
             });
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        conBanner.setCanLoop(false);
+    }
+
     /**
      * 设置旋转的动画
      */
@@ -232,4 +265,30 @@ public class GaiaFragment extends BaseFragment {
         mObjectAnimator.setRepeatCount(ValueAnimator.INFINITE);
         mObjectAnimator.start();
     }
+
+    /**
+     * AES加密，key为account经过SHA256加密后的前32位，iv为后32位
+     * @param account 账号
+     * @param plainText 明文密码
+     * @return 加密后的字符串
+     */
+    public static String encyptPwd(String account,String plainText) {
+        //SHA加密
+        String str_sha = SHA256.bin2hex(account);
+        Log.i("TAG",str_sha);
+        //计算
+        String seed = str_sha.substring(0, 32);
+        String iv = str_sha.substring(32,64);
+
+        //AES加密
+        String encryptPwd = null;
+        try {
+            encryptPwd = AES128.encrypt(seed, plainText, iv);
+        } catch (Exception e) {
+            Log.e("TAG","错误");
+            e.printStackTrace();
+        }
+        return encryptPwd;
+    }
+
 }

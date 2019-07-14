@@ -237,7 +237,6 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                LogUtil.i("=========",mDBSearchInfoList.size()+"");
                 mRvSerchAdapter.update(mDBSearchInfoList);
             }
 

@@ -38,6 +38,27 @@
     <string name="rebote">客服机器人</string>
     <string name="robote_secretor">小蜜</string>
     <string name="shake_you">抖你一下</string>
+    <string name="search">搜索</string>
+    <string name="relevancy">相关度</string>
+    <string name="most_playing">最多播放</string>
+    <string name="most_collection">最多收藏</string>
+    <string name="most_members">最多成员</string>
+    <string name="most_fans">最多粉丝</string>
+
+    <string name="director">导演</string>
+    <string name="photographyer">摄影</string>
+    <string name="cutter">剪辑</string>
+    <string name="colorist">调色</string>
+    <string name="models">机型</string>
+    <string name="lens">镜头</string>
+    <string name="locations">地点</string>
+    <string name="scene">场景</string>
+    <string name="resolution">分辨率</string>
+    <string name="format">格式</string>
+    <string name="coding">编码</string>
+    <string name="bitrate">比特率</string>
+    <string name="framerate">帧率</string>
+    <string name="videosize">大小</string>
     <string-array name="calendar_week">
         <item>日</item>
         <item>一</item>

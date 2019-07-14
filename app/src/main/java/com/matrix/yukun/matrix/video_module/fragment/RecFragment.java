@@ -3,26 +3,17 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.VideoView;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
 import com.matrix.yukun.matrix.video_module.adapter.EyeRecAdapter;
 import com.matrix.yukun.matrix.video_module.dialog.ShareDialog;
@@ -35,22 +26,15 @@ import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.video_module.play.VideoDetailPlayActivity;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
-import com.matrix.yukun.matrix.video_module.video.VideoPlayActivity;
 import com.zhy.http.okhttp.callback.StringCallback;
-
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
-
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import cn.jzvd.JZVideoPlayerStandard;
 import okhttp3.Call;
 
 /**

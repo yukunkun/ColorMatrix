@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/color_dfdfdf">
+
+        <LinearLayout
+            android:id="@+id/relevancy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="67dp"
+                android:layout_height="24dp"
+                android:gravity="center"
+                android:text="@string/relevancy"
+                android:textColor="@color/color_b1b1b1"
+                android:textSize="@dimen/dimens_14"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/most_person"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/more_load"
+                android:layout_width="67dp"
+                android:layout_height="24dp"
+                android:gravity="center"
+                android:text="@string/most_members"
+                android:textColor="@color/color_b1b1b1"
+                android:textSize="@dimen/dimens_14"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/most_collection"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="67dp"
+                android:layout_height="24dp"
+                android:gravity="center"
+                android:text="@string/most_collection"
+                android:textColor="@color/color_b1b1b1"
+                android:textSize="@dimen/dimens_14"/>
+        </LinearLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--lhy-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/work_cover"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:transitionName="shareview"/>
+
+    <ImageView
+        android:id="@+id/outh"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@mipmap/outh"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/quality4"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_below="@id/outh"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@mipmap/quality4"
+        android:visibility="gone"/>
+
+    <!--遮罩部分-->
+    <TextView
+        android:id="@+id/material_price"
+        android:textSize="10sp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_alignBottom="@id/work_cover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/work_duration"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_alignEnd="@id/work_cover"
+        android:layout_alignBottom="@id/work_cover"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/gradient30to0_black"
+        android:gravity="end"
+        android:paddingEnd="8dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"/>
+</RelativeLayout>
