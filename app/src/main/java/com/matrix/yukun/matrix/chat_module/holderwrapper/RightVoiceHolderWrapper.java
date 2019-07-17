@@ -19,9 +19,11 @@ import com.matrix.yukun.matrix.video_module.MyApplication;
 import com.matrix.yukun.matrix.video_module.play.AboutUsActivity;
 import com.matrix.yukun.matrix.video_module.play.JokeDetailActivity;
 import com.matrix.yukun.matrix.video_module.play.LoginActivity;
+import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 
 /**
@@ -77,29 +79,33 @@ public class RightVoiceHolderWrapper {
             mVoiceHolder=holder;
             holder.mSeekBar.setVisibility(View.VISIBLE);
             holder.mIvPlay.setImageResource(R.mipmap.icon_video_pause);
-            PlayerManager.getInstance().play(chatListInfo.getVideoPath(), new PlayerManager.PlayCallback() {
-                @Override
-                public void onPrepared(MediaPlayer mediaPlayer) {
-                    mPlayer = mediaPlayer;
-                    holder.mSeekBar.setMax(mPlayer.getDuration());
-                    holder.mSeekBar.setProgress(0);
-                    mHandler.sendEmptyMessage(1);
-                }
-                @Override
-                public void onComplete() {
-                    holder.mIvPlay.setImageResource(R.mipmap.icon_video_play);
-                    holder.mSeekBar.setVisibility(View.GONE);
-                    chatListInfo.setAudioIsPlay(false);
-                    chatListInfo.saveOrUpdate();
-                    if(mHandler!=null){
-                        mHandler.removeMessages(1);
+            if(new File(chatListInfo.getVideoPath()).exists()){
+                PlayerManager.getInstance().play(chatListInfo.getVideoPath(), new PlayerManager.PlayCallback() {
+                    @Override
+                    public void onPrepared(MediaPlayer mediaPlayer) {
+                        mPlayer = mediaPlayer;
+                        holder.mSeekBar.setMax(mPlayer.getDuration());
+                        holder.mSeekBar.setProgress(0);
+                        mHandler.sendEmptyMessage(1);
                     }
-                }
-                @Override
-                public void stop() {
+                    @Override
+                    public void onComplete() {
+                        holder.mIvPlay.setImageResource(R.mipmap.icon_video_play);
+                        holder.mSeekBar.setVisibility(View.GONE);
+                        chatListInfo.setAudioIsPlay(false);
+                        chatListInfo.saveOrUpdate();
+                        if(mHandler!=null){
+                            mHandler.removeMessages(1);
+                        }
+                    }
+                    @Override
+                    public void stop() {
 
-                }
-            });
+                    }
+                });
+            }else {
+                ToastUtils.showToast("语音播放出错");
+            }
         }
 
         (holder).mImageViewRight.setOnClickListener(new View.OnClickListener() {
