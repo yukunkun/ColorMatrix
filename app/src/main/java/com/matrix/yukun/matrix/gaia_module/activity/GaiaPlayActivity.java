@@ -26,12 +26,15 @@ import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.List;
+
 import butterknife.BindView;
 import okhttp3.Call;
 
@@ -46,11 +49,12 @@ public class GaiaPlayActivity extends BaseActivity {
     private String serviceUri;
     private VideoControl videoControl;
     private List<String> tsString;
-    public static void start(Context context,long id,int type){
-        Intent intent=new Intent(context,GaiaPlayActivity.class);
+
+    public static void start(Context context, long id, int type) {
+        Intent intent = new Intent(context, GaiaPlayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("id",id);
-        intent.putExtra("type",type);  // 0 作品 1 素材
+        intent.putExtra("id", id);
+        intent.putExtra("type", type);  // 0 作品 1 素材
         context.startActivity(intent);
     }
 
@@ -62,48 +66,48 @@ public class GaiaPlayActivity extends BaseActivity {
     @Override
     public void initView() {
         EventBus.getDefault().register(this);
-        mId = getIntent().getLongExtra("id",0);
-        mType = getIntent().getIntExtra("type",0);
+        mId = getIntent().getLongExtra("id", 0);
+        mType = getIntent().getIntExtra("type", 0);
         initNetUtil();
     }
 
     private void initNetUtil() {
         boolean portAvailable = M3U8Service.isPortAvailable(M3U8Service.PORT);
-        if(portAvailable){
+        if (portAvailable) {
             M3U8Service.execute();//再打开
         }
-        FileDelete.deleteAll();
         String format = String.format("http://localhost:%d", M3U8Service.PORT);
-        serviceUri = format+ "/gaiamount/gaia/test.m3u8";
+        serviceUri = format + "/yukun/gaia/test.m3u8";
         videoControl = new VideoControl();
     }
 
-    private int initView=0;
+    private int initView = 0;
+
     //下载完成,播放的回调
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventPlay(EventPosition event) {
         videoControl.setDownloadTag(event.position);//下载一次就加入一个值
         tsString = videoControl.getTsString();
 //        Log.i("----posit+initView+size",event.position+"+"+initView+"+"+ tsString.size());
-        if(tsString.size()>3){
-            if(event.position< tsString.size()){
-                if(event.position==2+initView){
+        if (tsString.size() > 3) {
+            if (event.position < tsString.size()) {
+                if (event.position == 2 + initView) {
                     videoControl.setHandlerStart(1);
                 }
                 videoControl.load();
             }
         }
         //只有两片的视频
-        if(tsString.size()==2){
-            if(event.position< tsString.size()){
-                if(event.position==1+initView){
+        if (tsString.size() == 2) {
+            if (event.position < tsString.size()) {
+                if (event.position == 1 + initView) {
                     videoControl.setHandlerStart(2);
                 }
                 videoControl.load();
             }
         }
         //只有两片的视频
-        if(tsString.size()==3) {
+        if (tsString.size() == 3) {
             if (event.position < tsString.size()) {
                 if (event.position == 1 + initView) {
                     videoControl.setHandlerStart(4);
@@ -116,19 +120,20 @@ public class GaiaPlayActivity extends BaseActivity {
     //下载好了,初始化播放器
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventInitView(EventInitView event) {
-        if(event.play==1){
-            gaiaPlayer.setUp(serviceUri,serviceUri,GaiaJzvdStd.SCREEN_NORMAL);
+        if (event.play == 1) {
+            gaiaPlayer.setUp(serviceUri, serviceUri, GaiaJzvdStd.SCREEN_NORMAL);
             gaiaPlayer.startVideo();
+//            gaiaPlayer.isPlayFromStart(false);
             gaiaPlayer.setVideoDuration(videoControl.getMaxTime());
         }
     }
 
     private void downloadVideoUrl(String uri) {
-        if(!TextUtils.isEmpty(uri)){
+        if (!TextUtils.isEmpty(uri)) {
             OkHttpUtils.get().url(uri).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception error, int id) {
-                    Log.i("-------m3u8error",error.toString());
+                    Log.i("-------m3u8error", error.toString());
                 }
 
                 @Override
@@ -141,12 +146,12 @@ public class GaiaPlayActivity extends BaseActivity {
 
     @Override
     public void initDate() {
-        if(mType== VideoType.WORK.getType()){
+        if (mType == VideoType.WORK.getType()) {
             VideoUtils.getWorkVideo((int) mId, new VideoUtils.GetVideoListener() {
                 @Override
                 public void getVideo(String data) {
                     try {
-                        JSONObject jsonObject=new JSONObject(data);
+                        JSONObject jsonObject = new JSONObject(data);
                         mDetailInfo = new Gson().fromJson(jsonObject.optJSONObject("o").toString(), VideoDetailInfo.class);
                         initVideoView();
 //                        Glide.with(GaiaPlayActivity.this).load(Api.COVER_PREFIX+).into(gaiaPlayer.thumbImageView);
@@ -161,15 +166,15 @@ public class GaiaPlayActivity extends BaseActivity {
                     LogUtil.i(error);
                 }
             });
-        }else {
+        } else {
             VideoUtils.getMaterialVideo((int) mId, new VideoUtils.GetVideoListener() {
                 @Override
                 public void getVideo(String data) {
                     try {
-                        JSONObject jsonObject=new JSONObject(data);
+                        JSONObject jsonObject = new JSONObject(data);
                         mMaterialInfo = new Gson().fromJson(jsonObject.optJSONObject("o").toString(), MaterialDetailInfo.class);
                         initMaterialVide();
-                        Glide.with(GaiaPlayActivity.this).load(Api.COVER_PREFIX+mMaterialInfo.getMaterial().getScreenshot()).into(gaiaPlayer.thumbImageView);
+                        Glide.with(GaiaPlayActivity.this).load(Api.COVER_PREFIX + mMaterialInfo.getMaterial().getScreenshot()).into(gaiaPlayer.thumbImageView);
                         downloadVideoUrl(VideoUtils.selectDefaultUri(mMaterialInfo));
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -186,11 +191,11 @@ public class GaiaPlayActivity extends BaseActivity {
     }
 
     private void initVideoView() {
-        getSupportFragmentManager().beginTransaction().add(R.id.fl,DetailFragment.instance(mId,mDetailInfo)).commitAllowingStateLoss();
+        getSupportFragmentManager().beginTransaction().add(R.id.fl, DetailFragment.instance(mId, mDetailInfo)).commitAllowingStateLoss();
     }
 
     private void initMaterialVide() {
-        getSupportFragmentManager().beginTransaction().add(R.id.fl,DetailFragment.instance(mId,mMaterialInfo)).commitAllowingStateLoss();
+        getSupportFragmentManager().beginTransaction().add(R.id.fl, DetailFragment.instance(mId, mMaterialInfo)).commitAllowingStateLoss();
     }
 
     @Override
@@ -204,7 +209,7 @@ public class GaiaPlayActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
         FileDelete.deleteAll();
         videoControl.setHandlerStop(3);
-        if(videoControl!=null){
+        if (videoControl != null) {
             //取消计时
             videoControl.setdownThreadCon();
         }

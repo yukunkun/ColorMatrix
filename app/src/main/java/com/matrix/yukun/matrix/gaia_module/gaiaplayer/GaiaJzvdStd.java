@@ -129,6 +129,12 @@ public class GaiaJzvdStd extends Jzvd {
         this.videoDuration=videoDuration;
     }
 
+    public void isPlayFromStart(boolean isFromStart){
+        if(!isFromStart){
+            seekToInAdvance=0;
+        }
+    }
+
     public void setUp(JZDataSource jzDataSource, int screen, Class mediaInterfaceClass) {
         super.setUp(jzDataSource, screen, mediaInterfaceClass);
         titleTextView.setText(jzDataSource.title);

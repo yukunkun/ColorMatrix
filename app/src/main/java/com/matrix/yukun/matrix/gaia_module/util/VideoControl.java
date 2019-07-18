@@ -29,7 +29,7 @@ public class VideoControl {
 
 
     String format = String.format("http://localhost:%d", M3U8Service.PORT);
-    String uri_1 = format+"/gaiamount/gaia/test.m3u8";
+    String uri_1 = format+"/yukun/gaia/test.m3u8";
     private String videoRatio;
 
     public void setM3u8String(String m3u8String) {

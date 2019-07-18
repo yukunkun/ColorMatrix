@@ -17,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.adapter.SearchWorkAdapter;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
+import com.matrix.yukun.matrix.gaia_module.bean.VideoType;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.gaia_module.net.GaiCallBack;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
@@ -81,7 +82,7 @@ public class MaterialSearchFragment extends BaseFragment {
     public void initView(View inflate, Bundle savedInstanceState) {
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         recyclerview.setLayoutManager(mLinearLayoutManager);
-        mSearchWorkAdapter = new SearchWorkAdapter(getContext(), mGaiaIndexBeans);
+        mSearchWorkAdapter = new SearchWorkAdapter(getContext(), mGaiaIndexBeans, VideoType.MATERIAL.getType());
         recyclerview.setAdapter(mSearchWorkAdapter);
         changeStyle(relevancy);
         initListener();

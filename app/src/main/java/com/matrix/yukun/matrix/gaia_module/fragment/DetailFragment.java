@@ -27,6 +27,7 @@ import com.matrix.yukun.matrix.gaia_module.bean.VideoDetailInfo;
 import com.matrix.yukun.matrix.gaia_module.bean.VideoType;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.gaia_module.net.VideoUtils;
+import com.matrix.yukun.matrix.gaia_module.util.FileDelete;
 import com.matrix.yukun.matrix.util.DataUtils;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.util.ImageUtils;
@@ -431,6 +432,7 @@ public class DetailFragment extends BaseFragment {
         mRvRecommendAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                FileDelete.deleteAll();
                 if(mVideoDetailInfo!=null){
                     GaiaPlayActivity.start(getContext(),mGaiaBeans.get(position).getId(),VideoType.WORK.getType());
                 }else {
