@@ -3,6 +3,8 @@ package com.matrix.yukun.matrix.gaia_module.net;
 import android.util.Log;
 
 import com.google.gson.JsonObject;
+import com.matrix.yukun.matrix.gaia_module.bean.MaterialDetailInfo;
+import com.matrix.yukun.matrix.gaia_module.bean.VideoDetailInfo;
 import com.qq.e.comm.util.StringUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -154,6 +156,51 @@ public class VideoUtils {
         });
     }
 
+
+    public static String selectDefaultUri(VideoDetailInfo detailInfo) {
+        String defaultPath = null;
+        int have4k = detailInfo.getWorks().getHave4K();
+        int have2k = detailInfo.getWorks().getHave2K();
+        int have1080 = detailInfo.getWorks().getHave1080();
+        int have720 = detailInfo.getWorks().getHave720();
+        if (have720 == 1) {
+            defaultPath = detailInfo.getResource().getP720();
+        } else if (have1080 == 1) {
+            defaultPath = detailInfo.getResource().getP1080();
+        } else if (have2k == 1) {
+            defaultPath = detailInfo.getResource().getK2();
+        } else if (have4k == 1) {
+            defaultPath = detailInfo.getResource().getK4();
+        }
+        if (defaultPath == null) {
+            defaultPath = detailInfo.getResource().getMp4();
+        } else {
+            return defaultPath;
+        }
+        return defaultPath;
+    }
+    public static String selectDefaultUri(MaterialDetailInfo detailInfo) {
+        String defaultPath = null;
+        int have4k = detailInfo.getMaterial().getHave4K();
+        int have2k = detailInfo.getMaterial().getHave2K();
+        int have1080 = detailInfo.getMaterial().getHave1080();
+        int have720 = detailInfo.getMaterial().getHave720();
+        if (have720 == 1) {
+            defaultPath = detailInfo.getResource().getP720();
+        } else if (have1080 == 1) {
+            defaultPath = detailInfo.getResource().getP1080();
+        } else if (have2k == 1) {
+            defaultPath = detailInfo.getResource().getK2();
+        } else if (have4k == 1) {
+            defaultPath = detailInfo.getResource().getK4();
+        }
+        if (defaultPath == null) {
+            defaultPath = detailInfo.getResource().getMp4();
+        } else {
+            return defaultPath;
+        }
+        return defaultPath;
+    }
 
     public interface GetVideoListener{
         void getVideo(String data);

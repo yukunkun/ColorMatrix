@@ -15,4 +15,5 @@ public class Api {
     public static String MATERCIALVIDEOURL="/material/details";
     public static String WORKRECOND="/works/recommendedWorks";
     public static String MATRERIALRECOND="/material/recommend";
+    public static String TSURL ="https://qv.gaiamount.com" ;
 }
