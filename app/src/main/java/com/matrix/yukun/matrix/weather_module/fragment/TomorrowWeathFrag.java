@@ -33,6 +33,7 @@ import com.matrix.yukun.matrix.weather_module.present.TomorrowPresent;
 import com.qq.e.ads.banner.ADSize;
 import com.qq.e.ads.banner.AbstractBannerADListener;
 import com.qq.e.ads.banner.BannerView;
+import com.qq.e.comm.util.AdError;
 import com.scwang.smartrefresh.header.storehouse.StoreHousePath;
 
 import org.greenrobot.eventbus.EventBus;
@@ -136,9 +137,10 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
                 AppConstant.BANNER_ADID);
         mBannerView.setRefresh(30);
         mBannerView.setADListener(new AbstractBannerADListener() {
+
             @Override
-            public void onNoAD(int i) {
-                Log.i("---onNoAD", i + "");
+            public void onNoAD(AdError adError) {
+
             }
 
             @Override

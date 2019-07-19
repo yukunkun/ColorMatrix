@@ -24,6 +24,8 @@ import com.matrix.yukun.matrix.video_module.play.PlayMainActivity;
 import com.matrix.yukun.matrix.video_module.utils.SPUtils;
 import com.qq.e.ads.splash.SplashAD;
 import com.qq.e.ads.splash.SplashADListener;
+import com.qq.e.comm.util.AdError;
+
 import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
 import java.util.List;
@@ -120,10 +122,11 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
                 forward();
             }
 
+
             @Override
-            public void onNoAD(int i) {
+            public void onNoAD(AdError adError) {
                 //加载失败
-                LogUtil.i("---ads","onNoAD:"+i);
+                LogUtil.i("---adError",adError.getErrorMsg());
                 conJump=true;
                 forward();
             }
@@ -141,6 +144,11 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
             @Override
             public void onADTick(long l) {
                 Log.i("---ads","onADTick");
+            }
+
+            @Override
+            public void onADExposure() {
+
             }
         },0);
     }

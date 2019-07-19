@@ -19,6 +19,7 @@ import com.matrix.yukun.matrix.btmovie_module.Constant;
 import com.qq.e.ads.banner.ADSize;
 import com.qq.e.ads.banner.AbstractBannerADListener;
 import com.qq.e.ads.banner.BannerView;
+import com.qq.e.comm.util.AdError;
 
 /**
  * author: kun .
@@ -102,8 +103,7 @@ public class FiveFiveFragment extends BaseFragment implements View.OnClickListen
     };
 
 
-
-
+    
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -117,9 +117,10 @@ public class FiveFiveFragment extends BaseFragment implements View.OnClickListen
                 Constant.BANNER_ADID);
         mBannerView.setRefresh(30);
         mBannerView.setADListener(new AbstractBannerADListener() {
+
             @Override
-            public void onNoAD(int i) {
-                Log.i("---onNoAD", i + "");
+            public void onNoAD(AdError adError) {
+
             }
 
             @Override

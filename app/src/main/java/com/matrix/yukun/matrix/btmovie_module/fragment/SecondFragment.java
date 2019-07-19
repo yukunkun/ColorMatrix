@@ -22,6 +22,7 @@ import com.matrix.yukun.matrix.btmovie_module.Constant;
 import com.qq.e.ads.banner.ADSize;
 import com.qq.e.ads.banner.AbstractBannerADListener;
 import com.qq.e.ads.banner.BannerView;
+import com.qq.e.comm.util.AdError;
 
 /**
  * author: kun .
@@ -130,9 +131,11 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
                 Constant.BANNER_ADID);
         mBannerView.setRefresh(30);
         mBannerView.setADListener(new AbstractBannerADListener() {
+
+
             @Override
-            public void onNoAD(int i) {
-                Log.i("---onNoAD", i + "");
+            public void onNoAD(AdError adError) {
+
             }
 
             @Override
