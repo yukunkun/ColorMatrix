@@ -103,7 +103,7 @@ public class FiveFiveFragment extends BaseFragment implements View.OnClickListen
     };
 
 
-    
+
     @Override
     public void onClick(View v) {
         int id = v.getId();

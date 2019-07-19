@@ -34,7 +34,7 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
 
     private RelativeLayout relativeLayout;
     private String appId="1105962710";
-    private String adId="6000411838414184";
+    private String adId="1070070284914535";
     private boolean conJump;
 
     @Override
@@ -122,7 +122,6 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
                 forward();
             }
 
-
             @Override
             public void onNoAD(AdError adError) {
                 //加载失败
@@ -148,7 +147,7 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
 
             @Override
             public void onADExposure() {
-
+                LogUtil.i("---ads","onADExposure");
             }
         },0);
     }
