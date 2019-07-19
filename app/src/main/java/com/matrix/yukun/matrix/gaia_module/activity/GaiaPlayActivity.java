@@ -3,12 +3,14 @@ package com.matrix.yukun.matrix.gaia_module.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.bean.MaterialDetailInfo;
 import com.matrix.yukun.matrix.gaia_module.bean.VideoDetailInfo;
@@ -36,12 +38,15 @@ import org.json.JSONObject;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.Call;
 
 public class GaiaPlayActivity extends BaseActivity {
 
     @BindView(R.id.gaia_player)
     GaiaJzvdStd gaiaPlayer;
+    @BindView(R.id.progressbar)
+    ProgressBar progressbar;
     private long mId;
     private int mType;
     private VideoDetailInfo mDetailInfo;
@@ -49,12 +54,14 @@ public class GaiaPlayActivity extends BaseActivity {
     private String serviceUri;
     private VideoControl videoControl;
     private List<String> tsString;
+    private String mCover;
 
-    public static void start(Context context, long id, int type) {
+    public static void start(Context context, long id, int type, String cover) {
         Intent intent = new Intent(context, GaiaPlayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("id", id);
         intent.putExtra("type", type);  // 0 作品 1 素材
+        intent.putExtra("cover", cover);
         context.startActivity(intent);
     }
 
@@ -68,6 +75,7 @@ public class GaiaPlayActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         mId = getIntent().getLongExtra("id", 0);
         mType = getIntent().getIntExtra("type", 0);
+        mCover = getIntent().getStringExtra("cover");
         initNetUtil();
     }
 
@@ -88,7 +96,6 @@ public class GaiaPlayActivity extends BaseActivity {
     public void onEventPlay(EventPosition event) {
         videoControl.setDownloadTag(event.position);//下载一次就加入一个值
         tsString = videoControl.getTsString();
-//        Log.i("----posit+initView+size",event.position+"+"+initView+"+"+ tsString.size());
         if (tsString.size() > 3) {
             if (event.position < tsString.size()) {
                 if (event.position == 2 + initView) {
@@ -121,9 +128,14 @@ public class GaiaPlayActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventInitView(EventInitView event) {
         if (event.play == 1) {
-            gaiaPlayer.setUp(serviceUri, serviceUri, GaiaJzvdStd.SCREEN_NORMAL);
+            gaiaPlayer.setVisibility(View.VISIBLE);
+            progressbar.setVisibility(View.GONE);
+            if(mDetailInfo!=null){
+                gaiaPlayer.setUp(serviceUri, mDetailInfo.getWorks().getName(), GaiaJzvdStd.SCREEN_NORMAL, this, mCover);
+            }else {
+                gaiaPlayer.setUp(serviceUri, mMaterialInfo.getMaterial().getName(), GaiaJzvdStd.SCREEN_NORMAL, this, mCover);
+            }
             gaiaPlayer.startVideo();
-//            gaiaPlayer.isPlayFromStart(false);
             gaiaPlayer.setVideoDuration(videoControl.getMaxTime());
         }
     }
@@ -215,5 +227,12 @@ public class GaiaPlayActivity extends BaseActivity {
         }
         videoControl.setHandlerStop(3);
         gaiaPlayer.reset();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

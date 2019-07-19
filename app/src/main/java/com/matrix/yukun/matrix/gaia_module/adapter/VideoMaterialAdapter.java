@@ -2,6 +2,7 @@ package com.matrix.yukun.matrix.gaia_module.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,13 +75,6 @@ public class VideoMaterialAdapter extends RecyclerView.Adapter<VideoMaterialAdap
                 Glide.with(mContext).load(screenshot).placeholder(R.mipmap.bg_header_nav).into(holder.workCover);
             }
         }
-//        holder.userAvatar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ImageDetailActivity.start(mContext,Api.COVER_PREFIX+videoInfo.getAvatar(),false);
-//            }
-//        });
-
         //是否显示官方授权标志
         if (videoInfo.getIsOfficial() == 1) {
             holder.outh.setVisibility(View.VISIBLE);
@@ -100,10 +94,17 @@ public class VideoMaterialAdapter extends RecyclerView.Adapter<VideoMaterialAdap
         //作品名称
         holder.workName.setText(videoInfo.getName());
         holder.mTextViewPrice.setText("免费");
+        String finalScreenshot = screenshot;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GaiaPlayActivity.start(mContext,videoInfo.getId(), VideoType.MATERIAL.getType());
+                String mCover="";
+                if(!TextUtils.isEmpty(cover)){
+                    mCover=cover;
+                }else {
+                    mCover= finalScreenshot;
+                }
+                GaiaPlayActivity.start(mContext,videoInfo.getId(), VideoType.MATERIAL.getType(),mCover);
             }
         });
     }

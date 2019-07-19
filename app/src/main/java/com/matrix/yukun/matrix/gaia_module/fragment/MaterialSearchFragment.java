@@ -69,6 +69,8 @@ public class MaterialSearchFragment extends BaseFragment {
 
     public void setKey(String key) {
         this.key = key;
+        pi=1;
+        mGaiaIndexBeans.clear();
         initData(opr, pi, key);
 
     }

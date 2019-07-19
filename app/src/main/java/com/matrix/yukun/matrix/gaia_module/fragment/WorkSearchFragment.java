@@ -67,6 +67,7 @@ public class WorkSearchFragment extends BaseFragment {
 
     public void setKey(String key) {
         this.key = key;
+        mGaiaIndexBeans.clear();
         pi = 1;
         initData(stype, key, pi);
     }

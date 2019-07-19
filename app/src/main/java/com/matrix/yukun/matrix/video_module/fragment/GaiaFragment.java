@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -121,10 +122,21 @@ public class GaiaFragment extends BaseFragment {
         mRvGaiaAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String cover="";
+                GaiaIndexBean item = mGaiaIndexBeans.get(position);
+                if(item.getCover()!=null&&!item.getCover().isEmpty()&&!"null".equals(item.getCover())){
+                    cover=Api.COVER_PREFIX+item.getCover();
+                }else if(!TextUtils.isEmpty(item.getScreenshot())){
+                    if(item.getFlag()==1){
+                        cover=Api.COVER_PREFIX+item.getScreenshot()+"_18.png";
+                    }else if(item.getFlag()==0){
+                        cover=Api.COVER_PREFIX+item.getScreenshot().replace(".","_18.");
+                    }
+                }
                 if(position<8){
-                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getWid(), VideoType.WORK.getType());
+                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getWid(), VideoType.WORK.getType(),cover);
                 }else {
-                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getWid(),VideoType.MATERIAL.getType());
+                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getWid(),VideoType.MATERIAL.getType(),cover);
                 }
             }
         });

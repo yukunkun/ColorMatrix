@@ -5,15 +5,21 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".gaia_module.activity.GaiaPlayActivity">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp">
         <com.matrix.yukun.matrix.gaia_module.gaiaplayer.GaiaJzvdStd
             android:id="@+id/gaia_player"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </com.matrix.yukun.matrix.gaia_module.gaiaplayer.GaiaJzvdStd>
-    </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
     <FrameLayout
         android:id="@+id/fl"
         android:layout_width="match_parent"

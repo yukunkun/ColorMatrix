@@ -51,7 +51,6 @@ public class ParaTs {
     }
 
     public void parasString() {
-
         String[] split = string.split("#");
         builder = new StringBuilder();
         if(split[6].startsWith("EXT-X-PLAYLIST-TYPE")){
@@ -63,7 +62,7 @@ public class ParaTs {
             ivs=split3[2].substring(3,split3[2].length());
             headTs = new String(builder);
             tsKey=split3[1].substring(5,split3[1].length()-1);
-            Log.i("-----TSHead_7", headTs);
+            Log.i("-----TSHead_7", '\n'+headTs);
         }else if(split[6].startsWith("EXT-X-KEY")){
             for (int i = 1; i < 6; i++) {
                 builder.append("#"+split[i]);
@@ -73,7 +72,7 @@ public class ParaTs {
             ivs=split3[2].substring(3,split3[2].length());
             headTs = new String(builder);
             tsKey=split3[1].substring(5,split3[1].length()-1);
-            Log.i("-----TSHead_6", headTs);
+            Log.i("-----TSHead_6", '\n'+headTs);
         }else {
             ToastUtils.showToast("视频资源有误");
             return;

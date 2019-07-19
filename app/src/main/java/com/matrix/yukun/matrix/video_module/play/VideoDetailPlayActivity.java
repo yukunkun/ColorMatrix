@@ -80,7 +80,7 @@ public class VideoDetailPlayActivity extends BaseActivity {
         mTabLayout = findViewById(R.id.tl_video);
         mViewPager = findViewById(R.id.vp_video);
         mFloatingActionButton = findViewById(R.id.bt_download);
-        checkFloatPermissiom();
+//        checkFloatPermissiom();
         FloatingViewManager.getInstance(this).removeFloatingView();
     }
 

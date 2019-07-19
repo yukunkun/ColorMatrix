@@ -2,6 +2,7 @@ package com.matrix.yukun.matrix.gaia_module.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -74,10 +75,21 @@ public class SearchWorkAdapter extends RecyclerView.Adapter<SearchWorkAdapter.MV
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String cover="";
+                GaiaIndexBean item = mGaiaIndexBeans.get(position);
+                if(item.getCover()!=null&&!item.getCover().isEmpty()&&!"null".equals(item.getCover())){
+                    cover=Api.COVER_PREFIX+item.getCover();
+                }else if(!TextUtils.isEmpty(item.getScreenshot())){
+                    if(item.getFlag()==1){
+                        cover=Api.COVER_PREFIX+item.getScreenshot()+"_18.png";
+                    }else if(item.getFlag()==0){
+                        cover=Api.COVER_PREFIX+item.getScreenshot().replace(".","_18.");
+                    }
+                }
                 if(mType==0){
-                    GaiaPlayActivity.start(mContext,searchWorksResult.getWid(),VideoType.WORK.getType());
+                    GaiaPlayActivity.start(mContext,searchWorksResult.getId(),VideoType.WORK.getType(),cover);
                 }else {
-                    GaiaPlayActivity.start(mContext,searchWorksResult.getId(), VideoType.MATERIAL.getType());                }
+                    GaiaPlayActivity.start(mContext,searchWorksResult.getId(), VideoType.MATERIAL.getType(),cover);                }
             }
         });
     }

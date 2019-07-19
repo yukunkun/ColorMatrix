@@ -3,6 +3,8 @@ package com.matrix.yukun.matrix.gaia_module.util;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -34,6 +36,7 @@ public class VideoControl {
 
     public void setM3u8String(String m3u8String) {
         this.m3u8String = m3u8String;
+        Log.i("------m3u8",m3u8String);
         initString();
     }
 
