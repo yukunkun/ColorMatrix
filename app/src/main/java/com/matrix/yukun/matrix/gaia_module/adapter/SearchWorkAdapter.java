@@ -2,13 +2,16 @@ package com.matrix.yukun.matrix.gaia_module.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.gaia_module.activity.GaiaPlayActivity;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
+import com.matrix.yukun.matrix.gaia_module.bean.VideoType;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.util.DataUtils;
 import com.matrix.yukun.matrix.util.ImageUtils;
@@ -23,10 +26,12 @@ public class SearchWorkAdapter extends RecyclerView.Adapter<SearchWorkAdapter.MV
 
     Context mContext;
     List<GaiaIndexBean> mGaiaIndexBeans;
+    int mType;
 
-    public SearchWorkAdapter(Context context, List<GaiaIndexBean> gaiaIndexBeans) {
+    public SearchWorkAdapter(Context context, List<GaiaIndexBean> gaiaIndexBeans,int type) {
         mContext = context;
         mGaiaIndexBeans = gaiaIndexBeans;
+        mType=type;
     }
 
     @Override
@@ -70,7 +75,21 @@ public class SearchWorkAdapter extends RecyclerView.Adapter<SearchWorkAdapter.MV
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String cover="";
+                GaiaIndexBean item = mGaiaIndexBeans.get(position);
+                if(item.getCover()!=null&&!item.getCover().isEmpty()&&!"null".equals(item.getCover())){
+                    cover=Api.COVER_PREFIX+item.getCover();
+                }else if(!TextUtils.isEmpty(item.getScreenshot())){
+                    if(item.getFlag()==1){
+                        cover=Api.COVER_PREFIX+item.getScreenshot()+"_18.png";
+                    }else if(item.getFlag()==0){
+                        cover=Api.COVER_PREFIX+item.getScreenshot().replace(".","_18.");
+                    }
+                }
+                if(mType==0){
+                    GaiaPlayActivity.start(mContext,searchWorksResult.getId(),VideoType.WORK.getType(),cover);
+                }else {
+                    GaiaPlayActivity.start(mContext,searchWorksResult.getId(), VideoType.MATERIAL.getType(),cover);                }
             }
         });
     }

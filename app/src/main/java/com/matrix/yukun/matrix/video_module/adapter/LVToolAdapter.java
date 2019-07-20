@@ -1,23 +1,32 @@
 package com.matrix.yukun.matrix.video_module.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.btmovie_module.Constant;
 import com.matrix.yukun.matrix.btmovie_module.SpecialActivity;
 import com.matrix.yukun.matrix.dictionary_module.DictionaryActivity;
 import com.matrix.yukun.matrix.phone_module.ContactActivity;
 import com.matrix.yukun.matrix.video_module.entity.SortModel;
 import com.matrix.yukun.matrix.video_module.play.HistoryTodayActivity;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
+import com.qq.e.ads.banner.ADSize;
+import com.qq.e.ads.banner.AbstractBannerADListener;
+import com.qq.e.ads.banner.BannerView;
+import com.qq.e.comm.util.AdError;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,11 +41,12 @@ import java.util.Map;
 public class LVToolAdapter extends BaseAdapter {
     private Context mContext;
     private List<String> mListName;
-    private List<Integer> mListImage=new ArrayList<>();
-    private Map<String,Class> mClassMap=new HashMap<>();
+    private List<Integer> mListImage = new ArrayList<>();
+    private Map<String, Class> mClassMap = new HashMap<>();
+
     public LVToolAdapter(Context context) {
         mContext = context;
-        mListName= Arrays.asList(context.getResources().getStringArray(R.array.tool_life));
+        mListName = Arrays.asList(context.getResources().getStringArray(R.array.tool_life));
 
         mListImage.add(R.mipmap.icon_tool_history);
         mListImage.add(R.mipmap.icon_tool_zidian);
@@ -67,26 +77,50 @@ public class LVToolAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        view=LayoutInflater.from(mContext).inflate(R.layout.tool_list_item_layout,null);
-        ImageView imageView=view.findViewById(R.id.iv_image);
-        final TextView textView=view.findViewById(R.id.tv_tool_name);
-        Glide.with(mContext).load(mListImage.get(position)).into(imageView);
-        textView.setText(mListName.get(position));
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text = textView.getText().toString();
-                Class aClass = mClassMap.get(text);
-                if (aClass != null) {
-                    Intent intent = new Intent(mContext, aClass);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mContext.startActivity(intent);
-                } else {
-                    ToastUtils.showToast("developing...");
+        view = LayoutInflater.from(mContext).inflate(R.layout.tool_list_item_layout, null);
+        ImageView imageView = view.findViewById(R.id.iv_image);
+        RelativeLayout layout = view.findViewById(R.id.rl_adv);
+        final TextView textView = view.findViewById(R.id.tv_tool_name);
+        if (!TextUtils.isEmpty(mListName.get(position))) {
+            Glide.with(mContext).load(mListImage.get(position-1)).into(imageView);
+            textView.setText(mListName.get(position));
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String text = textView.getText().toString();
+                    Class aClass = mClassMap.get(text);
+                    if (aClass != null) {
+                        Intent intent = new Intent(mContext, aClass);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContext.startActivity(intent);
+                    } else {
+                        ToastUtils.showToast("developing...");
+                    }
                 }
+            });
+        } else {
+            //设置广告
+            setBanner(mContext,layout);
+        }
+        return view;
+    }
+
+    private void setBanner(Context context,ViewGroup view) {
+        BannerView mBannerView = new BannerView((Activity) context, ADSize.BANNER, Constant.APPID,
+                Constant.BANNER_ADID);
+        mBannerView.setRefresh(30);
+        mBannerView.setADListener(new AbstractBannerADListener() {
+            @Override
+            public void onNoAD(AdError adError) {
+
+            }
+
+            @Override
+            public void onADReceiv() {
+                Log.i("---onNoAD", "onNoAD");
             }
         });
-        return view;
+        view.addView(mBannerView);// 把banner加载到容器
+        mBannerView.loadAD();
     }
 }

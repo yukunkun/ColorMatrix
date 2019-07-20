@@ -23,6 +23,7 @@ import com.matrix.yukun.matrix.selfview.ClockView;
 import com.matrix.yukun.matrix.selfview.floatingview.FloatingViewManager;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.matrix.yukun.matrix.video_module.utils.ScreenUtil;
+import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -104,6 +105,7 @@ public class NetActivity extends BaseActivity {
 //        }else {
             mClockView.setCompleteDegree((float) (netUploadSpeed/10));
 //        }
+        ToastUtils.showToast("developing");
     }
 
     @Override

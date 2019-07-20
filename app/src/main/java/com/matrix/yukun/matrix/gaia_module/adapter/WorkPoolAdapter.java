@@ -3,6 +3,7 @@ package com.matrix.yukun.matrix.gaia_module.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,10 +114,18 @@ public class WorkPoolAdapter extends RecyclerView.Adapter<WorkPoolAdapter.WorkVi
         //用户名
         holder.userName.setText(videoInfo.getNickName());
 
+        String finalCover = cover;
+        String finalScreenshot = screenshot;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GaiaPlayActivity.start(mContext,videoInfo.getId(), VideoType.WORK.getType());
+                String mCover="";
+                if(!TextUtils.isEmpty(finalCover)){
+                    mCover= finalCover;
+                }else {
+                    mCover= finalScreenshot;
+                }
+                GaiaPlayActivity.start(mContext,videoInfo.getId(), VideoType.WORK.getType(),mCover);
             }
         });
     }

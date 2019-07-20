@@ -68,6 +68,7 @@ public class RecordFragment extends Fragment implements MediaRecordListener {
             public void onRecordComplete(/*VoiceClipMessage vcm*/) {
                 Log.i("test", "完成");
                 isSend=true;
+                VoiceManager.getInstance().stop();
 //                boolean isSecret = mChatContainer.mSessionType == CubeSessionType.Secret;
 //                VoiceClipMessage voiceClipMessage = MessageManager.getInstance().buildVoiceMessage(mChatContainer.mChatActivity, CubeSessionType.P2P, SpUtil.getCubeId(), mChatContainer.mChatId, vcm, isSecret);
 //                MessageManager.getInstance().sendMessage(mChatContainer.mChatActivity, voiceClipMessage).subscribe();
@@ -95,7 +96,7 @@ public class RecordFragment extends Fragment implements MediaRecordListener {
     @Override
     public void recordStop(String path,long s) {
         if(isSend){
-            ((ChatBaseActivity)getContext()).sendVoiceMsg(mPath,mDuration);
+            ((ChatBaseActivity)getContext()).sendVoiceMsg(path,s* 1000);
         }else {
             getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fl_contain, new PlayFragment(path,s)).commit();
         }

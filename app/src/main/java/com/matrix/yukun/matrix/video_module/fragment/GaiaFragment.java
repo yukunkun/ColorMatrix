@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -21,7 +22,6 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.activity.GaiaPersonActivity;
 import com.matrix.yukun.matrix.gaia_module.activity.GaiaPlayActivity;
@@ -36,37 +36,22 @@ import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.gaia_module.net.GaiCallBack;
 import com.matrix.yukun.matrix.util.encrypt.AES128;
 import com.matrix.yukun.matrix.util.encrypt.SHA256;
-import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
 import com.matrix.yukun.matrix.video_module.netutils.NetworkUtils;
 import com.matrix.yukun.matrix.video_module.utils.SpacesDoubleDecoration;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.Callback;
-import com.zhy.http.okhttp.cookie.CookieJarImpl;
-import com.zhy.http.okhttp.cookie.store.PersistentCookieStore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import okhttp3.Call;
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Response;
 
 /**
  * author: kun .
@@ -121,10 +106,21 @@ public class GaiaFragment extends BaseFragment {
         mRvGaiaAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String cover="";
+                GaiaIndexBean item = mGaiaIndexBeans.get(position);
+                if(item.getCover()!=null&&!item.getCover().isEmpty()&&!"null".equals(item.getCover())){
+                    cover=Api.COVER_PREFIX+item.getCover();
+                }else if(!TextUtils.isEmpty(item.getScreenshot())){
+                    if(item.getFlag()==1){
+                        cover=Api.COVER_PREFIX+item.getScreenshot()+"_18.png";
+                    }else if(item.getFlag()==0){
+                        cover=Api.COVER_PREFIX+item.getScreenshot().replace(".","_18.");
+                    }
+                }
                 if(position<8){
-                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getWid(), VideoType.WORK.getType());
+                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getWid(), VideoType.WORK.getType(),cover);
                 }else {
-                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getWid(),VideoType.MATERIAL.getType());
+                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getWid(),VideoType.MATERIAL.getType(),cover);
                 }
             }
         });

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -24,6 +25,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.util.DataUtils;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 
 import java.text.SimpleDateFormat;
@@ -44,7 +49,6 @@ public class GaiaJzvdStd extends Jzvd {
     public static long LAST_GET_BATTERYLEVEL_TIME = 0;
     public static int LAST_GET_BATTERYLEVEL_PERCENT = 70;
     protected static Timer DISMISS_CONTROL_VIEW_TIMER;
-
     public ImageView backButton;
     public ProgressBar bottomProgressBar, loadingProgressBar;
     public TextView titleTextView;
@@ -71,7 +75,7 @@ public class GaiaJzvdStd extends Jzvd {
     protected Dialog mBrightnessDialog;
     protected ProgressBar mDialogBrightnessProgressBar;
     protected TextView mDialogBrightnessTextView;
-
+    protected double videoDuration;
 
     public GaiaJzvdStd(Context context) {
         super(context);
@@ -107,9 +111,7 @@ public class GaiaJzvdStd extends Jzvd {
         progressBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if(fromUser){
-                    ToastUtils.showToast(progress+"");
-                }
+
             }
 
             @Override
@@ -122,6 +124,17 @@ public class GaiaJzvdStd extends Jzvd {
 
             }
         });
+    }
+
+    public void setVideoDuration(double videoDuration){
+        this.videoDuration=videoDuration;
+    }
+
+    public void setUp(String url, String title, int screen,Context context,String cover) {
+        Glide.with(context).load(cover).into(thumbImageView);
+//        startButton.setBackgroundResource(R.drawable.jz_loading);
+        super.setUp(url, title, screen);
+
     }
 
     public void setUp(JZDataSource jzDataSource, int screen, Class mediaInterfaceClass) {
@@ -138,6 +151,7 @@ public class GaiaJzvdStd extends Jzvd {
         lp.height = size;
         lp.width = size;
     }
+
 
     @Override
     public int getLayoutId() {
@@ -231,6 +245,8 @@ public class GaiaJzvdStd extends Jzvd {
                     break;
             }
         }
+        //滑动屏幕禁止快进
+        mChangePosition=false;
         return super.onTouch(v, event);
     }
 
@@ -467,11 +483,12 @@ public class GaiaJzvdStd extends Jzvd {
         }
     }
 
-
     @Override
     public void onProgress(int progress, long position, long duration) {
         super.onProgress(progress, position, duration);
-        if (progress != 0) bottomProgressBar.setProgress(progress);
+//        currentTimeTextView.setText();
+        totalTimeTextView.setText(DataUtils.secToTime((int) videoDuration));
+        progressBar.setProgress((int) (((float)(position/1000)/videoDuration)*100));
     }
 
     @Override
