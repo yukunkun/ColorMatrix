@@ -1,5 +1,6 @@
 package com.matrix.yukun.matrix.btmovie_module.fragment;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,16 +20,19 @@ import android.widget.RelativeLayout;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.btmovie_module.BaseFragment;
 import com.matrix.yukun.matrix.btmovie_module.Constant;
+import com.matrix.yukun.matrix.util.AdvUtil;
 import com.qq.e.ads.banner.ADSize;
 import com.qq.e.ads.banner.AbstractBannerADListener;
 import com.qq.e.ads.banner.BannerView;
+import com.qq.e.ads.banner2.UnifiedBannerADListener;
+import com.qq.e.ads.banner2.UnifiedBannerView;
 import com.qq.e.comm.util.AdError;
 
 /**
  * author: kun .
  * date:   On 2018/9/25
  */
-public class SecondFragment extends BaseFragment implements View.OnClickListener{
+public class SecondFragment extends BaseFragment implements View.OnClickListener, UnifiedBannerADListener {
     private RelativeLayout mRlBanner;
     private ImageView mIvClose;
     private WebView mWebView;
@@ -57,7 +61,8 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
         progressBar.setMessage("加载中");
         progressBar.show();
 
-        getBanner();
+        UnifiedBannerView banner = AdvUtil.getBanner(getActivity(), mRlBanner, Constant.APPID,Constant.BANNER_ADID, this);
+        banner.loadAD();
 
         mWebView.getSettings().setJavaScriptEnabled(true);//启用js
         mWebView.getSettings().setBlockNetworkImage(false);//解决图片不显示
@@ -126,24 +131,43 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
         }
     };
 
-    private void getBanner() {
-        mBannerView = new BannerView(getActivity(), ADSize.BANNER, Constant.APPID,
-                Constant.BANNER_ADID);
-        mBannerView.setRefresh(30);
-        mBannerView.setADListener(new AbstractBannerADListener() {
+    @Override
+    public void onNoAD(AdError adError) {
 
+    }
 
-            @Override
-            public void onNoAD(AdError adError) {
+    @Override
+    public void onADReceive() {
 
-            }
+    }
 
-            @Override
-            public void onADReceiv() {
-                Log.i("---onNoAD", "onNoAD");
-            }
-        });
-        mRlBanner.addView(mBannerView);// 把banner加载到容器
-        mBannerView.loadAD();
+    @Override
+    public void onADExposure() {
+
+    }
+
+    @Override
+    public void onADClosed() {
+
+    }
+
+    @Override
+    public void onADClicked() {
+
+    }
+
+    @Override
+    public void onADLeftApplication() {
+
+    }
+
+    @Override
+    public void onADOpenOverlay() {
+
+    }
+
+    @Override
+    public void onADCloseOverlay() {
+
     }
 }

@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.search.DBSearchInfo;
@@ -24,11 +26,14 @@ import com.matrix.yukun.matrix.video_module.play.PlayMainActivity;
 import com.matrix.yukun.matrix.video_module.utils.SPUtils;
 import com.qq.e.ads.splash.SplashAD;
 import com.qq.e.ads.splash.SplashADListener;
+import com.qq.e.comm.constants.LoadAdParams;
 import com.qq.e.comm.util.AdError;
 
 import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SplashActivity extends BaseActivity/* implements SplashADListener */{
 
@@ -36,6 +41,7 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
     private String appId="1105962710";
     private String adId="1070070284914535";
     private boolean conJump;
+    private TextView mSkipView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,7 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
 
     private void init() {
         relativeLayout = (RelativeLayout) findViewById(R.id.container);
+        mSkipView = findViewById(R.id.skip_view);
         //删除100天以前的历史数据
         DataSupport.deleteAllAsync(DBSearchInfo.class,"timeStamp < ? ", System.currentTimeMillis()-100*24*60*60*1000+"");
     }
@@ -113,43 +120,58 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
         if(all.size()>0){
             MyApplication.setUserInfo(all.get(0));
         }
-        new SplashAD(this, relativeLayout, appId, adId, new SplashADListener() {
-            @Override
-            public void onADDismissed() {
-                //显示完毕
-                LogUtil.i("---ads","onADDismissed");
-                conJump=true;
-                forward();
-            }
 
-            @Override
-            public void onNoAD(AdError adError) {
-                //加载失败
-                LogUtil.i("---adError",adError.getErrorMsg());
-                conJump=true;
-                forward();
-            }
+        Map<String, String> tags = new HashMap<>();
+//        tags.put("tag_s1", "value_s1");
+//        tags.put("tag_s2", "value_s2");
 
-            @Override
-            public void onADPresent() {
-                LogUtil.i("---ads","onADPresent");
-            }
+        SplashAD splashAD = new SplashAD(this, mSkipView, appId, adId, new AdListener(),
+                5000, tags);
+        LoadAdParams params = new LoadAdParams();
+//        params.setLoginAppId("testAppId");
+//        params.setLoginOpenid("testOpenId");
+//        params.setUin("testUin");
+        splashAD.setLoadAdParams(params);
+        splashAD.fetchAndShowIn(relativeLayout);
+    }
 
-            @Override
-            public void onADClicked() {
-                LogUtil.i("---ads","onADClicked");
-            }
+    public class AdListener implements SplashADListener{
+        @Override
+        public void onADDismissed() {
+            //显示完毕
+            LogUtil.i("---ads","onADDismissed");
+            conJump=true;
+            forward();
+        }
 
-            @Override
-            public void onADTick(long l) {
-                Log.i("---ads","onADTick");
-            }
+        @Override
+        public void onNoAD(AdError adError) {
+            //加载失败
+            LogUtil.i("---adError",adError.getErrorMsg());
+            conJump=true;
+            forward();
+        }
 
-            @Override
-            public void onADExposure() {
-                LogUtil.i("---ads","onADExposure");
-            }
-        },0);
+        @Override
+        public void onADPresent() {
+            LogUtil.i("---ads","onADPresent");
+        }
+
+        @Override
+        public void onADClicked() {
+            LogUtil.i("---ads","onADClicked");
+        }
+
+        @Override
+        public void onADTick(long l) {
+            mSkipView.setText(String.format("点击跳过 %d", Math.round(l / 1000f)));
+            Log.i("---ads","onADTick");
+        }
+
+        @Override
+        public void onADExposure() {
+            LogUtil.i("---ads","onADExposure");
+        }
     }
 
     @Override

@@ -123,7 +123,7 @@ public class ToolsRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         //当长按并进入拖曳状态时，拖曳的过程中不断的回调此方法
         @Override
         public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-            //拖动的 item 的下标
+            //拖动的 item 的下标a
             int fromPosition = viewHolder.getAdapterPosition();
             //目标 item 的下标，目标 item 就是当拖曳过程中，不断和拖动的 item 做位置交换的条目。
             int toPosition = target.getAdapterPosition();

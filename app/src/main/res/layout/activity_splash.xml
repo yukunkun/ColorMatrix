@@ -12,6 +12,18 @@
         android:layout_marginBottom="@dimen/dimens_90"
         android:layout_height="wrap_content">
     </RelativeLayout>
+    <TextView
+        android:id="@+id/skip_view"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="16dp"
+        android:background="@drawable/background_circle"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="14sp"/>
     <RelativeLayout
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
