@@ -1,5 +1,7 @@
 package com.matrix.yukun.matrix.video_module.entity;
 
+import com.qq.e.ads.nativ.NativeExpressADView;
+
 import org.litepal.crud.DataSupport;
 
 import java.io.Serializable;
@@ -29,6 +31,8 @@ public class EyesInfo extends DataSupport implements Serializable{
     private String slogan;
     private String icon;
     private String category;
+    private int advType;
+    private NativeExpressADView mNativeExpressADView;
 
     public String getType() {
         return type;
@@ -110,6 +114,21 @@ public class EyesInfo extends DataSupport implements Serializable{
         this.icon = icon;
     }
 
+    public int getAdvType() {
+        return advType;
+    }
+
+    public NativeExpressADView getNativeExpressADView() {
+        return mNativeExpressADView;
+    }
+
+    public void setNativeExpressADView(NativeExpressADView nativeExpressADView) {
+        mNativeExpressADView = nativeExpressADView;
+    }
+
+    public void setAdvType(int advType) {
+        this.advType = advType;
+    }
 
     public static class DataBean extends DataSupport implements Serializable{
         /**

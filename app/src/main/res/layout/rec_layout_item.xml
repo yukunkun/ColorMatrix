@@ -127,4 +127,10 @@
           android:background="@color/color_eaeaea"
           android:layout_height="5dp"/>
     </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rl_banner"
+        android:layout_width="match_parent"
+        android:layout_height="380dp">
+
+    </RelativeLayout>
 </RelativeLayout>

@@ -14,6 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.matrix.yukun.matrix.btmovie_module.Constant;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
 import com.matrix.yukun.matrix.video_module.adapter.EyeRecAdapter;
 import com.matrix.yukun.matrix.video_module.dialog.ShareDialog;
@@ -26,6 +28,11 @@ import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.video_module.play.VideoDetailPlayActivity;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
+import com.qq.e.ads.cfg.VideoOption;
+import com.qq.e.ads.nativ.ADSize;
+import com.qq.e.ads.nativ.NativeExpressAD;
+import com.qq.e.ads.nativ.NativeExpressADView;
+import com.qq.e.comm.util.AdError;
 import com.zhy.http.okhttp.callback.StringCallback;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
@@ -41,7 +48,7 @@ import okhttp3.Call;
  * Created by yukun on 17-11-17.
  */
 
-public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCallBack {
+public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCallBack, NativeExpressAD.NativeExpressADListener {
     String url = "http://baobab.kaiyanapp.com/api/v4/tabs/selected?num=5&page=0";
     @BindView(R2.id.rv_joke)
     RecyclerView mRvJoke;
@@ -82,6 +89,16 @@ public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCall
         mSw.setColorSchemeResources(android.R.color.holo_blue_light,android.R.color.holo_green_light,android.R.color.black,
                  android.R.color.holo_red_light, android.R.color.holo_orange_light
                 );
+    }
+
+    private void initAdv() {
+        NativeExpressAD nativeExpressAD = new NativeExpressAD(getContext(), new ADSize(340, ADSize.AUTO_HEIGHT), Constant.APPID, Constant.BANNER_NATID, this); // 传入Activity
+        // 注意：如果您在平台上新建原生模板广告位时，选择了支持视频，那么可以进行个性化设置（可选）
+        nativeExpressAD.setVideoOption(new VideoOption.Builder()
+                .setAutoPlayPolicy(VideoOption.AutoPlayPolicy.WIFI) // WIFI 环境下可以自动播放视频
+                .setAutoPlayMuted(true) // 自动播放时为静音
+                .build()); //
+        nativeExpressAD.loadAD(1);
     }
 
     //分享
@@ -208,8 +225,9 @@ public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCall
                                 eyesInfos.remove(jokeList.get(i));
                             }
                         }
+                        initAdv();
                         url=jsonObject.optString("nextPageUrl");
-                        mJokeAdapter.notifyDataSetChanged();
+//                        mJokeAdapter.notifyDataSetChanged();
                         mLayoutBg.setVisibility(View.GONE);
                         //存储
                         if(isRefresh){
@@ -233,4 +251,57 @@ public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCall
         });
     }
 
+    @Override
+    public void onADLoaded(List<NativeExpressADView> list) {
+        EyesInfo eyesInfo=new EyesInfo();
+        eyesInfo.setAdvType(1);
+        eyesInfo.setNativeExpressADView(list.get(0));
+        mJokeAdapter.notifyDataSetChanged();
+        LogUtil.i("=======",list.get(0).getBoundData().getTitle());
+    }
+
+    @Override
+    public void onRenderFail(NativeExpressADView nativeExpressADView) {
+
+    }
+
+    @Override
+    public void onRenderSuccess(NativeExpressADView nativeExpressADView) {
+
+    }
+
+    @Override
+    public void onADExposure(NativeExpressADView nativeExpressADView) {
+
+    }
+
+    @Override
+    public void onADClicked(NativeExpressADView nativeExpressADView) {
+
+    }
+
+    @Override
+    public void onADClosed(NativeExpressADView nativeExpressADView) {
+
+    }
+
+    @Override
+    public void onADLeftApplication(NativeExpressADView nativeExpressADView) {
+
+    }
+
+    @Override
+    public void onADOpenOverlay(NativeExpressADView nativeExpressADView) {
+
+    }
+
+    @Override
+    public void onADCloseOverlay(NativeExpressADView nativeExpressADView) {
+
+    }
+
+    @Override
+    public void onNoAD(AdError adError) {
+
+    }
 }

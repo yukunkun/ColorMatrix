@@ -129,63 +129,67 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((HeaderHolder) holder).mTvEssay.setOnClickListener(new Listener());
         }else if(holder instanceof MHolder){
             final EyesInfo eyesInfo = eyesInfoList.get(position);
-            if(eyesInfo.getData()!=null){
-                ((MHolder) holder).mTvName.setText(eyesInfo.getData().getSlogan());
-                ((MHolder) holder).mTvTitle.setText(eyesInfo.getData().getDescription());
-                Glide.with(context).load(eyesInfo.getData().getCover().getDetail()).into(((MHolder) holder).mImCover);
-                Glide.with(context).load(eyesInfo.getData().getAuthor().getIcon()).into(((MHolder) holder).mCiHead);
-                ((MHolder) holder).mTvPlayTimes.setText(eyesInfo.getData().getCategory());
-            }else if(eyesInfo.getCover()!=null){
-                ((MHolder) holder).mTvName.setText(eyesInfo.getSlogan());
-                ((MHolder) holder).mTvTitle.setText(eyesInfo.getDescription());
-                Glide.with(context).load(eyesInfo.getCover()).into(((MHolder) holder).mImCover);
-                Glide.with(context).load(eyesInfo.getIcon()).into(((MHolder) holder).mCiHead);
-                ((MHolder) holder).mTvPlayTimes.setText(eyesInfo.getCategory());
-            }
-
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(eyesInfo.getData()!=null){
-                        mShareCallBack.onItemClickListener(eyesInfo,((MHolder) holder).mImCover);
-                    }else {
-                        ToastUtils.showToast("请检查网络");
-                    }
+            if(eyesInfo.getAdIndex()!=1){
+                if(eyesInfo.getData()!=null){
+                    ((MHolder) holder).mTvName.setText(eyesInfo.getData().getSlogan());
+                    ((MHolder) holder).mTvTitle.setText(eyesInfo.getData().getDescription());
+                    Glide.with(context).load(eyesInfo.getData().getCover().getDetail()).into(((MHolder) holder).mImCover);
+                    Glide.with(context).load(eyesInfo.getData().getAuthor().getIcon()).into(((MHolder) holder).mCiHead);
+                    ((MHolder) holder).mTvPlayTimes.setText(eyesInfo.getData().getCategory());
+                }else if(eyesInfo.getCover()!=null){
+                    ((MHolder) holder).mTvName.setText(eyesInfo.getSlogan());
+                    ((MHolder) holder).mTvTitle.setText(eyesInfo.getDescription());
+                    Glide.with(context).load(eyesInfo.getCover()).into(((MHolder) holder).mImCover);
+                    Glide.with(context).load(eyesInfo.getIcon()).into(((MHolder) holder).mCiHead);
+                    ((MHolder) holder).mTvPlayTimes.setText(eyesInfo.getCategory());
                 }
-            });
 
-            ((MHolder) holder).mImShare.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(eyesInfo.getData()!=null){
-                        mShareCallBack.onShareCallback(position);
-                    }else {
-                        ToastUtils.showToast("请检查网络");
-                    }
-                }
-            });
-
-            //加入收藏
-            ((MHolder) holder).mImCollect.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(eyesInfo.getData()!=null){
-                        List<CollectsInfo> newsList = DataSupport.where("cover = ?", eyesInfo.getData().getCover().getDetail()).find(CollectsInfo.class);
-                        if (newsList.size() > 0) {
-                            Toast.makeText(context, "已经添加到收藏了-_-", Toast.LENGTH_SHORT).show();
-                            //存储了
-                            return;
-                        } else {
-                            mShareCallBack.onItemCollectClickListener(eyesInfo,((MHolder) holder).mImCollect);
-                            Toast.makeText(context, "添加到收藏成功", Toast.LENGTH_SHORT).show();
-                            ((MHolder) holder).mImCollect.setImageResource(R.mipmap.collection_fill);
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(eyesInfo.getData()!=null){
+                            mShareCallBack.onItemClickListener(eyesInfo,((MHolder) holder).mImCover);
+                        }else {
+                            ToastUtils.showToast("请检查网络");
                         }
-                    }else {
-                        ToastUtils.showToast("请检查网络");
                     }
+                });
 
-                }
-            });
+                ((MHolder) holder).mImShare.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(eyesInfo.getData()!=null){
+                            mShareCallBack.onShareCallback(position);
+                        }else {
+                            ToastUtils.showToast("请检查网络");
+                        }
+                    }
+                });
+
+                //加入收藏
+                ((MHolder) holder).mImCollect.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(eyesInfo.getData()!=null){
+                            List<CollectsInfo> newsList = DataSupport.where("cover = ?", eyesInfo.getData().getCover().getDetail()).find(CollectsInfo.class);
+                            if (newsList.size() > 0) {
+                                Toast.makeText(context, "已经添加到收藏了-_-", Toast.LENGTH_SHORT).show();
+                                //存储了
+                                return;
+                            } else {
+                                mShareCallBack.onItemCollectClickListener(eyesInfo,((MHolder) holder).mImCollect);
+                                Toast.makeText(context, "添加到收藏成功", Toast.LENGTH_SHORT).show();
+                                ((MHolder) holder).mImCollect.setImageResource(R.mipmap.collection_fill);
+                            }
+                        }else {
+                            ToastUtils.showToast("请检查网络");
+                        }
+
+                    }
+                });
+            }else { //load adv
+                ((MHolder) holder).mLayoutBanner.addView(eyesInfo.getNativeExpressADView());
+            }
         }
     }
 
@@ -254,6 +258,8 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ImageView mImCollect;
         @BindView(R2.id.ll)
         RelativeLayout linearLayout;
+        @BindView(R2.id.rl_banner)
+        RelativeLayout mLayoutBanner;
 
         public MHolder(View itemView) {
             super(itemView);
