@@ -48,7 +48,7 @@ import okhttp3.Call;
  * Created by yukun on 17-11-17.
  */
 
-public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCallBack, NativeExpressAD.NativeExpressADListener {
+public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCallBack {
     String url = "http://baobab.kaiyanapp.com/api/v4/tabs/selected?num=5&page=0";
     @BindView(R2.id.rv_joke)
     RecyclerView mRvJoke;
@@ -91,15 +91,15 @@ public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCall
                 );
     }
 
-    private void initAdv() {
-        NativeExpressAD nativeExpressAD = new NativeExpressAD(getContext(), new ADSize(340, ADSize.AUTO_HEIGHT), Constant.APPID, Constant.BANNER_NATID, this); // 传入Activity
-        // 注意：如果您在平台上新建原生模板广告位时，选择了支持视频，那么可以进行个性化设置（可选）
-        nativeExpressAD.setVideoOption(new VideoOption.Builder()
-                .setAutoPlayPolicy(VideoOption.AutoPlayPolicy.WIFI) // WIFI 环境下可以自动播放视频
-                .setAutoPlayMuted(true) // 自动播放时为静音
-                .build()); //
-        nativeExpressAD.loadAD(1);
-    }
+//    private void initAdv() {
+//        NativeExpressAD nativeExpressAD = new NativeExpressAD(getContext(), new ADSize(340, ADSize.AUTO_HEIGHT), Constant.APPID, Constant.BANNER_NATID, this); // 传入Activity
+//        // 注意：如果您在平台上新建原生模板广告位时，选择了支持视频，那么可以进行个性化设置（可选）
+//        nativeExpressAD.setVideoOption(new VideoOption.Builder()
+//                .setAutoPlayPolicy(VideoOption.AutoPlayPolicy.WIFI) // WIFI 环境下可以自动播放视频
+//                .setAutoPlayMuted(true) // 自动播放时为静音
+//                .build()); //
+//        nativeExpressAD.loadAD(1);
+//    }
 
     //分享
     @Override
@@ -168,28 +168,6 @@ public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCall
                 EventBus.getDefault().post(new EventCategrayPos(pos));
             }
         });
-
-//        mLayoutVideo.setOnTouchListener(new View.OnTouchListener() {
-//            private float mX;
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                     case MotionEvent.ACTION_DOWN://0
-//                         mX = event.getX();
-//                         return false;
-//                     case MotionEvent.ACTION_UP://1
-//                         startPlayActivity();
-//                         break;
-//                     case MotionEvent.ACTION_MOVE://2
-//                         //右滑动移除
-//                         float  x = event.getX();
-//                         if(x-mX>25){
-//                         }
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
     }
 
     private void getInfo() {
@@ -225,9 +203,8 @@ public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCall
                                 eyesInfos.remove(jokeList.get(i));
                             }
                         }
-                        initAdv();
                         url=jsonObject.optString("nextPageUrl");
-//                        mJokeAdapter.notifyDataSetChanged();
+                        mJokeAdapter.notifyDataSetChanged();
                         mLayoutBg.setVisibility(View.GONE);
                         //存储
                         if(isRefresh){
@@ -249,59 +226,5 @@ public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCall
                 }
             }
         });
-    }
-
-    @Override
-    public void onADLoaded(List<NativeExpressADView> list) {
-        EyesInfo eyesInfo=new EyesInfo();
-        eyesInfo.setAdvType(1);
-        eyesInfo.setNativeExpressADView(list.get(0));
-        mJokeAdapter.notifyDataSetChanged();
-        LogUtil.i("=======",list.get(0).getBoundData().getTitle());
-    }
-
-    @Override
-    public void onRenderFail(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onRenderSuccess(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onADExposure(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onADClicked(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onADClosed(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onADLeftApplication(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onADOpenOverlay(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onADCloseOverlay(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onNoAD(AdError adError) {
-
     }
 }

@@ -18,6 +18,8 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 
@@ -33,6 +35,7 @@ import okhttp3.Response;
  */
 public class MyApp extends MyApplication {
     public  static MyApp myApp;
+    public RefWatcher refWatcher;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -43,24 +46,23 @@ public class MyApp extends MyApplication {
         Beta.autoCheckUpgrade = false;//设置不自动检查
         Bugly.init(getApplicationContext(), "884e2d9286", false);
         //  内存泄漏监测
-//        if (LeakCanary.isInAnalyzerProcess(this)) {
-//            // This process is dedicated to LeakCanary for heap analysis.
-//            // You should not init your app in this process.
-//            return;
-//        }
-//        refWatcher = LeakCanary.install(this);
+        leakCheck();
+
         String processName = getProcessName(this, android.os.Process.myPid());
         // android 7.0系统解决拍照的问题
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
-        //mob
-//        MobSDK.init(this);
         //服务
         DownLoadService.start(this);
-//        DownLoadService.checkServiceIsHealthy(this);
     }
 
+    private void leakCheck() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
+    }
 
 
     //获取当前进程名字
@@ -88,11 +90,12 @@ public class MyApp extends MyApplication {
     public static void showToast(String msg){
         Toast.makeText(myApp, msg, Toast.LENGTH_SHORT).show();
     }
+
     //内存泄漏管理
-//    public static RefWatcher getRefWatcher(Context context) {
-//        MyApp application = (MyApp) context.getApplicationContext();
-//        return application.refWatcher;
-//    }
+    public static RefWatcher getRefWatcher(Context context) {
+        MyApp application = (MyApp) context.getApplicationContext();
+        return application.refWatcher;
+    }
     static {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
@@ -111,22 +114,5 @@ public class MyApp extends MyApplication {
                 return new ClassicsFooter(context).setDrawableSize(20);
             }
         });
-    }
-
-    public static OkHttpClient getHttpClient(){
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Response response = chain.proceed(chain.request());
-                //存入Session
-                LogUtil.i("=========h",response.headers().toString()+"");
-                if (response.header("Set-Cookie") != null) {
-                    LogUtil.i("=========h",response.header("Set-Cookie"));
-                }
-                return response;
-            }
-
-        }).build();
-        return okHttpClient;
     }
 }

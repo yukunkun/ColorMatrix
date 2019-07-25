@@ -69,7 +69,8 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
         permissingList.add(Manifest.permission.READ_PHONE_STATE);
         permissingList.add(Manifest.permission.READ_CONTACTS);
         permissingList.add(Manifest.permission.RECORD_AUDIO);
-        final PermissionUtils permissionUtils = PermissionUtils.getInstance(this);
+        PermissionUtils permissionUtils = PermissionUtils.getInstance();
+        permissionUtils.setContext(this);
         List<String> list = permissionUtils.setPermission(permissingList);
         if(list.size()==0){
             requestAds();
@@ -113,24 +114,17 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    //光告接入
+    //广告接入
     private void requestAds() {
         //获取到userinfo
         List<UserInfo> all = DataSupport.findAll(UserInfo.class);
         if(all.size()>0){
             MyApplication.setUserInfo(all.get(0));
         }
-
         Map<String, String> tags = new HashMap<>();
-//        tags.put("tag_s1", "value_s1");
-//        tags.put("tag_s2", "value_s2");
-
         SplashAD splashAD = new SplashAD(this, mSkipView, appId, adId, new AdListener(),
                 5000, tags);
         LoadAdParams params = new LoadAdParams();
-//        params.setLoginAppId("testAppId");
-//        params.setLoginOpenid("testOpenId");
-//        params.setUin("testUin");
         splashAD.setLoadAdParams(params);
         splashAD.fetchAndShowIn(relativeLayout);
     }

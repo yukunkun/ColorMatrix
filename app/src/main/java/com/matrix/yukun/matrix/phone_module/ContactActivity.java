@@ -75,24 +75,23 @@ public class ContactActivity extends BaseActivity implements View.OnClickListene
         final List<String> permissingList = new ArrayList<String>();
         permissingList.add(Manifest.permission.READ_CONTACTS);
         permissingList.add(Manifest.permission.READ_PHONE_STATE);
-        final PermissionUtils permissionUtils = PermissionUtils.getInstance(this);
+        PermissionUtils permissionUtils = PermissionUtils.getInstance();
+        permissionUtils.setContext(this);
         List<String> list = permissionUtils.setPermission(permissingList);
         if(list.size()==0){
             mPhoneNumberBeans = queryContactPhoneNumber();
             mPhoneBeans.addAll(getSortModule());
             mRvContactAdapter.notifyDataSetChanged();
         }else {
-            LogUtil.i("-------ads","per");
             permissionUtils.start();
         }
-
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         LogUtil.i("------ads"+requestCode);
         switch (requestCode) {
-            case PermissionUtils.REQUESTCODE: {
+            case 1: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //6.0权限访问
