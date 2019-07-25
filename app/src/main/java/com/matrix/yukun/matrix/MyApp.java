@@ -35,19 +35,13 @@ import okhttp3.Response;
  */
 public class MyApp extends MyApplication {
     public  static MyApp myApp;
-    public RefWatcher refWatcher;
+    public static RefWatcher refWatcher;
     @Override
     public void onCreate() {
         super.onCreate();
         myApp=this;
-        //讯飞人脸识别
-//        SpeechUtility.createUtility(getApplicationContext(), SpeechConstant.APPID+"=58833c92");
-//        Setting.setShowLog(true);
         Beta.autoCheckUpgrade = false;//设置不自动检查
         Bugly.init(getApplicationContext(), "884e2d9286", false);
-        //  内存泄漏监测
-        leakCheck();
-
         String processName = getProcessName(this, android.os.Process.myPid());
         // android 7.0系统解决拍照的问题
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -55,15 +49,13 @@ public class MyApp extends MyApplication {
         builder.detectFileUriExposure();
         //服务
         DownLoadService.start(this);
-    }
-
-    private void leakCheck() {
+        //  内存泄漏监测
         if (LeakCanary.isInAnalyzerProcess(this)) {
+            // 判断是否和 LeakCanary 初始化同一进程
             return;
         }
-        LeakCanary.install(this);
+        refWatcher = LeakCanary.install(this);//获取一个 Watcher
     }
-
 
     //获取当前进程名字
     public static String getProcessName(Context cxt, int pid) {
@@ -91,11 +83,18 @@ public class MyApp extends MyApplication {
         Toast.makeText(myApp, msg, Toast.LENGTH_SHORT).show();
     }
 
-    //内存泄漏管理
-    public static RefWatcher getRefWatcher(Context context) {
-        MyApp application = (MyApp) context.getApplicationContext();
-        return application.refWatcher;
+    private RefWatcher setupLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return RefWatcher.DISABLED;
+        }
+        return LeakCanary.install(this);
     }
+
+    public static RefWatcher getRefWatcher(Context context) {
+        MyApp leakApplication = (MyApp) context.getApplicationContext();
+        return leakApplication.refWatcher;
+    }
+
     static {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
