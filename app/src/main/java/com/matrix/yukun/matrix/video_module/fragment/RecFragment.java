@@ -14,6 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.matrix.yukun.matrix.btmovie_module.Constant;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.matrix.yukun.matrix.video_module.BaseFragment;
 import com.matrix.yukun.matrix.video_module.adapter.EyeRecAdapter;
 import com.matrix.yukun.matrix.video_module.dialog.ShareDialog;
@@ -26,6 +28,11 @@ import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.video_module.play.VideoDetailPlayActivity;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
+import com.qq.e.ads.cfg.VideoOption;
+import com.qq.e.ads.nativ.ADSize;
+import com.qq.e.ads.nativ.NativeExpressAD;
+import com.qq.e.ads.nativ.NativeExpressADView;
+import com.qq.e.comm.util.AdError;
 import com.zhy.http.okhttp.callback.StringCallback;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
@@ -83,6 +90,16 @@ public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCall
                  android.R.color.holo_red_light, android.R.color.holo_orange_light
                 );
     }
+
+//    private void initAdv() {
+//        NativeExpressAD nativeExpressAD = new NativeExpressAD(getContext(), new ADSize(340, ADSize.AUTO_HEIGHT), Constant.APPID, Constant.BANNER_NATID, this); // 传入Activity
+//        // 注意：如果您在平台上新建原生模板广告位时，选择了支持视频，那么可以进行个性化设置（可选）
+//        nativeExpressAD.setVideoOption(new VideoOption.Builder()
+//                .setAutoPlayPolicy(VideoOption.AutoPlayPolicy.WIFI) // WIFI 环境下可以自动播放视频
+//                .setAutoPlayMuted(true) // 自动播放时为静音
+//                .build()); //
+//        nativeExpressAD.loadAD(1);
+//    }
 
     //分享
     @Override
@@ -151,28 +168,6 @@ public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCall
                 EventBus.getDefault().post(new EventCategrayPos(pos));
             }
         });
-
-//        mLayoutVideo.setOnTouchListener(new View.OnTouchListener() {
-//            private float mX;
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                     case MotionEvent.ACTION_DOWN://0
-//                         mX = event.getX();
-//                         return false;
-//                     case MotionEvent.ACTION_UP://1
-//                         startPlayActivity();
-//                         break;
-//                     case MotionEvent.ACTION_MOVE://2
-//                         //右滑动移除
-//                         float  x = event.getX();
-//                         if(x-mX>25){
-//                         }
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
     }
 
     private void getInfo() {
@@ -232,5 +227,4 @@ public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCall
             }
         });
     }
-
 }

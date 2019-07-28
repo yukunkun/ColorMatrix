@@ -17,16 +17,19 @@ import java.util.List;
 public class PermissionUtils {
 
     static List<String> mPermissions;
-    static PermissionUtils mPermissionUtils;
-    public static  final int REQUESTCODE=1;
-    private static Activity mContext;
+    private static PermissionUtils mPermissionUtils=new PermissionUtils();
+    public static int REQUESTCODE=1;
+    private Activity mContext;
 
-    public static PermissionUtils getInstance(Context context){
+    public static PermissionUtils getInstance(){
         if(mPermissionUtils==null){
-            mContext= (Activity) context;
             mPermissionUtils=new PermissionUtils();
         }
         return mPermissionUtils;
+    }
+
+    public void setContext(Activity context) {
+        mContext = context;
     }
 
     public List<String> setPermission(List<String> permissions){

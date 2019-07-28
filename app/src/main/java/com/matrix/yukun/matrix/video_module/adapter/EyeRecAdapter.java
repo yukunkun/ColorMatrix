@@ -254,6 +254,8 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ImageView mImCollect;
         @BindView(R2.id.ll)
         RelativeLayout linearLayout;
+        @BindView(R2.id.rl_banner)
+        RelativeLayout mLayoutBanner;
 
         public MHolder(View itemView) {
             super(itemView);

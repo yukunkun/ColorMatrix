@@ -1,5 +1,7 @@
 package com.matrix.yukun.matrix.video_module.entity;
 
+import com.qq.e.ads.nativ.NativeExpressADView;
+
 import org.litepal.crud.DataSupport;
 
 import java.io.Serializable;
@@ -109,7 +111,6 @@ public class EyesInfo extends DataSupport implements Serializable{
     public void setIcon(String icon) {
         this.icon = icon;
     }
-
 
     public static class DataBean extends DataSupport implements Serializable{
         /**

@@ -79,7 +79,6 @@ public class NetActivity extends BaseActivity {
     private View mInflate;
     private FloatingViewManager.Configs mConfigs;
 
-
     @Override
     public int getLayout() {
         return R.layout.activity_net;
@@ -91,6 +90,7 @@ public class NetActivity extends BaseActivity {
         mTvFUpload = mInflate.findViewById(R.id.tv_upload);
         mTvFDownload= mInflate.findViewById(R.id.tv_download);
         mRlFContain = mInflate.findViewById(R.id.rl_contain);
+        mLlFloatContain.setVisibility(View.GONE);
         mSeekbarTv.setMax(20);
         mSeekbarTv.setProgress(10);
         mSeekbarBg.setMax(255);

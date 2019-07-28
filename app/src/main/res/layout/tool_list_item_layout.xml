@@ -9,7 +9,7 @@
         android:background="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="@dimen/dimens_50">
+        android:layout_height="@dimen/dimens_55">
         <RelativeLayout
             android:id="@+id/rl_adv"
             android:layout_width="match_parent"

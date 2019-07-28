@@ -65,9 +65,16 @@
                 android:layout_alignParentRight="true"
                 android:padding="@dimen/dimens_3"
                 android:layout_marginRight="@dimen/dimens_8"
-                android:src="@mipmap/icon_search_select"
+                android:src="@mipmap/icon_search_skip"
                 android:layout_width="@dimen/dimens_30"
                 android:layout_height="match_parent" />
+            <View
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dimens_5"
+                android:background="@color/color_2299ee"
+                android:layout_toLeftOf="@+id/iv_search"
+                android:layout_height="@dimen/dimens_20"
+                android:layout_width="1dp"/>
         </RelativeLayout>
     </LinearLayout>
     <ScrollView
@@ -75,15 +82,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:id="@+id/ll_con"
             android:layout_marginTop="1dp"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="match_parent">
             <LinearLayout
-                android:id="@+id/ll_con"
                 android:background="@color/color_whit"
                 android:layout_width="match_parent"
-                android:visibility="gone"
                 android:orientation="horizontal"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="@dimen/dimens_130">

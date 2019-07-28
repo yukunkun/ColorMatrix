@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\project\ColorMatrix\jiaozivideoplayer\src\main\assets"/><source path="D:\project\ColorMatrix\jiaozivideoplayer\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\project\ColorMatrix\jiaozivideoplayer\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\project\colormatrix\jiaozivideoplayer\src\main\assets"/><source path="D:\project\colormatrix\jiaozivideoplayer\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\project\colormatrix\jiaozivideoplayer\src\debug\assets"/></dataSet></merger>

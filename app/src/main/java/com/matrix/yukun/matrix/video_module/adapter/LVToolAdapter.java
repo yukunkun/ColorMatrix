@@ -20,12 +20,17 @@ import com.matrix.yukun.matrix.btmovie_module.Constant;
 import com.matrix.yukun.matrix.btmovie_module.SpecialActivity;
 import com.matrix.yukun.matrix.dictionary_module.DictionaryActivity;
 import com.matrix.yukun.matrix.phone_module.ContactActivity;
+import com.matrix.yukun.matrix.util.AdvUtil;
+import com.matrix.yukun.matrix.util.log.LogUtil;
+import com.matrix.yukun.matrix.video_module.common.Constanct;
 import com.matrix.yukun.matrix.video_module.entity.SortModel;
 import com.matrix.yukun.matrix.video_module.play.HistoryTodayActivity;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.qq.e.ads.banner.ADSize;
 import com.qq.e.ads.banner.AbstractBannerADListener;
 import com.qq.e.ads.banner.BannerView;
+import com.qq.e.ads.banner2.UnifiedBannerADListener;
+import com.qq.e.ads.banner2.UnifiedBannerView;
 import com.qq.e.comm.util.AdError;
 
 import java.util.ArrayList;
@@ -38,7 +43,7 @@ import java.util.Map;
  * Created by yukun on 17-12-19.
  */
 
-public class LVToolAdapter extends BaseAdapter {
+public class LVToolAdapter extends BaseAdapter implements UnifiedBannerADListener {
     private Context mContext;
     private List<String> mListName;
     private List<Integer> mListImage = new ArrayList<>();
@@ -100,27 +105,49 @@ public class LVToolAdapter extends BaseAdapter {
             });
         } else {
             //设置广告
-            setBanner(mContext,layout);
+            UnifiedBannerView banner = AdvUtil.getBanner((Activity) mContext, layout,  Constant.APPID, Constant.BANNER_ADID,this);
+            banner.loadAD();
         }
         return view;
     }
 
-    private void setBanner(Context context,ViewGroup view) {
-        BannerView mBannerView = new BannerView((Activity) context, ADSize.BANNER, Constant.APPID,
-                Constant.BANNER_ADID);
-        mBannerView.setRefresh(30);
-        mBannerView.setADListener(new AbstractBannerADListener() {
-            @Override
-            public void onNoAD(AdError adError) {
+    @Override
+    public void onNoAD(AdError adError) {
+        LogUtil.i("===========",adError.getErrorMsg());
+    }
 
-            }
+    @Override
+    public void onADReceive() {
 
-            @Override
-            public void onADReceiv() {
-                Log.i("---onNoAD", "onNoAD");
-            }
-        });
-        view.addView(mBannerView);// 把banner加载到容器
-        mBannerView.loadAD();
+    }
+
+    @Override
+    public void onADExposure() {
+
+    }
+
+    @Override
+    public void onADClosed() {
+
+    }
+
+    @Override
+    public void onADClicked() {
+
+    }
+
+    @Override
+    public void onADLeftApplication() {
+
+    }
+
+    @Override
+    public void onADOpenOverlay() {
+
+    }
+
+    @Override
+    public void onADCloseOverlay() {
+
     }
 }

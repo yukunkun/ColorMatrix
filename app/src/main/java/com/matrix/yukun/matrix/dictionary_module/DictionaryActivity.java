@@ -16,6 +16,8 @@ import com.google.gson.Gson;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.AppConstant;
+import com.matrix.yukun.matrix.util.InputUtil;
+import com.matrix.yukun.matrix.util.KeyBoardUtil;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -149,6 +151,7 @@ public class DictionaryActivity extends BaseActivity {
             skipToInternet();
         }else if(id==R.id.iv_search){
             search();
+            KeyBoardUtil.closeKeyboard(this );
         }
     }
 

@@ -42,15 +42,15 @@ public class SpecialActivity extends BaseActivity {
         QuickFragment quickFragment= QuickFragment.newInstance();
         SecondFragment secondFragment= SecondFragment.newInstance();
         JingGuaFragment jingGuaFragment= JingGuaFragment.newInstance();
-        mFragments.add(fiveFiveFragment);
-        mFragments.add(quickFragment);
+//        mFragments.add(fiveFiveFragment);
+//        mFragments.add(quickFragment);
         mFragments.add(secondFragment);
-        mFragments.add(jingGuaFragment);
+//        mFragments.add(jingGuaFragment);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.fl_layout, secondFragment);
         fragmentTransaction.commit();
-        ((RadioButton) (mRadioGroup.getChildAt(2))).setChecked(true);
+        ((RadioButton) (mRadioGroup.getChildAt(0))).setChecked(true);
 
         mIvBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,32 +65,31 @@ public class SpecialActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     @Override
     public void initListener() {
-        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.rb_left) {
-                    ((RadioButton) (mRadioGroup.getChildAt(0))).setChecked(true);
-                    show(0);
-
-                } else if (checkedId == R.id.rb_center) {
-                    ((RadioButton) (mRadioGroup.getChildAt(1))).setChecked(true);
-                    show(1);
-
-                } else if (checkedId == R.id.rb_right) {
-                    ((RadioButton) (mRadioGroup.getChildAt(2))).setChecked(true);
-                    show(2);
-                }
-                else if (checkedId == R.id.rb_four) {
-                    ((RadioButton) (mRadioGroup.getChildAt(3))).setChecked(true);
-                    show(3);
-                }
-            }
-        });
+//        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                if (checkedId == R.id.rb_left) {
+//                    ((RadioButton) (mRadioGroup.getChildAt(0))).setChecked(true);
+//                    show(0);
+//
+//                } else if (checkedId == R.id.rb_center) {
+//                    ((RadioButton) (mRadioGroup.getChildAt(1))).setChecked(true);
+//                    show(1);
+//
+//                } else if (checkedId == R.id.rb_right) {
+//                    ((RadioButton) (mRadioGroup.getChildAt(2))).setChecked(true);
+//                    show(2);
+//                }
+//                else if (checkedId == R.id.rb_four) {
+//                    ((RadioButton) (mRadioGroup.getChildAt(3))).setChecked(true);
+//                    show(3);
+//                }
+//            }
+//        });
     }
 
     /**
