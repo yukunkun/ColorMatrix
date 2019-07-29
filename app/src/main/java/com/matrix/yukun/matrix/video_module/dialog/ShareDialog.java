@@ -1,7 +1,10 @@
 package com.matrix.yukun.matrix.video_module.dialog;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,8 +17,15 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.matrix.yukun.matrix.AppConstant;
+import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.barrage_module.dialog.BaseBottomDialog;
+import com.matrix.yukun.matrix.download_module.bean.FileInfo;
+import com.matrix.yukun.matrix.download_module.service.DownLoadUtils;
+import com.matrix.yukun.matrix.util.FileUtil;
+import com.matrix.yukun.matrix.video_module.MyApplication;
+import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 
 import java.io.File;
 
@@ -39,6 +49,10 @@ public class ShareDialog  extends BaseBottomDialog implements View.OnClickListen
     private ImageView mIvMore;
     private String mImageUrl;
     private String mImagePath;
+    private ImageView mIvWeixin;
+    private ImageView mIvFriend;
+    public static final String PACKAGE_WECHAT = "com.tencent.mm";//微信
+    public static final String PACKAGE_MOBILE_QQ = "com.tencent.mobileqq";//qq
 
     public static ShareDialog getInstance(String title, String shareUrl,String imageUrl){
         if(shareDialog==null){
@@ -84,6 +98,8 @@ public class ShareDialog  extends BaseBottomDialog implements View.OnClickListen
         mIvQQ = inflate.findViewById(R.id.iv_share_qq);
         mIvZone = inflate.findViewById(R.id.iv_share_zone);
         mIvMore = inflate.findViewById(R.id.iv_share_more);
+        mIvWeixin = inflate.findViewById(R.id.iv_share_weixin);
+        mIvFriend = inflate.findViewById(R.id.iv_share_friend);
     }
 
     @Override
@@ -96,6 +112,8 @@ public class ShareDialog  extends BaseBottomDialog implements View.OnClickListen
         mIvQQ.setOnClickListener(this);
         mIvZone.setOnClickListener(this);
         mIvMore.setOnClickListener(this);
+        mIvWeixin.setOnClickListener(this);
+        mIvFriend.setOnClickListener(this);
     }
 
     @Override
@@ -115,11 +133,223 @@ public class ShareDialog  extends BaseBottomDialog implements View.OnClickListen
                     shareToQQ(QZone.NAME);
                 }
                 break;
+            case R.id.iv_share_weixin:
+                if(!TextUtils.isEmpty(mImagePath)){
+                    shareLocalImageToWeiXin();
+                }else {
+                    shareToWeiXin();
+                }
+                break;
+            case R.id.iv_share_friend:
+                if(!TextUtils.isEmpty(mImagePath)){
+                    shareLocalImageToWeiXinFriend();
+                }else {
+                    shareToWeiXinFriend();
+                }
+                break;
             case R.id.iv_share_more:
                 shareToMore();
                 break;
         }
         getDialog().dismiss();
+    }
+
+    private void shareToWeiXinFriend() {
+        if (checkApkExist(getContext(), PACKAGE_WECHAT)) {
+            if(mShareUrl.endsWith(".jpg")||mShareUrl.endsWith(".png")){
+                shareImageToWeiXinFriend();
+            }else {
+                Intent intent = new Intent();
+                ComponentName cop = new ComponentName(PACKAGE_WECHAT, "com.tencent.mm.ui.tools.ShareImgUI");
+                intent.setComponent(cop);
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT, getContext().getString(R.string.app_name)+'\n'+mTitle+'\n'+mShareUrl);
+                intent.putExtra(getContext().getString(R.string.app_name), "shareTextToWechatFriend");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getContext().startActivity(intent);
+            }
+        } else {
+            ToastUtils.showToast("请先安装微信客户端");
+        }
+    }
+
+    private void shareImageToWeiXinFriend() {
+        if (checkApkExist(getContext(), PACKAGE_WECHAT)) {
+            Intent intent = new Intent();
+            ComponentName comp = new ComponentName(PACKAGE_WECHAT, "com.tencent.mm.ui.tools.ShareToTimeLineUI");
+            intent.setComponent(comp);
+            intent.setAction(Intent.ACTION_SEND);
+            intent.setType("image/*");
+            FileInfo fileInfo=new FileInfo();
+            fileInfo.setUrl(mImageUrl);
+            fileInfo.setFileName("yk_share_"+System.currentTimeMillis()+".png");
+            fileInfo.setFilePath(AppConstant.IMAGEPATH);
+            DownLoadUtils.getInstance().download(fileInfo, new DownLoadUtils.OnDownloadListener() {
+                @Override
+                public void onStartDownload() {
+
+                }
+
+                @Override
+                public void onDownloading(long processed, long total) {
+
+                }
+
+                @Override
+                public void onDownloadPause(long processed, long total) {
+
+                }
+
+                @Override
+                public void onDownloadCancel(File file) {
+
+                }
+
+                @Override
+                public void onDownloadSuccess(File file) {
+                    if (file.exists()) {
+                        Uri uri = Uri.fromFile(file);
+                        intent.putExtra(Intent.EXTRA_STREAM, uri);
+                        intent.putExtra("Kdescription", "sharePictureToTimeLine");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        MyApp.myApp.startActivity(intent);
+                    }else {
+                        ToastUtils.showToast("分享失败");
+                    }
+                }
+                @Override
+                public void onDownloadFailed(Exception e) {
+                    ToastUtils.showToast("分享失败");
+                }
+            });
+        } else {
+            ToastUtils.showToast("请先安装微信客户端");
+        }
+
+    }
+
+    private void shareLocalImageToWeiXinFriend() {
+        if (checkApkExist(getContext(), PACKAGE_WECHAT)) {
+            Intent intent = new Intent();
+            ComponentName comp = new ComponentName(PACKAGE_WECHAT, "com.tencent.mm.ui.tools.ShareToTimeLineUI");
+            intent.setComponent(comp);
+            intent.setAction(Intent.ACTION_SEND);
+            intent.setType("image/*");
+            File file=new File(mImagePath);
+            if (file.exists()) {
+                Uri uri = Uri.fromFile(file.getAbsoluteFile());
+                intent.putExtra(Intent.EXTRA_STREAM, uri);
+                intent.putExtra("Kdescription", "sharePictureToTimeLine");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getContext().startActivity(intent);
+            }else {
+                ToastUtils.showToast("分享失败");
+            }
+
+        } else {
+            ToastUtils.showToast("请先安装微信客户端");
+        }
+
+    }
+
+    private void shareLocalImageToWeiXin() {
+        if (checkApkExist(getContext(), PACKAGE_WECHAT)) {
+            Intent intent = new Intent();
+            ComponentName cop = new ComponentName(PACKAGE_WECHAT, "com.tencent.mm.ui.tools.ShareImgUI");
+            intent.setComponent(cop);
+            intent.setAction(Intent.ACTION_SEND);
+            intent.setType("image/*");
+            File file=new File(mImagePath);
+            if (file.exists()) {
+                if (file.isFile() && file.exists()) {
+                    Uri uri = Uri.fromFile(file);
+                    intent.putExtra(Intent.EXTRA_STREAM, uri);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getContext().startActivity(Intent.createChooser(intent, "sharePictureToWechatFriend"));
+            }else {
+                ToastUtils.showToast("分享失败");
+            }
+        } else {
+            ToastUtils.showToast("请先安装微信客户端");
+        }
+
+    }
+
+    private void shareImageToWeiXin() {
+        if (checkApkExist(getContext(), PACKAGE_WECHAT)) {
+            Intent intent = new Intent();
+            ComponentName cop = new ComponentName(PACKAGE_WECHAT, "com.tencent.mm.ui.tools.ShareImgUI");
+            intent.setComponent(cop);
+            intent.setAction(Intent.ACTION_SEND);
+            intent.setType("image/*");
+            FileInfo fileInfo=new FileInfo();
+            fileInfo.setUrl(mImageUrl);
+            fileInfo.setFileName("yk_share_"+System.currentTimeMillis()+".png");
+            fileInfo.setFilePath(AppConstant.IMAGEPATH);
+            DownLoadUtils.getInstance().download(fileInfo, new DownLoadUtils.OnDownloadListener() {
+                @Override
+                public void onStartDownload() {
+
+                }
+
+                @Override
+                public void onDownloading(long processed, long total) {
+
+                }
+
+                @Override
+                public void onDownloadPause(long processed, long total) {
+
+                }
+
+                @Override
+                public void onDownloadCancel(File file) {
+
+                }
+
+                @Override
+                public void onDownloadSuccess(File file) {
+                    if (file.exists()) {
+                        if (file.isFile() && file.exists()) {
+                            Uri uri = Uri.fromFile(file);
+                            intent.putExtra(Intent.EXTRA_STREAM, uri);
+                        }
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        MyApp.myApp.startActivity(Intent.createChooser(intent, "sharePictureToWechatFriend"));
+                    }else {
+                        ToastUtils.showToast("分享失败");
+                    }
+                }
+
+                @Override
+                public void onDownloadFailed(Exception e) {
+                    ToastUtils.showToast("分享失败");
+                }
+            });
+        } else {
+            ToastUtils.showToast("请先安装微信客户端");
+        }
+
+    }
+
+    private void shareToWeiXin() {
+        if (checkApkExist(getContext(), PACKAGE_WECHAT)) {
+            if(mShareUrl.endsWith(".jpg")||mShareUrl.endsWith(".png")){
+                shareImageToWeiXin();
+            }else {
+                Intent intent = new Intent();
+                ComponentName cop = new ComponentName(PACKAGE_WECHAT, "com.tencent.mm.ui.tools.ShareImgUI");
+                intent.setComponent(cop);
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT, getContext().getString(R.string.app_name)+'\n'+mTitle+'\n'+mShareUrl);
+                intent.putExtra(getContext().getString(R.string.app_name), "shareTextToWechatFriend");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getContext().startActivity(intent);
+            }
+        } else {
+            ToastUtils.showToast("请先安装微信客户端");
+        }
     }
 
     private void shareToMore() {
@@ -176,4 +406,17 @@ public class ShareDialog  extends BaseBottomDialog implements View.OnClickListen
             window.setAttributes(params);
         }
     }
+
+
+    public static boolean checkApkExist(Context context, String packageName){
+        if (TextUtils.isEmpty(packageName))
+            return false;
+        try {
+            ApplicationInfo info = context.getPackageManager().getApplicationInfo(packageName, PackageManager.GET_UNINSTALLED_PACKAGES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
 }
