@@ -20,6 +20,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.download_module.DownLoadActivity;
+import com.matrix.yukun.matrix.util.StatusBarUtil;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;

@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
 import com.matrix.yukun.matrix.selfview.floatingview.FloatingViewManager;
+import com.matrix.yukun.matrix.util.StatusBarUtil;
 import com.matrix.yukun.matrix.video_module.dialog.GestureDialog;
 import com.matrix.yukun.matrix.video_module.entity.EventVideo;
 import com.matrix.yukun.matrix.video_module.entity.EyesInfo;
@@ -78,6 +79,11 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
 //                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 //            window.setStatusBarColor(Color.TRANSPARENT);
 //        }
+        //当FitsSystemWindows设置 true 时，会在屏幕最上方预留出状态栏高度的 padding
+        StatusBarUtil.setRootViewFitsSystemWindows(this, false);
+        //设置状态栏透明
+//        StatusBarUtil.setTranslucentStatus(this);
+//        StatusBarUtil.setStatusBarDarkTheme(this, true);
         return R.layout.activity_play_main;
     }
 

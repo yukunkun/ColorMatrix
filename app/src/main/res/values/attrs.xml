@@ -166,4 +166,11 @@
         <attr format="dimension" name="mRingWidth"/>
         <attr format="integer" name="mRingMax"/>
     </declare-styleable>
+    <!--状态栏透明-->
+    <declare-styleable name="StatusBarHeightView">
+        <attr format="integer" name="use_type">
+            <enum name="use_height" value="0"/>
+            <enum name="use_padding_top" value="1"/>
+        </attr>
+    </declare-styleable>
 </resources>
