@@ -18,6 +18,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.matrix.yukun.matrix.util.StatusBarUtil;
 import com.matrix.yukun.matrix.video_module.dialog.ImageDownLoadDialog;
 import com.matrix.yukun.matrix.video_module.utils.DownLoadUtils;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
@@ -61,6 +62,9 @@ public class ImageDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        StatusBarUtil.setRootViewFitsSystemWindows(this, false);
+        StatusBarUtil.setTranslucentStatus(this);
+//        StatusBarUtil.setStatusBarDarkTheme(this, true);
         downloadurl = getIntent().getStringExtra("url");
         mIsGif = getIntent().getBooleanExtra("isGif",false);
         Glide.with(this).load(downloadurl).into(new GlideDrawableImageViewTarget(mPhotoview){
