@@ -5,6 +5,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,11 +21,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.matrix.yukun.matrix.AppConstant;
+import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.download_module.DownLoadActivity;
 import com.matrix.yukun.matrix.util.StatusBarUtil;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
-import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.video_module.MyApplication;
 import com.matrix.yukun.matrix.video_module.adapter.CollectAdapter;
 import com.matrix.yukun.matrix.video_module.adapter.ShareCallBack;
@@ -41,6 +43,7 @@ import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.blurry.Blurry;
@@ -69,11 +72,28 @@ public class AboutUsActivity extends BaseActivity {
     TextView mTvTitle;
     @BindView(R.id.iv_header)
     ImageView mIvHeader;
+    @BindView(R.id.ll_coll)
+    LinearLayout llColl;
+    @BindView(R.id.ll_download)
+    LinearLayout llDownload;
+    @BindView(R.id.ll_history)
+    LinearLayout llHistory;
+    @BindView(R.id.ll_attent)
+    LinearLayout llAttent;
+    @BindView(R.id.rv)
+    RecyclerView rv;
+    @BindView(R.id.iv_remind)
+    ImageView ivRemind;
+    @BindView(R.id.tv_remind)
+    TextView tvRemind;
+    @BindView(R.id.rl_remind)
+    RelativeLayout rlRemind;
 
     private RecyclerView mRecyclerView;
     GridLayoutManager mLayoutManager;
     CollectAdapter mCollectAdapter;
     RelativeLayout mRelativeLayout;
+
     @Override
     public int getLayout() {
         return R.layout.activity_about_us_video_show;
@@ -81,10 +101,14 @@ public class AboutUsActivity extends BaseActivity {
 
     @Override
     public void initView() {
+//        StatusBarUtil.setRootViewFitsSystemWindows(this, false);
+//        //设置状态栏透明
+//        StatusBarUtil.setTranslucentStatus(this);
+//        StatusBarUtil.setStatusBarDarkTheme(this, true);
         mRecyclerView = findViewById(R.id.rv);
-        mRelativeLayout=findViewById(R.id.rl_remind);
+        mRelativeLayout = findViewById(R.id.rl_remind);
         final List<CollectsInfo> collectInfoList = DataSupport.findAll(CollectsInfo.class);
-        if(collectInfoList!=null&&collectInfoList.size()>0){
+        if (collectInfoList != null && collectInfoList.size() > 0) {
             mRelativeLayout.setVisibility(View.GONE);
             Collections.reverse(collectInfoList);
             mLayoutManager = new GridLayoutManager(this, 2);
@@ -96,34 +120,34 @@ public class AboutUsActivity extends BaseActivity {
                 @Override
                 public void onShareCallback(int pos) {
                     CollectsInfo collectsInfo = collectInfoList.get(pos);
-                    ShareDialog instance = ShareDialog.getInstance(collectsInfo.getTitle(),collectsInfo.getPlay_url(),collectsInfo.getCover());
-                    instance.show(getSupportFragmentManager(),"");
+                    ShareDialog instance = ShareDialog.getInstance(collectsInfo.getTitle(), collectsInfo.getPlay_url(), collectsInfo.getCover());
+                    instance.show(getSupportFragmentManager(), "");
                 }
             });
         }
-        if(collectInfoList!=null&&collectInfoList.size()>0){
-            mTvColl.setText(collectInfoList.size()+"");
+        if (collectInfoList != null && collectInfoList.size() > 0) {
+            mTvColl.setText(collectInfoList.size() + "");
         }
         List<HistoryPlay> historyPlays = DataSupport.findAll(HistoryPlay.class);
-        if(historyPlays!=null&&historyPlays.size()>0){
-            mTvhistory.setText(historyPlays.size()+"");
+        if (historyPlays != null && historyPlays.size() > 0) {
+            mTvhistory.setText(historyPlays.size() + "");
         }
         List<AttentList> attentLists = DataSupport.findAll(AttentList.class);
-        if(attentLists!=null&&attentLists.size()>0){
-            mTvAttent.setText(attentLists.size()+"");
+        if (attentLists != null && attentLists.size() > 0) {
+            mTvAttent.setText(attentLists.size() + "");
         }
-        File file=new File(AppConstant.VIDEOPATH);
+        File file = new File(AppConstant.VIDEOPATH);
         File[] listFiles = file.listFiles();
-        if(listFiles!=null){
-            mTvdownload.setText(listFiles.length+"");
+        if (listFiles != null) {
+            mTvdownload.setText(listFiles.length + "");
         }
     }
 
-    private void startAnimation(final View view){
+    private void startAnimation(final View view) {
         view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                if(Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
                     Animator animationTop = ViewAnimationUtils.createCircularReveal(view, view.getWidth() / 2,
                             view.getHeight() / 2, 0,
                             Math.max(view.getWidth() / 2,
@@ -136,7 +160,7 @@ public class AboutUsActivity extends BaseActivity {
 
     @Override
     public void initDate() {
-        if(MyApplication.userInfo!=null){
+        if (MyApplication.userInfo != null) {
             Glide.with(this).load(MyApplication.userInfo.getImg()).into(mCircleImageView);
             Glide.with(this).load(MyApplication.userInfo.getImg()).into(mIvHeader);
             mTvName.setText(MyApplication.userInfo.getName());
@@ -157,50 +181,60 @@ public class AboutUsActivity extends BaseActivity {
         mAppBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
             @Override
             public void onStateChanged(AppBarLayout appBarLayout, State state) {
-                if( state == State.EXPANDED ) {
+                if (state == State.EXPANDED) {
                     //展开状态
                     mIvHeader.setVisibility(View.GONE);
                     mTvTitle.setVisibility(View.VISIBLE);
+//                    rlTool.setBackgroundColor(getResources().getColor(R.color.color_00000000));
                     startAnimation(mIvBg);
-                }else if(state == State.COLLAPSED){
+                } else if (state == State.COLLAPSED) {
                     //折叠状态
                     mIvHeader.setVisibility(View.VISIBLE);
                     mTvTitle.setVisibility(View.GONE);
-                }else { //中间
-
+//                    rlTool.setBackgroundColor(getResources().getColor(R.color.white));
+//                    rlTool.setVisibility(View.VISIBLE);
+                } else { //中间
+//                    rlTool.setBackgroundColor(getResources().getColor(R.color.color_00000000));
+//                    rlTool.setVisibility(View.INVISIBLE);
                 }
             }
         });
     }
 
-    @OnClick({R2.id.iv_back,R2.id.iv_avator,R2.id.iv_more,R2.id.ll_coll,R2.id.ll_download,R2.id.ll_history,R2.id.ll_attent,R2.id.iv_header})
+    @OnClick({R2.id.iv_back, R2.id.iv_avator, R2.id.iv_more, R2.id.ll_coll, R2.id.ll_download, R2.id.ll_history, R2.id.ll_attent, R2.id.iv_header})
     public void onClick(View view) {
         int id = view.getId();
-        if(id==R.id.iv_back){
+        if (id == R.id.iv_back) {
             finish();
-        }if(id==R2.id.iv_avator||id==R2.id.iv_header){
-            Intent intent=new Intent(this, ImageDetailActivity.class);
-            intent.putExtra("url",MyApplication.userInfo.getImg());
+        }
+        if (id == R2.id.iv_avator || id == R2.id.iv_header) {
+            Intent intent = new Intent(this, ImageDetailActivity.class);
+            intent.putExtra("url", MyApplication.userInfo.getImg());
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            if(Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT_WATCH){
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this,mCircleImageView,"shareView").toBundle());
-            }else {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this, mCircleImageView, "shareView").toBundle());
+            } else {
                 startActivity(intent);
-               overridePendingTransition(R.anim.rotate,R.anim.rotate_out);
+                overridePendingTransition(R.anim.rotate, R.anim.rotate_out);
             }
-        }if(id==R2.id.iv_more){
-            Intent intent=new Intent(this, ShareActivity.class);
+        }
+        if (id == R2.id.iv_more) {
+            Intent intent = new Intent(this, ShareActivity.class);
             startActivity(intent);
-        }if(id==R2.id.ll_coll){
+        }
+        if (id == R2.id.ll_coll) {
             Intent intentCol = new Intent(this, MyCollectActivity.class);
             startActivity(intentCol);
-        }if(id==R2.id.ll_download){
-            Intent intent=new Intent(this, DownLoadActivity.class);
+        }
+        if (id == R2.id.ll_download) {
+            Intent intent = new Intent(this, DownLoadActivity.class);
             startActivity(intent);
-        }if(id==R2.id.ll_history){
+        }
+        if (id == R2.id.ll_history) {
             Intent intent = new Intent(this, HistoryPlayActivity.class);
             startActivity(intent);
-        }if(id==R2.id.ll_attent){
+        }
+        if (id == R2.id.ll_attent) {
             Intent intent = new Intent(this, AttentionActivity.class);
             startActivity(intent);
         }
@@ -208,7 +242,8 @@ public class AboutUsActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        overridePendingTransition(R.anim.rotate,R.anim.rotate_out);
+        overridePendingTransition(R.anim.rotate, R.anim.rotate_out);
         return super.onKeyDown(keyCode, event);
     }
+
 }

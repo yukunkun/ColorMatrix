@@ -50,11 +50,11 @@ public class MyApp extends MyApplication {
         //服务
         DownLoadService.start(this);
         //  内存泄漏监测
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // 判断是否和 LeakCanary 初始化同一进程
-            return;
-        }
-        refWatcher = LeakCanary.install(this);//获取一个 Watcher
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            // 判断是否和 LeakCanary 初始化同一进程
+//            return;
+//        }
+//        refWatcher = LeakCanary.install(this);//获取一个 Watcher
     }
 
     //获取当前进程名字

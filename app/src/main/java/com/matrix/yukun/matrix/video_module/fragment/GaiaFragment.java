@@ -6,11 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -50,7 +53,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import okhttp3.Call;
 
 /**
@@ -73,6 +78,8 @@ public class GaiaFragment extends BaseFragment {
     ImageView ivProduct;
     @BindView(R.id.iv_sucai)
     ImageView ivSucai;
+    @BindView(R.id.sw_refresh)
+    SwipeRefreshLayout swRefresh;
     private GridLayoutManager mGridLayoutManager;
     private List<GaiaIndexBean> mGaiaIndexBeans = new ArrayList<>();
     private List<BannerInfo> mBannerInfos = new ArrayList<>();
@@ -95,32 +102,41 @@ public class GaiaFragment extends BaseFragment {
         mRvGaiaAdapter = new RVGaiaAdapter(R.layout.gaia_index_item, mGaiaIndexBeans);
         rvList.setAdapter(mRvGaiaAdapter);
         mRvGaiaAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
-        rvList.addItemDecoration(new SpacesDoubleDecoration(0,5,5,20));
+        rvList.addItemDecoration(new SpacesDoubleDecoration(0, 5, 5, 20));
         setAnimation(ivProduct);
         setAnimation(ivSucai);
+        initBanner();
         initData();
         initListener();
     }
 
     private void initListener() {
+        swRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mGaiaIndexBeans.clear();
+                mBannerInfos.clear();
+                initData();
+            }
+        });
         mRvGaiaAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                String cover="";
+                String cover = "";
                 GaiaIndexBean item = mGaiaIndexBeans.get(position);
-                if(item.getCover()!=null&&!item.getCover().isEmpty()&&!"null".equals(item.getCover())){
-                    cover=Api.COVER_PREFIX+item.getCover();
-                }else if(!TextUtils.isEmpty(item.getScreenshot())){
-                    if(item.getFlag()==1){
-                        cover=Api.COVER_PREFIX+item.getScreenshot()+"_18.png";
-                    }else if(item.getFlag()==0){
-                        cover=Api.COVER_PREFIX+item.getScreenshot().replace(".","_18.");
+                if (item.getCover() != null && !item.getCover().isEmpty() && !"null".equals(item.getCover())) {
+                    cover = Api.COVER_PREFIX + item.getCover();
+                } else if (!TextUtils.isEmpty(item.getScreenshot())) {
+                    if (item.getFlag() == 1) {
+                        cover = Api.COVER_PREFIX + item.getScreenshot() + "_18.png";
+                    } else if (item.getFlag() == 0) {
+                        cover = Api.COVER_PREFIX + item.getScreenshot().replace(".", "_18.");
                     }
                 }
-                if(position<8){
-                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getWid(), VideoType.WORK.getType(),cover);
-                }else {
-                    GaiaPlayActivity.start(getContext(),mGaiaIndexBeans.get(position).getWid(),VideoType.MATERIAL.getType(),cover);
+                if (position < 8) {
+                    GaiaPlayActivity.start(getContext(), mGaiaIndexBeans.get(position).getWid(), VideoType.WORK.getType(), cover);
+                } else {
+                    GaiaPlayActivity.start(getContext(), mGaiaIndexBeans.get(position).getWid(), VideoType.MATERIAL.getType(), cover);
                 }
             }
         });
@@ -143,17 +159,18 @@ public class GaiaFragment extends BaseFragment {
     }
 
     private void initData() {
-        NetworkUtils.networkGet(Api.BASE_URL+Api.BANNER).build().execute(new GaiCallBack() {
+        NetworkUtils.networkGet(Api.BASE_URL + Api.BANNER).build().execute(new GaiCallBack() {
             @Override
             protected void onDataSuccess(String data, boolean a, boolean b, String response) {
-                if(data!=null){
-                    Gson gson=new Gson();
-                    List<BannerInfo> bannerInfos = gson.fromJson(data, new TypeToken<List<BannerInfo>>(){}.getType());
+                if (data != null) {
+                    Gson gson = new Gson();
+                    List<BannerInfo> bannerInfos = gson.fromJson(data, new TypeToken<List<BannerInfo>>() {
+                    }.getType());
                     mBannerInfos.addAll(bannerInfos);
-                    if(mBannerInfos.size()==6){
+                    if (mBannerInfos.size() == 6) {
                         mBannerInfos.remove(5);
                     }
-                    initBanner();
+                    conBanner.notifyDataSetChanged();
                 }
             }
 
@@ -168,19 +185,23 @@ public class GaiaFragment extends BaseFragment {
             }
         });
 
-        OkHttpUtils.get().url(Api.BASE_URL+Api.RECOMEND).build().execute(new GaiCallBack() {
+        OkHttpUtils.get().url(Api.BASE_URL + Api.RECOMEND).build().execute(new GaiCallBack() {
             @Override
             protected void onDataSuccess(String data, boolean a, boolean b, String response) {
                 try {
-                    Gson gson=new Gson();
-                    JSONObject jsonObject=new JSONObject(data);
+                    Gson gson = new Gson();
+                    JSONObject jsonObject = new JSONObject(data);
                     JSONArray works = jsonObject.optJSONArray("works");
-                    List<GaiaIndexBean> gaiaIndexBeans = gson.fromJson(works.toString(), new TypeToken<List<GaiaIndexBean>>(){}.getType());
+                    List<GaiaIndexBean> gaiaIndexBeans = gson.fromJson(works.toString(), new TypeToken<List<GaiaIndexBean>>() {
+                    }.getType());
                     JSONArray materials = jsonObject.optJSONArray("materials");
-                    List<GaiaIndexBean> materialsbean = gson.fromJson(materials.toString(), new TypeToken<List<GaiaIndexBean>>(){}.getType());
+                    List<GaiaIndexBean> materialsbean = gson.fromJson(materials.toString(), new TypeToken<List<GaiaIndexBean>>() {
+                    }.getType());
                     mGaiaIndexBeans.addAll(gaiaIndexBeans);
                     mGaiaIndexBeans.addAll(materialsbean);
                     mRvGaiaAdapter.notifyDataSetChanged();
+                    swRefresh.setRefreshing(false);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -196,13 +217,13 @@ public class GaiaFragment extends BaseFragment {
         try {
             jsonObject.put("c", "18200299278");
             jsonObject.put("p", encyptPwd("18200299278", "123456789"));//AES加密
-            jsonObject.put("opr", 2+"");
+            jsonObject.put("opr", 2 + "");
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    @OnClick({R.id.iv_main, R.id.iv_search,R.id.iv_product, R.id.iv_sucai})
+    @OnClick({R.id.iv_main, R.id.iv_search, R.id.iv_product, R.id.iv_sucai})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_main:
@@ -232,7 +253,7 @@ public class GaiaFragment extends BaseFragment {
 
         @Override
         public void UpdateUI(Context context, final int position, BannerInfo data) {
-            Glide.with(context).load(Api.COVER_PREFIX+data.getShuffl()).into(imageView);
+            Glide.with(context).load(Api.COVER_PREFIX + data.getShuffl()).into(imageView);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -254,7 +275,7 @@ public class GaiaFragment extends BaseFragment {
      * 设置旋转的动画
      */
     public void setAnimation(View view) {
-        ObjectAnimator mObjectAnimator = ObjectAnimator.ofFloat(view, "rotation", -6, 6,6,-6);
+        ObjectAnimator mObjectAnimator = ObjectAnimator.ofFloat(view, "rotation", -6, 6, 6, -6);
         mObjectAnimator.setDuration(500);
         mObjectAnimator.setRepeatCount(-1);
         mObjectAnimator.setInterpolator(new AccelerateInterpolator());
@@ -264,24 +285,25 @@ public class GaiaFragment extends BaseFragment {
 
     /**
      * AES加密，key为account经过SHA256加密后的前32位，iv为后32位
-     * @param account 账号
+     *
+     * @param account   账号
      * @param plainText 明文密码
      * @return 加密后的字符串
      */
-    public static String encyptPwd(String account,String plainText) {
+    public static String encyptPwd(String account, String plainText) {
         //SHA加密
         String str_sha = SHA256.bin2hex(account);
-        Log.i("TAG",str_sha);
+        Log.i("TAG", str_sha);
         //计算
         String seed = str_sha.substring(0, 32);
-        String iv = str_sha.substring(32,64);
+        String iv = str_sha.substring(32, 64);
 
         //AES加密
         String encryptPwd = null;
         try {
             encryptPwd = AES128.encrypt(seed, plainText, iv);
         } catch (Exception e) {
-            Log.e("TAG","错误");
+            Log.e("TAG", "错误");
             e.printStackTrace();
         }
         return encryptPwd;
