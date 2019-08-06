@@ -66,9 +66,6 @@
                 android:layout_width="@dimen/dimens_40"
                 android:layout_height="@dimen/dimens_40"/>
         </RelativeLayout>
-        <View android:layout_width="match_parent"
-              android:layout_height="0.5dp"
-              android:background="@color/color_9b2f4de6"/>
         <android.support.design.widget.TabLayout
             android:id="@+id/tablayout"
             android:background="@color/color_write"

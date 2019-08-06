@@ -23,6 +23,7 @@ import com.matrix.yukun.matrix.chat_module.ChatMemberActivity;
 import com.matrix.yukun.matrix.download_module.DownLoadActivity;
 import com.matrix.yukun.matrix.main_module.SearchActivity;
 import com.matrix.yukun.matrix.util.ScreenUtils;
+import com.matrix.yukun.matrix.util.StatusBarUtil;
 import com.matrix.yukun.matrix.video_module.MyApplication;
 import com.matrix.yukun.matrix.video_module.entity.EventCategrayPos;
 import com.matrix.yukun.matrix.video_module.entity.EventShowSecond;

@@ -68,6 +68,7 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:visibility="gone"
+                android:layout_marginTop="@dimen/dimens_25"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"

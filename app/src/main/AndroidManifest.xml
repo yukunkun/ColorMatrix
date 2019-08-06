@@ -130,7 +130,6 @@
         <activity
             android:name="com.qq.e.ads.ADActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
-
         <service
             android:name="com.qq.e.comm.DownloadService"
             android:exported="false" />
@@ -387,8 +386,11 @@
             android:name=".gaia_module.activity.GaiaPlayActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-        <activity android:name=".gaia_module.activity.GaiaPersonActivity"
-            android:screenOrientation="portrait" ></activity>
+        <activity
+            android:name=".gaia_module.activity.GaiaPersonActivity"
+            android:screenOrientation="portrait" >
+
+        </activity>
     </application>
 
 </manifest>

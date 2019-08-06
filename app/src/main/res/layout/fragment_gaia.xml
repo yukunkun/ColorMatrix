@@ -4,11 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/rl_contain"
+        android:paddingTop="@dimen/dimens_25"
         android:background="@color/color_2e6891"
-        android:layout_height="50dp">
+        android:layout_height="75dp">
         <ImageView
             android:layout_width="@dimen/dimens_40"
             android:src="@mipmap/icon_main"
@@ -35,10 +37,9 @@
             android:background="?android:attr/selectableItemBackground"
             android:src="@mipmap/ic_explore_search_pressed"
             android:id="@+id/iv_search"
-            android:layout_marginTop="10dp"
             android:padding="@dimen/dimens_3"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:layout_height="match_parent"/>
     </RelativeLayout>
     <View android:layout_width="match_parent"
