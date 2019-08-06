@@ -52,10 +52,11 @@
         <android.support.design.widget.AppBarLayout
             android:background="@color/color_whit"
             app:elevation="0dp"
+            android:fitsSystemWindows="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <com.bigkoo.convenientbanner.ConvenientBanner
-                app:layout_scrollFlags="scroll|enterAlways"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 android:layout_width="match_parent"
                 android:id="@+id/con_banner"
                 app:canLoop="true"
