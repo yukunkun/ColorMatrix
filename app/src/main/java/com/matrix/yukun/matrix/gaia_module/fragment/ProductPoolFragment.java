@@ -111,9 +111,7 @@ public class ProductPoolFragment extends BaseFragment {
         3 最多搜藏
         4 最多评论
         5 最多下载
-     *
      */
-
     private void initData(int pos) {
         JSONObject jsonObject = new JSONObject();
         try {
@@ -121,7 +119,7 @@ public class ProductPoolFragment extends BaseFragment {
             jsonObject.put("ptype", 0);
             jsonObject.put("stype", 1);
             jsonObject.put("pi", pi);
-            jsonObject.put("ps", 20);
+            jsonObject.put("ps", 10);
         } catch (Exception e) {
             e.printStackTrace();
         }

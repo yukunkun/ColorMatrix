@@ -122,7 +122,7 @@ public class SideBar extends TextView {
         textPaint.setTextAlign(Paint.Align.CENTER);
         bigTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         bigTextPaint.setColor(getCurrentTextColor());
-        bigTextPaint.setTextSize(getTextSize()+getTextSize() * (scaleTime+2) );
+        bigTextPaint.setTextSize(getTextSize()+getTextSize() * (scaleTime+1));
         bigTextPaint.setTextAlign(Paint.Align.CENTER);
         scaleTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         scaleTextPaint.setColor(getCurrentTextColor());

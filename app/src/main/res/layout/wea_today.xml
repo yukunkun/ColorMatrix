@@ -21,12 +21,13 @@
         </LinearLayout>
             <TextView
                 android:id="@+id/pathAnimView1"
-                android:text="Tomorrow"
+                android:text="Today"
                 android:gravity="center"
+                android:textSize="18sp"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:paddingTop="18dp"/>
+                />
         <ImageView
             android:id="@+id/search"
             android:layout_alignParentRight="true"

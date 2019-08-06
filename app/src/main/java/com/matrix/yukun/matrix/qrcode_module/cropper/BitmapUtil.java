@@ -34,7 +34,6 @@ public class BitmapUtil {
         return null;
     }
 
-    // �����ڲ�ͬ����ֱ�Ӵ���ͼƬ
     public static Bitmap temp;
 
     // ͼƬ����

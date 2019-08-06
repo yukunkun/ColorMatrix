@@ -31,8 +31,9 @@ import okhttp3.Call;
  */
 
 public class SearchImageFragment extends BaseFragment {
-    String url="http://image.baidu.com/channel/listjson?pn=0&rn=50&tag1=美女&tag2=全部&ftags=小清新";
+    String url="http://image.baidu.com/search/listjson?pn=0&rn=50&tag1=美女&tag2=全部&ftags=小清新";
     private SmartRefreshLayout mSmartRefreshLayout;
+    // http://image.baidu.com/search/detail
     private int pn = 0;
     private String tag1 = "动物";
     private String tag2 = "全部";

@@ -70,12 +70,11 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
         radioGroup = (RadioGroup) findViewById(R.id.group);
         imageView=(ImageView) findViewById(R.id.back_image);
         ((RadioButton)(radioGroup.getChildAt(0))).setChecked(true);
-        ((RadioButton)findViewById(R.id.today)).setTextSize(18);
+        ((RadioButton)findViewById(R.id.today)).setTextSize(14);
         mBMoveView = (BMoveView) findViewById(R.id.bmoveview);
         ((RadioButton) (radioGroup.getChildAt(0))).setChecked(true);
         mFirstPos = 0;
         mBMoveView.startAnim();
-
     }
 
     @Override
@@ -104,21 +103,21 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                     if(checkedId==R.id.today){
                         show(0);
-                        ((RadioButton)findViewById(R.id.today)).setTextSize(16);
-                        ((RadioButton)findViewById(R.id.tomorrow)).setTextSize(15);
-                        ((RadioButton)findViewById(R.id.life)).setTextSize(15);
+                        ((RadioButton)findViewById(R.id.today)).setTextSize(14);
+                        ((RadioButton)findViewById(R.id.tomorrow)).setTextSize(12);
+                        ((RadioButton)findViewById(R.id.life)).setTextSize(12);
                         setBMoveAnim(0);
                     }else if(checkedId==R.id.tomorrow){
                         show(1);
-                        ((RadioButton)findViewById(R.id.today)).setTextSize(15);
-                        ((RadioButton)findViewById(R.id.tomorrow)).setTextSize(16);
-                        ((RadioButton)findViewById(R.id.life)).setTextSize(15);
+                        ((RadioButton)findViewById(R.id.today)).setTextSize(12);
+                        ((RadioButton)findViewById(R.id.tomorrow)).setTextSize(14);
+                        ((RadioButton)findViewById(R.id.life)).setTextSize(12);
                         setBMoveAnim(1);
                     }else if(checkedId==R.id.life){
                         show(2);
-                        ((RadioButton)findViewById(R.id.today)).setTextSize(15);
-                        ((RadioButton)findViewById(R.id.tomorrow)).setTextSize(15);
-                        ((RadioButton)findViewById(R.id.life)).setTextSize(16);
+                        ((RadioButton)findViewById(R.id.today)).setTextSize(12);
+                        ((RadioButton)findViewById(R.id.tomorrow)).setTextSize(12);
+                        ((RadioButton)findViewById(R.id.life)).setTextSize(14);
                         setBMoveAnim(2);
                     }
             }
