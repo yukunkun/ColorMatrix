@@ -7,8 +7,9 @@
               android:layout_height="match_parent">
     <RelativeLayout android:layout_width="match_parent"
                     android:clickable="true"
+        android:paddingTop="@dimen/dimens_10"
                     android:background="@mipmap/bg_header_nav"
-                    android:layout_height="180dp">
+                    android:layout_height="190dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="180dp">
@@ -60,7 +61,6 @@
         <LinearLayout android:layout_width="match_parent"
                       android:orientation="vertical"
                       android:layout_height="match_parent">
-
             <RelativeLayout android:layout_width="match_parent"
                             android:paddingLeft="10dp"
                             android:clickable="true"

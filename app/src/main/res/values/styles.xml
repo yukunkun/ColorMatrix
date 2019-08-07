@@ -6,11 +6,6 @@
         <item name="colorPrimaryDark">#6c6c6c</item>
         <item name="colorPrimary">#607D8B</item>
         <item name="colorAccent">@color/colorAccent</item>
-<!--
-        <item name="android:windowBackground">@android:color/transparent</item>
--->
-        <!--<item name="android:windowIsTranslucent">true</item>-->
-        <!--<item name="android:windowNoTitle">true</item>-->
     </style>
     <style name="popwindow_anim_style">
         <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
@@ -28,10 +23,6 @@
         <attr name="color_finger_up" format="color" />
         <attr name="count" format="integer" />
         <attr name="tryTimes" format="integer" />
-
-  <!--  <attr name="android:touchscreenBlocksFocus" format="boolean" />
-    <attr name="android:keyboardNavigationCluster" format="boolean" />-->
-
     <declare-styleable name="GestureLockViewGroup">
         <attr name="color_no_finger_inner_circle" />
         <attr name="color_no_finger_outer_circle" />

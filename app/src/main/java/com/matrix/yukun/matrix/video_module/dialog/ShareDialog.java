@@ -1,5 +1,6 @@
 package com.matrix.yukun.matrix.video_module.dialog;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -16,16 +17,22 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.barrage_module.dialog.BaseBottomDialog;
+import com.matrix.yukun.matrix.btmovie_module.Constant;
 import com.matrix.yukun.matrix.download_module.bean.FileInfo;
 import com.matrix.yukun.matrix.download_module.service.DownLoadUtils;
+import com.matrix.yukun.matrix.util.AdvUtil;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.video_module.MyApplication;
 import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
+import com.qq.e.ads.banner2.UnifiedBannerADListener;
+import com.qq.e.ads.banner2.UnifiedBannerView;
+import com.qq.e.comm.util.AdError;
 
 import java.io.File;
 
@@ -39,7 +46,7 @@ import cn.sharesdk.tencent.qzone.QZone;
  * author: kun .
  * date:   On 2018/11/16
  */
-public class ShareDialog  extends BaseBottomDialog implements View.OnClickListener {
+public class ShareDialog  extends BaseBottomDialog implements View.OnClickListener, UnifiedBannerADListener {
 
     private static ShareDialog shareDialog;
     private String mTitle;
@@ -51,6 +58,7 @@ public class ShareDialog  extends BaseBottomDialog implements View.OnClickListen
     private String mImagePath;
     private ImageView mIvWeixin;
     private ImageView mIvFriend;
+    private RelativeLayout mRlBanner;
     public static final String PACKAGE_WECHAT = "com.tencent.mm";//微信
     public static final String PACKAGE_MOBILE_QQ = "com.tencent.mobileqq";//qq
 
@@ -100,11 +108,13 @@ public class ShareDialog  extends BaseBottomDialog implements View.OnClickListen
         mIvMore = inflate.findViewById(R.id.iv_share_more);
         mIvWeixin = inflate.findViewById(R.id.iv_share_weixin);
         mIvFriend = inflate.findViewById(R.id.iv_share_friend);
+        mRlBanner=inflate.findViewById(R.id.rl);
     }
 
     @Override
     protected void initData() {
-
+        UnifiedBannerView banner = AdvUtil.getBanner((Activity) getContext(), mRlBanner,  Constant.APPID, Constant.BANNER_ADID,this);
+        banner.loadAD();
     }
 
     @Override
@@ -419,4 +429,43 @@ public class ShareDialog  extends BaseBottomDialog implements View.OnClickListen
         }
     }
 
+    @Override
+    public void onNoAD(AdError adError) {
+
+    }
+
+    @Override
+    public void onADReceive() {
+
+    }
+
+    @Override
+    public void onADExposure() {
+
+    }
+
+    @Override
+    public void onADClosed() {
+
+    }
+
+    @Override
+    public void onADClicked() {
+
+    }
+
+    @Override
+    public void onADLeftApplication() {
+
+    }
+
+    @Override
+    public void onADOpenOverlay() {
+
+    }
+
+    @Override
+    public void onADCloseOverlay() {
+
+    }
 }
