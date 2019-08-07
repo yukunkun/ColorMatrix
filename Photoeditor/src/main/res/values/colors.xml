@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="editor_line_space">#444444</color>
-    <color name="bg_33">#333333</color>
-    <color name="bg_alpha_33">#9f333333</color>
     <color name="bg_black">#000</color>
     <color name="white_f">#fff</color>
     <color name="green_btn">#1ad42f</color>
-    <color name="transparent_6f">#6f000000</color>
     <array name="color_seeds">
         <item>#ffffff</item>
         <item>#ff0000</item>
@@ -21,20 +18,9 @@
         <item>#ee00ff</item>
         <item>#ff00e1</item>
     </array>
-    <color name="black10">#11000000</color>
-    <color name="black20">#33000000</color>
     <color name="black30">#4d000000</color>
-    <color name="black40">#99000000</color>
-    <color name="black50">#80000000</color>
-    <color name="black60">#66000000</color>
-    <color name="black70">#b3000000</color>
-    <color name="black90">#E6000000</color>
-    <color name="white50">#80ffffff</color>
-    <color name="white40">#66ffffff</color>
     <color name="transparent">#00000000</color>
 
-    <color name="image_color_primary">#FFFFFF</color>
-    <color name="image_color_accent">#4CA1FB</color>
     <color name="image_color_white">#F9F9F9</color>
     <color name="image_color_black">#26252a</color>
     <color name="image_color_red">#FF1d12</color>
@@ -49,16 +35,8 @@
     <color name="C2">#666666</color>
     <color name="C3">#999999</color>
     <color name="C4">#bbbbbb</color>
-    <color name="C5">#cccccc</color>
-    <color name="C6">#e6e6e6</color>
     <color name="C7">#4393f9</color>
-    <color name="C8">#504393f9</color>
-    <color name="C9">#f2f6f9</color>
     <color name="C10">#ffffff</color>
-    <color name="C11">#4ccfaf</color>
-    <color name="C12">#fe6972</color>
-    <color name="C13">#f5fafe</color>
-    <color name="C14">#fafafa</color>
 
     <color name="selected_item_bg">#f5fafe</color>  <!-- 选中的item背景色 -->
     <color name="primary_text">#333333</color>  <!-- 主文字色 -->
@@ -75,7 +53,6 @@
     <color name="color_d1d1d1">#d1d1d1</color>
     <color name="color_ffea00">#ffea00</color>
     <color name="color_009944">#009944</color>
-    <color name="color_f7f7f7">#f7f7f7</color>
     <color name="color_f4f5f6">#f4f5f6</color>
     <color name="color_f1f1f2">#f1f1f2</color>
 </resources>
