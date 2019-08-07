@@ -95,6 +95,10 @@
         <item>电话查询</item>
     </string-array>
 
+    <array name="setting_adout">
+        <item>二维码分享</item>
+        <item>商城下载</item>
+    </array>
     <array name="video_detail">
         <item>详情</item>
         <item>推荐</item>

@@ -56,6 +56,11 @@
         <item name="android:windowExitAnimation">@anim/title_more_pop_out_anim</item>
     </style>
 
+    <style name="comment">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
     <style name="Transparent" parent="AppTheme">
     　　<item name="android:windowBackground">@color/color_00000000</item>
     　　<item name="android:windowIsTranslucent">true</item>
