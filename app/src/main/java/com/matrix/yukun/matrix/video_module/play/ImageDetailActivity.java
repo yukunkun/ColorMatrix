@@ -38,13 +38,13 @@ public class ImageDetailActivity extends BaseActivity {
     ImageView mIvMore;
     @BindView(R2.id.iv_back)
     ImageView mIvBack;
-    String downloadurl;
     @BindView(R2.id.iv_images)
     ImageView mIvImage;
     @BindView(R2.id.rl)
     RelativeLayout mRl;
     @BindView(R2.id.progress_bar)
     ProgressBar mProgressBar;
+    private String downloadurl;
     private boolean mIsGif;
 
 

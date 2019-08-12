@@ -144,6 +144,7 @@ public class GIFVideoClipActivity extends BaseActivity implements View.OnClickLi
 
     private void createVideoBitmap() {
         videoBitmapList.clear();
+        mRvVideoImageAdapter.notifyDataSetChanged();
         new Thread(new Runnable() {
             @Override
             public void run() {
