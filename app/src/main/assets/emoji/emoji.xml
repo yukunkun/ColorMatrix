@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PopoEmoticons>
+    <Catalog Title="default">
+        <Emoticon File="1F604.png" Gif="1F604.gif" ID="emoticon_1F604" Tag="[微笑]"/>
+        <Emoticon File="1F637.png" Gif="1F637.gif" ID="emoticon_1F637" Tag="[色]"/>
+        <Emoticon File="1F602.png" Gif="1F602.gif" ID="emoticon_1F602" Tag="[发呆]"/>
+        <Emoticon File="1F61D.png" Gif="1F61D.gif" ID="emoticon_1F61D" Tag="[得意]"/>
+        <Emoticon File="1F632.png" Gif="1F632.gif" ID="emoticon_1F632" Tag="[流泪]"/>
+        <Emoticon File="1F633.png" Gif="1F633.gif" ID="emoticon_1F633" Tag="[害羞]"/>
+        <Emoticon File="1F631.png" Gif="1F631.gif" ID="emoticon_1F631" Tag="[闭嘴]"/>
+        <Emoticon File="1F614.png" Gif="1F614.gif" ID="emoticon_1F614" Tag="[睡]"/>
+        <Emoticon File="1F609.png" Gif="1F609.gif" ID="emoticon_1F609" Tag="[大哭]"/>
+        <Emoticon File="1F60C.png" Gif="1F60C.gif" ID="emoticon_1F60C" Tag="[尴尬]"/>
+        <Emoticon File="1F612.png" Gif="1F612.gif" ID="emoticon_1F612" Tag="[发怒]"/>
+        <Emoticon File="1F608.png" Gif="1F608.gif" ID="emoticon_1F608" Tag="[呲牙]"/>
+        <Emoticon File="1F47B.png" Gif="1F47B.gif" ID="emoticon_1F47B" Tag="[惊讶]"/>
+        <Emoticon File="1F49D.png" Gif="1F49D.gif" ID="emoticon_1F49D" Tag="[难过]"/>
+        <Emoticon File="1F64F.png" Gif="1F64F.gif" ID="emoticon_1F64F" Tag="[冷汗]"/>
+        <Emoticon File="1F4AA.png" Gif="1F4AA.gif" ID="emoticon_1F4AA" Tag="[吐]"/>
+        <Emoticon File="1F382.png" Gif="1F382.gif" ID="emoticon_1F382" Tag="[傲慢]"/>
+        <Emoticon File="1F388.png" Gif="1F388.gif" ID="emoticon_1F388" Tag="[疲劳]"/>
+        <Emoticon File="1F381.png" Gif="1F381.gif" ID="emoticon_1F381" Tag="[惊恐]"/>
+        <Emoticon File="1F60D.png" Gif="1F60D.gif" ID="emoticon_1F60D" Tag="[流汗]"/>
+        <Emoticon File="1F60A.png" Gif="1F60A.gif" ID="emoticon_1F60A" Tag="[奋斗]"/>
+        <Emoticon File="1F60E.png" Gif="1F60E.gif" ID="emoticon_1F60E" Tag="[咒骂]"/>
+        <Emoticon File="1F61C.png" Gif="1F61C.gif" ID="emoticon_1F61C" Tag="[疑问]"/>
+        <Emoticon File="1F61B.png" Gif="1F61B.gif" ID="emoticon_1F61B" Tag="[嘘]"/>
+        <Emoticon File="1F62B.png" Gif="1F62B.gif" ID="emoticon_1F62B" Tag="[晕]"/>
+        <Emoticon File="1F62A.png" Gif="1F62A.gif" ID="emoticon_1F62A" Tag="[骷髅]"/>
+        <Emoticon File="1F62C.png" Gif="1F62C.gif" ID="emoticon_1F62C" Tag="[再见]"/>
+        <Emoticon File="1F62D.png" Gif="1F62D.gif" ID="emoticon_1F62D" Tag="[擦汗]"/>
+        <Emoticon File="1F60F.png" Gif="1F60F.gif" ID="emoticon_1F60F" Tag="[抠鼻]"/>
+        <Emoticon File="1F61A.png" Gif="1F61A.gif" ID="emoticon_1F61A" Tag="[鼓掌]"/>
+        <Emoticon File="1F62E.png" Gif="1F62E.gif" ID="emoticon_1F62E" Tag="[坏笑]"/>
+        <Emoticon File="1F624.png" Gif="1F624.gif" ID="emoticon_1F624" Tag="[哈欠]"/>
+        <Emoticon File="1F623.png" Gif="1F623.gif" ID="emoticon_1F623" Tag="[鄙视]"/>
+        <Emoticon File="1F627.png" Gif="1F627.gif" ID="emoticon_1F627" Tag="[委屈]"/>
+        <Emoticon File="1F634.png" Gif="1F634.gif" ID="emoticon_1F634" Tag="[阴险]"/>
+        <Emoticon File="1F622.png" Gif="1F622.gif" ID="emoticon_1F622" Tag="[亲亲]"/>
+        <Emoticon File="1F613.png" Gif="1F613.gif" ID="emoticon_1F613" Tag="[眨眼睛]"/>
+        <Emoticon File="1F605.png" Gif="1F605.gif" ID="emoticon_1F605" Tag="[笑哭]"/>
+        <Emoticon File="1F603.png" Gif="1F603.gif" ID="emoticon_1F603" Tag="[泪奔]"/>
+        <Emoticon File="1F618.png" Gif="1F618.gif" ID="emoticon_1F618" Tag="[托腮]"/>
+        <Emoticon File="1F601.png" Gif="1F601.gif" ID="emoticon_1F601" Tag="[卖萌]"/>
+        <Emoticon File="1F640.png" Gif="1F640.gif" ID="emoticon_1F640" Tag="[斜眼笑]"/>
+        <Emoticon File="270C.png" Gif="270C.gif" ID="emoticon_270C" Tag="[吐血]"/>
+        <Emoticon File="1F3C3.png" Gif="1F3C3.gif" ID="emoticon_1F3C3" Tag="[激动]"/>
+        <Emoticon File="1F4A3.png" Gif="1F4A3.gif" ID="emoticon_1F4A3" Tag="[僵住]"/>
+        <Emoticon File="1F4A4.png" Gif="1F4A4.gif" ID="emoticon_1F4A4" Tag="[幸福]"/>
+        <Emoticon File="1F4A9.png" Gif="1F4A9.gif" ID="emoticon_1F4A9" Tag="[切]"/>
+        <Emoticon File="1F6B6.png" Gif="1F6B6.gif" ID="emoticon_1F6B6" Tag="[茫然]"/>
+        <Emoticon File="1F40E.png" Gif="1F40E.gif" ID="emoticon_1F40E" Tag="[大笑]"/>
+        <Emoticon File="1F41C.png" Gif="1F41C.gif" ID="emoticon_1F41C" Tag="[中毒]"/>
+        <Emoticon File="1F41D.png" Gif="1F41D.gif" ID="emoticon_1F41D" Tag="[石化]"/>
+        <Emoticon File="1F41A.png" Gif="1F41A.gif" ID="emoticon_1F41A" Tag="[羞愧]"/>
+        <Emoticon File="1F42E.png" Gif="1F42E.gif" ID="emoticon_1F42E" Tag="[爱你]"/>
+        <Emoticon File="1F42F.png" Gif="1F42F.gif" ID="emoticon_1F42F" Tag="[沮丧]"/>
+        <Emoticon File="1F43C.png" Gif="1F43C.gif" ID="emoticon_1F43C" Tag="[OK]"/>
+        <Emoticon File="1F43E.png" Gif="1F43E.gif" ID="emoticon_1F43E" Tag="[点赞]"/>
+        <Emoticon File="1F43F.png" Gif="1F43F.gif" ID="emoticon_1F43F" Tag="[握手]"/>
+        <Emoticon File="1F43G.png" Gif="1F43G.gif" ID="emoticon_1F43G" Tag="[胜利]"/>
+        <Emoticon File="1F43H.png" Gif="1F43H.gif" ID="emoticon_1F43H" Tag="[抱拳]"/>
+        <Emoticon File="1F43I.png" Gif="1F43I.gif" ID="emoticon_1F43I" Tag="[拳头]"/>
+        <Emoticon File="1F41F.png" Gif="1F41F.gif" ID="emoticon_1F41F" Tag="[爱心]"/>
+        <Emoticon File="1F44C.png" Gif="1F44C.gif" ID="emoticon_1F44C" Tag="[太阳]"/>
+        <Emoticon File="1F44D.png" Gif="1F44D.gif" ID="emoticon_1F44D" Tag="[月亮]"/>
+        <Emoticon File="1F44E.png" Gif="1F44E.gif" ID="emoticon_1F44E" Tag="[星星]"/>
+    </Catalog>
+</PopoEmoticons>
+
+
