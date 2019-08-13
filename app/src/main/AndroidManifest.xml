@@ -65,6 +65,9 @@
         </activity>
 
         <meta-data
+            android:name="CHANNEL"
+            android:value="${CHANNEL_VALUE}"/>
+        <meta-data
             android:name="IFLYTEK_APPKEY"
             android:value="58833c92" />
         <meta-data
@@ -127,9 +130,9 @@
             android:screenOrientation="portrait" />
         <activity android:name=".BaseActivity" />
         <activity android:name=".main_module.MainActivity" />
-        <activity
+        <!--<activity
             android:name="com.qq.e.ads.ADActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />-->
         <service
             android:name="com.qq.e.comm.DownloadService"
             android:exported="false" />

@@ -1,0 +1,48 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\build\\intermediates\\res\\merged\\release\\values-zh\\values-zh.xml",
+            "map": [
+                {
+                    "source": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\src\\main\\res\\values-zh\\strings.xml",
+                    "from": {
+                        "startLines": "7,5,6,2,4,3,8",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "315,233,276,57,178,122,366",
+                        "endColumns": "49,41,37,63,53,54,55",
+                        "endOffsets": "360,270,309,116,227,172,417"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "55,105,147,185,249,303,358",
+                        "endColumns": "49,41,37,63,53,54,55",
+                        "endOffsets": "100,142,180,244,298,353,409"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-zh\\values-zh.xml",
+            "map": [
+                {
+                    "source": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\src\\main\\res\\values-zh\\strings.xml",
+                    "from": {
+                        "startLines": "7,5,6,2,4,3,8",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "315,233,276,57,178,122,366",
+                        "endColumns": "49,41,37,63,53,54,55",
+                        "endOffsets": "360,270,309,116,227,172,417"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "55,105,147,185,249,303,358",
+                        "endColumns": "49,41,37,63,53,54,55",
+                        "endOffsets": "100,142,180,244,298,353,409"
+                    }
+                }
+            ]
+        }
+    ]
+}

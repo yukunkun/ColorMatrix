@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\build\\intermediates\\res\\merged\\release\\layout\\jz_layout_clarity_item.xml",
+        "source": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\src\\main\\res\\layout\\jz_layout_clarity_item.xml"
+    },
+    {
+        "merged": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\build\\intermediates\\res\\merged\\release\\layout\\jz_dialog_progress.xml",
+        "source": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\src\\main\\res\\layout\\jz_dialog_progress.xml"
+    },
+    {
+        "merged": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\build\\intermediates\\res\\merged\\release\\layout\\jz_dialog_volume.xml",
+        "source": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\src\\main\\res\\layout\\jz_dialog_volume.xml"
+    },
+    {
+        "merged": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\build\\intermediates\\res\\merged\\release\\layout\\jz_dialog_brightness.xml",
+        "source": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\src\\main\\res\\layout\\jz_dialog_brightness.xml"
+    },
+    {
+        "merged": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\build\\intermediates\\res\\merged\\release\\layout\\jz_layout_std.xml",
+        "source": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\src\\main\\res\\layout\\jz_layout_std.xml"
+    },
+    {
+        "merged": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\build\\intermediates\\res\\merged\\release\\layout\\jz_layout_clarity.xml",
+        "source": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\src\\main\\res\\layout\\jz_layout_clarity.xml"
+    }
+]

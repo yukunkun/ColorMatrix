@@ -20,7 +20,7 @@ android {
             abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
         multiDexEnabled true
-
+        flavorDimensions "versionCode"
         packagingOptions {
             exclude 'META-INF/rxjava.properties'
         }
@@ -40,23 +40,57 @@ android {
         jumboMode = true
         javaMaxHeapSize "4g"
     }
-    // 签名
+
     signingConfigs {
-
-        debug {
+        signConfig {
             keyAlias 'matrix'
             keyPassword '123456'
+            storeFile file('../app/Matrix.jks')
             storePassword '123456'
-            storeFile file('../Matrix.jks')
-        }
-
-        release {
-            keyAlias 'matrix'
-            keyPassword '123456'
-            storePassword '123456'
-            storeFile file('../Matrix.jks')
         }
     }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.signConfig
+            proguardFile '../app/Matrix.jks'
+        }
+
+        debug {
+            signingConfig signingConfigs.signConfig
+            minifyEnabled false
+            proguardFile '../app/Matrix.jks'
+        }
+    }
+    //多渠道打包
+    productFlavors {
+        xiaomi{}
+        yinyongbao{}
+        wandoujia{}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+    }
+
+//    // 签名
+//    signingConfigs {
+//        debug {
+//            keyAlias 'matrix'
+//            keyPassword '123456'
+//            storePassword '123456'
+//            storeFile file('../Matrix.jks')
+//        }
+//
+//        release {
+//            keyAlias 'matrix'
+//            keyPassword '123456'
+//            storePassword '123456'
+//            storeFile file('../Matrix.jks')
+//        }
+//    }
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
@@ -180,6 +214,5 @@ dependencies {
     implementation project(path: ':Photoeditor')
     implementation project(path: ':videocompressor')
     implementation project(path: ':jiaozivideoplayer')
-
 
 }

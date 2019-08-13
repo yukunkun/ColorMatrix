@@ -1,0 +1,120 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values\\values.xml",
+            "map": [
+                {
+                    "source": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\src\\main\\res\\values\\dimens.xml",
+                    "from": {
+                        "startLines": "2,1",
+                        "startColumns": "4,4",
+                        "startOffsets": "76,17",
+                        "endColumns": "61,57",
+                        "endOffsets": "133,70"
+                    },
+                    "to": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,117",
+                        "endColumns": "61,57",
+                        "endOffsets": "112,170"
+                    }
+                },
+                {
+                    "source": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "7,5,6,2,4,3,8",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "392,306,349,57,246,188,457",
+                        "endColumns": "63,41,41,129,58,56,69",
+                        "endOffsets": "451,343,386,182,300,240,522"
+                    },
+                    "to": {
+                        "startLines": "4,5,6,7,8,9,10",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "175,239,281,323,453,512,569",
+                        "endColumns": "63,41,41,129,58,56,69",
+                        "endOffsets": "234,276,318,448,507,564,634"
+                    }
+                },
+                {
+                    "source": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "10,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "443,59",
+                        "endLines": "13,8",
+                        "endColumns": "12,12",
+                        "endOffsets": "685,435"
+                    },
+                    "to": {
+                        "startLines": "11,15",
+                        "startColumns": "4,4",
+                        "startOffsets": "639,883",
+                        "endLines": "14,20",
+                        "endColumns": "12,12",
+                        "endOffsets": "878,1254"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\build\\intermediates\\res\\merged\\release\\values\\values.xml",
+            "map": [
+                {
+                    "source": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\src\\main\\res\\values\\dimens.xml",
+                    "from": {
+                        "startLines": "2,1",
+                        "startColumns": "4,4",
+                        "startOffsets": "76,17",
+                        "endColumns": "61,57",
+                        "endOffsets": "133,70"
+                    },
+                    "to": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,117",
+                        "endColumns": "61,57",
+                        "endOffsets": "112,170"
+                    }
+                },
+                {
+                    "source": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "7,5,6,2,4,3,8",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "392,306,349,57,246,188,457",
+                        "endColumns": "63,41,41,129,58,56,69",
+                        "endOffsets": "451,343,386,182,300,240,522"
+                    },
+                    "to": {
+                        "startLines": "4,5,6,7,8,9,10",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "175,239,281,323,453,512,569",
+                        "endColumns": "63,41,41,129,58,56,69",
+                        "endOffsets": "234,276,318,448,507,564,634"
+                    }
+                },
+                {
+                    "source": "D:\\project\\ColorMatrix\\jiaozivideoplayer\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "10,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "443,59",
+                        "endLines": "13,8",
+                        "endColumns": "12,12",
+                        "endOffsets": "685,435"
+                    },
+                    "to": {
+                        "startLines": "11,15",
+                        "startColumns": "4,4",
+                        "startOffsets": "639,883",
+                        "endLines": "14,20",
+                        "endColumns": "12,12",
+                        "endOffsets": "878,1254"
+                    }
+                }
+            ]
+        }
+    ]
+}
