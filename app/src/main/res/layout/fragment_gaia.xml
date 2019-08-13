@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/rl_contain"
@@ -56,13 +56,16 @@
             android:fitsSystemWindows="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <com.bigkoo.convenientbanner.ConvenientBanner
+            <RelativeLayout
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 android:layout_width="match_parent"
-                android:id="@+id/con_banner"
-                app:canLoop="true"
-                android:layout_height="160dp">
-            </com.bigkoo.convenientbanner.ConvenientBanner>
+                android:layout_height="wrap_content">
+                <com.bigkoo.convenientbanner.ConvenientBanner
+                    android:layout_width="match_parent"
+                    android:id="@+id/con_banner"
+                    app:canLoop="true"
+                    android:layout_height="160dp"/>
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
