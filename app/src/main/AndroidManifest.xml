@@ -39,6 +39,7 @@
     <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW" /> <!-- 声明程序使用camera和自动对焦功能 -->
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -51,7 +52,6 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:label">
         <activity android:name=".note_module.activity.NoteSettingActivity" />
-
         <activity
             android:name=".main_module.SplashActivity"
             android:configChanges="keyboard|screenSize|orientation|layoutDirection"
@@ -66,7 +66,7 @@
 
         <meta-data
             android:name="CHANNEL"
-            android:value="${CHANNEL_VALUE}"/>
+            android:value="${CHANNEL_VALUE}" />
         <meta-data
             android:name="IFLYTEK_APPKEY"
             android:value="58833c92" />
@@ -90,22 +90,22 @@
         <service android:name=".download_module.service.DownLoadService" />
         <service android:name=".download_module.service.DownLoadService$InnerService" />
         <service android:name=".download_module.service.DownloadNotificationService" />
-
-        <service android:name="com.qq.e.comm.DownloadService" android:exported="false"/>
+        <service
+            android:name="com.qq.e.comm.DownloadService"
+            android:exported="false" />
 
         <!-- 请开发者注意字母的大小写，ADActivity，而不是AdActivity -->
         <activity
             android:name="com.qq.e.ads.ADActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"/>
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity
             android:name="com.qq.e.ads.PortraitADActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"/>
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.qq.e.ads.LandscapeADActivity"
-            android:screenOrientation="landscape"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"/>
-
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape" />
         <activity
             android:name="cn.sharesdk.tencent.qq.ReceiveActivity"
             android:launchMode="singleTask"
@@ -130,9 +130,11 @@
             android:screenOrientation="portrait" />
         <activity android:name=".BaseActivity" />
         <activity android:name=".main_module.MainActivity" />
-        <!--<activity
+        <!--
+            <activity
             android:name="com.qq.e.ads.ADActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />-->
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        -->
         <service
             android:name="com.qq.e.comm.DownloadService"
             android:exported="false" />
@@ -391,9 +393,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".gaia_module.activity.GaiaPersonActivity"
-            android:screenOrientation="portrait" >
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".gaia_module.activity.RVTestActivity"></activity>
     </application>
 
 </manifest>

@@ -31,6 +31,7 @@ import com.matrix.yukun.matrix.gaia_module.activity.GaiaPlayActivity;
 import com.matrix.yukun.matrix.gaia_module.activity.GaiaSearchActivity;
 import com.matrix.yukun.matrix.gaia_module.activity.MaterialActivity;
 import com.matrix.yukun.matrix.gaia_module.activity.ProductActivity;
+import com.matrix.yukun.matrix.gaia_module.activity.RVTestActivity;
 import com.matrix.yukun.matrix.gaia_module.adapter.RVGaiaAdapter;
 import com.matrix.yukun.matrix.gaia_module.bean.BannerInfo;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
@@ -101,6 +102,7 @@ public class GaiaFragment extends BaseFragment {
         rvList.setLayoutManager(mGridLayoutManager);
         mRvGaiaAdapter = new RVGaiaAdapter(R.layout.gaia_index_item, mGaiaIndexBeans);
         rvList.setAdapter(mRvGaiaAdapter);
+        ivMain.setVisibility(View.GONE);
         mRvGaiaAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         rvList.addItemDecoration(new SpacesDoubleDecoration(0, 5, 5, 20));
         setAnimation(ivProduct);
@@ -227,7 +229,8 @@ public class GaiaFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_main:
-                GaiaPersonActivity.start(getContext());
+                RVTestActivity.start(getContext());
+//                GaiaPersonActivity.start(getContext());
                 break;
             case R.id.iv_search:
                 GaiaSearchActivity.start(getContext());
