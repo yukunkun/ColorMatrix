@@ -82,7 +82,6 @@ public class NoteSettingActivity extends BaseActivity implements View.OnClickLis
                     mEtPassword.setVisibility(View.VISIBLE);
                 }else {
                     mEtPassword.setVisibility(View.GONE);
-                    SPUtils.getInstance().removeNotePassword();
                     ToastUtils.showToast("密码将移除");
                 }
             }
@@ -145,8 +144,10 @@ public class NoteSettingActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void saveSetting() {
-        if(!TextUtils.isEmpty(mEtPassword.getText().toString())){
+        if(mCb.isChecked()&&!TextUtils.isEmpty(mEtPassword.getText().toString())){
             SPUtils.getInstance().setNotePassword(mEtPassword.getText().toString());
+        }else {
+            SPUtils.getInstance().removeNotePassword();
         }
         if(!TextUtils.isEmpty(mEtEditSize.getText().toString())){
             if(Pattern.matches("\\d+",mEtEditSize.getText().toString())){
