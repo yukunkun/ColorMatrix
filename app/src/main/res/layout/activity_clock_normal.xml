@@ -38,6 +38,7 @@
             android:layout_height="match_parent" />
     </RelativeLayout>
     <include layout="@layout/include_line_no_marg"/>
+
     <com.matrix.yukun.matrix.desk_module.view.ClockNormalView
         android:id="@+id/clock_normal"
         android:layout_width="match_parent"
