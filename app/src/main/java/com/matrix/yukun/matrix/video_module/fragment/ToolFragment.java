@@ -123,6 +123,7 @@ public class ToolFragment extends BaseFragment implements View.OnClickListener {
         integers.add(R.mipmap.icon_tool_gif);
         integers.add(R.mipmap.icon_tool_note);
         integers.add(R.mipmap.icon_tool_net);
+        integers.add(R.mipmap.icon_tool_desk);
         return integers;
     }
 

@@ -83,8 +83,7 @@ public class GaiaPersonActivity extends BaseActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        LogUtil.i("===",jsonObject.toString());
-
+//        LogUtil.i("===",jsonObject.toString());
         OkHttpUtils.postString().url(Api.BASE_URL + Api.PERSONURL)
                 .content(jsonObject.toString())
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))

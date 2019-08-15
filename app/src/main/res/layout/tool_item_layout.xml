@@ -12,16 +12,16 @@
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/iv_image"
-            android:layout_width="@dimen/dimens_35"
-            android:layout_height="@dimen/dimens_35" />
+            android:layout_width="@dimen/dimens_30"
+            android:layout_height="@dimen/dimens_30" />
         <TextView
             android:id="@+id/tv_tool_name"
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/dimens_8"
             android:gravity="center"
             android:textColor="@color/color_282828"
             android:text=""
-            android:textSize="17sp"
+            android:textSize="14sp"
             android:layout_height="wrap_content" />
     </LinearLayout>
 

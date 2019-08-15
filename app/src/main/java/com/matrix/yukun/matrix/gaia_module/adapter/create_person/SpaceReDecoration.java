@@ -19,6 +19,8 @@ public class SpaceReDecoration extends RecyclerView.ItemDecoration{
                                RecyclerView parent, RecyclerView.State state) {
         int childLayoutPosition = parent.getChildLayoutPosition(view);
         outRect.top=space/2;
-        outRect.bottom=space/2;
+        outRect.bottom=space;
+        outRect.left=space;
+        outRect.right=space;
     }
 }

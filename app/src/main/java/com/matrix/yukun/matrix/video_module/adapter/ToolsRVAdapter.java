@@ -1,12 +1,16 @@
 package com.matrix.yukun.matrix.video_module.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.matrix.yukun.matrix.gaia_module.adapter.create_person.SpaceReDecoration;
+import com.matrix.yukun.matrix.util.SpacesItemDecoration;
 import com.matrix.yukun.matrix.video_module.fragment.DevidemToolFragment;
 import com.matrix.yukun.matrix.video_module.utils.SPUtils;
 import com.matrix.yukun.matrix.R;
@@ -53,11 +57,11 @@ public class ToolsRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if(holder instanceof MHolderTool){
-            GridLayoutManager gridLayoutManager=new GridLayoutManager(context,3);
+            GridLayoutManager gridLayoutManager=new GridLayoutManager(context,4);
             ((MHolderTool) holder).mRecyclerView.setLayoutManager(gridLayoutManager);
             mToolsItemAdapter = new ToolsItemAdapter(context, imageList, mListName);
             ((MHolderTool) holder).mRecyclerView.setAdapter(mToolsItemAdapter);
-            ((MHolderTool) holder).mRecyclerView.addItemDecoration(new DevidemToolFragment(3,10,true));
+            ((MHolderTool) holder).mRecyclerView.addItemDecoration(new SpaceReDecoration(8));
             ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemDragCallBack());
             itemTouchHelper.attachToRecyclerView(((MHolderTool) holder).mRecyclerView);
         }

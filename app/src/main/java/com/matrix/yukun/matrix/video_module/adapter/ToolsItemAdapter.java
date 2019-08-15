@@ -14,12 +14,12 @@ import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.barrage_module.BarrageActivity;
-import com.matrix.yukun.matrix.btmovie_module.SpecialActivity;
 import com.matrix.yukun.matrix.calarder_module.TripartiteActivity;
 import com.matrix.yukun.matrix.gif_module.activity.GifProActivity;
 import com.matrix.yukun.matrix.main_module.MainActivity;
 import com.matrix.yukun.matrix.net_module.NetActivity;
 import com.matrix.yukun.matrix.note_module.activity.NoteActivity;
+import com.matrix.yukun.matrix.desk_module.DeskActivity;
 import com.matrix.yukun.matrix.qrcode_module.QRCodeActivity;
 import com.matrix.yukun.matrix.selfview.guideview.Guide;
 import com.matrix.yukun.matrix.selfview.guideview.GuideBuilder;
@@ -58,6 +58,7 @@ public class ToolsItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mClassMap.put("GIF制作", GifProActivity.class);
         mClassMap.put("日记本", NoteActivity.class);
         mClassMap.put("网络检测", NetActivity.class);
+        mClassMap.put("抖音桌面", DeskActivity.class);
 
     }
 
@@ -152,7 +153,7 @@ public class ToolsItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             super(itemView);
             ButterKnife.bind(this, itemView);
             ViewGroup.LayoutParams params=ll_contain.getLayoutParams();
-            params.height= ScreenUtils.instance().getWidth(context)/3;
+            params.height= ScreenUtils.instance().getWidth(context)/4;
            ll_contain.setLayoutParams(params);
         }
     }

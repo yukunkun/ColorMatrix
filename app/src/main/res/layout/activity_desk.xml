@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".desk_module.DeskActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/color_whit"
+        android:layout_height="@dimen/dimens_50">
+        <ImageView
+            android:src="@mipmap/joke_back"
+            android:padding="@dimen/dimens_8"
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/dimens_45"
+            android:layout_height="match_parent" />
+        <TextView
+            android:gravity="center"
+            android:textSize="17sp"
+            android:layout_centerInParent="true"
+            android:text="手机桌面设置"
+            android:textColor="@color/color_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_internet"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:layout_alignParentRight="true"
+            android:text=""
+            android:paddingRight="@dimen/dimens_10"
+            android:paddingLeft="@dimen/dimens_10"
+            android:layout_marginRight="@dimen/dimens_10"
+            android:textColor="@drawable/selector_qrcode_product"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/bt_normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
