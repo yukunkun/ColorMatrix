@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.desk_module.activity.ClockNormalActivity;
+import com.matrix.yukun.matrix.desk_module.activity.ClockRectActivity;
 import com.matrix.yukun.matrix.video_module.BaseActivity;
 
 import butterknife.BindView;
@@ -33,7 +34,7 @@ public class DeskActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.iv_back, R.id.bt_normal})
+    @OnClick({R.id.iv_back, R.id.bt_normal,R.id.bt_rect})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -41,6 +42,9 @@ public class DeskActivity extends BaseActivity {
                 break;
             case R.id.bt_normal:
                 ClockNormalActivity.start(this);
+                break;
+            case R.id.bt_rect:
+                ClockRectActivity.start(this);
                 break;
         }
     }

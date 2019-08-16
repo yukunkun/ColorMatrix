@@ -395,8 +395,12 @@
             android:name=".gaia_module.activity.GaiaPersonActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".gaia_module.activity.RVTestActivity" />
-        <activity android:name=".desk_module.DeskActivity" />
-        <activity android:name=".desk_module.activity.ClockNormalActivity"></activity>
+        <activity android:name=".desk_module.DeskActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".desk_module.activity.ClockNormalActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".desk_module.activity.ClockRectActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

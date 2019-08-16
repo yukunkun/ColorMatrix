@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.icu.util.Calendar;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
@@ -26,7 +27,7 @@ import java.util.List;
  * date:   On 2019/8/15
  */
 @RequiresApi(api = Build.VERSION_CODES.N)
-public class ClockNormalView extends View {
+public class ClockRectView extends View {
 
     /**
      * 全局画笔
@@ -43,23 +44,22 @@ public class ClockNormalView extends View {
     private float mHourDeg;
     private float mMinuteDeg;
     private float mSecondDeg;
-    private  int mCurrentColor;
-    private  int mOriginColor;
-
+    private float mDistance=4;
     private ValueAnimator mAnimator;
     private List<String> mList=new ArrayList<>();
-
-    public ClockNormalView(Context context) {
+    private  int mCurrentColor;
+    private  int mOriginColor;
+    public ClockRectView(Context context) {
         super(context);
         init(context,null,0);
     }
 
-    public ClockNormalView(Context context, @Nullable AttributeSet attrs) {
+    public ClockRectView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context,attrs,0);
     }
 
-    public ClockNormalView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ClockRectView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context,attrs,defStyleAttr);
     }
@@ -99,7 +99,7 @@ public class ClockNormalView extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         mWidth = (float)w;
         mHeight = (float)h;
-        mHourR = mWidth * 0.135f;
+        mHourR = mWidth * 0.132f;
         mMinuteR = mWidth * 0.36f;
         mSecondR = mWidth * 0.36f;
         LogUtil.i("mWidth:"+mWidth+" mHeight:"+mHeight);
@@ -160,123 +160,144 @@ public class ClockNormalView extends View {
         super.onDraw(canvas);
         canvas.drawColor(Color.WHITE);//填充背景
         canvas.save();
-        canvas.translate(mWidth / 2, mHeight / 2);//原点移动到中心
         //绘制各元件
-        drawCenterInfo(canvas);
-        drawHour(canvas, mHourDeg);
-        drawMinute(canvas, mMinuteDeg);
-        drawSecond(canvas, mSecondDeg);
+        drawYearInfo(canvas);
+        drawMonthInfo(canvas);
+        drawDayInfo(canvas);
+        drawWeekInfo(canvas);
+        drawHour(canvas);
+        drawMinute(canvas);
+        drawSecond(canvas);
         //辅助线
-//        canvas.drawLine(0f, 0f, mWidth, 0f, mHelperPaint);
+        canvas.drawLine(0f, 0f, mWidth, 0, mHelperPaint);
         canvas.restore();
     }
 
-    private void drawCenterInfo(Canvas canvas) {
-       //绘制数字时间
-        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        int minute = Calendar.getInstance().get(Calendar.MINUTE);
-        String minuteStr ;
-        if (minute < 10){
-            minuteStr="0"+minute;
-        }else {
-            minuteStr=minute+"";
-        }
-        mPaint.setColor(mCurrentColor);
-        mPaint.setTextSize(mHourR * 0.46f);
-        mPaint.setAlpha(255);
-        mPaint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText(hour+":"+minuteStr, 0f, getBottomedY(), mPaint);
-        //绘制月份、星期
-        int mon = Calendar.getInstance().get(Calendar.MONTH)+1;
-        String monthStr ;
-        if (mon < 10){
-            monthStr="0"+mon;
-        }else {
-            monthStr=mon+"";
-        }
-        int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        int dayOfWeek = (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1);
+
+    /**
+     * year
+     * @param canvas
+     */
+    private void drawYearInfo(Canvas canvas) {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
         mPaint.setTextSize(mHourR * 0.24f);
         mPaint.setAlpha(255);
         mPaint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText(monthStr+"."+day+" 星期"+mList.get(dayOfWeek), 0f, getToppedY(), mPaint);
+        canvas.drawText(year+"", mWidth/2, getToppedY()+getToppedY()-mDistance, mPaint);
     }
 
-
-    private void drawHour(Canvas canvas, float degrees) {
-        mPaint.setTextSize(mHourR * 0.28f);
-        //处理整体旋转
-        canvas.save();
-        canvas.rotate(degrees);
+    /**
+     * month
+     * @param canvas
+     */
+    private void drawMonthInfo(Canvas canvas) {
+        int month = Calendar.getInstance().get(Calendar.MONTH)+1;
         for (int i = 0; i < 12; i++) {
-            canvas.save();
-            //从x轴开始旋转，每30°绘制一下「几点」，12次就画完了「时圈」
-             float iDeg = 360 / 12f * i;
-             canvas.rotate(iDeg);
-            //这里处理当前时间点的透明度，因为degrees控制整体逆时针旋转
-            //iDeg控制绘制时顺时针，所以两者和为0时，刚好在x正半轴上，也就是起始绘制位置。
-            if(iDeg + degrees == 0f){
-                mPaint.setColor(mCurrentColor);
-                mPaint.setAlpha((255));
-            }else {
-                mPaint.setColor(mOriginColor);
-                mPaint.setAlpha((int)(0.6 * 255));
-            }
-            mPaint.setTextAlign( Paint.Align.LEFT);
-            canvas.drawText(toBigCH(i+1)+"点", mHourR, getCenteredY(), mPaint);
-            canvas.restore();
-        }
-        canvas.restore();
-    }
-
-    private void drawMinute(Canvas canvas, float minuteDeg) {
-        mPaint.setTextSize( mHourR * 0.22f);
-        //处理整体旋转
-        canvas.save();
-        canvas.rotate(minuteDeg);
-        for (int i = 0; i < 60; i++) {
-            canvas.save();
-            float iDeg = 360 / 60f * i;
-            canvas.rotate(iDeg);
-            if(iDeg + minuteDeg == 0f){
+            if(i+1==month){
                 mPaint.setColor(mCurrentColor);
                 mPaint.setAlpha(255);
             }else {
                 mPaint.setColor(mOriginColor);
-                mPaint.setAlpha((int)(255*0.6f));
+                mPaint.setAlpha((int)(0.6f*255));
             }
-            mPaint.setTextAlign(Paint.Align.RIGHT);
-            if (i < 60) {
-                canvas.drawText(toBigCH(i+1)+"分", mMinuteR, getCenteredY(), mPaint);
-            }
-            canvas.restore();
+            mPaint.setTextAlign(Paint.Align.CENTER);
+            canvas.drawText(toBigCH(i+1)+"月",(mWidth/12/2)*(i*2+1), (getTextdY()+getToppedY()-mDistance)*2, mPaint);
         }
-        canvas.restore();
     }
 
-    private void drawSecond(Canvas canvas, float secondDeg) {
-        mPaint.setTextSize(mHourR * 0.22f);
-        //处理整体旋转
-        canvas.save();
-        canvas.rotate(secondDeg);
-        for (int i = 0; i < 60; i++) {
-            canvas.save();
-            float iDeg = 360 / 60f * i;
-            canvas.rotate(iDeg);
-            if(iDeg + secondDeg == 0f){
+    /**
+     * day
+     * @param canvas
+     */
+    private void drawDayInfo(Canvas canvas) {
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)-1;
+        for (int i = 0; i < 31; i++) {
+            if(i==day){
                 mPaint.setColor(mCurrentColor);
                 mPaint.setAlpha(255);
             }else {
                 mPaint.setColor(mOriginColor);
-                mPaint.setAlpha((int)(0.6f * 255));
+                mPaint.setAlpha((int)(0.6f*255));
             }
-            mPaint.setTextAlign(Paint.Align.LEFT);
-            if (i < 59) {
-                canvas.drawText(toBigCH(i+1)+"秒", mSecondR+5, getCenteredY(), mPaint);
-            }
-            canvas.restore();
+            mPaint.setTextAlign(Paint.Align.CENTER);
+            canvas.drawText(toBigCH(i+1)+"号",(mWidth/7/2)*(i%7*2+1), (getTextdY()+getToppedY()-mDistance)*(i/7+3), mPaint);
         }
-        canvas.restore();
+    }
+
+    /**
+     * week
+     * @param canvas
+     */
+    private void drawWeekInfo(Canvas canvas) {
+        int day = (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1);
+        for (int i = 0; i < 7; i++) {
+            if(i==day){
+                mPaint.setColor(mCurrentColor);
+                mPaint.setAlpha(255);
+            }else {
+                mPaint.setColor(mOriginColor);
+                mPaint.setAlpha((int)(0.6f*255));
+            }
+            mPaint.setTextAlign(Paint.Align.CENTER);
+            canvas.drawText("星期"+mList.get(i),(mWidth/7/2)*(i%7*2+1), (getTextdY()+getToppedY()-mDistance)*(i/7+8), mPaint);
+        }
+    }
+
+    private void drawHour(Canvas canvas) {
+        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)-1;
+        for (int i = 0; i < 24; i++) {
+            if(hour==i){
+                mPaint.setColor(mCurrentColor);
+                mPaint.setAlpha(255);
+            }else {
+                mPaint.setColor(mOriginColor);
+                mPaint.setAlpha((int)(0.6f*255));
+            }
+            mPaint.setTextAlign(Paint.Align.CENTER);
+            if(i<=20){
+                canvas.drawText(toBigCH(i+1)+"点", mWidth/12/2*(i%12*2+1), (getToppedY()+getToppedY()-mDistance)*(i/12+7), mPaint);
+            }else {
+                canvas.drawText(mList.get(2)+toBigCH(i-20+1)+"点", mWidth/12/2*(i%12*2+1), (getToppedY()+getToppedY()-mDistance)*(i/12+7), mPaint);
+            }
+        }
+    }
+
+    /**
+     * Minute
+     * @param canvas
+     */
+    private void drawMinute(Canvas canvas) {
+        int hour = Calendar.getInstance().get(Calendar.MINUTE)-1;
+        for (int i = 0; i < 59; i++) {
+            if(hour==i){
+                mPaint.setColor(mCurrentColor);
+                mPaint.setAlpha(255);
+            }else {
+                mPaint.setColor(mOriginColor);
+                mPaint.setAlpha((int)(0.6f*255));
+            }
+            mPaint.setTextAlign(Paint.Align.CENTER);
+            canvas.drawText(toBigCH(i+1)+"分", mWidth/7/2*(i%7*2+1), (getToppedY()+getToppedY()-mDistance)*(i/7+9), mPaint);
+        }
+    }
+
+    /**
+     * Second
+     * @param canvas
+     */
+    private void drawSecond(Canvas canvas) {
+        int hour = Calendar.getInstance().get(Calendar.SECOND);
+        for (int i = 0; i < 59; i++) {
+            if(hour==i){
+                mPaint.setColor(mCurrentColor);
+                mPaint.setAlpha(255);
+            }else {
+                mPaint.setColor(mOriginColor);
+                mPaint.setAlpha((int)(0.6f*255));
+            }
+            mPaint.setTextAlign(Paint.Align.CENTER);
+            canvas.drawText(toBigCH(i+1)+"秒", mWidth/7/2*((i)%7*2+1), (getToppedY()+getToppedY()-mDistance)*(i/7+18), mPaint);
+        }
     }
 
     public String toBigCH(int i){
@@ -332,6 +353,10 @@ public class ClockNormalView extends View {
      */
     private float getBottomedY(){
         return -mPaint.getFontMetrics().bottom;
+    }
+
+    private float getTextdY(){
+        return -(mPaint.getFontMetrics().leading+mPaint.getFontMetrics().descent+mPaint.getFontMetrics().ascent);
     }
 
     public void initWidthHeight(float width, float height) {

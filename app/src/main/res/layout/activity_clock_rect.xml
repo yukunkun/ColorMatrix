@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".desk_module.DeskActivity">
+    tools:context=".desk_module.activity.ClockRectActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/color_whit"
@@ -20,7 +20,7 @@
             android:gravity="center"
             android:textSize="17sp"
             android:layout_centerInParent="true"
-            android:text="手机桌面设置"
+            android:text="时钟"
             android:textColor="@color/color_black"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
@@ -38,21 +38,14 @@
             android:layout_height="match_parent" />
     </RelativeLayout>
     <include layout="@layout/include_line_no_marg"/>
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
+        <com.matrix.yukun.matrix.desk_module.view.ClockRectView
+            android:layout_centerInParent="true"
+            android:id="@+id/clock_rect"
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
-            <Button
-                android:id="@+id/bt_normal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <Button
-                android:id="@+id/bt_rect"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </ScrollView>
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
 </LinearLayout>
