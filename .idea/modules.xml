@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ColorMatrix.iml" filepath="$PROJECT_DIR$/ColorMatrix.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ColorMatrixs.iml" filepath="$PROJECT_DIR$/.idea/ColorMatrixs.iml" />
       <module fileurl="file://$PROJECT_DIR$/Photoeditor/Photoeditor.iml" filepath="$PROJECT_DIR$/Photoeditor/Photoeditor.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/jiaozivideoplayer/jiaozivideoplayer.iml" filepath="$PROJECT_DIR$/jiaozivideoplayer/jiaozivideoplayer.iml" />
