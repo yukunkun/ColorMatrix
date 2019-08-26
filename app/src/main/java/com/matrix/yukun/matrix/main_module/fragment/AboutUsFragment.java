@@ -98,6 +98,10 @@ public class AboutUsFragment extends BaseFragment {
     @Override
     public void initView(View inflate, Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
+        setData();
+    }
+
+    private void setData() {
         mTvVersion.setText("V " + getVersion());
         mStringList = Arrays.asList(getResources().getStringArray(R.array.about_us_list));
         mLvList.setAdapter(new LvAdapter());
