@@ -190,7 +190,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     implementation 'me.everything:overscroll-decor-android:1.0.4'
-    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.haozhang.libary:android-slanted-textview:1.2'
     implementation 'com.getbase:floatingactionbutton:1.10.1'
     implementation 'com.github.rubensousa:floatingtoolbar:1.5.1'
