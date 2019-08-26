@@ -6,11 +6,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.emoji.EmoticonManager;
-import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.matrix.yukun.matrix.video_module.BaseFragment;
-import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 
 /**
  * author: kun .

@@ -7,8 +7,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.fragment.MaterialPoolFragment;
-import com.matrix.yukun.matrix.gaia_module.fragment.MaterialSearchFragment;
-import com.matrix.yukun.matrix.gaia_module.fragment.ProductPoolFragment;
 
 
 /**

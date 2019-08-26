@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         />
-    <com.matrix.yukun.matrix.qrcode_module.view.ViewfinderView
+    <com.matrix.yukun.matrix.tool_module.qrcode.view.ViewfinderView
         android:id="@+id/viewfinder_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

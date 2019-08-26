@@ -8,10 +8,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.adapter.MaterialPoolFragmentAdapter;
-import com.matrix.yukun.matrix.gaia_module.adapter.WorkPoolFragmentAdapter;
-import com.matrix.yukun.matrix.video_module.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;

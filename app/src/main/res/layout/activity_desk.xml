@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".desk_module.DeskActivity">
+    android:background="@color/color_whit">
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/color_whit"
@@ -13,6 +11,7 @@
         <ImageView
             android:src="@mipmap/joke_back"
             android:padding="@dimen/dimens_8"
+            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/iv_back"
             android:layout_width="@dimen/dimens_45"
             android:layout_height="match_parent" />
@@ -24,17 +23,15 @@
             android:textColor="@color/color_black"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
-        <TextView
-            android:id="@+id/tv_internet"
+        <ImageView
+            android:id="@+id/iv_quest"
             android:gravity="center"
-            android:textSize="17sp"
+            android:padding="@dimen/dimens_12"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@mipmap/icon_desk_quest"
             android:layout_alignParentRight="true"
-            android:text=""
-            android:paddingRight="@dimen/dimens_10"
-            android:paddingLeft="@dimen/dimens_10"
-            android:layout_marginRight="@dimen/dimens_10"
             android:textColor="@drawable/selector_qrcode_product"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dimens_50"
             android:layout_height="match_parent" />
     </RelativeLayout>
     <include layout="@layout/include_line_no_marg"/>
@@ -44,15 +41,97 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_height="match_parent">
-            <Button
-                android:id="@+id/bt_normal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/name"
+                android:text="壁纸设置 → 选择动态壁纸 → 选择对应壁纸"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/dimens_14"
+                android:paddingLeft="@dimen/dimens_30"
+                android:paddingRight="@dimen/dimens_30"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/dimens_20"
+                android:text="抖音壁纸预览"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"
+                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content" />
-            <Button
-                android:id="@+id/bt_rect"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dimens_40"
+                android:layout_marginRight="@dimen/dimens_40"
+                android:layout_marginTop="@dimen/dimens_20"
+                android:background="@drawable/shape_desk_background"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/dimens_14"
+                android:paddingLeft="@dimen/dimens_3"
+                android:paddingRight="@dimen/dimens_3"
+                android:paddingTop="@dimen/dimens_14">
+
+                <Button
+                    android:id="@+id/bt_normal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_16"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="时钟壁纸预览"
+                    android:layout_marginBottom="@dimen/dimens_1"
+                    android:textColor="@color/green_btn" />
+
+                <Button
+                    android:id="@+id/bt_normal1"
+                    android:layout_width="match_parent"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="十二时辰壁纸预览"
+                    android:layout_marginBottom="@dimen/dimens_1"
+                    android:textColor="@color/green_btn" />
+
+                <Button
+                    android:id="@+id/bt_rect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_16"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="方形时钟壁纸预览"
+                    android:layout_marginBottom="@dimen/dimens_1"
+                    android:textColor="@color/green_btn" />
+
+                <Button
+                    android:id="@+id/bt_roata"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_16"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="透明壁纸预览"
+                    android:layout_marginBottom="@dimen/dimens_1"
+                    android:textColor="@color/green_btn" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_wall"
+                android:layout_marginTop="@dimen/dimens_20"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:paddingTop="@dimen/dimens_8"
+                android:paddingBottom="@dimen/dimens_8"
+                android:layout_marginRight="@dimen/dimens_50"
+                android:layout_marginLeft="@dimen/dimens_50"
+                android:background="@drawable/selector_desk_set"
+                android:textColor="@drawable/shape_desk_set_bg"
+                android:layout_width="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="壁纸设置" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

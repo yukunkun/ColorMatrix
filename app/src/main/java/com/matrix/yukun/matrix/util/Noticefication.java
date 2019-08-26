@@ -9,7 +9,7 @@ import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.main_module.SplashActivity;
+import com.matrix.yukun.matrix.main_module.main.SplashActivity;
 
 /**
  * Created by Administrator on 2017/2/5.

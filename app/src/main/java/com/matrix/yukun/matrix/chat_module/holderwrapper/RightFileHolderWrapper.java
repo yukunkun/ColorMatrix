@@ -5,13 +5,13 @@ import android.content.Intent;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.holder.RightFileHolder;
+import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
+import com.matrix.yukun.matrix.main_module.activity.PersonCenterActivity;
 import com.matrix.yukun.matrix.util.FileUtil;
-import com.matrix.yukun.matrix.video_module.MyApplication;
-import com.matrix.yukun.matrix.video_module.play.AboutUsActivity;
-import com.matrix.yukun.matrix.video_module.play.LoginActivity;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -41,10 +41,10 @@ public class RightFileHolderWrapper {
         }else {
             ( holder).mTextViewRightTime.setVisibility(View.GONE);
         }
-        if(MyApplication.userInfo==null){
+        if(MyApp.userInfo==null){
             Glide.with(mContext).load(chatListInfo.getBitmap()).placeholder(R.drawable.head_2).into((holder).mImageViewRight);
         }else {
-            Glide.with(mContext).load(MyApplication.getUserInfo().getImg()).into((holder).mImageViewRight);
+            Glide.with(mContext).load(MyApp.getUserInfo().getImg()).into((holder).mImageViewRight);
         }
         File file=new File(chatListInfo.getFilePath());
         if(file.exists()){
@@ -53,8 +53,8 @@ public class RightFileHolderWrapper {
             (holder).mImageViewRight.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(MyApplication.userInfo!=null) {
-                        Intent intent=new Intent(mContext, AboutUsActivity.class);
+                    if(MyApp.userInfo!=null) {
+                        Intent intent=new Intent(mContext, PersonCenterActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContext.startActivity(intent);
                     }else {

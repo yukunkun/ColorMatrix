@@ -1,8 +1,7 @@
 package com.matrix.yukun.matrix.gaia_module.util;
 
-import android.os.Environment;
 import android.util.Log;
-import com.matrix.yukun.matrix.AppConstant;
+
 import java.io.File;
 
 /**

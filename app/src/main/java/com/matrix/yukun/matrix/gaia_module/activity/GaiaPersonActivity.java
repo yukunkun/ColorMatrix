@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.adapter.create_person.CoverImgInfo;
 import com.matrix.yukun.matrix.gaia_module.adapter.create_person.CreateAdapter;
@@ -16,20 +17,21 @@ import com.matrix.yukun.matrix.gaia_module.adapter.create_person.CreatePersonInf
 import com.matrix.yukun.matrix.gaia_module.adapter.create_person.WorksInfo;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.gaia_module.net.GaiCallBack;
-import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.matrix.yukun.matrix.video_module.BaseActivity;
-import com.matrix.yukun.matrix.video_module.utils.SpacesDoubleDecoration;
-import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.main_module.utils.SpacesDoubleDecoration;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhy.http.okhttp.OkHttpUtils;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import okhttp3.MediaType;

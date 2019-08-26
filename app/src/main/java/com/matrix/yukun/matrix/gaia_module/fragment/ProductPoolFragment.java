@@ -5,22 +5,19 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.adapter.WorkPoolAdapter;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.gaia_module.net.GaiCallBack;
-import com.matrix.yukun.matrix.util.SpacesItemDecoration;
-import com.matrix.yukun.matrix.video_module.BaseFragment;
-import com.matrix.yukun.matrix.video_module.utils.SpacesDoubleDecoration;
-import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.main_module.utils.SpacesDoubleDecoration;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -33,11 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import okhttp3.Call;
 import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
 
 /**
  * author: kun .

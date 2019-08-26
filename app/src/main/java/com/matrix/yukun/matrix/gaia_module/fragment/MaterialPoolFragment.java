@@ -10,15 +10,14 @@ import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.adapter.VideoMaterialAdapter;
-import com.matrix.yukun.matrix.gaia_module.adapter.WorkPoolAdapter;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.gaia_module.net.GaiCallBack;
-import com.matrix.yukun.matrix.video_module.BaseFragment;
-import com.matrix.yukun.matrix.video_module.utils.SpacesDoubleDecoration;
-import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.main_module.utils.SpacesDoubleDecoration;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;

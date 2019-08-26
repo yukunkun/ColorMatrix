@@ -6,10 +6,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.adapter.RVRestAdapter;
 import com.matrix.yukun.matrix.gaia_module.bean.ItemBean;
-import com.matrix.yukun.matrix.video_module.BaseActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 

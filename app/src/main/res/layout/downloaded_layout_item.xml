@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.matrix.yukun.matrix.video_module.views.SwipeItemLayout
+<com.matrix.yukun.matrix.main_module.views.SwipeItemLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
@@ -57,4 +57,4 @@
             android:layout_width="@dimen/dimens_80"
             android:layout_height="match_parent" />
     </LinearLayout>
-</com.matrix.yukun.matrix.video_module.views.SwipeItemLayout>
+</com.matrix.yukun.matrix.main_module.views.SwipeItemLayout>

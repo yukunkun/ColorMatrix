@@ -13,8 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.matrix.yukun.matrix.MyApp;
-import com.matrix.yukun.matrix.movie_module.activity.adapter.OnEventpos;
-
+import com.matrix.yukun.matrix.tool_module.weather.bean.OnEventpos;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;

@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -26,10 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.util.DataUtils;
-import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

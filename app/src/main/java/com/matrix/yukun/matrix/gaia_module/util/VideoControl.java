@@ -4,12 +4,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
 import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
+
 import okhttp3.Call;
 
 /**

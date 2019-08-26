@@ -4,7 +4,7 @@
     android:background="#000000"
     >
 
-    <com.matrix.yukun.matrix.qrcode_module.cropper.CropImageView
+    <com.matrix.yukun.matrix.tool_module.qrcode.cropper.CropImageView
         android:id="@+id/CropImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

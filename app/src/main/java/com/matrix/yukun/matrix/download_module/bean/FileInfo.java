@@ -8,7 +8,7 @@ import java.io.File;
  * author: kun .
  * date:   On 2019/1/22
  */
-public class FileInfo extends DataSupport{
+public class FileInfo extends DataSupport {
     public File file;
     public String fileName;
     public String filePath;

@@ -7,12 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.AppConstant;
+import com.matrix.yukun.matrix.BaseFragment;
+import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.download_module.adapter.RVDownLoadedAdapter;
 import com.matrix.yukun.matrix.download_module.bean.FileInfo;
-import com.matrix.yukun.matrix.video_module.BaseFragment;
-import com.matrix.yukun.matrix.video_module.views.SwipeItemLayout;
+import com.matrix.yukun.matrix.main_module.views.SwipeItemLayout;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -53,10 +53,9 @@ public class DownLoadedFragment extends BaseFragment {
         mRecyclerView.setAdapter(mRvDownLoadedAdapter);
         mRecyclerView.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(getContext()));
         initData();
-        initListener();
     }
 
-    private void initListener() {
+    public void initListener() {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

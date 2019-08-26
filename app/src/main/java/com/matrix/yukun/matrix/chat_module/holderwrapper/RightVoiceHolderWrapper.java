@@ -6,20 +6,16 @@ import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.entity.EventVoiceClick;
 import com.matrix.yukun.matrix.chat_module.fragment.voice.PlayerManager;
-import com.matrix.yukun.matrix.chat_module.holder.RightTextHolder;
 import com.matrix.yukun.matrix.chat_module.holder.RightVoiceHolder;
-import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.matrix.yukun.matrix.video_module.MyApplication;
-import com.matrix.yukun.matrix.video_module.play.AboutUsActivity;
-import com.matrix.yukun.matrix.video_module.play.JokeDetailActivity;
-import com.matrix.yukun.matrix.video_module.play.LoginActivity;
-import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.MyApp;
+import com.matrix.yukun.matrix.main_module.activity.PersonCenterActivity;
+import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -66,10 +62,10 @@ public class RightVoiceHolderWrapper {
         }else {
             ( holder).mTextViewRightTime.setVisibility(View.GONE);
         }
-        if(MyApplication.userInfo==null){
+        if(MyApp.userInfo==null){
             Glide.with(mContext).load(chatListInfo.getBitmap()).placeholder(R.drawable.head_2).into((holder).mImageViewRight);
         }else {
-            Glide.with(mContext).load(MyApplication.getUserInfo().getImg()).into((holder).mImageViewRight);
+            Glide.with(mContext).load(MyApp.getUserInfo().getImg()).into((holder).mImageViewRight);
         }
         holder.tvSenond.setText(chatListInfo.getDuration()/1000+"''");
         if(!chatListInfo.isAudioIsPlay()){
@@ -111,8 +107,8 @@ public class RightVoiceHolderWrapper {
         (holder).mImageViewRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MyApplication.userInfo!=null) {
-                    Intent intent=new Intent(mContext, AboutUsActivity.class);
+                if(MyApp.userInfo!=null) {
+                    Intent intent=new Intent(mContext, PersonCenterActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent);
                 }else {

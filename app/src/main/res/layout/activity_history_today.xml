@@ -36,7 +36,7 @@
                   android:id="@+id/recyclerview"
                   android:layout_height="match_parent">
         </ListView>
-        <com.matrix.yukun.matrix.video_module.views.SideBar
+        <com.matrix.yukun.matrix.main_module.views.SideBar
             android:textColor="@color/colorAccent"
             android:textSize="15sp"
             android:paddingRight="10dp"

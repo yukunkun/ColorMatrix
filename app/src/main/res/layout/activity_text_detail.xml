@@ -36,7 +36,7 @@
              android:id="@+id/webview"
              android:layout_height="match_parent">
     </WebView>
-    <com.matrix.yukun.matrix.video_module.views.WaterLoadView
+    <com.matrix.yukun.matrix.selfview.WaterLoadView
         android:layout_width="match_parent"
         android:id="@+id/water_load"
         android:layout_height="145dp"

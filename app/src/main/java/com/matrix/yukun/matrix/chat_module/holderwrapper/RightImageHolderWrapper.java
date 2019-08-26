@@ -1,27 +1,26 @@
 package com.matrix.yukun.matrix.chat_module.holderwrapper;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.holder.RightImageHolder;
-import com.matrix.yukun.matrix.chat_module.holder.RightTextHolder;
-import com.matrix.yukun.matrix.util.BitmapUtil;
-import com.matrix.yukun.matrix.video_module.MyApplication;
-import com.matrix.yukun.matrix.video_module.play.AboutUsActivity;
-import com.matrix.yukun.matrix.video_module.play.ImageDetailActivity;
-import com.matrix.yukun.matrix.video_module.play.LoginActivity;
-import com.matrix.yukun.matrix.video_module.utils.ScreenUtil;
-import com.matrix.yukun.matrix.video_module.utils.ScreenUtils;
+import com.matrix.yukun.matrix.main_module.activity.PersonCenterActivity;
+import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
+import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
+import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 
 /**
@@ -51,16 +50,16 @@ public class RightImageHolderWrapper {
         }
         reMesuerSize(holder.mIvRight,chatListInfo.getImagePath());
         Glide.with(mContext).load(chatListInfo.getImagePath()).into(holder.mIvRight);
-        if(MyApplication.userInfo==null){
+        if(MyApp.userInfo==null){
             Glide.with(mContext).load(chatListInfo.getBitmap()).placeholder(R.drawable.head_2).into((holder).mImageViewRight);
         }else {
-            Glide.with(mContext).load(MyApplication.getUserInfo().getImg()).into((holder).mImageViewRight);
+            Glide.with(mContext).load(MyApp.getUserInfo().getImg()).into((holder).mImageViewRight);
         }
         (holder).mImageViewRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MyApplication.userInfo!=null) {
-                    Intent intent=new Intent(mContext, AboutUsActivity.class);
+                if(MyApp.userInfo!=null) {
+                    Intent intent=new Intent(mContext, PersonCenterActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent);
                 }else {
@@ -83,10 +82,34 @@ public class RightImageHolderWrapper {
     }
 
     private void reMesuerSize(ImageView ivRight, String imagePath) {
-        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-        if(bitmap!=null){
+        BitmapFactory.Options opt = new BitmapFactory.Options();
+        // 这个isjustdecodebounds很重要
+        opt.inJustDecodeBounds = true;
+        Bitmap bm = BitmapFactory.decodeFile(imagePath, opt);
+        // 获取到这个图片的原始宽度和高度
+        int picWidth = opt.outWidth;
+        int picHeight = opt.outHeight;
+        // 获取屏的宽度和高度
+        WindowManager windowManager = ((Activity)mContext).getWindowManager();
+        Display display = windowManager.getDefaultDisplay();
+        int screenWidth = display.getWidth();
+        int screenHeight = display.getHeight();
+        // isSampleSize是表示对图片的缩放程度，比如值为2图片的宽度和高度都变为以前的1/2
+        opt.inSampleSize = 1;
+        // 根据屏的大小和图片大小计算出缩放比例
+        if (picWidth > picHeight) {
+            if (picWidth > screenWidth)
+                opt.inSampleSize = picWidth / screenWidth;
+        } else {
+            if (picHeight > screenHeight)
+                opt.inSampleSize = picHeight / screenHeight;
+        }
+        // 这次再真正地生成一个有像素的，经过缩放了的bitmap
+        opt.inJustDecodeBounds = false;
+        bm= BitmapFactory.decodeFile(imagePath, opt);
+        if(bm!=null){
             ViewGroup.LayoutParams layoutParams=ivRight.getLayoutParams();
-            if(bitmap.getHeight()>bitmap.getWidth()){
+            if(bm.getHeight()>bm.getWidth()){
                 layoutParams.width= ScreenUtils.instance().getWidth(mContext)/3;
                 layoutParams.height= ScreenUtils.instance().getWidth(mContext)/2;
             }else {
@@ -95,6 +118,5 @@ public class RightImageHolderWrapper {
             }
             ivRight.setLayoutParams(layoutParams);
         }
-
     }
 }

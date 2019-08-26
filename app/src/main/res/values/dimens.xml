@@ -5,6 +5,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="titlebar">60dp</dimen>
+    <dimen name="dimens_1">1dp</dimen>
     <dimen name="dimens_3">3dp</dimen>
     <dimen name="dimens_5">5dp</dimen>
     <dimen name="dimens_8">8dp</dimen>

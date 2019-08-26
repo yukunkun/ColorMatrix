@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.bean.MaterialDetailInfo;
 import com.matrix.yukun.matrix.gaia_module.bean.VideoDetailInfo;
@@ -25,7 +26,6 @@ import com.matrix.yukun.matrix.gaia_module.util.FileDelete;
 import com.matrix.yukun.matrix.gaia_module.util.M3U8Service;
 import com.matrix.yukun.matrix.gaia_module.util.VideoControl;
 import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.matrix.yukun.matrix.video_module.BaseActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -34,7 +34,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Call;

@@ -20,7 +20,7 @@
             android:gravity="center"
             android:textSize="17sp"
             android:layout_centerInParent="true"
-            android:text="时钟"
+            android:text="@string/clockrect"
             android:textColor="@color/color_black"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
@@ -41,7 +41,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.matrix.yukun.matrix.desk_module.view.ClockRectView
+        <com.matrix.yukun.matrix.tool_module.deskwallpaper.view.ClockRectView
             android:layout_centerInParent="true"
             android:id="@+id/clock_rect"
             android:layout_width="match_parent"

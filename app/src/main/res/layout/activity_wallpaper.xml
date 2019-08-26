@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:clipChildren="false"
     android:layout_height="match_parent"
-    tools:context="com.matrix.yukun.matrix.wallpaper_module.WallpaperActivity">
+    tools:context="com.matrix.yukun.matrix.tool_module.deskwallpaper.activity.WallpaperActivity">
     <RelativeLayout
         android:id="@+id/title"
         android:background="@color/color_252525"

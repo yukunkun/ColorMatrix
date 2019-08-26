@@ -1,8 +1,6 @@
 package com.matrix.yukun.matrix.download_module.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +17,6 @@ import com.matrix.yukun.matrix.util.FileUtil;
 
 import org.litepal.crud.DataSupport;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -46,7 +43,7 @@ public class RVDownLoadAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             final FileInfo fileInfo = mInfos.get(position);
             Glide.with(mContext).load(fileInfo.imageUrl).into(((MyHolder) holder).mIvCover);
             ((MyHolder) holder).mTvName.setText(fileInfo.fileName);
-            ((MyHolder) holder).mTvSize.setText("文件大小："+""+FileUtil.formatFileSize(fileInfo.size));
+            ((MyHolder) holder).mTvSize.setText("文件大小："+""+ FileUtil.formatFileSize(fileInfo.size));
             ((MyHolder) holder).mTvDel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

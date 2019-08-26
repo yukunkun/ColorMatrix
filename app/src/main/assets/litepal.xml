@@ -3,18 +3,17 @@
     <dbname value="matrix" ></dbname>
     <version value="16" ></version>
     <list>
-        <mapping class="com.matrix.yukun.matrix.video_module.entity.CollectsInfo"></mapping>
-        <mapping class="com.matrix.yukun.matrix.calarder_module.contant.CalandarBean"></mapping>
-        <mapping class="com.matrix.yukun.matrix.barrage_module.BarrageHistory"></mapping>
-        <mapping class="com.matrix.yukun.matrix.video_module.entity.HistoryPlay"></mapping>
-        <mapping class="com.matrix.yukun.matrix.video_module.entity.AttentList"></mapping>
-        <mapping class="com.matrix.yukun.matrix.video_module.entity.UserInfo"></mapping>
+        <mapping class="com.matrix.yukun.matrix.main_module.entity.CollectsInfo"></mapping>
+        <mapping class="com.matrix.yukun.matrix.tool_module.calarder.contant.CalandarBean"></mapping>
+        <mapping class="com.matrix.yukun.matrix.tool_module.barrage.BarrageHistory"></mapping>
+        <mapping class="com.matrix.yukun.matrix.main_module.entity.HistoryPlay"></mapping>
+        <mapping class="com.matrix.yukun.matrix.main_module.entity.AttentList"></mapping>
+        <mapping class="com.matrix.yukun.matrix.main_module.entity.UserInfo"></mapping>
         <mapping class="com.matrix.yukun.matrix.download_module.bean.FileInfo"></mapping>
-        <mapping class="com.matrix.yukun.matrix.video_module.entity.EyesInfo"></mapping>
-        <mapping class="com.matrix.yukun.matrix.video_module.entity.PlayAllBean"></mapping>
-        <mapping class="com.matrix.yukun.matrix.video_module.entity.ImageInfo"></mapping>
+        <mapping class="com.matrix.yukun.matrix.main_module.entity.EyesInfo"></mapping>
+        <mapping class="com.matrix.yukun.matrix.main_module.entity.PlayAllBean"></mapping>
+        <mapping class="com.matrix.yukun.matrix.main_module.entity.ImageInfo"></mapping>
         <mapping class="com.matrix.yukun.matrix.chat_module.entity.ChatListInfo"></mapping>
         <mapping class="com.matrix.yukun.matrix.main_module.search.DBSearchInfo"></mapping>
-
     </list>
 </litepal>

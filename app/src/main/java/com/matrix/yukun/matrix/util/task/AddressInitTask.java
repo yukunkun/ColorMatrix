@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.matrix.yukun.matrix.weather_module.bean.EventCity;
+import com.matrix.yukun.matrix.tool_module.weather.bean.EventCity;
 
 import org.greenrobot.eventbus.EventBus;
 

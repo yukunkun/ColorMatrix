@@ -173,7 +173,7 @@
                 android:background="@color/color_82181818"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"/>
-            <com.matrix.yukun.matrix.selfview.MyListView
+            <com.matrix.yukun.matrix.selfview.NoScrollListView
                 android:id="@+id/mylistview"
                 android:focusable="false"
                 android:layout_width="match_parent"

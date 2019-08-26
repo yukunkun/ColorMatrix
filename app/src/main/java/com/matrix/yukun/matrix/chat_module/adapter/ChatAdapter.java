@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.entity.ChatType;
@@ -43,22 +44,22 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if(viewType== ChatMesageType.LEFTCONTENT.getValue()){
             view = LayoutInflater.from(mContext).inflate(R.layout.chat_left_item,null);
             return new LeftTextHolder(view);
-        }else if(viewType==ChatMesageType.RIGHTCONTENT.getValue()){
+        }else if(viewType== ChatMesageType.RIGHTCONTENT.getValue()){
             view= LayoutInflater.from(mContext).inflate(R.layout.chat_right_item,null);
             return new RightTextHolder(view);
-        }else if(viewType==ChatMesageType.RIGHTIMAGE.getValue()){
+        }else if(viewType== ChatMesageType.RIGHTIMAGE.getValue()){
             view= LayoutInflater.from(mContext).inflate(R.layout.chat_right_image_item,null);
             return new RightImageHolder(view);
-        } else if(viewType==ChatMesageType.SHAKEWINDOW.getValue()){
+        } else if(viewType== ChatMesageType.SHAKEWINDOW.getValue()){
             view= LayoutInflater.from(mContext).inflate(R.layout.chat_shake_layout,null);
             return new ShakeHolder(view);
-        }  else if(viewType==ChatMesageType.VIDEOMESSAGE.getValue()){
+        }  else if(viewType== ChatMesageType.VIDEOMESSAGE.getValue()){
             view= LayoutInflater.from(mContext).inflate(R.layout.chat_right_video_item,null);
             return new RightVideoHolder(view);
-        } else if(viewType==ChatMesageType.FILEMESSAGE.getValue()){
+        } else if(viewType== ChatMesageType.FILEMESSAGE.getValue()){
             view= LayoutInflater.from(mContext).inflate(R.layout.chat_right_file_item,null);
             return new RightFileHolder(view);
-        }else if(viewType==ChatMesageType.VOICEMESSAGE.getValue()){
+        }else if(viewType== ChatMesageType.VOICEMESSAGE.getValue()){
             view= LayoutInflater.from(mContext).inflate(R.layout.chat_right_voice_item,null);
             return new RightVoiceHolder(view);
         }

@@ -8,7 +8,7 @@ import org.litepal.crud.DataSupport;
  * Created by Administrator on 2017/5/11.
  */
 
-public class ChatListInfo extends DataSupport{
+public class ChatListInfo extends DataSupport {
 
     private String mChatInfo;
     private int type;

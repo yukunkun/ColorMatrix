@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.holder.LeftTextHolder;
-import com.matrix.yukun.matrix.video_module.play.JokeDetailActivity;
+import com.matrix.yukun.matrix.main_module.activity.JokeDetailActivity;
 
 import java.text.SimpleDateFormat;
 

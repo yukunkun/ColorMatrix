@@ -5,6 +5,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.style.ImageSpan;
 import android.util.AttributeSet;
+
 /**
  * 表情EditText
  *

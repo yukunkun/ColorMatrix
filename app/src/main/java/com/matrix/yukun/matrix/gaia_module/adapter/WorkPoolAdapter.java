@@ -1,6 +1,5 @@
 package com.matrix.yukun.matrix.gaia_module.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -9,16 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.activity.GaiaPlayActivity;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
 import com.matrix.yukun.matrix.gaia_module.bean.VideoType;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
+import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
+import com.matrix.yukun.matrix.main_module.utils.ScreenUtil;
 import com.matrix.yukun.matrix.util.DataUtils;
-import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.matrix.yukun.matrix.video_module.play.ImageDetailActivity;
-import com.matrix.yukun.matrix.video_module.utils.ScreenUtil;
 
 import java.util.List;
 
@@ -107,7 +106,7 @@ public class WorkPoolAdapter extends RecyclerView.Adapter<WorkPoolAdapter.WorkVi
         holder.userAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageDetailActivity.start(mContext,Api.COVER_PREFIX+videoInfo.getAvatar(),false);
+                ImageDetailActivity.start(mContext, Api.COVER_PREFIX+videoInfo.getAvatar(),false);
             }
         });
 

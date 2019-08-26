@@ -2,10 +2,8 @@ package com.matrix.yukun.matrix.gaia_module.net;
 
 import android.util.Log;
 
-import com.google.gson.JsonObject;
 import com.matrix.yukun.matrix.gaia_module.bean.MaterialDetailInfo;
 import com.matrix.yukun.matrix.gaia_module.bean.VideoDetailInfo;
-import com.qq.e.comm.util.StringUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONException;

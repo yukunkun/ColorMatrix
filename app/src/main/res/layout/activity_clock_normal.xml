@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".desk_module.activity.ClockNormalActivity">
+   >
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/color_whit"
@@ -20,7 +18,7 @@
             android:gravity="center"
             android:textSize="17sp"
             android:layout_centerInParent="true"
-            android:text="时钟"
+            android:text="@string/clock"
             android:textColor="@color/color_black"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
@@ -39,7 +37,7 @@
     </RelativeLayout>
     <include layout="@layout/include_line_no_marg"/>
 
-    <com.matrix.yukun.matrix.desk_module.view.ClockNormalView
+    <com.matrix.yukun.matrix.tool_module.deskwallpaper.view.ClockNormalView
         android:id="@+id/clock_normal"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

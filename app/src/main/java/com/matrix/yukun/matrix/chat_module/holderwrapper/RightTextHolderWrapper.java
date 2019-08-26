@@ -8,10 +8,10 @@ import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.holder.RightTextHolder;
-import com.matrix.yukun.matrix.video_module.MyApplication;
-import com.matrix.yukun.matrix.video_module.play.AboutUsActivity;
-import com.matrix.yukun.matrix.video_module.play.JokeDetailActivity;
-import com.matrix.yukun.matrix.video_module.play.LoginActivity;
+import com.matrix.yukun.matrix.MyApp;
+import com.matrix.yukun.matrix.main_module.activity.PersonCenterActivity;
+import com.matrix.yukun.matrix.main_module.activity.JokeDetailActivity;
+import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 
 import java.text.SimpleDateFormat;
 
@@ -41,10 +41,10 @@ public class RightTextHolderWrapper {
             ( holder).mTextViewRightTime.setVisibility(View.GONE);
         }
         (holder).mTextViewRight.setText(chatListInfo.getChatInfo());
-        if(MyApplication.userInfo==null){
+        if(MyApp.userInfo==null){
             Glide.with(mContext).load(chatListInfo.getBitmap()).placeholder(R.drawable.head_2).into((holder).mImageViewRight);
         }else {
-            Glide.with(mContext).load(MyApplication.getUserInfo().getImg()).into((holder).mImageViewRight);
+            Glide.with(mContext).load(MyApp.getUserInfo().getImg()).into((holder).mImageViewRight);
         }
         holder.mTextViewRight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,8 +56,8 @@ public class RightTextHolderWrapper {
         (holder).mImageViewRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MyApplication.userInfo!=null) {
-                    Intent intent=new Intent(mContext, AboutUsActivity.class);
+                if(MyApp.userInfo!=null) {
+                    Intent intent=new Intent(mContext, PersonCenterActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent);
                 }else {

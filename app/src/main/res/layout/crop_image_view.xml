@@ -10,7 +10,7 @@
         tools:ignore="contentDescription"
         android:adjustViewBounds="true" />
 
-    <com.matrix.yukun.matrix.qrcode_module.cropper.CropOverlayView
+    <com.matrix.yukun.matrix.tool_module.qrcode.cropper.CropOverlayView
         android:id="@+id/CropOverlayView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

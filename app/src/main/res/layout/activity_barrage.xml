@@ -14,7 +14,7 @@
             android:gravity="center"
             android:layout_centerInParent="true"
             android:layout_height="match_parent">
-            <com.matrix.yukun.matrix.barrage_module.views.VerticalTextView
+            <com.matrix.yukun.matrix.tool_module.barrage.views.VerticalTextView
                 android:id="@+id/vertical_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

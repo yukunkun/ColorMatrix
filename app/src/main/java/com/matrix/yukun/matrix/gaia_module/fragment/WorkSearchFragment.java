@@ -5,24 +5,21 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.adapter.SearchWorkAdapter;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
 import com.matrix.yukun.matrix.gaia_module.bean.VideoType;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.gaia_module.net.GaiCallBack;
-import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.matrix.yukun.matrix.video_module.BaseFragment;
-import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONObject;
@@ -31,9 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import okhttp3.Call;
 import okhttp3.MediaType;
 
@@ -84,7 +79,6 @@ public class WorkSearchFragment extends BaseFragment {
         mSearchWorkAdapter = new SearchWorkAdapter(getContext(), mGaiaIndexBeans, VideoType.WORK.getType());
         recyclerview.setAdapter(mSearchWorkAdapter);
         changeStyle(relevancy);
-        initListener();
     }
 
     private void initData(int stype, String key, int pi) {
@@ -133,7 +127,7 @@ public class WorkSearchFragment extends BaseFragment {
         });
     }
 
-    private void initListener() {
+    public void initListener() {
         //加载更多
         recyclerview.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

@@ -22,7 +22,7 @@ public class ShakeHolderWrapper {
         return mShakeHolderWrapper;
     }
 
-    public void content(Context context, ChatListInfo chatListInfo,ShakeHolder holder){
+    public void content(Context context, ChatListInfo chatListInfo, ShakeHolder holder){
         this.mContext=context;
         Glide.with(context).load(chatListInfo.getBitmap()).placeholder(R.drawable.head_7).into((holder).mCircleImageView);
 //        holder.mTextView.setText("抖了你一下");

@@ -2,20 +2,16 @@ package com.matrix.yukun.matrix.chat_module.holderwrapper;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
+
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
+import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.chat_module.holder.RightVideoHolder;
-import com.matrix.yukun.matrix.video_module.MyApplication;
-import com.matrix.yukun.matrix.video_module.play.AboutUsActivity;
-import com.matrix.yukun.matrix.video_module.play.LoginActivity;
-import com.matrix.yukun.matrix.video_module.utils.ScreenUtils;
-import com.matrix.yukun.matrix.video_module.video.VideoPlayActivity;
+import com.matrix.yukun.matrix.main_module.activity.PersonCenterActivity;
+import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
+import com.matrix.yukun.matrix.tool_module.videorecord.VideoPlayActivity;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -46,16 +42,16 @@ public class RightVideoHolderWrapper {
             ( holder).mTextViewRightTime.setVisibility(View.GONE);
         }
         Glide.with(mContext).load(chatListInfo.getVideoPath()).into(holder.mIvRight);
-        if(MyApplication.userInfo==null){
+        if(MyApp.userInfo==null){
             Glide.with(mContext).load(chatListInfo.getBitmap()).placeholder(R.drawable.head_2).into((holder).mImageViewRight);
         }else {
-            Glide.with(mContext).load(MyApplication.getUserInfo().getImg()).into((holder).mImageViewRight);
+            Glide.with(mContext).load(MyApp.getUserInfo().getImg()).into((holder).mImageViewRight);
         }
         (holder).mImageViewRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MyApplication.userInfo!=null) {
-                    Intent intent=new Intent(mContext, AboutUsActivity.class);
+                if(MyApp.userInfo!=null) {
+                    Intent intent=new Intent(mContext, PersonCenterActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent);
                 }else {

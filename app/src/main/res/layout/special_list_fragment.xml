@@ -5,7 +5,7 @@
                                          xmlns:yk="http://schemas.android.com/apk/res-auto"
                                          android:background="@color/color_write"
                                          >
-    <com.ykk.pluglin_video.views.WaterLoadView
+    <com.matrix.yukun.matrix.selfview.WaterLoadView
 
         android:layout_width="match_parent"
         android:id="@+id/water_load"
@@ -14,7 +14,7 @@
         yk:circleTop="85"
         yk:circleSmallRadio="8"
         yk:loadTime="1000" />
-    <com.ykk.pluglin_video.views.RetailMeNotLayout
+    <com.matrix.yukun.matrix.main_module.views.RetailMeNotLayout
         android:id="@+id/l_retail_me_not"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

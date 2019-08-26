@@ -5,11 +5,10 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
 
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.util.log.LogUtil;
+
 import java.io.IOException;
 
 /**

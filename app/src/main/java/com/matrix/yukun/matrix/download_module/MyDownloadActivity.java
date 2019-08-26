@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.download_module.fragment.DownLoadedFragment;
-import com.matrix.yukun.matrix.video_module.BaseActivity;
 
 public class MyDownloadActivity extends BaseActivity {
 

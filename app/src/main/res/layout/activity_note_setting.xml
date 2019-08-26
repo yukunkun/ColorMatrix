@@ -137,7 +137,7 @@
                     android:text="编辑字体颜色"
                     android:paddingLeft="@dimen/dimens_10"
                     android:layout_height="@dimen/dimens_45" />
-                <com.matrix.yukun.matrix.barrage_module.views.CircleTextView
+                <com.matrix.yukun.matrix.tool_module.barrage.views.CircleTextView
                     android:id="@+id/ctv_edit_color"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"

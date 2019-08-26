@@ -1,5 +1,5 @@
 package com.matrix.yukun.matrix.main_module.search;
-import com.matrix.yukun.matrix.video_module.entity.EyesInfo;
+import com.matrix.yukun.matrix.main_module.entity.EyesInfo;
 
 import org.litepal.crud.DataSupport;
 
@@ -23,7 +23,7 @@ public class DBSearchInfo extends DataSupport {
     private long duration;
     private int searchType;
 
-    public static DBSearchInfo countToSearchInfo(EyesInfo eyesInfo,String nextUrl){
+    public static DBSearchInfo countToSearchInfo(EyesInfo eyesInfo, String nextUrl){
         EyesInfo.DataBean data = eyesInfo.getData();
         DBSearchInfo dbSearchInfo=new DBSearchInfo();
         dbSearchInfo.setVideoId(data.getId());

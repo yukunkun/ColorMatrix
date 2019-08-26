@@ -1,15 +1,10 @@
 package com.matrix.yukun.matrix.chat_module.mvp;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
+
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.entity.ChatType;
-import com.matrix.yukun.matrix.util.RecyclerViewUtil;
-import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.matrix.yukun.matrix.video_module.netutils.NetworkUtils;
-import com.matrix.yukun.matrix.video_module.utils.ScreenUtil;
+import com.matrix.yukun.matrix.main_module.netutils.NetworkUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import org.json.JSONException;
 import org.json.JSONObject;

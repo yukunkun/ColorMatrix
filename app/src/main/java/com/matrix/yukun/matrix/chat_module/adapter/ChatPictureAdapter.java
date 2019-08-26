@@ -5,22 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
-import com.matrix.yukun.matrix.chat_module.entity.ChatType;
 import com.matrix.yukun.matrix.chat_module.entity.Photo;
-import com.matrix.yukun.matrix.chat_module.holder.LeftTextHolder;
-import com.matrix.yukun.matrix.chat_module.holder.RightImageHolder;
-import com.matrix.yukun.matrix.chat_module.holder.RightTextHolder;
-import com.matrix.yukun.matrix.chat_module.holderwrapper.LeftTextHolderWrapper;
-import com.matrix.yukun.matrix.chat_module.holderwrapper.RightImageHolderWrapper;
-import com.matrix.yukun.matrix.chat_module.holderwrapper.RightTextHolderWrapper;
-import com.matrix.yukun.matrix.video_module.utils.ScreenUtil;
+import com.matrix.yukun.matrix.main_module.utils.ScreenUtil;
 
 import java.util.List;
 

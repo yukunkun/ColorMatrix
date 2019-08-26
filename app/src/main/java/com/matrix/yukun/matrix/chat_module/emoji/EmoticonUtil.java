@@ -13,8 +13,10 @@ import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
 import com.matrix.yukun.matrix.chat_module.emoji.gif.AnimatedGifDrawable;
 import com.matrix.yukun.matrix.chat_module.emoji.gif.AnimatedImageSpan;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;

@@ -5,20 +5,18 @@ import android.content.DialogInterface;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationBuilderWithBuilderAccessor;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.download_module.bean.FileInfo;
 import com.matrix.yukun.matrix.download_module.fragment.DownLoadFragment;
 import com.matrix.yukun.matrix.download_module.fragment.DownLoadedFragment;
 import com.matrix.yukun.matrix.download_module.service.DownLoadEngine;
-import com.matrix.yukun.matrix.video_module.BaseActivity;
 
 import org.litepal.crud.DataSupport;
 
@@ -107,7 +105,7 @@ public class DownLoadActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        if (v.getId()==R.id.iv_more){
+        if (v.getId()== R.id.iv_more){
             ShoeDialog();
         }
     }

@@ -108,14 +108,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <com.matrix.yukun.matrix.video_module.views.NoScrolledListView
+            <com.matrix.yukun.matrix.selfview.NoScrollListView
                 android:id="@+id/lv_list"
                 android:background="@color/color_whit"
                 android:paddingTop="@dimen/dimens_20"
                 android:divider="@null"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            </com.matrix.yukun.matrix.video_module.views.NoScrolledListView>
+            </com.matrix.yukun.matrix.selfview.NoScrollListView>
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 

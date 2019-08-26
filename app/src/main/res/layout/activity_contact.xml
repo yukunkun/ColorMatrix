@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </ListView>
-        <com.matrix.yukun.matrix.video_module.views.SideBar
+        <com.matrix.yukun.matrix.main_module.views.SideBar
             android:id="@+id/sidebar"
             android:textColor="@color/color_c8ff4081"
             android:textSize="15sp"

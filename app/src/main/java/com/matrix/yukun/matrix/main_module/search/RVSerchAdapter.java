@@ -15,13 +15,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.matrix.yukun.matrix.video_module.play.PersonActivity;
-import com.matrix.yukun.matrix.video_module.play.VideoDetailPlayActivity;
-import com.matrix.yukun.matrix.video_module.video.VideoPlayActivity;
+import com.matrix.yukun.matrix.main_module.activity.PersonActivity;
+import com.matrix.yukun.matrix.main_module.activity.VideoDetailPlayActivity;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

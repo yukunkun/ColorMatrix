@@ -25,10 +25,6 @@ import com.matrix.yukun.matrix.download_module.DownLoadActivity;
 import com.matrix.yukun.matrix.download_module.bean.DownLoadError;
 import com.matrix.yukun.matrix.download_module.bean.FileInfo;
 import com.matrix.yukun.matrix.util.FileUtil;
-import com.matrix.yukun.matrix.video_module.MyApplication;
-import com.matrix.yukun.matrix.video_module.play.AboutUsActivity;
-
-import jp.wasabeef.blurry.Blurry;
 
 /**
  * author: kun .
@@ -106,7 +102,7 @@ public class DownloadNotificationService extends Service implements DownLoadList
         mNotification.contentView = new RemoteViews(getPackageName(), R.layout.app_download_layout);
         mNotification.contentView.setProgressBar(R.id.progressbar, 100, 1, false);
         mNotification.contentView.setTextViewText(R.id.tv_pro, "正在下载...");
-        mNotification.contentView.setBitmap(R.id.iv_icon,"setImageBitmap", BitmapFactory.decodeResource(getResources(),R.mipmap.snail_image));
+        mNotification.contentView.setBitmap(R.id.iv_icon,"setImageBitmap", BitmapFactory.decodeResource(getResources(), R.mipmap.snail_image));
         mNotification.contentView.setTextViewText(R.id.tv_product, "当前进度：0%");
         mNotificationManager.notify(0, mNotification);
         return super.onStartCommand(intent, flags, startId);

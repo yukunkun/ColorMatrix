@@ -51,9 +51,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:label">
-        <activity android:name=".note_module.activity.NoteSettingActivity" />
+        <activity android:name=".tool_module.notebook.activity.NoteSettingActivity" />
         <activity
-            android:name=".main_module.SplashActivity"
+            android:name=".main_module.main.SplashActivity"
             android:configChanges="keyboard|screenSize|orientation|layoutDirection"
             android:largeHeap="true"
             android:screenOrientation="portrait">
@@ -74,10 +74,51 @@
             android:name="IFLYTEK_CHANNEL"
             android:value="应用宝" /> <!-- 配置实时壁纸Service -->
         <service
-            android:name=".wallpaper_module.CameraLiveWallpaper"
+            android:name=".tool_module.deskwallpaper.wallpaper.CameraLiveWallpaper"
             android:label="@string/wapper"
             android:permission="android.permission.BIND_WALLPAPER">
+            <!-- 为实时壁纸配置intent-filter -->
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+            <!-- 为实时壁纸配置meta-data -->
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/livewallpaper" />
+        </service>
 
+        <service
+            android:name=".tool_module.deskwallpaper.wallpaper.ClockNormalPaper"
+            android:label="@string/clock"
+            android:permission="android.permission.BIND_WALLPAPER">
+            <!-- 为实时壁纸配置intent-filter -->
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+            <!-- 为实时壁纸配置meta-data -->
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/lockwallpaper" />
+        </service>
+        <!--十二时辰壁纸-->
+        <service
+            android:name=".tool_module.deskwallpaper.wallpaper.ClockTimePaper"
+            android:label="@string/clocktime"
+            android:permission="android.permission.BIND_WALLPAPER">
+            <!-- 为实时壁纸配置intent-filter -->
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+            <!-- 为实时壁纸配置meta-data -->
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/lockwallpaper" />
+        </service>
+        <!--方形壁纸-->
+        <service
+            android:name=".tool_module.deskwallpaper.wallpaper.ClockRectPaper"
+            android:label="@string/clockrect"
+            android:permission="android.permission.BIND_WALLPAPER">
             <!-- 为实时壁纸配置intent-filter -->
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService" />
@@ -112,10 +153,8 @@
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data android:scheme="tencent100371282" />
             </intent-filter>
         </activity>
@@ -123,13 +162,12 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".image_module.activity.PhotoListActivity"
+            android:name=".tool_module.garrary.activity.PhotoListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".image_module.activity.ListDetailActivity"
+            android:name=".tool_module.garrary.activity.ListDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".BaseActivity" />
-        <activity android:name=".main_module.MainActivity" />
+        <activity android:name=".tool_module.cropmap.ImageCropActivity" />
         <!--
             <activity
             android:name="com.qq.e.ads.ADActivity"
@@ -140,13 +178,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".setting_module.IntroduceActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".setting_module.AgreeActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".camera_module.CameraActivity"
+            android:name=".tool_module.cropmap.CameraActivity"
             android:screenOrientation="portrait" />
 
         <provider
@@ -158,178 +190,161 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/camera" />
         </provider>
-
         <activity
-            android:name=".movie_module.MovieActivity"
+            android:name=".tool_module.weather.WeatherActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".movie_module.activity.TopDetailActivity"
+            android:name=".BaseActivity"/>
+        <activity
+            android:name=".tool_module.gesture.GestureActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".movie_module.MovieBaseActivity"
+            android:name=".main_module.main.LockActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".weather_module.WeatherActivity"
+            android:name=".mine_module.activity.PhotoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".setting_module.SettingActivity"
+            android:name=".tool_module.deskwallpaper.activity.WallpaperActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".setting_module.AboutActivity"
+            android:name=".tool_module.videorecord.VideoFileActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".tool_module.videorecord.PhotoViewActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".gesture_module.GestureActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".main_module.LockActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".setting_module.PhotoActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".main_module.FaceActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".wallpaper_module.WallpaperActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".main_module.CropActivity" />
-        <activity
-            android:name=".video_module.video.VideoFileActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".video_module.video.PhotoViewActivity" />
-        <activity
-            android:name=".video_module.video.VideoPlayActivity"
+            android:name=".tool_module.videorecord.VideoPlayActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"> <!-- or android:screenOrientation="landscape" -->
         </activity>
         <activity
-            android:name=".video_module.video.ProductVideoActivity"
+            android:name=".tool_module.videorecord.ProductVideoActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".video_module.play.JokeDetailActivity"
+            android:name=".main_module.activity.JokeDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.AboutUsActivity"
+            android:name=".main_module.activity.PersonCenterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.ImageDetailActivity"
+            android:name=".main_module.activity.ImageDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.MyCollectActivity"
+            android:name=".main_module.activity.MyCollectActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.TextDetailActivity"
+            android:name=".main_module.activity.TextDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.HistoryTodayActivity"
+            android:name=".main_module.activity.HistoryTodayActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.PlayMainActivity"
+            android:name=".main_module.activity.PlayMainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.ToolsActivity"
+            android:name=".main_module.activity.ToolsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".barrage_module.BarrageActivity"
+            android:name=".tool_module.barrage.BarrageActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustResize|stateAlwaysHidden" />
         <activity
-            android:name=".calarder_module.activity.CalandarActivity"
+            android:name=".tool_module.calarder.activity.CalandarActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".calarder_module.TripartiteActivity"
+            android:name=".tool_module.calarder.TripartiteActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".qrcode_module.QRCodeActivity"
+            android:name=".tool_module.qrcode.QRCodeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".qrcode_module.QRImageCropActivity"
+            android:name=".tool_module.qrcode.QRImageCropActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".qrcode_module.MyQRCodeActivity"
+            android:name=".tool_module.qrcode.MyQRCodeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.ShareActivity"
+            android:name=".mine_module.activity.ShareActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dictionary_module.DictionaryActivity"
+            android:name=".tool_module.dictionary.DictionaryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustResize|stateAlwaysHidden" />
         <activity
-            android:name=".phone_module.ContactActivity"
+            android:name=".tool_module.phonebook.ContactActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.VideoDetailPlayActivity"
+            android:name=".main_module.activity.VideoDetailPlayActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.VerticalVideoActivity"
+            android:name=".main_module.activity.VerticalVideoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.VideoCommentActivity"
+            android:name=".main_module.activity.VideoCommentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.ReViewActivity"
+            android:name=".main_module.activity.ReViewActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.HistoryPlayActivity"
+            android:name=".main_module.activity.HistoryPlayActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.AttentionActivity"
+            android:name=".main_module.activity.AttentionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.PersonActivity"
+            android:name=".main_module.activity.PersonActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.LoginActivity"
+            android:name=".main_module.activity.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".download_module.DownLoadActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.VideoSettingActivity"
+            android:name=".mine_module.activity.SettingActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".download_module.MyDownloadActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.BriefVersionActivity"
+            android:name=".main_module.activity.BriefVersionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".gif_module.activity.GifProActivity"
+            android:name=".tool_module.gif.activity.GifProActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".gif_module.activity.ImageActivity"
+            android:name=".tool_module.gif.activity.ImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".gif_module.activity.GIFVideoClipActivity"
+            android:name=".tool_module.gif.activity.GIFVideoClipActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".gif_module.activity.ChooseImageActivity"
+            android:name=".tool_module.gif.activity.ChooseImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".gif_module.activity.CropGifImageActivity"
+            android:name=".tool_module.gif.activity.CropGifImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".gif_module.activity.GIFImageProActivity"
+            android:name=".tool_module.gif.activity.GIFImageProActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".gif_module.activity.GallaryActivity"
+            android:name=".tool_module.gif.activity.GallaryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".gif_module.activity.GIFActivity"
+            android:name=".tool_module.gif.activity.GIFActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".gif_module.activity.GIFVideoProActivity"
+            android:name=".tool_module.gif.activity.GIFVideoProActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.MyGallaryActivity"
+            android:name=".main_module.activity.MyGallaryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".gif_module.activity.GifShareActivity"
+            android:name=".tool_module.gif.activity.GifShareActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -340,7 +355,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".main_module.SearchActivity"
+            android:name=".main_module.main.SearchActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Transparent" />
         <activity
@@ -351,35 +366,35 @@
             android:name=".chat_module.ChatMemberActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".video_module.play.ImageSearchActivity"
+            android:name=".main_module.activity.ImageSearchActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".net_module.NetActivity"
+            android:name=".tool_module.internet.NetActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".btmovie_module.activity.DownLoadActivity"
+            android:name=".tool_module.btmovie.activity.DownLoadActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".btmovie_module.SpecialActivity"
+            android:name=".tool_module.btmovie.SpecialActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".net_module.HistoryActivity"
+            android:name=".tool_module.internet.HistoryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".note_module.activity.NoteActivity"
+            android:name=".tool_module.notebook.activity.NoteActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".note_module.activity.NoteEditActivity"
+            android:name=".tool_module.notebook.activity.NoteEditActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustResize|stateAlwaysHidden" />
         <activity
-            android:name=".note_module.activity.NotePreviewActivity"
+            android:name=".tool_module.notebook.activity.NotePreviewActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".gaia_module.activity.GaiaSearchActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".setting_module.ResponsbilityActivity"
+            android:name=".mine_module.activity.ResponsbilityActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".gaia_module.activity.ProductActivity"
@@ -394,13 +409,19 @@
         <activity
             android:name=".gaia_module.activity.GaiaPersonActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".gaia_module.activity.RVTestActivity" />
-        <activity android:name=".desk_module.DeskActivity"
+        <activity android:name=".gaia_module.activity.RVTestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tool_module.deskwallpaper.DeskActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tool_module.deskwallpaper.activity.ClockNormalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tool_module.deskwallpaper.activity.ClockRectActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".tool_module.deskwallpaper.activity.ClockNormal1Activity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".desk_module.activity.ClockNormalActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".desk_module.activity.ClockRectActivity"
-            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

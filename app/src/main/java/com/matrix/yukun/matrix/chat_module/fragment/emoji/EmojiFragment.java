@@ -9,10 +9,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.ChatBaseActivity;
-import com.matrix.yukun.matrix.video_module.BaseFragment;
-import com.matrix.yukun.matrix.video_module.play.MViewPagerAdapter;
+import com.matrix.yukun.matrix.main_module.activity.MViewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,10 +57,9 @@ public class EmojiFragment extends BaseFragment {
             mFragments.add(EmojiPreFragment.Instance(mString[i]));
         }
         mViewPager.setAdapter(new MViewPagerAdapter(getChildFragmentManager(),mFragments,mString));
-        initListener();
     }
 
-    private void initListener() {
+    public void initListener() {
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageSelected(int position) {

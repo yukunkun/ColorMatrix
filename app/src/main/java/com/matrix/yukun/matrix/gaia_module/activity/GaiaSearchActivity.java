@@ -11,13 +11,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.fragment.MaterialSearchFragment;
 import com.matrix.yukun.matrix.gaia_module.fragment.WorkSearchFragment;
+import com.matrix.yukun.matrix.main_module.activity.MViewPagerAdapter;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.KeyBoardUtil;
-import com.matrix.yukun.matrix.video_module.BaseActivity;
-import com.matrix.yukun.matrix.video_module.play.MViewPagerAdapter;
-import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;

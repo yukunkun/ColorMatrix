@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.activity.GaiaPlayActivity;
 import com.matrix.yukun.matrix.gaia_module.adapter.RVRecommendAdapter;
@@ -28,10 +29,9 @@ import com.matrix.yukun.matrix.gaia_module.bean.VideoType;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.gaia_module.net.VideoUtils;
 import com.matrix.yukun.matrix.gaia_module.util.FileDelete;
+import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
+import com.matrix.yukun.matrix.main_module.dialog.ShareDialog;
 import com.matrix.yukun.matrix.util.FileUtil;
-import com.matrix.yukun.matrix.video_module.BaseFragment;
-import com.matrix.yukun.matrix.video_module.dialog.ShareDialog;
-import com.matrix.yukun.matrix.video_module.play.ImageDetailActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -114,7 +114,6 @@ public class DetailFragment extends BaseFragment {
         mRvRecommendAdapter.addHeaderView(mHeaderView);
         recyclerview.setAdapter(mRvRecommendAdapter);
         initData();
-        initListener();
     }
 
     private void initData() {
@@ -430,7 +429,7 @@ public class DetailFragment extends BaseFragment {
         return "";
     }
 
-    private void initListener() {
+    public void initListener() {
         mRvRecommendAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

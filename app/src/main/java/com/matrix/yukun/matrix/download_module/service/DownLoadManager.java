@@ -2,7 +2,6 @@ package com.matrix.yukun.matrix.download_module.service;
 
 import com.matrix.yukun.matrix.download_module.bean.FileInfo;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -11,7 +10,7 @@ import java.util.List;
  */
 public  interface DownLoadManager {
 
-    void addDownload(String url,String imageUrl);
+    void addDownload(String url, String imageUrl);
 
     void addDownload(String url);
 

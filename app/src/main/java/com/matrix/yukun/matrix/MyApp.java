@@ -8,8 +8,7 @@ import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.matrix.yukun.matrix.download_module.service.DownLoadService;
-import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.matrix.yukun.matrix.video_module.MyApplication;
+import com.matrix.yukun.matrix.main_module.entity.UserInfo;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -22,20 +21,24 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.cookie.CookieJarImpl;
+import com.zhy.http.okhttp.cookie.store.PersistentCookieStore;
 
-import java.io.IOException;
+import org.litepal.LitePalApplication;
+
 import java.util.List;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Response;
 
 /**
  * Created by yukun on 17-1-24.
  */
-public class MyApp extends MyApplication {
+public class MyApp extends LitePalApplication{
     public  static MyApp myApp;
     public static RefWatcher refWatcher;
+    public static UserInfo userInfo;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -55,6 +58,13 @@ public class MyApp extends MyApplication {
 //            return;
 //        }
 //        refWatcher = LeakCanary.install(this);//获取一个 Watcher
+
+        CookieJarImpl cookieJar = new CookieJarImpl(new PersistentCookieStore(getApplicationContext()));
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .cookieJar(cookieJar)
+                //其他配置
+                .build();
+        OkHttpUtils.initClient(okHttpClient);
     }
 
     //获取当前进程名字
@@ -70,6 +80,16 @@ public class MyApp extends MyApplication {
             }
         }
         return null;
+    }
+
+
+    public static UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public static void setUserInfo(UserInfo user) {
+        userInfo=new UserInfo();
+        userInfo=user;
     }
 
     public static Application getInstance(){

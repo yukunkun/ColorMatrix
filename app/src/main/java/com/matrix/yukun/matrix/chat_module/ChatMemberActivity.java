@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
-import com.matrix.yukun.matrix.video_module.BaseActivity;
+import com.matrix.yukun.matrix.BaseActivity;
 
 import butterknife.OnClick;
 
@@ -16,7 +16,7 @@ public class ChatMemberActivity extends BaseActivity {
     public static void start(Context context){
         Intent intent=new Intent(context,ChatMemberActivity.class);
         context.startActivity(intent);
-        ((Activity)context).overridePendingTransition(R.anim.rotate,R.anim.rotate_out);
+        ((Activity)context).overridePendingTransition(R.anim.rotate, R.anim.rotate_out);
     }
 
     @Override
@@ -29,13 +29,13 @@ public class ChatMemberActivity extends BaseActivity {
 
     }
 
-    @OnClick({R2.id.iv_backs,R2.id.rl_chat_mem,R2.id.rl_chat_womem})
+    @OnClick({R2.id.iv_backs, R2.id.rl_chat_mem, R2.id.rl_chat_womem})
     public void onViewClicked(View view) {
-        if(view.getId()==R.id.iv_backs){
+        if(view.getId()== R.id.iv_backs){
             finish();
-        }if(view.getId()==R.id.rl_chat_mem){
+        }if(view.getId()== R.id.rl_chat_mem){
             ChatBaseActivity.start(this,ChatBaseActivity.TYPE_MEM);
-        }if(view.getId()==R.id.rl_chat_womem){
+        }if(view.getId()== R.id.rl_chat_womem){
             ChatBaseActivity.start(this,ChatBaseActivity.TYPE_WOMEM);
         }
     }

@@ -1,7 +1,6 @@
 package com.matrix.yukun.matrix.gaia_module.adapter.create_person;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +14,8 @@ import com.matrix.yukun.matrix.gaia_module.adapter.create_person.rec_viewholder.
 import com.matrix.yukun.matrix.gaia_module.adapter.create_person.rec_viewholder.CreateViewHolder2;
 import com.matrix.yukun.matrix.gaia_module.adapter.create_person.rec_viewholder.CreateViewHolder3;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
-import com.matrix.yukun.matrix.util.ImageUtils;
-import com.matrix.yukun.matrix.video_module.play.ImageDetailActivity;
-import com.matrix.yukun.matrix.video_module.utils.ScreenUtils;
+import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
+import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,20 +68,20 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             return holder;
         }if(viewType==COVER_SIZE_1){
             View inflate= LayoutInflater.from(context).inflate(R.layout.create_person_item, null);
-            setItemHeight(inflate,R.id.create_lin1_map);
+            setItemHeight(inflate, R.id.create_lin1_map);
             CreateViewHolder holder=new CreateViewHolder(inflate);
             return holder;
         }if(viewType==COVER_SIZE_2){
             View inflate= LayoutInflater.from(context).inflate(R.layout.create_person_item_two, null);
-            setItemHeight2(inflate,R.id.create_lin2_map1);
-            setItemHeight2(inflate,R.id.create_lin2_map2);
+            setItemHeight2(inflate, R.id.create_lin2_map1);
+            setItemHeight2(inflate, R.id.create_lin2_map2);
             CreateViewHolder2 holder=new CreateViewHolder2(inflate);
             return holder;
         }if(viewType==COVER_SIZE_3){
             View inflate= LayoutInflater.from(context).inflate(R.layout.create_person_item_three, null);
-            setItemHeight(inflate,R.id.create_lin3_map1);
-            setItemHeight2(inflate,R.id.create_lin3_map2);
-            setItemHeight2(inflate,R.id.create_lin3_map3);
+            setItemHeight(inflate, R.id.create_lin3_map1);
+            setItemHeight2(inflate, R.id.create_lin3_map2);
+            setItemHeight2(inflate, R.id.create_lin3_map3);
             CreateViewHolder3 holder=new CreateViewHolder3(inflate);
             return holder;
         }

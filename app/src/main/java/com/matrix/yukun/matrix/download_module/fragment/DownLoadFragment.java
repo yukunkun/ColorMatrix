@@ -1,12 +1,10 @@
 package com.matrix.yukun.matrix.download_module.fragment;
 
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -14,22 +12,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.download_module.adapter.RVDownLoadAdapter;
-import com.matrix.yukun.matrix.download_module.adapter.RVDownLoadedAdapter;
 import com.matrix.yukun.matrix.download_module.bean.DownLoadError;
 import com.matrix.yukun.matrix.download_module.bean.FileInfo;
 import com.matrix.yukun.matrix.download_module.service.DownLoadEngine;
 import com.matrix.yukun.matrix.download_module.service.DownLoadListener;
-import com.matrix.yukun.matrix.util.BitmapUtil;
+import com.matrix.yukun.matrix.main_module.views.SwipeItemLayout;
 import com.matrix.yukun.matrix.util.FileUtil;
-import com.matrix.yukun.matrix.video_module.BaseFragment;
-import com.matrix.yukun.matrix.video_module.entity.HistoryPlay;
-import com.matrix.yukun.matrix.video_module.views.SwipeItemLayout;
 
 import org.litepal.crud.DataSupport;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -93,7 +87,7 @@ public class DownLoadFragment extends BaseFragment implements DownLoadListener {
         mRvDownLoadedAdapter.notifyDataSetChanged();
     }
 
-    private void initListener() {
+    public void initListener() {
 
     }
     @Override

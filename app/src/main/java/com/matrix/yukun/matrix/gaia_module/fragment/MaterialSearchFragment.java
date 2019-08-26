@@ -14,14 +14,14 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.adapter.SearchWorkAdapter;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
 import com.matrix.yukun.matrix.gaia_module.bean.VideoType;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.gaia_module.net.GaiCallBack;
-import com.matrix.yukun.matrix.video_module.BaseFragment;
-import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONObject;
@@ -87,7 +87,6 @@ public class MaterialSearchFragment extends BaseFragment {
         mSearchWorkAdapter = new SearchWorkAdapter(getContext(), mGaiaIndexBeans, VideoType.MATERIAL.getType());
         recyclerview.setAdapter(mSearchWorkAdapter);
         changeStyle(relevancy);
-        initListener();
     }
 
     private void initData(int opr, int pi, String key) {
@@ -136,7 +135,7 @@ public class MaterialSearchFragment extends BaseFragment {
         });
     }
 
-    private void initListener() {
+    public void initListener() {
         //加载更多
         recyclerview.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

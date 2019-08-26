@@ -12,7 +12,6 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.util.DataUtils;
-import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import java.util.List;
 

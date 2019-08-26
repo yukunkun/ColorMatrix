@@ -27,7 +27,7 @@ import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
 import com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout;
 import com.matrix.yukun.matrix.util.GetPhotoFromPhotoAlbum;
 import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.matrix.yukun.matrix.video_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.miracle.view.imageeditor.bean.EditorResult;
 
 import org.greenrobot.eventbus.EventBus;
@@ -263,11 +263,11 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         mChatPresenter.sendRoboteMessage(getString(R.string.shake_you));
     }
 
-    @OnClick({R2.id.iv_backs,R2.id.iv_member})
+    @OnClick({R2.id.iv_backs, R2.id.iv_member})
     public void onViewClicked(View view) {
-        if(view.getId()==R.id.iv_backs){
+        if(view.getId()== R.id.iv_backs){
             finish();
-        }if(view.getId()==R.id.iv_member){
+        }if(view.getId()== R.id.iv_member){
             ChatMemberActivity.start(this);
         }
     }

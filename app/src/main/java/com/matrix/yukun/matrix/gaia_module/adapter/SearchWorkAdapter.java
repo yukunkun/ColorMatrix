@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.activity.GaiaPlayActivity;
@@ -14,7 +15,6 @@ import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
 import com.matrix.yukun.matrix.gaia_module.bean.VideoType;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.util.DataUtils;
-import com.matrix.yukun.matrix.util.ImageUtils;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class SearchWorkAdapter extends RecyclerView.Adapter<SearchWorkAdapter.MV
     List<GaiaIndexBean> mGaiaIndexBeans;
     int mType;
 
-    public SearchWorkAdapter(Context context, List<GaiaIndexBean> gaiaIndexBeans,int type) {
+    public SearchWorkAdapter(Context context, List<GaiaIndexBean> gaiaIndexBeans, int type) {
         mContext = context;
         mGaiaIndexBeans = gaiaIndexBeans;
         mType=type;
@@ -55,7 +55,7 @@ public class SearchWorkAdapter extends RecyclerView.Adapter<SearchWorkAdapter.MV
             if(searchWorksResult.getFlag()==0){
                 screenShot = Api.COVER_PREFIX + screenShot.replace(".", "_18.");
             }else if(searchWorksResult.getFlag()==1){
-                screenShot=Api.COVER_PREFIX+screenShot+"_18.png";
+                screenShot= Api.COVER_PREFIX+screenShot+"_18.png";
             }
             Glide.with(mContext).load(screenShot).placeholder(R.mipmap.bg_header_nav).into(holder.workCover);
         }
@@ -78,12 +78,12 @@ public class SearchWorkAdapter extends RecyclerView.Adapter<SearchWorkAdapter.MV
                 String cover="";
                 GaiaIndexBean item = mGaiaIndexBeans.get(position);
                 if(item.getCover()!=null&&!item.getCover().isEmpty()&&!"null".equals(item.getCover())){
-                    cover=Api.COVER_PREFIX+item.getCover();
+                    cover= Api.COVER_PREFIX+item.getCover();
                 }else if(!TextUtils.isEmpty(item.getScreenshot())){
                     if(item.getFlag()==1){
-                        cover=Api.COVER_PREFIX+item.getScreenshot()+"_18.png";
+                        cover= Api.COVER_PREFIX+item.getScreenshot()+"_18.png";
                     }else if(item.getFlag()==0){
-                        cover=Api.COVER_PREFIX+item.getScreenshot().replace(".","_18.");
+                        cover= Api.COVER_PREFIX+item.getScreenshot().replace(".","_18.");
                     }
                 }
                 if(mType==0){

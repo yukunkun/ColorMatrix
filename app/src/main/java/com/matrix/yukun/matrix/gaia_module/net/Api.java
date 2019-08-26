@@ -1,7 +1,5 @@
 package com.matrix.yukun.matrix.gaia_module.net;
 
-import com.qq.e.comm.util.StringUtil;
-
 public class Api {
     public static String BASE_URL="https://gaiamount.com/web";
     public static String COVER_PREFIX = "https://qw.gaiamount.com/";
