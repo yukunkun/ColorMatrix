@@ -17,7 +17,7 @@
             android:textSize="18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <com.matrix.yukun.matrix.barrage_module.views.CircleTextView
+        <com.matrix.yukun.matrix.tool_module.barrage.views.CircleTextView
             android:id="@+id/ctv_bg"
             android:layout_marginLeft="20dp"
             android:layout_width="30dp"
@@ -36,7 +36,7 @@
             android:textColor="@color/color_b5fffffff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <com.matrix.yukun.matrix.barrage_module.views.CircleTextView
+        <com.matrix.yukun.matrix.tool_module.barrage.views.CircleTextView
             android:id="@+id/ctv_tv_color"
             android:layout_marginLeft="20dp"
             android:layout_width="30dp"

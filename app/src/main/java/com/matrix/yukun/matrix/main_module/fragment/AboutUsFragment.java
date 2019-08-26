@@ -46,6 +46,7 @@ import com.matrix.yukun.matrix.mine_module.activity.ShareActivity;
 import com.matrix.yukun.matrix.mine_module.entity.WebType;
 import com.matrix.yukun.matrix.selfview.NoScrollListView;
 import com.matrix.yukun.matrix.tool_module.gesture.GestureActivity;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -108,6 +109,7 @@ public class AboutUsFragment extends BaseFragment {
             Glide.with(this).load(MyApp.userInfo.getImg()).asBitmap().into(new SimpleTarget<Bitmap>() {
                 @Override
                 public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    LogUtil.i("resource:",MyApp.getUserInfo().getImg()+" "+resource.getByteCount()/1024+"kb");
                     Blurry.with(getContext()).sampling(1).from(resource).into(mIvBury);
 //                    //取色
                     Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
