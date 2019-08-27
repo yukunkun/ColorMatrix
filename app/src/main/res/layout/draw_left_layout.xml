@@ -183,7 +183,7 @@
                 <TextView android:layout_width="match_parent"
                     android:textSize="16sp"
                     android:layout_toRightOf="@id/im_modu"
-                    android:text="模式切换"
+                    android:text="设置中心"
                     android:layout_marginLeft="15dp"
                     android:textColor="@color/color_2b2b2b"
                     android:layout_centerVertical="true"

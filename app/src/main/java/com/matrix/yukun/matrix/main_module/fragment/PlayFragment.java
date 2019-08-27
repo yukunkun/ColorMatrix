@@ -37,6 +37,7 @@ import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
 import com.matrix.yukun.matrix.main_module.entity.UserInfo;
 import com.matrix.yukun.matrix.main_module.main.SearchActivity;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;
+import com.matrix.yukun.matrix.mine_module.activity.SettingActivity;
 import com.matrix.yukun.matrix.mine_module.activity.ShareActivity;
 import com.matrix.yukun.matrix.tool_module.btmovie.SpecialActivity;
 
@@ -253,7 +254,8 @@ public class PlayFragment extends BaseFragment {
 
         } else if (i == R.id.rl_change_modul) {
             closeDrawLayout();
-            ((PlayMainActivity) getContext()).setNightMode();
+            SettingActivity.start(getContext());
+//            ((PlayMainActivity) getContext()).setNightMode();
 
         } else if (i == R.id.rl_collect) {
             Intent intentCol = new Intent(getContext(), MyCollectActivity.class);

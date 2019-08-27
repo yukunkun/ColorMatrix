@@ -2,6 +2,7 @@ package com.matrix.yukun.matrix.main_module.activity;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
@@ -28,6 +29,7 @@ import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
 import com.matrix.yukun.matrix.BaseActivity;
+import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.dialog.GestureDialog;
@@ -40,7 +42,9 @@ import com.matrix.yukun.matrix.main_module.fragment.ToolFragment;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtil;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;
+import com.matrix.yukun.matrix.mine_module.activity.SettingActivity;
 import com.matrix.yukun.matrix.selfview.floatingview.FloatingViewManager;
+import com.matrix.yukun.matrix.util.ActivityManager;
 import com.matrix.yukun.matrix.util.StatusBarUtil;
 import com.tencent.bugly.beta.Beta;
 
@@ -72,6 +76,10 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
     private RelativeLayout mLayout;
     private GaiaFragment mGaiaFragment;
 
+    public static void start(Context context){
+        Intent intent=new Intent(context,PlayMainActivity.class);
+        context.startActivity(intent);
+    }
     @Override
     public int getLayout() {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -91,6 +99,7 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void initView() {
         Beta.checkUpgrade();
+        MyApp.updateNight();
         EventBus.getDefault().register(this);
         PlayFragment playFragment = PlayFragment.getInstance();
         mFragments.add(playFragment);
@@ -113,6 +122,7 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
             GestureDialog gestureDialog = GestureDialog.getInstance();
             gestureDialog.show(getSupportFragmentManager(), "");
         }
+//        ActivityManager.getInstance().finishActivity(SettingActivity.class);
     }
 
     private void setListener() {

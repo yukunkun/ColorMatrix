@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.matrix.yukun.matrix.download_module.service.DownLoadService;
 import com.matrix.yukun.matrix.main_module.entity.UserInfo;
+import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -38,7 +39,7 @@ public class MyApp extends LitePalApplication{
     public  static MyApp myApp;
     public static RefWatcher refWatcher;
     public static UserInfo userInfo;
-
+    public static boolean isNight;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -90,6 +91,14 @@ public class MyApp extends LitePalApplication{
     public static void setUserInfo(UserInfo user) {
         userInfo=new UserInfo();
         userInfo=user;
+    }
+
+    public static boolean getNight() {
+        return isNight;
+    }
+
+    public static void updateNight() {
+       isNight=SPUtils.getInstance().getBoolean("isNight");
     }
 
     public static Application getInstance(){
