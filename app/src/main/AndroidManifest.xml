@@ -241,8 +241,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".main_module.activity.PlayMainActivity"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+        <!--android:launchMode="singleTop"-->
         <activity
             android:name=".main_module.activity.ToolsActivity"
             android:screenOrientation="portrait" />

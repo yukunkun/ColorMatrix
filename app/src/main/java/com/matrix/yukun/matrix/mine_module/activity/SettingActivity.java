@@ -26,10 +26,14 @@ import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.activity.PlayMainActivity;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.mine_module.entity.EventClose;
 import com.matrix.yukun.matrix.mine_module.entity.WebType;
 import com.matrix.yukun.matrix.mine_module.view.FankuiDialog;
 import com.matrix.yukun.matrix.util.ActivityManager;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.tencent.bugly.beta.Beta;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +53,7 @@ public class SettingActivity extends BaseActivity {
     @BindView(R.id.cb_night)
     CheckBox cbNight;
     private boolean isNight;
+    private boolean lastModule;
     private boolean currentModule;
     @Override
     public int getLayout() {
@@ -66,11 +71,10 @@ public class SettingActivity extends BaseActivity {
         OverScrollDecoratorHelper.setUpOverScroll(mScrollView);
         mCbPlay.setChecked(SPUtils.getInstance().getBoolean("iswifi"));
         mCbBrief.setChecked(SPUtils.getInstance().getBoolean("isbrief"));
-        currentModule = MyApp.getNight();
-        ToastUtils.showToast("currentModule:"+currentModule);
-        if(SPUtils.getInstance().getBoolean("isNight")){
-            cbNight.setChecked(true);
-        }
+        lastModule = MyApp.getNight();
+        currentModule=SPUtils.getInstance().getBoolean("isNight");
+        ToastUtils.showToast("lastModule:"+lastModule+" "+currentModule);
+        cbNight.setChecked(currentModule);
     }
 
     @Override
@@ -93,18 +97,26 @@ public class SettingActivity extends BaseActivity {
         });
 
         cbNight.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            ToastUtils.showToast("isChecked:"+isChecked);
             setNightMode();
         });
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if(currentModule!=isNight){
-            ActivityManager.getInstance().finishActivity(PlayMainActivity.class);
-            PlayMainActivity.start(this);
-//        }
+        LogUtil.i("=========back",lastModule+" "+currentModule);
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            goBack();
+            return true;
+        }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void goBack() {
+        if (lastModule!=currentModule) {  //  如果改变了夜间模式，则重启MainActivity
+            EventBus.getDefault().post(new EventClose(currentModule));
+            PlayMainActivity.start(this);
+        }
+        finish();
     }
 
     @OnClick({R2.id.iv_back, R2.id.tv_clear, R2.id.tv_update, R2.id.tv_introduce, R2.id.tv_about, R2.id.tv_sugg, R2.id.tv_mark_update})
@@ -112,11 +124,7 @@ public class SettingActivity extends BaseActivity {
         int id = view.getId();
         Class aClass = null;
         if (id == R.id.iv_back) {
-//            if(currentModule!=isNight){
-                ActivityManager.getInstance().finishActivity(PlayMainActivity.class);
-                PlayMainActivity.start(this);
-//            }
-            finish();
+            goBack();
             return;
         } else if (id == R.id.tv_clear) {
             ToastUtils.showToast("清除完成");
@@ -159,17 +167,15 @@ public class SettingActivity extends BaseActivity {
     public void setNightMode() {
         //  获取当前模式
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        //  将是否为夜间模式保存到SharedPreferences
         if (currentNightMode == 32) {
             isNight = true;
         } else {
             isNight = false;
         }
-
+        currentModule=!isNight;
         getDelegate().setDefaultNightMode(isNight ?
                 AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_YES);
-        saveModule(!isNight);
-
+        saveModule(currentModule);
         //  重启Activity
         finish();
         startActivity(new Intent( this, this.getClass()));
@@ -178,7 +184,8 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void saveModule(boolean isNight) {
-        ToastUtils.showToast(!isNight+"");
+        ToastUtils.showToast(isNight+"");
+        LogUtil.i("=========save",isNight+"");
         SPUtils.getInstance().saveBoolean("isNight",isNight);
     }
 }

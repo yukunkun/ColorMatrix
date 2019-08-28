@@ -43,9 +43,11 @@ import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtil;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;
 import com.matrix.yukun.matrix.mine_module.activity.SettingActivity;
+import com.matrix.yukun.matrix.mine_module.entity.EventClose;
 import com.matrix.yukun.matrix.selfview.floatingview.FloatingViewManager;
 import com.matrix.yukun.matrix.util.ActivityManager;
 import com.matrix.yukun.matrix.util.StatusBarUtil;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.tencent.bugly.beta.Beta;
 
 import org.greenrobot.eventbus.EventBus;
@@ -99,7 +101,6 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void initView() {
         Beta.checkUpgrade();
-        MyApp.updateNight();
         EventBus.getDefault().register(this);
         PlayFragment playFragment = PlayFragment.getInstance();
         mFragments.add(playFragment);
@@ -122,7 +123,6 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
             GestureDialog gestureDialog = GestureDialog.getInstance();
             gestureDialog.show(getSupportFragmentManager(), "");
         }
-//        ActivityManager.getInstance().finishActivity(SettingActivity.class);
     }
 
     private void setListener() {
@@ -254,6 +254,13 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void closeActivity(EventClose eventClose) {
+        LogUtil.i("===========",eventClose.isNight+"");
+        MyApp.updateNight();
+        finish();
+    }
+
     @Override
     public void onPrepared(MediaPlayer mp) {
         mp.start();
@@ -274,6 +281,7 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
 
     @Override
     public void onClick(View v) {
