@@ -12,6 +12,7 @@ import com.matrix.yukun.matrix.chat_module.holder.RightVideoHolder;
 import com.matrix.yukun.matrix.main_module.activity.PersonCenterActivity;
 import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 import com.matrix.yukun.matrix.tool_module.videorecord.VideoPlayActivity;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -43,7 +44,7 @@ public class RightVideoHolderWrapper {
         }
         Glide.with(mContext).load(chatListInfo.getVideoPath()).into(holder.mIvRight);
         if(MyApp.userInfo==null){
-            Glide.with(mContext).load(chatListInfo.getBitmap()).placeholder(R.drawable.head_2).into((holder).mImageViewRight);
+            GlideUtil.loadOptionsImage("",(holder).mImageViewRight,GlideUtil.getOptions(R.drawable.head_2));
         }else {
             Glide.with(mContext).load(MyApp.getUserInfo().getImg()).into((holder).mImageViewRight);
         }

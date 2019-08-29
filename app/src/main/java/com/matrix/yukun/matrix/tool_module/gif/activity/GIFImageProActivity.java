@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.gifencoder.AnimatedGifEncoder;
+//import com.bumptech.glide.gifencoder.AnimatedGifEncoder;
 import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
@@ -199,18 +199,18 @@ public class GIFImageProActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void run() {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                AnimatedGifEncoder localAnimatedGifEncoder = new AnimatedGifEncoder();
-                localAnimatedGifEncoder.start(baos);//start
-                localAnimatedGifEncoder.setRepeat(0);//设置生成gif的开始播放时间。0为立即开始播放
-                localAnimatedGifEncoder.setDelay(2000/fps); //没帧的延迟时间 ms
-                if (paths.size() > 0) {
-                    for (int i = 0; i < paths.size(); i++) {
-                        Bitmap bitmap = BitmapFactory.decodeFile(paths.get(i));
-                        Bitmap resizeBm = ImageUtils.resizeImage(bitmap, width, height);
-                        localAnimatedGifEncoder.addFrame(resizeBm);
-                    }
-                }
-                localAnimatedGifEncoder.finish();//finish
+//                AnimatedGifEncoder localAnimatedGifEncoder = new AnimatedGifEncoder();
+//                localAnimatedGifEncoder.start(baos);//start
+//                localAnimatedGifEncoder.setRepeat(0);//设置生成gif的开始播放时间。0为立即开始播放
+//                localAnimatedGifEncoder.setDelay(2000/fps); //没帧的延迟时间 ms
+//                if (paths.size() > 0) {
+//                    for (int i = 0; i < paths.size(); i++) {
+//                        Bitmap bitmap = BitmapFactory.decodeFile(paths.get(i));
+//                        Bitmap resizeBm = ImageUtils.resizeImage(bitmap, width, height);
+//                        localAnimatedGifEncoder.addFrame(resizeBm);
+//                    }
+//                }
+//                localAnimatedGifEncoder.finish();//finish
                 File file = new File(AppConstant.GIFLOAD);
                 if (!file.exists()){
                     file.mkdirs();

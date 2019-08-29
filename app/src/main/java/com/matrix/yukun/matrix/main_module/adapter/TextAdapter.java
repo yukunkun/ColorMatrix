@@ -18,6 +18,7 @@ import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.activity.TextDetailActivity;
 import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
 import com.matrix.yukun.matrix.main_module.entity.NewsInfo;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import org.litepal.crud.DataSupport;
 
@@ -62,7 +63,7 @@ public class TextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }else {
                 ((MHolder) holder).mTvName.setText(textInfo.getSource());
             }
-            Glide.with(context).load("").placeholder(R.drawable.head_2).into(((MHolder) holder).mCiHead);
+            GlideUtil.loadImage("",((MHolder) holder).mCiHead);
             ((MHolder) holder).mTvDes.setText(textInfo.getDigest());
             ((MHolder) holder).mTvForword.setText(textInfo.getTitle());
 

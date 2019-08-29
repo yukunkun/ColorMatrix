@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatDelegate;
 import android.widget.Toast;
 
 import com.matrix.yukun.matrix.download_module.service.DownLoadService;
@@ -51,6 +52,7 @@ public class MyApp extends LitePalApplication{
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
+        updateNight();
         //服务
         DownLoadService.start(this);
         //  内存泄漏监测
@@ -67,6 +69,7 @@ public class MyApp extends LitePalApplication{
                 .build();
         OkHttpUtils.initClient(okHttpClient);
     }
+
 
     //获取当前进程名字
     public static String getProcessName(Context cxt, int pid) {

@@ -20,6 +20,7 @@ import com.matrix.yukun.matrix.main_module.activity.PersonCenterActivity;
 import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
 import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import java.text.SimpleDateFormat;
 
@@ -51,7 +52,7 @@ public class RightImageHolderWrapper {
         reMesuerSize(holder.mIvRight,chatListInfo.getImagePath());
         Glide.with(mContext).load(chatListInfo.getImagePath()).into(holder.mIvRight);
         if(MyApp.userInfo==null){
-            Glide.with(mContext).load(chatListInfo.getBitmap()).placeholder(R.drawable.head_2).into((holder).mImageViewRight);
+            GlideUtil.loadOptionsImage("",(holder).mImageViewRight,GlideUtil.getOptions(R.drawable.head_2));
         }else {
             Glide.with(mContext).load(MyApp.getUserInfo().getImg()).into((holder).mImageViewRight);
         }

@@ -16,6 +16,7 @@ import com.matrix.yukun.matrix.gaia_module.adapter.create_person.rec_viewholder.
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,7 +110,7 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((CreateViewHolder0)holder).textViewPlace.setText(personInfo.getAddress());
             }
             //头像
-            Glide.with(context).load(Api.COVER_PREFIX+personInfo.getAvatar()).placeholder(R.drawable.head_3).into(((CreateViewHolder0)holder).imageViewHead);
+            GlideUtil.loadImage(Api.COVER_PREFIX+personInfo.getAvatar(),((CreateViewHolder0)holder).imageViewHead);
             ((CreateViewHolder0)holder).imageViewHead.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -153,7 +154,7 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((CreateViewHolder)holder).textViewPlace.setText(personInfo.getAddress());
             }
             //头像
-            Glide.with(context).load(Api.COVER_PREFIX+personInfo.getAvatar()).placeholder(R.drawable.head_3).into(((CreateViewHolder)holder).imageViewHead);
+            GlideUtil.loadImage(Api.COVER_PREFIX+personInfo.getAvatar(),((CreateViewHolder)holder).imageViewHead);
             ((CreateViewHolder)holder).imageViewHead.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -179,14 +180,14 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             //图片
             if(!worksInfo.getCoverImgInfos().get(0).getCover().isEmpty()&&worksInfo.getCoverImgInfos().get(0).getCover().length()!=0&&!"null".equals(worksInfo.getCoverImgInfos().get(0).getCover())){
-                Glide.with(context).load(Api.COVER_PREFIX+worksInfo.getCoverImgInfos().get(0).getCover()).placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder)holder).imageViewL1Map1);
+                GlideUtil.loadImage(Api.COVER_PREFIX+worksInfo.getCoverImgInfos().get(0).getCover(),((CreateViewHolder)holder).imageViewL1Map1);
             }else if (!worksInfo.getCoverImgInfos().get(0).getScreenshot().isEmpty()&&worksInfo.getCoverImgInfos().get(0).getScreenshot().length()!=0){
                 String screenshot = worksInfo.getCoverImgInfos().get(0).getScreenshot();
                 int flag = worksInfo.getCoverImgInfos().get(0).getFlag();
                 if(flag==1){
-                    Glide.with(context).load(Api.COVER_PREFIX+screenshot+"_18.png").placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder)holder).imageViewL1Map1);
+                    GlideUtil.loadImage(Api.COVER_PREFIX+screenshot+"_18.png",((CreateViewHolder)holder).imageViewL1Map1);
                 }else if(flag==0){
-                    Glide.with(context).load(Api.COVER_PREFIX+screenshot.replace(".","_18.")).placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder)holder).imageViewL1Map1);
+                    GlideUtil.loadImage(Api.COVER_PREFIX+screenshot.replace(".","_18."),((CreateViewHolder)holder).imageViewL1Map1);
                 }
             }
 
@@ -215,7 +216,7 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((CreateViewHolder2)holder).textViewPlace.setText(personInfo.getAddress());
             }
             //头像
-            Glide.with(context).load(Api.COVER_PREFIX+personInfo.getAvatar()).placeholder(R.drawable.head_3).into(((CreateViewHolder2)holder).imageViewHead);
+            GlideUtil.loadImage(Api.COVER_PREFIX+personInfo.getAvatar(),((CreateViewHolder2)holder).imageViewHead);
             ((CreateViewHolder2)holder).imageViewHead.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -241,27 +242,27 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             //图片
             if(!worksInfo.getCoverImgInfos().get(0).getCover().isEmpty()&&worksInfo.getCoverImgInfos().get(0).getCover().length()!=0&&!"null".equals(worksInfo.getCoverImgInfos().get(0).getCover())){
-                Glide.with(context).load(Api.COVER_PREFIX+worksInfo.getCoverImgInfos().get(0).getCover()).placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder2)holder).imageViewL2Map1);
+                GlideUtil.loadImage(Api.COVER_PREFIX+worksInfo.getCoverImgInfos().get(0).getCover(),((CreateViewHolder2)holder).imageViewL2Map1);
             }else if (!worksInfo.getCoverImgInfos().get(0).getScreenshot().isEmpty()&&worksInfo.getCoverImgInfos().get(0).getScreenshot().length()!=0){
                 String screenshot = worksInfo.getCoverImgInfos().get(0).getScreenshot();
                 int flag = worksInfo.getCoverImgInfos().get(0).getFlag();
                 if(flag==1){
-                    Glide.with(context).load(Api.COVER_PREFIX+screenshot+"_18.png").placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder2)holder).imageViewL2Map1);
+                    GlideUtil.loadImage(Api.COVER_PREFIX+screenshot+"_18.png",((CreateViewHolder2)holder).imageViewL2Map1);
                 }else if(flag==0){
-                    Glide.with(context).load(Api.COVER_PREFIX+screenshot.replace(".","_18.")).placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder2)holder).imageViewL2Map1);
+                    GlideUtil.loadImage(Api.COVER_PREFIX+screenshot.replace(".","_18."),((CreateViewHolder2)holder).imageViewL2Map1);
                 }
 //                Glide.with(context).load(Configs.COVER_PREFIX+worksInfo.getCoverImgInfos().get(0).getScreenshot()).placeholder(R.mipmap.bg_general).into(((CreateViewHolder2)holder).imageViewL2Map1);
             }
 
             if(!worksInfo.getCoverImgInfos().get(1).getCover().isEmpty()&&worksInfo.getCoverImgInfos().get(1).getCover().length()!=0&&!"null".equals(worksInfo.getCoverImgInfos().get(1).getCover())){
-                Glide.with(context).load(Api.COVER_PREFIX+worksInfo.getCoverImgInfos().get(1).getCover()).placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder2)holder).imageViewL2Map2);
+                GlideUtil.loadImage(Api.COVER_PREFIX+worksInfo.getCoverImgInfos().get(1).getCover(),((CreateViewHolder2)holder).imageViewL2Map2);
             }else if (!worksInfo.getCoverImgInfos().get(1).getScreenshot().isEmpty()&&worksInfo.getCoverImgInfos().get(1).getScreenshot().length()!=0){
                 String screenshot = worksInfo.getCoverImgInfos().get(1).getScreenshot();
                 int flag = worksInfo.getCoverImgInfos().get(1).getFlag();
                 if(flag==1){
-                    Glide.with(context).load(Api.COVER_PREFIX+screenshot+"_18.png").placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder2)holder).imageViewL2Map2);
+                    GlideUtil.loadImage(Api.COVER_PREFIX+screenshot+"_18.png",((CreateViewHolder2)holder).imageViewL2Map2);
                 }else if(flag==0){
-                    Glide.with(context).load(Api.COVER_PREFIX+screenshot.replace(".","_18.")).placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder2)holder).imageViewL2Map2);
+                    GlideUtil.loadImage(Api.COVER_PREFIX+screenshot.replace(".","_18."),((CreateViewHolder2)holder).imageViewL2Map2);
                 }
 //                Glide.with(context).load(Configs.COVER_PREFIX+worksInfo.getCoverImgInfos().get(1).getScreenshot()).placeholder(R.mipmap.bg_general).into(((CreateViewHolder2)holder).imageViewL2Map2);
             }
@@ -296,7 +297,7 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((CreateViewHolder3)holder).textViewPlace.setText(personInfo.getAddress());
             }
             //头像
-            Glide.with(context).load(Api.COVER_PREFIX+personInfo.getAvatar()).placeholder(R.drawable.head_3).into(((CreateViewHolder3)holder).imageViewHead);            //头像
+            GlideUtil.loadImage(Api.COVER_PREFIX+personInfo.getAvatar(),((CreateViewHolder3)holder).imageViewHead);            //头像
             ((CreateViewHolder3)holder).imageViewHead.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -321,39 +322,39 @@ public class CreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //            }
             //图片
             if(!worksInfo.getCoverImgInfos().get(0).getCover().isEmpty()&&worksInfo.getCoverImgInfos().get(0).getCover().length()!=0&&!"null".equals(worksInfo.getCoverImgInfos().get(0).getCover())){
-                Glide.with(context).load(Api.COVER_PREFIX+worksInfo.getCoverImgInfos().get(0).getCover()).placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder3)holder).imageViewL3Map1);
+                GlideUtil.loadImage(Api.COVER_PREFIX+worksInfo.getCoverImgInfos().get(0).getCover(),((CreateViewHolder3)holder).imageViewL3Map1);
             }else if (!worksInfo.getCoverImgInfos().get(0).getScreenshot().isEmpty()&&worksInfo.getCoverImgInfos().get(0).getScreenshot().length()!=0){
                 String screenshot = worksInfo.getCoverImgInfos().get(0).getScreenshot();
                 int flag = worksInfo.getCoverImgInfos().get(0).getFlag();
                 if(flag==1){
-                    Glide.with(context).load(Api.COVER_PREFIX+screenshot+"_18.png").placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder3)holder).imageViewL3Map1);
+                    GlideUtil.loadImage(Api.COVER_PREFIX+screenshot+"_18.png",((CreateViewHolder3)holder).imageViewL3Map1);
                 }else if(flag==0){
-                    Glide.with(context).load(Api.COVER_PREFIX+screenshot.replace(".","_18.")).placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder3)holder).imageViewL3Map1);
+                    GlideUtil.loadImage(Api.COVER_PREFIX+screenshot.replace(".","_18."),((CreateViewHolder3)holder).imageViewL3Map1);
                 }
 //                Glide.with(context).load(Configs.COVER_PREFIX+worksInfo.getCoverImgInfos().get(0).getScreenshot()).placeholder(R.mipmap.bg_general).into(((CreateViewHolder3)holder).imageViewL3Map1);
             }
 
             if(!worksInfo.getCoverImgInfos().get(1).getCover().isEmpty()&&worksInfo.getCoverImgInfos().get(1).getCover().length()!=0&&!"null".equals(worksInfo.getCoverImgInfos().get(1).getCover())){
-                Glide.with(context).load(Api.COVER_PREFIX+worksInfo.getCoverImgInfos().get(1).getCover()).placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder3)holder).imageViewL3Map2);
+                GlideUtil.loadImage(Api.COVER_PREFIX+worksInfo.getCoverImgInfos().get(1).getCover(),((CreateViewHolder3)holder).imageViewL3Map2);
             }else if (!worksInfo.getCoverImgInfos().get(1).getScreenshot().isEmpty()&&worksInfo.getCoverImgInfos().get(1).getScreenshot().length()!=0){
                 String screenshot = worksInfo.getCoverImgInfos().get(1).getScreenshot();
                 int flag = worksInfo.getCoverImgInfos().get(1).getFlag();
                 if(flag==1){
-                    Glide.with(context).load(Api.COVER_PREFIX+screenshot+"_18.png").placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder3)holder).imageViewL3Map2);
+                    GlideUtil.loadImage(Api.COVER_PREFIX+screenshot+"_18.png",((CreateViewHolder3)holder).imageViewL3Map2);
                 }else if(flag==0){
-                    Glide.with(context).load(Api.COVER_PREFIX+screenshot.replace(".","_18.")).placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder3)holder).imageViewL3Map2);
+                    GlideUtil.loadImage(Api.COVER_PREFIX+screenshot.replace(".","_18."),((CreateViewHolder3)holder).imageViewL3Map2);
                 }
             }
 
             if(!worksInfo.getCoverImgInfos().get(2).getCover().isEmpty()&&worksInfo.getCoverImgInfos().get(2).getCover().length()!=0&&!"null".equals(worksInfo.getCoverImgInfos().get(2).getCover())){
-                Glide.with(context).load(Api.COVER_PREFIX+worksInfo.getCoverImgInfos().get(2).getCover()).placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder3)holder).imageViewL3Map3);
+                GlideUtil.loadImage(Api.COVER_PREFIX+worksInfo.getCoverImgInfos().get(2).getCover(),((CreateViewHolder3)holder).imageViewL3Map3);
             }else if (!worksInfo.getCoverImgInfos().get(2).getScreenshot().isEmpty()&&worksInfo.getCoverImgInfos().get(2).getScreenshot().length()!=0){
                 String screenshot = worksInfo.getCoverImgInfos().get(2).getScreenshot();
                 int flag = worksInfo.getCoverImgInfos().get(2).getFlag();
                 if(flag==1){
-                    Glide.with(context).load(Api.COVER_PREFIX+screenshot+"_18.png").placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder3)holder).imageViewL3Map3);
+                    GlideUtil.loadImage(Api.COVER_PREFIX+screenshot+"_18.png",((CreateViewHolder3)holder).imageViewL3Map3);
                 }else if(flag==0){
-                    Glide.with(context).load(Api.COVER_PREFIX+screenshot.replace(".","_18.")).placeholder(R.mipmap.bg_header_nav).into(((CreateViewHolder3)holder).imageViewL3Map3);
+                    GlideUtil.loadImage(Api.COVER_PREFIX+screenshot.replace(".","_18."),((CreateViewHolder3)holder).imageViewL3Map3);
                 }
             }
             //视频播放页面

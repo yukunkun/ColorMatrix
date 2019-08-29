@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -58,6 +59,9 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
         mSkipView = findViewById(R.id.skip_view);
         //删除100天以前的历史数据
         DataSupport.deleteAllAsync(DBSearchInfo.class,"timeStamp < ? ", System.currentTimeMillis()-100*24*60*60*1000+"");
+        if(MyApp.getNight()){
+            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
     }
 
     private void getPermiss() {

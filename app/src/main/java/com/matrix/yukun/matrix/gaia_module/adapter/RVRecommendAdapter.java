@@ -12,6 +12,7 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.util.DataUtils;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import java.util.List;
 
@@ -40,16 +41,16 @@ public class RVRecommendAdapter extends BaseQuickAdapter<GaiaIndexBean, BaseView
         }
         ImageView cover = helper.getView(R.id.player_rec_cover);
         if (item.getCover() != null && !item.getCover().isEmpty() && !"null".equals(item.getCover())) {
-            Glide.with(mContext).load(Api.COVER_PREFIX + item.getCover()).placeholder(R.mipmap.bg_header_nav).into(cover);
+            GlideUtil.loadImage(Api.COVER_PREFIX + item.getCover(),cover);
         } else if (!TextUtils.isEmpty(item.getScreenshot())) {
             if(type==0){
                 if (item.getFlag() == 1) {
-                    Glide.with(mContext).load(Api.COVER_PREFIX + item.getScreenshot() + "_18.png").placeholder(R.mipmap.bg_header_nav).into(cover);
+                    GlideUtil.loadImage(Api.COVER_PREFIX + item.getScreenshot() + "_18.png",cover);
                 } else if (item.getFlag() == 0) {
-                    Glide.with(mContext).load(Api.COVER_PREFIX + item.getScreenshot().replace(".", "_18.")).placeholder(R.mipmap.bg_header_nav).into(cover);
+                    GlideUtil.loadImage(Api.COVER_PREFIX + item.getScreenshot().replace(".", "_18."),cover);
                 }
             }else {
-                Glide.with(mContext).load(Api.COVER_PREFIX + item.getScreenshot() + "_18.png").placeholder(R.mipmap.bg_header_nav).into(cover);
+                GlideUtil.loadImage(Api.COVER_PREFIX + item.getScreenshot() + "_18.png",cover);
             }
         }
         if (item.getHave4k() == 1) {

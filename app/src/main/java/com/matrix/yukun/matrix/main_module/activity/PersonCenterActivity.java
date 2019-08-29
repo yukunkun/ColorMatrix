@@ -17,7 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
+//import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.BaseActivity;
@@ -34,6 +34,7 @@ import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
 import com.matrix.yukun.matrix.main_module.entity.HistoryPlay;
 import com.matrix.yukun.matrix.main_module.utils.SpacesDoubleDecoration;
 import com.matrix.yukun.matrix.mine_module.activity.ShareActivity;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import org.litepal.crud.DataSupport;
 
@@ -163,14 +164,15 @@ public class PersonCenterActivity extends BaseActivity {
             Glide.with(this).load(MyApp.userInfo.getImg()).into(mIvHeader);
             mTvName.setText(MyApp.userInfo.getName());
             mTvSig.setText(MyApp.userInfo.getText());
+            GlideUtil.loadBlurImage(MyApp.userInfo.getImg(),mIvBg);
             //高斯模糊
-            Glide.with(this).load(MyApp.userInfo.getImg()).asBitmap().into(new SimpleTarget<Bitmap>() {
-                @Override
-                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                    Blurry.with(PersonCenterActivity.this).sampling(1).from(resource).into(mIvBg);
-                    startAnimation(mIvBg);
-                }
-            });
+//            Glide.with(this).load(MyApp.userInfo.getImg()).asBitmap().into(new SimpleTarget<Bitmap>() {
+//                @Override
+//                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+//                    Blurry.with(PersonCenterActivity.this).sampling(1).from(resource).into(mIvBg);
+//                    startAnimation(mIvBg);
+//                }
+//            });
         }
     }
 

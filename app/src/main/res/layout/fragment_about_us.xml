@@ -30,7 +30,7 @@
                     android:scaleType="centerCrop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:layout_width="@dimen/dimens_120"
                     android:id="@+id/iv_icon"
                     android:transitionName="shareView"
@@ -79,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:gravity="center"
                     android:layout_height="match_parent">
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <ImageView
                         android:id="@+id/circleview"
                         android:layout_width="@dimen/dimens_50"
                         android:layout_height="@dimen/dimens_50" />

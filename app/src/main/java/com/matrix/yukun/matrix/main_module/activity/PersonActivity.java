@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
+//import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
@@ -29,6 +29,7 @@ import com.matrix.yukun.matrix.main_module.entity.AttentList;
 import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
 import com.matrix.yukun.matrix.main_module.entity.EyesInfo;
 import com.matrix.yukun.matrix.util.AnimUtils;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import org.litepal.crud.DataSupport;
 
@@ -82,13 +83,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         isAttent();
         isCollect();
         Glide.with(this).load(mEyesInfo.getData().getAuthor().getIcon()).into(mCircleImageView);
-        //高斯模糊
-        Glide.with(this).load(mEyesInfo.getData().getAuthor().getIcon()).asBitmap().into(new SimpleTarget<Bitmap>() {
-            @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                Blurry.with(PersonActivity.this).sampling(1).from(resource).into(mIvBg);
-            }
-        });
+        GlideUtil.loadBlurImage(mEyesInfo.getData().getAuthor().getIcon(),mIvBg);
         startAnimation(mIvBg);
     }
 

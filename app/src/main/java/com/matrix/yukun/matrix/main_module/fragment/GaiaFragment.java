@@ -152,6 +152,7 @@ public class GaiaFragment extends BaseFragment {
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
                 .startTurning(3000)
                 .setCanLoop(true);
+        conBanner.notifyDataSetChanged();
     }
 
     private void initData() {

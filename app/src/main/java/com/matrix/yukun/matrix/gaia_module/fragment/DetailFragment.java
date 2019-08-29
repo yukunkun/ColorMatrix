@@ -32,6 +32,7 @@ import com.matrix.yukun.matrix.gaia_module.util.FileDelete;
 import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
 import com.matrix.yukun.matrix.main_module.dialog.ShareDialog;
 import com.matrix.yukun.matrix.util.FileUtil;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -231,7 +232,7 @@ public class DetailFragment extends BaseFragment {
             //头像
             VideoDetailInfo.UserBean user = mVideoDetailInfo.getUser();
             if (user.getAvatar() != null) {
-                Glide.with(getContext()).load(Api.COVER_PREFIX + user.getAvatar()).placeholder(R.drawable.head_2).into(mAvatar);
+                GlideUtil.loadOptionsImage(Api.COVER_PREFIX + user.getAvatar(),mAvatar,GlideUtil.getOptions(R.drawable.head_2));
             }
             mAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -264,7 +265,7 @@ public class DetailFragment extends BaseFragment {
         } else if (mMaterialDetailInfo != null) {
             final MaterialDetailInfo.MaterialBean works = mMaterialDetailInfo.getMaterial();
             //作品头像
-            Glide.with(getContext()).load(Api.COVER_PREFIX + works.getAvatar()).placeholder(R.drawable.head_2).into(mAvatar);
+            GlideUtil.loadOptionsImage(Api.COVER_PREFIX + works.getAvatar(),mAvatar,GlideUtil.getOptions(R.drawable.head_2));
             mMaster.setText(works.getNickName());
             String description = works.getDescription();
             if (!"null".equals(description) && description.length() != 0) {

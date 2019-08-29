@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.activity.VerticalVideoActivity;
 import com.matrix.yukun.matrix.main_module.entity.PlayAllBean;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,9 +51,9 @@ public class RVPlayAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((MyHolder) holder).mTvDes.setText(playAllBean.getText());
             ((MyHolder) holder).mTvCommentName.setText(TextUtils.isEmpty(playAllBean.getTop_commentsName())?"佚名":playAllBean.getTop_commentsName());
             ((MyHolder) holder).mTvCommentDes.setText(TextUtils.isEmpty(playAllBean.getTop_commentsContent())? "没有吐槽": "吐槽:"+playAllBean.getTop_commentsContent());
-            Glide.with(mContext).load(playAllBean.getThumbnail()).placeholder(R.mipmap.bg_header_nav).into(((MyHolder) holder).mImageView);
-            Glide.with(mContext).load(playAllBean.getHeader()).placeholder(R.mipmap.tool_icon).into(((MyHolder) holder).mCVHeader);
-            Glide.with(mContext).load(playAllBean.getTop_commentsHeader()).placeholder(R.mipmap.tool_icon).into(((MyHolder) holder).mCVCommentHeader);
+            GlideUtil.loadImage(playAllBean.getThumbnail(),((MyHolder) holder).mImageView);
+            GlideUtil.loadImage(playAllBean.getHeader(),((MyHolder) holder).mCVHeader);
+            GlideUtil.loadImage(playAllBean.getTop_commentsHeader(),((MyHolder) holder).mCVCommentHeader);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

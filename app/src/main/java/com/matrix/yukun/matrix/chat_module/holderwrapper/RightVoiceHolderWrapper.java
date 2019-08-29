@@ -16,6 +16,7 @@ import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.main_module.activity.PersonCenterActivity;
 import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -63,9 +64,9 @@ public class RightVoiceHolderWrapper {
             ( holder).mTextViewRightTime.setVisibility(View.GONE);
         }
         if(MyApp.userInfo==null){
-            Glide.with(mContext).load(chatListInfo.getBitmap()).placeholder(R.drawable.head_2).into((holder).mImageViewRight);
+            GlideUtil.loadOptionsImage("",(holder).mImageViewRight,GlideUtil.getOptions(R.drawable.head_2));
         }else {
-            Glide.with(mContext).load(MyApp.getUserInfo().getImg()).into((holder).mImageViewRight);
+            GlideUtil.loadImage(MyApp.getUserInfo().getImg(),(holder).mImageViewRight);
         }
         holder.tvSenond.setText(chatListInfo.getDuration()/1000+"''");
         if(!chatListInfo.isAudioIsPlay()){

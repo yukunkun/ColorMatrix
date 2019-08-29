@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.entity.TextInfo;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -102,7 +103,7 @@ public class AMzItemLayout extends RelativeLayout implements View.OnClickListene
         }
         tTitle.setText(data.getTitle());
         ides.setText(data.getAuthor().getDesc());
-        Glide.with(MyApp.getContext()).load(data.getImg_url()).placeholder(R.mipmap.bg_header_nav).into(iBackground);
+        GlideUtil.loadImage(data.getImg_url(),iBackground);
         if(data.getAuthor().getWeb_url()==null){
             Glide.with(getContext()).load(R.drawable.head_2).into(iIcon);
         }else {

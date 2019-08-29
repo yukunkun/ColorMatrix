@@ -18,7 +18,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
+//import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.download_module.DownLoadActivity;
@@ -132,12 +132,12 @@ public class DownloadNotificationService extends Service implements DownLoadList
             mFileInfo=null;
             mFileInfo=fileInfo;
             mNotification.contentView.setTextViewText(R.id.tv_pro, fileInfo.fileName);
-            Glide.with(this).load(fileInfo.imageUrl).asBitmap().into(new SimpleTarget<Bitmap>() {
-                @Override
-                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                    mNotification.contentView.setImageViewBitmap(R.id.iv_icon,resource);
-                }
-            });
+//            Glide.with(this).load(fileInfo.imageUrl).asBitmap().into(new SimpleTarget<Bitmap>() {
+//                @Override
+//                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+//                    mNotification.contentView.setImageViewBitmap(R.id.iv_icon,resource);
+//                }
+//            });
         }
         mNotification.contentView.setProgressBar(R.id.progressbar, (int)totalSize, (int) (progress), false);
         mNotification.contentView.setTextViewText(R.id.tv_product, "当前进度："+(int)((float)progress/totalSize*100)+"% "+ FileUtil.formatFileSize(fileInfo.size));

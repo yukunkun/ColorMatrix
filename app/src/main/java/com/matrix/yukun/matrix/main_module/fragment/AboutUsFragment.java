@@ -6,7 +6,6 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -24,10 +23,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.MyApp;
@@ -46,18 +42,15 @@ import com.matrix.yukun.matrix.mine_module.activity.ShareActivity;
 import com.matrix.yukun.matrix.mine_module.entity.WebType;
 import com.matrix.yukun.matrix.selfview.NoScrollListView;
 import com.matrix.yukun.matrix.tool_module.gesture.GestureActivity;
-import com.matrix.yukun.matrix.util.log.LogUtil;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import butterknife.BindView;
-import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.blurry.Blurry;
 
 public class AboutUsFragment extends BaseFragment {
@@ -81,7 +74,7 @@ public class AboutUsFragment extends BaseFragment {
     @BindView(R.id.rl_header)
     RelativeLayout mRlheader;
     @BindView(R.id.circleview)
-    CircleImageView mIvCircle;
+    ImageView mIvCircle;
     @BindView(R.id.appbar)
     AppBarLayout mAppBarLayout;
     List<String> mStringList = new ArrayList();
@@ -106,27 +99,28 @@ public class AboutUsFragment extends BaseFragment {
         mStringList = Arrays.asList(getResources().getStringArray(R.array.about_us_list));
         mLvList.setAdapter(new LvAdapter());
         if (MyApp.userInfo != null) {
-            Glide.with(this).load(MyApp.getUserInfo().getImg()).into(mIvIcon);
-            Glide.with(this).load(MyApp.getUserInfo().getImg()).into(mIvCircle);
+            GlideUtil.loadCircleImage(MyApp.getUserInfo().getImg(),mIvIcon);
+            GlideUtil.loadCircleImage(MyApp.getUserInfo().getImg(),mIvCircle);
+            GlideUtil.loadBlurImage(MyApp.getUserInfo().getImg(),mIvBury);
             mTvName.setText(MyApp.getUserInfo().getName());
             //高斯模糊
-            Glide.with(this).load(MyApp.userInfo.getImg()).asBitmap().into(new SimpleTarget<Bitmap>() {
-                @Override
-                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                    LogUtil.i("resource:",MyApp.getUserInfo().getImg()+" "+resource.getByteCount()/1024+"kb");
-                    Blurry.with(getContext()).sampling(1).from(resource).into(mIvBury);
-//                    //取色
-                    Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
-                        public void onGenerated(Palette palette) {
-                            // Use generated instance
-                            Palette.Swatch vibrant = palette.getDarkVibrantSwatch();
-                            if (vibrant != null) {
-                                mToolbar.setBackgroundColor(vibrant.getRgb());
-                            }
-                        }
-                    });
-                }
-            });
+//            Glide.with(this).load(MyApp.userInfo.getImg()).asBitmap().into(new SimpleTarget<Bitmap>() {
+//                @Override
+//                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+//                    LogUtil.i("resource:",MyApp.getUserInfo().getImg()+" "+resource.getByteCount()/1024+"kb");
+//                    Blurry.with(getContext()).sampling(1).from(resource).into(mIvBury);
+////                    //取色
+//                    Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
+//                        public void onGenerated(Palette palette) {
+//                            // Use generated instance
+//                            Palette.Swatch vibrant = palette.getDarkVibrantSwatch();
+//                            if (vibrant != null) {
+//                                mToolbar.setBackgroundColor(vibrant.getRgb());
+//                            }
+//                        }
+//                    });
+//                }
+//            });
         }
     }
 
@@ -186,22 +180,22 @@ public class AboutUsFragment extends BaseFragment {
             Glide.with(getContext()).load(MyApp.userInfo.getImg()).into(mIvIcon);
             mTvName.setText(MyApp.getUserInfo().getName());
             //高斯模糊
-            Glide.with(this).load(MyApp.userInfo.getImg()).asBitmap().into(new SimpleTarget<Bitmap>() {
-                @Override
-                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                    Blurry.with(getContext()).sampling(1).from(resource).into(mIvBury);
-                    //取色
-                    Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
-                        public void onGenerated(Palette palette) {
-                            // Use generated instance
-                            Palette.Swatch vibrant = palette.getLightVibrantSwatch();
-                            if (vibrant != null) {
-                                mToolbar.setBackgroundColor(vibrant.getRgb());
-                            }
-                        }
-                    });
-                }
-            });
+//            Glide.with(this).load(MyApp.userInfo.getImg()).asBitmap().into(new SimpleTarget<Bitmap>() {
+//                @Override
+//                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+//                    Blurry.with(getContext()).sampling(1).from(resource).into(mIvBury);
+//                    //取色
+//                    Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
+//                        public void onGenerated(Palette palette) {
+//                            // Use generated instance
+//                            Palette.Swatch vibrant = palette.getLightVibrantSwatch();
+//                            if (vibrant != null) {
+//                                mToolbar.setBackgroundColor(vibrant.getRgb());
+//                            }
+//                        }
+//                    });
+//                }
+//            });
         }
     }
 

@@ -18,6 +18,7 @@ import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtil;
 import com.matrix.yukun.matrix.util.DataUtils;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class WorkPoolAdapter extends RecyclerView.Adapter<WorkPoolAdapter.WorkVi
         if (cover != null && !cover.isEmpty()&&!"null".equals(cover)) {
 //                ImageUtils.getInstance(mContext).getNetworkBitmap(holder.workCover, cover);
             cover = Api.COVER_PREFIX + cover/*.replace(".", "_18.")*/;
-            Glide.with(mContext).load(cover).placeholder(R.mipmap.bg_header_nav).into(holder.workCover);
+            GlideUtil.loadPlaceholderImage(cover,holder.workCover);
         } else if (screenshot != null && !screenshot.isEmpty()) {
 //                ImageUtils.getInstance(mContext).getNetworkBitmap(holder.workCover, screenshot);
             if(videoInfo.getFlag()==1){
@@ -74,12 +75,12 @@ public class WorkPoolAdapter extends RecyclerView.Adapter<WorkPoolAdapter.WorkVi
             }else {
                 screenshot = Api.COVER_PREFIX + screenshot.replace(".", "_18.");
             }
-            Glide.with(mContext).load(screenshot).placeholder(R.mipmap.bg_header_nav).into(holder.workCover);
+            GlideUtil.loadPlaceholderImage(screenshot,holder.workCover);
         }
 
         //用户头像
         if (videoInfo.getAvatar() != null && !videoInfo.getAvatar().equals("null")) {
-            Glide.with(mContext).load(Api.COVER_PREFIX+videoInfo.getAvatar()).placeholder(R.drawable.head_2).into(holder.userAvatar);
+            GlideUtil.loadPlaceholderImage(Api.COVER_PREFIX+videoInfo.getAvatar(),holder.userAvatar);
         }
 
         //是否显示官方授权标志

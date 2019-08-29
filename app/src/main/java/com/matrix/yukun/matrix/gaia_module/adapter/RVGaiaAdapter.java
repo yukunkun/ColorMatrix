@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import java.util.List;
 
@@ -30,12 +31,12 @@ public class RVGaiaAdapter extends BaseQuickAdapter<GaiaIndexBean,BaseViewHolder
         helper.setText(R.id.work_grade,item.getGrade()+"");
         ImageView cover=(ImageView) helper.getView(R.id.cover);
         if(item.getCover()!=null&&!item.getCover().isEmpty()&&!"null".equals(item.getCover())){
-            Glide.with(mContext).load(Api.COVER_PREFIX+item.getCover()).placeholder(R.mipmap.bg_header_nav).into(cover);
+            GlideUtil.loadImage(Api.COVER_PREFIX+item.getCover(),cover);
         }else if(!TextUtils.isEmpty(item.getScreenshot())){
             if(item.getFlag()==1){
-                Glide.with(mContext).load(Api.COVER_PREFIX+item.getScreenshot()+"_18.png").placeholder(R.mipmap.bg_header_nav).into(cover);
+                GlideUtil.loadImage(Api.COVER_PREFIX+item.getScreenshot()+"_18.png",cover);
             }else if(item.getFlag()==0){
-                Glide.with(mContext).load(Api.COVER_PREFIX+item.getScreenshot().replace(".","_18.")).placeholder(R.mipmap.bg_header_nav).into(cover);
+                GlideUtil.loadImage(Api.COVER_PREFIX+item.getScreenshot().replace(".","_18."),cover);
             }
         }
         if(item.getHave4k()==1){

@@ -11,9 +11,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+//import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+//import com.bumptech.glide.request.animation.GlideAnimation;
+//import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
@@ -62,28 +62,29 @@ public class ImageDetailActivity extends BaseActivity {
 //        StatusBarUtil.setStatusBarDarkTheme(this, true);
         downloadurl = getIntent().getStringExtra("url");
         mIsGif = getIntent().getBooleanExtra("isGif",false);
-        Glide.with(this).load(downloadurl).into(new GlideDrawableImageViewTarget(mPhotoview){
-            @Override
-            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
-                super.onResourceReady(resource, animation);
-                mProgressBar.setVisibility(View.GONE);
-            }
 
-            @Override
-            public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                super.onLoadFailed(e, errorDrawable);
-                ToastUtils.showToast( "图片加载失败");
-                mProgressBar.setVisibility(View.GONE);
-            }
-        });
+//        Glide.with(this).load(downloadurl).into(new GlideDrawableImageViewTarget(mPhotoview){
+//            @Override
+//            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
+//                super.onResourceReady(resource, animation);
+//                mProgressBar.setVisibility(View.GONE);
+//            }
+//
+//            @Override
+//            public void onLoadFailed(Exception e, Drawable errorDrawable) {
+//                super.onLoadFailed(e, errorDrawable);
+//                ToastUtils.showToast( "图片加载失败");
+//                mProgressBar.setVisibility(View.GONE);
+//            }
+//        });
 
 
-//        if (mIsGif) {
-//            Glide.with(ImageDetailActivity.this).load(downloadurl).asGif().into(downloadurl);
-//            mPhotoview.setVisibility(View.GONE);
-//        } else {
-//            Glide.with(this).load(downloadurl).into(mPhotoview);
-//        }
+        if (mIsGif) {
+            Glide.with(ImageDetailActivity.this).asGif().load(downloadurl).into(mIvImage);
+            mPhotoview.setVisibility(View.GONE);
+        } else {
+            Glide.with(this).load(downloadurl).into(mPhotoview);
+        }
     }
 
     @OnClick({R2.id.iv_more, R2.id.iv_back})

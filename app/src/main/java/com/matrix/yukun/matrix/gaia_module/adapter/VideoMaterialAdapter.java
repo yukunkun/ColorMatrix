@@ -17,6 +17,7 @@ import com.matrix.yukun.matrix.gaia_module.bean.VideoType;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtil;
 import com.matrix.yukun.matrix.util.DataUtils;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import java.util.List;
 
@@ -68,11 +69,11 @@ public class VideoMaterialAdapter extends RecyclerView.Adapter<VideoMaterialAdap
         String screenshot = videoInfo.getScreenshot();
 
         if (cover != null && !cover.isEmpty()) {
-            Glide.with(mContext).load(Api.COVER_PREFIX+cover).placeholder(R.mipmap.bg_header_nav).into(holder.workCover);
+            GlideUtil.loadImage(Api.COVER_PREFIX+cover,holder.workCover);
         } else if (screenshot != null && !screenshot.isEmpty()) {
             if(videoInfo.getFlag()==1){
                 screenshot = Api.COVER_PREFIX +screenshot+"_18.png";
-                Glide.with(mContext).load(screenshot).placeholder(R.mipmap.bg_header_nav).into(holder.workCover);
+                GlideUtil.loadImage(screenshot,holder.workCover);
             }
         }
         //是否显示官方授权标志

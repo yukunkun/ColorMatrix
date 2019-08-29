@@ -20,6 +20,7 @@ import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
 import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
 import com.matrix.yukun.matrix.main_module.entity.ImageInfo;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import org.litepal.crud.DataSupport;
 
@@ -75,8 +76,8 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //                ((MHolder) holder).mTvCommen.setVisibility(View.VISIBLE);
 //                ((MHolder) holder).mTvCommen.setText(recInfo.getTop_commentsContent());
 //            }
-            Glide.with(context).load(recInfo.getUrl()).error(R.drawable.head_4).into(((MHolder) holder).mImCover);
-            Glide.with(context).load(recInfo.getUrl()).placeholder(R.mipmap.tool_icon).into(((MHolder) holder).mCiCommentHead);
+            GlideUtil.loadImage(recInfo.getUrl(),((MHolder) holder).mImCover);
+            GlideUtil.loadImage(recInfo.getUrl(),((MHolder) holder).mCiCommentHead);
             Glide.with(context).load(recInfo.getUrl()).into(((MHolder) holder).mCiHead);
             ((MHolder) holder).mTvTimes.setText(recInfo.getPublishedAt());
 

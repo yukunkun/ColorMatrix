@@ -8,6 +8,7 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.holder.LeftTextHolder;
 import com.matrix.yukun.matrix.main_module.activity.JokeDetailActivity;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import java.text.SimpleDateFormat;
 
@@ -43,6 +44,6 @@ public class LeftTextHolderWrapper {
                 JokeDetailActivity.start(mContext,chatListInfo.getChatInfo(),(holder).mTextViewLeft);
             }
         });
-        Glide.with(context).load(chatListInfo.getBitmap()).placeholder(R.drawable.head_7).into((holder).mImageViewLeft);
+        GlideUtil.loadOptionsImage("",(holder).mImageViewLeft,GlideUtil.getOptions(R.drawable.head_7));
     }
 }

@@ -12,6 +12,7 @@ import com.matrix.yukun.matrix.chat_module.holder.RightFileHolder;
 import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 import com.matrix.yukun.matrix.main_module.activity.PersonCenterActivity;
 import com.matrix.yukun.matrix.util.FileUtil;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -42,7 +43,7 @@ public class RightFileHolderWrapper {
             ( holder).mTextViewRightTime.setVisibility(View.GONE);
         }
         if(MyApp.userInfo==null){
-            Glide.with(mContext).load(chatListInfo.getBitmap()).placeholder(R.drawable.head_2).into((holder).mImageViewRight);
+            GlideUtil.loadImage("",(holder).mImageViewRight);
         }else {
             Glide.with(mContext).load(MyApp.getUserInfo().getImg()).into((holder).mImageViewRight);
         }

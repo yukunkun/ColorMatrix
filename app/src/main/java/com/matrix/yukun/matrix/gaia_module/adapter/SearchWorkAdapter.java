@@ -15,6 +15,7 @@ import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
 import com.matrix.yukun.matrix.gaia_module.bean.VideoType;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.util.DataUtils;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import java.util.List;
 
@@ -50,14 +51,14 @@ public class SearchWorkAdapter extends RecyclerView.Adapter<SearchWorkAdapter.MV
 
         if(cover!=null&&!cover.isEmpty()&&!"null".equals(cover)) {
             cover = Api.COVER_PREFIX + cover/*.replace(".", "_18.")*/;
-            Glide.with(mContext).load(cover).placeholder(R.mipmap.bg_header_nav).into(holder.workCover);
+            GlideUtil.loadImage(cover,holder.workCover);
         } else if (screenShot!=null){
             if(searchWorksResult.getFlag()==0){
                 screenShot = Api.COVER_PREFIX + screenShot.replace(".", "_18.");
             }else if(searchWorksResult.getFlag()==1){
                 screenShot= Api.COVER_PREFIX+screenShot+"_18.png";
             }
-            Glide.with(mContext).load(screenShot).placeholder(R.mipmap.bg_header_nav).into(holder.workCover);
+            GlideUtil.loadImage(screenShot,holder.workCover);
         }
         //标题
         holder.workTitle.setText(searchWorksResult.getName());

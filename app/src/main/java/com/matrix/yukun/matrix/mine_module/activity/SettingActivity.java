@@ -73,7 +73,6 @@ public class SettingActivity extends BaseActivity {
         mCbBrief.setChecked(SPUtils.getInstance().getBoolean("isbrief"));
         lastModule = MyApp.getNight();
         currentModule=SPUtils.getInstance().getBoolean("isNight");
-        ToastUtils.showToast("lastModule:"+lastModule+" "+currentModule);
         cbNight.setChecked(currentModule);
     }
 
@@ -103,7 +102,6 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        LogUtil.i("=========back",lastModule+" "+currentModule);
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             goBack();
             return true;
@@ -180,12 +178,9 @@ public class SettingActivity extends BaseActivity {
         finish();
         startActivity(new Intent( this, this.getClass()));
         overridePendingTransition(0, 0);
-//        recreate();
     }
 
     private void saveModule(boolean isNight) {
-        ToastUtils.showToast(isNight+"");
-        LogUtil.i("=========save",isNight+"");
         SPUtils.getInstance().saveBoolean("isNight",isNight);
     }
 }

@@ -5,6 +5,7 @@ import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.holder.ShakeHolder;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 
 /**
@@ -24,7 +25,7 @@ public class ShakeHolderWrapper {
 
     public void content(Context context, ChatListInfo chatListInfo, ShakeHolder holder){
         this.mContext=context;
-        Glide.with(context).load(chatListInfo.getBitmap()).placeholder(R.drawable.head_7).into((holder).mCircleImageView);
+        GlideUtil.loadOptionsImage("",(holder).mCircleImageView,GlideUtil.getOptions(R.drawable.head_7));
 //        holder.mTextView.setText("抖了你一下");
     }
 }
