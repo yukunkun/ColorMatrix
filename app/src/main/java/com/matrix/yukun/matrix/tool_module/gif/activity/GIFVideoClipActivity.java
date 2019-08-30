@@ -355,13 +355,13 @@ public class GIFVideoClipActivity extends BaseActivity implements View.OnClickLi
             ToastUtils.showToast("请选择裁剪时长");
             return;
         }
-        try {
+//        try {
             LogUtil.i("=========",startTime+" "+endTime+" "+mVideoPath.length());
             if(endTime<=0){
                 ToastUtils.showToast("裁剪时长太短");
                 return;
             }
-            VideoClipUtils.clip(mVideoPath, AppConstant.GIFVIDEO+"/"+fileName, startTime, endTime);
+//            VideoClipUtils.clip(mVideoPath, AppConstant.GIFVIDEO+"/"+fileName, startTime, endTime);
             ToastUtils.showToast("裁剪成功，保存到"+ AppConstant.GIFVIDEO+"文件夹下");
             //update新的数据
             mVideoPath=null;
@@ -370,9 +370,9 @@ public class GIFVideoClipActivity extends BaseActivity implements View.OnClickLi
             mLayout.setVisibility(View.VISIBLE);
             createVideoBitmap();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override

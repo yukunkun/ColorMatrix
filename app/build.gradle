@@ -65,15 +65,15 @@ android {
         }
     }
     //多渠道打包
-    productFlavors {
-        xiaomi {}
-        yinyongbao {}
-        wandoujia {}
-    }
-
-    productFlavors.all {
-        flavor -> flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
-    }
+//    productFlavors {
+//        xiaomi {}
+//        yinyongbao {}
+//        wandoujia {}
+//    }
+//
+//    productFlavors.all {
+//        flavor -> flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+//    }
 
 //    // 签名
 //    signingConfigs {
@@ -166,9 +166,8 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-//    implementation 'com.github.bumptech.glide:glide:3.8.0'
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'jp.wasabeef:glide-transformations:3.0.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
     implementation 'com.android.support:design:26.1.0'
@@ -183,7 +182,6 @@ dependencies {
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
     // Optional, if you use support library fragments:
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
-
     // rxjava的相关
     implementation 'io.reactivex:rxjava:1.2.1'
     implementation 'io.reactivex:rxandroid:1.2.1'

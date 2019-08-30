@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.IdRes;
 import android.support.design.widget.Snackbar;
@@ -42,10 +43,8 @@ import com.matrix.yukun.matrix.main_module.fragment.ToolFragment;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtil;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;
-import com.matrix.yukun.matrix.mine_module.activity.SettingActivity;
 import com.matrix.yukun.matrix.mine_module.entity.EventClose;
 import com.matrix.yukun.matrix.selfview.floatingview.FloatingViewManager;
-import com.matrix.yukun.matrix.util.ActivityManager;
 import com.matrix.yukun.matrix.util.StatusBarUtil;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.tencent.bugly.beta.Beta;
@@ -58,6 +57,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class PlayMainActivity extends BaseActivity implements View.OnClickListener, MediaPlayer.OnPreparedListener {
 
@@ -65,6 +65,8 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
     RadioGroup mRg;
     @BindView(R.id.fl_layout)
     FrameLayout flLayout;
+    @BindView(R.id.gaia)
+    RadioButton gaia;
     private List<Fragment> mFragments = new ArrayList<>();
     private int lastPos = 0;
     private boolean isNight;
@@ -78,10 +80,11 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
     private RelativeLayout mLayout;
     private GaiaFragment mGaiaFragment;
 
-    public static void start(Context context){
-        Intent intent=new Intent(context,PlayMainActivity.class);
+    public static void start(Context context) {
+        Intent intent = new Intent(context, PlayMainActivity.class);
         context.startActivity(intent);
     }
+
     @Override
     public int getLayout() {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -113,7 +116,9 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.fl_layout, playFragment);
         fragmentTransaction.commit();
-
+        if(!SPUtils.getInstance().getBoolean("show_gaia")){
+            gaia.setVisibility(View.GONE);
+        }
         mBtColloct = (Button) findViewById(R.id.collect);
         ((RadioButton) (mRg.getChildAt(0))).setChecked(true);
         setListener();
@@ -256,7 +261,7 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void closeActivity(EventClose eventClose) {
-        LogUtil.i("===========",eventClose.isNight+"");
+        LogUtil.i("===========", eventClose.isNight + "");
         MyApp.updateNight();
         finish();
     }

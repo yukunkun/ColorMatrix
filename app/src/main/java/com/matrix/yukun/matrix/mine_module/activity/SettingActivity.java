@@ -55,6 +55,7 @@ public class SettingActivity extends BaseActivity {
     private boolean isNight;
     private boolean lastModule;
     private boolean currentModule;
+    private int count;
     @Override
     public int getLayout() {
         return R.layout.activity_video_setting;
@@ -117,10 +118,9 @@ public class SettingActivity extends BaseActivity {
         finish();
     }
 
-    @OnClick({R2.id.iv_back, R2.id.tv_clear, R2.id.tv_update, R2.id.tv_introduce, R2.id.tv_about, R2.id.tv_sugg, R2.id.tv_mark_update})
+    @OnClick({R2.id.iv_back, R2.id.tv_clear, R2.id.tv_update, R2.id.tv_introduce, R2.id.tv_about, R2.id.tv_sugg, R2.id.tv_mark_update,R2.id.tv_version})
     public void onClick(View view) {
         int id = view.getId();
-        Class aClass = null;
         if (id == R.id.iv_back) {
             goBack();
             return;
@@ -146,8 +146,19 @@ public class SettingActivity extends BaseActivity {
             startActivity(intent);
             return;
         }
-        Intent intent = new Intent(this, aClass);
-        startActivity(intent);
+        else if (id == R.id.tv_version) {
+            if(count<10){
+                count++;
+            }else {
+                count=0;
+            }
+            if(count==10){
+                boolean show_gaia = SPUtils.getInstance().getBoolean("show_gaia");
+                ToastUtils.showToast("show_gaia:"+!show_gaia);
+                SPUtils.getInstance().saveBoolean("show_gaia",!show_gaia);
+            }
+            return;
+        }
     }
 
     private String getVersion() {

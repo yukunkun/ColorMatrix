@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
+import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatDelegate;
 import android.widget.Toast;
 
@@ -86,6 +87,11 @@ public class MyApp extends LitePalApplication{
         return null;
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     public static UserInfo getUserInfo() {
         return userInfo;

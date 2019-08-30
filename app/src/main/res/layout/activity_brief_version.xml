@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".video_module.play.BriefVersionActivity">
+    tools:context=".main_module.activity.BriefVersionActivity">
     <FrameLayout
         android:id="@+id/fl"
         android:layout_width="match_parent"

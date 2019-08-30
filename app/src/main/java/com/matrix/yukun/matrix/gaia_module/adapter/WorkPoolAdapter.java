@@ -65,11 +65,9 @@ public class WorkPoolAdapter extends RecyclerView.Adapter<WorkPoolAdapter.WorkVi
         String cover = videoInfo.getCover();
         String screenshot = videoInfo.getScreenshot();
         if (cover != null && !cover.isEmpty()&&!"null".equals(cover)) {
-//                ImageUtils.getInstance(mContext).getNetworkBitmap(holder.workCover, cover);
             cover = Api.COVER_PREFIX + cover/*.replace(".", "_18.")*/;
             GlideUtil.loadPlaceholderImage(cover,holder.workCover);
         } else if (screenshot != null && !screenshot.isEmpty()) {
-//                ImageUtils.getInstance(mContext).getNetworkBitmap(holder.workCover, screenshot);
             if(videoInfo.getFlag()==1){
                 screenshot = Api.COVER_PREFIX + screenshot+"_18.png";
             }else {
