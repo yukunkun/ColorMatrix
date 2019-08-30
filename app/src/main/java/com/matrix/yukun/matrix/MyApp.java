@@ -90,7 +90,7 @@ public class MyApp extends LitePalApplication{
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        MultiDex.install(this);
+//        MultiDex.install(this);
     }
 
     public static UserInfo getUserInfo() {
