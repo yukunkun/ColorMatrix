@@ -17,7 +17,8 @@ import com.matrix.yukun.matrix.main_module.dialog.ShareDialog;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.tool_module.gif.utils.gifencoder.GifEncoderListener;
 import com.matrix.yukun.matrix.tool_module.gif.utils.gifencoder.GifExtractor;
-import com.vincent.videocompressor.VideoCompress;
+import com.matrix.yukun.matrix.util.video_compress.VideoCompress;
+//import com.vincent.videocompressor.VideoCompress;
 
 import java.io.File;
 import java.io.IOException;

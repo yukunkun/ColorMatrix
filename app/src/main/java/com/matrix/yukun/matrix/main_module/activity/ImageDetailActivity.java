@@ -82,6 +82,7 @@ public class ImageDetailActivity extends BaseActivity {
         if (mIsGif) {
             Glide.with(ImageDetailActivity.this).asGif().load(downloadurl).into(mIvImage);
             mPhotoview.setVisibility(View.GONE);
+            mProgressBar.setVisibility(View.GONE);
         } else {
             Glide.with(this).load(downloadurl).into(mPhotoview);
         }

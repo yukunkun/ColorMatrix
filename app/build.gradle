@@ -213,7 +213,7 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     //    compile 'com.googlecode.mp4parser:isoparser:1.1.21' //videocompressor里有这个jar包
     implementation project(path: ':Photoeditor')
-    implementation project(path: ':videocompressor')
+//    implementation project(path: ':videocompressor')
     implementation project(path: ':jiaozivideoplayer')
 
 }
