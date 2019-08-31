@@ -65,15 +65,15 @@ android {
         }
     }
     //多渠道打包
-//    productFlavors {
-//        xiaomi {}
-//        yinyongbao {}
-//        wandoujia {}
-//    }
-//
-//    productFlavors.all {
-//        flavor -> flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
-//    }
+    productFlavors {
+        xiaomi {}
+        yinyongbao {}
+        wandoujia {}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+    }
 
 //    // 签名
 //    signingConfigs {
