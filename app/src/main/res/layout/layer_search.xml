@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/dimens_20"
+      android:textSize="18sp"
+      android:layout_marginRight="@dimen/dimens_10"
+      android:gravity="center"
+      android:textColor="@color/color_whit"
+      android:text="搜索在这儿哦" />
+
+  <ImageView
+        android:layout_width="wrap_content"
+      android:layout_marginTop="@dimen/dimens_10"
+      android:layout_gravity="center_horizontal"
+      android:layout_height="wrap_content"
+      android:src="@mipmap/icon_top_hand" />
+</LinearLayout>

@@ -36,9 +36,15 @@ import com.matrix.yukun.matrix.main_module.entity.EventShowSecond;
 import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
 import com.matrix.yukun.matrix.main_module.entity.UserInfo;
 import com.matrix.yukun.matrix.main_module.main.SearchActivity;
+import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;
+import com.matrix.yukun.matrix.main_module.utils.component.MutiComponent;
 import com.matrix.yukun.matrix.mine_module.activity.SettingActivity;
 import com.matrix.yukun.matrix.mine_module.activity.ShareActivity;
+import com.matrix.yukun.matrix.selfview.guideview.Guide;
+import com.matrix.yukun.matrix.selfview.guideview.GuideBuilder;
+import com.matrix.yukun.matrix.selfview.guideview.SimpleComponent;
+import com.matrix.yukun.matrix.selfview.guideview.SimpleComponent2;
 import com.matrix.yukun.matrix.tool_module.btmovie.SpecialActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -162,7 +168,64 @@ public class PlayFragment extends BaseFragment {
             mTvSig.setText("签名：" + MyApp.userInfo.getText());
             mTvClose.setText("退出");
         }
+        long guide_time = SPUtils.getInstance().getLong("guide_time");
+        long currentTimeMillis = System.currentTimeMillis();
+       if (currentTimeMillis - guide_time > 3 * 24 * 60 * 60 * 1000) {
+            mIvSearch.post(new Runnable() {
+                @Override
+                public void run() {
+                    showGuide();
+                }
+            });
+       }
     }
+
+    private void showGuide() {
+        GuideBuilder builder = new GuideBuilder();
+        builder.setTargetView(mIvSearch)
+                .setAlpha(180)
+                .setHighTargetCorner(10)
+                .setHighTargetPadding(10);
+        builder.setOnVisibilityChangedListener(new GuideBuilder.OnVisibilityChangedListener() {
+            @Override
+            public void onShown() {
+
+            }
+
+            @Override
+            public void onDismiss() {
+                showGuide2();
+            }
+        });
+
+        builder.addComponent(new SimpleComponent());
+        Guide guide = builder.createGuide();
+        guide.show(getActivity());
+    }
+
+    private void showGuide2() {
+        GuideBuilder builder = new GuideBuilder();
+        builder.setTargetView(mIvChat)
+                .setAlpha(180)
+                .setHighTargetCorner(10)
+                .setHighTargetPadding(10);
+        builder.setOnVisibilityChangedListener(new GuideBuilder.OnVisibilityChangedListener() {
+            @Override
+            public void onShown() {
+
+            }
+
+            @Override
+            public void onDismiss() {
+//                showGuideView2();
+            }
+        });
+
+        builder.addComponent(new SimpleComponent2());
+        Guide guide = builder.createGuide();
+        guide.show(getActivity());
+    }
+
 
     private void setDrawableWidth() {
         ViewGroup.LayoutParams layoutParams = mLayout.getLayoutParams();
