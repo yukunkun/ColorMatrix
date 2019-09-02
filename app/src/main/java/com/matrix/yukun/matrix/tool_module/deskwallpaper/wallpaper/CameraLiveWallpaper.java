@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 import com.matrix.yukun.matrix.MyApp;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 
 public class CameraLiveWallpaper extends WallpaperService {
     // 实现WallpaperService必须实现的抽象方法  
@@ -70,7 +71,7 @@ public class CameraLiveWallpaper extends WallpaperService {
 
             }catch (Exception e){
                 //开始
-                MyApp.showToast("请在手机权限设置打开相机权限");
+                ToastUtils.showToast("请在手机权限设置打开相机权限");
                 e.printStackTrace();
             }
         }

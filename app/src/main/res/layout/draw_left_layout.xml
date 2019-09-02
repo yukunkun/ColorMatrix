@@ -13,14 +13,30 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="180dp">
-            <ImageView android:layout_width="@dimen/dimens_40"
-                android:src="@mipmap/icon_close_drawable"
-                android:id="@+id/iv_close"
-                android:padding="@dimen/dimens_8"
+
+            <TextView
+                android:id="@+id/tv_weather"
+                android:textColor="@color/color_whit"
+                android:text="city"
+                android:gravity="center"
+                android:textSize="@dimen/sp_14"
                 android:layout_marginTop="40dp"
                 android:layout_marginRight="15dp"
                 android:layout_alignParentRight="true"
-                android:layout_height="@dimen/dimens_40"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/iv_update"
+                android:textColor="@color/color_whit"
+                android:src="@mipmap/ic_refresh_dark"
+                android:visibility="gone"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:src="@mipmap/snail_image"
             android:layout_width="60dp"

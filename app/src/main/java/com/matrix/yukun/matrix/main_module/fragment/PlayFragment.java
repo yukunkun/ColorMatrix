@@ -3,12 +3,16 @@ package com.matrix.yukun.matrix.main_module.fragment;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +22,11 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationListener;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
@@ -30,15 +38,16 @@ import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 import com.matrix.yukun.matrix.main_module.activity.MViewPagerAdapter;
 import com.matrix.yukun.matrix.main_module.activity.MyCollectActivity;
 import com.matrix.yukun.matrix.main_module.activity.PersonCenterActivity;
-import com.matrix.yukun.matrix.main_module.activity.PlayMainActivity;
 import com.matrix.yukun.matrix.main_module.entity.EventCategrayPos;
 import com.matrix.yukun.matrix.main_module.entity.EventShowSecond;
 import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
 import com.matrix.yukun.matrix.main_module.entity.UserInfo;
+import com.matrix.yukun.matrix.main_module.entity.Weather;
 import com.matrix.yukun.matrix.main_module.main.SearchActivity;
+import com.matrix.yukun.matrix.main_module.netutils.NetworkUtils;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;
-import com.matrix.yukun.matrix.main_module.utils.component.MutiComponent;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.mine_module.activity.SettingActivity;
 import com.matrix.yukun.matrix.mine_module.activity.ShareActivity;
 import com.matrix.yukun.matrix.selfview.guideview.Guide;
@@ -46,10 +55,17 @@ import com.matrix.yukun.matrix.selfview.guideview.GuideBuilder;
 import com.matrix.yukun.matrix.selfview.guideview.SimpleComponent;
 import com.matrix.yukun.matrix.selfview.guideview.SimpleComponent2;
 import com.matrix.yukun.matrix.tool_module.btmovie.SpecialActivity;
+import com.matrix.yukun.matrix.tool_module.weather.WeatherActivity;
+import com.matrix.yukun.matrix.util.CityPosition;
+import com.matrix.yukun.matrix.util.log.LogUtil;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
@@ -59,6 +75,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+import okhttp3.Call;
 
 /**
  * Created by yukun on 18-1-2.
@@ -73,8 +90,10 @@ public class PlayFragment extends BaseFragment {
     TabLayout mTablayout;
     @BindView(R2.id.drawlayout)
     DrawerLayout mDrawlayout;
-    @BindView(R2.id.iv_close)
-    ImageView mIvClose;
+    @BindView(R2.id.tv_weather)
+    TextView mTvWeather;
+    @BindView(R2.id.iv_update)
+    ImageView mIvUpdate;
     @BindView(R2.id.viewpager)
     ViewPager mViewpager;
     @BindView(R2.id.im_snow)
@@ -119,7 +138,8 @@ public class PlayFragment extends BaseFragment {
     LinearLayout mLayout;
     private MViewPagerAdapter mMViewPagerAdapter;
     private String[] mStringArray;
-    List<Fragment> mFragments = new ArrayList<>();
+    private List<Fragment> mFragments = new ArrayList<>();
+    private String weatherURL="https://www.apiopen.top/weatherApi";
     private VideoFragment mInstance1;
     private ImageFragment mInstance3;
     private JokeFragment mInstance4;
@@ -178,6 +198,63 @@ public class PlayFragment extends BaseFragment {
                 }
             });
        }
+       if(TextUtils.isEmpty(SPUtils.getInstance().getString("city"))){
+           updatePosition();
+       }else {
+           getWeather(SPUtils.getInstance().getString("city"));
+       }
+    }
+
+    private void getWeather(String city) {
+        NetworkUtils.networkGet(weatherURL)
+                .addParams("city",city)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    if(jsonObject.optInt("code")==200){
+                        Gson gson=new Gson();
+                        Weather weather = gson.fromJson(jsonObject.optString("data"), Weather.class);
+                        Weather.ForecastBean forecastBean = weather.getForecast().get(0);
+                        mTvWeather.setText(city+'\n'+ forecastBean.getLow().substring(3,forecastBean.getLow().length())+"~"+ forecastBean.getHigh().substring(3,forecastBean.getHigh().length()));
+                    }else {
+                        mTvWeather.setText("请开启定位");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+    }
+
+    public AMapLocationClient mLocationClient = null;
+
+    private void updatePosition() {
+        //初始化定位
+        mLocationClient = new AMapLocationClient(getContext());
+        //设置定位回调监听
+        mLocationClient.setLocationListener(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+                if (aMapLocation != null) {
+                    if (aMapLocation.getErrorCode() == 0) {
+                        //解析定位结果
+                        SPUtils.getInstance().saveString("city",aMapLocation.getCity());
+                        getWeather(aMapLocation.getCity());
+                    }
+                }
+            }
+        });
+        //启动定位
+        mLocationClient.startLocation();
     }
 
     private void showGuide() {
@@ -295,7 +372,7 @@ public class PlayFragment extends BaseFragment {
         }
     }
 
-    @OnClick({R2.id.iv_chat, R2.id.iv_main, R2.id.head, R2.id.iv_close, R2.id.rl_collect, R2.id.rl_main, R2.id.iv_search,
+    @OnClick({R2.id.iv_chat, R2.id.iv_main, R2.id.head, R2.id.iv_update,R2.id.tv_weather, R2.id.rl_collect, R2.id.rl_main, R2.id.iv_search,
             R2.id.rl_movie, R2.id.rl_change_modul, R2.id.rl_me, R2.id.tv_close, R2.id.rl_bg_special, R2.id.iv_share, R.id.rl_down})
     public void onClick(View view) {
         int i = view.getId();
@@ -303,12 +380,13 @@ public class PlayFragment extends BaseFragment {
             if (!mDrawlayout.isDrawerOpen(Gravity.LEFT)) {
                 mDrawlayout.openDrawer(Gravity.LEFT);
             }
-        } else if (i == R.id.iv_close) {
-            closeDrawLayout();
+        } else if (i == R.id.iv_update) {
+
+        } else if (i == R.id.tv_weather) {
+            WeatherActivity.start(getContext());
         } else if (i == R.id.rl_main) {
             mViewpager.setCurrentItem(0);
             closeDrawLayout();
-
         } else if (i == R.id.rl_movie) {//tool
             Intent intentHis = new Intent(getContext(), HistoryTodayActivity.class);
             startActivity(intentHis);
@@ -319,7 +397,6 @@ public class PlayFragment extends BaseFragment {
             closeDrawLayout();
             SettingActivity.start(getContext());
 //            ((PlayMainActivity) getContext()).setNightMode();
-
         } else if (i == R.id.rl_collect) {
             Intent intentCol = new Intent(getContext(), MyCollectActivity.class);
             startActivity(intentCol);

@@ -18,6 +18,7 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.activity.BriefVersionActivity;
 import com.matrix.yukun.matrix.main_module.activity.PlayMainActivity;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.GestureLockViewGroup;
 import com.matrix.yukun.matrix.tool_module.gesture.GestureActivity;
 
@@ -76,13 +77,13 @@ public class LockActivity extends AppCompatActivity {
                             }else {
                                 secretResult="";
                                 if(inputTime==0){
-                                    MyApp.showToast("你可能忘记手势密码了,请选择重置手势密码。");
+                                    ToastUtils.showToast("你可能忘记手势密码了,请选择重置手势密码。");
                                     Intent intent=new Intent(LockActivity.this, GestureActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }
                                 if(inputTime>0){
-                                    MyApp.showToast("您还有"+inputTime+"次机会");
+                                    ToastUtils.showToast("您还有"+inputTime+"次机会");
                                 }
                                 inputTime--;
                             }
@@ -163,7 +164,7 @@ public class LockActivity extends AppCompatActivity {
                         }
                         else {
                             setSharePrefressSuccess("gesture",false);
-                            MyApp.showToast("已重置手势密码,请重新进入APP");
+                            ToastUtils.showToast("已重置手势密码,请重新进入APP");
                         }
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {

@@ -107,12 +107,12 @@ public class GestureFragment extends Fragment {
             case R.id.tv_sure:
                 if (mEtSecret.getText().toString().length() == 0) {
 //                    showAlterDialog();
-                    MyApp.showToast("请输入数字密码");
+                    ToastUtils.showToast("请输入数字密码");
                 } else if (!isSame()) {
                     secretPos = 1;
                     mListFirst.clear();
                     mListSecond.clear();
-                    MyApp.showToast("请保证两次的手势相同");
+                    ToastUtils.showToast("请保证两次的手势相同");
                     mTvInputTime.setText("第一次输入");
                     mTvSure.setBackground(getContext().getResources().getDrawable(R.drawable.shape_gesture_uncheck));
                     mTvSure.setClickable(false);
@@ -124,13 +124,13 @@ public class GestureFragment extends Fragment {
                         secret = secret + mListFirst.get(i);
                     }
                     setSharePrefress("getsureLock", secret);
-                    MyApp.showToast("设置成功!");
+                    ToastUtils.showToast("设置成功!");
                     EventBus.getDefault().post(new OnEventFinish(1));
                 }
                 break;
             case R.id.tv_reset:
                 setSharePrefressSuccess("gesture", false);
-                MyApp.showToast("重置手势密码成功");
+                ToastUtils.showToast("重置手势密码成功");
                 EventBus.getDefault().post(new OnEventFinish(1));
 
                 break;

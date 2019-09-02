@@ -192,7 +192,7 @@ public class FaceFragment extends Fragment {
                 break;
             case R.id.cancel_face:
                 setSharePrefress("mAuthId", "a");
-                MyApp.showToast("取消成功");
+                ToastUtils.showToast("取消成功");
                 EventBus.getDefault().post(new OnEventFinish(1));
                 break;
         }

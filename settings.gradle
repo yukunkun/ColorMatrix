@@ -1,1 +1,1 @@
-include ':app', ':Photoeditor', ':videocompressor', ':jiaozivideoplayer'
+include ':app', ':Photoeditor', ':jiaozivideoplayer'

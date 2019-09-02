@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.WaterLoadView;
 import com.matrix.yukun.matrix.tool_module.weather.BaseFrag;
 import com.matrix.yukun.matrix.tool_module.weather.bean.OnEventpos;
@@ -194,7 +195,7 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
 
     @Override
     public void showMessage(String msg) {
-        MyApp.showToast(msg);
+        ToastUtils.showToast(msg);
     }
 
     @Override

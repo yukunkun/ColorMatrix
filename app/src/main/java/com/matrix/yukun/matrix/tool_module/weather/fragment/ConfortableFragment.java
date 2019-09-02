@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.NoScrollListView;
 import com.matrix.yukun.matrix.selfview.WaterLoadView;
 import com.matrix.yukun.matrix.tool_module.weather.BaseFrag;
@@ -107,7 +108,7 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
 
     @Override
     public void showMessage(String msg) {
-        MyApp.showToast(msg);
+        ToastUtils.showToast(msg);
     }
 
     @Override
@@ -133,7 +134,6 @@ public class ConfortableFragment extends BaseFrag implements ConforableFragImpl 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getCity(EventCity onEventpos) {
         String pos = onEventpos.city;
-        MyApp.showToast(pos);
         mPresent.getInfo(pos);
     }
 

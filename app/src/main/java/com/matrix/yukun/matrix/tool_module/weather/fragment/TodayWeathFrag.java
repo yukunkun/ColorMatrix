@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.WaterLoadView;
 import com.matrix.yukun.matrix.tool_module.weather.BaseFrag;
 import com.matrix.yukun.matrix.tool_module.weather.bean.EventDay;
@@ -175,7 +176,7 @@ public class TodayWeathFrag extends BaseFrag implements TodayFragmentImpl, View.
 
     @Override
     public void showMessage(String msg) {
-        MyApp.showToast(msg);
+        ToastUtils.showToast(msg);
     }
 
     @Override

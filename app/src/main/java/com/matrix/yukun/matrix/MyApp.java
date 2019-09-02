@@ -116,10 +116,6 @@ public class MyApp extends LitePalApplication{
         }
         return myApp;
     }
-    //toast
-    public static void showToast(String msg){
-        Toast.makeText(myApp, msg, Toast.LENGTH_SHORT).show();
-    }
 
     private RefWatcher setupLeakCanary() {
         if (LeakCanary.isInAnalyzerProcess(this)) {

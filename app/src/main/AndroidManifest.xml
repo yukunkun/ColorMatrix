@@ -63,7 +63,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <meta-data android:name="com.amap.api.v2.apikey"
+            android:value="6255ee43c977c10b8ec24f8b1bb1649d">
+        </meta-data>
         <meta-data
             android:name="CHANNEL"
             android:value="${CHANNEL_VALUE}" />
@@ -73,6 +75,9 @@
         <meta-data
             android:name="IFLYTEK_CHANNEL"
             android:value="应用宝" /> <!-- 配置实时壁纸Service -->
+        <service android:name="com.amap.api.location.APSService">
+
+        </service>
         <service
             android:name=".tool_module.deskwallpaper.wallpaper.CameraLiveWallpaper"
             android:label="@string/wapper"

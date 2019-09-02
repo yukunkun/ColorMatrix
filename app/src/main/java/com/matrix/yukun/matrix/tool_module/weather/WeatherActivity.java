@@ -1,11 +1,13 @@
 package com.matrix.yukun.matrix.tool_module.weather;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.GestureDetector;
@@ -21,6 +23,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.selfview.BMoveView;
 import com.matrix.yukun.matrix.tool_module.weather.bean.EventDay;
 import com.matrix.yukun.matrix.tool_module.weather.bean.OnEventpos;
@@ -45,13 +48,17 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
     private int lastPos=0;
     GestureDetector detector;
     private ImageView imageView;
-    private String  city="成都";;
+    private String  city="成都";
     private FragmentTransaction fragmentTransaction;
     private PopupWindow popupWindow;
     private BMoveView mBMoveView;
     private int mFirstPos;
     private int mLastPos;
 
+    public static void start(Context context){
+        Intent intent=new Intent(context,WeatherActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +94,13 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
     @Override
     public void getInfo() {
         fragments = new ArrayList<>();
-        TodayWeathFrag todayWeathFrag=TodayWeathFrag.newInstance(city);
-        TomorrowWeathFrag tomorrowWeathFrag= TomorrowWeathFrag.newInstance(city);
-        ConfortableFragment confortableFragment= ConfortableFragment.newInstance(city);
+        String posCity = SPUtils.getInstance().getString("city");
+        if(!TextUtils.isEmpty(posCity)){
+           this.city = posCity;
+        }
+        TodayWeathFrag todayWeathFrag=TodayWeathFrag.newInstance(this.city);
+        TomorrowWeathFrag tomorrowWeathFrag= TomorrowWeathFrag.newInstance(this.city);
+        ConfortableFragment confortableFragment= ConfortableFragment.newInstance(this.city);
         fragments.add(todayWeathFrag);
         fragments.add(tomorrowWeathFrag);
         fragments.add(confortableFragment);

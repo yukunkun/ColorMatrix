@@ -103,9 +103,9 @@ public class ToolsItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     public void run() {
                         long guide_time = SPUtils.getInstance().getLong("guide_time");
                         long currentTimeMillis = System.currentTimeMillis();
-//                        if (currentTimeMillis - guide_time > 2 * 24 * 60 * 60 * 1000) {
+                        if (currentTimeMillis - guide_time > 2 * 24 * 60 * 60 * 1000) {
                             showGuideView(finalView);
-//                        }
+                        }
                     }
                 });
             }
