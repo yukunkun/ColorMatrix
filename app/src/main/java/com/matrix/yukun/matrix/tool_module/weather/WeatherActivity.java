@@ -31,6 +31,8 @@ import com.matrix.yukun.matrix.tool_module.weather.fragment.ConfortableFragment;
 import com.matrix.yukun.matrix.tool_module.weather.fragment.TodayWeathFrag;
 import com.matrix.yukun.matrix.tool_module.weather.fragment.TomorrowWeathFrag;
 import com.matrix.yukun.matrix.tool_module.weather.present.WeatherPreImpl;
+import com.matrix.yukun.matrix.util.AnimUtils;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -83,6 +85,12 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
         ((RadioButton) (radioGroup.getChildAt(0))).setChecked(true);
         mFirstPos = 0;
         mBMoveView.startAnim();
+        imageView.post(new Runnable() {
+            @Override
+            public void run() {
+                AnimUtils.setWeatherBG(imageView);
+            }
+        });
     }
 
     @Override
@@ -188,19 +196,16 @@ public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl
             Glide.with(this).load(R.mipmap.wea_chuqing)
                     .into(imageView);
         }else if(pos<=104){
-                Glide.with(this).load(R.mipmap.yintian)
+                Glide.with(this).load(R.mipmap.wea_ying)
                         .into(imageView);
-        }else if(pos<=205){
-            Glide.with(this).load(R.mipmap.feng1)
-                    .into(imageView);
         }else if(pos<=213){
-            Glide.with(this).load(R.mipmap.feng)
+            Glide.with(this).load(R.mipmap.wea_cloud)
                     .into(imageView);
         }else if(pos<=313) {
-            Glide.with(this).load(R.mipmap.wea_qing)
+            Glide.with(this).load(R.mipmap.wea_rain)
                     .into(imageView);
         }else if(pos<=406){
-            Glide.with(this).load(R.mipmap.xue)
+            Glide.with(this).load(R.mipmap.wea_snow)
                     .into(imageView);
         }else if(pos<=502){
             Glide.with(this).load(R.mipmap.wea_wu)

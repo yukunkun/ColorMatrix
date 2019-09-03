@@ -99,28 +99,12 @@ public class AboutUsFragment extends BaseFragment {
         mStringList = Arrays.asList(getResources().getStringArray(R.array.about_us_list));
         mLvList.setAdapter(new LvAdapter());
         if (MyApp.userInfo != null) {
-            GlideUtil.loadCircleImage(MyApp.getUserInfo().getImg(),mIvIcon);
             GlideUtil.loadCircleImage(MyApp.getUserInfo().getImg(),mIvCircle);
+            GlideUtil.loadCircleBoardImage(MyApp.getUserInfo().getImg(),mIvIcon);
             GlideUtil.loadBlurImage(MyApp.getUserInfo().getImg(),mIvBury);
             mTvName.setText(MyApp.getUserInfo().getName());
-            //高斯模糊
-//            Glide.with(this).load(MyApp.userInfo.getImg()).asBitmap().into(new SimpleTarget<Bitmap>() {
-//                @Override
-//                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-//                    LogUtil.i("resource:",MyApp.getUserInfo().getImg()+" "+resource.getByteCount()/1024+"kb");
-//                    Blurry.with(getContext()).sampling(1).from(resource).into(mIvBury);
-////                    //取色
-//                    Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
-//                        public void onGenerated(Palette palette) {
-//                            // Use generated instance
-//                            Palette.Swatch vibrant = palette.getDarkVibrantSwatch();
-//                            if (vibrant != null) {
-//                                mToolbar.setBackgroundColor(vibrant.getRgb());
-//                            }
-//                        }
-//                    });
-//                }
-//            });
+        }else {
+            GlideUtil.loadCircleBoardImage(R.mipmap.snail_image,mIvIcon);
         }
     }
 
@@ -176,26 +160,10 @@ public class AboutUsFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateHeader(EventUpdateHeader eventUpdateHeader) {
         if (MyApp.userInfo != null) {
-            Glide.with(getContext()).load(MyApp.getUserInfo().getImg()).into(mIvCircle);
-            Glide.with(getContext()).load(MyApp.userInfo.getImg()).into(mIvIcon);
+            GlideUtil.loadCircleImage(MyApp.getUserInfo().getImg(),mIvCircle);
+            GlideUtil.loadCircleBoardImage(MyApp.userInfo.getImg(),mIvIcon);
             mTvName.setText(MyApp.getUserInfo().getName());
             //高斯模糊
-//            Glide.with(this).load(MyApp.userInfo.getImg()).asBitmap().into(new SimpleTarget<Bitmap>() {
-//                @Override
-//                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-//                    Blurry.with(getContext()).sampling(1).from(resource).into(mIvBury);
-//                    //取色
-//                    Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
-//                        public void onGenerated(Palette palette) {
-//                            // Use generated instance
-//                            Palette.Swatch vibrant = palette.getLightVibrantSwatch();
-//                            if (vibrant != null) {
-//                                mToolbar.setBackgroundColor(vibrant.getRgb());
-//                            }
-//                        }
-//                    });
-//                }
-//            });
         }
     }
 

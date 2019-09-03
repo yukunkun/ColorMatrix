@@ -53,7 +53,7 @@ public class GiftView extends View {
     public void SetView(int height, int width) {
         sHeight = height - 100;
         sWidth = width;
-        drawables.add(R.mipmap.gift_1);
+//        drawables.add(R.mipmap.gift_1);
     }
 
     /**

@@ -18,6 +18,7 @@ import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
 import com.matrix.yukun.matrix.main_module.entity.EyesInfo;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import org.litepal.crud.DataSupport;
 
@@ -59,14 +60,14 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if(eyesInfo.getData()!=null){
                 ((MHolder) holder).mTvName.setText(eyesInfo.getData().getSlogan());
                 ((MHolder) holder).mTvTitle.setText(eyesInfo.getData().getDescription());
-                Glide.with(context).load(eyesInfo.getData().getCover().getDetail()).into(((MHolder) holder).mImCover);
-                Glide.with(context).load(eyesInfo.getData().getAuthor().getIcon()).into(((MHolder) holder).mCiHead);
+                GlideUtil.loadPlaceholderImage(eyesInfo.getData().getCover().getDetail(),((MHolder) holder).mImCover);
+                GlideUtil.loadCircleBoardImage(eyesInfo.getData().getAuthor().getIcon(),((MHolder) holder).mCiHead);
                 ((MHolder) holder).mTvPlayTimes.setText(eyesInfo.getData().getCategory());
             }else if(eyesInfo.getCover()!=null) {
                 ((MHolder) holder).mTvName.setText(eyesInfo.getSlogan());
                 ((MHolder) holder).mTvTitle.setText(eyesInfo.getDescription());
-                Glide.with(context).load(eyesInfo.getCover()).into(((MHolder) holder).mImCover);
-                Glide.with(context).load(eyesInfo.getIcon()).into(((MHolder) holder).mCiHead);
+                GlideUtil.loadPlaceholderImage(eyesInfo.getCover(),((MHolder) holder).mImCover);
+                GlideUtil.loadCircleBoardImage(eyesInfo.getIcon(),((MHolder) holder).mCiHead);
                 ((MHolder) holder).mTvPlayTimes.setText(eyesInfo.getCategory());
             }
 
@@ -160,7 +161,7 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     class MHolder extends RecyclerView.ViewHolder {
         @BindView(R2.id.ci_head)
-        CircleImageView mCiHead;
+        ImageView mCiHead;
         @BindView(R2.id.tv_name)
         TextView mTvName;
         @BindView(R2.id.tv_times)

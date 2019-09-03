@@ -10,6 +10,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
 import com.matrix.yukun.matrix.R;
@@ -22,7 +23,7 @@ public class AnimUtils {
 
     private static AnimatorSet set;
     private static AnimatorSet setback;
-
+    // http://ic.snssdk.com/2/article/v25/stream/?category=news_hot&count=20
     public static void doAnimateOpen(View view, int index, int total, int radius,int time) {
         if (view.getVisibility() != View.VISIBLE) {
             view.setVisibility(View.VISIBLE);
@@ -180,10 +181,20 @@ public class AnimUtils {
         animator.start();
     }
 
-    public static void setScaleXAnimation(View textView) {
-        ObjectAnimator mObjectAnimator = ObjectAnimator.ofFloat(textView, "scaleX", 0,1f);
+    public static void setScaleXAnimation(View view) {
+        ObjectAnimator mObjectAnimator = ObjectAnimator.ofFloat(view, "scaleX", 0,1f);
         mObjectAnimator.setDuration(500);
         mObjectAnimator.setInterpolator(new AccelerateInterpolator());
         mObjectAnimator.start();
     }
+
+    public static void setWeatherBG( View view){
+        ScaleAnimation mObjectAnimator  = new ScaleAnimation(1f,1.8f,1f,1.8f,Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+//        ScaleAnimation mObjectAnimator  = new ScaleAnimation(view.getWidth()*0.8f,view.getWidth(),view.getHeight()*0.8f,view.getHeight(),view.getWidth()/2,view.getHeight()/2);
+        mObjectAnimator.setDuration(15000);
+        mObjectAnimator.setRepeatCount(-1);
+        view.setAnimation(mObjectAnimator);
+        mObjectAnimator.start();
+    }
+
 }

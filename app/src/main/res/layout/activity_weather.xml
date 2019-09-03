@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/back_image"
         android:scaleType="centerCrop"
-        android:src="@mipmap/yintian"
+        android:src="@mipmap/wea_ying"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <FrameLayout
