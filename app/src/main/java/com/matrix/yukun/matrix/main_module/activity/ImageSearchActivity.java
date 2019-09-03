@@ -49,7 +49,7 @@ public class ImageSearchActivity extends BaseActivity {
         mStringArray = getResources().getStringArray(R.array.search);
         for (int i = 0; i < mStringArray.length; i++) {
             mTablayout.addTab(mTablayout.newTab().setText(mStringArray[i]));
-            SearchImageFragment mInstance5= SearchImageFragment.getInstance(mStringArray[i]);
+            SearchImageFragment mInstance5= SearchImageFragment.getInstance();
             mFragments.add(mInstance5);
         }
         setAdapter();
@@ -97,6 +97,7 @@ public class ImageSearchActivity extends BaseActivity {
         mViewpager.setAdapter(mMViewPagerAdapter);
         mViewpager.setOffscreenPageLimit(5);
     }
+
     @OnClick({R2.id.iv_back})
     public void onClick(View view) {
         int id = view.getId();

@@ -23,7 +23,7 @@ public class AnimUtils {
 
     private static AnimatorSet set;
     private static AnimatorSet setback;
-    // http://ic.snssdk.com/2/article/v25/stream/?category=news_hot&count=20
+    //
     public static void doAnimateOpen(View view, int index, int total, int radius,int time) {
         if (view.getVisibility() != View.VISIBLE) {
             view.setVisibility(View.VISIBLE);
