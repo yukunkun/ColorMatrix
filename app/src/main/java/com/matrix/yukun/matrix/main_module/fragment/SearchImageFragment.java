@@ -82,18 +82,21 @@ public class SearchImageFragment extends BaseFragment {
             public void onResponse(String response, int id) {
                 try {
                     JSONObject jsonObject=new JSONObject(response);
-                    LogUtil.i("=========",response);
-                    String data = jsonObject.optString("data");
-                    Gson gson=new Gson();
-                    List<TouTiaoBean> imageInfo = gson.fromJson(data.toString(), new TypeToken<List<TouTiaoBean>>() {}.getType());
-                    if(imageInfo.size()!=0){
-                        if(count==0){
-                            imageInfos.clear();
+                    if(jsonObject.optString("message").equals("success")){
+                        String data = jsonObject.optString("data");
+                        Gson gson=new Gson();
+                        List<TouTiaoBean> imageInfo = gson.fromJson(data.toString(), new TypeToken<List<TouTiaoBean>>() {}.getType());
+                        LogUtil.i("=========",imageInfo.toString());
+
+                        if(imageInfo.size()!=0){
+                            if(count==0){
+                                imageInfos.clear();
+                            }
+                            mSmartRefreshLayout.finishRefresh();
+                            mSmartRefreshLayout.finishLoadMore();
+                        }else {
+                            mSmartRefreshLayout.finishLoadMoreWithNoMoreData();
                         }
-                        mSmartRefreshLayout.finishRefresh();
-                        mSmartRefreshLayout.finishLoadMore();
-                    }else {
-                        mSmartRefreshLayout.finishLoadMoreWithNoMoreData();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
