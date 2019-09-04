@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
 import android.view.LayoutInflater;
@@ -23,7 +22,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.MyApp;
@@ -43,7 +41,6 @@ import com.matrix.yukun.matrix.mine_module.entity.WebType;
 import com.matrix.yukun.matrix.selfview.NoScrollListView;
 import com.matrix.yukun.matrix.tool_module.gesture.GestureActivity;
 import com.matrix.yukun.matrix.util.glide.GlideUtil;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -51,7 +48,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import butterknife.BindView;
-import jp.wasabeef.blurry.Blurry;
 
 public class AboutUsFragment extends BaseFragment {
 

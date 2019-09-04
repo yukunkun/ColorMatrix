@@ -2,12 +2,12 @@ package com.matrix.yukun.matrix.main_module.adapter;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,11 +24,8 @@ import com.matrix.yukun.matrix.main_module.activity.TextDetailActivity;
 import com.matrix.yukun.matrix.main_module.activity.VideoDetailPlayActivity;
 import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
 import com.matrix.yukun.matrix.main_module.entity.EyesInfo;
-
 import org.litepal.crud.DataSupport;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;

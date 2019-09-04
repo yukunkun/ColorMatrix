@@ -19,8 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-//import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.adapter.VideoAdapter;
@@ -30,15 +28,11 @@ import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
 import com.matrix.yukun.matrix.main_module.entity.EyesInfo;
 import com.matrix.yukun.matrix.util.AnimUtils;
 import com.matrix.yukun.matrix.util.glide.GlideUtil;
-
 import org.litepal.crud.DataSupport;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
-import jp.wasabeef.blurry.Blurry;
 
 public class PersonActivity extends BaseActivity implements View.OnClickListener, VideoAdapter.ItemClickCallBack {
     @BindView(R.id.tv_col)

@@ -35,17 +35,13 @@ import com.matrix.yukun.matrix.main_module.entity.HistoryPlay;
 import com.matrix.yukun.matrix.main_module.utils.SpacesDoubleDecoration;
 import com.matrix.yukun.matrix.mine_module.activity.ShareActivity;
 import com.matrix.yukun.matrix.util.glide.GlideUtil;
-
 import org.litepal.crud.DataSupport;
-
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import jp.wasabeef.blurry.Blurry;
 
 public class PersonCenterActivity extends BaseActivity {
 

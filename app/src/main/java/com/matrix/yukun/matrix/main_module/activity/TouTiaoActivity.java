@@ -7,19 +7,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
-
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
-import com.matrix.yukun.matrix.main_module.fragment.SearchImageFragment;
-
+import com.matrix.yukun.matrix.main_module.fragment.TouTiaoFragment;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ImageSearchActivity extends BaseActivity {
+public class TouTiaoActivity extends BaseActivity {
     @BindView(R2.id.tablayout)
     TabLayout mTablayout;
     @BindView(R2.id.iv_back)
@@ -30,7 +28,7 @@ public class ImageSearchActivity extends BaseActivity {
     List<Fragment> mFragments = new ArrayList<>();
     private MViewPagerAdapter mMViewPagerAdapter;
     public static void start(Context context){
-        Intent intent=new Intent(context,ImageSearchActivity.class);
+        Intent intent=new Intent(context,TouTiaoActivity.class);
         context.startActivity(intent);
     }
 
@@ -49,7 +47,7 @@ public class ImageSearchActivity extends BaseActivity {
         mStringArray = getResources().getStringArray(R.array.search);
         for (int i = 0; i < mStringArray.length; i++) {
             mTablayout.addTab(mTablayout.newTab().setText(mStringArray[i]));
-            SearchImageFragment mInstance5= SearchImageFragment.getInstance();
+            TouTiaoFragment mInstance5= TouTiaoFragment.getInstance();
             mFragments.add(mInstance5);
         }
         setAdapter();

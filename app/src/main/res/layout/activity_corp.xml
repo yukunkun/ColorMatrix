@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_height="match_parent"
-    tools:context="com.matrix.yukun.matrix.camera_module.CorpActivity">
+    android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/real"
         android:background="@color/color_252525"
@@ -37,11 +34,11 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
-        <com.edmodo.cropper.CropImageView
+        <!--<com.edmodo.cropper.CropImageView
             android:id="@+id/cropimageview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            custom:aspectRatioX="1" />
+            custom:aspectRatioX="1" />-->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

@@ -38,6 +38,7 @@ import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 import com.matrix.yukun.matrix.main_module.activity.MViewPagerAdapter;
 import com.matrix.yukun.matrix.main_module.activity.MyCollectActivity;
 import com.matrix.yukun.matrix.main_module.activity.PersonCenterActivity;
+import com.matrix.yukun.matrix.main_module.activity.TouTiaoActivity;
 import com.matrix.yukun.matrix.main_module.entity.EventCategrayPos;
 import com.matrix.yukun.matrix.main_module.entity.EventShowSecond;
 import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
@@ -380,6 +381,7 @@ public class PlayFragment extends BaseFragment {
             if (!mDrawlayout.isDrawerOpen(Gravity.LEFT)) {
                 mDrawlayout.openDrawer(Gravity.LEFT);
             }
+            TouTiaoActivity.start(getContext());
         } else if (i == R.id.iv_update) {
 
         } else if (i == R.id.tv_weather) {

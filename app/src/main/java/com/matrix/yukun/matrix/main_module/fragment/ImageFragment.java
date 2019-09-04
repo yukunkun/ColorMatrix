@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.main_module.activity.ImageSearchActivity;
+import com.matrix.yukun.matrix.main_module.activity.TouTiaoActivity;
 import com.matrix.yukun.matrix.main_module.adapter.ImageAdapter;
 import com.matrix.yukun.matrix.main_module.adapter.ShareCallBack;
 import com.matrix.yukun.matrix.main_module.dialog.ShareDialog;
@@ -142,7 +142,7 @@ public class ImageFragment extends BaseFragment implements ShareCallBack {
         mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageSearchActivity.start(getContext());
+                TouTiaoActivity.start(getContext());
                 mHeader.finishTwoLevel();
                 mIvRoot.animate().alpha(0).setDuration(1000);
             }

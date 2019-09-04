@@ -2,6 +2,7 @@ package com.matrix.yukun.matrix.main_module.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.main_module.adapter.TouTiaoAdapter;
 import com.matrix.yukun.matrix.main_module.entity.TouTiaoBean;
 import com.matrix.yukun.matrix.main_module.netutils.NetworkUtils;
 import com.matrix.yukun.matrix.main_module.utils.SpacesDoubleDecoration;
@@ -33,18 +35,19 @@ import okhttp3.Call;
  * Created by yukun on 17-11-17.
  */
 
-public class SearchImageFragment extends BaseFragment {
+public class TouTiaoFragment extends BaseFragment {
     // http://ic.snssdk.com/2/article/v25/stream/?category=news_hot&count=20
     String url="http://ic.snssdk.com/2/article/v25/stream/";
     private SmartRefreshLayout mSmartRefreshLayout;
-    private int count = 0;
+    private int count = 1;
     List<TouTiaoBean> imageInfos=new ArrayList<>();
     private RecyclerView mRvJoke;
     private RelativeLayout mLayoutRemind;
-    private StaggeredGridLayoutManager mManager;
+    private TouTiaoAdapter mTouTiaoAdapter;
+    private LinearLayoutManager mManager;
 
-    public static SearchImageFragment getInstance() {
-        SearchImageFragment recFragment = new SearchImageFragment();
+    public static TouTiaoFragment getInstance() {
+        TouTiaoFragment recFragment = new TouTiaoFragment();
         Bundle bundle=new Bundle();
         recFragment.setArguments(bundle);
         return recFragment;
@@ -60,19 +63,22 @@ public class SearchImageFragment extends BaseFragment {
         mSmartRefreshLayout = inflate.findViewById(R.id.refreshLayout);
         mRvJoke = inflate.findViewById(R.id.recyclerview);
         mLayoutRemind = inflate.findViewById(R.id.rl_remind);
-        mManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        mManager = new LinearLayoutManager(getContext());
         mRvJoke.setLayoutManager(mManager);
+        mTouTiaoAdapter = new TouTiaoAdapter(imageInfos);
+        mRvJoke.setAdapter(mTouTiaoAdapter);
         mRvJoke.addItemDecoration(new SpacesDoubleDecoration(10));
-//        mRvJoke.setAdapter();
-        mSmartRefreshLayout.autoRefresh();
+//        mSmartRefreshLayout.autoRefresh();
         setListener();
         initData();
     }
 
     private void initData() {
         GetBuilder getBuilder = NetworkUtils.networkGet(url)
-                .addParams("count",count+"");
-            getBuilder.build().execute(new StringCallback() {
+                .addParams("count",10+"")
+                .addParams("page",count+"");
+
+        getBuilder.build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -85,13 +91,17 @@ public class SearchImageFragment extends BaseFragment {
                     if(jsonObject.optString("message").equals("success")){
                         String data = jsonObject.optString("data");
                         Gson gson=new Gson();
-                        List<TouTiaoBean> imageInfo = gson.fromJson(data.toString(), new TypeToken<List<TouTiaoBean>>() {}.getType());
-                        LogUtil.i("=========",imageInfo.toString());
-
-                        if(imageInfo.size()!=0){
-                            if(count==0){
-                                imageInfos.clear();
-                            }
+                        List<TouTiaoBean> mImageInfo = gson.fromJson(data.toString(), new TypeToken<List<TouTiaoBean>>() {}.getType());
+                        for (int i = 0; i < mImageInfo.size(); i++) {
+                            mImageInfo.get(i).setItemType(1);
+//                            if(mImageInfo.get(i).isHas_video()){
+//                            }else {
+//
+//                            }
+                        }
+                        if(mImageInfo.size()!=0){
+                            imageInfos.addAll(mImageInfo);
+                            mTouTiaoAdapter.notifyDataSetChanged();
                             mSmartRefreshLayout.finishRefresh();
                             mSmartRefreshLayout.finishLoadMore();
                         }else {
@@ -109,6 +119,7 @@ public class SearchImageFragment extends BaseFragment {
         mSmartRefreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener(){
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                count++;
                 initData();
             }
 

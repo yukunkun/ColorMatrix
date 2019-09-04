@@ -371,7 +371,7 @@
             android:name=".chat_module.ChatMemberActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main_module.activity.ImageSearchActivity"
+            android:name=".main_module.activity.TouTiaoActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tool_module.internet.NetActivity"
