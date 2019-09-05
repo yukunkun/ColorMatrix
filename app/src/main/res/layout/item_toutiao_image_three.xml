@@ -19,14 +19,13 @@
         android:id="@+id/ll_cover"
         android:layout_width="match_parent"
         android:paddingTop="@dimen/dimens_5"
-        android:paddingBottom="@dimen/dimens_5"
+        android:paddingBottom="@dimen/dimens_10"
         android:layout_below="@+id/tv_des"
         android:orientation="horizontal"
         android:layout_height="@dimen/dimens_110">
         <ImageView
             android:id="@+id/image_cover_1"
             android:layout_marginLeft="@dimen/dimens_10"
-            android:layout_marginRight="@dimen/dimens_3"
             android:layout_weight="1"
             android:scaleType="centerCrop"
             android:layout_width="0dp"
@@ -41,7 +40,6 @@
             android:layout_height="match_parent" />
         <ImageView
             android:id="@+id/image_cover_3"
-            android:layout_marginLeft="@dimen/dimens_3"
             android:layout_marginRight="@dimen/dimens_10"
             android:layout_weight="1"
             android:scaleType="centerCrop"

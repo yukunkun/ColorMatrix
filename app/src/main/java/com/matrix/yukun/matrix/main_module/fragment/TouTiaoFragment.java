@@ -68,7 +68,7 @@ public class TouTiaoFragment extends BaseFragment {
         mTouTiaoAdapter = new TouTiaoAdapter(imageInfos);
         mRvJoke.setAdapter(mTouTiaoAdapter);
         mRvJoke.addItemDecoration(new SpacesDoubleDecoration(10));
-//        mSmartRefreshLayout.autoRefresh();
+        mSmartRefreshLayout.autoRefresh();
         setListener();
         initData();
     }
@@ -107,7 +107,12 @@ public class TouTiaoFragment extends BaseFragment {
                                     mImageInfo.get(i).setItemType(2);
                                 }
                             }else {
-                                mImageInfo.get(i).setItemType(4);
+                                if(mImageInfo.get(i).getLabel()!=null&&mImageInfo.get(i).getLabel().equals("置顶")){
+                                    mImageInfo.get(i).setItemType(0);
+                                }else {
+                                    mImageInfo.get(i).setItemType(0);
+                                    LogUtil.i("===========",mImageInfo.get(i).toString());
+                                }
                             }
                         }
                         if(mImageInfo.size()!=0){

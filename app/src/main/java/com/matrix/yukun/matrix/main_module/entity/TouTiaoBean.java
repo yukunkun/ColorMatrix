@@ -123,6 +123,7 @@ public class TouTiaoBean implements MultiItemEntity{
     private int item_version;
     private String keywords;
     private int level;
+    private String label;
     private LogPbBean log_pb;
     private MediaInfoBean media_info;
     private String media_name;
@@ -1324,6 +1325,14 @@ public class TouTiaoBean implements MultiItemEntity{
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public LogPbBean getLog_pb() {

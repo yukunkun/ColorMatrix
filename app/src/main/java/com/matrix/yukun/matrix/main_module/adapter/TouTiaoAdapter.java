@@ -19,15 +19,19 @@ public class TouTiaoAdapter extends BaseMultiItemQuickAdapter<TouTiaoBean,BaseVi
 
     public TouTiaoAdapter(List<TouTiaoBean> data) {
         super(data);
+        addItemType(0, R.layout.item_toutiao_top);
         addItemType(1, R.layout.item_toutiao_video);
         addItemType(2, R.layout.item_toutiao_image);
         addItemType(3, R.layout.item_toutiao_image_three);
-        addItemType(4, R.layout.item_toutiao_video);
     }
 
     @Override
     protected void convert(@NonNull BaseViewHolder helper, TouTiaoBean item) {
         int itemViewType = helper.getItemViewType();
+        if(itemViewType==0){
+            helper.setText(R.id.tv_des,item.getTitle());
+            helper.setText(R.id.tv_play,item.getUser_info().getName()+" 时间："+DataUtils.getTime(item.getPublish_time()*1000,"YYYY年MM月dd日"));
+        }
         if(itemViewType==1){
             helper.setText(R.id.tv_name,item.getUser_info().getName());
             helper.setText(R.id.tv_des,item.getTitle());
