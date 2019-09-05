@@ -98,4 +98,12 @@ public class DataUtils {
         res = simpleDateFormat.format(date);
         return res;
     }
+
+    public static String getTime(long times,String format){
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        Date date = new Date(times);
+        res = simpleDateFormat.format(date);
+        return res;
+    }
 }

@@ -130,7 +130,7 @@ public class TouTiaoBean implements MultiItemEntity{
     private int need_client_impr_recycle;
     private String play_auth_token;
     private String play_biz_token;
-    private int publish_time;
+    private long publish_time;
     private int read_count;
     private int repin_count;
     private String rid;
@@ -160,7 +160,7 @@ public class TouTiaoBean implements MultiItemEntity{
     private String video_id;
     private int video_style;
     private int itemType;
-
+    private boolean has_image;
     @Override
     public int getItemType() {
         return itemType;
@@ -1382,11 +1382,11 @@ public class TouTiaoBean implements MultiItemEntity{
         this.play_biz_token = play_biz_token;
     }
 
-    public int getPublish_time() {
+    public long getPublish_time() {
         return publish_time;
     }
 
-    public void setPublish_time(int publish_time) {
+    public void setPublish_time(long publish_time) {
         this.publish_time = publish_time;
     }
 
@@ -1612,6 +1612,98 @@ public class TouTiaoBean implements MultiItemEntity{
 
     public void setVideo_style(int video_style) {
         this.video_style = video_style;
+    }
+
+    private List<TouBean.ImageListBean> image_list;
+
+    public List<TouBean.ImageListBean> getImage_list() {
+        return image_list;
+    }
+
+    public void setImage_list(List<TouBean.ImageListBean> image_list) {
+        this.image_list = image_list;
+    }
+
+    public boolean isHas_image() {
+        return has_image;
+    }
+
+    public void setHas_image(boolean has_image) {
+        this.has_image = has_image;
+    }
+
+    /************************* imagelist ************************************************/
+
+    public static class ImageListBean {
+        /**
+         * height : 564
+         * uri : list/pgc-image/3e0e4ab490c54754a1c895c01e08df9b
+         * url : http://p3-tt.byteimg.com/img/pgc-image/3e0e4ab490c54754a1c895c01e08df9b~tplv-tt-cs0:1003:677.jpg
+         * url_list : [{"url":"http://p3-tt.byteimg.com/img/pgc-image/3e0e4ab490c54754a1c895c01e08df9b~tplv-tt-cs0:1003:677.jpg"},{"url":"http://p9-tt.byteimg.com/img/pgc-image/3e0e4ab490c54754a1c895c01e08df9b~tplv-tt-cs0:1003:677.jpg"},{"url":"http://p3-tt.byteimg.com/img/pgc-image/3e0e4ab490c54754a1c895c01e08df9b~tplv-tt-cs0:1003:677.jpg"}]
+         * width : 1003
+         */
+
+        private int height;
+        private String uri;
+        private String url;
+        private int width;
+        private List<TouBean.ImageListBean.UrlListBean> url_list;
+
+        public int getHeight() {
+            return height;
+        }
+
+        public void setHeight(int height) {
+            this.height = height;
+        }
+
+        public String getUri() {
+            return uri;
+        }
+
+        public void setUri(String uri) {
+            this.uri = uri;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public int getWidth() {
+            return width;
+        }
+
+        public void setWidth(int width) {
+            this.width = width;
+        }
+
+        public List<TouBean.ImageListBean.UrlListBean> getUrl_list() {
+            return url_list;
+        }
+
+        public void setUrl_list(List<TouBean.ImageListBean.UrlListBean> url_list) {
+            this.url_list = url_list;
+        }
+
+        public static class UrlListBean {
+            /**
+             * url : http://p3-tt.byteimg.com/img/pgc-image/3e0e4ab490c54754a1c895c01e08df9b~tplv-tt-cs0:1003:677.jpg
+             */
+
+            private String url;
+
+            public String getUrl() {
+                return url;
+            }
+
+            public void setUrl(String url) {
+                this.url = url;
+            }
+        }
     }
 
     @Override

@@ -26,6 +26,7 @@
     <dimen name="dimens_80">80dp</dimen>
     <dimen name="dimens_90">90dp</dimen>
     <dimen name="dimens_100">100dp</dimen>
+    <dimen name="dimens_110">110dp</dimen>
     <dimen name="dimens_120">120dp</dimen>
     <dimen name="dimens_130">130dp</dimen>
     <dimen name="dimens_140">140dp</dimen>

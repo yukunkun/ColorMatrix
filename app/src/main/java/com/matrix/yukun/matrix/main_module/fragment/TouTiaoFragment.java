@@ -93,11 +93,22 @@ public class TouTiaoFragment extends BaseFragment {
                         Gson gson=new Gson();
                         List<TouTiaoBean> mImageInfo = gson.fromJson(data.toString(), new TypeToken<List<TouTiaoBean>>() {}.getType());
                         for (int i = 0; i < mImageInfo.size(); i++) {
-                            mImageInfo.get(i).setItemType(1);
-//                            if(mImageInfo.get(i).isHas_video()){
-//                            }else {
-//
-//                            }
+
+                            if(mImageInfo.get(i).isHas_video()){
+                                mImageInfo.get(i).setItemType(1);
+                            }else if(mImageInfo.get(i).isHas_image()){
+                                if(mImageInfo.get(i).getImage_list()!=null){
+                                    if(mImageInfo.get(i).getImage_list().size()>0&&mImageInfo.get(i).getImage_list().size()<3){
+                                        mImageInfo.get(i).setItemType(2);
+                                    }else {
+                                        mImageInfo.get(i).setItemType(3);
+                                    }
+                                }else {
+                                    mImageInfo.get(i).setItemType(2);
+                                }
+                            }else {
+                                mImageInfo.get(i).setItemType(4);
+                            }
                         }
                         if(mImageInfo.size()!=0){
                             imageInfos.addAll(mImageInfo);
