@@ -24,6 +24,8 @@ import com.matrix.yukun.matrix.main_module.activity.TextDetailActivity;
 import com.matrix.yukun.matrix.main_module.activity.VideoDetailPlayActivity;
 import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
 import com.matrix.yukun.matrix.main_module.entity.EyesInfo;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
+
 import org.litepal.crud.DataSupport;
 import java.util.List;
 import butterknife.BindView;
@@ -65,8 +67,8 @@ public class CollectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             final CollectsInfo recInfo = jokeInfoList.get(position);
             ((MHolder) holder).mTvName.setText(recInfo.getName());
             ((MHolder) holder).mTvTitle.setText(recInfo.getTitle());
-            Glide.with(context).load(recInfo.getCover()).into(((MHolder) holder).mImCover);
-            Glide.with(context).load(recInfo.getHeader()).into(((MHolder) holder).mCiHead);
+            GlideUtil.loadImage(recInfo.getCover(),(((MHolder) holder).mImCover));
+            GlideUtil.loadCircleBoardImage(recInfo.getCover(),(((MHolder) holder).mCiHead));
 
             if(recInfo.getType()==1){
                 ((MHolder) holder).mStv.setText("视频").setTextSize(5).setTextColor(Color.WHITE).setMode(SlantedTextView.MODE_LEFT);
@@ -184,7 +186,7 @@ public class CollectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     class MHolder extends RecyclerView.ViewHolder {
         @BindView(R2.id.ci_head)
-        CircleImageView mCiHead;
+        ImageView mCiHead;
         @BindView(R2.id.tv_name)
         TextView mTvName;
         @BindView(R2.id.tv_times)
