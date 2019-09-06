@@ -59,7 +59,7 @@
                 android:id="@+id/iv_search"
                 android:src="@mipmap/icon_search_skip"
                 android:padding="@dimen/dimens_10"
-                android:text="搜索"
+                android:text="头条新闻"
                 android:textSize="16sp"
                 android:textColor="#1296db"
                 android:gravity="center"

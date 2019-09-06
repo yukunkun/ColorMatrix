@@ -221,7 +221,7 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:layout_centerVertical="true"
                 android:textColor="@color/color_text"
-                android:text="商城更新"
+                android:text="检测更新"
                 android:paddingLeft="@dimen/dimens_10"
                 android:layout_height="@dimen/dimens_50" />
             <View

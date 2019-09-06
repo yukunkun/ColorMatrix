@@ -65,7 +65,7 @@ public class TouTiaoFragment extends BaseFragment {
         mLayoutRemind = inflate.findViewById(R.id.rl_remind);
         mManager = new LinearLayoutManager(getContext());
         mRvJoke.setLayoutManager(mManager);
-        mTouTiaoAdapter = new TouTiaoAdapter(imageInfos);
+        mTouTiaoAdapter = new TouTiaoAdapter(imageInfos,getContext());
         mRvJoke.setAdapter(mTouTiaoAdapter);
         mRvJoke.addItemDecoration(new SpacesDoubleDecoration(10));
         mSmartRefreshLayout.autoRefresh();
@@ -111,7 +111,7 @@ public class TouTiaoFragment extends BaseFragment {
                                     mImageInfo.get(i).setItemType(0);
                                 }else {
                                     mImageInfo.get(i).setItemType(0);
-                                    LogUtil.i("===========",mImageInfo.get(i).toString());
+//                                    LogUtil.i("===========",mImageInfo.get(i).toString());
                                 }
                             }
                         }

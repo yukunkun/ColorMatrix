@@ -141,9 +141,10 @@ public class SettingActivity extends BaseActivity {
             noteCommentDialog.show(getSupportFragmentManager(), "SettingActivity");
             return;
         } else if (id == R.id.tv_mark_update) {
-            Uri uri = Uri.parse(AppConstant.APP_STORE);
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+                Beta.checkUpgrade();
+//            Uri uri = Uri.parse(AppConstant.APP_STORE);
+//            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//            startActivity(intent);
             return;
         }
         else if (id == R.id.tv_version) {

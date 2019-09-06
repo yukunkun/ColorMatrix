@@ -1,48 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:yk="http://schemas.android.com/apk/res-auto"
-    >
-    <RelativeLayout android:layout_width="match_parent"
-                    android:id="@+id/rl"
-                    android:background="@color/white"
-                    android:layout_height="50dp">
-        <ImageView android:layout_width="50dp"
-                   android:padding="8dp"
-                   android:id="@+id/iv_back"
-                   android:src="@mipmap/joke_back"
-                   android:layout_height="match_parent"/>
-        <TextView android:layout_width="250dp"
-                  android:gravity="center"
-                  android:id="@+id/tv_title"
-                  android:layout_centerInParent="true"
-                  android:text=""
-                  android:textSize="18sp"
-                  android:singleLine="true"
-                  android:scrollbars = "vertical"
-                  android:textColor="@color/color_2b2b2b"
-                  android:layout_height="match_parent"/>
-        <View android:layout_height="0.5dp"
-              android:background="@color/color_b1b1b1"
-              android:layout_alignParentBottom="true"
-              android:layout_width="match_parent"/>
-    </RelativeLayout>
-    <WebView android:layout_width="match_parent"
-             android:layout_below="@+id/rl"
-             android:id="@+id/webview"
-             android:layout_height="match_parent">
-    </WebView>
-    <com.matrix.yukun.matrix.selfview.WaterLoadView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl"
         android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="50dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:src="@mipmap/joke_back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollbars="vertical"
+            android:singleLine="true"
+            android:textColor="@color/color_2b2b2b"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_b1b1b1" />
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl">
+
+    </WebView>
+
+    <com.matrix.yukun.matrix.selfview.WaterLoadView
         android:id="@+id/water_load"
+        android:layout_width="match_parent"
         android:layout_height="145dp"
-        yk:circleColor="#00ff40"
-        yk:circleTop="120"
         android:layout_centerInParent="true"
+        yk:circleColor="#00ff40"
         yk:circleSmallRadio="10"
+        yk:circleTop="120"
         yk:loadTime="1000" />
 </RelativeLayout>

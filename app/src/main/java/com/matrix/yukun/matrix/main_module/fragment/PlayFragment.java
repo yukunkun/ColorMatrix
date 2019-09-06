@@ -381,7 +381,6 @@ public class PlayFragment extends BaseFragment {
             if (!mDrawlayout.isDrawerOpen(Gravity.LEFT)) {
                 mDrawlayout.openDrawer(Gravity.LEFT);
             }
-            TouTiaoActivity.start(getContext());
         } else if (i == R.id.iv_update) {
 
         } else if (i == R.id.tv_weather) {
