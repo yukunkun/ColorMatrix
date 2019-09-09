@@ -2,23 +2,18 @@ package com.matrix.yukun.matrix.gaia_module.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.activity.GaiaPlayActivity;
 import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
 import com.matrix.yukun.matrix.gaia_module.bean.VideoType;
 import com.matrix.yukun.matrix.gaia_module.net.Api;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtil;
-import com.matrix.yukun.matrix.util.DataUtils;
 import com.matrix.yukun.matrix.util.glide.GlideUtil;
-
 import java.util.List;
 
 /**
@@ -64,18 +59,20 @@ public class VideoMaterialAdapter extends RecyclerView.Adapter<VideoMaterialAdap
     @Override
     public void onBindViewHolder(final VideoMaterialAdapter.WorkViewHolder holder, int position) {
         final GaiaIndexBean videoInfo = materialInfos.get(position);
-            //设置封面
+        //设置封面
         String cover = videoInfo.getCover();
         String screenshot = videoInfo.getScreenshot();
 
         if (cover != null && !cover.isEmpty()) {
-            GlideUtil.loadImage(Api.COVER_PREFIX+cover,holder.workCover);
+            GlideUtil.loadImage(Api.COVER_PREFIX + cover, holder.workCover);
         } else if (screenshot != null && !screenshot.isEmpty()) {
-            if(videoInfo.getFlag()==1){
-                screenshot = Api.COVER_PREFIX +screenshot+"_18.png";
-                GlideUtil.loadImage(screenshot,holder.workCover);
+            if (videoInfo.getFlag() == 1) {
+                screenshot = Api.COVER_PREFIX + screenshot + "_18.png";
+                GlideUtil.loadImage(screenshot, holder.workCover);
             }
         }
+        holder.workName.setText(videoInfo.getName());
+        holder.workCount.setText("播放 "+videoInfo.getPlayCount());
         //是否显示官方授权标志
         if (videoInfo.getIsOfficial() == 1) {
             holder.outh.setVisibility(View.VISIBLE);
@@ -89,23 +86,10 @@ public class VideoMaterialAdapter extends RecyclerView.Adapter<VideoMaterialAdap
             holder.is4k.setVisibility(View.GONE);
         }
 
-        holder.workCount.setText("播放·"+videoInfo.getPlayCount());
-        //播放时长
-        holder.workDuration.setText(DataUtils.secToTime(videoInfo.getDuration()));
-        //作品名称
-        holder.workName.setText(videoInfo.getName());
-        holder.mTextViewPrice.setText("免费");
-        String finalScreenshot = screenshot;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String mCover="";
-                if(!TextUtils.isEmpty(cover)){
-                    mCover=cover;
-                }else {
-                    mCover= finalScreenshot;
-                }
-                GaiaPlayActivity.start(mContext,videoInfo.getId(), VideoType.MATERIAL.getType(),mCover);
+                GaiaPlayActivity.start(mContext, videoInfo.getId(), VideoType.MATERIAL.getType(), cover);
             }
         });
     }

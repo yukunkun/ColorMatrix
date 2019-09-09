@@ -76,6 +76,7 @@ public class GaiaFragment extends BaseFragment {
     ImageView ivSucai;
     @BindView(R.id.sw_refresh)
     SwipeRefreshLayout swRefresh;
+
     private GridLayoutManager mGridLayoutManager;
     private List<GaiaIndexBean> mGaiaIndexBeans = new ArrayList<>();
     private List<BannerInfo> mBannerInfos = new ArrayList<>();

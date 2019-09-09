@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ProgressBar;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.BaseFragment;
@@ -23,9 +22,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhy.http.okhttp.OkHttpUtils;
-
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
