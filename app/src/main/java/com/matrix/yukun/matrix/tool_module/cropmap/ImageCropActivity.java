@@ -77,7 +77,6 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
     private Bitmap mBitOrigin;
     private Bitmap mBitPath;
     private Bitmap mBitSeek;
-//    private int pos;
     private int rotate=0;
     private ImageView textRotate;
     private Bitmap mBitRotate;

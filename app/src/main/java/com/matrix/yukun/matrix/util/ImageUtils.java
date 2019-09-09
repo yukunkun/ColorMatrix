@@ -452,24 +452,6 @@ public class ImageUtils {
         return fileNames;
     }
 
-    /**
-     * 保存Bitmap到指定路径
-     *
-     * @param tempBitmap
-     * @param filePath
-     */
-    public static void saveBitmapToPath(Bitmap tempBitmap, String filePath) {
-        BufferedOutputStream bos = null;
-        try {
-            bos = new BufferedOutputStream(new FileOutputStream(new File(filePath)));
-            compressBitmap(tempBitmap).compress(Bitmap.CompressFormat.JPEG, 90, bos);
-            bos.flush();
-            bos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static String getFileRootPath() {
         String sdStatus = Environment.getExternalStorageState();
         if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
@@ -516,39 +498,85 @@ public class ImageUtils {
         return BitmapFactory.decodeStream(isBm, null, options);
     }
 
-    public static Bitmap getSmallBitmap(String path){
+    public static Bitmap getSmallBitmap(String path) {
         //new 出来一个bitmap的参数
-        BitmapFactory.Options options=new BitmapFactory.Options();
-        //设置为true，不会生成bitmao对象，只是读取尺寸和类型信息
-        options.inJustDecodeBounds=true;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        //设置为true，不会生成bitmap对象，只是读取尺寸和类型信息
+        options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path, options);
         //得到这个比例   并赋予option里面的inSampleSize
-        options.inSampleSize =1 /*calculateInSampleSizes(options, 320, 480)*/;
+//        options.inSampleSize = calculateInSampleSizes(options, options.outHeight, options.outWidth);
+        options.inSampleSize = computeSize(options.outHeight, options.outWidth);
         //设置为false，即将要生成bitmap对象啦
         options.inJustDecodeBounds = false;
         //有了这个option，我们可以生成bitmap对象了
-        Bitmap bitmap=BitmapFactory.decodeFile(path, options);
+        Bitmap bitmap = BitmapFactory.decodeFile(path, options);
 
         return bitmap;
-
     }
-    public static int calculateInSampleSizes(BitmapFactory.Options options,int reqHeight,int reqWidth){
+
+    public static int calculateInSampleSizes(BitmapFactory.Options options, int reqHeight, int reqWidth) {
         //得到原始图片宽高
-        int height=options.outHeight;
-        int width=options.outWidth;
+        int height = options.outHeight;
+        int width = options.outWidth;
         //默认设置为1，即不缩放
-        int inSampleSize=1;
+        int inSampleSize = 1;
         //如果图片原始的高大于我们期望的高，或者图片的原始宽大于我们期望的宽，换句话意思就是，我们想让它变小一点
         if (height > reqHeight || width > reqWidth) {
             //原始的高除以期望的高，得到一个比例
-            final int heightRatio = Math.round((float) height/ (float) reqHeight);
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
             //原始的宽除以期望的宽，得到一个比例
             final int widthRatio = Math.round((float) width / (float) reqWidth);
             //取上面两个比例中小的一个，返回这个比例
             inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
         }
         return inSampleSize;
-
     }
 
+    private static int computeSize(int inputWidth, int inputHeight) {
+        int mSampleSize = 1;
+        int srcWidth;
+        if (inputWidth % 2 == 1) {
+            srcWidth = inputWidth + 1;
+        } else {
+            srcWidth = inputWidth;
+        }
+        int srcHeight;
+        if (inputHeight % 2 == 1) {
+            srcHeight = inputHeight + 1;
+        } else {
+            srcHeight = inputHeight;
+        }
+        if (srcWidth > srcHeight) {
+            srcWidth = srcHeight;
+        }
+        if (srcWidth > srcHeight) {
+            srcHeight = srcWidth;
+        }
+        double scale = srcWidth * 1.0 / srcHeight;
+        if (scale <= 1 && scale > 0.5625) {
+            if (srcHeight < 1664) {
+                mSampleSize = 1;
+            } else if (srcHeight > 1666 && srcHeight < 4990) {
+                mSampleSize = 2;
+            } else if (srcHeight > 4990 && srcHeight < 10240) {
+                mSampleSize = 3;
+            } else {
+                if (srcHeight / 1280 == 0) {
+                    mSampleSize = 1;
+                } else {
+                    mSampleSize = srcHeight / 1280;
+                }
+            }
+        } else if (scale <= 0.5625 && scale > 0.5) {
+            if (srcHeight / 1280 == 0) {
+                mSampleSize = 1;
+            } else {
+                mSampleSize = srcHeight / 1280;
+            }
+        } else {
+            mSampleSize = (int) Math.ceil(srcHeight / (1280.0 / scale));
+        }
+        return mSampleSize;
+    }
 }
