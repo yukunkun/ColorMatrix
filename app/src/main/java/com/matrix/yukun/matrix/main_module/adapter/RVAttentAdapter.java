@@ -45,7 +45,7 @@ public class RVAttentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if(holder instanceof MyHolder){
-            final AttentList attentList = mAttentLists.get(position);
+            AttentList attentList = mAttentLists.get(position);
             ((MyHolder) holder).mTvName.setText(attentList.getName());
             Glide.with(mContext).load(attentList.getHeader()).into(((MyHolder) holder).mCircleImageView);
             ((MyHolder) holder).mTvAttent.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +62,7 @@ public class RVAttentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     EyesInfo mEyesInfo=new EyesInfo();
                     EyesInfo.DataBean data = new EyesInfo.DataBean();
                     data.setPlayUrl(attentList.getPlay_url());
-                    data.setSlogan(attentList.getName());
+                    data.setRemark(attentList.getName());
                     data.setDuration(attentList.getDuration());
                     data.setDescription(attentList.getDescription());
                     data.setTitle(attentList.getTitle());
@@ -73,6 +73,8 @@ public class RVAttentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     data.setCover(cover);
                     data.setDate(attentList.getData());
                     authorBean.setIcon(attentList.getHeader());
+                    authorBean.setName(attentList.getName());
+                    authorBean.setDescription(attentList.getAuthorDes());
                     data.setAuthor(authorBean);
                     mEyesInfo.setData(data);
                     Intent intent = new Intent(mContext, PersonActivity.class);

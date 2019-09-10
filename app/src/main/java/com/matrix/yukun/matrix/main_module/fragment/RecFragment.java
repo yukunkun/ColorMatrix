@@ -211,7 +211,7 @@ public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCall
                                 eyesInfos.get(i).setCover(eyesInfos.get(i).getData().getCover().getDetail());
                                 eyesInfos.get(i).setIcon(eyesInfos.get(i).getData().getAuthor().getIcon());
                                 eyesInfos.get(i).setCategory(eyesInfos.get(i).getData().getCategory());
-                                eyesInfos.get(i).setSlogan(eyesInfos.get(i).getData().getSlogan());
+                                eyesInfos.get(i).setRemark(eyesInfos.get(i).getData().getAuthor().getName());
                                 eyesInfos.get(i).setDescription(eyesInfos.get(i).getData().getDescription());
                                 eyesInfos.get(i).save();
                             }

@@ -128,11 +128,11 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         mDBSearchInfoList.clear();
         mRvSerchAdapter.setQuery(query);
         mRvSerchAdapter.notifyDataSetChanged();
-        List<DBSearchInfo> publishdate_desc = DataSupport.where("description like ? or title like ? or slogan like ?","%"+query+"%","%"+query+"%","%"+query+"%").find(DBSearchInfo.class);
+        List<DBSearchInfo> publishdate_desc = DataSupport.where("description like ? or title like ? or authorDes like ?","%"+query+"%","%"+query+"%","%"+query+"%").find(DBSearchInfo.class);
         if(publishdate_desc.size()>0){
             for (int i = 0; i < publishdate_desc.size(); i++) {
-                if(!TextUtils.isEmpty(publishdate_desc.get(i).getTitle())&&!TextUtils.isEmpty(publishdate_desc.get(i).getSlogan())){
-                    if(publishdate_desc.get(i).getTitle().indexOf(query)!=-1 || publishdate_desc.get(i).getSlogan().indexOf(query)!=-1){
+                if(!TextUtils.isEmpty(publishdate_desc.get(i).getTitle())&&!TextUtils.isEmpty(publishdate_desc.get(i).getAuthorDes())){
+                    if(publishdate_desc.get(i).getTitle().indexOf(query)!=-1 || publishdate_desc.get(i).getAuthorDes().indexOf(query)!=-1){
                         publishdate_desc.get(i).setSearchType(1);
                     }
                 } else if(!TextUtils.isEmpty(publishdate_desc.get(i).getDescription())&&publishdate_desc.get(i).getDescription().indexOf(query)!=-1){

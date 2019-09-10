@@ -85,7 +85,6 @@ public class CollectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         EyesInfo mEyesInfo=new EyesInfo();
                         EyesInfo.DataBean data = new EyesInfo.DataBean();
                         data.setPlayUrl(recInfo.getPlay_url());
-                        data.setSlogan(recInfo.getName());
                         data.setDuration(recInfo.getDuration());
                         data.setDescription(recInfo.getDescription());
                         data.setTitle(recInfo.getTitle());
@@ -96,6 +95,8 @@ public class CollectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         data.setCover(cover);
                         data.setDate(recInfo.getData());
                         authorBean.setIcon(recInfo.getHeader());
+                        authorBean.setDescription(recInfo.getAuthorDes());
+                        authorBean.setName(recInfo.getName());
                         data.setAuthor(authorBean);
                         mEyesInfo.setData(data);
                         Intent intent = new Intent(context, VideoDetailPlayActivity.class);

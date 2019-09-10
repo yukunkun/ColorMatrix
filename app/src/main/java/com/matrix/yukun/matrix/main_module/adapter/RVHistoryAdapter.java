@@ -18,6 +18,7 @@ import com.matrix.yukun.matrix.main_module.activity.VideoDetailPlayActivity;
 import com.matrix.yukun.matrix.main_module.entity.EyesInfo;
 import com.matrix.yukun.matrix.main_module.entity.HistoryPlay;
 import com.matrix.yukun.matrix.util.DataUtils;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import org.litepal.crud.DataSupport;
 
@@ -45,8 +46,8 @@ public class RVHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if(holder instanceof MyHolder){
             final HistoryPlay historyPlay = historyPlayList.get(position);
-            ((MyHolder) holder).mTvTitle.setText(historyPlay.getTitle());
-            ((MyHolder) holder).mTvDes.setText(historyPlay.getDescription());
+            ((MyHolder) holder).mTvTitle.setText(historyPlay.getName());
+            ((MyHolder) holder).mTvDes.setText(historyPlay.getAuthorDes());
             ((MyHolder) holder).mTvTime.setText("发布："+ DataUtils.getDataTime(historyPlay.getData()));
             Glide.with(mContext).load(historyPlay.getCover()).into(((MyHolder) holder).mIvCover);
             ((MyHolder) holder).mImageView.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +64,7 @@ public class RVHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     EyesInfo mEyesInfo=new EyesInfo();
                     EyesInfo.DataBean data = new EyesInfo.DataBean();
                     data.setPlayUrl(historyPlay.getPlay_url());
-                    data.setSlogan(historyPlay.getName());
+                    data.setRemark(historyPlay.getName());
                     data.setDuration(historyPlay.getDuration());
                     data.setDescription(historyPlay.getDescription());
                     data.setTitle(historyPlay.getTitle());
@@ -74,6 +75,8 @@ public class RVHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     data.setCover(cover);
                     data.setDate(historyPlay.getData());
                     authorBean.setIcon(historyPlay.getHeader());
+                    authorBean.setName(historyPlay.getName());
+                    authorBean.setDescription(historyPlay.getAuthorDes());
                     data.setAuthor(authorBean);
                     mEyesInfo.setData(data);
                     Intent intent = new Intent(mContext, VideoDetailPlayActivity.class);

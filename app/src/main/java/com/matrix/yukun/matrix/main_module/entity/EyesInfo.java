@@ -28,6 +28,7 @@ public class EyesInfo extends DataSupport implements Serializable{
     private String slogan;
     private String icon;
     private String category;
+    private String remark;
 
     public String getType() {
         return type;
@@ -107,6 +108,14 @@ public class EyesInfo extends DataSupport implements Serializable{
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public static class DataBean extends DataSupport implements Serializable{
@@ -849,6 +858,24 @@ public class EyesInfo extends DataSupport implements Serializable{
                 public void setShielded(boolean shielded) {
                     this.shielded = shielded;
                 }
+            }
+
+            @Override
+            public String toString() {
+                return "AuthorBean{" +
+                        "id=" + id +
+                        ", icon='" + icon + '\'' +
+                        ", name='" + name + '\'' +
+                        ", description='" + description + '\'' +
+                        ", link='" + link + '\'' +
+                        ", latestReleaseTime=" + latestReleaseTime +
+                        ", videoNum=" + videoNum +
+                        ", adTrack=" + adTrack +
+                        ", follow=" + follow +
+                        ", shield=" + shield +
+                        ", approvedNotReadyVideoCount=" + approvedNotReadyVideoCount +
+                        ", ifPgc=" + ifPgc +
+                        '}';
             }
         }
 

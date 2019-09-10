@@ -45,7 +45,7 @@ public class RVVideoDetailAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if(holder instanceof MyHolder){
             EyesInfo.DataBean data = mEyesInfos.get(position).getData();
-            ((MyHolder) holder).mTvSlogn.setText(data.getSlogan());
+            ((MyHolder) holder).mTvSlogn.setText(data.getAuthor().getName());
             ((MyHolder) holder).mTvTitle.setText(data.getTitle());
             ((MyHolder) holder).mTvTime.setText("时长•"+getDuration(data.getDuration()));
             Glide.with(mContext).load(data.getCover().getDetail()).into(((MyHolder) holder).mIvCover);

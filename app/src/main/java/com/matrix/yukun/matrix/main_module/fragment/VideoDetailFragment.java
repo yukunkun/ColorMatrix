@@ -144,8 +144,8 @@ public class VideoDetailFragment extends BaseFragment implements View.OnClickLis
         mNextInt = mRandom.nextInt(10);
         EyesInfo.DataBean data = mEyesInfo.getData();
         Glide.with(getContext()).load(data.getAuthor().getIcon()).into(mCircleImageView);
-        mTvSlogn.setText(data.getSlogan());
-        mTvTitle.setText(data.getTitle());
+        mTvSlogn.setText(data.getAuthor().getName());
+        mTvTitle.setText(data.getAuthor().getDescription());
         mTvDetail.setText(data.getDescription());
         mTvTime.setText("发布于："+getTime(mEyesInfo.getData().getDate()));
         mTvStar.setText(mNextInt+"");
@@ -167,9 +167,10 @@ public class VideoDetailFragment extends BaseFragment implements View.OnClickLis
                 collectInfo.setHeader(mEyesInfo.getData().getAuthor().getIcon());
                 collectInfo.setCover(mEyesInfo.getData().getCover().getDetail());
                 collectInfo.setTitle(mEyesInfo.getData().getTitle());
-                collectInfo.setName(mEyesInfo.getData().getSlogan());
+                collectInfo.setName(mEyesInfo.getData().getAuthor().getName());
                 collectInfo.setNextUrl(mNextUrl);
                 collectInfo.setDescription(mEyesInfo.getData().getDescription());
+                collectInfo.setAuthorDes(mEyesInfo.getData().getAuthor().getDescription());
                 collectInfo.setData(mEyesInfo.getData().getDate());
                 collectInfo.setType(1);
                 collectInfo.setPlay_url(mEyesInfo.getData().getPlayUrl());
@@ -204,9 +205,10 @@ public class VideoDetailFragment extends BaseFragment implements View.OnClickLis
                 collectInfo.setHeader(mEyesInfo.getData().getAuthor().getIcon());
                 collectInfo.setCover(mEyesInfo.getData().getCover().getDetail());
                 collectInfo.setTitle(mEyesInfo.getData().getTitle());
-                collectInfo.setName(mEyesInfo.getData().getSlogan());
+                collectInfo.setName(mEyesInfo.getData().getAuthor().getName());
                 collectInfo.setNextUrl(mNextUrl);
                 collectInfo.setDescription(mEyesInfo.getData().getDescription());
+                collectInfo.setAuthorDes(mEyesInfo.getData().getAuthor().getDescription());
                 collectInfo.setData(mEyesInfo.getData().getDate());
                 collectInfo.setType(1);
                 collectInfo.setPlay_url(mEyesInfo.getData().getPlayUrl());

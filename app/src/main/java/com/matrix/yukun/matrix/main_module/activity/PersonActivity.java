@@ -203,9 +203,10 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 collectInfo.setHeader(mEyesInfo.getData().getAuthor().getIcon());
                 collectInfo.setCover(mEyesInfo.getData().getCover().getDetail());
                 collectInfo.setTitle(mEyesInfo.getData().getTitle());
-                collectInfo.setName(mEyesInfo.getData().getSlogan());
+                collectInfo.setName(mEyesInfo.getData().getAuthor().getName());
                 collectInfo.setNextUrl(mNextUrl);
-                collectInfo.setDescription(mEyesInfo.getData().getSlogan());
+                collectInfo.setDescription(mEyesInfo.getData().getAuthor().getName());
+                collectInfo.setAuthorDes(mEyesInfo.getData().getAuthor().getDescription());
                 collectInfo.setData(mEyesInfo.getData().getDate());
                 collectInfo.setType(1);
                 collectInfo.setPlay_url(mEyesInfo.getData().getPlayUrl());
@@ -226,9 +227,10 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 collectInfo.setHeader(mEyesInfo.getData().getAuthor().getIcon());
                 collectInfo.setCover(mEyesInfo.getData().getCover().getDetail());
                 collectInfo.setTitle(mEyesInfo.getData().getTitle());
-                collectInfo.setName(mEyesInfo.getData().getSlogan());
+                collectInfo.setName(mEyesInfo.getData().getAuthor().getName());
                 collectInfo.setNextUrl(mNextUrl);
-                collectInfo.setDescription(mEyesInfo.getData().getSlogan());
+                collectInfo.setDescription(mEyesInfo.getData().getAuthor().getName());
+                collectInfo.setAuthorDes(mEyesInfo.getData().getAuthor().getDescription());
                 collectInfo.setData(mEyesInfo.getData().getDate());
                 collectInfo.setType(1);
                 collectInfo.setPlay_url(mEyesInfo.getData().getPlayUrl());

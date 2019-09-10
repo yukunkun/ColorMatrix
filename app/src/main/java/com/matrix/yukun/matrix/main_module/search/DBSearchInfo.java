@@ -22,6 +22,8 @@ public class DBSearchInfo extends DataSupport {
     private String nextUrl;
     private long duration;
     private int searchType;
+    private String name;
+    private String authorDes;
 
     public static DBSearchInfo countToSearchInfo(EyesInfo eyesInfo, String nextUrl){
         EyesInfo.DataBean data = eyesInfo.getData();
@@ -29,7 +31,8 @@ public class DBSearchInfo extends DataSupport {
         dbSearchInfo.setVideoId(data.getId());
         dbSearchInfo.setTimeStamp(System.currentTimeMillis());
         dbSearchInfo.setTitle(data.getTitle());
-        dbSearchInfo.setSlogan(data.getSlogan());
+        dbSearchInfo.setName(data.getAuthor().getName());
+        dbSearchInfo.setAuthorDes(data.getAuthor().getDescription());
         dbSearchInfo.setDescription(data.getDescription());
         dbSearchInfo.setVideoImage(data.getCover().getDetail());
         dbSearchInfo.setPlayUrl(data.getPlayUrl());
@@ -47,7 +50,6 @@ public class DBSearchInfo extends DataSupport {
         EyesInfo.DataBean.AuthorBean authorBean = new EyesInfo.DataBean.AuthorBean();
         EyesInfo.DataBean data = new EyesInfo.DataBean();
         data.setPlayUrl(dbSearchInfo.getPlayUrl());
-        data.setSlogan(dbSearchInfo.getSlogan());
         data.setDuration((int) dbSearchInfo.getDuration());
         data.setDescription(dbSearchInfo.getDescription());
         data.setTitle(dbSearchInfo.getTitle());
@@ -55,6 +57,8 @@ public class DBSearchInfo extends DataSupport {
         data.setCover(cover);
         data.setDate(dbSearchInfo.getPublicTime());
         authorBean.setIcon(dbSearchInfo.getAvatar());
+        authorBean.setDescription(dbSearchInfo.getAuthorDes());
+        authorBean.setName(dbSearchInfo.getName());
         data.setAuthor(authorBean);
         eyesInfo.setData(data);
         return eyesInfo;
@@ -68,6 +72,13 @@ public class DBSearchInfo extends DataSupport {
         this.searchType = searchType;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getVideoId() {
         return videoId;
@@ -166,6 +177,13 @@ public class DBSearchInfo extends DataSupport {
         this.nextUrl = nextUrl;
     }
 
+    public String getAuthorDes() {
+        return authorDes;
+    }
+
+    public void setAuthorDes(String authorDes) {
+        this.authorDes = authorDes;
+    }
     @Override
     public String toString() {
         return "DBSearchInfo{" +

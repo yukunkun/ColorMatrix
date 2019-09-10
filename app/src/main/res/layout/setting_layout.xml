@@ -77,13 +77,13 @@
                         android:layout_marginLeft="20dp"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
-            <com.matrix.yukun.matrix.video_module.views.TagLayout android:layout_width="match_parent"
+            <com.matrix.yukun.matrix.main_module.views.TagLayout android:layout_width="match_parent"
                                              android:id="@+id/taglayout"
                                              android:visibility="gone"
                                              android:layout_marginLeft="10dp"
                                              android:layout_marginRight="10dp"
                                              android:layout_height="wrap_content">
-            </com.matrix.yukun.matrix.video_module.views.TagLayout>
+            </com.matrix.yukun.matrix.main_module.views.TagLayout>
 
             <LinearLayout android:layout_width="match_parent"
                           android:orientation="horizontal"
@@ -101,14 +101,14 @@
                         android:layout_marginLeft="20dp"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
-            <com.matrix.yukun.matrix.video_module.views.TagLayout android:layout_width="match_parent"
+            <com.matrix.yukun.matrix.main_module.views.TagLayout android:layout_width="match_parent"
                                              android:id="@+id/taglayoutScreen"
                                              android:visibility="gone"
                                              android:layout_marginLeft="10dp"
                                              android:layout_marginRight="10dp"
                                              android:layout_height="wrap_content">
 
-            </com.matrix.yukun.matrix.video_module.views.TagLayout>
+            </com.matrix.yukun.matrix.main_module.views.TagLayout>
             <LinearLayout android:layout_width="match_parent"
                           android:orientation="horizontal"
                           android:layout_height="50dp">

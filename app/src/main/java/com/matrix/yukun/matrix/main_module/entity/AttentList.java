@@ -18,6 +18,7 @@ public class AttentList extends DataSupport {
     private boolean isVideo;
     private int type;
     private int duration;
+    private String authorDes;
 
     public String getHeader() {
         return header;
@@ -108,19 +109,12 @@ public class AttentList extends DataSupport {
         this.duration = duration;
     }
 
-    public static void setHistoryInfo(EyesInfo eyesInfo, String nextUrl, int type){
-        AttentList collectInfo = new AttentList();
-        collectInfo.setHeader(eyesInfo.getData().getAuthor().getIcon());
-        collectInfo.setCover(eyesInfo.getData().getCover().getDetail());
-        collectInfo.setTitle(eyesInfo.getData().getTitle());
-        collectInfo.setName(eyesInfo.getData().getSlogan());
-        collectInfo.setNextUrl(nextUrl);
-        collectInfo.setDescription(eyesInfo.getData().getSlogan());
-        collectInfo.setData(eyesInfo.getData().getDate());
-        collectInfo.setDuration(eyesInfo.getData().getDuration());
-        collectInfo.setType(type);
-        collectInfo.setPlay_url(eyesInfo.getData().getPlayUrl());
-        collectInfo.save();
+    public String getAuthorDes() {
+        return authorDes;
+    }
+
+    public void setAuthorDes(String authorDes) {
+        this.authorDes = authorDes;
     }
 
     @Override

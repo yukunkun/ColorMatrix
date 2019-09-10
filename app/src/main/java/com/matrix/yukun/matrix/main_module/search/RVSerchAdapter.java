@@ -70,12 +70,12 @@ public class RVSerchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             } else {
                 ((HeaderHolder) holder).mTVTitle.setText(dbSearchInfo.getTitle());
             }
-            if (!TextUtils.isEmpty(dbSearchInfo.getSlogan()) && dbSearchInfo.getSlogan().indexOf(query) != -1) {
-                SpannableString des = new SpannableString(dbSearchInfo.getSlogan());
-                des.setSpan(new ForegroundColorSpan(Color.parseColor("#c8ff4081")), dbSearchInfo.getSlogan().indexOf(query), dbSearchInfo.getSlogan().indexOf(query) + query.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (!TextUtils.isEmpty(dbSearchInfo.getAuthorDes()) && dbSearchInfo.getAuthorDes().indexOf(query) != -1) {
+                SpannableString des = new SpannableString(dbSearchInfo.getAuthorDes());
+                des.setSpan(new ForegroundColorSpan(Color.parseColor("#c8ff4081")), dbSearchInfo.getAuthorDes().indexOf(query), dbSearchInfo.getAuthorDes().indexOf(query) + query.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ((HeaderHolder) holder).mTVDes.setText(des);
             } else {
-                ((HeaderHolder) holder).mTVDes.setText(dbSearchInfo.getSlogan());
+                ((HeaderHolder) holder).mTVDes.setText(dbSearchInfo.getAuthorDes());
             }
             Glide.with(mContext).load(dbSearchInfo.getAvatar()).into(((HeaderHolder) holder).mCircleImageView);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +93,7 @@ public class RVSerchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }else {
                 ((VideoHolder) holder).mTvDes.setText(!TextUtils.isEmpty(dbSearchInfo.getDescription())?dbSearchInfo.getDescription():"");
             }
-            ((VideoHolder) holder).mTvslogan.setText(dbSearchInfo.getSlogan());
+            ((VideoHolder) holder).mTvslogan.setText(dbSearchInfo.getAuthorDes());
             Glide.with(mContext).load(dbSearchInfo.getAvatar()).into(((VideoHolder) holder).mCircleImageView);
             Glide.with(mContext).load(dbSearchInfo.getVideoImage()).into(((VideoHolder) holder).mIvCover);
             holder.itemView.setOnClickListener(new View.OnClickListener() {

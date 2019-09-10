@@ -127,13 +127,13 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }else if(holder instanceof MHolder){
             final EyesInfo eyesInfo = eyesInfoList.get(position);
             if(eyesInfo.getData()!=null){
-                ((MHolder) holder).mTvName.setText(eyesInfo.getData().getSlogan());
+                ((MHolder) holder).mTvName.setText(eyesInfo.getData().getAuthor().getName());
                 ((MHolder) holder).mTvTitle.setText(eyesInfo.getData().getDescription());
                 GlideUtil.loadPlaceholderImage(eyesInfo.getData().getCover().getDetail(),((MHolder) holder).mImCover);
                 GlideUtil.loadCircleBoardImage(eyesInfo.getData().getAuthor().getIcon(),((MHolder) holder).mCiHead);
                 ((MHolder) holder).mTvPlayTimes.setText(eyesInfo.getData().getCategory());
             }else if(eyesInfo.getCover()!=null){
-                ((MHolder) holder).mTvName.setText(eyesInfo.getSlogan());
+                ((MHolder) holder).mTvName.setText(eyesInfo.getRemark());
                 ((MHolder) holder).mTvTitle.setText(eyesInfo.getDescription());
                 GlideUtil.loadPlaceholderImage(eyesInfo.getCover(),((MHolder) holder).mImCover);
                 GlideUtil.loadCircleBoardImage(eyesInfo.getIcon(),((MHolder) holder).mCiHead);

@@ -18,6 +18,7 @@ public class HistoryPlay extends DataSupport {
     private boolean isVideo;
     private int type;
     private int duration;
+    private String authorDes;
 
     public String getHeader() {
         return header;
@@ -104,6 +105,14 @@ public class HistoryPlay extends DataSupport {
         return duration;
     }
 
+    public String getAuthorDes() {
+        return authorDes;
+    }
+
+    public void setAuthorDes(String authorDes) {
+        this.authorDes = authorDes;
+    }
+
     public void setDuration(int duration) {
         this.duration = duration;
     }
@@ -113,9 +122,10 @@ public class HistoryPlay extends DataSupport {
         collectInfo.setHeader(eyesInfo.getData().getAuthor().getIcon());
         collectInfo.setCover(eyesInfo.getData().getCover().getDetail());
         collectInfo.setTitle(eyesInfo.getData().getTitle());
-        collectInfo.setName(eyesInfo.getData().getSlogan());
+        collectInfo.setName(eyesInfo.getData().getAuthor().getName());
+        collectInfo.setAuthorDes(eyesInfo.getData().getAuthor().getDescription());
         collectInfo.setNextUrl(nextUrl);
-        collectInfo.setDescription(eyesInfo.getData().getSlogan());
+        collectInfo.setDescription(eyesInfo.getData().getDescription());
         collectInfo.setData(eyesInfo.getData().getDate());
         collectInfo.setDuration(eyesInfo.getData().getDuration());
         collectInfo.setType(type);

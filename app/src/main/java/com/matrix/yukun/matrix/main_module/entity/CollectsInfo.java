@@ -19,6 +19,7 @@ public class CollectsInfo extends DataSupport {
     private boolean isVideo;
     private int type;
     private int duration;
+    private String authorDes;
 
     public int getType() {
         return type;
@@ -116,13 +117,22 @@ public class CollectsInfo extends DataSupport {
         this.duration = duration;
     }
 
+    public String getAuthorDes() {
+        return authorDes;
+    }
+
+    public void setAuthorDes(String authorDes) {
+        this.authorDes = authorDes;
+    }
+
     public static void setCollectInfo(EyesInfo eyesInfo, String nextUrl){
         CollectsInfo collectInfo = new CollectsInfo();
         collectInfo.setHeader(eyesInfo.getData().getAuthor().getIcon());
         collectInfo.setCover(eyesInfo.getData().getCover().getDetail());
         collectInfo.setTitle(eyesInfo.getData().getTitle());
-        collectInfo.setName(eyesInfo.getData().getSlogan());
+        collectInfo.setName(eyesInfo.getData().getAuthor().getName());
         collectInfo.setNextUrl(nextUrl);
+        collectInfo.setAuthorDes(eyesInfo.getData().getAuthor().getDescription());
         collectInfo.setDescription(eyesInfo.getData().getDescription());
         collectInfo.setData(eyesInfo.getData().getDate());
         collectInfo.setDuration(eyesInfo.getData().getDuration());
