@@ -31,11 +31,8 @@ import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.floatingview.FloatingViewManager;
 import com.matrix.yukun.matrix.util.NetStates;
-import com.matrix.yukun.matrix.util.log.LogUtil;
-
 import org.greenrobot.eventbus.EventBus;
 import org.litepal.crud.DataSupport;
-
 import java.util.ArrayList;
 import java.util.List;
 
