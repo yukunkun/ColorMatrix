@@ -53,18 +53,14 @@
             android:background="@color/color_whit"
             app:elevation="0dp"
             android:fitsSystemWindows="true"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <RelativeLayout
+            <com.bigkoo.convenientbanner.ConvenientBanner
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.bigkoo.convenientbanner.ConvenientBanner
-                    android:layout_width="match_parent"
-                    android:id="@+id/con_banner"
-                    app:canLoop="true"
-                    android:layout_height="160dp"/>
-            </RelativeLayout>
+                android:id="@+id/con_banner"
+                app:canLoop="true"
+                android:layout_height="160dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
@@ -94,12 +90,12 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_list"
-            android:background="@color/colorBackground"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_list"
+                android:background="@color/colorBackground"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </android.support.v7.widget.RecyclerView>
         </android.support.v4.widget.SwipeRefreshLayout>
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

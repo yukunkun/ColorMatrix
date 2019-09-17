@@ -160,6 +160,7 @@ public class AboutUsFragment extends BaseFragment {
             GlideUtil.loadCircleBoardImage(MyApp.userInfo.getImg(),mIvIcon);
             mTvName.setText(MyApp.getUserInfo().getName());
             //高斯模糊
+            GlideUtil.loadBlurImage(MyApp.getUserInfo().getImg(),mIvBury);
         }
     }
 
