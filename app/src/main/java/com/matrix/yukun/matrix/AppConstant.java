@@ -22,7 +22,9 @@ public class AppConstant {
     public static final String VIDEOPATH = PATH+"/video";
     public static final String VOICEPATH = PATH+"/voice";
     public static final String NOTEPATH = PATH+"/note";
-    public static final String HEWEATHER_KEY = "449354b040d04805a3737fbcdb3c1339"; //
+    public static final String HE_WEATHER_ID = "HE1909180949201077";
+    public static final String HEWEATHER_KEY = "449354b040d04805a3737fbcdb3c1339";
+    public static final String HE_WEATHER_SDK = "e6cc69c899f8467ead0f8c046274c851";
     public static final String APP_STORE="https://android.myapp.com/myapp/detail.htm?apkName=com.matrix.yukun.matrix";
     public static final String APP_ICON_URl="https://upload-images.jianshu.io/upload_images/3001453-9261aeda99deaa4d.png";
     public static final String APPID="1105962710";

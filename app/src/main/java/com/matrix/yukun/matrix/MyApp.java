@@ -32,6 +32,7 @@ import org.litepal.LitePalApplication;
 
 import java.util.List;
 
+import interfaces.heweather.com.interfacesmodule.view.HeConfig;
 import okhttp3.OkHttpClient;
 
 /**
@@ -62,7 +63,8 @@ public class MyApp extends LitePalApplication{
 //            return;
 //        }
 //        refWatcher = LeakCanary.install(this);//获取一个 Watcher
-
+        HeConfig.init(AppConstant.HE_WEATHER_ID, AppConstant.HE_WEATHER_SDK);
+        HeConfig.switchToFreeServerNode();
         CookieJarImpl cookieJar = new CookieJarImpl(new PersistentCookieStore(getApplicationContext()));
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .cookieJar(cookieJar)

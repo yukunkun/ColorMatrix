@@ -57,6 +57,7 @@ import com.matrix.yukun.matrix.selfview.guideview.SimpleComponent;
 import com.matrix.yukun.matrix.selfview.guideview.SimpleComponent2;
 import com.matrix.yukun.matrix.tool_module.btmovie.SpecialActivity;
 import com.matrix.yukun.matrix.tool_module.weather.WeatherActivity;
+import com.matrix.yukun.matrix.tool_module.weather.activity.HeWeatherActivity;
 import com.matrix.yukun.matrix.util.CityPosition;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -384,7 +385,8 @@ public class PlayFragment extends BaseFragment {
         } else if (i == R.id.iv_update) {
 
         } else if (i == R.id.tv_weather) {
-            WeatherActivity.start(getContext());
+            HeWeatherActivity.start(getContext());
+//            WeatherActivity.start(getContext());
         } else if (i == R.id.rl_main) {
             mViewpager.setCurrentItem(0);
             closeDrawLayout();

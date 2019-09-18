@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -23,6 +24,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.selfview.BMoveView;
@@ -33,6 +35,7 @@ import com.matrix.yukun.matrix.tool_module.weather.fragment.TodayWeathFrag;
 import com.matrix.yukun.matrix.tool_module.weather.fragment.TomorrowWeathFrag;
 import com.matrix.yukun.matrix.tool_module.weather.present.WeatherPreImpl;
 import com.matrix.yukun.matrix.util.AnimUtils;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,6 +45,13 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
+import interfaces.heweather.com.interfacesmodule.bean.Code;
+import interfaces.heweather.com.interfacesmodule.bean.Lang;
+import interfaces.heweather.com.interfacesmodule.bean.Unit;
+import interfaces.heweather.com.interfacesmodule.bean.weather.lifestyle.Lifestyle;
+import interfaces.heweather.com.interfacesmodule.bean.weather.now.Now;
+import interfaces.heweather.com.interfacesmodule.bean.weather.now.NowBase;
+import interfaces.heweather.com.interfacesmodule.view.HeWeather;
 
 public class WeatherActivity extends AppCompatActivity implements WeatherPreImpl {
 

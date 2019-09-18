@@ -63,9 +63,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data android:name="com.amap.api.v2.apikey"
-            android:value="6255ee43c977c10b8ec24f8b1bb1649d">
-        </meta-data>
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="6255ee43c977c10b8ec24f8b1bb1649d"></meta-data>
         <meta-data
             android:name="CHANNEL"
             android:value="${CHANNEL_VALUE}" />
@@ -75,13 +76,12 @@
         <meta-data
             android:name="IFLYTEK_CHANNEL"
             android:value="应用宝" /> <!-- 配置实时壁纸Service -->
-        <service android:name="com.amap.api.location.APSService">
-
-        </service>
+        <service android:name="com.amap.api.location.APSService"></service>
         <service
             android:name=".tool_module.deskwallpaper.wallpaper.CameraLiveWallpaper"
             android:label="@string/wapper"
             android:permission="android.permission.BIND_WALLPAPER">
+
             <!-- 为实时壁纸配置intent-filter -->
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService" />
@@ -91,11 +91,11 @@
                 android:name="android.service.wallpaper"
                 android:resource="@xml/livewallpaper" />
         </service>
-
         <service
             android:name=".tool_module.deskwallpaper.wallpaper.ClockNormalPaper"
             android:label="@string/clock"
             android:permission="android.permission.BIND_WALLPAPER">
+
             <!-- 为实时壁纸配置intent-filter -->
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService" />
@@ -104,12 +104,12 @@
             <meta-data
                 android:name="android.service.wallpaper"
                 android:resource="@xml/lockwallpaper" />
-        </service>
-        <!--十二时辰壁纸-->
+        </service> <!-- 十二时辰壁纸 -->
         <service
             android:name=".tool_module.deskwallpaper.wallpaper.ClockTimePaper"
             android:label="@string/clocktime"
             android:permission="android.permission.BIND_WALLPAPER">
+
             <!-- 为实时壁纸配置intent-filter -->
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService" />
@@ -118,12 +118,12 @@
             <meta-data
                 android:name="android.service.wallpaper"
                 android:resource="@xml/lockwallpaper" />
-        </service>
-        <!--方形壁纸-->
+        </service> <!-- 方形壁纸 -->
         <service
             android:name=".tool_module.deskwallpaper.wallpaper.ClockRectPaper"
             android:label="@string/clockrect"
             android:permission="android.permission.BIND_WALLPAPER">
+
             <!-- 为实时壁纸配置intent-filter -->
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService" />
@@ -138,9 +138,7 @@
         <service android:name=".download_module.service.DownloadNotificationService" />
         <service
             android:name="com.qq.e.comm.DownloadService"
-            android:exported="false" />
-
-        <!-- 请开发者注意字母的大小写，ADActivity，而不是AdActivity -->
+            android:exported="false" /> <!-- 请开发者注意字母的大小写，ADActivity，而不是AdActivity -->
         <activity
             android:name="com.qq.e.ads.ADActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
@@ -158,8 +156,10 @@
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="tencent100371282" />
             </intent-filter>
         </activity>
@@ -195,11 +195,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/camera" />
         </provider>
+
         <activity
             android:name=".tool_module.weather.WeatherActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".BaseActivity"/>
+        <activity android:name=".BaseActivity" />
         <activity
             android:name=".tool_module.gesture.GestureActivity"
             android:screenOrientation="portrait" />
@@ -215,8 +215,9 @@
         <activity
             android:name=".tool_module.videorecord.VideoFileActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".tool_module.videorecord.PhotoViewActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".tool_module.videorecord.PhotoViewActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".tool_module.videorecord.VideoPlayActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -246,8 +247,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".main_module.activity.PlayMainActivity"
-            android:screenOrientation="portrait" />
-        <!--android:launchMode="singleTop"-->
+            android:screenOrientation="portrait" /> <!-- android:launchMode="singleTop" -->
         <activity
             android:name=".main_module.activity.ToolsActivity"
             android:screenOrientation="portrait" />
@@ -414,7 +414,8 @@
         <activity
             android:name=".gaia_module.activity.GaiaPersonActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".gaia_module.activity.RVTestActivity"
+        <activity
+            android:name=".gaia_module.activity.RVTestActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tool_module.deskwallpaper.DeskActivity"
@@ -425,7 +426,10 @@
         <activity
             android:name=".tool_module.deskwallpaper.activity.ClockRectActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".tool_module.deskwallpaper.activity.ClockNormal1Activity"
+        <activity
+            android:name=".tool_module.deskwallpaper.activity.ClockNormal1Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".tool_module.weather.activity.HeWeatherActivity"
             android:screenOrientation="portrait"/>
     </application>
 
