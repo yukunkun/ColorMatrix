@@ -14,6 +14,7 @@
         <ImageView
             android:id="@+id/image"
             android:layout_marginLeft="2dp"
+            android:padding="@dimen/dimens_3"
             android:src="@mipmap/ic_explore_game_pressed"
             android:layout_width="@dimen/dimens_40"
             android:layout_height="@dimen/dimens_40" />

@@ -23,6 +23,7 @@ import com.matrix.yukun.matrix.tool_module.weather.adapter.ConfAdapter;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.RVFutureAdapter;
 import com.matrix.yukun.matrix.tool_module.weather.bean.OnEventpos;
 import com.matrix.yukun.matrix.util.AnimUtils;
+import com.matrix.yukun.matrix.util.DataUtils;
 import com.matrix.yukun.matrix.util.Notifications;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -114,6 +115,10 @@ public class HeWeatherActivity extends BaseActivity {
     AVLoadingIndicatorView avLoad;
     @BindView(R.id.iv_icon)
     ImageView ivIcon;
+    @BindView(R.id.tv_data)
+    TextView tvData;
+    @BindView(R.id.tv_temp)
+    TextView tvTemp;
     private GestureDetector detector;
     private boolean animTag;
     private LinearLayoutManager linearLayoutManager;
@@ -239,6 +244,10 @@ public class HeWeatherActivity extends BaseActivity {
 
             @Override
             public void onSuccess(AirNow airNow) {
+                if (Code.OK.getCode().equalsIgnoreCase(airNow.getStatus())) {
+                    tvData.setText(DataUtils.getTime(System.currentTimeMillis(),"MM月dd日")+" "+airNow.getAir_now_city().getQlty());
+//                    tvTemp.setText(airNow.getAir_now_city().getQlty());
+                }
                 LogUtil.i("=======airNow", new Gson().toJson(airNow));
             }
         });

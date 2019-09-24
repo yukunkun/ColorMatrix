@@ -14,6 +14,7 @@
         <ImageView
             android:id="@+id/iv_icon"
             android:layout_marginLeft="2dp"
+            android:padding="@dimen/dimens_3"
             android:layout_centerVertical="true"
             android:src="@mipmap/icon_weather_fut"
             android:layout_width="@dimen/dimens_40"
