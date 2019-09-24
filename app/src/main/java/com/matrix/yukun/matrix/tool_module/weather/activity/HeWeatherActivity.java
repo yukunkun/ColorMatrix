@@ -25,6 +25,7 @@ import com.matrix.yukun.matrix.tool_module.weather.bean.OnEventpos;
 import com.matrix.yukun.matrix.util.AnimUtils;
 import com.matrix.yukun.matrix.util.Notifications;
 import com.matrix.yukun.matrix.util.log.LogUtil;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -109,6 +110,10 @@ public class HeWeatherActivity extends BaseActivity {
     ImageView image;
     @BindView(R.id.scrollListView)
     NoScrollListView scrollListView;
+    @BindView(R.id.av_load)
+    AVLoadingIndicatorView avLoad;
+    @BindView(R.id.iv_icon)
+    ImageView ivIcon;
     private GestureDetector detector;
     private boolean animTag;
     private LinearLayoutManager linearLayoutManager;
@@ -136,7 +141,7 @@ public class HeWeatherActivity extends BaseActivity {
         mRvFutureAdapter = new RVFutureAdapter(this, mForecastBase);
         mRVFuture.setLayoutManager(linearLayoutManager);
         mRVFuture.setAdapter(mRvFutureAdapter);
-        mConfAdapter=new ConfAdapter(this,mLifestyleBases);
+        mConfAdapter = new ConfAdapter(this, mLifestyleBases);
         scrollListView.setAdapter(mConfAdapter);
         OverScrollDecoratorHelper.setUpOverScroll(mRVFuture, LinearLayoutManager.VERTICAL);
     }
@@ -152,6 +157,7 @@ public class HeWeatherActivity extends BaseActivity {
 
             @Override
             public void onSuccess(Now now) {
+                avLoad.hide();
                 LogUtil.i("=======now", new Gson().toJson(now));
                 if (Code.OK.getCode().equalsIgnoreCase(now.getStatus())) {
                     NowBase nowNow = now.getNow();
@@ -324,5 +330,4 @@ public class HeWeatherActivity extends BaseActivity {
                 break;
         }
     }
-
 }

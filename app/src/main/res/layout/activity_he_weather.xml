@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_bg"
     tools:context=".tool_module.weather.activity.HeWeatherActivity">
     <ImageView
@@ -10,6 +11,12 @@
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/av_load"
+        android:layout_centerInParent="true"
+        app:indicatorColor="@color/green_btn"
+        android:layout_width="@dimen/dimens_50"
+        android:layout_height="@dimen/dimens_50" />
     <RelativeLayout
         android:id="@+id/rl_title"
         android:layout_width="match_parent"
