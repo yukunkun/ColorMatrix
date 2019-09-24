@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/color_back_more"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <View
+        android:background="@color/color_81e9e9e9"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_45">
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_marginLeft="2dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_weather_fut"
+            android:layout_width="@dimen/dimens_40"
+            android:layout_height="@dimen/dimens_40" />
+        <TextView
+            android:text="未来天气:"
+            android:textSize="18sp"
+            android:layout_toRightOf="@+id/iv_icon"
+            android:textColor="@color/color_b9b9b9"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_future"
+            android:padding="@dimen/dimens_5"
+            android:src="@mipmap/titlebar_back_icon"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/dimens_25"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:text="未来15日温度:"
+            android:textSize="14sp"
+            android:layout_toLeftOf="@+id/iv_future"
+            android:textColor="@color/color_b9b9b9"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <View
+        android:background="@color/color_81e9e9e9"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:background="@color/color_81e9e9e9"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+</LinearLayout>

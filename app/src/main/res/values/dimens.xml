@@ -46,4 +46,6 @@
     <dimen name="calendar_min_distance">5dp</dimen>
     <dimen name="auto_scroll_distance">15dp</dimen>
     <integer name="calendar_text_size">13</integer>
+    <dimen name="weather_text_size">15sp</dimen>
+
 </resources>

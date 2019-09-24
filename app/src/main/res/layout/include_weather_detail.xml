@@ -8,12 +8,12 @@
     <LinearLayout
         android:layout_weight="3"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_80">
+        android:layout_height="@dimen/dimens_60">
         <TextView
             android:id="@+id/today_1"
             android:gravity="center"
             android:layout_weight="1"
-            android:textSize="20sp"
+            android:textSize="@dimen/weather_text_size"
             android:paddingLeft="3dp"
             android:paddingRight="3dp"
             android:background="@color/color_back"
@@ -25,7 +25,7 @@
             android:id="@+id/today_2"
             android:gravity="center"
             android:layout_weight="1"
-            android:textSize="20sp"
+            android:textSize="@dimen/weather_text_size"
             android:paddingLeft="3dp"
             android:paddingRight="3dp"
             android:textColor="@color/color_whit"
@@ -38,7 +38,7 @@
             android:id="@+id/today_3"
             android:gravity="center"
             android:layout_weight="1"
-            android:textSize="20sp"
+            android:textSize="@dimen/weather_text_size"
             android:paddingLeft="3dp"
             android:paddingRight="3dp"
             android:textColor="@color/color_whit"
@@ -51,12 +51,12 @@
         android:layout_marginTop="1dp"
         android:layout_weight="3"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_80">
+        android:layout_height="@dimen/dimens_60">
         <TextView
             android:id="@+id/today_4"
             android:gravity="center"
             android:layout_weight="1"
-            android:textSize="20sp"
+            android:textSize="@dimen/weather_text_size"
             android:background="@color/color_back"
             android:textColor="@color/color_whit"
             android:layout_width="0dp"
@@ -66,7 +66,7 @@
             android:id="@+id/today_5"
             android:gravity="center"
             android:layout_weight="1"
-            android:textSize="20sp"
+            android:textSize="@dimen/weather_text_size"
             android:textColor="@color/color_whit"
             android:background="@color/color_back"
             android:layout_width="0dp"
@@ -77,7 +77,7 @@
             android:id="@+id/today_6"
             android:gravity="center"
             android:layout_weight="1"
-            android:textSize="20sp"
+            android:textSize="@dimen/weather_text_size"
             android:textColor="@color/color_whit"
             android:background="@color/color_back"
             android:layout_width="0dp"
@@ -89,12 +89,12 @@
         android:layout_marginTop="@dimen/dimens_20"
         android:layout_weight="3"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_60">
+        android:layout_height="@dimen/dimens_50">
         <TextView
             android:id="@+id/today_power_1"
             android:gravity="center"
             android:layout_weight="1"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:background="@color/color_back"
             android:textColor="@color/color_whit"
             android:layout_width="0dp"
@@ -104,7 +104,7 @@
             android:id="@+id/today_power_2"
             android:gravity="center"
             android:layout_weight="1"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/color_whit"
             android:background="@color/color_back"
             android:layout_width="0dp"
@@ -115,7 +115,7 @@
             android:id="@+id/today_power_3"
             android:gravity="center"
             android:layout_weight="1"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/color_whit"
             android:background="@color/color_back"
             android:layout_width="0dp"

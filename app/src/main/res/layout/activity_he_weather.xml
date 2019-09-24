@@ -1,37 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:id="@+id/ll_bg"
     tools:context=".tool_module.weather.activity.HeWeatherActivity">
+    <ImageView
+        android:id="@+id/iv_bg"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <RelativeLayout
         android:id="@+id/rl_title"
         android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
         android:layout_height="@dimen/dimens_50">
         <ImageView
             android:id="@+id/iv_back"
-            android:padding="@dimen/dimens_10"
+            android:padding="@dimen/dimens_8"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/actionBarItemBackground"
             android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
-            android:layout_width="@dimen/dimens_50"
-            android:layout_height="match_parent" />
+            android:layout_width="@dimen/dimens_40"
+            android:layout_height="@dimen/dimens_50" />
         <ImageView
             android:id="@+id/iv_main"
             android:padding="@dimen/dimens_10"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/actionBarItemBackground"
             android:layout_toRightOf="@+id/iv_back"
             android:src="@mipmap/icon_main"
-            android:layout_width="@dimen/dimens_50"
-            android:layout_height="match_parent" />
+            android:layout_width="@dimen/dimens_40"
+            android:layout_height="@dimen/dimens_40" />
         <ImageView
             android:id="@+id/iv_search"
             android:padding="@dimen/dimens_10"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/actionBarItemBackground"
             android:layout_alignParentRight="true"
             android:src="@mipmap/icon_gaia_search"
-            android:layout_width="@dimen/dimens_50"
-            android:layout_height="match_parent" />
+            android:layout_width="@dimen/dimens_45"
+            android:layout_height="@dimen/dimens_45" />
     </RelativeLayout>
     <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_marginTop="@dimen/dimens_50"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -46,11 +60,20 @@
             <include
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 layout="@layout/include_weather_hours"/>
             <include
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 layout="@layout/include_weather_detail"/>
+            <include
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                layout="@layout/include_weather_tomorrow"/>
+            <include
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                layout="@layout/include_weather_confortable"/>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</RelativeLayout>

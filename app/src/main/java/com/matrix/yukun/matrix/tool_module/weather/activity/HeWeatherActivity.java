@@ -2,29 +2,48 @@ package com.matrix.yukun.matrix.tool_module.weather.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.selfview.NoScrollListView;
+import com.matrix.yukun.matrix.tool_module.weather.adapter.ConfAdapter;
+import com.matrix.yukun.matrix.tool_module.weather.adapter.RVFutureAdapter;
+import com.matrix.yukun.matrix.tool_module.weather.bean.OnEventpos;
+import com.matrix.yukun.matrix.util.AnimUtils;
+import com.matrix.yukun.matrix.util.Notifications;
 import com.matrix.yukun.matrix.util.log.LogUtil;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import interfaces.heweather.com.interfacesmodule.bean.Code;
-import interfaces.heweather.com.interfacesmodule.bean.Lang;
-import interfaces.heweather.com.interfacesmodule.bean.Unit;
-import interfaces.heweather.com.interfacesmodule.bean.air.forecast.AirForecast;
 import interfaces.heweather.com.interfacesmodule.bean.air.now.AirNow;
-import interfaces.heweather.com.interfacesmodule.bean.weather.hourly.Hourly;
+import interfaces.heweather.com.interfacesmodule.bean.weather.forecast.Forecast;
+import interfaces.heweather.com.interfacesmodule.bean.weather.forecast.ForecastBase;
 import interfaces.heweather.com.interfacesmodule.bean.weather.lifestyle.Lifestyle;
+import interfaces.heweather.com.interfacesmodule.bean.weather.lifestyle.LifestyleBase;
 import interfaces.heweather.com.interfacesmodule.bean.weather.now.Now;
 import interfaces.heweather.com.interfacesmodule.bean.weather.now.NowBase;
 import interfaces.heweather.com.interfacesmodule.view.HeWeather;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class HeWeatherActivity extends BaseActivity {
 
@@ -76,8 +95,28 @@ public class HeWeatherActivity extends BaseActivity {
     TextView todayPower3;
     @BindView(R.id.power_lin)
     LinearLayout powerLin;
-
+    @BindView(R.id.scrollview)
+    ScrollView scrollview;
+    @BindView(R.id.iv_bg)
+    ImageView ivBg;
+    @BindView(R.id.ll_bg)
+    RelativeLayout llBg;
+    @BindView(R.id.recyclerview)
+    RecyclerView mRVFuture;
+    @BindView(R.id.iv_future)
+    ImageView ivFuture;
+    @BindView(R.id.image)
+    ImageView image;
+    @BindView(R.id.scrollListView)
+    NoScrollListView scrollListView;
+    private GestureDetector detector;
+    private boolean animTag;
+    private LinearLayoutManager linearLayoutManager;
     private String mCity = "成都";
+    private List<ForecastBase> mForecastBase = new ArrayList<>();
+    private List<LifestyleBase> mLifestyleBases = new ArrayList<>();
+    private RVFutureAdapter mRvFutureAdapter;
+    private ConfAdapter mConfAdapter;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, HeWeatherActivity.class);
@@ -91,7 +130,15 @@ public class HeWeatherActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        detector = new GestureDetector(this, new listener());
+        linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mRvFutureAdapter = new RVFutureAdapter(this, mForecastBase);
+        mRVFuture.setLayoutManager(linearLayoutManager);
+        mRVFuture.setAdapter(mRvFutureAdapter);
+        mConfAdapter=new ConfAdapter(this,mLifestyleBases);
+        scrollListView.setAdapter(mConfAdapter);
+        OverScrollDecoratorHelper.setUpOverScroll(mRVFuture, LinearLayoutManager.VERTICAL);
     }
 
     @Override
@@ -106,26 +153,61 @@ public class HeWeatherActivity extends BaseActivity {
             @Override
             public void onSuccess(Now now) {
                 LogUtil.i("=======now", new Gson().toJson(now));
-                if(Code.OK.getCode().equalsIgnoreCase(now.getStatus())){
+                if (Code.OK.getCode().equalsIgnoreCase(now.getStatus())) {
                     NowBase nowNow = now.getNow();
-                    tvTemperature.setText(nowNow.getTmp()+"℃");
-
+                    String loc = now.getUpdate().getLoc();
+                    todayTime.setText(loc);
+                    todayClass.setText(nowNow.getCond_txt());
+                    if (nowNow.getCond_txt().length() <= 4 && nowNow.getCond_txt().length() >= 3) {
+                        todayClass.setTextSize(34);
+                    } else if (nowNow.getCond_txt().length() > 4) {
+                        todayClass.setTextSize(30);
+                    }
+                    tvTemperature.setText(nowNow.getTmp() + "℃");
+                    today1.setText("体感温度:" + nowNow.getTmp() + "℃");
+                    today2.setText("相对湿度:" + nowNow.getHum() + "%");
+                    today3.setText("降水量:" + nowNow.getPcpn() + "mm");
+                    today4.setText("气压:" + nowNow.getPres());
+                    today5.setText("温度:" + nowNow.getTmp());
+                    today6.setText("能见度:" + nowNow.getVis() + "km");
+                    todayPower1.setText("风向:" + nowNow.getWind_dir());
+                    todayPower2.setText("风力:" + nowNow.getWind_deg());
+                    todayPower3.setText("风速:" + nowNow.getWind_spd() + "kmph");
+                    String code = nowNow.getCond_code();
+                    EventBus.getDefault().post(new OnEventpos(Integer.valueOf(code)));
+                    updateBg(code);
+                    Notifications.start(HeWeatherActivity.this, mCity + ":" + nowNow.getFl() + "℃");
                 }
             }
         });
 
-        HeWeather.getWeatherHourly(this, mCity, Lang.CHINESE_SIMPLIFIED , Unit.METRIC , new HeWeather.OnResultWeatherHourlyBeanListener() {
+//        HeWeather.getWeatherHourly(this, mCity, Lang.CHINESE_SIMPLIFIED, Unit.METRIC, new HeWeather.OnResultWeatherHourlyBeanListener() {
+//            @Override
+//            public void onError(Throwable throwable) {
+//                LogUtil.i("=======throwable", throwable.toString());
+//            }
+//
+//            @Override
+//            public void onSuccess(Hourly hourly) {
+//                LogUtil.i("=======hourly", new Gson().toJson(hourly));
+//            }
+//        });
+        HeWeather.getWeatherForecast(this, mCity, new HeWeather.OnResultWeatherForecastBeanListener() {
             @Override
             public void onError(Throwable throwable) {
                 LogUtil.i("=======throwable", throwable.toString());
             }
 
             @Override
-            public void onSuccess(Hourly hourly) {
-                LogUtil.i("=======hourly", new Gson().toJson(hourly));
+            public void onSuccess(Forecast forecast) {
+                if (Code.OK.getCode().equalsIgnoreCase(forecast.getStatus())) {
+                    mForecastBase.clear();
+                    mForecastBase.addAll(forecast.getDaily_forecast());
+                    mRvFutureAdapter.notifyDataSetChanged();
+                }
+                LogUtil.i("=======forecast", new Gson().toJson(forecast));
             }
         });
-
         HeWeather.getWeatherLifeStyle(this, mCity, new HeWeather.OnResultWeatherLifeStyleBeanListener() {
             @Override
             public void onError(Throwable throwable) {
@@ -134,8 +216,12 @@ public class HeWeatherActivity extends BaseActivity {
 
             @Override
             public void onSuccess(Lifestyle lifestyle) {
+                if (Code.OK.getCode().equalsIgnoreCase(lifestyle.getStatus())) {
+                    mLifestyleBases.clear();
+                    mLifestyleBases.addAll(lifestyle.getLifestyle());
+                    mConfAdapter.notifyDataSetChanged();
+                }
                 LogUtil.i("=======lifestyle", new Gson().toJson(lifestyle));
-
             }
         });
 
@@ -152,11 +238,77 @@ public class HeWeatherActivity extends BaseActivity {
         });
     }
 
+    private void updateBg(String code) {
+        int pos = Integer.valueOf(code);
+        if (pos < 102) {
+            Glide.with(this).load(R.mipmap.wea_chuqing)
+                    .into(ivBg);
+        } else if (pos <= 104) {
+            Glide.with(this).load(R.mipmap.wea_ying)
+                    .into(ivBg);
+        } else if (pos <= 213) {
+            Glide.with(this).load(R.mipmap.wea_cloud)
+                    .into(ivBg);
+        } else if (pos <= 313) {
+            Glide.with(this).load(R.mipmap.wea_rain)
+                    .into(ivBg);
+        } else if (pos <= 406) {
+            Glide.with(this).load(R.mipmap.wea_snow)
+                    .into(ivBg);
+        } else if (pos <= 502) {
+            Glide.with(this).load(R.mipmap.wea_wu)
+                    .into(ivBg);
+        } else {
+            Glide.with(this).load(R.mipmap.wea_chuqing)
+                    .into(ivBg);
+        }
+    }
+
     @Override
     public void initListener() {
 
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        detector.onTouchEvent(ev);
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    class listener extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            return false;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if (e1 != null) {
+                float beginY = e1.getY();
+                float endY = e2.getY();
+                if (beginY - endY > 60 && Math.abs(velocityY) > 0) {   //上滑
+                    if (animTag) {
+                        animTag = false;
+                        AnimUtils.setTitleUp(HeWeatherActivity.this, rlTitle);
+                    }
+                } else if (endY - beginY > 60 && Math.abs(velocityY) > 0) {   //下滑
+                    if (animTag == false) {
+                        animTag = true;
+                        AnimUtils.setTitleDown(HeWeatherActivity.this, rlTitle);
+                    }
+                }
+            }
+            return false;
+        }
+    }
 
     @OnClick({R.id.iv_back, R.id.iv_main, R.id.iv_search})
     public void onViewClicked(View view) {
@@ -172,4 +324,5 @@ public class HeWeatherActivity extends BaseActivity {
                 break;
         }
     }
+
 }
