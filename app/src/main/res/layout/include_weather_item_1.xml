@@ -19,7 +19,6 @@
         <ImageView
             android:id="@+id/iv_location"
             android:layout_below="@+id/today_city"
-            android:textSize="20sp"
             android:layout_marginTop="@dimen/dimens_5"
             android:src="@mipmap/icon_weather_pos"
             android:layout_centerHorizontal="true"
@@ -27,6 +26,16 @@
             android:textColor="@color/color_whit"
             android:layout_width="@dimen/dimens_30"
             android:layout_height="@dimen/dimens_30" />
+
+        <TextView
+            android:id="@+id/tv_qua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_location"
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/color_57f733"
+            android:textSize="25sp" />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/real"
@@ -79,6 +88,15 @@
             android:shadowDx="10"
             android:shadowDy="5"
             android:textSize="100sp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_today_pm"
+            android:layout_below="@+id/tv_temperature"
+            android:textColor="@color/color_57f733"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dimens_20"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <LinearLayout

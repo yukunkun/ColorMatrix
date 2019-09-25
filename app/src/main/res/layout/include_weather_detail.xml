@@ -5,29 +5,6 @@
     android:padding="1dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_40">
-        <TextView
-            android:id="@+id/tv_data"
-            android:paddingLeft="@dimen/dimens_10"
-            android:textColor="@color/color_57f733"
-            android:textSize="@dimen/dimens_16"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-        <TextView
-            android:id="@+id/tv_temp"
-            android:textSize="@dimen/dimens_16"
-            android:paddingRight="@dimen/dimens_10"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/color_57f733"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
     <LinearLayout
         android:layout_weight="3"
         android:layout_width="match_parent"

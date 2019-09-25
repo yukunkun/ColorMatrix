@@ -37,6 +37,7 @@
     <color name="color_back_all">#5f878787</color>
     <color name="color_back_more">#ab535353</color>
     <color name="color_back_conf">#DF535353</color>
+    <color name="color_back_neb">#F2535353</color>
 
     <color name="color_line">#363636</color>
     <color name="color_text">#292929</color>

@@ -81,6 +81,10 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 layout="@layout/include_weather_confortable"/>
+            <include
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                layout="@layout/include_weather_neber"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

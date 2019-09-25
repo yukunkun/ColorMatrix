@@ -2,7 +2,6 @@ package com.matrix.yukun.matrix.tool_module.weather.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
@@ -19,25 +18,23 @@ import com.google.gson.Gson;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.selfview.NoScrollListView;
+import com.matrix.yukun.matrix.selfview.NoScrollRecyclerView;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.ConfAdapter;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.RVFutureAdapter;
+import com.matrix.yukun.matrix.tool_module.weather.adapter.RVPosizonAdapter;
 import com.matrix.yukun.matrix.tool_module.weather.bean.OnEventpos;
 import com.matrix.yukun.matrix.util.AnimUtils;
-import com.matrix.yukun.matrix.util.DataUtils;
 import com.matrix.yukun.matrix.util.Notifications;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.wang.avi.AVLoadingIndicatorView;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import interfaces.heweather.com.interfacesmodule.bean.Code;
 import interfaces.heweather.com.interfacesmodule.bean.air.now.AirNow;
+import interfaces.heweather.com.interfacesmodule.bean.air.now.AirNowStation;
 import interfaces.heweather.com.interfacesmodule.bean.weather.forecast.Forecast;
 import interfaces.heweather.com.interfacesmodule.bean.weather.forecast.ForecastBase;
 import interfaces.heweather.com.interfacesmodule.bean.weather.lifestyle.Lifestyle;
@@ -115,18 +112,24 @@ public class HeWeatherActivity extends BaseActivity {
     AVLoadingIndicatorView avLoad;
     @BindView(R.id.iv_icon)
     ImageView ivIcon;
-    @BindView(R.id.tv_data)
-    TextView tvData;
-    @BindView(R.id.tv_temp)
-    TextView tvTemp;
+    @BindView(R.id.tv_neb)
+    TextView tvNeb;
+    @BindView(R.id.recycler_neber)
+    NoScrollRecyclerView recyclerNeber;
+    @BindView(R.id.tv_qua)
+    TextView tvQua;
+    @BindView(R.id.tv_today_pm)
+    TextView tvTodayPm;
     private GestureDetector detector;
     private boolean animTag;
     private LinearLayoutManager linearLayoutManager;
     private String mCity = "成都";
     private List<ForecastBase> mForecastBase = new ArrayList<>();
     private List<LifestyleBase> mLifestyleBases = new ArrayList<>();
+    private List<AirNowStation> mAirNowStations = new ArrayList<>();
     private RVFutureAdapter mRvFutureAdapter;
     private ConfAdapter mConfAdapter;
+    private RVPosizonAdapter mRvPosizonAdapter;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, HeWeatherActivity.class);
@@ -148,12 +151,22 @@ public class HeWeatherActivity extends BaseActivity {
         mRVFuture.setAdapter(mRvFutureAdapter);
         mConfAdapter = new ConfAdapter(this, mLifestyleBases);
         scrollListView.setAdapter(mConfAdapter);
+        mRvPosizonAdapter = new RVPosizonAdapter(this, R.layout.item_weather_posizion, mAirNowStations);
+        recyclerNeber.setLayoutManager(new LinearLayoutManager(this));
+        recyclerNeber.setAdapter(mRvPosizonAdapter);
+        recyclerNeber.setHasFixedSize(true);
+        recyclerNeber.setNestedScrollingEnabled(false);
         OverScrollDecoratorHelper.setUpOverScroll(mRVFuture, LinearLayoutManager.VERTICAL);
+        ivBg.post(new Runnable() {
+            @Override
+            public void run() {
+                AnimUtils.setWeatherBG(ivBg);
+            }
+        });
     }
 
     @Override
     public void initDate() {
-
         HeWeather.getWeatherNow(this, mCity, new HeWeather.OnResultWeatherNowBeanListener() {
             @Override
             public void onError(Throwable throwable) {
@@ -245,8 +258,20 @@ public class HeWeatherActivity extends BaseActivity {
             @Override
             public void onSuccess(AirNow airNow) {
                 if (Code.OK.getCode().equalsIgnoreCase(airNow.getStatus())) {
-                    tvData.setText(DataUtils.getTime(System.currentTimeMillis(),"MM月dd日")+" "+airNow.getAir_now_city().getQlty());
-//                    tvTemp.setText(airNow.getAir_now_city().getQlty());
+                    List<AirNowStation> airNowStation = airNow.getAir_now_station();
+                    mAirNowStations.clear();
+                    mAirNowStations.addAll(airNowStation);
+                    mRvPosizonAdapter.notifyDataSetChanged();
+                    String qlty=airNow.getAir_now_city().getQlty();
+                    if(qlty.equals("优")){
+                        tvQua.setTextColor(getResources().getColor(R.color.color_44fc2c));
+                    }else if(qlty.equals("良")){
+                        tvQua.setTextColor(getResources().getColor(R.color.color_2299ee));
+                    }else {
+                        tvQua.setTextColor(getResources().getColor(R.color.color_fc2c5d));
+                    }
+                    tvQua.setText(qlty);
+                    tvTodayPm.setText("PM2.5: "+airNow.getAir_now_city().getPm25());
                 }
                 LogUtil.i("=======airNow", new Gson().toJson(airNow));
             }
@@ -288,13 +313,6 @@ public class HeWeatherActivity extends BaseActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         detector.onTouchEvent(ev);
         return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
     class listener extends GestureDetector.SimpleOnGestureListener {

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <include layout="@layout/include_line_no_marg"/>
+    <TextView
+        android:id="@+id/tv_local"
+        android:layout_width="wrap_content"
+        android:paddingTop="@dimen/dimens_3"
+        android:paddingBottom="3dp"
+        android:textColor="@color/color_whit"
+        android:paddingLeft="@dimen/dimens_10"
+        android:layout_height="wrap_content" />
+    <include layout="@layout/include_line_no_marg"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:weightSum="4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:padding="@dimen/dimens_5"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_co"
+                    android:src="@mipmap/icon_weather_co"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="@dimen/dimens_25"
+                    android:layout_height="@dimen/dimens_25" />
+                <TextView
+                    android:id="@+id/tv_co"
+                    android:layout_below="@+id/iv_co"
+                    android:text="co:25"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimens_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:padding="@dimen/dimens_5"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_so2"
+                    android:src="@mipmap/icon_weather_soo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="@dimen/dimens_25"
+                    android:layout_height="@dimen/dimens_25" />
+                <TextView
+                    android:id="@+id/tv_so2"
+                    android:layout_below="@+id/iv_so2"
+                    android:text="co:25"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimens_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:padding="@dimen/dimens_5"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_no2"
+                    android:src="@mipmap/icon_weather_noo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="@dimen/dimens_25"
+                    android:layout_height="@dimen/dimens_25" />
+                <TextView
+                    android:id="@+id/tv_no2"
+                    android:layout_below="@+id/iv_no2"
+                    android:text="co:25"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimens_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:padding="@dimen/dimens_5"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_o3"
+                    android:src="@mipmap/icon_weather_ooo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="@dimen/dimens_25"
+                    android:layout_height="@dimen/dimens_25" />
+                <TextView
+                    android:id="@+id/tv_o3"
+                    android:layout_below="@+id/iv_o3"
+                    android:text="co:25"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimens_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/dimens_10"
+            android:paddingRight="@dimen/dimens_10"
+            android:layout_height="@dimen/dimens_40">
+            <TextView
+                android:id="@+id/tv_quality"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/dimens_16"
+                android:textColor="@color/color_whit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_pm"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/dimens_16"
+                android:textColor="@color/color_whit"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+    <include layout="@layout/include_line_no_marg"/>
+</LinearLayout>
