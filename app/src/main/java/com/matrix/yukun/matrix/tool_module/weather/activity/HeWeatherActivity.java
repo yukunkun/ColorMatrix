@@ -353,7 +353,7 @@ public class HeWeatherActivity extends BaseActivity {
 
                 break;
             case R.id.iv_search:
-
+                SearchCityActivity.start(this);
                 break;
         }
     }

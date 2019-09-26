@@ -5,8 +5,7 @@
                 xmlns:yk="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/rea"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                tools:context="com.matrix.yukun.matrix.weather_module.WeatherActivity">
+                android:orientation="vertical">
     <ImageView
         android:id="@+id/back_image"
         android:scaleType="centerCrop"

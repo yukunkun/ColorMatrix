@@ -51,6 +51,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:label">
+        <activity android:name=".tool_module.weather.activity.SearchCityActivity"></activity>
         <activity android:name=".tool_module.notebook.activity.NoteSettingActivity" />
         <activity
             android:name=".main_module.main.SplashActivity"
@@ -66,7 +67,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="6255ee43c977c10b8ec24f8b1bb1649d"></meta-data>
+            android:value="6255ee43c977c10b8ec24f8b1bb1649d" />
         <meta-data
             android:name="CHANNEL"
             android:value="${CHANNEL_VALUE}" />
@@ -76,7 +77,7 @@
         <meta-data
             android:name="IFLYTEK_CHANNEL"
             android:value="应用宝" /> <!-- 配置实时壁纸Service -->
-        <service android:name="com.amap.api.location.APSService"></service>
+        <service android:name="com.amap.api.location.APSService" />
         <service
             android:name=".tool_module.deskwallpaper.wallpaper.CameraLiveWallpaper"
             android:label="@string/wapper"
@@ -429,8 +430,9 @@
         <activity
             android:name=".tool_module.deskwallpaper.activity.ClockNormal1Activity"
             android:screenOrientation="portrait" />
-        <activity android:name=".tool_module.weather.activity.HeWeatherActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".tool_module.weather.activity.HeWeatherActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -17,7 +17,7 @@
             <TextView
                 android:id="@+id/tv_weather"
                 android:textColor="@color/color_whit"
-                android:text="city"
+                android:text=""
                 android:gravity="center"
                 android:textSize="@dimen/sp_14"
                 android:layout_marginTop="40dp"
