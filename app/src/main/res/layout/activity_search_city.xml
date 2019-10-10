@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:sidebar="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".tool_module.weather.activity.SearchCityActivity">
@@ -13,7 +13,7 @@
             android:id="@+id/iv_back"
             android:src="@mipmap/joke_back"
             android:background="?android:attr/actionBarItemBackground"
-            android:padding="@dimen/dimens_8"
+            android:padding="@dimen/dimens_5"
             android:layout_width="@dimen/dimens_40"
             android:layout_height="match_parent" />
         <TextView
@@ -41,22 +41,87 @@
     <include layout="@layout/include_line_no_marg"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_45">
-        <TextView
-            android:id="@+id/tv_local"
-            android:paddingLeft="@dimen/dimens_10"
-            android:text="当前城市："
-            android:gravity="center_vertical"
-            android:textColor="@color/colorAccent"
+        android:layout_height="@dimen/dimens_50">
+        <EditText
+            android:id="@+id/et_city"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_marginRight="@dimen/dimens_10"
+            android:background="@drawable/shape_banner_recommend"
+            android:layout_width="match_parent"
+            android:singleLine="true"
+            android:hint="搜索城市"
+            android:textSize="@dimen/dimens_14"
+            android:paddingLeft="@dimen/dimens_5"
+            android:layout_centerVertical="true"
+            android:layout_height="@dimen/dimens_35" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-        <ImageView
-            android:id="@+id/iv_loc"
-            android:layout_alignParentRight="true"
-            android:padding="@dimen/dimens_8"
-            android:background="?android:attr/actionBarItemBackground"
-            android:src="@mipmap/icon_weather_pos"
-            android:layout_width="@dimen/dimens_50"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/rl_local"
+                android:background="?attr/selectableItemBackground"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_45">
+                <TextView
+                    android:id="@+id/tv_local"
+                    android:paddingLeft="@dimen/dimens_10"
+                    android:text="当前城市："
+                    android:gravity="center_vertical"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:id="@+id/iv_loc"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/dimens_8"
+                    android:background="?android:attr/actionBarItemBackground"
+                    android:src="@mipmap/icon_weather_pos"
+                    android:layout_width="@dimen/dimens_50"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ListView
+                    android:id="@+id/lv_date_list"
+                    android:scrollbars="none"
+                    android:divider="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </ListView>
+                <com.matrix.yukun.matrix.main_module.views.SideBar
+                    android:id="@+id/bar"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="15sp"
+                    android:paddingRight="10dp"
+                    sidebar:scaleTime="1"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_list"
+            android:visibility="gone"
+            android:background="@color/color_000000_alpha"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ListView
+                android:id="@+id/lv_list"
+                android:background="@color/color_whit"
+                android:layout_width="match_parent"
+                android:scrollbars="none"
+                android:divider="@null"
+                android:layout_height="wrap_content">
+            </ListView>
+        </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

@@ -12,7 +12,7 @@
         <TextView
             android:id="@+id/today_city"
             android:textSize="32sp"
-            android:text="成都"
+            android:text=""
             android:textColor="@color/color_whit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

@@ -51,8 +51,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:label">
-        <activity android:name=".tool_module.weather.activity.SearchCityActivity"></activity>
-        <activity android:name=".tool_module.notebook.activity.NoteSettingActivity" />
+
+        <activity android:name=".tool_module.notebook.activity.NoteSettingActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".main_module.main.SplashActivity"
             android:configChanges="keyboard|screenSize|orientation|layoutDirection"
@@ -433,6 +434,11 @@
         <activity
             android:name=".tool_module.weather.activity.HeWeatherActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".tool_module.weather.activity.SearchCityActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

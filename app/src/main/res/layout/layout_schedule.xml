@@ -95,7 +95,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="50dp"
-                        android:src="@mipmap/bg_no_task"/>
+                        android:src="@mipmap/bg_no_task"
+                        android:contentDescription="TODO" />
 
                 </RelativeLayout>
 

@@ -39,7 +39,7 @@ public class RVPosizonAdapter extends BaseQuickAdapter<AirNowStation,BaseViewHol
         }else {
             view.setTextColor(mContext.getResources().getColor(R.color.color_fc2c5d));
         }
-        view.setText("空气质量:"+qlty+" 污染物："+item.getMain());
+        view.setText("空气质量:"+qlty+" 污染物:"+item.getMain());
         helper.setText(R.id.tv_pm,"PM10:"+item.getPm10()+" PM2.5:"+item.getPm25());
     }
 }

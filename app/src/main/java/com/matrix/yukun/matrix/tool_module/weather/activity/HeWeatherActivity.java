@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.NoScrollListView;
 import com.matrix.yukun.matrix.selfview.NoScrollRecyclerView;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.ConfAdapter;
@@ -167,6 +168,7 @@ public class HeWeatherActivity extends BaseActivity {
 
     @Override
     public void initDate() {
+        todayCity.setText(mCity);
         HeWeather.getWeatherNow(this, mCity, new HeWeather.OnResultWeatherNowBeanListener() {
             @Override
             public void onError(Throwable throwable) {
@@ -272,8 +274,11 @@ public class HeWeatherActivity extends BaseActivity {
                     }
                     tvQua.setText(qlty);
                     tvTodayPm.setText("PM2.5: "+airNow.getAir_now_city().getPm25());
+                }else {
+                    ToastUtils.showToast("获取周边天气异常："+new Gson().toJson(airNow));
+                    LogUtil.i("=======airNow", new Gson().toJson(airNow));
                 }
-                LogUtil.i("=======airNow", new Gson().toJson(airNow));
+
             }
         });
     }
@@ -307,6 +312,17 @@ public class HeWeatherActivity extends BaseActivity {
     @Override
     public void initListener() {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == SearchCityActivity.RESULT && resultCode == SearchCityActivity.RESULT) {
+            String result = data.getStringExtra("result");
+            mCity=result;
+            avLoad.show();
+            initDate();
+        }
     }
 
     @Override
