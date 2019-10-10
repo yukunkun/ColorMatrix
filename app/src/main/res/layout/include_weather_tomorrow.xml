@@ -29,12 +29,13 @@
             android:layout_height="match_parent" />
         <ImageView
             android:id="@+id/iv_future"
-            android:padding="@dimen/dimens_5"
+            android:paddingTop="@dimen/dimens_3"
             android:src="@mipmap/titlebar_back_icon"
             android:layout_alignParentRight="true"
             android:layout_width="@dimen/dimens_25"
             android:layout_height="match_parent"/>
         <TextView
+            android:id="@+id/tv_future"
             android:text="未来15日温度:"
             android:textSize="14sp"
             android:layout_toLeftOf="@+id/iv_future"

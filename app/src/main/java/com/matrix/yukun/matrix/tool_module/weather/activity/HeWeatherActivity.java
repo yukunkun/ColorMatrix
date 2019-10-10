@@ -2,6 +2,7 @@ package com.matrix.yukun.matrix.tool_module.weather.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
@@ -125,6 +126,7 @@ public class HeWeatherActivity extends BaseActivity {
     private boolean animTag;
     private LinearLayoutManager linearLayoutManager;
     private String mCity = "成都";
+    private String url="http://m.weathercn.com/index.do?partner=1000001041_hfaw&id=106774&p_source=searchbrowser&p_type=jump";
     private List<ForecastBase> mForecastBase = new ArrayList<>();
     private List<LifestyleBase> mLifestyleBases = new ArrayList<>();
     private List<AirNowStation> mAirNowStations = new ArrayList<>();
@@ -275,7 +277,7 @@ public class HeWeatherActivity extends BaseActivity {
                     tvQua.setText(qlty);
                     tvTodayPm.setText("PM2.5: "+airNow.getAir_now_city().getPm25());
                 }else {
-                    ToastUtils.showToast("获取周边天气异常："+new Gson().toJson(airNow));
+//                    ToastUtils.showToast("获取周边天气异常："+new Gson().toJson(airNow));
                     LogUtil.i("=======airNow", new Gson().toJson(airNow));
                 }
 
@@ -359,7 +361,7 @@ public class HeWeatherActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_main, R.id.iv_search})
+    @OnClick({R.id.iv_back, R.id.iv_main, R.id.iv_search,R.id.iv_future,R.id.tv_future})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -367,6 +369,13 @@ public class HeWeatherActivity extends BaseActivity {
                 break;
             case R.id.iv_main:
 
+                break;
+            case R.id.iv_future:
+            case R.id.tv_future:
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
                 break;
             case R.id.iv_search:
                 SearchCityActivity.start(this);

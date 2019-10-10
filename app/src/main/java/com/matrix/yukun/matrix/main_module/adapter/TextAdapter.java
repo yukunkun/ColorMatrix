@@ -22,7 +22,9 @@ import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,12 +37,22 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
     List<NewsInfo> jokeInfoList;
-
+    List<Integer> mListHead=new ArrayList<>();
+    private Random mRandom=new Random();
 
 
     public TextAdapter(Context context, List<NewsInfo> jokeInfoList) {
         this.context = context;
         this.jokeInfoList = jokeInfoList;
+        mListHead.add(R.drawable.head_1);
+        mListHead.add(R.drawable.head_2);
+        mListHead.add(R.drawable.head_3);
+        mListHead.add(R.drawable.head_4);
+        mListHead.add(R.drawable.head_5);
+        mListHead.add(R.drawable.head_6);
+        mListHead.add(R.drawable.head_7);
+        mListHead.add(R.drawable.head_8);
+        mListHead.add(R.drawable.head_9);
     }
 
     @Override
@@ -58,15 +70,15 @@ public class TextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if(textInfo.getPicInfo()!=null&&textInfo.getPicInfo().size()>0){
                 Glide.with(context).load(textInfo.getPicInfo().get(0).getUrl()+"").into(((MHolder) holder).mImCover);
             }
+            int headPos=mRandom.nextInt(9);
+            GlideUtil.loadCircleImage(mListHead.get(headPos),(((MHolder) holder).mCiHead));
             if(textInfo.getSource()==null){
                 ((MHolder) holder).mTvName.setText("佚名");
             }else {
                 ((MHolder) holder).mTvName.setText(textInfo.getSource());
             }
-            GlideUtil.loadImage("",((MHolder) holder).mCiHead);
             ((MHolder) holder).mTvDes.setText(textInfo.getDigest());
             ((MHolder) holder).mTvForword.setText(textInfo.getTitle());
-
             ((MHolder) holder).mImCover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -74,7 +86,6 @@ public class TextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     intent.putExtra("url",textInfo.getLink());
                     intent.putExtra("title",textInfo.getTitle());
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
                     context.startActivity(intent);
                     ((Activity)context).overridePendingTransition(R.anim.rotate, R.anim.rotate_out);
                 }

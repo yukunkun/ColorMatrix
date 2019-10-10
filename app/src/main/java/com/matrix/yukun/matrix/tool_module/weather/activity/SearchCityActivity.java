@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -24,10 +25,15 @@ import com.matrix.yukun.matrix.main_module.utils.ISideBarSelectCallBack;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.main_module.views.SideBar;
+import com.matrix.yukun.matrix.main_module.views.TagLayout;
+import com.matrix.yukun.matrix.tool_module.videorecord.ViewUtils;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.LVCityAdapter;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.LVCitySearchAdapter;
 import com.matrix.yukun.matrix.util.AssetsUtils;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -65,7 +71,8 @@ public class SearchCityActivity extends BaseActivity {
     private List<CitySortBean> mSortCityModule;
     public static int RESULT = 1001;
     private List<CityBean.CitiesBean.CountiesBean> mCities = new ArrayList<>();
-
+    private TagLayout mTagLayout;
+    private List<String> mHotCountry=new ArrayList<>();
     public static void start(Context context) {
         Intent intent = new Intent(context, SearchCityActivity.class);
         ((Activity) context).startActivityForResult(intent, RESULT);
@@ -78,6 +85,7 @@ public class SearchCityActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        mHotCountry = Arrays.asList(getResources().getStringArray(R.array.city_hot));
 
     }
 
@@ -92,12 +100,28 @@ public class SearchCityActivity extends BaseActivity {
             updatePosition();
         }
         String json = AssetsUtils.readText(this, "city.json");
-        mCityList = gson.fromJson(json, new TypeToken<List<CityBean>>() {
-        }.getType());
+        mCityList = gson.fromJson(json, new TypeToken<List<CityBean>>() {}.getType());
         mSortCityModule = getSortModule();
         LVCityAdapter lvCityAdapter = new LVCityAdapter(mSortCityModule, this);
+        View inflate = LayoutInflater.from(this).inflate(R.layout.city_header, null);
+        mTagLayout = inflate.findViewById(R.id.tag_layout);
+        lvDateList.addHeaderView(inflate);
         lvDateList.setAdapter(lvCityAdapter);
+        initTagLayout();
+    }
 
+    private void initTagLayout() {
+        for (int i = 0; i < mHotCountry.size(); i++) {
+            TextView textView= ViewUtils.getHotCityTextView(this);
+            textView.setText(mHotCountry.get(i));
+            mTagLayout.addView(textView);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goBack(textView.getText().toString());
+                }
+            });
+        }
     }
 
     private List<CitySortBean> getSortModule() {
@@ -146,7 +170,7 @@ public class SearchCityActivity extends BaseActivity {
                 }
                 for (int i = 0; i < mSortCityModule.size(); i++) {
                     if (mSortCityModule.get(i).getSortLetters().equals(selectStr)) {
-                        lvDateList.setSelection(i);
+                        lvDateList.setSelection(i+1);
                         return;
                     }
                 }

@@ -23,4 +23,17 @@ public class ViewUtils {
         tv.setClickable(true);
         return tv;
     }
+
+    public static TextView getHotCityTextView(Context context){
+        final TextView tv = new TextView(context);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(ScreenUtils.dp2Px(context, 10), ScreenUtils.dp2Px(context, 8), ScreenUtils.dp2Px(context, 10), ScreenUtils.dp2Px(context, 8));
+        tv.setBackgroundResource(R.drawable.shape_rec_bg);
+        tv.setTextSize(16);
+        tv.setPadding(15,5,15,5);
+        tv.setShadowLayer(8,8,8,R.color.color_b1b1b1);
+        tv.setLayoutParams(params);
+        tv.setClickable(true);
+        return tv;
+    }
 }

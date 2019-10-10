@@ -129,7 +129,18 @@
         <item>作品推荐</item>
         <item>素材收集</item>
     </string-array>
-
+    <string-array name="city_hot">
+        <item>北京</item>
+        <item>上海</item>
+        <item>广州</item>
+        <item>深圳</item>
+        <item>重庆</item>
+        <item>成都</item>
+        <item>湖南</item>
+        <item>广东</item>
+        <item>香港</item>
+        <item>厦门</item>
+    </string-array>
     <string-array name="work_pool">
         <item>所有</item>
         <item>测试 样片</item>

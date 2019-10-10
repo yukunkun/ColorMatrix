@@ -34,7 +34,6 @@ public class JokeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Random mRandom=new Random();
 
-
     public JokeAdapter(Context context, List<JokeInfo> jokeInfoList) {
         this.context = context;
         this.jokeInfoList = jokeInfoList;

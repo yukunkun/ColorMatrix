@@ -126,7 +126,7 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
         }
         Map<String, String> tags = new HashMap<>();
         SplashAD splashAD = new SplashAD(this, mSkipView, appId, adId, new AdListener(),
-                5000, tags);
+                5000, null);
         LoadAdParams params = new LoadAdParams();
         splashAD.setLoadAdParams(params);
         splashAD.fetchAndShowIn(relativeLayout);
