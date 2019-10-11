@@ -30,6 +30,7 @@ import com.matrix.yukun.matrix.tool_module.notebook.activity.NoteActivity;
 import com.matrix.yukun.matrix.tool_module.qrcode.QRCodeActivity;
 import com.matrix.yukun.matrix.tool_module.videorecord.ProductVideoActivity;
 import com.matrix.yukun.matrix.tool_module.weather.WeatherActivity;
+import com.matrix.yukun.matrix.tool_module.weather.activity.HeWeatherActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +57,7 @@ public class ToolsItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mClassMap.put("摄像", ProductVideoActivity.class);
         mClassMap.put("手机弹幕", BarrageActivity.class);
         mClassMap.put("二维码生成", QRCodeActivity.class);
-        mClassMap.put("今日天气", WeatherActivity.class);
+        mClassMap.put("今日天气", HeWeatherActivity.class);
         mClassMap.put("备忘录", TripartiteActivity.class);
         mClassMap.put("GIF制作", GifProActivity.class);
         mClassMap.put("日记本", NoteActivity.class);

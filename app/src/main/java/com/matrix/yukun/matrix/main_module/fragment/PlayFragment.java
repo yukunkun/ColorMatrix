@@ -3,8 +3,6 @@ package com.matrix.yukun.matrix.main_module.fragment;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -12,8 +10,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -38,7 +36,6 @@ import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 import com.matrix.yukun.matrix.main_module.activity.MViewPagerAdapter;
 import com.matrix.yukun.matrix.main_module.activity.MyCollectActivity;
 import com.matrix.yukun.matrix.main_module.activity.PersonCenterActivity;
-import com.matrix.yukun.matrix.main_module.activity.TouTiaoActivity;
 import com.matrix.yukun.matrix.main_module.entity.EventCategrayPos;
 import com.matrix.yukun.matrix.main_module.entity.EventShowSecond;
 import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
@@ -56,11 +53,8 @@ import com.matrix.yukun.matrix.selfview.guideview.GuideBuilder;
 import com.matrix.yukun.matrix.selfview.guideview.SimpleComponent;
 import com.matrix.yukun.matrix.selfview.guideview.SimpleComponent2;
 import com.matrix.yukun.matrix.tool_module.btmovie.SpecialActivity;
-import com.matrix.yukun.matrix.tool_module.weather.WeatherActivity;
 import com.matrix.yukun.matrix.tool_module.weather.activity.HeWeatherActivity;
-import com.matrix.yukun.matrix.util.CityPosition;
 import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
@@ -74,7 +68,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 import okhttp3.Call;
@@ -94,8 +90,6 @@ public class PlayFragment extends BaseFragment {
     DrawerLayout mDrawlayout;
     @BindView(R2.id.tv_weather)
     TextView mTvWeather;
-    @BindView(R2.id.iv_update)
-    ImageView mIvUpdate;
     @BindView(R2.id.viewpager)
     ViewPager mViewpager;
     @BindView(R2.id.im_snow)
@@ -138,10 +132,12 @@ public class PlayFragment extends BaseFragment {
     ImageView mIvSearch;
     @BindView(R.id.ll_drawable)
     LinearLayout mLayout;
+    @BindView(R.id.iv_update)
+    ImageView ivUpdate;
     private MViewPagerAdapter mMViewPagerAdapter;
     private String[] mStringArray;
     private List<Fragment> mFragments = new ArrayList<>();
-    private String weatherURL="https://www.apiopen.top/weatherApi";
+    private String weatherURL = "https://www.apiopen.top/weatherApi";
     private VideoFragment mInstance1;
     private ImageFragment mInstance3;
     private JokeFragment mInstance4;
@@ -192,24 +188,25 @@ public class PlayFragment extends BaseFragment {
         }
         long guide_time = SPUtils.getInstance().getLong("guide_time");
         long currentTimeMillis = System.currentTimeMillis();
-       if (currentTimeMillis - guide_time > 3 * 24 * 60 * 60 * 1000) {
+        if (currentTimeMillis - guide_time > 3 * 24 * 60 * 60 * 1000) {
             mIvSearch.post(new Runnable() {
                 @Override
                 public void run() {
                     showGuide();
                 }
             });
-       }
-       if(TextUtils.isEmpty(SPUtils.getInstance().getString("city"))){
-           updatePosition();
-       }else {
-           getWeather(SPUtils.getInstance().getString("city"));
-       }
+        }
+        if (TextUtils.isEmpty(SPUtils.getInstance().getString("city"))) {
+            updatePosition();
+        } else {
+            getWeather(SPUtils.getInstance().getString("city"));
+            ivUpdate.setVisibility(View.GONE);
+        }
     }
 
     private void getWeather(String city) {
         NetworkUtils.networkGet(weatherURL)
-                .addParams("city",city)
+                .addParams("city", city)
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -219,13 +216,13 @@ public class PlayFragment extends BaseFragment {
             @Override
             public void onResponse(String response, int id) {
                 try {
-                    JSONObject jsonObject=new JSONObject(response);
-                    if(jsonObject.optInt("code")==200){
-                        Gson gson=new Gson();
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.optInt("code") == 200) {
+                        Gson gson = new Gson();
                         Weather weather = gson.fromJson(jsonObject.optString("data"), Weather.class);
                         Weather.ForecastBean forecastBean = weather.getForecast().get(0);
-                        mTvWeather.setText(city+'\n'+ forecastBean.getLow().substring(3,forecastBean.getLow().length())+"~"+ forecastBean.getHigh().substring(3,forecastBean.getHigh().length()));
-                    }else {
+                        mTvWeather.setText(city + '\n' + forecastBean.getLow().substring(3, forecastBean.getLow().length()) + "~" + forecastBean.getHigh().substring(3, forecastBean.getHigh().length()));
+                    } else {
                         mTvWeather.setText("请开启定位");
                     }
                 } catch (JSONException e) {
@@ -248,9 +245,13 @@ public class PlayFragment extends BaseFragment {
             public void onLocationChanged(AMapLocation aMapLocation) {
                 if (aMapLocation != null) {
                     if (aMapLocation.getErrorCode() == 0) {
+                        ivUpdate.setVisibility(View.GONE);
                         //解析定位结果
-                        SPUtils.getInstance().saveString("city",aMapLocation.getCity());
+                        SPUtils.getInstance().saveString("city", aMapLocation.getCity());
                         getWeather(aMapLocation.getCity());
+                    }else {
+                        LogUtil.i("========",aMapLocation.toStr());
+                        ivUpdate.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -374,7 +375,7 @@ public class PlayFragment extends BaseFragment {
         }
     }
 
-    @OnClick({R2.id.iv_chat, R2.id.iv_main, R2.id.head, R2.id.iv_update,R2.id.tv_weather, R2.id.rl_collect, R2.id.rl_main, R2.id.iv_search,
+    @OnClick({R2.id.iv_chat, R2.id.iv_main, R2.id.head, R2.id.iv_update, R2.id.tv_weather, R2.id.rl_collect, R2.id.rl_main, R2.id.iv_search,
             R2.id.rl_movie, R2.id.rl_change_modul, R2.id.rl_me, R2.id.tv_close, R2.id.rl_bg_special, R2.id.iv_share, R.id.rl_down})
     public void onClick(View view) {
         int i = view.getId();
@@ -382,11 +383,9 @@ public class PlayFragment extends BaseFragment {
             if (!mDrawlayout.isDrawerOpen(Gravity.LEFT)) {
                 mDrawlayout.openDrawer(Gravity.LEFT);
             }
-        } else if (i == R.id.iv_update) {
-
         } else if (i == R.id.tv_weather) {
             HeWeatherActivity.start(getContext());
-//            WeatherActivity.start(getContext());
+            closeDrawLayout();
         } else if (i == R.id.rl_main) {
             mViewpager.setCurrentItem(0);
             closeDrawLayout();
@@ -466,6 +465,9 @@ public class PlayFragment extends BaseFragment {
             startActivity(intentDown);
         } else if (i == R.id.iv_search) {
             SearchActivity.start(getContext(), mIvSearch);
+        }else if (i == R.id.iv_update) {
+            updatePosition();
+            ToastUtils.showToast("请确保位置打开位置权限");
         }
     }
 
@@ -481,5 +483,6 @@ public class PlayFragment extends BaseFragment {
 
     //双击退出
     private long firstTime = 0;
+
 
 }

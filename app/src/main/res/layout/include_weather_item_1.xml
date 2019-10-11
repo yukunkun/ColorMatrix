@@ -110,6 +110,11 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content">
+            <com.matrix.yukun.matrix.selfview.SunriseView
+                android:id="@+id/sunrise"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </RelativeLayout>
         <View
             android:background="@color/color_back_all"
@@ -120,7 +125,11 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content">
-
+            <com.matrix.yukun.matrix.selfview.SunriseView
+                android:id="@+id/moondown"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

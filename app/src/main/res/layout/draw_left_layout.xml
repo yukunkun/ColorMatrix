@@ -30,11 +30,11 @@
                 android:id="@+id/iv_update"
                 android:textColor="@color/color_whit"
                 android:src="@mipmap/ic_refresh_dark"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_marginTop="40dp"
                 android:layout_marginRight="15dp"
                 android:layout_alignParentRight="true"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dimens_20"
                 android:layout_height="wrap_content" />
 
         <de.hdodenhof.circleimageview.CircleImageView

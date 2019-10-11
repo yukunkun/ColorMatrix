@@ -3,6 +3,7 @@ package com.matrix.yukun.matrix.tool_module.weather.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
@@ -18,9 +19,9 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.NoScrollListView;
 import com.matrix.yukun.matrix.selfview.NoScrollRecyclerView;
+import com.matrix.yukun.matrix.selfview.SunriseView;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.ConfAdapter;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.RVFutureAdapter;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.RVPosizonAdapter;
@@ -29,10 +30,14 @@ import com.matrix.yukun.matrix.util.AnimUtils;
 import com.matrix.yukun.matrix.util.Notifications;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.wang.avi.AVLoadingIndicatorView;
+
 import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import interfaces.heweather.com.interfacesmodule.bean.Code;
 import interfaces.heweather.com.interfacesmodule.bean.air.now.AirNow;
@@ -122,11 +127,17 @@ public class HeWeatherActivity extends BaseActivity {
     TextView tvQua;
     @BindView(R.id.tv_today_pm)
     TextView tvTodayPm;
+    @BindView(R.id.sunrise)
+    SunriseView sunrise;
+    @BindView(R.id.moondown)
+    SunriseView moondown;
+    @BindView(R.id.tv_future)
+    TextView tvFuture;
     private GestureDetector detector;
     private boolean animTag;
     private LinearLayoutManager linearLayoutManager;
     private String mCity = "成都";
-    private String url="http://m.weathercn.com/index.do?partner=1000001041_hfaw&id=106774&p_source=searchbrowser&p_type=jump";
+    private String url = "http://m.weathercn.com/index.do?partner=1000001041_hfaw&id=106774&p_source=searchbrowser&p_type=jump";
     private List<ForecastBase> mForecastBase = new ArrayList<>();
     private List<LifestyleBase> mLifestyleBases = new ArrayList<>();
     private List<AirNowStation> mAirNowStations = new ArrayList<>();
@@ -232,6 +243,8 @@ public class HeWeatherActivity extends BaseActivity {
                     mForecastBase.clear();
                     mForecastBase.addAll(forecast.getDaily_forecast());
                     mRvFutureAdapter.notifyDataSetChanged();
+                    ForecastBase forecastBase = forecast.getDaily_forecast().get(0);
+                    updateSunMoon(forecastBase);
                 }
                 LogUtil.i("=======forecast", new Gson().toJson(forecast));
             }
@@ -266,23 +279,32 @@ public class HeWeatherActivity extends BaseActivity {
                     mAirNowStations.clear();
                     mAirNowStations.addAll(airNowStation);
                     mRvPosizonAdapter.notifyDataSetChanged();
-                    String qlty=airNow.getAir_now_city().getQlty();
-                    if(qlty.equals("优")){
+                    String qlty = airNow.getAir_now_city().getQlty();
+                    if (qlty.equals("优")) {
                         tvQua.setTextColor(getResources().getColor(R.color.color_44fc2c));
-                    }else if(qlty.equals("良")){
+                    } else if (qlty.equals("良")) {
                         tvQua.setTextColor(getResources().getColor(R.color.color_2299ee));
-                    }else {
+                    } else {
                         tvQua.setTextColor(getResources().getColor(R.color.color_fc2c5d));
                     }
                     tvQua.setText(qlty);
-                    tvTodayPm.setText("PM2.5: "+airNow.getAir_now_city().getPm25());
-                }else {
-//                    ToastUtils.showToast("获取周边天气异常："+new Gson().toJson(airNow));
-                    LogUtil.i("=======airNow", new Gson().toJson(airNow));
+                    tvTodayPm.setText("PM2.5: " + airNow.getAir_now_city().getPm25());
                 }
+                LogUtil.i("=======airNow", new Gson().toJson(airNow));
 
             }
         });
+    }
+
+    private void updateSunMoon(ForecastBase forecastBase) {
+        sunrise.setHeadText("日出 "+forecastBase.getSr());
+        sunrise.setBackText("日落 "+forecastBase.getSs());
+        moondown.setIcon(R.mipmap.icon_weather_sun);
+        moondown.setHeadText("月出 "+forecastBase.getMr());
+        moondown.setBackText("月落 "+forecastBase.getMs());
+        moondown.setIcon(R.mipmap.icon_weather_moon);
+        sunrise.doAnimation();
+        moondown.doAnimation();
     }
 
     private void updateBg(String code) {
@@ -319,9 +341,9 @@ public class HeWeatherActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == SearchCityActivity.RESULT && resultCode == SearchCityActivity.RESULT) {
+        if (requestCode == SearchCityActivity.RESULT && resultCode == SearchCityActivity.RESULT) {
             String result = data.getStringExtra("result");
-            mCity=result;
+            mCity = result;
             avLoad.show();
             initDate();
         }
@@ -331,6 +353,13 @@ public class HeWeatherActivity extends BaseActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         detector.onTouchEvent(ev);
         return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 
     class listener extends GestureDetector.SimpleOnGestureListener {
@@ -361,7 +390,7 @@ public class HeWeatherActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_main, R.id.iv_search,R.id.iv_future,R.id.tv_future})
+    @OnClick({R.id.iv_back, R.id.iv_main, R.id.iv_search, R.id.iv_future, R.id.tv_future})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
