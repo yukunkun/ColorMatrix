@@ -27,6 +27,7 @@ import com.matrix.yukun.matrix.tool_module.weather.adapter.RVFutureAdapter;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.RVPosizonAdapter;
 import com.matrix.yukun.matrix.tool_module.weather.bean.OnEventpos;
 import com.matrix.yukun.matrix.util.AnimUtils;
+import com.matrix.yukun.matrix.util.DataUtils;
 import com.matrix.yukun.matrix.util.Notifications;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -299,12 +300,44 @@ public class HeWeatherActivity extends BaseActivity {
     private void updateSunMoon(ForecastBase forecastBase) {
         sunrise.setHeadText("日出 "+forecastBase.getSr());
         sunrise.setBackText("日落 "+forecastBase.getSs());
-        moondown.setIcon(R.mipmap.icon_weather_sun);
+        double progressSun= getSunTimePersent(forecastBase);
+        sunrise.setProgress(progressSun);
+        sunrise.setIcon(R.mipmap.icon_weather_sun);
         moondown.setHeadText("月出 "+forecastBase.getMr());
         moondown.setBackText("月落 "+forecastBase.getMs());
+        double progressMoon= getMoonTimePersent(forecastBase);
+        moondown.setProgress(progressMoon);
         moondown.setIcon(R.mipmap.icon_weather_moon);
         sunrise.doAnimation();
         moondown.doAnimation();
+    }
+
+    private double getSunTimePersent(ForecastBase forecastBase) {
+        String sr = forecastBase.getSr().substring(0, 2);
+        String ss = forecastBase.getSs().substring(0, 2);
+        String currentHour = DataUtils.getCurrentHour();
+        double d=0;
+        if(Double.valueOf(currentHour)>Double.valueOf(sr) &&Double.valueOf(currentHour)<Double.valueOf(ss)){
+            d=(Double.valueOf(currentHour)-Double.valueOf(sr))/
+                    (Double.valueOf(ss)-Double.valueOf(sr));
+        }
+        return d;
+    }
+
+    private double getMoonTimePersent(ForecastBase forecastBase) {
+        String sr = forecastBase.getMr().substring(0, 2);
+        String ss = forecastBase.getMs().substring(0, 2);
+        String currentHour = DataUtils.getCurrentHour();
+        double d=0;
+        if(Double.valueOf(currentHour)>Double.valueOf(ss) && Double.valueOf(currentHour)<24){
+            d=(Double.valueOf(currentHour)-Double.valueOf(sr))/
+                (Double.valueOf(ss)+24-Double.valueOf(sr));
+        }
+        if(Double.valueOf(currentHour)<Double.valueOf(ss)){
+            d=(Double.valueOf(currentHour)+24-Double.valueOf(sr))/
+                    (Double.valueOf(ss)+24-Double.valueOf(sr));
+        }
+        return d;
     }
 
     private void updateBg(String code) {
@@ -353,13 +386,6 @@ public class HeWeatherActivity extends BaseActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         detector.onTouchEvent(ev);
         return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
     class listener extends GestureDetector.SimpleOnGestureListener {

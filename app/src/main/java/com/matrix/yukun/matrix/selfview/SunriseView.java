@@ -31,10 +31,10 @@ public class SunriseView extends View {
     private int   radio;
     private String mHeadText="日出";
     private String mBackText="日落";
-    private double progress=0.7;
+    private double progress=0.0;
     private Context mContext;
     private Bitmap mBitmap;
-    private int icon = R.mipmap.icon_weather_sun;
+    private int icon ;
 
     public SunriseView(Context context) {
         super(context);
@@ -54,7 +54,9 @@ public class SunriseView extends View {
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         mDisplayMetrics=getResources().getDisplayMetrics();
         mContext=context;
-        mBitmap = BitmapFactory.decodeResource(context.getResources(), icon);
+        if(icon!=0){
+            mBitmap = BitmapFactory.decodeResource(context.getResources(), icon);
+        }
         mPaint=new Paint();
         mPaint.setStrokeWidth(20);
         mPaint.setAntiAlias(true);
@@ -72,12 +74,6 @@ public class SunriseView extends View {
         mPaintText.setTextSize(40);
         mPaintText.setTextAlign(Paint.Align.CENTER);
         mPaintText.setColor(context.getResources().getColor(R.color.color_f733d6));
-        this.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                doAnimation();
-            }
-        },50);
     }
 
     @Override
@@ -98,9 +94,10 @@ public class SunriseView extends View {
 
     public void setIcon(int icon) {
         this.icon = icon;
+        invalidate();
     }
 
-    public void setProgress(int progress) {
+    public void setProgress(double progress) {
         this.progress = progress;
     }
 
@@ -122,15 +119,17 @@ public class SunriseView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.translate(mWidth/2,mHeight/2+10);
-        canvas.save();
-        RectF rectF=new RectF(-mHeight/2,-mHeight/2+20,mHeight/2,mHeight/2+20);
-        canvas.drawArc(rectF,-180,180,false,mPaint);
-        canvas.drawText(mHeadText,-mHeight/2,60,mPaintText);
-        canvas.drawText(mBackText,mHeight/2,60,mPaintText);
-        float x = (float)(radio*Math.cos((180-progress*180)*Math.PI/180));
-        float y = -(float)(radio*Math.sin((180-progress*180)*Math.PI/180));
-        canvas.drawBitmap(mBitmap,x-mBitmap.getWidth()/2,y-mBitmap.getHeight()/2,mPaintRec);
+        if(icon != 0 && mBitmap!=null){
+            canvas.translate(mWidth/2,mHeight/2+10);
+            canvas.save();
+            RectF rectF=new RectF(-mHeight/2,-mHeight/2+20,mHeight/2,mHeight/2+20);
+            canvas.drawArc(rectF,-180,180,false,mPaint);
+            canvas.drawText(mHeadText,-mHeight/2,60,mPaintText);
+            canvas.drawText(mBackText,mHeight/2,60,mPaintText);
+            float x = (float)(radio*Math.cos((180-progress*180)*Math.PI/180));
+            float y = -(float)(radio*Math.sin((180-progress*180)*Math.PI/180));
+            canvas.drawBitmap(mBitmap,x-mBitmap.getWidth()/2,y-mBitmap.getHeight()/2,mPaintRec);
+        }
     }
 
     public void doAnimation(){
@@ -144,6 +143,7 @@ public class SunriseView extends View {
             }
         });
         valueAnimator.setDuration(1000);
+        valueAnimator.start();
 
     }
 }

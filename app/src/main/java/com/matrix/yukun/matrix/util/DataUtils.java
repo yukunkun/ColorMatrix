@@ -75,6 +75,11 @@ public class DataUtils {
         return "";
     }
 
+    public static String getCurrentHour() {
+        String hh = getTime(System.currentTimeMillis(), "HH");
+        return hh;
+    }
+
     public static String getDataTime(long times){
         String res;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
