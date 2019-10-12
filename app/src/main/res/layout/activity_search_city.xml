@@ -99,10 +99,10 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="15sp"
                     android:paddingRight="10dp"
+                    android:layout_marginBottom="@dimen/dimens_10"
                     sidebar:scaleTime="1"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"/>
             </RelativeLayout>

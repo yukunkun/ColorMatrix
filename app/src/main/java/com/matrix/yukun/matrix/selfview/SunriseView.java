@@ -94,6 +94,7 @@ public class SunriseView extends View {
 
     public void setIcon(int icon) {
         this.icon = icon;
+        mBitmap = BitmapFactory.decodeResource(mContext.getResources(), icon);
         invalidate();
     }
 
@@ -119,7 +120,7 @@ public class SunriseView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if(icon != 0 && mBitmap!=null){
+        if(mBitmap!=null){
             canvas.translate(mWidth/2,mHeight/2+10);
             canvas.save();
             RectF rectF=new RectF(-mHeight/2,-mHeight/2+20,mHeight/2,mHeight/2+20);

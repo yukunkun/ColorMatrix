@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.NoScrollListView;
 import com.matrix.yukun.matrix.selfview.NoScrollRecyclerView;
 import com.matrix.yukun.matrix.selfview.SunriseView;
@@ -246,6 +247,8 @@ public class HeWeatherActivity extends BaseActivity {
                     mRvFutureAdapter.notifyDataSetChanged();
                     ForecastBase forecastBase = forecast.getDaily_forecast().get(0);
                     updateSunMoon(forecastBase);
+                }else {
+                    ToastUtils.showToast("部分地区获取日出数据异常");
                 }
                 LogUtil.i("=======forecast", new Gson().toJson(forecast));
             }
@@ -292,7 +295,6 @@ public class HeWeatherActivity extends BaseActivity {
                     tvTodayPm.setText("PM2.5: " + airNow.getAir_now_city().getPm25());
                 }
                 LogUtil.i("=======airNow", new Gson().toJson(airNow));
-
             }
         });
     }
@@ -329,11 +331,11 @@ public class HeWeatherActivity extends BaseActivity {
         String ss = forecastBase.getMs().substring(0, 2);
         String currentHour = DataUtils.getCurrentHour();
         double d=0;
-        if(Double.valueOf(currentHour)>Double.valueOf(ss) && Double.valueOf(currentHour)<24){
+        if(Double.valueOf(currentHour)>Double.valueOf(sr) && Double.valueOf(currentHour)>12){
             d=(Double.valueOf(currentHour)-Double.valueOf(sr))/
                 (Double.valueOf(ss)+24-Double.valueOf(sr));
         }
-        if(Double.valueOf(currentHour)<Double.valueOf(ss)){
+        if(Double.valueOf(currentHour)<Double.valueOf(ss) && Double.valueOf(currentHour)<12){
             d=(Double.valueOf(currentHour)+24-Double.valueOf(sr))/
                     (Double.valueOf(ss)+24-Double.valueOf(sr));
         }

@@ -140,7 +140,7 @@ public class SearchCityActivity extends BaseActivity {
         lvDateList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CityBean cityBean = mSortCityModule.get(position).getCityBean();
+                CityBean cityBean = mSortCityModule.get(position-1).getCityBean();
                 etCity.setText(cityBean.getAreaName());
                 if (cityBean.getCities() != null && cityBean.getCities().size() > 0) {
                     mCities.clear();

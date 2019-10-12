@@ -44,8 +44,9 @@ public class AssetsUtils {
      */
     public static String toString(InputStream is) {
         StringBuilder sb = new StringBuilder();
+        BufferedReader reader = null;
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            reader = new BufferedReader(new InputStreamReader(is));
             String line = null;
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
@@ -53,6 +54,12 @@ public class AssetsUtils {
             is.close();
         } catch (IOException e) {
             Log.e("r:",e.toString());
+        }finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return sb.toString();
     }
