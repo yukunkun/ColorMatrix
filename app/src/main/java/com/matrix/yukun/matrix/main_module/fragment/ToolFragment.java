@@ -39,9 +39,7 @@ public class ToolFragment extends BaseFragment implements View.OnClickListener {
     private LinearLayoutManager mLinearLayoutManager;
     private List<Integer> mListImage=new ArrayList<>();
     private ToolsRVAdapter mToolsRVAdapter;
-    private List<String> mListName;
-    private TextView mTvTitle;
-    private Guide guide;
+    private List<String> mListName=new ArrayList<>();
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ImageView mIvShare;
 
@@ -60,8 +58,6 @@ public class ToolFragment extends BaseFragment implements View.OnClickListener {
         mRvList = (RecyclerView)inflate. findViewById(R.id.rv_list);
         mIvShare = inflate.findViewById(R.id.iv_share);
         mSwipeRefreshLayout = inflate.findViewById(R.id.sr);
-        mTvTitle = inflate.findViewById(R.id.tv_title);
-        initData();
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mRvList.setLayoutManager(mLinearLayoutManager);
         mToolsRVAdapter = new ToolsRVAdapter(getContext(),mListImage,mListName);
@@ -69,6 +65,8 @@ public class ToolFragment extends BaseFragment implements View.OnClickListener {
         if(SPUtils.getInstance().getBoolean("isbrief")){
             mIvSetting.setVisibility(View.VISIBLE);
         }
+        initData();
+        initListener();
     }
 
     public void initListener() {
@@ -86,12 +84,12 @@ public class ToolFragment extends BaseFragment implements View.OnClickListener {
         String tool = SPUtils.getInstance().getString("tool");
         if(TextUtils.isEmpty(tool)){
             //initial list
-            mListName= getToolNameList();
+            mListName.addAll(getToolNameList());
             mListImage.addAll(initImageList());
         //SP 获取
         }else {
             String[] split = tool.split(",");
-            mListName=Arrays.asList(split);
+            mListName.addAll(Arrays.asList(split));
             for (int i = 0; i < mListName.size(); i++) {
                 addImageList(mListName.get(i));
             }

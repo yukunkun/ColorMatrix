@@ -68,7 +68,6 @@ android {
     productFlavors {
         xiaomi {}
         yinyongbao {}
-        wandoujia {}
     }
 
     productFlavors.all {
