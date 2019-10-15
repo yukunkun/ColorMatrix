@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    tools:context=".note_module.activity.NoteSettingActivity">
+    android:focusableInTouchMode="true">
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/color_whit"
@@ -161,7 +160,7 @@
                     android:text="编辑背景颜色"
                     android:paddingLeft="@dimen/dimens_10"
                     android:layout_height="@dimen/dimens_45" />
-                <com.matrix.yukun.matrix.barrage_module.views.CircleTextView
+                <com.matrix.yukun.matrix.tool_module.barrage.views.CircleTextView
                     android:id="@+id/ctv_edit_bg"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -219,7 +218,7 @@
                     android:text="详情字体颜色"
                     android:paddingLeft="@dimen/dimens_10"
                     android:layout_height="@dimen/dimens_45" />
-                <com.matrix.yukun.matrix.barrage_module.views.CircleTextView
+                <com.matrix.yukun.matrix.tool_module.barrage.views.CircleTextView
                     android:id="@+id/ctv_note_color"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -243,7 +242,7 @@
                     android:text="详情背景颜色"
                     android:paddingLeft="@dimen/dimens_10"
                     android:layout_height="@dimen/dimens_45" />
-                <com.matrix.yukun.matrix.barrage_module.views.CircleTextView
+                <com.matrix.yukun.matrix.tool_module.barrage.views.CircleTextView
                     android:id="@+id/ctv_note_bg"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
