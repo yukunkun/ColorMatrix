@@ -140,7 +140,8 @@
         <service android:name=".download_module.service.DownloadNotificationService" />
         <service
             android:name="com.qq.e.comm.DownloadService"
-            android:exported="false" /> <!-- 请开发者注意字母的大小写，ADActivity，而不是AdActivity -->
+            android:exported="false" />
+        <!-- 请开发者注意字母的大小写，ADActivity，而不是AdActivity -->
         <activity
             android:name="com.qq.e.ads.ADActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
@@ -152,6 +153,16 @@
             android:name="com.qq.e.ads.LandscapeADActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/gdt_file_path" />
+        </provider>
+
         <activity
             android:name="cn.sharesdk.tencent.qq.ReceiveActivity"
             android:launchMode="singleTask"
@@ -175,11 +186,11 @@
             android:name=".tool_module.garrary.activity.ListDetailActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".tool_module.cropmap.ImageCropActivity" />
-        <!--
-            <activity
-            android:name="com.qq.e.ads.ADActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
-        -->
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <service
             android:name="com.qq.e.comm.DownloadService"
             android:exported="false" />
@@ -188,16 +199,15 @@
             android:name=".tool_module.cropmap.CameraActivity"
             android:screenOrientation="portrait" />
 
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.xykj.customview.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/camera" />
-        </provider>
-
+       <!--<provider-->
+            <!--android:name="android.support.v4.content.FileProvider"-->
+            <!--android:authorities="com.xykj.customview.fileprovider"-->
+            <!--android:exported="false"-->
+            <!--android:grantUriPermissions="true">-->
+            <!--<meta-data-->
+                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+                <!--android:resource="@xml/camera" />-->
+        <!--</provider>-->
         <activity
             android:name=".tool_module.weather.WeatherActivity"
             android:screenOrientation="portrait" />

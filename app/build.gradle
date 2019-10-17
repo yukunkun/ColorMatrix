@@ -74,6 +74,12 @@ android {
         flavor -> flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
     }
 
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
 //    // 签名
 //    signingConfigs {
 //        debug {
@@ -180,6 +186,7 @@ dependencies {
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
     // Optional, if you use support library fragments:
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
+    implementation (name:'GDTSDK.union.4.90.960', ext:'aar')
     // rxjava的相关
     implementation 'io.reactivex:rxjava:1.2.1'
     implementation 'io.reactivex:rxandroid:1.2.1'

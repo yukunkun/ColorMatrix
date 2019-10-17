@@ -4,18 +4,19 @@
     android:layout_width="match_parent"
     android:background="@color/color_black"
     android:layout_height="match_parent"
-    tools:context=".main_module.SplashActivity">
+    tools:context=".main_module.main.SplashActivity">
     <ImageView
         android:layout_width="match_parent"
+        android:visibility="visible"
         android:src="@mipmap/tool_icon_black"
         android:layout_marginBottom="@dimen/dimens_90"
         android:layout_height="wrap_content"/>
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_marginBottom="@dimen/dimens_90"
-        android:layout_height="wrap_content">
-    </RelativeLayout>
+        android:layout_height="match_parent">
+    </FrameLayout>
     <TextView
         android:id="@+id/skip_view"
         android:layout_width="96dp"

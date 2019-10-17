@@ -1,6 +1,7 @@
 package com.matrix.yukun.matrix.main_module.main;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,6 +10,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
@@ -36,13 +39,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SplashActivity extends BaseActivity/* implements SplashADListener */{
+public class SplashActivity extends BaseActivity implements SplashADListener/* implements SplashADListener */{
 
-    private RelativeLayout relativeLayout;
-    private String appId="1105962710";
-    private String adId="1070070284914535";
+    private ViewGroup mLayout;
+    private String appId="1105962710"; //1105962710
+    private String adId="6000411838414184"; //1070070284914535
     private boolean conJump;
     private TextView mSkipView;
+    private SplashAD splashAD;
 
     @Override
     public int getLayout() {
@@ -54,9 +58,9 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
 
     @Override
     public void initView() {
-        getPermiss();
-        relativeLayout = (RelativeLayout) findViewById(R.id.container);
+        mLayout = (ViewGroup) findViewById(R.id.container);
         mSkipView = findViewById(R.id.skip_view);
+        getPermiss();
         //删除100天以前的历史数据
         DataSupport.deleteAllAsync(DBSearchInfo.class,"timeStamp < ? ", System.currentTimeMillis()-100*24*60*60*1000+"");
         if(MyApp.getNight()){
@@ -118,57 +122,60 @@ public class SplashActivity extends BaseActivity/* implements SplashADListener *
     }
 
     //广告接入
+//    private void requestAds() {
+//        //获取到userinfo
+//        List<UserInfo> all = DataSupport.findAll(UserInfo.class);
+//        if(all.size()>0){
+//            MyApp.setUserInfo(all.get(0));
+//        }
+//        Map<String, String> tags = new HashMap<>();
+//        SplashAD splashAD = new SplashAD(this, mSkipView, appId, adId, new AdListener(),
+//                5000, tags);
+////        LoadAdParams params = new LoadAdParams();
+////        splashAD.setLoadAdParams(params);
+//        splashAD.fetchAndShowIn(relativeLayout);
+//    }
+
     private void requestAds() {
-        //获取到userinfo
-        List<UserInfo> all = DataSupport.findAll(UserInfo.class);
-        if(all.size()>0){
-            MyApp.setUserInfo(all.get(0));
-        }
-        Map<String, String> tags = new HashMap<>();
-        SplashAD splashAD = new SplashAD(this, mSkipView, appId, adId, new AdListener(),
-                5000, null);
-        LoadAdParams params = new LoadAdParams();
-        splashAD.setLoadAdParams(params);
-        splashAD.fetchAndShowIn(relativeLayout);
+        splashAD = new SplashAD(this, mSkipView, appId, adId, this, 5000);
+        splashAD.fetchAndShowIn(mLayout);
     }
 
-    public class AdListener implements SplashADListener {
-        @Override
-        public void onADDismissed() {
-            //显示完毕
-            LogUtil.i("---ads","onADDismissed");
-            conJump=true;
-            forward();
-        }
+    @Override
+    public void onADDismissed() {
+        //显示完毕
+        LogUtil.i("---ads","onADDismissed");
+        conJump=true;
+        forward();
+    }
 
-        @Override
-        public void onNoAD(AdError adError) {
-            //加载失败
-            LogUtil.i("---adError",adError.getErrorMsg());
-            conJump=true;
-            forward();
-        }
+    @Override
+    public void onNoAD(AdError adError) {
+        //加载失败
+        LogUtil.i("---adError",adError.getErrorCode()+" "+adError.getErrorMsg());
+        conJump=true;
+        forward();
+    }
 
-        @Override
-        public void onADPresent() {
-            LogUtil.i("---ads","onADPresent");
-        }
+    @Override
+    public void onADPresent() {
+        LogUtil.i("---ads","onADPresent");
+    }
 
-        @Override
-        public void onADClicked() {
-            LogUtil.i("---ads","onADClicked");
-        }
+    @Override
+    public void onADClicked() {
+        LogUtil.i("---ads","onADClicked");
+    }
 
-        @Override
-        public void onADTick(long l) {
-            mSkipView.setText(String.format("点击跳过 %d", Math.round(l / 1000f)));
-            Log.i("---ads","onADTick");
-        }
+    @Override
+    public void onADTick(long l) {
+        mSkipView.setText(String.format("点击跳过 %d", Math.round(l / 1000f)));
+        Log.i("---ads","onADTick");
+    }
 
-        @Override
-        public void onADExposure() {
-            LogUtil.i("---ads","onADExposure");
-        }
+    @Override
+    public void onADExposure() {
+        LogUtil.i("---ads","onADExposure");
     }
 
     @Override

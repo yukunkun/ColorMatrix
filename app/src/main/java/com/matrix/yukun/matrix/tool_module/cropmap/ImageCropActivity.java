@@ -195,11 +195,13 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
             mBitOrigin.recycle();
         }
         Bitmap bitmap=null;
-        if(new File(path).length()/1024/1024>3){
-            bitmap= ImageUtils.getSmallBitmap(path);//图片处理,压缩大小
-        }else {
-            bitmap=BitmapFactory.decodeFile(path);
-        }
+//        if(new File(path).length()/1024/1024>3){
+//            bitmap= ImageUtils.getSmallBitmap(path);//图片处理,压缩大小
+//        }else {
+//            bitmap=BitmapFactory.decodeFile(path);
+//        }
+        String compressImage = BitmapUtil.compressImage(path);
+        bitmap=BitmapFactory.decodeFile(compressImage);
         mBitOrigin=bitmap;
         mBitCompress = Bitmap.createBitmap(mBitOrigin.getWidth(), mBitOrigin.getHeight(),
                 Bitmap.Config.ARGB_4444);

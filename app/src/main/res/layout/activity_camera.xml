@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_black"
-    tools:context="com.matrix.yukun.matrix.camera_module.CameraActivity">
+    tools:context=".tool_module.cropmap.CameraActivity">
     <RelativeLayout
         android:id="@+id/title"
         android:background="@color/color_252525"
@@ -24,53 +24,34 @@
             android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
             android:layout_width="@dimen/dimens_60"
             android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_save"
+            android:text="确定"
+            android:layout_alignParentRight="true"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:paddingRight="@dimen/dimens_10"
+            android:layout_centerVertical="true"
+            android:textColor="@drawable/selector_qrcode_product"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
         <View
             android:layout_alignParentBottom="true"
             android:background="#363636"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
     </RelativeLayout>
-    <ImageView
-        android:id="@+id/cameraimageview"
-        android:layout_marginBottom="56dp"
+    <RelativeLayout
         android:layout_below="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <RelativeLayout
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_45">
-        <View
-            android:background="#363636"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"/>
-        <LinearLayout
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:weightSum="2"
-            android:orientation="horizontal"
-            android:layout_height="@dimen/dimens_45">
-            <ImageView
-                android:id="@+id/cameracancler"
-                android:layout_width="0dp"
-                android:padding="10dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@mipmap/abc_ic_clear_mtrl_alpha"
-                android:layout_height="match_parent" />
-            <View
-                android:background="#363636"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"/>
-            <ImageView
-                android:id="@+id/cameraok"
-                android:layout_width="0dp"
-                android:padding="10dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@mipmap/ic_manage_dark"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+        android:layout_height="match_parent">
+        <uk.co.senab.photoview.PhotoView
+            android:id="@+id/iv_image"
+            android:src="@mipmap/icon_weather_pos"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/deal"
