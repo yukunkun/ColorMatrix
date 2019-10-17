@@ -425,7 +425,7 @@ public class HeWeatherActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.iv_main:
-
+                AMapActivity.start(this);
                 break;
             case R.id.iv_future:
             case R.id.tv_future:

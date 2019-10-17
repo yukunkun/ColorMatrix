@@ -39,8 +39,20 @@
     <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW" /> <!-- 声明程序使用camera和自动对焦功能 -->
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    //定位包、导航包需要的额外权限（注：基础权限也需要）
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
         android:name=".MyApp"
@@ -51,9 +63,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:label">
-
-        <activity android:name=".tool_module.notebook.activity.NoteSettingActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".tool_module.weather.activity.AMapActivity"></activity>
+        <activity
+            android:name=".tool_module.notebook.activity.NoteSettingActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".main_module.main.SplashActivity"
             android:configChanges="keyboard|screenSize|orientation|layoutDirection"
@@ -140,8 +153,7 @@
         <service android:name=".download_module.service.DownloadNotificationService" />
         <service
             android:name="com.qq.e.comm.DownloadService"
-            android:exported="false" />
-        <!-- 请开发者注意字母的大小写，ADActivity，而不是AdActivity -->
+            android:exported="false" /> <!-- 请开发者注意字母的大小写，ADActivity，而不是AdActivity -->
         <activity
             android:name="com.qq.e.ads.ADActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
@@ -153,6 +165,7 @@
             android:name="com.qq.e.ads.LandscapeADActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -197,17 +210,15 @@
 
         <activity
             android:name=".tool_module.cropmap.CameraActivity"
-            android:screenOrientation="portrait" />
-
-       <!--<provider-->
-            <!--android:name="android.support.v4.content.FileProvider"-->
-            <!--android:authorities="com.xykj.customview.fileprovider"-->
-            <!--android:exported="false"-->
-            <!--android:grantUriPermissions="true">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
-                <!--android:resource="@xml/camera" />-->
-        <!--</provider>-->
+            android:screenOrientation="portrait" /> <!-- <provider -->
+        <!-- android:name="android.support.v4.content.FileProvider" -->
+        <!-- android:authorities="com.xykj.customview.fileprovider" -->
+        <!-- android:exported="false" -->
+        <!-- android:grantUriPermissions="true"> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.support.FILE_PROVIDER_PATHS" -->
+        <!-- android:resource="@xml/camera" /> -->
+        <!-- </provider> -->
         <activity
             android:name=".tool_module.weather.WeatherActivity"
             android:screenOrientation="portrait" />
@@ -446,9 +457,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".tool_module.weather.activity.SearchCityActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
     </application>
 
 </manifest>
