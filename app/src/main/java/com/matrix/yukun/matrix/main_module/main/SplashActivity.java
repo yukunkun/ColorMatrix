@@ -71,11 +71,13 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
     private void getPermiss() {
         final List<String> permissingList = new ArrayList<String>();
         permissingList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        permissingList.add(Manifest.permission.CAMERA);
+        permissingList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
         permissingList.add(Manifest.permission.ACCESS_COARSE_LOCATION);
         permissingList.add(Manifest.permission.READ_PHONE_STATE);
         permissingList.add(Manifest.permission.READ_CONTACTS);
         permissingList.add(Manifest.permission.RECORD_AUDIO);
+        permissingList.add(Manifest.permission.CAMERA);
+
         PermissionUtils permissionUtils = PermissionUtils.getInstance();
         permissionUtils.setContext(this);
         List<String> list = permissionUtils.setPermission(permissingList);

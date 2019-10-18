@@ -16,6 +16,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayout());
         ActivityManager.getInstance().addActivity(this);
         ButterKnife.bind(this);
+        createMap(savedInstanceState);
         initView();
         initDate();
         initListener();
@@ -28,7 +29,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void initListener(){
 
     }
+    public void createMap(Bundle bundle){
 
+    }
     public void initDate(){
 
     }
