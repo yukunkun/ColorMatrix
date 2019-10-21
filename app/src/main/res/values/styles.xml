@@ -58,4 +58,9 @@
        <item name="android:windowAnimationStyle">@anim/activity_back_anim</item>
      </style>
 
+    //白屏问题
+    <style name="DtTheme.Splash" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
 </resources>

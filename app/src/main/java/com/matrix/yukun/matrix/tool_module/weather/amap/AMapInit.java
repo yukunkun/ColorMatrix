@@ -3,6 +3,7 @@ package com.matrix.yukun.matrix.tool_module.weather.amap;
 import android.content.Context;
 import android.location.Location;
 import android.view.MotionEvent;
+import android.view.animation.LinearInterpolator;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -12,9 +13,16 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.maps.model.animation.Animation;
+import com.amap.api.maps.model.animation.ScaleAnimation;
 import com.matrix.yukun.matrix.util.log.LogUtil;
+
+import java.util.Map;
 
 /**
  * author: kun .
@@ -31,6 +39,7 @@ public class AMapInit implements LocationSource, AMapLocationListener {
     AMapLocationClientOption mLocationOption;
     private OnLocationChangedListener mListener;
     private boolean followMove;
+    Marker growMarker = null;
 
 
     private AMapInit(){
@@ -111,6 +120,37 @@ public class AMapInit implements LocationSource, AMapLocationListener {
             mlocationClient.startLocation();//启动定位
         }
     }
+    /**
+     * 添加一个从地上生长的Marker
+     */
+    public void  addGrowMarker(LatLng latLng) {
+        growMarker = null;
+        if(growMarker == null) {
+            MarkerOptions markerOptions = new MarkerOptions().icon(BitmapDescriptorFactory
+                    .defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                    .position(latLng);
+            growMarker = mMap.addMarker(markerOptions);
+        }
+
+        startGrowAnimation();
+    }
+
+    /**
+     * 地上生长的Marker
+     */
+    private void startGrowAnimation() {
+        if(growMarker != null) {
+            Animation animation = new ScaleAnimation(0,1,0,1);
+            animation.setInterpolator(new LinearInterpolator());
+            //整个移动所需要的时间
+            animation.setDuration(500);
+            //设置动画
+            growMarker.setAnimation(animation);
+            //开始动画
+            growMarker.startAnimation();
+        }
+    }
+
 
 
     @Override

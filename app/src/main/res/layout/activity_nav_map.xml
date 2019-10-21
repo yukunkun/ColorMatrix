@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".tool_module.weather.amap.NavMapActivity">
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:padding="@dimen/dimens_5"
+            android:background="?android:attr/actionBarItemBackground"
+            android:src="@mipmap/joke_back"
+            android:layout_width="@dimen/dimens_40"
+            android:layout_height="@dimen/dimens_50" />
+        <LinearLayout
+            android:id="@+id/ll_enter"
+            android:background="@drawable/shape_map_search"
+            android:layout_toRightOf="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_marginRight="@dimen/dimens_50"
+            android:layout_marginTop="@dimen/dimens_10"
+            android:orientation="vertical"
+            android:layout_height="@dimen/dimens_80">
+            <RelativeLayout
+                android:layout_marginRight="@dimen/dimens_10"
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_40">
+                <ImageView
+                    android:src="@mipmap/icon_map_start"
+                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/dimens_30"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:layout_marginLeft="@dimen/dimens_30"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginRight="@dimen/dimens_10"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_40">
+                <ImageView
+                    android:src="@mipmap/icon_map_end"
+                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/dimens_30"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:layout_marginLeft="@dimen/dimens_30"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/in_change"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_map_remove"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dimens_10"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimens_25" />
+    </RelativeLayout>
+</LinearLayout>
