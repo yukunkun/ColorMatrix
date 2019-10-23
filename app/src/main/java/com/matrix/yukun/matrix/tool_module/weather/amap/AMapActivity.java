@@ -3,27 +3,32 @@ package com.matrix.yukun.matrix.tool_module.weather.amap;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.CardView;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.amap.api.maps.AMap;
-import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.MapView;
-import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.CameraPosition;
+import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
-import com.amap.api.maps.model.MarkerOptions;
-import com.amap.api.maps.model.NaviPara;
 import com.amap.api.maps.model.Poi;
+import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.poisearch.PoiResult;
+import com.amap.api.services.poisearch.PoiSearch;
+import com.amap.api.services.weather.LocalWeatherForecastResult;
+import com.amap.api.services.weather.LocalWeatherLiveResult;
+import com.amap.api.services.weather.WeatherSearch;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-
-import java.util.Map;
-
+import com.matrix.yukun.matrix.tool_module.weather.activity.MapWeaDialog;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -55,6 +60,9 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
     CardView cvMapLeavel;
     private AMap mMap;
     private AMapInit mAMapInit;
+    private LatLng mClickLat;
+    private BottomSheetDialog mSheetDialog ;
+
 
     public static void start(Context context) {
         Intent intent = new Intent(context, AMapActivity.class);
@@ -146,8 +154,20 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
                 }
                 break;
             case R.id.tv_weather:
+                mAMapInit.seatherSearchQuery("成都", new WeatherSearch.OnWeatherSearchListener() {
+                    @Override
+                    public void onWeatherLiveSearched(LocalWeatherLiveResult localWeatherLiveResult, int i) {
+                        LogUtil.i("==========",localWeatherLiveResult.toString());
+                    }
+
+                    @Override
+                    public void onWeatherForecastSearched(LocalWeatherForecastResult localWeatherForecastResult, int i) {
+                        LogUtil.i("==========",localWeatherForecastResult.toString());
+                    }
+                });
                 break;
             case R.id.tv_near:
+                showNearDialog();
                 break;
             case R.id.tv_line:
                 NavMapActivity.start(this);
@@ -167,11 +187,42 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
         }
     }
 
+    private void showNearDialog() {
+        if(mSheetDialog==null||!mSheetDialog.isShowing()){
+            mSheetDialog = new BottomSheetDialog(this);
+            View inflate = LayoutInflater.from(this).inflate(R.layout.map_dialog_fragment,  null, false);
+            mSheetDialog.setContentView(inflate);
+            mSheetDialog.setCanceledOnTouchOutside(true);
+            mSheetDialog.setCancelable(true);
+            mSheetDialog.getWindow().setDimAmount(0); //背景透明
+            mSheetDialog.getWindow().findViewById(R.id.design_bottom_sheet)
+                    .setBackgroundResource(android.R.color.transparent);
+            mSheetDialog.show();
+        }else {
+            mSheetDialog.dismiss();
+        }
+
+    }
+
     //点击
     @Override
     public void onPOIClick(Poi poi) {
         mMap.clear();
         mAMapInit.addGrowMarker(poi.getCoordinate());
+        PoiSearch poiSearch = new PoiSearch(this, null);
+        poiSearch.setOnPoiSearchListener(new PoiSearch.OnPoiSearchListener() {
+            @Override
+            public void onPoiSearched(PoiResult poiResult, int i) {
+
+            }
+
+            @Override
+            public void onPoiItemSearched(PoiItem poiItem, int i) {
+                MapWeaDialog instance = MapWeaDialog.getInstance();
+                instance.show(getSupportFragmentManager(),"");
+            }
+        });
+        poiSearch.searchPOIIdAsyn(poi.getPoiId());// 异步搜索
 
 //        MarkerOptions markOptiopns = new MarkerOptions();
 //        markOptiopns.position(poi.getCoordinate());

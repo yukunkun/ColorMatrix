@@ -20,9 +20,9 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.animation.Animation;
 import com.amap.api.maps.model.animation.ScaleAnimation;
+import com.amap.api.services.weather.WeatherSearch;
+import com.amap.api.services.weather.WeatherSearchQuery;
 import com.matrix.yukun.matrix.util.log.LogUtil;
-
-import java.util.Map;
 
 /**
  * author: kun .
@@ -35,13 +35,13 @@ public class AMapInit implements LocationSource, AMapLocationListener {
     private UiSettings mUiSettings;//定义一个UiSettings对象
     private Context mContext;
     private MyLocationStyle myLocationStyle;
-    AMapLocationClient mlocationClient;
-    AMapLocationClientOption mLocationOption;
+    private AMapLocationClient mlocationClient;
+    private AMapLocationClientOption mLocationOption;
     private OnLocationChangedListener mListener;
     private boolean followMove;
-    Marker growMarker = null;
-
-
+    private Marker growMarker = null;
+    private LatLng mCurrentLat;
+    private LatLng mClickLat;
     private AMapInit(){
 
     }
@@ -74,11 +74,12 @@ public class AMapInit implements LocationSource, AMapLocationListener {
         mMap.setOnMyLocationChangeListener(new AMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
-                LogUtil.i("=========",followMove+"");
+//                LogUtil.i("=========",followMove+"");
+                mCurrentLat=new LatLng(location.getLatitude(),location.getLongitude());
                 if (followMove) {
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(),location.getLongitude())));
                 }
-                LogUtil.i("=========",location.toString());
+//                LogUtil.i("=========",location.toString());
             }
         });
 
@@ -120,6 +121,16 @@ public class AMapInit implements LocationSource, AMapLocationListener {
             mlocationClient.startLocation();//启动定位
         }
     }
+
+    public void seatherSearchQuery(String city, WeatherSearch.OnWeatherSearchListener onWeatherSearchListener){
+        //检索参数为城市和天气类型，实况天气为WEATHER_TYPE_LIVE、天气预报为WEATHER_TYPE_FORECAST
+        WeatherSearchQuery mquery = new WeatherSearchQuery(city, WeatherSearchQuery.WEATHER_TYPE_LIVE);
+        WeatherSearch weathersearch=new WeatherSearch(mContext);
+        weathersearch.setOnWeatherSearchListener(onWeatherSearchListener);
+        weathersearch.setQuery(mquery);
+        weathersearch.searchWeatherAsyn(); //异步搜索
+    }
+
     /**
      * 添加一个从地上生长的Marker
      */

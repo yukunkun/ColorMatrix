@@ -74,7 +74,7 @@ public class DownLoadServiceImpl implements DownLoadManager {
         if(!TextUtils.isEmpty(imageUrl)){
             fileInfo.imageUrl=imageUrl;
         }
-        fileInfo.fileName="mp_yukun_"+System.currentTimeMillis()+".mp4";
+        fileInfo.fileName="yk_"+System.currentTimeMillis()+".mp4";
         fileInfo.filePath= AppConstant.VIDEOPATH;
         mDownloadQuen.add(fileInfo);
         //存数据库

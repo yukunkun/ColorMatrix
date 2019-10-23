@@ -304,6 +304,10 @@ public class HeWeatherActivity extends BaseActivity {
         double progressSun= getSunTimePersent(forecastBase);
         sunrise.setProgress(progressSun);
         sunrise.setIcon(R.mipmap.icon_weather_sun);
+        String mr = forecastBase.getMr().substring(0, 2);
+        if(Double.valueOf(mr)<23){
+            forecastBase.setMr("23:59");
+        };
         moondown.setHeadText("月出 "+forecastBase.getMr());
         moondown.setBackText("月落 "+forecastBase.getMs());
         double progressMoon= getMoonTimePersent(forecastBase);
