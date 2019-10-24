@@ -23,6 +23,7 @@ import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.Poi;
+import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
@@ -35,6 +36,9 @@ import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.tool_module.weather.activity.MapWeaDialog;
 import com.matrix.yukun.matrix.util.log.LogUtil;
+
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -69,6 +73,7 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
     private LatLng mClickLat;
     private BottomSheetDialog mSheetDialog ;
     private LatLng mLatLng;
+    private boolean isWeather=true;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, AMapActivity.class);
@@ -106,6 +111,7 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
 //                ToastUtils.showToast(cameraPosition.toString()+"");
             }
         });
+
         AMapLocationClient mLocationClient = new AMapLocationClient(this);
         mLocationClient.setLocationListener(new AMapLocationListener() {
             @Override
@@ -177,9 +183,10 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
                 }
                 break;
             case R.id.tv_weather:
-
+                isWeather=true;
                 break;
             case R.id.tv_near:
+                isWeather=false;
                 showNearDialog();
                 break;
             case R.id.tv_line:
@@ -203,13 +210,11 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
     private void showNearDialog() {
         if(mSheetDialog==null||!mSheetDialog.isShowing()){
             mSheetDialog = new BottomSheetDialog(this);
-            View inflate = LayoutInflater.from(this).inflate(R.layout.map_dialog_fragment,  null, false);
+            View inflate = LayoutInflater.from(this).inflate(R.layout.sheet_dialog_layout,  null, false);
             mSheetDialog.setContentView(inflate);
             mSheetDialog.setCanceledOnTouchOutside(true);
             mSheetDialog.setCancelable(true);
             mSheetDialog.getWindow().setDimAmount(0); //背景透明
-            /*mSheetDialog.getWindow().findViewById(R.id.design_bottom_sheet)
-                    .setBackgroundResource(android.R.color.transparent);*/
             mSheetDialog.show();
         }else {
             mSheetDialog.dismiss();
@@ -221,8 +226,7 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
     public void onPOIClick(Poi poi) {
         mMap.clear();
         mAMapInit.addGrowMarker(poi.getCoordinate());
-        PoiSearch poiSearch = new PoiSearch(this, null);
-        poiSearch.setOnPoiSearchListener(new PoiSearch.OnPoiSearchListener() {
+        mAMapInit.changePoiItem(poi, new PoiSearch.OnPoiSearchListener() {
             @Override
             public void onPoiSearched(PoiResult poiResult, int i) {
 
@@ -230,21 +234,28 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
 
             @Override
             public void onPoiItemSearched(PoiItem poiItem, int i) {
-                MapWeaDialog instance = MapWeaDialog.getInstance(poiItem,mLatLng);
-                instance.show(getSupportFragmentManager(),"");
+                if(!isWeather){
+                    mAMapInit.searchQuery(poiItem.getLatLonPoint(), 0, "楼宇", new PoiSearch.OnPoiSearchListener() {
+                        @Override
+                        public void onPoiSearched(PoiResult poiResult, int i) {
+                            LogUtil.i("========",poiResult.getQuery().getCategory());
+                            ArrayList<PoiItem> pois = poiResult.getPois();
+                            for (int j = 0; j < pois.size(); j++) {
+                                LogUtil.i("========",pois.get(j).getAdName());
+                            }
+                        }
+
+                        @Override
+                        public void onPoiItemSearched(PoiItem poiItem, int i) {
+
+                        }
+                    });
+                }else {
+                    MapWeaDialog instance = MapWeaDialog.getInstance(poiItem,mLatLng);
+                    instance.show(getSupportFragmentManager(),"");
+                }
             }
         });
-        poiSearch.searchPOIIdAsyn(poi.getPoiId());// 异步搜索
-
-//        MarkerOptions markOptiopns = new MarkerOptions();
-//        markOptiopns.position(poi.getCoordinate());
-//        TextView textView = new TextView(getApplicationContext());
-//        textView.setText("到"+poi.getName()+"去");
-//        textView.setGravity(Gravity.CENTER);
-//        textView.setTextColor(Color.BLACK);
-//        textView.setBackgroundResource(R.drawable.balloon_l_pressed);
-//        markOptiopns.icon(BitmapDescriptorFactory.fromView(textView));
-//        mMap.addMarker(markOptiopns);
     }
 
     //marker

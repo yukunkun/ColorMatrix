@@ -18,11 +18,20 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.maps.model.Poi;
 import com.amap.api.maps.model.animation.Animation;
 import com.amap.api.maps.model.animation.ScaleAnimation;
+import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.core.LatLonSharePoint;
+import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.poisearch.PoiResult;
+import com.amap.api.services.poisearch.PoiSearch;
 import com.amap.api.services.weather.WeatherSearch;
 import com.amap.api.services.weather.WeatherSearchQuery;
+import com.matrix.yukun.matrix.tool_module.weather.activity.MapWeaDialog;
 import com.matrix.yukun.matrix.util.log.LogUtil;
+
+import java.util.ArrayList;
 
 /**
  * author: kun .
@@ -42,6 +51,9 @@ public class AMapInit implements LocationSource, AMapLocationListener {
     private Marker growMarker = null;
     private LatLng mCurrentLat;
     private LatLng mClickLat;
+    private PoiSearch.Query mQuery;
+    private PoiSearch poiSearch;
+
     private AMapInit(){
 
     }
@@ -122,14 +134,27 @@ public class AMapInit implements LocationSource, AMapLocationListener {
         }
     }
 
-    public void seatherSearchQuery(String city, WeatherSearch.OnWeatherSearchListener onWeatherSearchListener){
+    public void searchQuery(LatLonPoint searchLatlonPoint, int currentPage, String searchType, PoiSearch.OnPoiSearchListener searchListener){
         //检索参数为城市和天气类型，实况天气为WEATHER_TYPE_LIVE、天气预报为WEATHER_TYPE_FORECAST
-        WeatherSearchQuery mquery = new WeatherSearchQuery(city, WeatherSearchQuery.WEATHER_TYPE_LIVE);
-        WeatherSearch weathersearch=new WeatherSearch(mContext);
-        weathersearch.setOnWeatherSearchListener(onWeatherSearchListener);
-        weathersearch.setQuery(mquery);
-        weathersearch.searchWeatherAsyn(); //异步搜索
+        // 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
+        mQuery = new PoiSearch.Query("", searchType, "");
+        mQuery.setCityLimit(true);
+        mQuery.setPageSize(20);
+        mQuery.setPageNum(currentPage);
+        if (searchLatlonPoint != null) {
+            poiSearch = new PoiSearch(mContext, mQuery);
+            poiSearch.setOnPoiSearchListener(searchListener);
+            poiSearch.setBound(new PoiSearch.SearchBound(searchLatlonPoint, 1000, true));//
+            poiSearch.searchPOIAsyn();
+        }
     }
+
+    public void changePoiItem(Poi poi,PoiSearch.OnPoiSearchListener onPoiSearchListener){
+        PoiSearch poiSearch = new PoiSearch(mContext, null);
+        poiSearch.setOnPoiSearchListener(onPoiSearchListener);
+        poiSearch.searchPOIIdAsyn(poi.getPoiId());// 异步搜索
+    }
+
 
     /**
      * 添加一个从地上生长的Marker
