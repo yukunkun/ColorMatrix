@@ -2,10 +2,78 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/green_btn"
+    android:background="@color/color_whit"
+    android:orientation="vertical"
     android:layout_height="match_parent">
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/bg_33"
-        android:layout_height="1000dp" />
+        android:paddingBottom="@dimen/dimens_10"
+        android:paddingLeft="@dimen/dimens_10"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_place"
+            android:layout_marginTop="@dimen/dimens_20"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="@dimen/dimens_100"
+            android:text=""
+            android:textColor="@color/image_color_blue"
+            android:textSize="@dimen/dimens_35"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_detail_place"
+            android:layout_below="@+id/tv_place"
+            android:layout_marginTop="@dimen/dimens_10"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:textColor="@color/color_82181818"
+            android:textSize="@dimen/dimens_16"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_distance"
+            android:layout_below="@+id/tv_detail_place"
+            android:layout_marginTop="@dimen/dimens_10"
+            android:layout_width="wrap_content"
+            android:text=""
+            android:textColor="@color/color_82181818"
+            android:textSize="@dimen/dimens_14"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_quality"
+            android:text=""
+            android:layout_marginRight="@dimen/dimens_20"
+            android:layout_marginTop="@dimen/dimens_30"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/green_btn"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/dimens_25"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_temp"
+            android:text=""
+            android:layout_toLeftOf="@+id/tv_quality"
+            android:textColor="@color/green_btn"
+            android:layout_marginRight="@dimen/dimens_10"
+            android:layout_marginTop="@dimen/dimens_30"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/dimens_35"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <include
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                layout="@layout/include_weather_detail"/>
+            <include
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                layout="@layout/include_weather_tomorrow"/>
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

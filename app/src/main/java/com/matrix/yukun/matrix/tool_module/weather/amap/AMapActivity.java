@@ -13,6 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.CameraPosition;
@@ -27,6 +31,8 @@ import com.amap.api.services.weather.LocalWeatherLiveResult;
 import com.amap.api.services.weather.WeatherSearch;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.main_module.utils.SPUtils;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.tool_module.weather.activity.MapWeaDialog;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 import butterknife.BindView;
@@ -62,7 +68,7 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
     private AMapInit mAMapInit;
     private LatLng mClickLat;
     private BottomSheetDialog mSheetDialog ;
-
+    private LatLng mLatLng;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, AMapActivity.class);
@@ -100,6 +106,23 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
 //                ToastUtils.showToast(cameraPosition.toString()+"");
             }
         });
+        AMapLocationClient mLocationClient = new AMapLocationClient(this);
+        mLocationClient.setLocationListener(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+                if (aMapLocation != null) {
+                    if (aMapLocation.getErrorCode() == 0) {
+                        mLatLng=new LatLng(aMapLocation.getLatitude(),aMapLocation.getLongitude());
+                        //解析定位结果
+                        SPUtils.getInstance().saveString("city", aMapLocation.getCity());
+                    } else {
+                        ToastUtils.showToast("请确保定位已开启");
+                    }
+                }
+            }
+        });
+        //启动定位
+        mLocationClient.startLocation();
     }
 
     @Override
@@ -154,17 +177,7 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
                 }
                 break;
             case R.id.tv_weather:
-                mAMapInit.seatherSearchQuery("成都", new WeatherSearch.OnWeatherSearchListener() {
-                    @Override
-                    public void onWeatherLiveSearched(LocalWeatherLiveResult localWeatherLiveResult, int i) {
-                        LogUtil.i("==========",localWeatherLiveResult.toString());
-                    }
 
-                    @Override
-                    public void onWeatherForecastSearched(LocalWeatherForecastResult localWeatherForecastResult, int i) {
-                        LogUtil.i("==========",localWeatherForecastResult.toString());
-                    }
-                });
                 break;
             case R.id.tv_near:
                 showNearDialog();
@@ -195,13 +208,12 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
             mSheetDialog.setCanceledOnTouchOutside(true);
             mSheetDialog.setCancelable(true);
             mSheetDialog.getWindow().setDimAmount(0); //背景透明
-            mSheetDialog.getWindow().findViewById(R.id.design_bottom_sheet)
-                    .setBackgroundResource(android.R.color.transparent);
+            /*mSheetDialog.getWindow().findViewById(R.id.design_bottom_sheet)
+                    .setBackgroundResource(android.R.color.transparent);*/
             mSheetDialog.show();
         }else {
             mSheetDialog.dismiss();
         }
-
     }
 
     //点击
@@ -218,7 +230,7 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
 
             @Override
             public void onPoiItemSearched(PoiItem poiItem, int i) {
-                MapWeaDialog instance = MapWeaDialog.getInstance();
+                MapWeaDialog instance = MapWeaDialog.getInstance(poiItem,mLatLng);
                 instance.show(getSupportFragmentManager(),"");
             }
         });
