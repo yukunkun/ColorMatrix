@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dimens_10"
         android:padding="4dp"
         segmentedgroup:sc_border_width="1dp"
         segmentedgroup:sc_corner_radius="2dp">
@@ -45,6 +46,15 @@
             android:layout_height="wrap_content"
             android:layout_weight=".33"
             android:text="商场" />
-
     </com.matrix.yukun.matrix.selfview.SegmentedGroup>
+    <ListView
+        android:id="@+id/lv_near"
+        android:paddingLeft="@dimen/dimens_10"
+        android:paddingRight="@dimen/dimens_10"
+        android:dividerHeight="0dp"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
 </LinearLayout>

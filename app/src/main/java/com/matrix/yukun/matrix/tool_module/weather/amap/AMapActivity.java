@@ -2,18 +2,16 @@ package com.matrix.yukun.matrix.tool_module.weather.amap;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationListener;
@@ -27,17 +25,17 @@ import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
-import com.amap.api.services.weather.LocalWeatherForecastResult;
-import com.amap.api.services.weather.LocalWeatherLiveResult;
-import com.amap.api.services.weather.WeatherSearch;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.selfview.SegmentedGroup;
 import com.matrix.yukun.matrix.tool_module.weather.activity.MapWeaDialog;
+import com.matrix.yukun.matrix.tool_module.weather.activity.SearchResultAdapter;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -47,7 +45,7 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.iv_leavel)
-    ImageView ivSearch;
+    ImageView ivLea;
     @BindView(R.id.rl_title)
     RelativeLayout rlTitle;
     @BindView(R.id.map_view)
@@ -68,12 +66,19 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
     ImageView ivMapTraffic;
     @BindView(R.id.cv_map_leavel)
     CardView cvMapLeavel;
+    @BindView(R.id.iv_search)
+    ImageView ivSearch;
     private AMap mMap;
     private AMapInit mAMapInit;
-    private LatLng mClickLat;
+    private String[] items = {"住宅区", "学校", "楼宇", "商场" };
+    private String mCurrentType=items[0];
     private BottomSheetDialog mSheetDialog ;
     private LatLng mLatLng;
+    private int currentPage;
     private boolean isWeather=true;
+    private ListView mListView;
+    private SearchResultAdapter mSearchResultAdapter;
+    private PoiItem mCurrentPoiItem;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, AMapActivity.class);
@@ -95,6 +100,8 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
         mMap = mMapView.getMap();
         mAMapInit = AMapInit.instance();
         mAMapInit.init(this, mMap);
+        tvWeather.setSelected(true);
+        tvLine.setSelected(true);
     }
 
     @Override
@@ -168,7 +175,7 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
     }
 
     @OnClick({R.id.iv_back, R.id.iv_leavel,R.id.tv_weather, R.id.tv_near, R.id.tv_line, R.id.iv_map_normal, R.id.iv_map_plant, R.id.iv_map_night, R.id.iv_map_traffic
-            })
+            ,R.id.iv_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -183,11 +190,19 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
                 }
                 break;
             case R.id.tv_weather:
+                tvNear.setSelected(false);
+                tvWeather.setSelected(true);
                 isWeather=true;
                 break;
             case R.id.tv_near:
+                tvNear.setSelected(true);
+                tvWeather.setSelected(false);
                 isWeather=false;
                 showNearDialog();
+                searchNear(new LatLonPoint(mLatLng.longitude,mLatLng.latitude));
+                break;
+            case R.id.iv_search:
+
                 break;
             case R.id.tv_line:
                 NavMapActivity.start(this);
@@ -211,6 +226,7 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
         if(mSheetDialog==null||!mSheetDialog.isShowing()){
             mSheetDialog = new BottomSheetDialog(this);
             View inflate = LayoutInflater.from(this).inflate(R.layout.sheet_dialog_layout,  null, false);
+            initViewSheet(inflate);
             mSheetDialog.setContentView(inflate);
             mSheetDialog.setCanceledOnTouchOutside(true);
             mSheetDialog.setCancelable(true);
@@ -219,6 +235,34 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
         }else {
             mSheetDialog.dismiss();
         }
+    }
+
+    private void initViewSheet(View inflate) {
+        SegmentedGroup segmentedGroup=inflate.findViewById(R.id.segmented_group);
+        mListView = inflate.findViewById(R.id.lv_near);
+        mSearchResultAdapter = new SearchResultAdapter(this);
+        mListView.setAdapter(mSearchResultAdapter);
+        segmentedGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                mCurrentType = items[0];
+                switch (checkedId) {
+                    case R.id.radio0 :
+                        mCurrentType = items[0];
+                        break;
+                    case R.id.radio1 :
+                        mCurrentType = items[1];
+                        break;
+                    case R.id.radio2 :
+                        mCurrentType = items[2];
+                        break;
+                    case R.id.radio3 :
+                        mCurrentType = items[3];
+                        break;
+                }
+                searchNear(mCurrentPoiItem.getLatLonPoint());
+            }
+        });
     }
 
     //点击
@@ -234,26 +278,34 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
 
             @Override
             public void onPoiItemSearched(PoiItem poiItem, int i) {
+                mCurrentPoiItem = poiItem;
                 if(!isWeather){
-                    mAMapInit.searchQuery(poiItem.getLatLonPoint(), 0, "楼宇", new PoiSearch.OnPoiSearchListener() {
-                        @Override
-                        public void onPoiSearched(PoiResult poiResult, int i) {
-                            LogUtil.i("========",poiResult.getQuery().getCategory());
-                            ArrayList<PoiItem> pois = poiResult.getPois();
-                            for (int j = 0; j < pois.size(); j++) {
-                                LogUtil.i("========",pois.get(j).getAdName());
-                            }
-                        }
-
-                        @Override
-                        public void onPoiItemSearched(PoiItem poiItem, int i) {
-
-                        }
-                    });
+                    mCurrentType=items[0];
+                    showNearDialog();
+                    searchNear(poiItem.getLatLonPoint());
                 }else {
                     MapWeaDialog instance = MapWeaDialog.getInstance(poiItem,mLatLng);
                     instance.show(getSupportFragmentManager(),"");
                 }
+            }
+        });
+    }
+
+    // 搜索建筑
+    private void searchNear(LatLonPoint latLonPoint) {
+        mAMapInit.searchQuery(latLonPoint, currentPage, mCurrentType, new PoiSearch.OnPoiSearchListener() {
+            @Override
+            public void onPoiSearched(PoiResult poiResult, int i) {
+                ArrayList<PoiItem> pois = poiResult.getPois();
+                if(mSearchResultAdapter!=null){
+                    mSearchResultAdapter.setData(pois);
+                    mSearchResultAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onPoiItemSearched(PoiItem poiItem, int i) {
+
             }
         });
     }
@@ -278,10 +330,10 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
         return false;
     }
 
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，保存地图当前的状态
-//        mMapView.onSaveInstanceState(outState);
-//    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，保存地图当前的状态
+        mMapView.onSaveInstanceState(outState);
+    }
 }
