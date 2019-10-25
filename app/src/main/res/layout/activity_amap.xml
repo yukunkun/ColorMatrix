@@ -104,9 +104,10 @@
                     app:cardCornerRadius="@dimen/dimens_18"
                     android:layout_height="wrap_content">
                     <ImageView
-                        android:id="@+id/iv_sraech"
+                        android:id="@+id/iv_search"
                         android:layout_centerVertical="true"
                         android:padding="@dimen/dimens_8"
+                        android:transitionName="share"
                         android:background="?android:attr/actionBarItemBackground"
                         android:src="@mipmap/icon_search_skip"
                         android:layout_width="@dimen/dimens_35"

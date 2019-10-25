@@ -16,6 +16,9 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.AMapOptions;
+import com.amap.api.maps.CameraUpdate;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
@@ -23,17 +26,21 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.Poi;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.help.Tip;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.main_module.main.SearchActivity;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.SegmentedGroup;
+import com.matrix.yukun.matrix.tool_module.weather.activity.MapSearchActivity;
 import com.matrix.yukun.matrix.tool_module.weather.activity.MapWeaDialog;
 import com.matrix.yukun.matrix.tool_module.weather.activity.SearchResultAdapter;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +75,7 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
     CardView cvMapLeavel;
     @BindView(R.id.iv_search)
     ImageView ivSearch;
+
     private AMap mMap;
     private AMapInit mAMapInit;
     private String[] items = {"住宅区", "学校", "楼宇", "商场" };
@@ -128,6 +136,7 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
                         mLatLng=new LatLng(aMapLocation.getLatitude(),aMapLocation.getLongitude());
                         //解析定位结果
                         SPUtils.getInstance().saveString("city", aMapLocation.getCity());
+                        SPUtils.getInstance().saveString("CityCode", aMapLocation.getCityCode());
                     } else {
                         ToastUtils.showToast("请确保定位已开启");
                     }
@@ -202,7 +211,7 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
                 searchNear(new LatLonPoint(mLatLng.longitude,mLatLng.latitude));
                 break;
             case R.id.iv_search:
-
+                MapSearchActivity.start(this,ivSearch);
                 break;
             case R.id.tv_line:
                 NavMapActivity.start(this);
@@ -263,6 +272,23 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
                 searchNear(mCurrentPoiItem.getLatLonPoint());
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == MapSearchActivity.request && resultCode ==MapSearchActivity.result){
+            Bundle bundle = data.getBundleExtra("bundle");
+            Tip tip = bundle.getParcelable("tip");
+            LatLng latLng=new LatLng(tip.getPoint().getLatitude(),tip.getPoint().getLongitude());
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(latLng).zoom(18).bearing(0).tilt(30).build();
+            AMapOptions aOptions = new AMapOptions();
+            aOptions.camera(cameraPosition);
+            mMap.clear();
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            mAMapInit.addGrowMarker(latLng);
+        }
     }
 
     //点击

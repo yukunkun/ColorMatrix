@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".tool_module.weather.activity.MapSearchActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_height="@dimen/dimens_50">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:padding="@dimen/dimens_5"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/actionBarItemBackground"
+            android:src="@mipmap/joke_back"
+            android:layout_width="@dimen/dimens_40"
+            android:layout_height="@dimen/dimens_50" />
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_toRightOf="@+id/iv_back"
+            android:layout_marginRight="@dimen/dimens_60"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:paddingLeft="@dimen/dimens_5"
+            android:singleLine="true"
+            android:textSize="@dimen/sp_14"
+            android:hint="城市/地名"
+            android:background="@drawable/shape_map_search"
+            android:layout_centerVertical="true"
+            android:layout_height="@dimen/dimens_30" />
+        <ImageView
+            android:id="@+id/ic_search"
+            android:layout_width="@dimen/dimens_50"
+            android:padding="@dimen/dimens_12"
+            android:transitionName="share"
+            android:background="?android:attr/actionBarItemBackground"
+            android:src="@mipmap/ic_emoji_del"
+            android:layout_alignParentRight="true"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <include layout="@layout/include_line_no_marg"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list"
+        android:layout_marginTop="@dimen/dimens_10"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

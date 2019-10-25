@@ -22,16 +22,8 @@ import com.amap.api.maps.model.Poi;
 import com.amap.api.maps.model.animation.Animation;
 import com.amap.api.maps.model.animation.ScaleAnimation;
 import com.amap.api.services.core.LatLonPoint;
-import com.amap.api.services.core.LatLonSharePoint;
-import com.amap.api.services.core.PoiItem;
-import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
-import com.amap.api.services.weather.WeatherSearch;
-import com.amap.api.services.weather.WeatherSearchQuery;
-import com.matrix.yukun.matrix.tool_module.weather.activity.MapWeaDialog;
 import com.matrix.yukun.matrix.util.log.LogUtil;
-
-import java.util.ArrayList;
 
 /**
  * author: kun .
@@ -163,7 +155,7 @@ public class AMapInit implements LocationSource, AMapLocationListener {
         growMarker = null;
         if(growMarker == null) {
             MarkerOptions markerOptions = new MarkerOptions().icon(BitmapDescriptorFactory
-                    .defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                    .defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
                     .position(latLng);
             growMarker = mMap.addMarker(markerOptions);
         }
