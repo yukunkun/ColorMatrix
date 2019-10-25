@@ -90,6 +90,7 @@
 
     <string-array name="tool_life">
         <item></item>
+        <item>周边查询</item>
         <item>历史今日</item>
         <item>新华字典</item>
         <item>BT电影</item>

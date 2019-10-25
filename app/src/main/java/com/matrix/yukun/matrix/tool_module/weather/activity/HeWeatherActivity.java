@@ -346,28 +346,30 @@ public class HeWeatherActivity extends BaseActivity {
     }
 
     private void updateBg(String code) {
-        int pos = Integer.valueOf(code);
-        if (pos < 102) {
-            Glide.with(this).load(R.mipmap.wea_chuqing)
-                    .into(ivBg);
-        } else if (pos <= 104) {
-            Glide.with(this).load(R.mipmap.wea_ying)
-                    .into(ivBg);
-        } else if (pos <= 213) {
-            Glide.with(this).load(R.mipmap.wea_cloud)
-                    .into(ivBg);
-        } else if (pos <= 313) {
-            Glide.with(this).load(R.mipmap.wea_rain)
-                    .into(ivBg);
-        } else if (pos <= 406) {
-            Glide.with(this).load(R.mipmap.wea_snow)
-                    .into(ivBg);
-        } else if (pos <= 502) {
-            Glide.with(this).load(R.mipmap.wea_wu)
-                    .into(ivBg);
-        } else {
-            Glide.with(this).load(R.mipmap.wea_chuqing)
-                    .into(ivBg);
+        if(this!=null){
+            int pos = Integer.valueOf(code);
+            if (pos < 102) {
+                Glide.with(this).load(R.mipmap.wea_chuqing)
+                        .into(ivBg);
+            } else if (pos <= 104) {
+                Glide.with(this).load(R.mipmap.wea_ying)
+                        .into(ivBg);
+            } else if (pos <= 213) {
+                Glide.with(this).load(R.mipmap.wea_cloud)
+                        .into(ivBg);
+            } else if (pos <= 313) {
+                Glide.with(this).load(R.mipmap.wea_rain)
+                        .into(ivBg);
+            } else if (pos <= 406) {
+                Glide.with(this).load(R.mipmap.wea_snow)
+                        .into(ivBg);
+            } else if (pos <= 502) {
+                Glide.with(this).load(R.mipmap.wea_wu)
+                        .into(ivBg);
+            } else {
+                Glide.with(this).load(R.mipmap.wea_chuqing)
+                        .into(ivBg);
+            }
         }
     }
 
