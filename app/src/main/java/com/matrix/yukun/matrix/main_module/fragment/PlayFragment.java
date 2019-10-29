@@ -248,6 +248,8 @@ public class PlayFragment extends BaseFragment {
                         ivUpdate.setVisibility(View.GONE);
                         //解析定位结果
                         SPUtils.getInstance().saveString("city", aMapLocation.getCity());
+                        SPUtils.getInstance().saveString("latitude", String.valueOf(aMapLocation.getLatitude()));
+                        SPUtils.getInstance().saveString("longitude", String.valueOf(aMapLocation.getLongitude()));
                         getWeather(aMapLocation.getCity());
                     }else {
                         LogUtil.i("========",aMapLocation.toStr());

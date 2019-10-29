@@ -8,6 +8,7 @@
     tools:context=".tool_module.weather.amap.NavMapActivity">
     <RelativeLayout
         android:id="@+id/rl_title"
+        android:layout_marginBottom="@dimen/dimens_10"
         android:layout_width="match_parent"
         android:layout_gravity="center_vertical"
         android:layout_height="wrap_content">
@@ -17,7 +18,7 @@
             android:background="?android:attr/actionBarItemBackground"
             android:src="@mipmap/joke_back"
             android:layout_width="@dimen/dimens_40"
-            android:layout_height="@dimen/dimens_50" />
+            android:layout_height="@dimen/dimens_40" />
         <LinearLayout
             android:id="@+id/ll_enter"
             android:background="@drawable/shape_map_search"
@@ -30,7 +31,6 @@
             android:layout_height="@dimen/dimens_80">
             <RelativeLayout
                 android:layout_marginRight="@dimen/dimens_10"
-
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimens_40">
                 <ImageView
@@ -67,4 +67,34 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dimens_25" />
     </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout"
+                app:tabSelectedTextColor="@color/bg_blue"
+                app:tabTextColor="@color/color_595959"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </android.support.design.widget.TabLayout>
+        </LinearLayout>
+        <com.amap.api.maps.MapView
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.amap.api.maps.MapView>
+        <ListView
+            android:id="@+id/lv_search"
+            android:visibility="gone"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+    </RelativeLayout>
+
 </LinearLayout>

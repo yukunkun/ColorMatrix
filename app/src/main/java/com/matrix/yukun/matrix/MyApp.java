@@ -7,8 +7,10 @@ import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatDelegate;
+import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.amap.api.maps.model.LatLng;
 import com.matrix.yukun.matrix.download_module.service.DownLoadService;
 import com.matrix.yukun.matrix.main_module.entity.UserInfo;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
@@ -97,6 +99,18 @@ public class MyApp extends LitePalApplication{
 
     public static UserInfo getUserInfo() {
         return userInfo;
+    }
+
+
+    public static LatLng getLatLng() {
+        String latitude = SPUtils.getInstance().getString("latitude");
+        String longitude = SPUtils.getInstance().getString("longitude");
+        if (!TextUtils.isEmpty(latitude)){
+            LatLng latLng=new LatLng(Double.valueOf(latitude),Double.valueOf(longitude));
+            return latLng;
+        }else {
+            return null;
+        }
     }
 
     public static void setUserInfo(UserInfo user) {
