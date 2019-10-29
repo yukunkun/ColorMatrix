@@ -33,9 +33,9 @@
 
     <ImageView
         android:id="@+id/image_check"
+        android:src="@mipmap/icon_weather_pos"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:src="@drawable/icon_affirm_selected"
         android:layout_marginLeft="8dp"/>
 
 </LinearLayout>

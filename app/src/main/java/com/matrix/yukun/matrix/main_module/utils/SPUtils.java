@@ -20,7 +20,6 @@ public class SPUtils {
 
     public static SPUtils getInstance() {
         if (spUtils == null) {
-
             sharedPreferences = MyApp.myApp.getSharedPreferences("share", Context.MODE_PRIVATE);
             editor = sharedPreferences.edit();
             spUtils = new SPUtils();

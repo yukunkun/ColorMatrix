@@ -157,8 +157,8 @@ public class ToolsItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             super(itemView);
             ButterKnife.bind(this, itemView);
             ViewGroup.LayoutParams params=ll_contain.getLayoutParams();
-            params.height= ScreenUtils.instance().getWidth(context)/4;
-           ll_contain.setLayoutParams(params);
+            params.height= ScreenUtils.instance().getWidth(context)/4-10;
+            ll_contain.setLayoutParams(params);
         }
     }
 

@@ -20,8 +20,10 @@ import android.widget.TextView;
 import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.help.Tip;
 import com.google.gson.Gson;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtil;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.tool_module.barrage.dialog.BaseBottomDialog;
@@ -95,12 +97,18 @@ public class MapWeaDialog extends BaseBottomDialog {
     private String url = "http://m.weathercn.com/index.do?partner=1000001041_hfaw&id=106774&p_source=searchbrowser&p_type=jump";
     private List<ForecastBase> mForecastBase = new ArrayList<>();
     private RVFutureAdapter mRvFutureAdapter;
-    private String mCity = "成都";
+    private String mCity = "";
     private static PoiItem mPoiItem;
     private static LatLng mLatLng;
-
+    private static Tip mTip;
     public static MapWeaDialog getInstance(PoiItem poiItem, LatLng latLng) {
         mPoiItem=poiItem;
+        mLatLng=latLng;
+        return new MapWeaDialog();
+    }
+
+    public static MapWeaDialog getInstance(Tip tip, LatLng latLng) {
+        mTip=tip;
         mLatLng=latLng;
         return new MapWeaDialog();
     }
@@ -113,12 +121,23 @@ public class MapWeaDialog extends BaseBottomDialog {
         mRvFutureAdapter = new RVFutureAdapter(getContext(), mForecastBase);
         recyclerview.setLayoutManager(linearLayoutManager);
         recyclerview.setAdapter(mRvFutureAdapter);
-        mCity=mPoiItem.getCityName();
-        tvPlace.setText(mPoiItem.getTitle());
-        tvDetailPlace.setText(mPoiItem.getCityName()+"-"+mPoiItem.getDirection()+"-"+mPoiItem.getAdName()+"-"+mPoiItem.getSnippet());
-        if(mLatLng!=null){
-            float distance = AMapUtils.calculateLineDistance(new LatLng(mPoiItem.getLatLonPoint().getLatitude(),mPoiItem.getLatLonPoint().getLongitude()),mLatLng);
-            tvDistance.setText(distance<=2000 ?"距离："+String.format("%.2f", distance)+" 米":"距离："+String.format("%.3f", distance/1000)+" 千米");
+        if(mPoiItem!=null){
+            mCity=mPoiItem.getCityName();
+            tvPlace.setText(mPoiItem.getTitle());
+            tvDetailPlace.setText(mPoiItem.getCityName()+"-"+mPoiItem.getDirection()+"-"+mPoiItem.getAdName()+"-"+mPoiItem.getSnippet());
+            if(mLatLng!=null){
+                float distance = AMapUtils.calculateLineDistance(new LatLng(mPoiItem.getLatLonPoint().getLatitude(),mPoiItem.getLatLonPoint().getLongitude()),mLatLng);
+                tvDistance.setText(distance<=2000 ?"距离："+String.format("%.2f", distance)+" 米":"距离："+String.format("%.3f", distance/1000)+" 千米");
+            }
+        }else {
+            mCity= SPUtils.getInstance().getString("city");
+            tvPlace.setText(mTip.getName());
+            tvDetailPlace.setText(mTip.getDistrict()+"-"+mTip.getAddress());
+            LatLng latLng = new LatLng(mTip.getPoint().getLatitude(), mTip.getPoint().getLongitude());
+            if(mLatLng!=null){
+                float distance = AMapUtils.calculateLineDistance(latLng,mLatLng);
+                tvDistance.setText(distance<=2000 ?"距离："+String.format("%.2f", distance)+" 米":"距离："+String.format("%.3f", distance/1000)+" 千米");
+            }
         }
     }
 

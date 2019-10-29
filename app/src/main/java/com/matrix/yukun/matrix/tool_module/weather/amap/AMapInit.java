@@ -1,8 +1,11 @@
 package com.matrix.yukun.matrix.tool_module.weather.amap;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.location.Location;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
 import com.amap.api.location.AMapLocation;
@@ -21,8 +24,11 @@ import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.Poi;
 import com.amap.api.maps.model.animation.Animation;
 import com.amap.api.maps.model.animation.ScaleAnimation;
+import com.amap.api.maps.model.animation.TranslateAnimation;
 import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiSearch;
+import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 
 /**
@@ -41,10 +47,13 @@ public class AMapInit implements LocationSource, AMapLocationListener {
     private OnLocationChangedListener mListener;
     private boolean followMove;
     private Marker growMarker = null;
+    private Marker screenMarker = null;
     private LatLng mCurrentLat;
     private LatLng mClickLat;
     private PoiSearch.Query mQuery;
     private PoiSearch poiSearch;
+    private MarkerOptions markerOption;
+    private Marker markerPoint;
 
     private AMapInit(){
 
@@ -159,8 +168,41 @@ public class AMapInit implements LocationSource, AMapLocationListener {
                     .position(latLng);
             growMarker = mMap.addMarker(markerOptions);
         }
-
         startGrowAnimation();
+    }
+
+    /**
+     * 在屏幕中心添加一个Marker
+     */
+    public void addMarkerInScreen(LatLng latLng) {
+        screenMarker=null;
+        if(screenMarker==null){
+            MarkerOptions markerOptions = new MarkerOptions().icon(BitmapDescriptorFactory
+                    .fromResource(R.mipmap.purple_pin_local))
+                    .position(latLng);
+            screenMarker = mMap.addMarker(markerOptions);
+
+//            Point screenPosition = mMap.getProjection().toScreenLocation(latLng);
+//            screenMarker = mMap.addMarker(new MarkerOptions()
+//                    .anchor(0.5f,0.5f)
+//                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.purple_pin)));
+//            //设置Marker在屏幕上,不跟随地图移动
+//            screenMarker.setPositionByPixels(screenPosition.x,screenPosition.y);
+        }
+        startJumpAnimation();
+    }
+    /**
+     * 在地图上添加marker
+     */
+    public void addMarkersToMap(LatLng latLng, PoiItem poiItem) {
+        markerOption = new MarkerOptions().icon(BitmapDescriptorFactory
+                .defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                .position(latLng)
+                .title(poiItem.getDirection())
+                .snippet(poiItem.getDistance()+poiItem.getDirection())
+                .draggable(true);
+        markerPoint = mMap.addMarker(markerOption);
+        markerPoint.showInfoWindow();
     }
 
     /**
@@ -178,7 +220,42 @@ public class AMapInit implements LocationSource, AMapLocationListener {
             growMarker.startAnimation();
         }
     }
+    /**
+     * 屏幕中心marker 跳动
+     */
+    public void startJumpAnimation() {
 
+        if (screenMarker != null ) {
+            //根据屏幕距离计算需要移动的目标点
+            final LatLng latLng = screenMarker.getPosition();
+            Point point =  mMap.getProjection().toScreenLocation(latLng);
+//            point.y -= ScreenUtil.dip2px(125);
+            LatLng target = mMap.getProjection()
+                    .fromScreenLocation(point);
+            //使用TranslateAnimation,填写一个需要移动的目标点
+            Animation animation = new TranslateAnimation(target);
+            animation.setInterpolator(new Interpolator() {
+                @Override
+                public float getInterpolation(float input) {
+                    // 模拟重加速度的interpolator
+                    if(input <= 0.5) {
+                        return (float) (0.5f - 2 * (0.5 - input) * (0.5 - input));
+                    } else {
+                        return (float) (0.5f - Math.sqrt((input - 0.5f)*(1.5f - input)));
+                    }
+                }
+            });
+            //整个移动所需要的时间
+            animation.setDuration(600);
+            //设置动画
+            screenMarker.setAnimation(animation);
+            //开始动画
+            screenMarker.startAnimation();
+
+        } else {
+            Log.e("amap","screenMarker is null");
+        }
+    }
 
 
     @Override
