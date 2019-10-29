@@ -34,28 +34,50 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimens_40">
                 <ImageView
+                    android:id="@+id/in_start"
                     android:src="@mipmap/icon_map_start"
                     android:layout_centerVertical="true"
                     android:layout_width="@dimen/dimens_30"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/et_start"
                     android:layout_marginLeft="@dimen/dimens_30"
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/dimens_30"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/iv_start_del"
+                    android:padding="@dimen/dimens_5"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/ic_emoji_del"
+                    android:layout_width="@dimen/dimens_30"
+                    android:layout_height="match_parent" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_marginRight="@dimen/dimens_10"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimens_40">
                 <ImageView
+                    android:id="@+id/iv_end"
                     android:src="@mipmap/icon_map_end"
                     android:layout_centerVertical="true"
                     android:layout_width="@dimen/dimens_30"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/et_end"
                     android:layout_marginLeft="@dimen/dimens_30"
+                    android:layout_marginRight="@dimen/dimens_30"
+                    android:singleLine="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/iv_end_del"
+                    android:padding="@dimen/dimens_5"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/ic_emoji_del"
+                    android:layout_width="@dimen/dimens_30"
+                    android:layout_height="match_parent" />
             </RelativeLayout>
         </LinearLayout>
         <ImageView
@@ -79,21 +101,25 @@
                 android:id="@+id/tab_layout"
                 app:tabSelectedTextColor="@color/bg_blue"
                 app:tabTextColor="@color/color_595959"
+                app:tabIndicatorColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </android.support.design.widget.TabLayout>
+
+            <com.amap.api.maps.MapView
+                android:id="@+id/map_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.amap.api.maps.MapView>
         </LinearLayout>
-        <com.amap.api.maps.MapView
-            android:id="@+id/map_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </com.amap.api.maps.MapView>
+
         <ListView
             android:id="@+id/lv_search"
             android:visibility="gone"
+            android:background="@color/color_whit"
             android:scrollbars="none"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
         </ListView>
     </RelativeLayout>
 

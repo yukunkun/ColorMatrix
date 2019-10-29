@@ -2,15 +2,16 @@ package com.matrix.yukun.matrix.tool_module.weather.amap;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Interpolator;
-import android.view.animation.LinearInterpolator;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -25,28 +26,27 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
-import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
-import com.amap.api.maps.model.Poi;
-import com.amap.api.maps.model.animation.Animation;
-import com.amap.api.maps.model.animation.ScaleAnimation;
-import com.amap.api.maps.model.animation.TranslateAnimation;
-import com.amap.api.services.core.LatLonPoint;
-import com.amap.api.services.core.PoiItem;
-import com.amap.api.services.poisearch.PoiSearch;
-import com.googlecode.mp4parser.authoring.tracks.Amf0Track;
+import com.amap.api.services.help.Inputtips;
+import com.amap.api.services.help.InputtipsQuery;
+import com.amap.api.services.help.Tip;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.main_module.utils.SPUtils;
+import com.matrix.yukun.matrix.tool_module.weather.activity.NavMapAdapter;
 import com.matrix.yukun.matrix.util.log.LogUtil;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class NavMapActivity extends BaseActivity implements LocationSource, AMapLocationListener {
+public class NavMapActivity extends BaseActivity implements LocationSource, AMapLocationListener, Inputtips.InputtipsListener {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -62,15 +62,32 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
     MapView mMapView;
     @BindView(R.id.lv_search)
     ListView lvSearch;
+    @BindView(R.id.in_start)
+    ImageView inStart;
+    @BindView(R.id.et_start)
+    EditText etStart;
+    @BindView(R.id.iv_start_del)
+    ImageView ivStartDel;
+    @BindView(R.id.iv_end)
+    ImageView ivEnd;
+    @BindView(R.id.et_end)
+    EditText etEnd;
+    @BindView(R.id.iv_end_del)
+    ImageView ivEndDel;
     private AMap mAMap;
     private UiSettings mUiSettings;
     private MyLocationStyle myLocationStyle;
     private AMapLocationClient mlocationClient;
     private AMapLocationClientOption mLocationOption;
     private OnLocationChangedListener mListener;
-    private boolean followMove=true;
+    private boolean followMove = true;
     private AMapInit mAMapInit;
     private LatLng mCurrentLatLng;
+    private List<String> mMapNavs;
+    private String mCityCode;
+    private boolean isStart;
+    private NavMapAdapter mNavMapAdapter;
+    private List<Tip> mTips=new ArrayList<>();
 
     public static void start(Context context) {
         Intent intent = new Intent(context, NavMapActivity.class);
@@ -91,28 +108,99 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
     public void initView() {
         mAMap = mMapView.getMap();
         mAMapInit = AMapInit.instance();
-        mAMapInit.init(this,mAMap);
+        mAMapInit.init(this, mAMap);
+        mNavMapAdapter = new NavMapAdapter(this);
+        lvSearch.setAdapter(mNavMapAdapter);
     }
 
     @Override
     public void initDate() {
         init();
+        mCityCode = SPUtils.getInstance().getString("CityCode");
+        ;
+        mMapNavs = (Arrays.asList(getResources().getStringArray(R.array.map_nav)));
         mCurrentLatLng = MyApp.getLatLng();
         mAMapInit.changeMapCenter(mCurrentLatLng);
+        initViewData();
+    }
+
+    private void initViewData() {
+        for (int i = 0; i < mMapNavs.size(); i++) {
+            tabLayout.addTab(tabLayout.newTab().setText(mMapNavs.get(i)));
+        }
     }
 
     @Override
     public void initListener() {
+        tabLayout.getTabAt(0).select();
+        etStart.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!TextUtils.isEmpty(s.toString())){
+                    isStart=true;
+                    searchResule(s.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etEnd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!TextUtils.isEmpty(s.toString())){
+                    isStart=false;
+                    searchResule(s.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        lvSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                lvSearch.setVisibility(View.GONE);
+            }
+        });
     }
 
-    @OnClick({R.id.iv_back, R.id.in_change})
+    private void searchResule(String text) {
+        InputtipsQuery inputquery = new InputtipsQuery(text, mCityCode);
+        inputquery.setCityLimit(true);//限制在当前城市
+        Inputtips inputTips = new Inputtips(this, inputquery);
+        inputTips.setInputtipsListener(this);
+        inputTips.requestInputtipsAsyn();
+    }
+
+
+    @OnClick({R.id.iv_back, R.id.in_change,R.id.iv_start_del, R.id.iv_end_del})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
             case R.id.in_change:
+                break;
+            case R.id.iv_start_del:
+                finish();
+                break;
+            case R.id.iv_end_del:
                 break;
         }
     }
@@ -162,19 +250,17 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
         mAMap.setOnMyLocationChangeListener(new AMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
-//                LogUtil.i("=========",followMove+"");
                 mCurrentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
                 if (followMove) {
                     mAMap.animateCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
                 }
-//                LogUtil.i("=========",location.toString());
             }
         });
 
         mAMap.setOnMapTouchListener(new AMap.OnMapTouchListener() {
             @Override
             public void onTouch(MotionEvent motionEvent) {
-                followMove=false;
+                followMove = false;
             }
         });
     }
@@ -188,15 +274,9 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
         mUiSettings.setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置
     }
 
-    public void changeMapCenter(){
-        LatLng latLng = MyApp.getLatLng();
-        if(latLng!=null){
-            mAMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-        }
-    }
 
     @Override
-    public void activate(LocationSource.OnLocationChangedListener onLocationChangedListener) {
+    public void activate(OnLocationChangedListener onLocationChangedListener) {
         mListener = onLocationChangedListener;
         if (mlocationClient == null) {
             //初始化定位
@@ -245,4 +325,13 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
         mMapView.onSaveInstanceState(outState);
     }
 
+    @Override
+    public void onGetInputtips(List<Tip> list, int i) {
+        if(list.size()>0){
+            lvSearch.setVisibility(View.VISIBLE);
+            mTips.clear();
+            mTips.addAll(list);
+            mNavMapAdapter.setData(mTips);
+        }
+    }
 }
