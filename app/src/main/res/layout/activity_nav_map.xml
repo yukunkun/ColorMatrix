@@ -43,6 +43,7 @@
                     android:id="@+id/et_start"
                     android:layout_marginLeft="@dimen/dimens_30"
                     android:singleLine="true"
+                    android:textColor="@drawable/selector_nav_search"
                     android:layout_marginRight="@dimen/dimens_30"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -50,6 +51,7 @@
                     android:id="@+id/iv_start_del"
                     android:padding="@dimen/dimens_5"
                     android:layout_alignParentRight="true"
+                    android:background="?android:attr/actionBarItemBackground"
                     android:src="@mipmap/ic_emoji_del"
                     android:layout_width="@dimen/dimens_30"
                     android:layout_height="match_parent" />
@@ -66,28 +68,33 @@
                     android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/et_end"
-                    android:layout_marginLeft="@dimen/dimens_30"
-                    android:layout_marginRight="@dimen/dimens_30"
-                    android:singleLine="true"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:textColor="@drawable/selector_nav_search"
+                    android:layout_marginLeft="@dimen/dimens_30"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginRight="@dimen/dimens_30"
+                    android:singleLine="true" />
                 <ImageView
                     android:id="@+id/iv_end_del"
                     android:padding="@dimen/dimens_5"
                     android:layout_alignParentRight="true"
                     android:src="@mipmap/ic_emoji_del"
+                    android:background="?android:attr/actionBarItemBackground"
                     android:layout_width="@dimen/dimens_30"
                     android:layout_height="match_parent" />
             </RelativeLayout>
         </LinearLayout>
         <ImageView
-            android:id="@+id/in_change"
+            android:id="@+id/iv_search"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/icon_map_remove"
+            android:src="@mipmap/icon_search_skip_unchecked"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dimens_10"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dimens_25" />
+            android:background="?android:attr/actionBarItemBackground"
+            android:padding="@dimen/dimens_10"
+            android:layout_width="@dimen/dimens_45"
+            android:layout_height="@dimen/dimens_45" />
     </RelativeLayout>
     <include layout="@layout/include_line_no_marg"/>
     <RelativeLayout
@@ -115,6 +122,14 @@
 
         <ListView
             android:id="@+id/lv_search"
+            android:visibility="gone"
+            android:background="@color/color_whit"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
+        <ListView
+            android:id="@+id/lv_bus"
             android:visibility="gone"
             android:background="@color/color_whit"
             android:scrollbars="none"

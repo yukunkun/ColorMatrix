@@ -1,5 +1,6 @@
 package com.matrix.yukun.matrix.tool_module.weather.amap;
 
+import android.app.NativeActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -26,15 +27,27 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.services.core.AMapException;
+import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
+import com.amap.api.services.route.BusRouteResult;
+import com.amap.api.services.route.DrivePath;
+import com.amap.api.services.route.DriveRouteResult;
+import com.amap.api.services.route.RideRouteResult;
+import com.amap.api.services.route.RouteSearch;
+import com.amap.api.services.route.WalkPath;
+import com.amap.api.services.route.WalkRouteResult;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.tool_module.weather.activity.NavMapAdapter;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 
@@ -52,8 +65,8 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
     ImageView ivBack;
     @BindView(R.id.ll_enter)
     LinearLayout llEnter;
-    @BindView(R.id.in_change)
-    ImageView inChange;
+    @BindView(R.id.iv_search)
+    ImageView ivSearch;
     @BindView(R.id.rl_title)
     RelativeLayout rlTitle;
     @BindView(R.id.tab_layout)
@@ -62,6 +75,8 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
     MapView mMapView;
     @BindView(R.id.lv_search)
     ListView lvSearch;
+    @BindView(R.id.lv_bus)
+    ListView lvBus;
     @BindView(R.id.in_start)
     ImageView inStart;
     @BindView(R.id.et_start)
@@ -86,9 +101,15 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
     private List<String> mMapNavs;
     private String mCityCode;
     private boolean isStart;
+    private boolean startSelect=true;
+    private boolean endSelect=true;
     private NavMapAdapter mNavMapAdapter;
     private List<Tip> mTips=new ArrayList<>();
-
+    private LatLonPoint mStartLatLonPoint;
+    private LatLonPoint mEndLatLonPoint;
+    private DriveRouteResult mDriveRouteResult;
+    private WalkRouteResult mWalkRouteResult;
+    private BusRouteResult mBusRouteResult;
     public static void start(Context context) {
         Intent intent = new Intent(context, NavMapActivity.class);
         context.startActivity(intent);
@@ -117,7 +138,6 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
     public void initDate() {
         init();
         mCityCode = SPUtils.getInstance().getString("CityCode");
-        ;
         mMapNavs = (Arrays.asList(getResources().getStringArray(R.array.map_nav)));
         mCurrentLatLng = MyApp.getLatLng();
         mAMapInit.changeMapCenter(mCurrentLatLng);
@@ -141,7 +161,7 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!TextUtils.isEmpty(s.toString())){
+                if(!TextUtils.isEmpty(s.toString())&&startSelect){
                     isStart=true;
                     searchResule(s.toString());
                 }
@@ -161,7 +181,7 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!TextUtils.isEmpty(s.toString())){
+                if(!TextUtils.isEmpty(s.toString())&&endSelect){
                     isStart=false;
                     searchResule(s.toString());
                 }
@@ -176,6 +196,20 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 lvSearch.setVisibility(View.GONE);
+                if(isStart){
+                    startSelect=false;
+                    etStart.setEnabled(false);
+                    etStart.setText(mTips.get(position).getName());
+                    mStartLatLonPoint = mTips.get(position).getPoint();
+                }else {
+                    endSelect=false;
+                    etEnd.setEnabled(false);
+                    etEnd.setText(mTips.get(position).getName());
+                    mEndLatLonPoint = mTips.get(position).getPoint();
+                }
+                if(!startSelect&&!endSelect){
+                    ivSearch.setImageResource(R.mipmap.icon_search_skip_checked);
+                }
             }
         });
     }
@@ -189,20 +223,171 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
     }
 
 
-    @OnClick({R.id.iv_back, R.id.in_change,R.id.iv_start_del, R.id.iv_end_del})
+    @OnClick({R.id.iv_back, R.id.iv_search,R.id.iv_start_del, R.id.iv_end_del})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.in_change:
+            case R.id.iv_search:
+                if(!startSelect&&!endSelect){
+                    startNav(mAMapInit.ROUTE_TYPE_BUS,mStartLatLonPoint,mEndLatLonPoint);
+//                    startNav(mAMapInit.ROUTE_TYPE_DRIVE,mStartLatLonPoint,mEndLatLonPoint);
+//                    startNav(mAMapInit.ROUTE_TYPE_WALK,mStartLatLonPoint,mEndLatLonPoint);
+                }else {
+                    ToastUtils.showToast(getResources().getString(R.string.chose_local));
+                }
                 break;
             case R.id.iv_start_del:
-                finish();
+                startSelect=true;
+                etStart.setEnabled(true);
+                etStart.setText("");
+                ivSearch.setImageResource(R.mipmap.icon_search_skip_unchecked);
                 break;
             case R.id.iv_end_del:
+                endSelect=true;
+                etEnd.setEnabled(true);
+                etEnd.setText("");
+                ivSearch.setImageResource(R.mipmap.icon_search_skip_unchecked);
                 break;
         }
+    }
+
+    private void startNav(int type,LatLonPoint mStartLatLonPoint,LatLonPoint mEndLatLonPoint) {
+        mAMapInit.setfromandtoMarker(mStartLatLonPoint,mEndLatLonPoint);
+        RouteSearch.FromAndTo fromAndTo=new RouteSearch.FromAndTo(mStartLatLonPoint,mEndLatLonPoint);
+        mAMapInit.driveRount(type,fromAndTo, 0, new RouteSearch.OnRouteSearchListener() {
+            @Override
+            public void onBusRouteSearched(BusRouteResult result, int errorCode) {
+                if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
+                    if (result != null && result.getPaths() != null) {
+                        if (result.getPaths().size() > 0) {
+                            lvBus.setVisibility(View.VISIBLE);
+                            mBusRouteResult = result;
+                            BusResultListAdapter mBusResultListAdapter = new BusResultListAdapter(NavMapActivity.this, mBusRouteResult);
+                            lvBus.setAdapter(mBusResultListAdapter);
+                        } else if (result != null && result.getPaths() == null) {
+
+                        }
+                    } else {
+
+                    }
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onDriveRouteSearched(DriveRouteResult result, int errorCode) {
+                mAMap.clear();// 清理地图上的所有覆盖物
+                if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
+                    if (result != null && result.getPaths() != null) {
+                        if (result.getPaths().size() > 0) {
+                            mDriveRouteResult = result;
+                            final DrivePath drivePath = mDriveRouteResult.getPaths()
+                                    .get(0);
+                            if(drivePath == null) {
+                                return;
+                            }
+
+                            DrivingRouteOverlay drivingRouteOverlay = new DrivingRouteOverlay(
+                                    NavMapActivity.this, mAMap, drivePath,
+                                    mDriveRouteResult.getStartPos(),
+                                    mDriveRouteResult.getTargetPos(), null);
+                            drivingRouteOverlay.setNodeIconVisibility(false);//设置节点marker是否显示
+                            drivingRouteOverlay.setIsColorfulline(true);//是否用颜色展示交通拥堵情况，默认true
+                            drivingRouteOverlay.removeFromMap();
+                            drivingRouteOverlay.addToMap();
+                            drivingRouteOverlay.zoomToSpan();
+                            int dis = (int) drivePath.getDistance();
+                            int dur = (int) drivePath.getDuration();
+                            String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
+//                            mRotueTimeDes.setText(des);
+//                            mRouteDetailDes.setVisibility(View.VISIBLE);
+                            int taxiCost = (int) mDriveRouteResult.getTaxiCost();
+//                            mRouteDetailDes.setText("打车约"+taxiCost+"元");
+//                            mBottomLayout.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    Intent intent = new Intent(mContext,
+//                                            DriveRouteDetailActivity.class);
+//                                    intent.putExtra("drive_path", drivePath);
+//                                    intent.putExtra("drive_result",
+//                                            mDriveRouteResult);
+//                                    startActivity(intent);
+//                                }
+//                            });
+
+                        } else if (result != null && result.getPaths() == null) {
+                            ToastUtils.showToast("error");
+                        }
+
+                    } else {
+                        ToastUtils.showToast("error");
+                    }
+                } else {
+                    ToastUtils.showToast(errorCode+"");
+                }
+            }
+
+            @Override
+            public void onWalkRouteSearched(WalkRouteResult result, int errorCode) {
+                mAMap.clear();// 清理地图上的所有覆盖物
+                if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
+                    if (result != null && result.getPaths() != null) {
+                        if (result.getPaths().size() > 0) {
+                            mWalkRouteResult = result;
+                            final WalkPath walkPath = mWalkRouteResult.getPaths()
+                                    .get(0);
+                            if(walkPath == null) {
+                                return;
+                            }
+
+                            WalkRouteOverlay walkRouteOverlay = new WalkRouteOverlay(
+                                    NavMapActivity.this, mAMap, walkPath,
+                                    mWalkRouteResult.getStartPos(),
+                                    mWalkRouteResult.getTargetPos());
+
+                            walkRouteOverlay.setNodeIconVisibility(false);//设置节点marker是否显示
+                            walkRouteOverlay.removeFromMap();
+                            walkRouteOverlay.addToMap();
+                            walkRouteOverlay.zoomToSpan();
+                            int dis = (int) walkPath.getDistance();
+                            int dur = (int) walkPath.getDuration();
+                            String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
+//                            mRotueTimeDes.setText(des);
+//                            mRouteDetailDes.setVisibility(View.VISIBLE);
+                            int taxiCost = (int) mDriveRouteResult.getTaxiCost();
+//                            mRouteDetailDes.setText("打车约"+taxiCost+"元");
+//                            mBottomLayout.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    Intent intent = new Intent(mContext,
+//                                            DriveRouteDetailActivity.class);
+//                                    intent.putExtra("drive_path", drivePath);
+//                                    intent.putExtra("drive_result",
+//                                            mDriveRouteResult);
+//                                    startActivity(intent);
+//                                }
+//                            });
+
+                        } else if (result != null && result.getPaths() == null) {
+                            ToastUtils.showToast("error");
+                        }
+
+                    } else {
+                        ToastUtils.showToast("error");
+                    }
+                } else {
+                    ToastUtils.showToast(errorCode+"");
+                }
+            }
+
+            @Override
+            public void onRideRouteSearched(RideRouteResult rideRouteResult, int i) {
+
+            }
+        });
     }
 
     @Override

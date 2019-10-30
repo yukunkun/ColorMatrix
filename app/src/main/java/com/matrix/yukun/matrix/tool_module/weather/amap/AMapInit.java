@@ -28,9 +28,13 @@ import com.amap.api.maps.model.animation.TranslateAnimation;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiSearch;
+import com.amap.api.services.route.RouteSearch;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.util.log.LogUtil;
+
+import java.util.Map;
 
 /**
  * author: kun .
@@ -47,6 +51,10 @@ public class AMapInit{
     private PoiSearch poiSearch;
     private MarkerOptions markerOption;
     private Marker markerPoint;
+    private RouteSearch mRouteSearch;
+    public static final int ROUTE_TYPE_WALK = 3;
+    public static final int ROUTE_TYPE_DRIVE = 2;
+    public static final int ROUTE_TYPE_BUS = 1;
 
     private AMapInit(){
 
@@ -91,6 +99,35 @@ public class AMapInit{
         poiSearch.searchPOIIdAsyn(poi.getPoiId());// 异步搜索
     }
 
+    public void driveRount(int routeType, RouteSearch.FromAndTo fromAndTo,int drivingMode,RouteSearch.OnRouteSearchListener routeSearchListener){
+        mRouteSearch = new RouteSearch(mContext);
+        mRouteSearch.setRouteSearchListener(routeSearchListener);
+        switch (routeType){
+            case ROUTE_TYPE_WALK:
+                RouteSearch.WalkRouteQuery walkQuery = new RouteSearch.WalkRouteQuery(fromAndTo);
+                mRouteSearch.calculateWalkRouteAsyn(walkQuery);
+                break;
+            case ROUTE_TYPE_DRIVE:
+                RouteSearch.DriveRouteQuery driveQuery = new RouteSearch.DriveRouteQuery(fromAndTo, drivingMode, null, null, "");
+                mRouteSearch.calculateDriveRouteAsyn(driveQuery);
+                break;
+            case ROUTE_TYPE_BUS:
+                RouteSearch.BusRouteQuery busQuery = new RouteSearch.BusRouteQuery(fromAndTo, drivingMode, SPUtils.getInstance().getString("city"),drivingMode);
+                mRouteSearch.calculateBusRouteAsyn(busQuery);
+                break;
+
+        }
+
+    }
+
+    public void setfromandtoMarker(LatLonPoint mStartLatLonPoint,LatLonPoint  mEndLatLonPoint) {
+        mMap.addMarker(new MarkerOptions()
+                .position(convertToLatLng(mStartLatLonPoint))
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_map_start)));
+        mMap.addMarker(new MarkerOptions()
+                .position(convertToLatLng(mEndLatLonPoint))
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_map_end)));
+    }
 
     /**
      * 添加一个从地上生长的Marker
@@ -184,5 +221,8 @@ public class AMapInit{
         } else {
             Log.e("amap","screenMarker is null");
         }
+    }
+    public LatLng convertToLatLng(LatLonPoint latLonPoint) {
+        return new LatLng(latLonPoint.getLatitude(), latLonPoint.getLongitude());
     }
 }

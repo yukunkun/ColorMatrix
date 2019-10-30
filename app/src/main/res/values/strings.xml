@@ -52,6 +52,7 @@
     <string name="bitrate">比特率</string>
     <string name="framerate">帧率</string>
     <string name="videosize">大小</string>
+    <string name="chose_local">请先选择位置</string>
     <string-array name="calendar_week">
         <item>日</item>
         <item>一</item>
