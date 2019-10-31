@@ -1,6 +1,7 @@
 package com.matrix.yukun.matrix.tool_module.map.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.amap.api.services.route.BusPath;
 import com.amap.api.services.route.BusRouteResult;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.tool_module.map.activity.BusRouteDetailActivity;
 import com.matrix.yukun.matrix.tool_module.map.maputil.AMapUtil;
 
 import java.util.List;
@@ -61,12 +63,12 @@ public class BusResultListAdapter extends BaseAdapter {
 			
 			@Override
 			public void onClick(View v) {
-//				Intent intent = new Intent(mContext.getApplicationContext(),
-//						BusRouteDetailActivity.class);
-//				intent.putExtra("bus_path", item);
-//				intent.putExtra("bus_result", mBusRouteResult);
-//				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//				mContext.startActivity(intent);
+				Intent intent = new Intent(mContext.getApplicationContext(),
+						BusRouteDetailActivity.class);
+				intent.putExtra("bus_path", item);
+				intent.putExtra("bus_result", mBusRouteResult);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				mContext.startActivity(intent);
 				
 			}
 		});

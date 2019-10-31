@@ -166,7 +166,6 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
                             if (drivePath == null) {
                                 return;
                             }
-
                             DrivingRouteOverlay drivingRouteOverlay = new DrivingRouteOverlay(
                                     getContext(), mAMap, drivePath,
                                     mDriveRouteResult.getStartPos(),

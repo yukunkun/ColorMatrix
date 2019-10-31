@@ -456,6 +456,9 @@
         <activity
             android:name=".tool_module.weather.activity.HeWeatherActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".tool_module.map.activity.BusRouteDetailActivity"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".tool_module.weather.activity.SearchCityActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
