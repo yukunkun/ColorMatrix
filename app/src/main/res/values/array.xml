@@ -182,5 +182,6 @@
     <string-array name="map_nav">
         <item>步行</item>
         <item>驾车</item>
+        <item>公交</item>
     </string-array>
 </resources>

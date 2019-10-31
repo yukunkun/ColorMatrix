@@ -25,7 +25,7 @@ import com.matrix.yukun.matrix.selfview.SunriseView;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.ConfAdapter;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.RVFutureAdapter;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.RVPosizonAdapter;
-import com.matrix.yukun.matrix.tool_module.weather.amap.AMapActivity;
+import com.matrix.yukun.matrix.tool_module.map.activity.AMapActivity;
 import com.matrix.yukun.matrix.tool_module.weather.bean.OnEventpos;
 import com.matrix.yukun.matrix.util.AnimUtils;
 import com.matrix.yukun.matrix.util.DataUtils;

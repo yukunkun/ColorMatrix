@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.matrix.yukun.matrix.tool_module.weather.amap;
+package com.matrix.yukun.matrix.tool_module.map.maputil;
 
 import android.text.Html;
 import android.text.Spanned;

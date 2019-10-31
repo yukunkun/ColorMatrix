@@ -1,4 +1,4 @@
-package com.matrix.yukun.matrix.tool_module.weather.amap;
+package com.matrix.yukun.matrix.tool_module.map.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -42,9 +42,9 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.SegmentedGroup;
-import com.matrix.yukun.matrix.tool_module.weather.activity.MapSearchActivity;
-import com.matrix.yukun.matrix.tool_module.weather.activity.MapWeaDialog;
+import com.matrix.yukun.matrix.tool_module.map.MapWeaDialog;
 import com.matrix.yukun.matrix.tool_module.weather.activity.SearchResultAdapter;
+import com.matrix.yukun.matrix.tool_module.map.maputil.AMapInit;
 
 import java.util.ArrayList;
 import butterknife.BindView;

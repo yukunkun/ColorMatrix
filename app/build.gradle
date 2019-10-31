@@ -213,9 +213,10 @@ dependencies {
     implementation 'joda-time:joda-time:2.9.4'
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
     implementation 'top.zibin:Luban:1.1.8'
-//    implementation 'jp.wasabeef:blurry:3.0.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+
     implementation project(path: ':Photoeditor')
     implementation project(path: ':jiaozivideoplayer')
 

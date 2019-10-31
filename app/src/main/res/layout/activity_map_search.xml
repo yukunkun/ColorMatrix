@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".tool_module.weather.activity.MapSearchActivity">
+    tools:context=".tool_module.map.activity.MapSearchActivity">
 
     <RelativeLayout
         android:id="@+id/rl_title"

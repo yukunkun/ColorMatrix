@@ -1,4 +1,4 @@
-package com.matrix.yukun.matrix.tool_module.weather.activity;
+package com.matrix.yukun.matrix.tool_module.map.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

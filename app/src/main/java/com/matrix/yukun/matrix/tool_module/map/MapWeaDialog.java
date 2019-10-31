@@ -1,13 +1,11 @@
-package com.matrix.yukun.matrix.tool_module.weather.activity;
+package com.matrix.yukun.matrix.tool_module.map;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -21,7 +19,6 @@ import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.help.Tip;
-import com.google.gson.Gson;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtil;
@@ -29,7 +26,6 @@ import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.tool_module.barrage.dialog.BaseBottomDialog;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.RVFutureAdapter;
 import com.matrix.yukun.matrix.tool_module.weather.bean.OnEventpos;
-import com.matrix.yukun.matrix.util.Notifications;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -40,7 +36,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import interfaces.heweather.com.interfacesmodule.bean.Code;
 import interfaces.heweather.com.interfacesmodule.bean.weather.forecast.Forecast;
 import interfaces.heweather.com.interfacesmodule.bean.weather.forecast.ForecastBase;

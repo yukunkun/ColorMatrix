@@ -1,21 +1,15 @@
-package com.matrix.yukun.matrix.tool_module.weather.amap;
-
-/**
- * 
- */
+package com.matrix.yukun.matrix.tool_module.map.maputil;
 
 import android.graphics.Bitmap;
-
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.core.LatLonPoint;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-class AMapServicesUtil {
+public class AMapServicesUtil {
 	public static int BUFFER_SIZE = 2048;
 
 	public static byte[] inputStreamToByte(InputStream in) throws IOException {

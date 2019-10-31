@@ -61,9 +61,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:label">
-        <activity android:name=".tool_module.weather.activity.MapSearchActivity"></activity>
-        <activity android:name=".tool_module.weather.amap.NavMapActivity" />
-        <activity android:name=".tool_module.weather.amap.AMapActivity" />
+        <activity android:name=".tool_module.map.activity.MapSearchActivity"></activity>
+        <activity android:name=".tool_module.map.activity.NavMapActivity" />
+        <activity android:name=".tool_module.map.activity.AMapActivity" />
         <activity
             android:name=".tool_module.notebook.activity.NoteSettingActivity"
             android:screenOrientation="portrait" />

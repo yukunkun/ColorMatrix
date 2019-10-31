@@ -1,26 +1,17 @@
-package com.matrix.yukun.matrix.tool_module.weather.amap;
+package com.matrix.yukun.matrix.tool_module.map.maputil;
 
 import android.content.Context;
 import android.graphics.Point;
-import android.location.Location;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
-import com.amap.api.maps.LocationSource;
-import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
-import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.Poi;
 import com.amap.api.maps.model.animation.Animation;
 import com.amap.api.maps.model.animation.ScaleAnimation;
@@ -29,12 +20,8 @@ import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.amap.api.services.route.RouteSearch;
-import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
-import com.matrix.yukun.matrix.util.log.LogUtil;
-
-import java.util.Map;
 
 /**
  * author: kun .

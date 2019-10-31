@@ -1,4 +1,4 @@
-package com.matrix.yukun.matrix.tool_module.weather.activity;
+package com.matrix.yukun.matrix.tool_module.map.activity;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -18,17 +18,17 @@ import android.widget.RelativeLayout;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
+import com.matrix.yukun.matrix.tool_module.map.adapter.RVSearchMapAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MapSearchActivity extends BaseActivity implements Inputtips.InputtipsListener {
-
 
     @BindView(R.id.et_search)
     EditText etSearch;

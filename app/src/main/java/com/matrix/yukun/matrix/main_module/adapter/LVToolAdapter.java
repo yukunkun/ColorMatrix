@@ -20,7 +20,7 @@ import com.matrix.yukun.matrix.tool_module.btmovie.Constant;
 import com.matrix.yukun.matrix.tool_module.btmovie.SpecialActivity;
 import com.matrix.yukun.matrix.tool_module.dictionary.DictionaryActivity;
 import com.matrix.yukun.matrix.tool_module.phonebook.ContactActivity;
-import com.matrix.yukun.matrix.tool_module.weather.amap.AMapActivity;
+import com.matrix.yukun.matrix.tool_module.map.activity.AMapActivity;
 import com.matrix.yukun.matrix.util.AdvUtil;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.qq.e.ads.banner2.UnifiedBannerADListener;

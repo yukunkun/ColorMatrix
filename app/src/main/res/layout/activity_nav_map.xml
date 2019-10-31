@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".tool_module.weather.amap.NavMapActivity">
+    tools:context=".tool_module.map.activity.NavMapActivity">
     <RelativeLayout
         android:id="@+id/rl_title"
         android:layout_marginBottom="@dimen/dimens_10"
@@ -104,22 +105,34 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="match_parent">
-            <android.support.design.widget.TabLayout
+            <com.flyco.tablayout.CommonTabLayout
                 android:id="@+id/tab_layout"
-                app:tabSelectedTextColor="@color/bg_blue"
-                app:tabTextColor="@color/color_595959"
-                app:tabIndicatorColor="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </android.support.design.widget.TabLayout>
-
+                android:layout_height="48dp"
+                android:background="@color/color_whit"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                tl:tl_iconVisible="false"
+                tl:tl_indicator_corner_radius="@dimen/dimens_5"
+                app:tl_textUnselectColor="@color/bg_blue"
+                tl:tl_indicator_margin_left="5dp"
+                tl:tl_indicator_color="@color/bg_blue"
+                tl:tl_indicator_margin_right="5dp"
+                tl:tl_indicator_style="BLOCK"
+                tl:tl_indicator_bounce_enable="false"
+                tl:tl_textsize="14sp"/>
             <com.amap.api.maps.MapView
                 android:id="@+id/map_view"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </com.amap.api.maps.MapView>
+            <FrameLayout
+                android:id="@+id/fl_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </FrameLayout>
         </LinearLayout>
-
         <ListView
             android:id="@+id/lv_search"
             android:visibility="gone"
@@ -128,14 +141,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </ListView>
-        <ListView
+        <!--<ListView
             android:id="@+id/lv_bus"
             android:visibility="gone"
             android:background="@color/color_whit"
             android:scrollbars="none"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        </ListView>
+        </ListView>-->
     </RelativeLayout>
 
 </LinearLayout>

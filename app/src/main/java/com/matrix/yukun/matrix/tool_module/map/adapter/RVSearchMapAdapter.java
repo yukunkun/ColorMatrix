@@ -1,4 +1,4 @@
-package com.matrix.yukun.matrix.tool_module.weather.activity;
+package com.matrix.yukun.matrix.tool_module.map.adapter;
 
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -41,7 +41,7 @@ public class RVSearchMapAdapter extends BaseQuickAdapter<Tip, BaseViewHolder> {
 
     }
 
-    interface  OnItemClickListener{
+    public interface  OnItemClickListener{
         void onItemClickListener(int position,Tip tip);
     };
 }

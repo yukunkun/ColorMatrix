@@ -1,7 +1,6 @@
-package com.matrix.yukun.matrix.tool_module.weather.amap;
+package com.matrix.yukun.matrix.tool_module.map.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 import com.amap.api.services.route.BusPath;
 import com.amap.api.services.route.BusRouteResult;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.tool_module.map.maputil.AMapUtil;
 
 import java.util.List;
 

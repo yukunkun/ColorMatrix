@@ -1,11 +1,11 @@
-package com.matrix.yukun.matrix.tool_module.weather.amap;
+package com.matrix.yukun.matrix.tool_module.map.activity;
 
-import android.app.NativeActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -27,9 +28,7 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
-import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
@@ -43,12 +42,22 @@ import com.amap.api.services.route.RideRouteResult;
 import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
+import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
-import com.matrix.yukun.matrix.tool_module.weather.activity.NavMapAdapter;
+import com.matrix.yukun.matrix.tool_module.map.adapter.NavMapAdapter;
+import com.matrix.yukun.matrix.tool_module.map.fragment.BusResultFragment;
+import com.matrix.yukun.matrix.tool_module.map.fragment.DriveResultFragment;
+import com.matrix.yukun.matrix.tool_module.map.fragment.WalkResultFragment;
+import com.matrix.yukun.matrix.tool_module.map.maputil.AMapInit;
+import com.matrix.yukun.matrix.tool_module.map.maputil.AMapUtil;
+import com.matrix.yukun.matrix.tool_module.map.overlay.DrivingRouteOverlay;
+import com.matrix.yukun.matrix.tool_module.map.overlay.WalkRouteOverlay;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import java.util.ArrayList;
@@ -70,13 +79,11 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
     @BindView(R.id.rl_title)
     RelativeLayout rlTitle;
     @BindView(R.id.tab_layout)
-    TabLayout tabLayout;
+    CommonTabLayout tabLayout;
     @BindView(R.id.map_view)
     MapView mMapView;
-    @BindView(R.id.lv_search)
-    ListView lvSearch;
-    @BindView(R.id.lv_bus)
-    ListView lvBus;
+    @BindView(R.id.fl_layout)
+    FrameLayout mFrameLayout;
     @BindView(R.id.in_start)
     ImageView inStart;
     @BindView(R.id.et_start)
@@ -89,6 +96,8 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
     EditText etEnd;
     @BindView(R.id.iv_end_del)
     ImageView ivEndDel;
+    @BindView(R.id.lv_search)
+    ListView lvSearch;
     private AMap mAMap;
     private UiSettings mUiSettings;
     private MyLocationStyle myLocationStyle;
@@ -101,15 +110,29 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
     private List<String> mMapNavs;
     private String mCityCode;
     private boolean isStart;
-    private boolean startSelect=true;
-    private boolean endSelect=true;
+    private boolean startSelect = true;
+    private boolean endSelect = true;
     private NavMapAdapter mNavMapAdapter;
-    private List<Tip> mTips=new ArrayList<>();
+    private List<Tip> mTips = new ArrayList<>();
     private LatLonPoint mStartLatLonPoint;
     private LatLonPoint mEndLatLonPoint;
     private DriveRouteResult mDriveRouteResult;
     private WalkRouteResult mWalkRouteResult;
     private BusRouteResult mBusRouteResult;
+    private int[] mIconUnselectIds = {
+            R.mipmap.tool_icon, R.mipmap.tool_icon,
+            R.mipmap.tool_icon, R.mipmap.tool_icon};
+    /*选择时的icon*/
+    private int[] mIconSelectIds = {
+            R.mipmap.tool_icon, R.mipmap.tool_icon,
+            R.mipmap.tool_icon, R.mipmap.tool_icon};
+    private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
+    private List<Fragment> mFragmentList = new ArrayList<>();
+    private WalkResultFragment mWalkResultFragment;
+    private BusResultFragment mBusResultFragment;
+    private int lastPos;
+    private DriveResultFragment mDriveResultFragment;
+
     public static void start(Context context) {
         Intent intent = new Intent(context, NavMapActivity.class);
         context.startActivity(intent);
@@ -131,7 +154,13 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
         mAMapInit = AMapInit.instance();
         mAMapInit.init(this, mAMap);
         mNavMapAdapter = new NavMapAdapter(this);
-        lvSearch.setAdapter(mNavMapAdapter);
+        mWalkResultFragment = WalkResultFragment.getInstance();
+        mDriveResultFragment = DriveResultFragment.getInstance();
+        mBusResultFragment = BusResultFragment.getInstance();
+        mFragmentList.add(mWalkResultFragment);
+        mFragmentList.add(mDriveResultFragment);
+        mFragmentList.add(mBusResultFragment);
+        getSupportFragmentManager().beginTransaction().add(R.id.fl_layout, mWalkResultFragment).commit();
     }
 
     @Override
@@ -146,13 +175,26 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
 
     private void initViewData() {
         for (int i = 0; i < mMapNavs.size(); i++) {
-            tabLayout.addTab(tabLayout.newTab().setText(mMapNavs.get(i)));
+            mTabEntities.add(new TabEntity(mMapNavs.get(i), mIconSelectIds[i], mIconUnselectIds[i]));
         }
+        tabLayout.setTabData(mTabEntities);
     }
 
     @Override
     public void initListener() {
-        tabLayout.getTabAt(0).select();
+        tabLayout.setCurrentTab(0);
+        tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                showFragment(position);
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+
+            }
+        });
+
         etStart.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -161,8 +203,8 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!TextUtils.isEmpty(s.toString())&&startSelect){
-                    isStart=true;
+                if (!TextUtils.isEmpty(s.toString()) && startSelect) {
+                    isStart = true;
                     searchResule(s.toString());
                 }
             }
@@ -181,8 +223,8 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!TextUtils.isEmpty(s.toString())&&endSelect){
-                    isStart=false;
+                if (!TextUtils.isEmpty(s.toString()) && endSelect) {
+                    isStart = false;
                     searchResule(s.toString());
                 }
             }
@@ -214,6 +256,20 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
         });
     }
 
+    private void showFragment(int position) {
+
+        Fragment fragment = mFragmentList.get(position);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.hide(mFragmentList.get(lastPos));
+        if (fragment.isAdded()) {
+            fragmentTransaction.show(fragment);
+        } else {
+            fragmentTransaction.add(R.id.fl_layout, fragment);
+        }
+        fragmentTransaction.commit();
+        lastPos = position;
+    }
+
     private void searchResule(String text) {
         InputtipsQuery inputquery = new InputtipsQuery(text, mCityCode);
         inputquery.setCityLimit(true);//限制在当前城市
@@ -223,29 +279,29 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
     }
 
 
-    @OnClick({R.id.iv_back, R.id.iv_search,R.id.iv_start_del, R.id.iv_end_del})
+    @OnClick({R.id.iv_back, R.id.iv_search, R.id.iv_start_del, R.id.iv_end_del})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
             case R.id.iv_search:
-                if(!startSelect&&!endSelect){
-                    startNav(mAMapInit.ROUTE_TYPE_BUS,mStartLatLonPoint,mEndLatLonPoint);
+                if (!startSelect && !endSelect) {
+                    startNav(mAMapInit.ROUTE_TYPE_BUS, mStartLatLonPoint, mEndLatLonPoint);
 //                    startNav(mAMapInit.ROUTE_TYPE_DRIVE,mStartLatLonPoint,mEndLatLonPoint);
 //                    startNav(mAMapInit.ROUTE_TYPE_WALK,mStartLatLonPoint,mEndLatLonPoint);
-                }else {
+                } else {
                     ToastUtils.showToast(getResources().getString(R.string.chose_local));
                 }
                 break;
             case R.id.iv_start_del:
-                startSelect=true;
+                startSelect = true;
                 etStart.setEnabled(true);
                 etStart.setText("");
                 ivSearch.setImageResource(R.mipmap.icon_search_skip_unchecked);
                 break;
             case R.id.iv_end_del:
-                endSelect=true;
+                endSelect = true;
                 etEnd.setEnabled(true);
                 etEnd.setText("");
                 ivSearch.setImageResource(R.mipmap.icon_search_skip_unchecked);
@@ -253,19 +309,19 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
         }
     }
 
-    private void startNav(int type,LatLonPoint mStartLatLonPoint,LatLonPoint mEndLatLonPoint) {
-        mAMapInit.setfromandtoMarker(mStartLatLonPoint,mEndLatLonPoint);
-        RouteSearch.FromAndTo fromAndTo=new RouteSearch.FromAndTo(mStartLatLonPoint,mEndLatLonPoint);
-        mAMapInit.driveRount(type,fromAndTo, 0, new RouteSearch.OnRouteSearchListener() {
+    private void startNav(int type, LatLonPoint mStartLatLonPoint, LatLonPoint mEndLatLonPoint) {
+        mAMapInit.setfromandtoMarker(mStartLatLonPoint, mEndLatLonPoint);
+        RouteSearch.FromAndTo fromAndTo = new RouteSearch.FromAndTo(mStartLatLonPoint, mEndLatLonPoint);
+        mAMapInit.driveRount(type, fromAndTo, 0, new RouteSearch.OnRouteSearchListener() {
             @Override
             public void onBusRouteSearched(BusRouteResult result, int errorCode) {
                 if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
                     if (result != null && result.getPaths() != null) {
                         if (result.getPaths().size() > 0) {
-                            lvBus.setVisibility(View.VISIBLE);
-                            mBusRouteResult = result;
-                            BusResultListAdapter mBusResultListAdapter = new BusResultListAdapter(NavMapActivity.this, mBusRouteResult);
-                            lvBus.setAdapter(mBusResultListAdapter);
+//                            lvBus.setVisibility(View.VISIBLE);
+//                            mBusRouteResult = result;
+//                            BusResultListAdapter mBusResultListAdapter = new BusResultListAdapter(NavMapActivity.this, mBusRouteResult);
+//                            lvBus.setAdapter(mBusResultListAdapter);
                         } else if (result != null && result.getPaths() == null) {
 
                         }
@@ -286,7 +342,7 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
                             mDriveRouteResult = result;
                             final DrivePath drivePath = mDriveRouteResult.getPaths()
                                     .get(0);
-                            if(drivePath == null) {
+                            if (drivePath == null) {
                                 return;
                             }
 
@@ -301,7 +357,7 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
                             drivingRouteOverlay.zoomToSpan();
                             int dis = (int) drivePath.getDistance();
                             int dur = (int) drivePath.getDuration();
-                            String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
+                            String des = AMapUtil.getFriendlyTime(dur) + "(" + AMapUtil.getFriendlyLength(dis) + ")";
 //                            mRotueTimeDes.setText(des);
 //                            mRouteDetailDes.setVisibility(View.VISIBLE);
                             int taxiCost = (int) mDriveRouteResult.getTaxiCost();
@@ -326,7 +382,7 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
                         ToastUtils.showToast("error");
                     }
                 } else {
-                    ToastUtils.showToast(errorCode+"");
+                    ToastUtils.showToast(errorCode + "");
                 }
             }
 
@@ -339,7 +395,7 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
                             mWalkRouteResult = result;
                             final WalkPath walkPath = mWalkRouteResult.getPaths()
                                     .get(0);
-                            if(walkPath == null) {
+                            if (walkPath == null) {
                                 return;
                             }
 
@@ -354,7 +410,7 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
                             walkRouteOverlay.zoomToSpan();
                             int dis = (int) walkPath.getDistance();
                             int dur = (int) walkPath.getDuration();
-                            String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
+                            String des = AMapUtil.getFriendlyTime(dur) + "(" + AMapUtil.getFriendlyLength(dis) + ")";
 //                            mRotueTimeDes.setText(des);
 //                            mRouteDetailDes.setVisibility(View.VISIBLE);
                             int taxiCost = (int) mDriveRouteResult.getTaxiCost();
@@ -379,7 +435,7 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
                         ToastUtils.showToast("error");
                     }
                 } else {
-                    ToastUtils.showToast(errorCode+"");
+                    ToastUtils.showToast(errorCode + "");
                 }
             }
 
@@ -512,11 +568,45 @@ public class NavMapActivity extends BaseActivity implements LocationSource, AMap
 
     @Override
     public void onGetInputtips(List<Tip> list, int i) {
-        if(list.size()>0){
+        if (list.size() > 0) {
             lvSearch.setVisibility(View.VISIBLE);
             mTips.clear();
             mTips.addAll(list);
             mNavMapAdapter.setData(mTips);
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    class TabEntity implements CustomTabEntity {
+        public String title;
+        public int selectedIcon;
+        public int unSelectedIcon;
+
+        public TabEntity(String title, int selectedIcon, int unSelectedIcon) {
+            this.title = title;
+            this.selectedIcon = selectedIcon;
+            this.unSelectedIcon = unSelectedIcon;
+        }
+
+        @Override
+        public String getTabTitle() {
+            return title;
+        }
+
+        @Override
+        public int getTabSelectedIcon() {
+            return selectedIcon;
+        }
+
+        @Override
+        public int getTabUnselectedIcon() {
+            return unSelectedIcon;
         }
     }
 }
