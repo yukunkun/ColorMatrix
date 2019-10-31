@@ -64,6 +64,7 @@ public class TextFragment extends BaseFragment {
         return recFragment;
     }
 
+
     @Override
     public int getLayout() {
         return R.layout.fragment_image;
