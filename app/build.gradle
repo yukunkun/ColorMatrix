@@ -21,6 +21,7 @@ android {
         }
         multiDexEnabled true
         flavorDimensions "versionCode"
+
         packagingOptions {
             exclude 'META-INF/rxjava.properties'
         }
@@ -65,14 +66,14 @@ android {
         }
     }
     //多渠道打包
-    productFlavors {
-        xiaomi {}
-        yinyongbao {}
-    }
-
-    productFlavors.all {
-        flavor -> flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
-    }
+//    productFlavors {
+//        xiaomi {}
+//        yinyongbao {}
+//    }
+//
+//    productFlavors.all {
+//        flavor -> flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+//    }
 
     repositories {
         flatDir {

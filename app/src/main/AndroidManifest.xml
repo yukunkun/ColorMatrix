@@ -61,9 +61,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:label">
-        <activity android:name=".tool_module.map.activity.MapSearchActivity"></activity>
-        <activity android:name=".tool_module.map.activity.NavMapActivity" />
-        <activity android:name=".tool_module.map.activity.AMapActivity" />
+
         <activity
             android:name=".tool_module.notebook.activity.NoteSettingActivity"
             android:screenOrientation="portrait" />
@@ -83,9 +81,9 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="6255ee43c977c10b8ec24f8b1bb1649d" />
-        <meta-data
-            android:name="CHANNEL"
-            android:value="${CHANNEL_VALUE}" />
+        <!--<meta-data-->
+            <!--android:name="CHANNEL"-->
+            <!--android:value="${CHANNEL_VALUE}" />-->
         <meta-data
             android:name="IFLYTEK_APPKEY"
             android:value="58833c92" />
@@ -456,14 +454,26 @@
         <activity
             android:name=".tool_module.weather.activity.HeWeatherActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".tool_module.map.activity.BusRouteDetailActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".tool_module.map.activity.BusRouteDetailActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".tool_module.weather.activity.SearchCityActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".tool_module.map.activity.NavDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tool_module.map.activity.MapSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tool_module.map.activity.NavMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tool_module.map.activity.AMapActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.matrix.yukun.matrix.tool_module.map.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -28,13 +29,30 @@ public class BusResultFragment extends BaseFragment {
     ListView lvBus;
     private AMapInit mAMapInit;
     private BusRouteResult mBusRouteResult;
-    public static BusResultFragment getInstance() {
+    private static Context mContext;
+    public static BusResultFragment getInstance(Context context) {
+        mContext=context;
         BusResultFragment busResultFragment = new BusResultFragment();
         return busResultFragment;
     }
 
+    @Override
+    public int getLayout() {
+        return R.layout.fragment_bus_result;
+    }
+
+    @Override
+    public void initView(View inflate, Bundle savedInstanceState) {
+        mAMapInit = AMapInit.instance();
+        mAMapInit.init(getContext(),null);
+    }
+
     public void setData(boolean isShow, LatLonPoint mStartLatLonPoint, LatLonPoint mEndLatLonPoint) {
         if(isShow){
+            if(mAMapInit==null){
+                mAMapInit = AMapInit.instance();
+                mAMapInit.init(mContext,null);
+            }
             startNav(AMapInit.ROUTE_TYPE_BUS,mStartLatLonPoint,mEndLatLonPoint);
         }
     }
@@ -74,15 +92,5 @@ public class BusResultFragment extends BaseFragment {
             }
         });
 
-    }
-
-    @Override
-    public int getLayout() {
-        return R.layout.fragment_bus_result;
-    }
-
-    @Override
-    public void initView(View inflate, Bundle savedInstanceState) { mAMapInit = AMapInit.instance();
-        mAMapInit.init(getContext(),null);
     }
 }

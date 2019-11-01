@@ -138,7 +138,7 @@ public class NavMapActivity extends BaseActivity implements Inputtips.InputtipsL
         lvSearch.setAdapter(mNavMapAdapter);
         mWalkResultFragment = WalkResultFragment.getInstance();
         mDriveResultFragment = DriveResultFragment.getInstance();
-        mBusResultFragment = BusResultFragment.getInstance();
+        mBusResultFragment = BusResultFragment.getInstance(this);
         mFragmentList.add(mWalkResultFragment);
         mFragmentList.add(mDriveResultFragment);
         mFragmentList.add(mBusResultFragment);
@@ -240,21 +240,21 @@ public class NavMapActivity extends BaseActivity implements Inputtips.InputtipsL
     }
 
     private void showFragment(int position,int select) {
-        position=(position==1)?0:position;
+        position=(position==1||position==2)?0:position;
         Fragment fragment = mFragmentList.get(position);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.hide(mFragmentList.get(lastPos));
         if (fragment.isAdded()) {
             fragmentTransaction.show(fragment);
-            if(fragment instanceof WalkResultFragment){
-                ((WalkResultFragment) fragment).setType(!startSelect && !endSelect,select, mStartLatLonPoint, mEndLatLonPoint);
-            }else {
-                ((BusResultFragment) fragment).setData(true,mStartLatLonPoint,mEndLatLonPoint);
-            }
         } else {
             fragmentTransaction.add(R.id.fl_layout, fragment);
         }
         fragmentTransaction.commit();
+        if(fragment instanceof WalkResultFragment){
+            ((WalkResultFragment) fragment).setType(!startSelect && !endSelect,select, mStartLatLonPoint, mEndLatLonPoint);
+        }else {
+            ((BusResultFragment) fragment).setData(true,mStartLatLonPoint,mEndLatLonPoint);
+        }
         lastPos = position;
     }
 
@@ -279,7 +279,6 @@ public class NavMapActivity extends BaseActivity implements Inputtips.InputtipsL
                         }else {
                             mBusResultFragment.setData(true,mStartLatLonPoint,mEndLatLonPoint);
                         }
-//                    startNav(mAMapInit.ROUTE_TYPE_BUS, mStartLatLonPoint, mEndLatLonPoint);
                 } else {
                     ToastUtils.showToast(getResources().getString(R.string.chose_local));
                 }

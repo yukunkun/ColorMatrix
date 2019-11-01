@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:padding="@dimen/dimens_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_time"
+            android:textSize="@dimen/dimens_25"
+            android:textColor="@color/color_6c6c6c"
+            android:layout_marginTop="@dimen/dimens_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dimens_10"
+            android:layout_below="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_car"
+                android:padding="@dimen/dimens_5"
+                android:src="@mipmap/amap_car"
+                android:layout_width="@dimen/dimens_45"
+                android:layout_height="@dimen/dimens_45" />
+            <TextView
+                android:id="@+id/tv_taxi"
+                android:textSize="@dimen/dimens_16"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dimens_5"
+                android:layout_toRightOf="@+id/iv_car"
+                android:textColor="@color/color_b1b1b1"
+                android:layout_marginTop="@dimen/dimens_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <LinearLayout
+        android:id="@+id/ll_bus"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/rl_detail"
+                android:layout_marginLeft="@dimen/dimens_20"
+                android:paddingTop="@dimen/dimens_3"
+                android:paddingRight="@dimen/dimens_3"
+                android:paddingLeft="@dimen/dimens_3"
+                android:paddingBottom="@dimen/dimens_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_detail"
+                    android:padding="@dimen/dimens_3"
+                    android:src="@mipmap/icon_main"
+                    android:layout_width="@dimen/dimens_35"
+                    android:layout_height="@dimen/dimens_35" />
+                <TextView
+                    android:layout_toRightOf="@+id/iv_detail"
+                    android:text="@string/nav_detail"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/color_6c6c6c"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_nav"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dimens_20"
+                android:paddingTop="@dimen/dimens_3"
+                android:layout_centerVertical="true"
+                android:paddingRight="@dimen/dimens_5"
+                android:paddingLeft="@dimen/dimens_5"
+                android:paddingBottom="@dimen/dimens_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="@string/nav"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/color_6c6c6c"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </RelativeLayout>
+        <ListView
+            android:id="@+id/lv_bus"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ListView>
+        <TextView
+            android:id="@+id/tv_normal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_35" />
+    </LinearLayout>
+
+</LinearLayout>

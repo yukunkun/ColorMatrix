@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".tool_module.map.activity.NavDetailActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.amap.api.navi.AMapNaviView
+            android:id="@+id/navi_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_height="@dimen/dimens_50">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:padding="@dimen/dimens_5"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/actionBarItemBackground"
+            android:src="@mipmap/joke_back"
+            android:layout_width="@dimen/dimens_40"
+            android:layout_height="@dimen/dimens_50" />
+    </RelativeLayout>
+</RelativeLayout>

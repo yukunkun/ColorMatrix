@@ -2,11 +2,16 @@ package com.matrix.yukun.matrix.tool_module.map.fragment;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -20,8 +25,10 @@ import com.amap.api.maps.SupportMapFragment;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.navi.model.NaviLatLng;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.route.BusPath;
 import com.amap.api.services.route.BusRouteResult;
 import com.amap.api.services.route.DrivePath;
 import com.amap.api.services.route.DriveRouteResult;
@@ -34,9 +41,12 @@ import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.tool_module.map.activity.NavDetailActivity;
 import com.matrix.yukun.matrix.tool_module.map.activity.NavMapActivity;
+import com.matrix.yukun.matrix.tool_module.map.adapter.BusResultListAdapter;
 import com.matrix.yukun.matrix.tool_module.map.maputil.AMapInit;
 import com.matrix.yukun.matrix.tool_module.map.maputil.AMapUtil;
+import com.matrix.yukun.matrix.tool_module.map.overlay.BusRouteOverlay;
 import com.matrix.yukun.matrix.tool_module.map.overlay.DrivingRouteOverlay;
 import com.matrix.yukun.matrix.tool_module.map.overlay.WalkRouteOverlay;
 import com.matrix.yukun.matrix.util.log.LogUtil;
@@ -52,13 +62,14 @@ import butterknife.Unbinder;
  * author: kun .
  * date:   On 2019/10/31
  */
-public class WalkResultFragment extends BaseFragment implements LocationSource, AMapLocationListener {
+public class WalkResultFragment extends BaseFragment implements LocationSource, AMapLocationListener, AMap.OnMapLoadedListener {
 
     private AMap mAMap;
     private LatLonPoint mStartLatLonPoint;
     private LatLonPoint mEndLatLonPoint;
     private DriveRouteResult mDriveRouteResult;
     private WalkRouteResult mWalkRouteResult;
+    private BusRouteResult mBusRouteResult;
     private AMapInit mAMapInit;
     private UiSettings mUiSettings;
     private MyLocationStyle myLocationStyle;
@@ -71,6 +82,17 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
     private boolean isShow;
     private int type;
     private int navType;
+    private BottomSheetDialog mSheetDialog;
+    private TextView mTvTime;
+    private TextView mTvTaxi;
+    private RelativeLayout mRlDetail;
+    private RelativeLayout mRlNav;
+    private ListView mLvBus;
+    private TextView mTnNormal;
+    private BusResultListAdapter mBusResultListAdapter;
+    private BusRouteOverlay mBusrouteOverlay;
+    private NaviLatLng mStartNaviLatLng;
+    private NaviLatLng mEndNaviLatLng;
 
     public static WalkResultFragment getInstance() {
         WalkResultFragment workDriveResultFragment = new WalkResultFragment();
@@ -82,10 +104,24 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
     public void setType(boolean isShow,int type, LatLonPoint startLatLonPoint, LatLonPoint endLatLonPoint) {
         this.isShow=isShow;
         this.type=type;
-        navType=type==0?AMapInit.ROUTE_TYPE_WALK:AMapInit.ROUTE_TYPE_DRIVE;
+        navType=devideNavType(type);
         if(isShow){
+            mStartNaviLatLng=new NaviLatLng(startLatLonPoint.getLatitude(),startLatLonPoint.getLongitude());
+            mEndNaviLatLng=new NaviLatLng(endLatLonPoint.getLatitude(),endLatLonPoint.getLongitude());
             startNav(navType,startLatLonPoint,endLatLonPoint);
         }
+    }
+
+    private int devideNavType(int type) {
+        switch (type){
+            case 0:
+                return AMapInit.ROUTE_TYPE_WALK;
+            case 1:
+                return AMapInit.ROUTE_TYPE_DRIVE;
+            case 2:
+                return AMapInit.ROUTE_TYPE_BUS;
+        }
+        return 0;
     }
 
     @Override
@@ -102,6 +138,7 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
         mCurrentLatLng = MyApp.getLatLng();
         mAMapInit.changeMapCenter(mCurrentLatLng);
         initViewData();
+        mAMap.setOnMapLoadedListener(this);
     }
 
     private void initViewData() {
@@ -152,7 +189,22 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
         mAMapInit.driveRount(type, fromAndTo, 0, new RouteSearch.OnRouteSearchListener() {
             @Override
             public void onBusRouteSearched(BusRouteResult result, int errorCode) {
+                if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
+                    if (result != null && result.getPaths() != null) {
+                        if (result.getPaths().size() > 0) {
+                            mBusRouteResult = result;
+                            mBusResultListAdapter = new BusResultListAdapter(getContext(), mBusRouteResult);
+                            BusPath busPath = mBusRouteResult.getPaths().get(0);
+                            mSheetDialog.dismiss();
+                            showSheetDialog();
+                            mLvBus.setAdapter(mBusResultListAdapter);
+                            updateSheetView(busPath);
+                        } else if (result != null && result.getPaths() == null) {
 
+                        }
+                    } else {
+                    }
+                }
             }
 
             @Override
@@ -166,33 +218,9 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
                             if (drivePath == null) {
                                 return;
                             }
-                            DrivingRouteOverlay drivingRouteOverlay = new DrivingRouteOverlay(
-                                    getContext(), mAMap, drivePath,
-                                    mDriveRouteResult.getStartPos(),
-                                    mDriveRouteResult.getTargetPos(), null);
-                            drivingRouteOverlay.setNodeIconVisibility(false);//设置节点marker是否显示
-                            drivingRouteOverlay.setIsColorfulline(true);//是否用颜色展示交通拥堵情况，默认true
-                            drivingRouteOverlay.removeFromMap();
-                            drivingRouteOverlay.addToMap();
-                            drivingRouteOverlay.zoomToSpan();
-                            int dis = (int) drivePath.getDistance();
-                            int dur = (int) drivePath.getDuration();
-                            String des = AMapUtil.getFriendlyTime(dur) + "(" + AMapUtil.getFriendlyLength(dis) + ")";
-//                            mRotueTimeDes.setText(des);
-//                            mRouteDetailDes.setVisibility(View.VISIBLE);
-                            int taxiCost = (int) mDriveRouteResult.getTaxiCost();
-//                            mRouteDetailDes.setText("打车约"+taxiCost+"元");
-//                            mBottomLayout.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//                                    Intent intent = new Intent(mContext,
-//                                            DriveRouteDetailActivity.class);
-//                                    intent.putExtra("drive_path", drivePath);
-//                                    intent.putExtra("drive_result",
-//                                            mDriveRouteResult);
-//                                    startActivity(intent);
-//                                }
-//                            });
+                            mSheetDialog.dismiss();
+                            showSheetDialog();
+                            updateSheetView(drivePath);
 
                         } else if (result != null && result.getPaths() == null) {
                             ToastUtils.showToast("error");
@@ -218,34 +246,11 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
                             if (walkPath == null) {
                                 return;
                             }
-
-                            WalkRouteOverlay walkRouteOverlay = new WalkRouteOverlay(
-                                    getContext(), mAMap, walkPath,
-                                    mWalkRouteResult.getStartPos(),
-                                    mWalkRouteResult.getTargetPos());
-
-                            walkRouteOverlay.setNodeIconVisibility(false);//设置节点marker是否显示
-                            walkRouteOverlay.removeFromMap();
-                            walkRouteOverlay.addToMap();
-                            walkRouteOverlay.zoomToSpan();
-                            int dis = (int) walkPath.getDistance();
-                            int dur = (int) walkPath.getDuration();
-                            String des = AMapUtil.getFriendlyTime(dur) + "(" + AMapUtil.getFriendlyLength(dis) + ")";
-//                            mRotueTimeDes.setText(des);
-//                            mRouteDetailDes.setVisibility(View.VISIBLE);
-                            int taxiCost = (int) mDriveRouteResult.getTaxiCost();
-//                            mRouteDetailDes.setText("打车约"+taxiCost+"元");
-//                            mBottomLayout.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//                                    Intent intent = new Intent(mContext,
-//                                            DriveRouteDetailActivity.class);
-//                                    intent.putExtra("drive_path", drivePath);
-//                                    intent.putExtra("drive_result",
-//                                            mDriveRouteResult);
-//                                    startActivity(intent);
-//                                }
-//                            });
+                            if(mSheetDialog!=null){
+                                mSheetDialog.dismiss();
+                            }
+                            showSheetDialog();
+                            updateSheetView(walkPath);
 
                         } else if (result != null && result.getPaths() == null) {
                             ToastUtils.showToast("error");
@@ -266,6 +271,112 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
         });
     }
 
+    private void updateSheetView(DrivePath drivePath) {
+        DrivingRouteOverlay drivingRouteOverlay = new DrivingRouteOverlay(
+                getContext(), mAMap, drivePath,
+                mDriveRouteResult.getStartPos(),
+                mDriveRouteResult.getTargetPos(), null);
+        drivingRouteOverlay.setNodeIconVisibility(false);//设置节点marker是否显示
+        drivingRouteOverlay.setIsColorfulline(true);//是否用颜色展示交通拥堵情况，默认true
+        drivingRouteOverlay.removeFromMap();
+        drivingRouteOverlay.addToMap();
+        drivingRouteOverlay.zoomToSpan();
+
+        String dur = AMapUtil.getFriendlyTime((int) drivePath.getDuration());
+        String dis = AMapUtil.getFriendlyLength((int) drivePath.getDistance());
+        mTvTime.setText(dur + "(" + dis + ")");
+        int taxiCost = (int) mDriveRouteResult.getTaxiCost();
+        mTvTaxi.setText("打车约"+taxiCost+"元");
+    }
+
+    private void updateSheetView(WalkPath walkPath) {
+        WalkRouteOverlay walkRouteOverlay = new WalkRouteOverlay(
+                getContext(), mAMap, walkPath,
+                mWalkRouteResult.getStartPos(),
+                mWalkRouteResult.getTargetPos());
+
+        walkRouteOverlay.setNodeIconVisibility(false);//设置节点marker是否显示
+        walkRouteOverlay.removeFromMap();
+        walkRouteOverlay.addToMap();
+        walkRouteOverlay.zoomToSpan();
+
+        String dur = AMapUtil.getFriendlyTime((int) walkPath.getDuration());
+        String dis = AMapUtil.getFriendlyLength((int) walkPath.getDistance());
+        mTvTime.setText(dur + "(" + dis + ")");
+//        int taxiCost = (int) mWalkRouteResult.getWalkQuery().;
+//        mTvTaxi.setText("打车约"+taxiCost+"元");
+    }
+
+    private void updateSheetView(BusPath busPath) {
+        mAMap.clear();
+        mBusrouteOverlay = new BusRouteOverlay(getContext(), mAMap,
+                busPath, mBusRouteResult.getStartPos(),
+                mBusRouteResult.getTargetPos());
+        mBusrouteOverlay.removeFromMap();
+        mBusrouteOverlay.addToMap();
+        mBusrouteOverlay.zoomToSpan();
+
+        String dur = AMapUtil.getFriendlyTime((int) busPath.getDuration());
+        String dis = AMapUtil.getFriendlyLength((int) busPath.getDistance());
+        mTvTime.setText(dur + "(" + dis + ")");
+        int taxiCost = (int) mBusRouteResult.getTaxiCost();
+        mTvTaxi.setText("打车约"+taxiCost+"元");
+    }
+
+    private void showSheetDialog() {
+        if (mSheetDialog == null || !mSheetDialog.isShowing()) {
+            mSheetDialog = new BottomSheetDialog(getContext());
+            View inflate = LayoutInflater.from(getContext()).inflate(R.layout.sheet_search_result_layout, null, false);
+            initViewSheet(inflate);
+            initSheetListener();
+            mLvBus.setVisibility(View.GONE);
+            mSheetDialog.setContentView(inflate);
+            mSheetDialog.setCanceledOnTouchOutside(true);
+            mSheetDialog.setCancelable(true);
+            mSheetDialog.getWindow().setDimAmount(0); //背景透明
+            mSheetDialog.show();
+        } else {
+            mSheetDialog.dismiss();
+        }
+    }
+
+    private void initSheetListener() {
+        mRlDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mLvBus.getVisibility() ==View.VISIBLE){
+                    mLvBus.setVisibility(View.GONE);
+                }else {
+                    mLvBus.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        mRlNav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavDetailActivity.start(getContext(),mStartNaviLatLng,mEndNaviLatLng);
+            }
+        });
+
+        mLvBus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ToastUtils.showToast("pos:"+position);
+                BusPath item = (BusPath) mBusResultListAdapter.getItem(position);
+                updateSheetView(item);
+            }
+        });
+    }
+
+    private void initViewSheet(View inflate) {
+        mTvTime = inflate.findViewById(R.id.tv_time);
+        mTvTaxi = inflate.findViewById(R.id.tv_taxi);
+        mRlDetail = inflate.findViewById(R.id.rl_detail);
+        mRlNav = inflate.findViewById(R.id.rl_nav);
+        mLvBus = inflate.findViewById(R.id.lv_bus);
+        mTnNormal = inflate.findViewById(R.id.tv_normal);
+    }
 
     @Override
     public void onResume() {
@@ -278,7 +389,6 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
             mAMap = ((SupportMapFragment) getChildFragmentManager()
                     .findFragmentById(R.id.map)).getMap();
         }
-
     }
 
     @Override
@@ -310,6 +420,11 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
             mlocationClient.onDestroy();
             mlocationClient = null;
         }
+    }
+
+    @Override
+    public void onMapLoaded() {
+
     }
 
     @Override
