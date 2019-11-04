@@ -3,16 +3,13 @@ package com.matrix.yukun.matrix.tool_module.map.fragment;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -20,12 +17,10 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
-import com.amap.api.maps.MapView;
 import com.amap.api.maps.SupportMapFragment;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MyLocationStyle;
-import com.amap.api.navi.model.NaviLatLng;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.route.BusPath;
@@ -41,8 +36,6 @@ import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
-import com.matrix.yukun.matrix.tool_module.map.activity.NavDetailActivity;
-import com.matrix.yukun.matrix.tool_module.map.activity.NavMapActivity;
 import com.matrix.yukun.matrix.tool_module.map.adapter.BusResultListAdapter;
 import com.matrix.yukun.matrix.tool_module.map.maputil.AMapInit;
 import com.matrix.yukun.matrix.tool_module.map.maputil.AMapUtil;
@@ -91,8 +84,6 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
     private TextView mTnNormal;
     private BusResultListAdapter mBusResultListAdapter;
     private BusRouteOverlay mBusrouteOverlay;
-    private NaviLatLng mStartNaviLatLng;
-    private NaviLatLng mEndNaviLatLng;
 
     public static WalkResultFragment getInstance() {
         WalkResultFragment workDriveResultFragment = new WalkResultFragment();
@@ -106,8 +97,6 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
         this.type=type;
         navType=devideNavType(type);
         if(isShow){
-            mStartNaviLatLng=new NaviLatLng(startLatLonPoint.getLatitude(),startLatLonPoint.getLongitude());
-            mEndNaviLatLng=new NaviLatLng(endLatLonPoint.getLatitude(),endLatLonPoint.getLongitude());
             startNav(navType,startLatLonPoint,endLatLonPoint);
         }
     }
@@ -355,7 +344,7 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
         mRlNav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavDetailActivity.start(getContext(),mStartNaviLatLng,mEndNaviLatLng);
+
             }
         });
 

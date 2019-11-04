@@ -463,9 +463,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
-            android:name=".tool_module.map.activity.NavDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".tool_module.map.activity.MapSearchActivity"
             android:screenOrientation="portrait" />
         <activity
