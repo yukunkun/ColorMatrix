@@ -5,7 +5,6 @@ import android.content.Context;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnUtteranceCompletedListener;
 import android.speech.tts.UtteranceProgressListener;
-import android.util.Log;
 
 import java.util.Locale;
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.AudioManager.OnAudioFocusChangeListener;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -54,6 +53,9 @@ public class IFlyTTS implements TTS, SynthesizerListener, OnAudioFocusChangeList
 
     @Override
     public void init() {
+        if(mTts==null){
+            LogUtil.i("====",null);
+        }
         //设置发音人
         mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaoyan");
         //设置语速,值范围：[0, 100],默认值：50
@@ -73,11 +75,11 @@ public class IFlyTTS implements TTS, SynthesizerListener, OnAudioFocusChangeList
                 new InitListener() {
                     @Override
                     public void onInit(int errorcode) {
-                        LogUtil.i("=======",errorcode+"");
                         if (ErrorCode.SUCCESS == errorcode) {
                             //初始化成功
-                        }else {
-
+                        }
+                        if(mTts==null){
+                            LogUtil.i("====",null);
                         }
                     }
                 });

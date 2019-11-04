@@ -1,11 +1,8 @@
 package com.matrix.yukun.matrix.tool_module.map.maputil;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.amap.api.navi.AMapNaviListener;
 import com.amap.api.navi.model.AMapCalcRouteResult;

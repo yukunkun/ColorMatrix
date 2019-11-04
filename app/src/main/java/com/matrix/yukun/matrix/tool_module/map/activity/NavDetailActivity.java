@@ -50,7 +50,7 @@ public class NavDetailActivity extends BaseActivity implements AMapNaviViewListe
     public static void start(Context context,NaviLatLng startLatitude,NaviLatLng endLatitude) {
         Intent intent = new Intent(context, NavDetailActivity.class);
         Bundle bundle=new Bundle();
-        bundle.putBoolean("gps", false);
+        bundle.putBoolean("gps", true);
         bundle.putParcelable("start", startLatitude);
         bundle.putParcelable("end", endLatitude);
         intent.putExtra("bundle",bundle);
@@ -104,7 +104,7 @@ public class NavDetailActivity extends BaseActivity implements AMapNaviViewListe
          */
         List<NaviLatLng> endList = new ArrayList<NaviLatLng>();
         try {
-            strategyFlag = mAMapNavi.strategyConvert(true, false, false, true, false);
+            strategyFlag = mAMapNavi.strategyConvert(true, false, false, true, true);
         } catch (Exception e) {
             e.printStackTrace();
         }
