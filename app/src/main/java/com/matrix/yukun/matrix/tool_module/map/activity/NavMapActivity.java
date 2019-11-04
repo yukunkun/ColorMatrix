@@ -251,7 +251,7 @@ public class NavMapActivity extends BaseActivity implements Inputtips.InputtipsL
         }
         fragmentTransaction.commit();
         if(fragment instanceof WalkResultFragment){
-            ((WalkResultFragment) fragment).setType(!startSelect && !endSelect,select, mStartLatLonPoint, mEndLatLonPoint);
+            ((WalkResultFragment) fragment).setType(!startSelect && !endSelect,select, mStartLatLonPoint, mEndLatLonPoint,etStart.getText().toString(),etEnd.getText().toString());
         }else {
             ((BusResultFragment) fragment).setData(true,mStartLatLonPoint,mEndLatLonPoint);
         }
@@ -275,7 +275,7 @@ public class NavMapActivity extends BaseActivity implements Inputtips.InputtipsL
             case R.id.iv_search:
                 if (!startSelect && !endSelect) {
                         if(currentSelect==0||currentSelect==1){
-                            mWalkResultFragment.setType(true,currentSelect,mStartLatLonPoint,mEndLatLonPoint);
+                            mWalkResultFragment.setType(true,currentSelect,mStartLatLonPoint,mEndLatLonPoint,etStart.getText().toString(),etEnd.getText().toString());
                         }else {
                             mBusResultFragment.setData(true,mStartLatLonPoint,mEndLatLonPoint);
                         }

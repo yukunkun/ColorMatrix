@@ -5,6 +5,7 @@
     android:orientation="vertical"
     xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
+        android:paddingLeft="@dimen/dimens_10"
         android:layout_width="match_parent"
         android:layout_marginBottom="@dimen/dimens_10"
         android:layout_height="wrap_content">
@@ -56,7 +57,7 @@
             android:layout_height="@dimen/dimens_35">
             <ImageView
                 android:id="@+id/iv_wea"
-                android:src="@mipmap/icon_weather_pos"
+                android:src="@mipmap/icon_map_wea"
                 android:layout_width="@dimen/dimens_30"
                 android:layout_height="wrap_content" />
             <TextView
@@ -79,7 +80,7 @@
             android:layout_height="@dimen/dimens_35">
             <ImageView
                 android:id="@+id/iv_near"
-                android:src="@mipmap/icon_weather_pos"
+                android:src="@mipmap/icon_map_line"
                 android:layout_width="@dimen/dimens_30"
                 android:layout_height="wrap_content" />
             <TextView

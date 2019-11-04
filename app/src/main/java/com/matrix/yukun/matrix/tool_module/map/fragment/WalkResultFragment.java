@@ -58,8 +58,6 @@ import butterknife.Unbinder;
 public class WalkResultFragment extends BaseFragment implements LocationSource, AMapLocationListener, AMap.OnMapLoadedListener {
 
     private AMap mAMap;
-    private LatLonPoint mStartLatLonPoint;
-    private LatLonPoint mEndLatLonPoint;
     private DriveRouteResult mDriveRouteResult;
     private WalkRouteResult mWalkRouteResult;
     private BusRouteResult mBusRouteResult;
@@ -81,10 +79,13 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
     private RelativeLayout mRlDetail;
     private RelativeLayout mRlNav;
     private ListView mLvBus;
-    private TextView mTnNormal;
+    private TextView mTvNormal;
     private BusResultListAdapter mBusResultListAdapter;
     private BusRouteOverlay mBusrouteOverlay;
-
+    private  String startPlace;
+    private  String endPlace;;
+    LatLonPoint startLatLonPoint;
+    LatLonPoint endLatLonPoint;
     public static WalkResultFragment getInstance() {
         WalkResultFragment workDriveResultFragment = new WalkResultFragment();
         Bundle bundle = new Bundle();
@@ -92,9 +93,13 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
         return workDriveResultFragment;
     }
 
-    public void setType(boolean isShow,int type, LatLonPoint startLatLonPoint, LatLonPoint endLatLonPoint) {
+    public void setType(boolean isShow,int type, LatLonPoint startLatLonPoint, LatLonPoint endLatLonPoint,String start,String end) {
         this.isShow=isShow;
         this.type=type;
+        this.startPlace=start;
+        this.endPlace=end;
+        this.startLatLonPoint=startLatLonPoint;
+        this.endLatLonPoint=endLatLonPoint;
         navType=devideNavType(type);
         if(isShow){
             startNav(navType,startLatLonPoint,endLatLonPoint);
@@ -318,7 +323,7 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
             View inflate = LayoutInflater.from(getContext()).inflate(R.layout.sheet_search_result_layout, null, false);
             initViewSheet(inflate);
             initSheetListener();
-            mLvBus.setVisibility(View.GONE);
+//            mLvBus.setVisibility(View.GONE);
             mSheetDialog.setContentView(inflate);
             mSheetDialog.setCanceledOnTouchOutside(true);
             mSheetDialog.setCancelable(true);
@@ -344,7 +349,8 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
         mRlNav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                AMapInit.skipToMap(getContext(),new LatLng(startLatLonPoint.getLatitude(),startLatLonPoint.getLongitude()),
+                        new LatLng(endLatLonPoint.getLatitude(),endLatLonPoint.getLongitude()),startPlace,endPlace);
             }
         });
 
@@ -364,7 +370,9 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
         mRlDetail = inflate.findViewById(R.id.rl_detail);
         mRlNav = inflate.findViewById(R.id.rl_nav);
         mLvBus = inflate.findViewById(R.id.lv_bus);
-        mTnNormal = inflate.findViewById(R.id.tv_normal);
+        mTvNormal = inflate.findViewById(R.id.tv_normal);
+        mRlDetail.setVisibility(type==2?View.VISIBLE:View.GONE);
+
     }
 
     @Override

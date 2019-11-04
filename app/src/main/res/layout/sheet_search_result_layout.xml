@@ -23,7 +23,7 @@
             <ImageView
                 android:id="@+id/iv_car"
                 android:padding="@dimen/dimens_5"
-                android:src="@mipmap/amap_car"
+                android:src="@mipmap/icon_map_taxi"
                 android:layout_width="@dimen/dimens_45"
                 android:layout_height="@dimen/dimens_45" />
             <TextView
@@ -60,7 +60,7 @@
                 <ImageView
                     android:id="@+id/iv_detail"
                     android:padding="@dimen/dimens_3"
-                    android:src="@mipmap/icon_main"
+                    android:src="@mipmap/icon_map_detail"
                     android:layout_width="@dimen/dimens_35"
                     android:layout_height="@dimen/dimens_35" />
                 <TextView
@@ -82,8 +82,15 @@
                 android:paddingBottom="@dimen/dimens_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_nav"
+                    android:padding="@dimen/dimens_3"
+                    android:src="@mipmap/icon_map_nav"
+                    android:layout_width="@dimen/dimens_35"
+                    android:layout_height="@dimen/dimens_35" />
                 <TextView
                     android:text="@string/nav"
+                    android:layout_toRightOf="@+id/iv_nav"
                     android:layout_centerVertical="true"
                     android:textColor="@color/color_6c6c6c"
                     android:layout_width="wrap_content"
@@ -92,7 +99,7 @@
         </RelativeLayout>
         <ListView
             android:id="@+id/lv_bus"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </ListView>

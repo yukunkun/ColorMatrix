@@ -1,7 +1,9 @@
 package com.matrix.yukun.matrix.tool_module.map.maputil;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
+import android.net.Uri;
 import android.util.Log;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
@@ -22,6 +24,9 @@ import com.amap.api.services.poisearch.PoiSearch;
 import com.amap.api.services.route.RouteSearch;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
+
+import java.net.URISyntaxException;
 
 /**
  * author: kun .
@@ -211,5 +216,28 @@ public class AMapInit{
     }
     public LatLng convertToLatLng(LatLonPoint latLonPoint) {
         return new LatLng(latLonPoint.getLatitude(), latLonPoint.getLongitude());
+    }
+
+    public static void skipToMap(Context context,LatLng startLatLng,LatLng endLatLng,String start,String end){
+        try {
+            Intent intent = new Intent();
+            String uri ="androidamap://route?sourceApplication=softname"
+                    + "&slat="+startLatLng.latitude+"&slon="+startLatLng.longitude+"&sname="+start+
+                    "&dlat="+endLatLng.latitude+"&dlon="+endLatLng.longitude+"&dname="+end+"&dev=0&m=0&t=1&showType=1";
+            intent.setData(Uri.parse(uri));
+            context.startActivity(intent);
+        }catch (Exception e){
+            ToastUtils.showToast("请安装高德地图");
+        }
+    }
+    public static void skipTpMapNav(Context context,LatLng latLng,String place){
+        try {
+            Intent intent=new Intent();
+            String uri ="androidamap://viewMap?sourceApplication="+place+"&lat="+latLng.latitude+"&lon="+latLng.longitude+"&dev=0";
+            intent.setData(Uri.parse(uri));
+            context.startActivity(intent);
+        } catch (Exception e) {
+            ToastUtils.showToast("请安装高德地图");
+        }
     }
 }

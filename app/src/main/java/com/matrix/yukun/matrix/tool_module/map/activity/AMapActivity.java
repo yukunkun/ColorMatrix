@@ -307,15 +307,19 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
         if (requestCode == MapSearchActivity.request && resultCode == MapSearchActivity.result) {
             Bundle bundle = data.getBundleExtra("bundle");
             Tip tip = bundle.getParcelable("tip");
-            LatLng latLng = new LatLng(tip.getPoint().getLatitude(), tip.getPoint().getLongitude());
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(latLng).zoom(18).bearing(0).tilt(30).build();
-            AMapOptions aOptions = new AMapOptions();
-            aOptions.camera(cameraPosition);
-            mMap.clear();
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-            mAMapInit.addMarkerInScreen(latLng);
-            showSearchSheetDialog(tip);
+            if(tip.getPoint()!=null){
+                LatLng latLng = new LatLng(tip.getPoint().getLatitude(), tip.getPoint().getLongitude());
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(latLng).zoom(18).bearing(0).tilt(30).build();
+                AMapOptions aOptions = new AMapOptions();
+                aOptions.camera(cameraPosition);
+                mMap.clear();
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                mAMapInit.addMarkerInScreen(latLng);
+                showSearchSheetDialog(tip);
+            }else {
+                ToastUtils.showToast("搜索出错");
+            }
         }
     }
 
@@ -370,6 +374,7 @@ public class AMapActivity extends BaseActivity implements AMap.OnPOIClickListene
             @Override
             public void onClick(View v) {
                 mSheetSearchDialog.dismiss();
+                AMapInit.skipTpMapNav(AMapActivity.this,latLng,tip.getName());
             }
         });
     }
