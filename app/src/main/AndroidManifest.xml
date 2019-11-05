@@ -81,9 +81,9 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="6255ee43c977c10b8ec24f8b1bb1649d" />
-        <!--<meta-data-->
-            <!--android:name="CHANNEL"-->
-            <!--android:value="${CHANNEL_VALUE}" />-->
+        <meta-data
+            android:name="CHANNEL"
+            android:value="${CHANNEL_VALUE}" />
         <meta-data
             android:name="IFLYTEK_APPKEY"
             android:value="58833c92" />

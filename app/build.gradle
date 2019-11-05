@@ -42,6 +42,10 @@ android {
         javaMaxHeapSize "4g"
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
     signingConfigs {
         signConfig {
             keyAlias 'matrix'
@@ -66,14 +70,14 @@ android {
         }
     }
     //多渠道打包
-//    productFlavors {
-//        xiaomi {}
-//        yinyongbao {}
-//    }
-//
-//    productFlavors.all {
-//        flavor -> flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
-//    }
+    productFlavors {
+        xiaomi {}
+        yinyongbao {}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+    }
 
     repositories {
         flatDir {
@@ -81,7 +85,7 @@ android {
         }
     }
 
-//    // 签名
+    // 签名
 //    signingConfigs {
 //        debug {
 //            keyAlias 'matrix'

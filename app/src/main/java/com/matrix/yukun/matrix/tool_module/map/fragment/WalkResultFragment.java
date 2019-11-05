@@ -156,6 +156,7 @@ public class WalkResultFragment extends BaseFragment implements LocationSource, 
                 mCurrentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
                 if (followMove) {
                     mAMap.animateCamera(CameraUpdateFactory.newLatLng(mCurrentLatLng));
+                    followMove=false;
                 }
             }
         });
