@@ -1,20 +1,22 @@
 package com.matrix.yukun.matrix.main_module.main;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.RelativeLayout;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.matrix.yukun.matrix.BaseActivity;
@@ -22,28 +24,35 @@ import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.activity.BriefVersionActivity;
 import com.matrix.yukun.matrix.main_module.activity.PlayMainActivity;
-import com.matrix.yukun.matrix.main_module.entity.UserInfo;
 import com.matrix.yukun.matrix.main_module.search.DBSearchInfo;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.util.PermissionUtils;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.qq.e.ads.splash.SplashAD;
 import com.qq.e.ads.splash.SplashADListener;
-import com.qq.e.comm.constants.LoadAdParams;
 import com.qq.e.comm.util.AdError;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class SplashActivity extends BaseActivity implements SplashADListener/* implements SplashADListener */{
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
+public class SplashActivity extends BaseActivity implements SplashADListener/* implements SplashADListener */ {
+
+    @BindView(R.id.container)
+    FrameLayout container;
+    @BindView(R.id.skip_view)
+    TextView skipView;
+    @BindView(R.id.icon)
+    ImageView icon;
+    @BindView(R.id.title)
+    TextView title;
     private ViewGroup mLayout;
-    private String appId="1105962710"; //1105962710
-    private String adId="6000411838414184"; //1070070284914535
+    private String appId = "1105962710"; //1105962710
+    private String adId = "6000411838414184"; //1070070284914535
     private boolean conJump;
     private TextView mSkipView;
     private SplashAD splashAD;
@@ -62,10 +71,18 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
         mSkipView = findViewById(R.id.skip_view);
         getPermiss();
         //删除100天以前的历史数据
-        DataSupport.deleteAllAsync(DBSearchInfo.class,"timeStamp < ? ", System.currentTimeMillis()-100*24*60*60*1000+"");
-        if(MyApp.getNight()){
+        DataSupport.deleteAllAsync(DBSearchInfo.class, "timeStamp < ? ", System.currentTimeMillis() - 100 * 24 * 60 * 60 * 1000 + "");
+        if (MyApp.getNight()) {
             getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
+        animation();
+    }
+
+    private void animation() {
+        ViewCompat.animate(icon)
+                .translationX(50)
+                .setDuration(500).setInterpolator(new DecelerateInterpolator(1.2f))
+                .start();
     }
 
     private void getPermiss() {
@@ -81,9 +98,9 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
         PermissionUtils permissionUtils = PermissionUtils.getInstance();
         permissionUtils.setContext(this);
         List<String> list = permissionUtils.setPermission(permissingList);
-        if(list.size()==0){
+        if (list.size() == 0) {
             requestAds();
-        }else {
+        } else {
             permissionUtils.start();
         }
     }
@@ -93,10 +110,10 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
         switch (requestCode) {
             case 1: {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0 ) {
+                if (grantResults.length > 0) {
                     //6.0权限访问
                     for (int result : grantResults) {
-                        if(result!= PackageManager.PERMISSION_GRANTED){
+                        if (result != PackageManager.PERMISSION_GRANTED) {
                             AlertDialog dialog = new AlertDialog.Builder(this)
                                     .setMessage("需要赋予权限，不开启将无法正常工作！且可能被强制退出登录")
                                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -146,38 +163,38 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
     @Override
     public void onADDismissed() {
         //显示完毕
-        LogUtil.i("---ads","onADDismissed");
-        conJump=true;
+        LogUtil.i("---ads", "onADDismissed");
+        conJump = true;
         forward();
     }
 
     @Override
     public void onNoAD(AdError adError) {
         //加载失败
-        LogUtil.i("---adError",adError.getErrorCode()+" "+adError.getErrorMsg());
-        conJump=true;
+        LogUtil.i("---adError", adError.getErrorCode() + " " + adError.getErrorMsg());
+        conJump = true;
         forward();
     }
 
     @Override
     public void onADPresent() {
-        LogUtil.i("---ads","onADPresent");
+        LogUtil.i("---ads", "onADPresent");
     }
 
     @Override
     public void onADClicked() {
-        LogUtil.i("---ads","onADClicked");
+        LogUtil.i("---ads", "onADClicked");
     }
 
     @Override
     public void onADTick(long l) {
         mSkipView.setText(String.format("点击跳过 %d", Math.round(l / 1000f)));
-        Log.i("---ads","onADTick");
+        Log.i("---ads", "onADTick");
     }
 
     @Override
     public void onADExposure() {
-        LogUtil.i("---ads","onADExposure");
+        LogUtil.i("---ads", "onADExposure");
     }
 
     @Override
@@ -192,15 +209,15 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
     }
 
     private void forward() {
-        if(conJump){
+        if (conJump) {
             Intent intent = null;
-            if(istrue()){
-                intent=new Intent(this,LockActivity.class);
-            }else {
-                if(SPUtils.getInstance().getBoolean("isbrief")){
-                    intent=new Intent(this, BriefVersionActivity.class);
-                }else {
-                    intent=new Intent(this, PlayMainActivity.class);
+            if (istrue()) {
+                intent = new Intent(this, LockActivity.class);
+            } else {
+                if (SPUtils.getInstance().getBoolean("isbrief")) {
+                    intent = new Intent(this, BriefVersionActivity.class);
+                } else {
+                    intent = new Intent(this, PlayMainActivity.class);
                 }
             }
             startActivity(intent);
@@ -208,15 +225,22 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
         }
     }
 
-    private boolean istrue(){
-        SharedPreferences preferences=getSharedPreferences("gesture", Context.MODE_PRIVATE);
-        boolean result = preferences.getBoolean("gesture",false);
+    private boolean istrue() {
+        SharedPreferences preferences = getSharedPreferences("gesture", Context.MODE_PRIVATE);
+        boolean result = preferences.getBoolean("gesture", false);
         return result;
     }
 
-    private String isFace(){
-        SharedPreferences preferences=getSharedPreferences("mAuthId", Context.MODE_PRIVATE);
-        String result = preferences.getString("mAuthId","a");
+    private String isFace() {
+        SharedPreferences preferences = getSharedPreferences("mAuthId", Context.MODE_PRIVATE);
+        String result = preferences.getString("mAuthId", "a");
         return result;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

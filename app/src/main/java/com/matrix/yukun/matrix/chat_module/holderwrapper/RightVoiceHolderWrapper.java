@@ -17,6 +17,7 @@ import com.matrix.yukun.matrix.main_module.activity.PersonCenterActivity;
 import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.glide.GlideUtil;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -98,6 +99,11 @@ public class RightVoiceHolderWrapper {
                     @Override
                     public void stop() {
 
+                    }
+
+                    @Override
+                    public void progress(int size, int progress) {
+                        LogUtil.i("==========",size+" "+progress);
                     }
                 });
             }else {

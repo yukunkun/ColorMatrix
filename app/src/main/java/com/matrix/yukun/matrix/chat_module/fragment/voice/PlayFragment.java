@@ -93,6 +93,11 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                         mHorVoiceView.setText(showTimeCount(mDuration));
                         mHorVoiceView.stopRecord();
                     }
+
+                    @Override
+                    public void progress(int size, int progress) {
+
+                    }
                 });
             }
 

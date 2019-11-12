@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item>
+        <shape>
+            <solid android:color="@color/color_000000"/>
+        </shape>
+    </item>
+
+    <item
+        android:height="90dp"
+        android:gravity="bottom">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/color_000000"/>
+            <bitmap
+                android:gravity="center"
+                android:src="@drawable/tool_icon_black"/>
+        </shape>
+    </item>
+
+</layer-list>

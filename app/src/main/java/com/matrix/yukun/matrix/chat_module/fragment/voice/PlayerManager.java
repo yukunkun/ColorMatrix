@@ -10,6 +10,8 @@ import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 语音播放管理类
@@ -51,7 +53,7 @@ public class PlayerManager {
 
     private int savedAudioMode;
     private int currentMode = MODE_SPEAKER;
-
+    private Timer mTimer=new Timer();
     private int                                     currentTime               = 0;
     private AudioManager.OnAudioFocusChangeListener mAudioFocusChangeListener = null;
 
@@ -137,6 +139,7 @@ public class PlayerManager {
         this.filePath = path;
         this.callback = callback;
         try {
+            mTimer.cancel();
             this.mediaPlayer.reset();
             this.mediaPlayer.setDataSource(this.context, Uri.parse(this.filePath));
             this.mediaPlayer.prepareAsync();
@@ -155,13 +158,23 @@ public class PlayerManager {
                     resetPlayMode();
                     abandonAudioFocus();
                     callback.onComplete();
+                    mTimer.cancel();
                 }
             });
+
+//            mTimer.schedule(new TimerTask() {
+//                @Override
+//                public void run() {
+//                    callback.progress(mediaPlayer.getDuration(),mediaPlayer.getCurrentPosition());
+//                }
+//            },0,1000);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
     /**
      * 停止播放
      */
@@ -171,6 +184,7 @@ public class PlayerManager {
             try {
                 this.mediaPlayer.stop();
                 this.callback.stop();
+                mTimer.cancel();
             } catch (IllegalStateException e) {
                 e.printStackTrace();
             }
@@ -362,6 +376,10 @@ public class PlayerManager {
          * 停止播放
          */
         void stop();
+        /**
+         * 停止播放
+         */
+        void progress(int size,int progress);
     }
 
     /**
