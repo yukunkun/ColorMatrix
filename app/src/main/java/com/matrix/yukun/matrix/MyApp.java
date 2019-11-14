@@ -5,11 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
-import android.support.multidex.MultiDex;
-import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
-import android.widget.Toast;
-
 import com.amap.api.maps.model.LatLng;
 import com.matrix.yukun.matrix.download_module.service.DownLoadService;
 import com.matrix.yukun.matrix.main_module.entity.UserInfo;
@@ -29,11 +25,9 @@ import com.tencent.bugly.beta.Beta;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.cookie.CookieJarImpl;
 import com.zhy.http.okhttp.cookie.store.PersistentCookieStore;
-
 import org.litepal.LitePalApplication;
-
 import java.util.List;
-
+import cn.bmob.v3.Bmob;
 import interfaces.heweather.com.interfacesmodule.view.HeConfig;
 import okhttp3.OkHttpClient;
 
@@ -51,6 +45,8 @@ public class MyApp extends LitePalApplication{
         myApp=this;
         Beta.autoCheckUpgrade = false;//设置不自动检查
         Bugly.init(getApplicationContext(), "884e2d9286", false);
+        Bmob.initialize(this, AppConstant.BMOBAPPID);
+
         String processName = getProcessName(this, android.os.Process.myPid());
         // android 7.0系统解决拍照的问题
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();

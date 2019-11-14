@@ -175,6 +175,12 @@
                 android:resource="@xml/gdt_file_path" />
         </provider>
 
+        <provider
+            android:name="cn.bmob.v3.util.BmobContentProvider"
+            android:authorities="${applicationId}.BmobContentProvider">
+        </provider>
+
+
         <activity
             android:name="cn.sharesdk.tencent.qq.ReceiveActivity"
             android:launchMode="singleTask"

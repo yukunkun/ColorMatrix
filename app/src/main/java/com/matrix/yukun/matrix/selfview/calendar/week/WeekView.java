@@ -28,7 +28,6 @@ import java.util.Set;
 /**
  * 周视图周历
  *
- * @author liufeng
  * @date 2017-7-22
  */
 public class WeekView extends View {

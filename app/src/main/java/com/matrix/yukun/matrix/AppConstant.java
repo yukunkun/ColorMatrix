@@ -33,5 +33,7 @@ public class AppConstant {
     public static final String JUHE_DIR_APPKEY="c3564ef1b3cccb2d3c9f06656e9a6e5d";
     public static final String JUHE_PHONE_APPKEY="e232241b95458275f5c9ffc0db90dccb";
     public static final String LOG = PATH+"/log";
+    public static final String BMOBAPPID="25ed2d0072c0cf5b715fac0d30237f89";
+    public static final String BMOBAPPKEY="01bdd37c4830a72bc0163f2ad9786fd7";
 
 }
