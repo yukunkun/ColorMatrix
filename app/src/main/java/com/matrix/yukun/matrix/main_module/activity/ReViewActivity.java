@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -45,7 +46,7 @@ public class ReViewActivity extends BaseActivity implements View.OnClickListener
     private RelativeLayout mRlPhoto;
     private EditText mEtSig;
     private EditText mEtName;
-    private Switch mASwitch;
+    private ToggleButton mASwitch;
     private TextView mTvGender;
     private TextView mTvCompl;
     private String headerPath;

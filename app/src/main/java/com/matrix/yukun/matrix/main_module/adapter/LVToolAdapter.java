@@ -47,13 +47,13 @@ public class LVToolAdapter extends BaseAdapter implements UnifiedBannerADListene
         mContext = context;
         mListName = Arrays.asList(context.getResources().getStringArray(R.array.tool_life));
 
-        mListImage.add(R.mipmap.icon_tool_maps); //515151
+//        mListImage.add(R.mipmap.icon_tool_maps); //515151
         mListImage.add(R.mipmap.icon_tool_history);
         mListImage.add(R.mipmap.icon_tool_zidian);
         mListImage.add(R.mipmap.icon_tool_movie);
         mListImage.add(R.mipmap.icon_tool_phone);
 
-        mClassMap.put("周边查询", AMapActivity.class);
+//        mClassMap.put("周边查询", AMapActivity.class);
         mClassMap.put("历史今日", HistoryTodayActivity.class);
         mClassMap.put("新华字典", DictionaryActivity.class);
         mClassMap.put("BT电影", SpecialActivity.class);

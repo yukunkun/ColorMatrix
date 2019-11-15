@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/color_whit"
-    tools:context=".video_module.play.ReViewActivity">
+    tools:context=".main_module.activity.ReViewActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimens_45">
@@ -86,11 +86,15 @@
             android:maxLines="15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <Switch
+        <ToggleButton
             android:id="@+id/sw_gender"
+            android:textOn="男"
+            android:textOff="女"
+            android:background="@color/black10"
+            android:textColor="@color/colorAccent"
             android:layout_alignParentRight="true"
-            android:layout_height="match_parent"
-            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimens_30"
+            android:layout_width="@dimen/dimens_50"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dimens_10"
              />
@@ -103,9 +107,18 @@
         android:layout_width="match_parent"
         android:gravity="center_vertical"
         android:layout_height="@dimen/dimens_50">
+        <TextView
+            android:gravity="center_vertical"
+            android:text="昵称"
+            android:textColor="@color/color_text"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:layout_height="match_parent"/>
+        
         <EditText
             android:id="@+id/et_set_name"
-            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_marginLeft="@dimen/dimens_50"
             android:hint="昵称"
             android:paddingLeft="@dimen/dimens_8"
             android:paddingTop="@dimen/dimens_5"
@@ -127,6 +140,14 @@
         android:layout_width="match_parent"
         android:gravity="center_vertical"
         android:layout_height="@dimen/dimens_50">
+        <TextView
+            android:gravity="center_vertical"
+            android:text="签名"
+            android:textColor="@color/color_text"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:layout_height="match_parent"/>
         <EditText
             android:id="@+id/et_set_sig"
             android:maxLines="2"
@@ -137,7 +158,7 @@
             android:paddingBottom="@dimen/dimens_5"
             android:paddingRight="@dimen/dimens_8"
             android:layout_marginRight="@dimen/dimens_10"
-            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_marginLeft="@dimen/dimens_50"
             android:layout_centerVertical="true"
             android:hint="你还没有签名呢"
             android:textSize="16sp"
