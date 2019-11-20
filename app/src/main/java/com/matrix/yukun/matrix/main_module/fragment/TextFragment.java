@@ -20,6 +20,7 @@ import com.matrix.yukun.matrix.main_module.entity.EventShowSecond;
 import com.matrix.yukun.matrix.main_module.entity.NewsInfo;
 import com.matrix.yukun.matrix.main_module.netutils.NetworkUtils;
 import com.matrix.yukun.matrix.main_module.views.SwipeItemLayout;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.OnTwoLevelListener;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
@@ -45,7 +46,8 @@ import okhttp3.Call;
  */
 
 public class TextFragment extends BaseFragment {
-    String url="https://www.apiopen.top/journalismApi";
+    //来源 https://blog.csdn.net/qq_41212530/article/details/85693158
+    String url="http://c.m.163.com/nc/article/headline/T1348647853363/0-40.html";
     List<NewsInfo> jokeInfoList=new ArrayList<>();
     private TextAdapter mTextAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -159,20 +161,10 @@ public class TextFragment extends BaseFragment {
                 JSONObject jsonObject = null;
                 try {
                     jsonObject = new JSONObject(response);
-                    JSONObject data = jsonObject.optJSONObject("data");
-                    JSONArray tech = data.optJSONArray("dy");
-                    JSONArray sports = data.optJSONArray("auto");
-                    JSONArray auto = data.optJSONArray("sports");
-                    JSONArray money = data.optJSONArray("money");
+                    JSONArray data = jsonObject.optJSONArray("T1348647853363");
+                    LogUtil.i("======",data.toString());
                     Gson gson = new Gson();
-                    List<NewsInfo> techlist = gson.fromJson(tech.toString(), new TypeToken<List<NewsInfo>>() {}.getType());
-                    List<NewsInfo> moneylist = gson.fromJson(money.toString(), new TypeToken<List<NewsInfo>>() {}.getType());
-                    List<NewsInfo> sportlist = gson.fromJson(sports.toString(), new TypeToken<List<NewsInfo>>() {}.getType());
-                    List<NewsInfo> autolist = gson.fromJson(auto.toString(), new TypeToken<List<NewsInfo>>() {}.getType());
-
-                    jokeInfoList.addAll(techlist);
-                    jokeInfoList.addAll(moneylist);
-                    jokeInfoList.addAll(sportlist);
+                    List<NewsInfo> autolist = gson.fromJson(data.toString(), new TypeToken<List<NewsInfo>>() {}.getType());
                     jokeInfoList.addAll(autolist);
                     if(jokeInfoList.size()>0){
                         mLayoutRemind.setVisibility(View.GONE);

@@ -1,69 +1,72 @@
 package com.matrix.yukun.matrix.main_module.entity;
 
-import java.util.List;
-
 /**
  * author: kun .
  * date:   On 2018/9/14
  */
 public class NewsInfo {
 
+
     /**
-     * liveInfo : null
-     * tcount : 11
-     * picInfo : [{"ref":null,"width":null,"url":"http://cms-bucket.nosdn.127.net/2018/09/14/fc3ade213fae4b72817fefb7276b7a38.jpeg","height":null}]
-     * docid : DRMCUG6D00097U7R
-     * videoInfo : null
-     * channel : tech
-     * link : https://3g.163.com/all/article/DRMCUG6D00097U7R.html
-     * source : 网易科技报道
-     * title : 易读|滴滴9月15日起恢复深夜出行服务
-     * type : doc
-     * imgsrcFrom : null
-     * imgsrc3gtype : 1
-     * unlikeReason : 重复、旧闻/6,内容质量差/6
-     * digest : 网易科技讯9月14日消息，滴滴方面表示，9月15日起将按原计
-     * typeid :
-     * addata : null
-     * tag :
-     * category : 科技
-     * ptime : 2018-09-14 18:03:28
+     * sourceId : T1467284926140
+     * votecount : 0
+     * docid : EUE8JPR40001899O
+     * lmodify : 2019-11-20 13:28:50
+     * url_3w : http://news.163.com/19/1120/13/EUE8JPR40001899O.html
+     * source : 中华人民共和国外交部
+     * postid : EUE8JPR40001899O
+     * priority : 120
+     * title : 外交部副部长召见美驻华使馆负责人 提出严正交涉
+     * mtime : 2019-11-20 13:28:50
+     * url : http://3g.163.com/news/19/1120/13/EUE8JPR40001899O.html
+     * quality : 80
+     * commentStatus : 1
+     * replyCount : 0
+     * ltitle : 外交部副部长召见美驻华使馆负责人 提出严正交涉
+     * subtitle :
+     * digest : 2019年11月20日，中国外交部副部长马朝旭召见美国驻华使馆临时代办柯有为，就美国国会参议院审议通过“香港人权与民主法案”提出严正交涉和强烈抗议。马朝旭指出，
+     * boardid : news2_bbs
+     * imgsrc : http://cms-bucket.ws.126.net/2019/11/20/662f38900bbd4b2b91dc131b4d84ca85.png
+     * ptime : 2019-11-20 13:23:11
+     * daynum : 18220
      */
 
-    private Object liveInfo;
-    private int tcount;
+    private String sourceId;
+    private int votecount;
     private String docid;
-    private Object videoInfo;
-    private String channel;
-    private String link;
+    private String lmodify;
+    private String url_3w;
     private String source;
+    private String postid;
+    private int priority;
     private String title;
-    private String type;
-    private Object imgsrcFrom;
-    private int imgsrc3gtype;
-    private String unlikeReason;
+    private String mtime;
+    private String url;
+    private int quality;
+    private int commentStatus;
+    private int replyCount;
+    private String ltitle;
+    private String subtitle;
     private String digest;
-    private String typeid;
-    private Object addata;
-    private String tag;
-    private String category;
+    private String boardid;
+    private String imgsrc;
     private String ptime;
-    private List<PicInfoBean> picInfo;
+    private String daynum;
 
-    public Object getLiveInfo() {
-        return liveInfo;
+    public String getSourceId() {
+        return sourceId;
     }
 
-    public void setLiveInfo(Object liveInfo) {
-        this.liveInfo = liveInfo;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public int getTcount() {
-        return tcount;
+    public int getVotecount() {
+        return votecount;
     }
 
-    public void setTcount(int tcount) {
-        this.tcount = tcount;
+    public void setVotecount(int votecount) {
+        this.votecount = votecount;
     }
 
     public String getDocid() {
@@ -74,28 +77,20 @@ public class NewsInfo {
         this.docid = docid;
     }
 
-    public Object getVideoInfo() {
-        return videoInfo;
+    public String getLmodify() {
+        return lmodify;
     }
 
-    public void setVideoInfo(Object videoInfo) {
-        this.videoInfo = videoInfo;
+    public void setLmodify(String lmodify) {
+        this.lmodify = lmodify;
     }
 
-    public String getChannel() {
-        return channel;
+    public String getUrl_3w() {
+        return url_3w;
     }
 
-    public void setChannel(String channel) {
-        this.channel = channel;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
+    public void setUrl_3w(String url_3w) {
+        this.url_3w = url_3w;
     }
 
     public String getSource() {
@@ -106,6 +101,22 @@ public class NewsInfo {
         this.source = source;
     }
 
+    public String getPostid() {
+        return postid;
+    }
+
+    public void setPostid(String postid) {
+        this.postid = postid;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -114,36 +125,60 @@ public class NewsInfo {
         this.title = title;
     }
 
-    public String getType() {
-        return type;
+    public String getMtime() {
+        return mtime;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setMtime(String mtime) {
+        this.mtime = mtime;
     }
 
-    public Object getImgsrcFrom() {
-        return imgsrcFrom;
+    public String getUrl() {
+        return url;
     }
 
-    public void setImgsrcFrom(Object imgsrcFrom) {
-        this.imgsrcFrom = imgsrcFrom;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public int getImgsrc3gtype() {
-        return imgsrc3gtype;
+    public int getQuality() {
+        return quality;
     }
 
-    public void setImgsrc3gtype(int imgsrc3gtype) {
-        this.imgsrc3gtype = imgsrc3gtype;
+    public void setQuality(int quality) {
+        this.quality = quality;
     }
 
-    public String getUnlikeReason() {
-        return unlikeReason;
+    public int getCommentStatus() {
+        return commentStatus;
     }
 
-    public void setUnlikeReason(String unlikeReason) {
-        this.unlikeReason = unlikeReason;
+    public void setCommentStatus(int commentStatus) {
+        this.commentStatus = commentStatus;
+    }
+
+    public int getReplyCount() {
+        return replyCount;
+    }
+
+    public void setReplyCount(int replyCount) {
+        this.replyCount = replyCount;
+    }
+
+    public String getLtitle() {
+        return ltitle;
+    }
+
+    public void setLtitle(String ltitle) {
+        this.ltitle = ltitle;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     public String getDigest() {
@@ -154,36 +189,20 @@ public class NewsInfo {
         this.digest = digest;
     }
 
-    public String getTypeid() {
-        return typeid;
+    public String getBoardid() {
+        return boardid;
     }
 
-    public void setTypeid(String typeid) {
-        this.typeid = typeid;
+    public void setBoardid(String boardid) {
+        this.boardid = boardid;
     }
 
-    public Object getAddata() {
-        return addata;
+    public String getImgsrc() {
+        return imgsrc;
     }
 
-    public void setAddata(Object addata) {
-        this.addata = addata;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
+    public void setImgsrc(String imgsrc) {
+        this.imgsrc = imgsrc;
     }
 
     public String getPtime() {
@@ -194,57 +213,11 @@ public class NewsInfo {
         this.ptime = ptime;
     }
 
-    public List<PicInfoBean> getPicInfo() {
-        return picInfo;
+    public String getDaynum() {
+        return daynum;
     }
 
-    public void setPicInfo(List<PicInfoBean> picInfo) {
-        this.picInfo = picInfo;
-    }
-
-    public static class PicInfoBean {
-        /**
-         * ref : null
-         * width : null
-         * url : http://cms-bucket.nosdn.127.net/2018/09/14/fc3ade213fae4b72817fefb7276b7a38.jpeg
-         * height : null
-         */
-
-        private Object ref;
-        private Object width;
-        private String url;
-        private Object height;
-
-        public Object getRef() {
-            return ref;
-        }
-
-        public void setRef(Object ref) {
-            this.ref = ref;
-        }
-
-        public Object getWidth() {
-            return width;
-        }
-
-        public void setWidth(Object width) {
-            this.width = width;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-        public Object getHeight() {
-            return height;
-        }
-
-        public void setHeight(Object height) {
-            this.height = height;
-        }
+    public void setDaynum(String daynum) {
+        this.daynum = daynum;
     }
 }

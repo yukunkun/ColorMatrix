@@ -2,13 +2,13 @@
 
 buildscript {
     repositories {
+        google()
         jcenter()
         maven {
 //            url 'http://mvn.mob.com/android'
             url 'https://maven.google.com/'
             name 'Google'
         }
-        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
@@ -20,6 +20,7 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
         jcenter()
         maven { url "https://jitpack.io" }
         maven {
@@ -28,7 +29,6 @@ allprojects {
         }
         maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
 
-        google()
 
     }
 }

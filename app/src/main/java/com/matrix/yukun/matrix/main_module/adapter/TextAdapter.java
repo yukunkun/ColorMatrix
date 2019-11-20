@@ -66,10 +66,9 @@ public class TextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof MHolder) {
             final NewsInfo textInfo = jokeInfoList.get(position);
-            ((MHolder) holder).mTvTitle.setText(textInfo.getCategory());
-            if(textInfo.getPicInfo()!=null&&textInfo.getPicInfo().size()>0){
-                Glide.with(context).load(textInfo.getPicInfo().get(0).getUrl()+"").into(((MHolder) holder).mImCover);
-            }
+            ((MHolder) holder).mTvTitle.setText(textInfo.getTitle());
+            Glide.with(context).load(textInfo.getImgsrc()).into(((MHolder) holder).mImCover);
+
             int headPos=mRandom.nextInt(9);
             GlideUtil.loadCircleImage(mListHead.get(headPos),(((MHolder) holder).mCiHead));
             if(textInfo.getSource()==null){
@@ -77,13 +76,14 @@ public class TextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }else {
                 ((MHolder) holder).mTvName.setText(textInfo.getSource());
             }
+            ((MHolder) holder).mTvTime.setText(textInfo.getMtime());
             ((MHolder) holder).mTvDes.setText(textInfo.getDigest());
             ((MHolder) holder).mTvForword.setText(textInfo.getTitle());
             ((MHolder) holder).mImCover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(context, TextDetailActivity.class);
-                    intent.putExtra("url",textInfo.getLink());
+                    intent.putExtra("url",textInfo.getUrl_3w());
                     intent.putExtra("title",textInfo.getTitle());
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
@@ -94,16 +94,16 @@ public class TextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onClick(View v) {
 
-                    List<CollectsInfo> newsList= DataSupport.where("cover = ?", textInfo.getPicInfo().get(0).getUrl()+"").find(CollectsInfo.class);
+                    List<CollectsInfo> newsList= DataSupport.where("cover = ?", textInfo.getImgsrc()+"").find(CollectsInfo.class);
                     if(newsList.size()>0){
                         //存储了
                         Toast.makeText(context, "已经添加到收藏了-_-", Toast.LENGTH_SHORT).show();
                         return;
                     }else {
                         CollectsInfo collectInfo=new CollectsInfo();
-                        if(textInfo.getPicInfo()!=null&&textInfo.getPicInfo().size()>0){
-                            collectInfo.setHeader(textInfo.getPicInfo().get(0).getUrl());
-                            collectInfo.setCover(textInfo.getPicInfo().get(0).getUrl());
+                        if(textInfo.getImgsrc()!=null){
+                            collectInfo.setHeader(textInfo.getImgsrc());
+                            collectInfo.setCover(textInfo.getImgsrc());
                         }else {
                             collectInfo.setHeader("");
                             collectInfo.setCover("");
@@ -111,7 +111,7 @@ public class TextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         collectInfo.setTitle(textInfo.getTitle());
                         collectInfo.setName(textInfo.getSource());
                         collectInfo.setType(3);
-                        collectInfo.setPlay_url(textInfo.getLink());
+                        collectInfo.setPlay_url(textInfo.getUrl_3w());
                         collectInfo.save();
                         Toast.makeText(context, "添加到收藏成功", Toast.LENGTH_SHORT).show();
                         ((MHolder) holder).mIvCollect.setImageResource(R.mipmap.collection_fill);
@@ -151,7 +151,8 @@ public class TextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView mTvForword;
         @BindView(R2.id.delete)
         Button mButton;
-
+        @BindView(R2.id.tv_time)
+        TextView mTvTime;
         public MHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
