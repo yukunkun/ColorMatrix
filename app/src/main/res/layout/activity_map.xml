@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_black"
+    tools:context=".main_module.activity.MapActivity">
+
+    <uk.co.senab.photoview.PhotoView
+        android:visibility="gone"
+        android:id="@+id/photoview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <WebView
+        android:id="@+id/webview"
+        android:layout_centerInParent="true"
+        android:background="@color/bg_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <ImageView
+        android:id="@+id/iv_images"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        android:transitionName="shareView" />
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="@dimen/dimens_45"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/dimens_20"
+        android:padding="10dp"
+        android:src="@mipmap/ic_back" />
+
+    <TextView
+        android:id="@+id/tv_sup"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimens_30"
+        android:layout_marginTop="@dimen/dimens_20"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="点击有惊喜"
+        android:textSize="@dimen/sp_16" />
+
+    <TextView
+        android:id="@+id/tv_clip"
+        android:layout_width="@dimen/dimens_60"
+        android:layout_height="@dimen/dimens_30"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/dimens_20"
+        android:layout_marginRight="@dimen/dimens_10"
+        android:layout_marginBottom="@dimen/dimens_50"
+        android:gravity="center"
+        android:text="下一张"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16" />
+
+    <ImageView
+        android:id="@+id/iv_more"
+        android:layout_width="@dimen/dimens_45"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dimens_20"
+        android:layout_marginRight="@dimen/dimens_5"
+        android:padding="10dp"
+        android:src="@mipmap/icon_more_video" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="@dimen/dimens_50"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="visible" />
+</RelativeLayout>

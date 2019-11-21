@@ -34,6 +34,7 @@ import com.matrix.yukun.matrix.download_module.DownLoadActivity;
 import com.matrix.yukun.matrix.main_module.activity.HistoryTodayActivity;
 import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 import com.matrix.yukun.matrix.main_module.activity.MViewPagerAdapter;
+import com.matrix.yukun.matrix.main_module.activity.MapActivity;
 import com.matrix.yukun.matrix.main_module.activity.MyCollectActivity;
 import com.matrix.yukun.matrix.main_module.activity.PersonCenterActivity;
 import com.matrix.yukun.matrix.main_module.entity.EventCategrayPos;
@@ -122,6 +123,8 @@ public class PlayFragment extends BaseFragment {
     ImageView mIvShare;
     @BindView(R2.id.rl_collect)
     RelativeLayout mRlCollect;
+    @BindView(R2.id.rl_one_map)
+    RelativeLayout mRlOneMap;
     @BindView(R.id.head)
     CircleImageView mCircleImageView;
     @BindView(R2.id.tv_name)
@@ -378,7 +381,7 @@ public class PlayFragment extends BaseFragment {
     }
 
     @OnClick({R2.id.iv_chat, R2.id.iv_main, R2.id.head, R2.id.iv_update, R2.id.tv_weather, R2.id.rl_collect, R2.id.rl_main, R2.id.iv_search,
-            R2.id.rl_movie, R2.id.rl_change_modul, R2.id.rl_me, R2.id.tv_close, R2.id.rl_bg_special, R2.id.iv_share, R.id.rl_down})
+            R2.id.rl_movie, R2.id.rl_change_modul, R2.id.rl_me, R2.id.tv_close, R2.id.rl_bg_special, R2.id.iv_share, R.id.rl_down,R.id.rl_one_map})
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.iv_main) {
@@ -400,7 +403,6 @@ public class PlayFragment extends BaseFragment {
         } else if (i == R.id.rl_change_modul) {
             closeDrawLayout();
             SettingActivity.start(getContext());
-//            ((PlayMainActivity) getContext()).setNightMode();
         } else if (i == R.id.rl_collect) {
             Intent intentCol = new Intent(getContext(), MyCollectActivity.class);
             startActivity(intentCol);
@@ -417,6 +419,9 @@ public class PlayFragment extends BaseFragment {
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
             }
+        } else if(i == R.id.rl_one_map){
+            MapActivity.start(getContext());
+            closeDrawLayout();
         } else if (i == R.id.tv_close) {//退出
             //update UI
             closeDrawLayout();

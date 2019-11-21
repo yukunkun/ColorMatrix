@@ -45,6 +45,15 @@ import okhttp3.Call;
  * Created by yukun on 17-11-17.
  */
 
+    /* https://cdn.mom1.cn/?mom=url //随机图片
+     * http://lorempixel.com/1600/900
+     * https://unsplash.it/1600/900?random（国内加载略慢）
+     * https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture【返回必应图片】
+     * https://uploadbeta.com/api/pictures/random/?key=%E6%8E%A8%E5%A5%B3%E9%83%8E【随机美女图片】
+     * http://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1（必应返回JSON数据，具体百度）
+     * http://s.cn.bing.net
+     */
+
 public class TextFragment extends BaseFragment {
     //来源 https://blog.csdn.net/qq_41212530/article/details/85693158
     String url="http://c.m.163.com/nc/article/headline/T1348647853363/0-40.html";

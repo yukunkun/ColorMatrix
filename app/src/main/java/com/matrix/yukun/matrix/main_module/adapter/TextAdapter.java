@@ -40,7 +40,6 @@ public class TextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     List<Integer> mListHead=new ArrayList<>();
     private Random mRandom=new Random();
 
-
     public TextAdapter(Context context, List<NewsInfo> jokeInfoList) {
         this.context = context;
         this.jokeInfoList = jokeInfoList;
@@ -67,8 +66,8 @@ public class TextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (holder instanceof MHolder) {
             final NewsInfo textInfo = jokeInfoList.get(position);
             ((MHolder) holder).mTvTitle.setText(textInfo.getTitle());
-            Glide.with(context).load(textInfo.getImgsrc()).into(((MHolder) holder).mImCover);
 
+            Glide.with(context).load(textInfo.getImgsrc()).into(((MHolder) holder).mImCover);
             int headPos=mRandom.nextInt(9);
             GlideUtil.loadCircleImage(mListHead.get(headPos),(((MHolder) holder).mCiHead));
             if(textInfo.getSource()==null){

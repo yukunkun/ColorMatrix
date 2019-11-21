@@ -61,7 +61,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:label">
-
+        <activity android:name=".main_module.activity.MapActivity"></activity>
         <activity
             android:name=".tool_module.notebook.activity.NoteSettingActivity"
             android:screenOrientation="portrait" />
@@ -174,12 +174,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/gdt_file_path" />
         </provider>
-
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
-            android:authorities="${applicationId}.BmobContentProvider">
-        </provider>
-
+            android:authorities="${applicationId}.BmobContentProvider"></provider>
 
         <activity
             android:name="cn.sharesdk.tencent.qq.ReceiveActivity"
