@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
+import com.matrix.yukun.matrix.main_module.activity.TextDetailActivity;
 import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
 import com.matrix.yukun.matrix.main_module.entity.ImageInfo;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;
@@ -66,36 +67,22 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof MHolder) {
             final ImageInfo recInfo = jokeInfoList.get(position);
-            ((MHolder) holder).mTvName.setText(recInfo.getType());
-            ((MHolder) holder).mTvTitle.setText(recInfo.getType());
-//            ((MHolder) holder).mTvPlayTimes.setText(recInfo.getComment()+"次");
-//            ((MHolder) holder).mTvCommentName.setText(recInfo.getTop_commentsName());
-//            if(recInfo.getTop_commentsContent()==null){
-//                ((MHolder) holder).mTvCommen.setVisibility(View.GONE);
-//            }else {
-//                ((MHolder) holder).mTvCommen.setVisibility(View.VISIBLE);
-//                ((MHolder) holder).mTvCommen.setText(recInfo.getTop_commentsContent());
-//            }
-            GlideUtil.loadImage(recInfo.getUrl(),((MHolder) holder).mImCover);
-            GlideUtil.loadImage(recInfo.getUrl(),((MHolder) holder).mCiCommentHead);
-            Glide.with(context).load(recInfo.getUrl()).into(((MHolder) holder).mCiHead);
-            ((MHolder) holder).mTvTimes.setText(recInfo.getPublishedAt());
+//            ((MHolder) holder).mTvName.setText(recInfo.get);
+            ((MHolder) holder).mTvTitle.setText(recInfo.getCopyright());
+            GlideUtil.loadImage("http://s.cn.bing.net"+recInfo.getUrl(),((MHolder) holder).mImCover);
+            Glide.with(context).load("http://s.cn.bing.net"+recInfo.getUrl()).into(((MHolder) holder).mCiHead);
+            ((MHolder) holder).mTvTimes.setText(recInfo.getStartdate());
 
             if(((MHolder) holder).mImCover.getHeight()> ScreenUtils.dp2Px(context,180)){
                 ViewGroup.LayoutParams layoutParams=((MHolder) holder).mImCover.getLayoutParams();
                 layoutParams.height= ScreenUtils.dp2Px(context,180);
                 ((MHolder) holder).mImCover.setLayoutParams(layoutParams);
             }
-//            if("".equals(recInfo.getImage())){
-//                ((MHolder) holder).mImCover.setVisibility(View.GONE);
-//            }else {
-//                ((MHolder) holder).mImCover.setVisibility(View.VISIBLE);
-//            }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(context, ImageDetailActivity.class);
-                    intent.putExtra("url",recInfo.getUrl());
+                    intent.putExtra("url","http://s.cn.bing.net"+recInfo.getUrl());
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     if(Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT_WATCH){
                         context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context,((MHolder) holder).mImCover,"shareView").toBundle());
@@ -126,10 +113,10 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         CollectsInfo collectInfo=new CollectsInfo();
                         collectInfo.setHeader(recInfo.getUrl());
                         collectInfo.setCover(recInfo.getUrl());
-                        collectInfo.setTitle(recInfo.getType());
-                        collectInfo.setName(recInfo.getType());
+                        collectInfo.setTitle(recInfo.getCopyright());
+                        collectInfo.setName(recInfo.getCopyright());
                         collectInfo.setType(2);
-                        collectInfo.setPlay_url(recInfo.getUrl());
+                        collectInfo.setPlay_url("http://s.cn.bing.net"+recInfo.getUrl());
                         collectInfo.setGif(false);
                         collectInfo.save();
                         Toast.makeText(context, "添加到收藏成功", Toast.LENGTH_SHORT).show();

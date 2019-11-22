@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -21,6 +22,7 @@ import com.matrix.yukun.matrix.main_module.dialog.ShareDialog;
 import com.matrix.yukun.matrix.main_module.entity.EventShowSecond;
 import com.matrix.yukun.matrix.main_module.entity.ImageInfo;
 import com.matrix.yukun.matrix.main_module.netutils.NetworkUtils;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.OnTwoLevelListener;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
@@ -47,11 +49,12 @@ import okhttp3.Call;
  */
 
 public class ImageFragment extends BaseFragment implements ShareCallBack {
-    String url="https://www.apiopen.top/meituApi";
+    String url="http://cn.bing.com/HPImageArchive.aspx";
     private View mFloor;
     private TwoLevelHeader mHeader;
     private SmartRefreshLayout mSmartRefreshLayout;
-    private int page = 40;
+    private int n = 10;
+    private int idx = 0;
     private List<ImageInfo> jokeInfoList=new ArrayList<>();
     private ImageAdapter mJokeAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -110,7 +113,7 @@ public class ImageFragment extends BaseFragment implements ShareCallBack {
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
                 if(lastVisibleItemPosition==mLayoutManager.getItemCount()-1){
-                    page++;
+                    idx++;
                     getInfo(false);
                 }
                 mSmartRefreshLayout.finishLoadMore(20);
@@ -118,11 +121,9 @@ public class ImageFragment extends BaseFragment implements ShareCallBack {
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                Random random=new Random();
-                int nextInt = random.nextInt(30);
                 jokeInfoList.clear();
                 mJokeAdapter.notifyDataSetChanged();
-                page=nextInt;
+                idx=0;
                 getInfo(true);
                 refreshLayout.finishRefresh(20);
             }
@@ -157,11 +158,10 @@ public class ImageFragment extends BaseFragment implements ShareCallBack {
     }
 
     private void getInfo(final boolean isFirst) {
-        Random random=new Random();
-        int nextInt = random.nextInt(20);
         NetworkUtils.networkGet(url)
-                .addParams("type",3+"")
-                .addParams("page",nextInt+"")
+                .addParams("format","js")
+                .addParams("idx",idx+"")
+                .addParams("n",n+"")
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -177,13 +177,12 @@ public class ImageFragment extends BaseFragment implements ShareCallBack {
             @Override
             public void onResponse(String response, int id) {
                 try {
-                    JSONObject jsonObject=new JSONObject(response);
-                    String code = jsonObject.optString("code");
-                    if("200".equals(code)){
+                    if(!TextUtils.isEmpty(response)){
+                        JSONObject jsonObject=new JSONObject(response);
+                        JSONArray images = jsonObject.optJSONArray("images");
                         mLayoutRemind.setVisibility(View.GONE);
-                        JSONArray data = jsonObject.optJSONArray("data");
                         Gson gson=new Gson();
-                        List<ImageInfo> imageInfos = gson.fromJson(data.toString(), new TypeToken<List<ImageInfo>>(){}.getType());
+                        List<ImageInfo> imageInfos = gson.fromJson(images.toString(), new TypeToken<List<ImageInfo>>(){}.getType());
                         jokeInfoList.addAll(imageInfos);
                         mJokeAdapter.notifyDataSetChanged();
                         if(isFirst){
@@ -192,10 +191,7 @@ public class ImageFragment extends BaseFragment implements ShareCallBack {
                                 imageInfos.get(i).save();
                             }
                         }
-                    }else {
-                        Toast.makeText(getContext(), "请求错误", Toast.LENGTH_SHORT).show();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -206,7 +202,7 @@ public class ImageFragment extends BaseFragment implements ShareCallBack {
     @Override
     public void onShareCallback(int pos) {
         ImageInfo imageInfo = jokeInfoList.get(pos);
-        ShareDialog shareDialog= ShareDialog.getInstance(getString(R.string.title_content),imageInfo.getUrl(),imageInfo.getUrl());
+        ShareDialog shareDialog= ShareDialog.getInstance(getString(R.string.title_content),"http://s.cn.bing.net" + imageInfo.getUrl(),"http://s.cn.bing.net" + imageInfo.getUrl());
         shareDialog.show(getFragmentManager(),"");
     }
 

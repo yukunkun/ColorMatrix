@@ -171,7 +171,6 @@ public class TextFragment extends BaseFragment {
                 try {
                     jsonObject = new JSONObject(response);
                     JSONArray data = jsonObject.optJSONArray("T1348647853363");
-                    LogUtil.i("======",data.toString());
                     Gson gson = new Gson();
                     List<NewsInfo> autolist = gson.fromJson(data.toString(), new TypeToken<List<NewsInfo>>() {}.getType());
                     jokeInfoList.addAll(autolist);

@@ -255,7 +255,6 @@ public class PlayFragment extends BaseFragment {
                         SPUtils.getInstance().saveString("longitude", String.valueOf(aMapLocation.getLongitude()));
                         getWeather(aMapLocation.getCity());
                     }else {
-                        LogUtil.i("========",aMapLocation.toStr());
                         ivUpdate.setVisibility(View.VISIBLE);
                     }
                 }
