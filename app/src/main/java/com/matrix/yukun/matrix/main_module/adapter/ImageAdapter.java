@@ -111,8 +111,8 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         return;
                     }else {
                         CollectsInfo collectInfo=new CollectsInfo();
-                        collectInfo.setHeader(recInfo.getUrl());
-                        collectInfo.setCover(recInfo.getUrl());
+                        collectInfo.setHeader("http://s.cn.bing.net"+recInfo.getUrl());
+                        collectInfo.setCover("http://s.cn.bing.net"+recInfo.getUrl());
                         collectInfo.setTitle(recInfo.getCopyright());
                         collectInfo.setName(recInfo.getCopyright());
                         collectInfo.setType(2);

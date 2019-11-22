@@ -35,20 +35,6 @@
             android:textColor="@color/color_494949"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tv_times"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="10dp"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:paddingRight="10dp"
-            android:singleLine="true"
-            android:text=""
-            android:textColor="@color/color_494949"
-            android:textSize="16sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -128,6 +114,22 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/color_494949"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_toRightOf="@+id/iv_play"
+            android:id="@+id/tv_times"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginLeft="@dimen/dimens_10"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
             android:paddingRight="10dp"
             android:singleLine="true"
             android:text=""

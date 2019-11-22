@@ -47,13 +47,13 @@ public class RVPlayAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if(holder instanceof MyHolder){
             final PlayAllBean playAllBean = mPlayAllBeans.get(position);
-            ((MyHolder) holder).mTVName.setText(playAllBean.getUsername());
-            ((MyHolder) holder).mTvDes.setText(playAllBean.getText());
-            ((MyHolder) holder).mTvCommentName.setText(TextUtils.isEmpty(playAllBean.getTop_commentsName())?"佚名":playAllBean.getTop_commentsName());
-            ((MyHolder) holder).mTvCommentDes.setText(TextUtils.isEmpty(playAllBean.getTop_commentsContent())? "没有吐槽": "吐槽:"+playAllBean.getTop_commentsContent());
+//            ((MyHolder) holder).mTVName.setText(playAllBean.getUsername());
+//            ((MyHolder) holder).mTvDes.setText(playAllBean.getText());
+//            ((MyHolder) holder).mTvCommentName.setText(TextUtils.isEmpty(playAllBean.getTop_commentsName())?"佚名":playAllBean.getTop_commentsName());
+//            ((MyHolder) holder).mTvCommentDes.setText(TextUtils.isEmpty(playAllBean.getTop_commentsContent())? "没有吐槽": "吐槽:"+playAllBean.getTop_commentsContent());
             GlideUtil.loadImage(playAllBean.getThumbnail(),((MyHolder) holder).mImageView);
-            GlideUtil.loadImage(playAllBean.getHeader(),((MyHolder) holder).mCVHeader);
-            GlideUtil.loadImage(playAllBean.getTop_commentsHeader(),((MyHolder) holder).mCVCommentHeader);
+//            GlideUtil.loadImage(playAllBean.getHeader(),((MyHolder) holder).mCVHeader);
+//            GlideUtil.loadImage(playAllBean.getTop_commentsHeader(),((MyHolder) holder).mCVCommentHeader);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

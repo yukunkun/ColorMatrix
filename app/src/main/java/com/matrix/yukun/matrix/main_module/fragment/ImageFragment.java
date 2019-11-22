@@ -53,7 +53,7 @@ public class ImageFragment extends BaseFragment implements ShareCallBack {
     private View mFloor;
     private TwoLevelHeader mHeader;
     private SmartRefreshLayout mSmartRefreshLayout;
-    private int n = 10;
+    private int n = 7;
     private int idx = 0;
     private List<ImageInfo> jokeInfoList=new ArrayList<>();
     private ImageAdapter mJokeAdapter;
@@ -113,10 +113,10 @@ public class ImageFragment extends BaseFragment implements ShareCallBack {
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
                 if(lastVisibleItemPosition==mLayoutManager.getItemCount()-1){
-                    idx++;
+                    idx=idx+n+1;
                     getInfo(false);
                 }
-                mSmartRefreshLayout.finishLoadMore(20);
+                mSmartRefreshLayout.finishLoadMore(10);
             }
 
             @Override
@@ -125,7 +125,7 @@ public class ImageFragment extends BaseFragment implements ShareCallBack {
                 mJokeAdapter.notifyDataSetChanged();
                 idx=0;
                 getInfo(true);
-                refreshLayout.finishRefresh(20);
+                refreshLayout.finishRefresh(10);
             }
             @Override
             public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent, int offset, int headerHeight, int maxDragHeight) {

@@ -3,6 +3,7 @@ package com.matrix.yukun.matrix.main_module.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -37,7 +38,7 @@ import okhttp3.Call;
 public class VerticalVideoFragment extends BaseFragment {
     private RecyclerView mRecyclerView;
     private RVPlayAllAdapter mRvVerticalAdapter;
-    private String url="https://www.apiopen.top/satinGodApi";
+    private String url="https://cdn.mom1.cn/?mom=json";
     private List<PlayAllBean> mPlayAllBeans=new ArrayList<>();
     private SmartRefreshLayout mSwipeRefreshLayout;
     private int page=1;
@@ -70,39 +71,60 @@ public class VerticalVideoFragment extends BaseFragment {
 
     private void initData(final int page) {
         OkHttpUtils.get().url(url)
-                .addParams("type",1+"")
-                .addParams("page",page+"")
+//                .addParams("type",1+"")
+//                .addParams("page",page+"")
                 .build().execute(new StringCallback() {
             @Override
             public void onResponse(String response, int id) {
-                try {
-                    JSONObject jsonObject=new JSONObject(response);
-                    if(jsonObject.optInt("code")==200){
-                        JSONArray data = jsonObject.optJSONArray("data");
-                        Gson gson=new Gson();
-                        List<PlayAllBean>  playAllBeans = gson.fromJson(data.toString(), new TypeToken<List<PlayAllBean>>(){}.getType());
-                        if(page==1){
-                            mPlayAllBeans.clear();
-                        }
-                        mPlayAllBeans.addAll(playAllBeans);
-                        for (int i = 0; i < playAllBeans.size(); i++) {
-                            if(!playAllBeans.get(i).getType().equals("video")){
-                                mPlayAllBeans.remove(playAllBeans.get(i));
+                if(!TextUtils.isEmpty(response)){
+                    int indexOf = response.indexOf("{");
+                    if(indexOf!=-1){
+                        String data=response.substring(indexOf,response.length());
+                        try {
+                            JSONObject jsonObject=new JSONObject(data);
+                            if(jsonObject.optString("result").equals("200")){
+                                String downloadUrl="http:"+jsonObject.optString("img");
+                                for (int i = 0; i < 10; i++) {
+                                    PlayAllBean playAllBean=new PlayAllBean();
+                                    playAllBean.setThumbnail(downloadUrl);
+                                    mPlayAllBeans.add(playAllBean);
+                                }
+                                mSwipeRefreshLayout.finishRefresh();
+                                mSwipeRefreshLayout.finishLoadMore();
+                                mLayout.setVisibility(View.GONE);
+                                mRvVerticalAdapter.notifyDataSetChanged();
                             }
-                        }
-                        mSwipeRefreshLayout.finishRefresh();
-                        mSwipeRefreshLayout.finishLoadMore();
-                        mLayout.setVisibility(View.GONE);
-                        mRvVerticalAdapter.notifyDataSetChanged();
-                        if(page==1){
-                            DataSupport.deleteAll(PlayAllBean.class);
-                            for (int i = 0; i < mPlayAllBeans.size(); i++) {
-                                mPlayAllBeans.get(i).save();
-                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+
+//                    if(jsonObject.optInt("code")==200){
+//                        JSONArray data = jsonObject.optJSONArray("data");
+//                        Gson gson=new Gson();
+//                        List<PlayAllBean>  playAllBeans = gson.fromJson(data.toString(), new TypeToken<List<PlayAllBean>>(){}.getType());
+//                        if(page==1){
+//                            mPlayAllBeans.clear();
+//                        }
+//                        mPlayAllBeans.addAll(playAllBeans);
+//                        for (int i = 0; i < playAllBeans.size(); i++) {
+//                            if(!playAllBeans.get(i).getType().equals("video")){
+//                                mPlayAllBeans.remove(playAllBeans.get(i));
+//                            }
+//                        }
+//                        mSwipeRefreshLayout.finishRefresh();
+//                        mSwipeRefreshLayout.finishLoadMore();
+//                        mLayout.setVisibility(View.GONE);
+//                        mRvVerticalAdapter.notifyDataSetChanged();
+//                        if(page==1){
+//                            DataSupport.deleteAll(PlayAllBean.class);
+//                            for (int i = 0; i < mPlayAllBeans.size(); i++) {
+//                                mPlayAllBeans.get(i).save();
+//                            }
+//                        }
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
                 }
             }
             @Override
