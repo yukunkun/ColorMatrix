@@ -48,8 +48,9 @@ import okhttp3.Call;
  */
 
 public class JokeFragment extends BaseFragment {
-    String url_old = "http://v.juhe.cn/joke/randJoke.php";
-    String url="http://v.juhe.cn/joke/content/text.php";
+    String timeUrl = "http://v.juhe.cn/joke/content/list.php";
+    String textNewUrl="http://v.juhe.cn/joke/content/text.php";
+    String randJokeUrl="http://v.juhe.cn/joke/randJoke.php";
     int page = 1;
     private TwoLevelHeader mHeader;
     private SmartRefreshLayout mSmartRefreshLayout;
@@ -158,10 +159,8 @@ public class JokeFragment extends BaseFragment {
     }
 
     private void getInfo() {
-        NetworkUtils.networkGet(url)
+        NetworkUtils.networkGet(timeUrl)
                 .addParams("key", NetworkUtils.APPKEY)
-//                .addParams("time", mTime + "")
-//                .addParams("sort", "asc")
                 .addParams("page", page + "")
                 .build().execute(new StringCallback() {
             @Override

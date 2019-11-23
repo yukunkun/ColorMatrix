@@ -173,13 +173,16 @@ public class TextFragment extends BaseFragment {
                     JSONArray data = jsonObject.optJSONArray("T1348647853363");
                     Gson gson = new Gson();
                     List<NewsInfo> autolist = gson.fromJson(data.toString(), new TypeToken<List<NewsInfo>>() {}.getType());
-                    jokeInfoList.addAll(autolist);
-                    if(jokeInfoList.size()>0){
-                        mLayoutRemind.setVisibility(View.GONE);
+                    if(autolist!=null&&autolist.size()>0){
+                        autolist.remove(0);
+                        jokeInfoList.addAll(autolist);
+                        if(jokeInfoList.size()>0){
+                            mLayoutRemind.setVisibility(View.GONE);
+                        }
+                        mSmartRefreshLayout.finishLoadMore();
+                        mSmartRefreshLayout.finishRefresh();
+                        mTextAdapter.notifyDataSetChanged();
                     }
-                    mSmartRefreshLayout.finishLoadMore();
-                    mSmartRefreshLayout.finishRefresh();
-                    mTextAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.SslErrorHandler;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.WaterLoadView;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 
@@ -65,6 +67,11 @@ public class TextDetailActivity extends BaseActivity {
         mProgress=findViewById(R.id.water_load);
         mTvTitle.setText(mTitle);
         //加载需要显示的网页
+        if(TextUtils.isEmpty(mUrl)){
+            ToastUtils.showToast("页面已飞走");
+            mProgress.setVisibility(View.GONE);
+            return;
+        }
         WebSettings webSettings = mWebview.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);     //允许js弹出窗口
@@ -103,17 +110,17 @@ public class TextDetailActivity extends BaseActivity {
 
             @Override
             public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
-                Uri uri = Uri.parse(mUrl);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+//                Uri uri = Uri.parse(mUrl);
+//                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                startActivity(intent);
                 super.onReceivedHttpError(view, request, errorResponse);
             }
 
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-                Uri uri = Uri.parse(mUrl);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+//                Uri uri = Uri.parse(mUrl);
+//                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                startActivity(intent);
                 super.onReceivedError(view, request, error);
             }
 

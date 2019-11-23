@@ -75,12 +75,11 @@ public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCall
     @Override
     public void initView(View inflate, Bundle savedInstanceState) {
         mLayoutManager = new LinearLayoutManager(getContext());
-        mTvRemind.setText("加油奔跑中。。。");
-        mLayoutBg.setVisibility(View.VISIBLE);
         mRvJoke.setLayoutManager(mLayoutManager);
         mJokeAdapter = new EyeRecAdapter(getContext(),eyesInfos);
         mJokeAdapter.setShareCallBack(this);
         mRvJoke.setAdapter(mJokeAdapter);
+        mTvRemind.setVisibility(View.VISIBLE);
         getInfo();
         mSw.setColorSchemeResources(android.R.color.holo_blue_light,android.R.color.holo_green_light,android.R.color.black,
                  android.R.color.holo_red_light, android.R.color.holo_orange_light
