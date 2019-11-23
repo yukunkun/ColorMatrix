@@ -260,7 +260,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".main_module.activity.ImageDetailActivity"
-            android:screenOrientation="portrait" />
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name=".main_module.activity.MyCollectActivity"
             android:screenOrientation="portrait" />

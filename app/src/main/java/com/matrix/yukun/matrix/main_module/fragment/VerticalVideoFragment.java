@@ -1,9 +1,13 @@
 package com.matrix.yukun.matrix.main_module.fragment;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -14,6 +18,7 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.adapter.RVPlayAllAdapter;
 import com.matrix.yukun.matrix.main_module.entity.PlayAllBean;
 import com.matrix.yukun.matrix.main_module.utils.SpacesDoubleDecoration;
+import com.matrix.yukun.matrix.util.SpacesItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -40,9 +45,8 @@ public class VerticalVideoFragment extends BaseFragment {
     private RVPlayAllAdapter mRvVerticalAdapter;
     private String url="https://cdn.mom1.cn/?mom=json";
     private List<PlayAllBean> mPlayAllBeans=new ArrayList<>();
-    private SmartRefreshLayout mSwipeRefreshLayout;
-    private int page=1;
-    private GridLayoutManager mLayoutManager;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private LinearLayoutManager mLayoutManager;
     private RelativeLayout mLayout;
 
     public static VerticalVideoFragment getInstance(){
@@ -60,19 +64,19 @@ public class VerticalVideoFragment extends BaseFragment {
         mRecyclerView = inflate.findViewById(R.id.recyclerview);
         mSwipeRefreshLayout = inflate.findViewById(R.id.srl_layout);
         mLayout = inflate.findViewById(R.id.rl_remind);
-        mLayoutManager = new GridLayoutManager(getContext(),2);
+        mLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(mRecyclerView);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRvVerticalAdapter = new RVPlayAllAdapter(getContext(),mPlayAllBeans);
         mRecyclerView.setAdapter(mRvVerticalAdapter);
-        mRecyclerView.addItemDecoration(new SpacesDoubleDecoration(10,10,10,10));
-        initData(page);
+        mRecyclerView.addItemDecoration(new SpacesItemDecoration(1));
+        initData();
         initListener();
     }
 
-    private void initData(final int page) {
+    private void initData() {
         OkHttpUtils.get().url(url)
-//                .addParams("type",1+"")
-//                .addParams("page",page+"")
                 .build().execute(new StringCallback() {
             @Override
             public void onResponse(String response, int id) {
@@ -84,13 +88,9 @@ public class VerticalVideoFragment extends BaseFragment {
                             JSONObject jsonObject=new JSONObject(data);
                             if(jsonObject.optString("result").equals("200")){
                                 String downloadUrl="http:"+jsonObject.optString("img");
-                                for (int i = 0; i < 10; i++) {
-                                    PlayAllBean playAllBean=new PlayAllBean();
-                                    playAllBean.setThumbnail(downloadUrl);
-                                    mPlayAllBeans.add(playAllBean);
-                                }
-                                mSwipeRefreshLayout.finishRefresh();
-                                mSwipeRefreshLayout.finishLoadMore();
+                                PlayAllBean playAllBean=new PlayAllBean();
+                                playAllBean.setThumbnail(downloadUrl);
+                                mPlayAllBeans.add(playAllBean);
                                 mLayout.setVisibility(View.GONE);
                                 mRvVerticalAdapter.notifyDataSetChanged();
                             }
@@ -98,38 +98,10 @@ public class VerticalVideoFragment extends BaseFragment {
                             e.printStackTrace();
                         }
                     }
-
-//                    if(jsonObject.optInt("code")==200){
-//                        JSONArray data = jsonObject.optJSONArray("data");
-//                        Gson gson=new Gson();
-//                        List<PlayAllBean>  playAllBeans = gson.fromJson(data.toString(), new TypeToken<List<PlayAllBean>>(){}.getType());
-//                        if(page==1){
-//                            mPlayAllBeans.clear();
-//                        }
-//                        mPlayAllBeans.addAll(playAllBeans);
-//                        for (int i = 0; i < playAllBeans.size(); i++) {
-//                            if(!playAllBeans.get(i).getType().equals("video")){
-//                                mPlayAllBeans.remove(playAllBeans.get(i));
-//                            }
-//                        }
-//                        mSwipeRefreshLayout.finishRefresh();
-//                        mSwipeRefreshLayout.finishLoadMore();
-//                        mLayout.setVisibility(View.GONE);
-//                        mRvVerticalAdapter.notifyDataSetChanged();
-//                        if(page==1){
-//                            DataSupport.deleteAll(PlayAllBean.class);
-//                            for (int i = 0; i < mPlayAllBeans.size(); i++) {
-//                                mPlayAllBeans.get(i).save();
-//                            }
-//                        }
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
                 }
             }
             @Override
             public void onError(Call call, Exception e, int id) {
-                mSwipeRefreshLayout.finishRefresh();
                 List<PlayAllBean> all = DataSupport.findAll(PlayAllBean.class);
                 if(all.size()>0){
                     mPlayAllBeans.clear();
@@ -143,18 +115,29 @@ public class VerticalVideoFragment extends BaseFragment {
 
     @Override
     public void initListener() {
-        mSwipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                page=1;
-                initData(page);
+            public void onRefresh() {
+                initData();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-        mSwipeRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
-                page++;
-                initData(page);
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
+                    if(lastVisibleItemPosition==mLayoutManager.getItemCount()-1){
+                        initData();
+                    }
+                }
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
             }
         });
     }

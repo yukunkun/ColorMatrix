@@ -31,10 +31,10 @@
     <string-array name="title">
         <item>推荐</item>
         <item>视频</item>
-        <item>逗视</item>
-        <item>图片</item>
         <item>搞笑</item>
+        <item>图片</item>
         <item>essay</item>
+        <item>美图</item>
     </string-array>
     <string-array name="search">
         <item>美女</item>

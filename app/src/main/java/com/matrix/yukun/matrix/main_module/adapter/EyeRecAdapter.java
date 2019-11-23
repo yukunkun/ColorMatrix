@@ -67,28 +67,28 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        if(position==0){
+        if (position == 0) {
             return 1;
-        }else {
+        } else {
             return 2;
         }
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        if(holder instanceof HeaderHolder){
+        if (holder instanceof HeaderHolder) {
             if (eyesInfoList.size() == 0) {
                 return;
             }
             final List<EyesInfo> list = new ArrayList<>();
             list.add(eyesInfoList.get(3));
-            if(eyesInfoList.get(5)!=null){
+            if (eyesInfoList.get(5) != null) {
                 list.add(eyesInfoList.get(5));
             }
-            if(eyesInfoList.get(5)!=null){
+            if (eyesInfoList.get(5) != null) {
                 list.add(eyesInfoList.get(7));
             }
-            if(eyesInfoList.get(8)!=null){
+            if (eyesInfoList.get(8) != null) {
                 list.add(eyesInfoList.get(8));
             }
             ((HeaderHolder) holder).mConBanner.setPages(
@@ -98,22 +98,22 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             return new LocalImageHolderView();
                         }
                     }, list);
-            if(isFist){
+            if (isFist) {
                 ((HeaderHolder) holder).mConBanner.notifyDataSetChanged();
-            }else {
+            } else {
                 //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
                 ((HeaderHolder) holder).mConBanner.setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicatored})
                         //设置指示器的方向
                         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
                         .startTurning(3000);
-                isFist=true;
+                isFist = true;
             }
             ((HeaderHolder) holder).mConBanner.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(int position) {
-                    if(eyesInfoList.get(position).getData()!=null){
-                        mShareCallBack.onItemClickListener(list.get(position),((HeaderHolder) holder).mConBanner);
-                    }else {
+                    if (eyesInfoList.get(position).getData() != null) {
+                        mShareCallBack.onItemClickListener(list.get(position), ((HeaderHolder) holder).mConBanner);
+                    } else {
                         ToastUtils.showToast("请检查网络");
                     }
                 }
@@ -124,28 +124,28 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((HeaderHolder) holder).mTvJoke.setOnClickListener(new Listener());
             ((HeaderHolder) holder).mTvTxt.setOnClickListener(new Listener());
             ((HeaderHolder) holder).mTvEssay.setOnClickListener(new Listener());
-        }else if(holder instanceof MHolder){
+        } else if (holder instanceof MHolder) {
             final EyesInfo eyesInfo = eyesInfoList.get(position);
-            if(eyesInfo.getData()!=null){
+            if (eyesInfo.getData() != null) {
                 ((MHolder) holder).mTvName.setText(eyesInfo.getData().getAuthor().getName());
                 ((MHolder) holder).mTvTitle.setText(eyesInfo.getData().getDescription());
-                GlideUtil.loadPlaceholderImage(eyesInfo.getData().getCover().getDetail(),((MHolder) holder).mImCover);
-                GlideUtil.loadCircleBoardImage(eyesInfo.getData().getAuthor().getIcon(),((MHolder) holder).mCiHead);
+                GlideUtil.loadPlaceholderImage(eyesInfo.getData().getCover().getDetail(), ((MHolder) holder).mImCover);
+                GlideUtil.loadCircleBoardImage(eyesInfo.getData().getAuthor().getIcon(), ((MHolder) holder).mCiHead);
                 ((MHolder) holder).mTvPlayTimes.setText(eyesInfo.getData().getCategory());
-            }else if(eyesInfo.getCover()!=null){
+            } else if (eyesInfo.getCover() != null) {
                 ((MHolder) holder).mTvName.setText(eyesInfo.getRemark());
                 ((MHolder) holder).mTvTitle.setText(eyesInfo.getDescription());
-                GlideUtil.loadPlaceholderImage(eyesInfo.getCover(),((MHolder) holder).mImCover);
-                GlideUtil.loadCircleBoardImage(eyesInfo.getIcon(),((MHolder) holder).mCiHead);
+                GlideUtil.loadPlaceholderImage(eyesInfo.getCover(), ((MHolder) holder).mImCover);
+                GlideUtil.loadCircleBoardImage(eyesInfo.getIcon(), ((MHolder) holder).mCiHead);
                 ((MHolder) holder).mTvPlayTimes.setText(eyesInfo.getCategory());
             }
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(eyesInfo.getData()!=null){
-                        mShareCallBack.onItemClickListener(eyesInfo,((MHolder) holder).mImCover);
-                    }else {
+                    if (eyesInfo.getData() != null) {
+                        mShareCallBack.onItemClickListener(eyesInfo, ((MHolder) holder).mImCover);
+                    } else {
                         ToastUtils.showToast("请检查网络");
                     }
                 }
@@ -154,9 +154,9 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((MHolder) holder).mImShare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(eyesInfo.getData()!=null){
+                    if (eyesInfo.getData() != null) {
                         mShareCallBack.onShareCallback(position);
-                    }else {
+                    } else {
                         ToastUtils.showToast("请检查网络");
                     }
                 }
@@ -166,18 +166,18 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((MHolder) holder).mImCollect.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(eyesInfo.getData()!=null){
+                    if (eyesInfo.getData() != null) {
                         List<CollectsInfo> newsList = DataSupport.where("cover = ?", eyesInfo.getData().getCover().getDetail()).find(CollectsInfo.class);
                         if (newsList.size() > 0) {
                             Toast.makeText(context, "已经添加到收藏了-_-", Toast.LENGTH_SHORT).show();
                             //存储了
                             return;
                         } else {
-                            mShareCallBack.onItemCollectClickListener(eyesInfo,((MHolder) holder).mImCollect);
+                            mShareCallBack.onItemCollectClickListener(eyesInfo, ((MHolder) holder).mImCollect);
                             Toast.makeText(context, "添加到收藏成功", Toast.LENGTH_SHORT).show();
                             ((MHolder) holder).mImCollect.setImageResource(R.mipmap.collection_fill);
                         }
-                    }else {
+                    } else {
                         ToastUtils.showToast("请检查网络");
                     }
 
@@ -191,6 +191,7 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         return eyesInfoList.size();
     }
+
     private void shareSend(Context context, String str) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain"); // 纯文本
@@ -201,10 +202,12 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     CategroyCallBack mCategroyCallBack;
-    public void getCategroyPos(CategroyCallBack mCategroyCallBack){
-        this.mCategroyCallBack=mCategroyCallBack;
+
+    public void getCategroyPos(CategroyCallBack mCategroyCallBack) {
+        this.mCategroyCallBack = mCategroyCallBack;
     }
-    public interface CategroyCallBack{
+
+    public interface CategroyCallBack {
         void choosePos(int pos);
     }
 
@@ -216,18 +219,17 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             if (i == R.id.tv_video) {
                 mCategroyCallBack.choosePos(1);
 
-            }else if (i == R.id.tv_video_joke) {
+            } else if (i == R.id.tv_joke) {
                 mCategroyCallBack.choosePos(2);
 
             } else if (i == R.id.tv_image) {
                 mCategroyCallBack.choosePos(3);
 
-            } else if (i == R.id.tv_joke) {
+            } else if (i == R.id.tv_essay) {
                 mCategroyCallBack.choosePos(4);
 
-            } else if (i == R.id.tv_essay) {
+            } else if (i == R.id.tv_video_joke) {
                 mCategroyCallBack.choosePos(5);
-
             }
         }
     }
@@ -300,19 +302,22 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         @Override
         public void UpdateUI(Context context, final int position, EyesInfo data) {
-            if(data.getData()!=null){
+            if (data.getData() != null) {
                 Glide.with(context).load(data.getData().getCover().getDetail()).into(imageView);
                 mTextView.setText(data.getData().getTitle());
                 mSlantedTextView.setText(data.getData().getCategory());
-            }else if(data.getCover()!=null){
-                GlideUtil.loadPlaceholderImage(data.getCover(),imageView);
+            } else if (data.getCover() != null) {
+                GlideUtil.loadPlaceholderImage(data.getCover(), imageView);
                 mSlantedTextView.setText(data.getCategory());
             }
         }
     }
-    public interface ShareCallBack{
+
+    public interface ShareCallBack {
         void onShareCallback(int pos);
+
         void onItemClickListener(EyesInfo eyesInfo, View view);
+
         void onItemCollectClickListener(EyesInfo eyesInfo, View view);
     }
 }

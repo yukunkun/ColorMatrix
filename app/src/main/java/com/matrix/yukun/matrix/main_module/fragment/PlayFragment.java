@@ -143,11 +143,11 @@ public class PlayFragment extends BaseFragment {
     private String weatherURL = "https://www.apiopen.top/weatherApi";
     private VideoFragment mInstance1;
     private ImageFragment mInstance3;
-    private JokeFragment mInstance4;
-    private TextFragment mInstance5;
+    private TextFragment mInstance4;
+    private VerticalVideoFragment mInstance5;
     private RecFragment mInstance;
     int count = 0;
-    private VerticalVideoFragment mInstance2;
+    private JokeFragment mInstance2;
 
     public static PlayFragment getInstance() {
         PlayFragment playFragment = new PlayFragment();
@@ -169,10 +169,10 @@ public class PlayFragment extends BaseFragment {
         setDrawableWidth();
         mInstance = RecFragment.getInstance();
         mInstance1 = VideoFragment.getInstance();
-        mInstance2 = VerticalVideoFragment.getInstance();
+        mInstance2 = JokeFragment.getInstance();
         mInstance3 = ImageFragment.getInstance();
-        mInstance4 = JokeFragment.getInstance();
-        mInstance5 = TextFragment.getInstance();
+        mInstance4 = TextFragment.getInstance();
+        mInstance5 = VerticalVideoFragment.getInstance();
         mFragments.add(mInstance);
         mFragments.add(mInstance1);
         mFragments.add(mInstance2);
