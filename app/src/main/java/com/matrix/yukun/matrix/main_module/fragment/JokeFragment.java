@@ -50,7 +50,7 @@ import okhttp3.Call;
 public class JokeFragment extends BaseFragment {
     String timeUrl = "http://v.juhe.cn/joke/content/list.php";
     String textNewUrl="http://v.juhe.cn/joke/content/text.php";
-    String randJokeUrl="http://v.juhe.cn/joke/randJoke.php";
+    String randJokeUrl="http://v.juhe.cn/joke/randJoke.php?key="+NetworkUtils.APPKEY;
     int page = 1;
     private TwoLevelHeader mHeader;
     private SmartRefreshLayout mSmartRefreshLayout;
@@ -159,9 +159,9 @@ public class JokeFragment extends BaseFragment {
     }
 
     private void getInfo() {
-        NetworkUtils.networkGet(timeUrl)
-                .addParams("key", NetworkUtils.APPKEY)
-                .addParams("page", page + "")
+        NetworkUtils.networkGet(randJokeUrl)
+//                .addParams("key", NetworkUtils.APPKEY)
+//                .addParams("page", page + "")
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -172,12 +172,11 @@ public class JokeFragment extends BaseFragment {
             public void onResponse(String response, int id) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    JSONObject data = jsonObject.optJSONObject("result");
+                    JSONArray data = jsonObject.optJSONArray("result");
                     if(data!=null){
                         mLayoutRemind.setVisibility(View.GONE);
-                        JSONArray jsonArray = data.optJSONArray("data");
                         Gson gson = new Gson();
-                        List<JokeInfo> jokeList = gson.fromJson(jsonArray.toString(), new TypeToken<List<JokeInfo>>() {
+                        List<JokeInfo> jokeList = gson.fromJson(data.toString(), new TypeToken<List<JokeInfo>>() {
                         }.getType());
                         jokeInfoList.addAll(jokeList);
                         mJokeAdapter.notifyDataSetChanged();
