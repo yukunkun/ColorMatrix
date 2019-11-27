@@ -1,10 +1,13 @@
 package com.matrix.yukun.matrix.main_module.activity;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -64,6 +67,19 @@ public class ImageDetailActivity extends BaseActivity {
         intent.putExtra("isGif", isGif);
         context.startActivity(intent);
     }
+
+    public static void start(Context context, String url, View view,boolean isGif) {
+        Intent intent=new Intent(context, ImageDetailActivity.class);
+        intent.putExtra("url",url);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT_WATCH){
+            context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context,view,"shareView").toBundle());
+        }else {
+            context.startActivity(intent);
+            ((Activity)context).overridePendingTransition(R.anim.rotate, R.anim.rotate_out);
+        }
+    }
+
 
     @Override
     public void initView() {

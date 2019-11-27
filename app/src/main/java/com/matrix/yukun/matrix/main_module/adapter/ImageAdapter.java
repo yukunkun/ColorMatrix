@@ -81,15 +81,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(context, ImageDetailActivity.class);
-                    intent.putExtra("url","http://s.cn.bing.net"+recInfo.getUrl());
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    if(Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT_WATCH){
-                        context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context,((MHolder) holder).mImCover,"shareView").toBundle());
-                    }else {
-                        context.startActivity(intent);
-                        ((Activity)context).overridePendingTransition(R.anim.rotate, R.anim.rotate_out);
-                    }
+                    ImageDetailActivity.start((Activity) context,"http://s.cn.bing.net"+recInfo.getUrl(),((MHolder) holder).mImCover,false);
                 }
             });
             ((MHolder) holder).mImShare.setOnClickListener(new View.OnClickListener() {

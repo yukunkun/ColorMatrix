@@ -65,13 +65,6 @@ public class RVVerticalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 //显示
                 Glide.with(mContext).load(playAllBean.getThumbnail()).into(((MyHolder) holder).mImageView);
                 GlideUtil.loadBlurImage(playAllBean.getThumbnail(),((MyHolder) holder).mIvCoverBg);
-                //高斯模糊
-//                Glide.with(mContext).load(playAllBean.getThumbnail()).asBitmap().into(new SimpleTarget<Bitmap>() {
-//                    @Override
-//                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-//                        Blurry.with(mContext).sampling(1).from(resource).into(((MyHolder) holder).mIvCoverBg);
-//                    }
-//                });
                 ((MyHolder) holder).mImageView.setVisibility(View.VISIBLE);
                 ((MyHolder) holder).mIvCoverBg.setVisibility(View.VISIBLE);
             }

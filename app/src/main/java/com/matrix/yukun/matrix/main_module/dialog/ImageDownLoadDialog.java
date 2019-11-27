@@ -1,7 +1,12 @@
 package com.matrix.yukun.matrix.main_module.dialog;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -13,6 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.matrix.yukun.matrix.AppConstant;
@@ -34,9 +40,13 @@ public class ImageDownLoadDialog extends DialogFragment {
     @BindView(R2.id.iv_close)
     ImageView mIvClose;
     @BindView(R2.id.ll_download)
-    LinearLayout mLlDownload;
+    RelativeLayout mLlDownload;
     @BindView(R2.id.ll_share)
-    LinearLayout mLlShare;
+    RelativeLayout mLlShare;
+    @BindView(R2.id.ll_copy)
+    RelativeLayout mLlCopy;
+    @BindView(R2.id.ll_internet)
+    RelativeLayout mLlInternet;
     private static String mUrl;
 
     public static ImageDownLoadDialog getInstance(String url) {
@@ -71,7 +81,7 @@ public class ImageDownLoadDialog extends DialogFragment {
         }
     }
 
-    @OnClick({R2.id.iv_close, R2.id.ll_call, R.id.ll_download, R.id.ll_share})
+    @OnClick({R2.id.iv_close, R2.id.ll_call, R.id.ll_download, R.id.ll_share,R.id.ll_copy,R.id.ll_internet})
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.iv_close) {
@@ -95,6 +105,20 @@ public class ImageDownLoadDialog extends DialogFragment {
                 ShareDialog shareDialog = ShareDialog.getImageInstance(mUrl, AppConstant.APP_STORE);
                 shareDialog.show(getFragmentManager(),"");
             }
+            getDialog().dismiss();
+        }else if (i == R.id.ll_copy) {
+            //获取剪贴板管理器：
+            ClipboardManager cm = (ClipboardManager) ((getActivity()).getSystemService(Context.CLIPBOARD_SERVICE));
+            //创建普通字符型ClipData
+            ClipData mClipData = ClipData.newPlainText("Label", mUrl);
+            // 将ClipData内容放到系统剪贴板里。
+            cm.setPrimaryClip(mClipData);
+            ToastUtils.showToast(getString(R.string.copy_to_save));
+            getDialog().dismiss();
+        }else if (i == R.id.ll_internet) {
+            Uri uri = Uri.parse(mUrl);//要跳转的网址
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
             getDialog().dismiss();
         }
     }

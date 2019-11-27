@@ -43,6 +43,7 @@
 
         <ImageView
             android:id="@+id/im_cover"
+            android:transitionName="shareView"
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:layout_marginTop="5dp"

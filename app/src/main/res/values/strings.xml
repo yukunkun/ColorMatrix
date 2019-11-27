@@ -55,6 +55,8 @@
     <string name="chose_local">请先选择位置</string>
     <string name="nav_detail">详情</string>
     <string name="nav">导航</string>
+    <string name="copy_to_save">已经复制到剪切板</string>
+    <string name="copy_to_jianjieban">复制到剪切板</string>
     <string-array name="calendar_week">
         <item>日</item>
         <item>一</item>
