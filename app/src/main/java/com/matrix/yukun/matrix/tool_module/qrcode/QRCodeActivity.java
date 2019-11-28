@@ -341,11 +341,12 @@ public class QRCodeActivity extends Activity implements Callback {
     }
 
     public void startCrop(String path) {
-        Intent intent = new Intent();
-        intent.putExtra("path", path);
-        intent.putExtra("flag", false);
-        intent.setClass(this, QRImageCropActivity.class);
-        startActivityForResult(intent, CROPIMAGES);
+//        Intent intent = new Intent();
+//        intent.putExtra("path", path);
+//        intent.putExtra("flag", false);
+//        intent.setClass(this, QRImageCropActivity.class);
+//        startActivityForResult(intent, CROPIMAGES);
+        QRImageCropActivity.start(this,path,false);
     }
 
     Bitmap scanBitmap;
