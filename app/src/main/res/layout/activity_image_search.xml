@@ -22,7 +22,7 @@
                     android:layout_width="@dimen/dimens_45"
                     android:layout_height="match_parent" />
                 <TextView
-                    android:text="头条新闻"
+                    android:text="发现"
                     android:gravity="center"
                     android:textSize="16sp"
                     android:textColor="@color/color_text"
@@ -35,7 +35,6 @@
                 android:id="@+id/tablayout"
                 app:tabGravity="fill"
                 app:tabMode="scrollable"
-                android:visibility="gone"
                 app:tabMinWidth="80dp"
                 app:tabTextColor="@color/color_2b2b2b"
                 app:tabSelectedTextColor="@color/bg_blue"

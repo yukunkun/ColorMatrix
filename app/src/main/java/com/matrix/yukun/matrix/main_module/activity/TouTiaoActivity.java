@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
+import com.matrix.yukun.matrix.main_module.fragment.ImageSecondFragment;
 import com.matrix.yukun.matrix.main_module.fragment.TouTiaoFragment;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,9 +48,11 @@ public class TouTiaoActivity extends BaseActivity {
         mStringArray = getResources().getStringArray(R.array.search);
         for (int i = 0; i < mStringArray.length; i++) {
             mTablayout.addTab(mTablayout.newTab().setText(mStringArray[i]));
-            TouTiaoFragment mInstance5= TouTiaoFragment.getInstance();
-            mFragments.add(mInstance5);
         }
+        TouTiaoFragment mInstance= TouTiaoFragment.getInstance();
+        ImageSecondFragment mInstance1= ImageSecondFragment.getInstance();
+        mFragments.add(mInstance);
+        mFragments.add(mInstance1);
         setAdapter();
     }
 
