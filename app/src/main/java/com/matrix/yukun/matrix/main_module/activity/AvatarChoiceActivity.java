@@ -1,20 +1,24 @@
-package com.matrix.yukun.matrix.main_module.fragment;
+package com.matrix.yukun.matrix.main_module.activity;
 
-import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.matrix.yukun.matrix.BaseFragment;
+import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.main_module.adapter.RVImageAdapter;
+import com.matrix.yukun.matrix.main_module.adapter.RVAvatarAdapter;
 import com.matrix.yukun.matrix.main_module.entity.ImageData;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.SpacesItemDecoration;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -27,42 +31,39 @@ import java.util.List;
 
 import okhttp3.Call;
 
-/**
- * author: kun .
- * date:   On 2018/12/25
- */
-public class VerticalVideoFragment extends BaseFragment {
+public class AvatarChoiceActivity extends BaseActivity {
+
     private RecyclerView mRecyclerView;
-    private RVImageAdapter mRvVerticalAdapter;
-    private String url="http://gank.io/api/data/%E7%A6%8F%E5%88%A9/10/";
+    private RVAvatarAdapter mRvVerticalAdapter;
+    private String url="http://gank.io/api/data/%E7%A6%8F%E5%88%A9/30/";
     private List<ImageData> mImageDatas=new ArrayList<>();
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private SmartRefreshLayout mSwipeRefreshLayout;
     private GridLayoutManager mLayoutManager;
     private int page=1;
-    public static VerticalVideoFragment getInstance(){
-        VerticalVideoFragment verticalVideoFragment=new VerticalVideoFragment();
-        return verticalVideoFragment;
+
+    public static void start(Context context){
+        Intent intent=new Intent(context,AvatarChoiceActivity.class);
+        ((Activity)context).startActivityForResult(intent, 1001);
     }
 
     @Override
     public int getLayout() {
-        return R.layout.fragment_vertical_video;
+        return R.layout.activity_avatar_choice;
     }
 
     @Override
-    public void initView(View inflate, Bundle savedInstanceState) {
-        mRecyclerView = inflate.findViewById(R.id.recyclerview);
-        mSwipeRefreshLayout = inflate.findViewById(R.id.srl_layout);
-        mLayoutManager = new GridLayoutManager(getContext(),2);
+    public void initView() {
+        mRecyclerView = findViewById(R.id.recyclerview);
+        mSwipeRefreshLayout = findViewById(R.id.smart_layout);
+        mLayoutManager = new GridLayoutManager(this,4);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRvVerticalAdapter = new RVImageAdapter(getContext(),mImageDatas);
+        mRvVerticalAdapter = new RVAvatarAdapter(this,mImageDatas);
         mRecyclerView.setAdapter(mRvVerticalAdapter);
         mRecyclerView.addItemDecoration(new SpacesItemDecoration(1));
-        initData();
-        initListener();
     }
 
-    private void initData() {
+    @Override
+    public void initDate() {
         OkHttpUtils.get().url(url+page)
                 .build().execute(new StringCallback() {
             @Override
@@ -76,6 +77,8 @@ public class VerticalVideoFragment extends BaseFragment {
                             List<ImageData> imageDatas  = gson.fromJson(results.toString(), new TypeToken<List<ImageData>>() {}.getType());
                             mImageDatas.addAll(imageDatas);
                             mRvVerticalAdapter.notifyDataSetChanged();
+                            mSwipeRefreshLayout.finishLoadMore();
+                            mSwipeRefreshLayout.finishRefresh();
                         }else{
                             ToastUtils.showToast("error");
                         }
@@ -94,32 +97,28 @@ public class VerticalVideoFragment extends BaseFragment {
 
     @Override
     public void initListener() {
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mSwipeRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
-            public void onRefresh() {
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                page++;
+                initDate();
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page=1;
                 mImageDatas.clear();
-                initData();
-                mSwipeRefreshLayout.setRefreshing(false);
+                initDate();
             }
         });
-
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRvVerticalAdapter.setOnItemClickListener(new RVAvatarAdapter.OnItemClickListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if(newState == RecyclerView.SCROLL_STATE_IDLE){
-                    int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
-                    if(lastVisibleItemPosition==mLayoutManager.getItemCount()-1){
-                        page++;
-                        initData();
-                    }
-                }
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+            public void onItemClickListener(int pos, String url) {
+                Intent intent=new Intent();
+                intent.putExtra("pos",pos);
+                intent.putExtra("url",url);
+                setResult(1002,intent);
+                finish();
             }
         });
     }

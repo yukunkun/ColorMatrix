@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.matrix.yukun.matrix">
 
-    <uses-sdk
-        android:minSdkVersion="19"
-        android:targetSdkVersion="27" />
+    <uses-sdk android:targetSdkVersion="27" />
 
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -61,7 +59,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:label">
-        <activity android:name=".main_module.activity.MapActivity"></activity>
+        <activity android:name=".main_module.activity.AvatarChoiceActivity"></activity>
+        <activity android:name=".main_module.activity.MapActivity" />
         <activity
             android:name=".tool_module.notebook.activity.NoteSettingActivity"
             android:screenOrientation="portrait" />
@@ -176,7 +175,7 @@
         </provider>
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
-            android:authorities="${applicationId}.BmobContentProvider"></provider>
+            android:authorities="${applicationId}.BmobContentProvider" />
 
         <activity
             android:name="cn.sharesdk.tencent.qq.ReceiveActivity"

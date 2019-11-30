@@ -6,15 +6,15 @@ import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import com.bumptech.glide.Glide;
+
+import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.entity.EventVoiceClick;
 import com.matrix.yukun.matrix.chat_module.fragment.voice.PlayerManager;
 import com.matrix.yukun.matrix.chat_module.holder.RightVoiceHolder;
-import com.matrix.yukun.matrix.MyApp;
-import com.matrix.yukun.matrix.main_module.activity.PersonCenterActivity;
 import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
+import com.matrix.yukun.matrix.main_module.activity.PersonCenterActivity;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.glide.GlideUtil;
 import com.matrix.yukun.matrix.util.log.LogUtil;
@@ -67,7 +67,7 @@ public class RightVoiceHolderWrapper {
         if(MyApp.userInfo==null){
             GlideUtil.loadOptionsImage("",(holder).mImageViewRight,GlideUtil.getOptions(R.drawable.head_2));
         }else {
-            GlideUtil.loadImage(MyApp.getUserInfo().getImg(),(holder).mImageViewRight);
+            GlideUtil.loadImage(MyApp.getUserInfo().getAvator(),(holder).mImageViewRight);
         }
         holder.tvSenond.setText(chatListInfo.getDuration()/1000+"''");
         if(!chatListInfo.isAudioIsPlay()){

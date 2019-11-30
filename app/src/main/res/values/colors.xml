@@ -25,6 +25,7 @@
     <!--movie-->
     <color name="color_lines">#363636</color>
     <color name="color_bfbfbf">#9c9c9c</color>
+    <color name="color_e6e6e6">#E6E6E6</color>
     <color name="color_whit">#FFFFFF</color>
     <!--weather-->
     <color name="color_82181818">#82181818</color>

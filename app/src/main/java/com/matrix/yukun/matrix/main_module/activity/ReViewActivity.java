@@ -1,55 +1,32 @@
 package com.matrix.yukun.matrix.main_module.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Looper;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
-import com.google.zxing.Result;
-import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
-import com.matrix.yukun.matrix.main_module.entity.TouTiaoBean;
-import com.matrix.yukun.matrix.main_module.entity.UserInfo;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
-import com.matrix.yukun.matrix.tool_module.qrcode.QRCodeActivity;
-import com.matrix.yukun.matrix.tool_module.qrcode.QRImageCropActivity;
-import com.matrix.yukun.matrix.util.BitmapUtil;
-import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
+import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.File;
-
-import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UploadFileListener;
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.Call;
 
 public class ReViewActivity extends BaseActivity implements View.OnClickListener {
 
@@ -130,31 +107,32 @@ public class ReViewActivity extends BaseActivity implements View.OnClickListener
                 }
                 break;
             case R.id.rl_header:
-                Intent intent = new Intent(Intent.ACTION_PICK, null);
-                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);//这里加入flag
-                this.startActivityForResult(intent, REQUEST_CODE_FROM_GALLERY);
+                AvatarChoiceActivity.start(this);
+//                Intent intent = new Intent(Intent.ACTION_PICK, null);
+//                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+//                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);//这里加入flag
+//                this.startActivityForResult(intent, REQUEST_CODE_FROM_GALLERY);
                 break;
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode== Activity.RESULT_OK){
-            if(requestCode==REQUEST_CODE_FROM_GALLERY && data.getData()!=null) {
-                Uri dataUri = data.getData();
-                String dataPath = getDataColumn(this, dataUri, null, null);
-                String path = BitmapUtil.compressImage(dataPath);
-                headerPath=path;
-                QRImageCropActivity.start(this,headerPath,false);
-            }
-        }
-        if (resultCode == QRImageCropActivity.RESULT) {
-            if (requestCode == QRImageCropActivity.CROPIMAGES){
+//        if(resultCode== Activity.RESULT_OK){
+//            if(requestCode==REQUEST_CODE_FROM_GALLERY && data.getData()!=null) {
+//                Uri dataUri = data.getData();
+//                String dataPath = getDataColumn(this, dataUri, null, null);
+//                String path = BitmapUtil.compressImage(dataPath);
+//                headerPath=path;
+//                QRImageCropActivity.start(this,headerPath,false);
+//            }
+//        }
+        if (resultCode == 1002) {
+            if (requestCode == 1001){
                 if (data != null) {
-                    String crop_photo_path = data.getStringExtra("path");
-                    headerPath=crop_photo_path;
-                    Glide.with(this).load(crop_photo_path).into(mCircleImageView);
+                    String url = data.getStringExtra("url");
+                    headerPath=url;
+                    GlideUtil.loadCircleBoardImage(url,mCircleImageView);
                 }
             }
         }
@@ -178,97 +156,27 @@ public class ReViewActivity extends BaseActivity implements View.OnClickListener
 
     private void register(String name, String sig, String headerPath, String gender) {
 
-        BmobFile bmobFile = new BmobFile(new File(headerPath));
-
-        bmobFile.uploadblock(new UploadFileListener() {
+        UserInfoBMob userInfoBMob=new UserInfoBMob();
+        userInfoBMob.setAccount(mCount);
+        userInfoBMob.setPasswd(mPassword);
+        userInfoBMob.setName(name);
+        userInfoBMob.setGender(gender);
+        userInfoBMob.setSignature(sig);
+        userInfoBMob.setCreateTime(String.valueOf(System.currentTimeMillis()));
+        userInfoBMob.setAvator(headerPath);
+        userInfoBMob.save(new SaveListener<String>() {
             @Override
-            public void done(BmobException e) {
-                ToastUtils.showToast(bmobFile.getFileUrl());
-                UserInfoBMob userInfoBMob=new UserInfoBMob();
-                userInfoBMob.setName(name);
-                userInfoBMob.setGender(gender);
-                userInfoBMob.setSignature(sig);
-                userInfoBMob.setCreateTime(String.valueOf(System.currentTimeMillis()));
-                userInfoBMob.setAvator(bmobFile.getFileUrl());
-                userInfoBMob.save(new SaveListener<String>() {
-                    @Override
-                    public void done(String s, BmobException e) {
-                        LogUtil.i("========",s+" "+e.toString());
-                        ToastUtils.showToast("success");
-                    }
-
-                    @Override
-                    public void onFinish() {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onProgress(Integer value) {
-                LogUtil.i("======","onProgress"+value);
-            }
-
-            @Override
-            public void onStart() {
-                LogUtil.i("======","onStart");
-            }
-
-            @Override
-            public void doneError(int code, String msg) {
-                LogUtil.i("======",msg);
+            public void done(String s, BmobException e) {
+                ToastUtils.showToast("注册成功");
+                MyApp.setUserInfo(userInfoBMob);
+                EventBus.getDefault().post(new EventUpdateHeader());
+                finish();
             }
 
             @Override
             public void onFinish() {
-                LogUtil.i("======","onFinish");
+
             }
         });
-
-//        OkHttpUtils.post().url(url)
-//                .addParams("key", AppConstant.Appkey)
-//                .addParams("phone",mCount)
-//                .addParams("name",name)
-//                .addParams("passwd",mPassword)
-//                .addParams("text",sig)
-//                .addParams("other",other1)
-//                .addFile("image",new File(headerPath).getName(),new File(headerPath))
-//                .build().execute(new StringCallback() {
-//            @Override
-//            public void onError(Call call, Exception e, int id) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(String response, int id) {
-//                try {
-//                    JSONObject jsonObject=new JSONObject(response);
-//                    String code = jsonObject.optString("code");
-//                    if(code.equals("200")){
-//                        JSONObject data = jsonObject.optJSONObject("data");
-//                        Gson gson=new Gson();
-//                        UserInfo userInfo = gson.fromJson(data.toString(), UserInfo.class);
-//                        MyApp.setUserInfo(userInfo);
-//                        //存数据库
-//                        userInfo.save();
-//                        EventBus.getDefault().post(new EventUpdateHeader());
-//                        ToastUtils.showToast("注册成功");
-//                        finish();
-//                    }else {
-//                        ToastUtils.showToast(jsonObject.optString("msg"));
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-    }
-
-    @Override
-    protected void onDestroy() {
-        Intent intent=new Intent(ReViewActivity.this,PlayMainActivity.class);
-        startActivity(intent);
-        super.onDestroy();
-
     }
 }

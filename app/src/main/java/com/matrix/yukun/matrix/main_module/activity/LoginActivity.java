@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -15,22 +16,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
-import com.matrix.yukun.matrix.main_module.entity.UserInfo;
+import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import okhttp3.Call;
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
@@ -135,7 +134,22 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 startAnimationBig(mCardViewRegister);
             }else {
                 if(!TextUtils.isEmpty(mTvRegisterName.getText().toString().trim())&&!TextUtils.isEmpty(mTvRegisterPassword.getText().toString().trim())){
-                    register(mTvRegisterName.getText().toString().trim(),mTvRegisterPassword.getText().toString().trim());
+                    devideRegist(mTvRegisterName.getText().toString().trim(),new FindListener<UserInfoBMob>() {
+                        @Override
+                        public void done(List<UserInfoBMob> infoBMobs, BmobException e) {
+                            if(e==null){
+                                if(infoBMobs.size()>0){
+                                    //查询到用户
+                                    ToastUtils.showToast(mTvRegisterName.getText().toString().trim()+" "+"已经被注册");
+                                }else {
+                                    //跳转到注册界面
+                                    register(mTvRegisterName.getText().toString().trim(),mTvRegisterPassword.getText().toString().trim());
+                                }
+                            }else{
+                                Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                            }
+                        }
+                    });
                 }else {
                     ToastUtils.showToast("账号密码不能为空");
                 }
@@ -154,46 +168,47 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
+    private void devideRegist(String name,FindListener<UserInfoBMob> userInfoBMobFindListener) {
+        BmobQuery<UserInfoBMob> query = new BmobQuery<UserInfoBMob>();
+        //查询playerName叫“比目”的数据
+        query.addWhereEqualTo("name", name);
+        //返回50条数据，如果不加上这条语句，默认返回10条数据
+        query.setLimit(50);
+        //执行查询方法
+        query.findObjects(userInfoBMobFindListener);
+    }
+
     /**
      * 登录
      * @param name
      * @param password
      */
     private void login(String name, String password) {
-        OkHttpUtils.get().url(url)
-                .addParams("key", AppConstant.Appkey)
-                .addParams("phone",name)
-                .addParams("passwd",password)
-                .build().execute(new StringCallback() {
+        BmobQuery<UserInfoBMob> query = new BmobQuery<UserInfoBMob>();
+        //查询playerName叫“比目”的数据
+        query.addWhereEqualTo("account", name);
+        query.addWhereEqualTo("passwd", password);
+        //返回50条数据，如果不加上这条语句，默认返回10条数据
+        //执行查询方法
+        query.findObjects(new FindListener<UserInfoBMob>() {
             @Override
-            public void onError(Call call, Exception e, int id) {
-                ToastUtils.showToast(e.toString());
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                try {
-                    JSONObject jsonObject=new JSONObject(response);
-                    String code = jsonObject.optString("code");
-                    if(code.equals("200")){
-                        JSONObject data = jsonObject.optJSONObject("data");
-                        Gson gson=new Gson();
-                        UserInfo userInfo = gson.fromJson(data.toString(), UserInfo.class);
-                        MyApp.setUserInfo(userInfo);
-                        //存数据库
-                        userInfo.save();
-                        ToastUtils.showToast("登录成功");
+            public void done(List<UserInfoBMob> list, BmobException e) {
+                if(e==null){
+                    UserInfoBMob userInfoBMob=new UserInfoBMob();
+                    for (int i = 0; i < list.size(); i++) {
+                        userInfoBMob=list.get(i);
+                    }
+                    if(!TextUtils.isEmpty(userInfoBMob.getName())){
+                        MyApp.setUserInfo(userInfoBMob);
                         EventBus.getDefault().post(new EventUpdateHeader());
                         finish();
                     }else {
-                        mCardViewLogin.setVisibility(View.VISIBLE);
-                        mCardViewRegister.setVisibility(View.VISIBLE);
-                        mCardLoad.setVisibility(View.GONE);
-                        ToastUtils.showToast(jsonObject.optString("msg"));
+                        ToastUtils.showToast("登录出错，请检查账号密码");
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                }else {
+                    ToastUtils.showToast("登录出错");
                 }
+                visiableLoad();
             }
         });
     }
@@ -209,7 +224,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void run() {
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -232,6 +247,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         startAnimationLoad(mCardLoad);
         mCardViewRegister.setVisibility(View.GONE);
         mCardViewLogin.setVisibility(View.GONE);
+    }
+
+    private void visiableLoad(){
+        mCardLoad.setVisibility(View.GONE);
+        mCardViewRegister.setVisibility(View.VISIBLE);
+        mCardViewLogin.setVisibility(View.VISIBLE);
     }
 
     private void startAnimationSmall(View view){

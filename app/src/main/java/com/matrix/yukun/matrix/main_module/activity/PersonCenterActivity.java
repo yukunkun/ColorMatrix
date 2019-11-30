@@ -3,7 +3,6 @@ package com.matrix.yukun.matrix.main_module.activity;
 import android.animation.Animator;
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,8 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-//import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
@@ -35,13 +32,18 @@ import com.matrix.yukun.matrix.main_module.entity.HistoryPlay;
 import com.matrix.yukun.matrix.main_module.utils.SpacesDoubleDecoration;
 import com.matrix.yukun.matrix.mine_module.activity.ShareActivity;
 import com.matrix.yukun.matrix.util.glide.GlideUtil;
+
 import org.litepal.crud.DataSupport;
+
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+//import com.bumptech.glide.request.animation.GlideAnimation;
 
 public class PersonCenterActivity extends BaseActivity {
 
@@ -156,11 +158,11 @@ public class PersonCenterActivity extends BaseActivity {
     @Override
     public void initDate() {
         if (MyApp.userInfo != null) {
-            Glide.with(this).load(MyApp.userInfo.getImg()).into(mCircleImageView);
-            Glide.with(this).load(MyApp.userInfo.getImg()).into(mIvHeader);
+            Glide.with(this).load(MyApp.userInfo.getAvator()).into(mCircleImageView);
+            Glide.with(this).load(MyApp.userInfo.getAvator()).into(mIvHeader);
             mTvName.setText(MyApp.userInfo.getName());
-            mTvSig.setText(MyApp.userInfo.getText());
-            GlideUtil.loadBlurImage(MyApp.userInfo.getImg(),mIvBg);
+            mTvSig.setText(MyApp.userInfo.getSignature());
+            GlideUtil.loadBlurImage(MyApp.userInfo.getAvator(),mIvBg);
             //高斯模糊
 //            Glide.with(this).load(MyApp.userInfo.getImg()).asBitmap().into(new SimpleTarget<Bitmap>() {
 //                @Override
@@ -205,7 +207,7 @@ public class PersonCenterActivity extends BaseActivity {
         }
         if (id == R2.id.iv_avator || id == R2.id.iv_header) {
             Intent intent = new Intent(this, ImageDetailActivity.class);
-            intent.putExtra("url", MyApp.userInfo.getImg());
+            intent.putExtra("url", MyApp.userInfo.getAvator());
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this, mCircleImageView, "shareView").toBundle());

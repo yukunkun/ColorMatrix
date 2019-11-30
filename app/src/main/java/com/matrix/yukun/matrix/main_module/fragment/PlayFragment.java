@@ -11,7 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -55,7 +54,6 @@ import com.matrix.yukun.matrix.selfview.guideview.SimpleComponent;
 import com.matrix.yukun.matrix.selfview.guideview.SimpleComponent2;
 import com.matrix.yukun.matrix.tool_module.btmovie.SpecialActivity;
 import com.matrix.yukun.matrix.tool_module.weather.activity.HeWeatherActivity;
-import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
@@ -69,9 +67,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 import okhttp3.Call;
@@ -184,9 +180,9 @@ public class PlayFragment extends BaseFragment {
         OverScrollDecoratorHelper.setUpOverScroll(mScrollview);
         mTvClose.setText("登录");
         if (MyApp.userInfo != null) {
-            Glide.with(getContext()).load(MyApp.userInfo.getImg()).into(mCircleImageView);
+            Glide.with(getContext()).load(MyApp.userInfo.getAvator()).into(mCircleImageView);
             mTvName.setText(MyApp.userInfo.getName());
-            mTvSig.setText("签名：" + MyApp.userInfo.getText());
+            mTvSig.setText("签名：" + MyApp.userInfo.getSignature());
             mTvClose.setText("退出");
         }
         long guide_time = SPUtils.getInstance().getLong("guide_time");
@@ -372,9 +368,9 @@ public class PlayFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateHeader(EventUpdateHeader eventUpdateHeader) {
         if (MyApp.userInfo != null) {
-            Glide.with(getContext()).load(MyApp.userInfo.getImg()).into(mCircleImageView);
+            Glide.with(getContext()).load(MyApp.userInfo.getAvator()).into(mCircleImageView);
             mTvName.setText(MyApp.userInfo.getName());
-            mTvSig.setText("签名：" + MyApp.userInfo.getText());
+            mTvSig.setText("签名：" + MyApp.userInfo.getSignature());
             mTvClose.setText("退出");
         }
     }

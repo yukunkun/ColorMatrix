@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.MyApp;
-import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.holder.RightFileHolder;
 import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
@@ -45,7 +44,7 @@ public class RightFileHolderWrapper {
         if(MyApp.userInfo==null){
             GlideUtil.loadImage("",(holder).mImageViewRight);
         }else {
-            Glide.with(mContext).load(MyApp.getUserInfo().getImg()).into((holder).mImageViewRight);
+            Glide.with(mContext).load(MyApp.getUserInfo().getAvator()).into((holder).mImageViewRight);
         }
         File file=new File(chatListInfo.getFilePath());
         if(file.exists()){

@@ -2,28 +2,36 @@ package com.matrix.yukun.matrix.main_module.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.adapter.ImageAdapter;
+import com.matrix.yukun.matrix.main_module.adapter.RVPlayAllAdapter;
 import com.matrix.yukun.matrix.main_module.adapter.ShareCallBack;
 import com.matrix.yukun.matrix.main_module.dialog.ShareDialog;
 import com.matrix.yukun.matrix.main_module.entity.ImageInfo;
+import com.matrix.yukun.matrix.main_module.entity.PlayAllBean;
 import com.matrix.yukun.matrix.main_module.netutils.NetworkUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.util.SpacesItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
+import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
@@ -36,99 +44,105 @@ import okhttp3.Call;
  * Created by yukun on 17-11-17.
  */
 
-public class ImageSecondFragment extends BaseFragment implements ShareCallBack {
-    String url="http://cn.bing.com/HPImageArchive.aspx";
-    private SmartRefreshLayout mSmartRefreshLayout;
-    private int n = 7;
-    private int idx = 0;
-    private List<ImageInfo> jokeInfoList=new ArrayList<>();
-    private ImageAdapter mJokeAdapter;
+public class ImageSecondFragment extends BaseFragment {
+    private RecyclerView mRecyclerView;
+    private RVPlayAllAdapter mRvVerticalAdapter;
+    private String url="https://cdn.mom1.cn/?mom=json";
+    private List<PlayAllBean> mPlayAllBeans=new ArrayList<>();
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private LinearLayoutManager mLayoutManager;
-    private RecyclerView mRvJoke;
+    private RelativeLayout mLayout;
 
-    public static ImageSecondFragment getInstance() {
-        ImageSecondFragment recFragment = new ImageSecondFragment();
-        return recFragment;
+    public static ImageSecondFragment getInstance(){
+        ImageSecondFragment verticalVideoFragment=new ImageSecondFragment();
+        return verticalVideoFragment;
     }
 
     @Override
     public int getLayout() {
-        return R.layout.fragment_second_image;
+        return R.layout.fragment_vertical_video;
     }
 
     @Override
     public void initView(View inflate, Bundle savedInstanceState) {
-        mSmartRefreshLayout = inflate.findViewById(R.id.refreshLayout);
-        mRvJoke = inflate.findViewById(R.id.recyclerview);
-        mLayoutManager = new LinearLayoutManager(getContext());
-        mRvJoke.setLayoutManager(mLayoutManager);
-        mJokeAdapter = new ImageAdapter(getContext(),jokeInfoList);
-        mJokeAdapter.setShareCallBack(this);
-        mRvJoke.setAdapter(mJokeAdapter);
-        getInfo();
-        setListener();
+        mRecyclerView = inflate.findViewById(R.id.recyclerview);
+        mSwipeRefreshLayout = inflate.findViewById(R.id.srl_layout);
+        mLayout = inflate.findViewById(R.id.rl_remind);
+        mLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(mRecyclerView);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRvVerticalAdapter = new RVPlayAllAdapter(getContext(),mPlayAllBeans);
+        mRecyclerView.setAdapter(mRvVerticalAdapter);
+        mRecyclerView.addItemDecoration(new SpacesItemDecoration(1));
+        initData();
+        initListener();
     }
 
-    private void setListener() {
-        mSmartRefreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener(){
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
-                if(lastVisibleItemPosition==mLayoutManager.getItemCount()-1){
-                    idx=idx+n+1;
-                    getInfo();
-                }
-                mSmartRefreshLayout.finishLoadMore(10);
-            }
-
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                jokeInfoList.clear();
-                mJokeAdapter.notifyDataSetChanged();
-                idx=0;
-                getInfo();
-                refreshLayout.finishRefresh(10);
-            }
-        });
-    }
-
-    private void getInfo() {
-        NetworkUtils.networkGet(url)
-                .addParams("format","js")
-                .addParams("idx",idx+"")
-                .addParams("n",n+"")
+    private void initData() {
+        OkHttpUtils.get().url(url)
                 .build().execute(new StringCallback() {
             @Override
-            public void onError(Call call, Exception e, int id) {
-                ToastUtils.showToast(e.toString());
+            public void onResponse(String response, int id) {
+                if(!TextUtils.isEmpty(response)){
+                    int indexOf = response.indexOf("{");
+                    if(indexOf!=-1){
+                        String data=response.substring(indexOf,response.length());
+                        try {
+                            JSONObject jsonObject=new JSONObject(data);
+                            if(jsonObject.optString("result").equals("200")){
+                                String downloadUrl="http:"+jsonObject.optString("img");
+                                PlayAllBean playAllBean=new PlayAllBean();
+                                playAllBean.setThumbnail(downloadUrl);
+                                mPlayAllBeans.add(playAllBean);
+                                mLayout.setVisibility(View.GONE);
+                                mRvVerticalAdapter.notifyDataSetChanged();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
             @Override
-            public void onResponse(String response, int id) {
-                try {
-                    if(!TextUtils.isEmpty(response)){
-                        JSONObject jsonObject=new JSONObject(response);
-                        JSONArray images = jsonObject.optJSONArray("images");
-                        Gson gson=new Gson();
-                        List<ImageInfo> imageInfos = gson.fromJson(images.toString(), new TypeToken<List<ImageInfo>>(){}.getType());
-                        jokeInfoList.addAll(imageInfos);
-                        mJokeAdapter.notifyDataSetChanged();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+            public void onError(Call call, Exception e, int id) {
+                List<PlayAllBean> all = DataSupport.findAll(PlayAllBean.class);
+                if(all.size()>0){
+                    mPlayAllBeans.clear();
+                    mPlayAllBeans.addAll(all);
+                    mLayout.setVisibility(View.GONE);
+                    mRvVerticalAdapter.notifyDataSetChanged();
                 }
             }
         });
     }
 
     @Override
-    public void onShareCallback(int pos) {
-        ImageInfo imageInfo = jokeInfoList.get(pos);
-        ShareDialog shareDialog= ShareDialog.getInstance(getString(R.string.title_content),"http://s.cn.bing.net" + imageInfo.getUrl(),"http://s.cn.bing.net" + imageInfo.getUrl());
-        shareDialog.show(getFragmentManager(),"");
-    }
+    public void initListener() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initData();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
+                    if(lastVisibleItemPosition==mLayoutManager.getItemCount()-1){
+                        initData();
+                    }
+                }
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 }

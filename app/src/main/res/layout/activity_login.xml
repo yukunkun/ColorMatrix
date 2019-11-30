@@ -101,7 +101,7 @@
                                 android:textSize="14sp"
                                 android:layout_marginTop="@dimen/dimens_5"
                                 android:paddingLeft="@dimen/dimens_5"
-                                android:hint="请输入用户名"
+                                android:hint="请输入账号"
                                 android:layout_height="wrap_content" />
                         </android.support.design.widget.TextInputLayout>
 
@@ -201,7 +201,7 @@
                                 android:textSize="14sp"
                                 android:layout_marginTop="@dimen/dimens_5"
                                 android:paddingLeft="@dimen/dimens_5"
-                                android:hint="请输入用户名"
+                                android:hint="请输入账号"
                                 android:layout_height="wrap_content" />
                         </android.support.design.widget.TextInputLayout>
 

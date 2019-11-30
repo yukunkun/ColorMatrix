@@ -45,7 +45,7 @@ public class RightTextHolderWrapper {
         if(MyApp.userInfo==null){
             GlideUtil.loadOptionsImage("",(holder).mImageViewRight,GlideUtil.getOptions(R.drawable.head_2));
         }else {
-            Glide.with(mContext).load(MyApp.getUserInfo().getImg()).into((holder).mImageViewRight);
+            Glide.with(mContext).load(MyApp.getUserInfo().getAvator()).into((holder).mImageViewRight);
         }
         holder.mTextViewRight.setOnClickListener(new View.OnClickListener() {
             @Override

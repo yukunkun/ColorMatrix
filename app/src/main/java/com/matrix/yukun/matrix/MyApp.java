@@ -6,9 +6,11 @@ import android.content.Context;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+
 import com.amap.api.maps.model.LatLng;
+import com.google.gson.Gson;
 import com.matrix.yukun.matrix.download_module.service.DownLoadService;
-import com.matrix.yukun.matrix.main_module.entity.UserInfo;
+import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -25,8 +27,11 @@ import com.tencent.bugly.beta.Beta;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.cookie.CookieJarImpl;
 import com.zhy.http.okhttp.cookie.store.PersistentCookieStore;
+
 import org.litepal.LitePalApplication;
+
 import java.util.List;
+
 import cn.bmob.v3.Bmob;
 import interfaces.heweather.com.interfacesmodule.view.HeConfig;
 import okhttp3.OkHttpClient;
@@ -37,7 +42,7 @@ import okhttp3.OkHttpClient;
 public class MyApp extends LitePalApplication{
     public  static MyApp myApp;
     public static RefWatcher refWatcher;
-    public static UserInfo userInfo;
+    public static UserInfoBMob userInfo;
     public static boolean isNight;
     @Override
     public void onCreate() {
@@ -93,7 +98,7 @@ public class MyApp extends LitePalApplication{
 //        MultiDex.install(this);
     }
 
-    public static UserInfo getUserInfo() {
+    public static UserInfoBMob getUserInfo() {
         return userInfo;
     }
 
@@ -109,9 +114,11 @@ public class MyApp extends LitePalApplication{
         }
     }
 
-    public static void setUserInfo(UserInfo user) {
-        userInfo=new UserInfo();
+    public static void setUserInfo(UserInfoBMob user) {
+        userInfo=new UserInfoBMob();
         userInfo=user;
+        Gson gson=new Gson();
+        SPUtils.getInstance().saveString("user",gson.toJson(userInfo));
     }
 
     public static boolean getNight() {

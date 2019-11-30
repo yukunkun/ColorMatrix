@@ -95,9 +95,9 @@ public class AboutUsFragment extends BaseFragment {
         mStringList = Arrays.asList(getResources().getStringArray(R.array.about_us_list));
         mLvList.setAdapter(new LvAdapter());
         if (MyApp.userInfo != null) {
-            GlideUtil.loadCircleImage(MyApp.getUserInfo().getImg(),mIvCircle);
-            GlideUtil.loadCircleBoardImage(MyApp.getUserInfo().getImg(),mIvIcon);
-            GlideUtil.loadBlurImage(MyApp.getUserInfo().getImg(),mIvBury);
+            GlideUtil.loadCircleImage(MyApp.getUserInfo().getAvator(),mIvCircle);
+            GlideUtil.loadCircleBoardImage(MyApp.getUserInfo().getAvator(),mIvIcon);
+            GlideUtil.loadBlurImage(MyApp.getUserInfo().getAvator(),mIvBury);
             mTvName.setText(MyApp.getUserInfo().getName());
         }else {
             GlideUtil.loadCircleBoardImage(R.mipmap.snail_image,mIvIcon);
@@ -156,11 +156,11 @@ public class AboutUsFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateHeader(EventUpdateHeader eventUpdateHeader) {
         if (MyApp.userInfo != null) {
-            GlideUtil.loadCircleImage(MyApp.getUserInfo().getImg(),mIvCircle);
-            GlideUtil.loadCircleBoardImage(MyApp.userInfo.getImg(),mIvIcon);
+            GlideUtil.loadCircleImage(MyApp.getUserInfo().getAvator(),mIvCircle);
+            GlideUtil.loadCircleBoardImage(MyApp.userInfo.getAvator(),mIvIcon);
             mTvName.setText(MyApp.getUserInfo().getName());
             //高斯模糊
-            GlideUtil.loadBlurImage(MyApp.getUserInfo().getImg(),mIvBury);
+            GlideUtil.loadBlurImage(MyApp.getUserInfo().getAvator(),mIvBury);
         }
     }
 

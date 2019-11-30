@@ -8,6 +8,7 @@ import cn.bmob.v3.BmobObject;
  */
 public class UserInfoBMob extends BmobObject {
     private String key;
+    private String account;
     private String phone;
     private String name;
     private String passwd;
@@ -16,6 +17,14 @@ public class UserInfoBMob extends BmobObject {
     private String signature;
     private String gender;
     private String createTime;
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
 
     public String getKey() {
         return key;

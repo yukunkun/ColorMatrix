@@ -7,9 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatDelegate;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -19,11 +19,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.activity.BriefVersionActivity;
 import com.matrix.yukun.matrix.main_module.activity.PlayMainActivity;
+import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.main_module.search.DBSearchInfo;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.util.PermissionUtils;
@@ -38,7 +40,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class SplashActivity extends BaseActivity implements SplashADListener/* implements SplashADListener */ {
 
@@ -76,6 +77,7 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
             getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
         animation();
+        isAutoLogin();
     }
 
     private void animation() {
@@ -231,16 +233,13 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
         return result;
     }
 
-    private String isFace() {
-        SharedPreferences preferences = getSharedPreferences("mAuthId", Context.MODE_PRIVATE);
-        String result = preferences.getString("mAuthId", "a");
-        return result;
+    private void isAutoLogin() {
+        String user = SPUtils.getInstance().getString("user");
+        if(!TextUtils.isEmpty(user)){
+            Gson gson=new Gson();
+            UserInfoBMob userInfoBMob = gson.fromJson(user, UserInfoBMob.class);
+            MyApp.setUserInfo(userInfoBMob);
+        }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

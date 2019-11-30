@@ -26,11 +26,12 @@ public class AESFORKEY {
   public static String cbc_pkcs5_128_encrypt(String plainText, String keyHexString,
                                              String ivHexString) throws IOException {
     String result = null;
-    byte[] bytes = cbc_pkcs5_128_compute(
-        prepareArguments(plainText, keyHexString, ivHexString, Cipher.ENCRYPT_MODE));
-    if (bytes != null) {
-      result = Hex.encodeHexString(bytes);
-    }
+//    byte[] bytes = cbc_
+// pkcs5_128_compute(
+//        prepareArguments(plainText, keyHexString, ivHexString, Cipher.ENCRYPT_MODE));
+//    if (bytes != null) {
+//      result = Hex.encodeHexString(bytes);
+//    }
     return result;
   }
 
