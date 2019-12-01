@@ -1,6 +1,5 @@
 package com.matrix.yukun.matrix.main_module.activity;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +12,7 @@ import android.provider.Settings;
 import android.support.annotation.IdRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.KeyEvent;
@@ -43,6 +43,7 @@ import com.matrix.yukun.matrix.main_module.fragment.ToolFragment;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtil;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.mine_module.entity.EventClose;
 import com.matrix.yukun.matrix.selfview.floatingview.FloatingViewManager;
 import com.matrix.yukun.matrix.util.StatusBarUtil;
@@ -57,7 +58,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class PlayMainActivity extends BaseActivity implements View.OnClickListener, MediaPlayer.OnPreparedListener {
 
@@ -79,6 +79,8 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
     private EyesInfo mEyesInfo;
     private RelativeLayout mLayout;
     private GaiaFragment mGaiaFragment;
+    private PlayFragment mPlayFragment;
+    private AboutUsFragment mAboutUsFragment;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, PlayMainActivity.class);
@@ -102,19 +104,32 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void initView() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         Beta.checkUpgrade();
         EventBus.getDefault().register(this);
-        PlayFragment playFragment = PlayFragment.getInstance();
-        mFragments.add(playFragment);
-        mGaiaFragment = GaiaFragment.getInstance();
+        if (savedInstanceState != null) {
+            //不为空说明缓存视图中有fragment实例，通过tag取出来
+            FragmentManager supportFragmentManager = getSupportFragmentManager();
+            mPlayFragment = (PlayFragment) supportFragmentManager.findFragmentByTag("0");
+            mGaiaFragment = (GaiaFragment) supportFragmentManager.findFragmentByTag("1");
+            mToolFragment = (ToolFragment) supportFragmentManager.findFragmentByTag("2");
+            mAboutUsFragment = (AboutUsFragment) supportFragmentManager.findFragmentByTag("3");
+            ToastUtils.showToast("load");
+        }else{
+            mPlayFragment = PlayFragment.getInstance();
+            mGaiaFragment = GaiaFragment.getInstance();
+            mToolFragment = ToolFragment.getInstance();
+            mAboutUsFragment = AboutUsFragment.getInstance();
+        }
+
+        mFragments.add(mPlayFragment);
         mFragments.add(mGaiaFragment);
-        mToolFragment = ToolFragment.getInstance();
         mFragments.add(mToolFragment);
-        AboutUsFragment aboutUsFragment = AboutUsFragment.getInstance();
-        mFragments.add(aboutUsFragment);
+        mFragments.add(mAboutUsFragment);
+
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.fl_layout, playFragment);
+        fragmentTransaction.add(R.id.fl_layout, mPlayFragment,"0");
         fragmentTransaction.commit();
         if(!SPUtils.getInstance().getBoolean("show_gaia")){
             gaia.setVisibility(View.GONE);
@@ -128,6 +143,10 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
             GestureDialog gestureDialog = GestureDialog.getInstance();
             gestureDialog.show(getSupportFragmentManager(), "");
         }
+    }
+
+    @Override
+    public void initView() {
     }
 
     private void setListener() {
@@ -207,7 +226,7 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
         if (fragment.isAdded()) {
             fragmentTransaction.show(fragment);
         } else {
-            fragmentTransaction.add(R.id.fl_layout, fragment);
+            fragmentTransaction.add(R.id.fl_layout, fragment,pos+"");
         }
         fragmentTransaction.commit();
         lastPos = pos;

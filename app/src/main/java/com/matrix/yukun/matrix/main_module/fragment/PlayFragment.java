@@ -163,12 +163,21 @@ public class PlayFragment extends BaseFragment {
             mTablayout.addTab(mTablayout.newTab().setText(mStringArray[i]));
         }
         setDrawableWidth();
-        mInstance = RecFragment.getInstance();
-        mInstance1 = VideoFragment.getInstance();
-        mInstance2 = JokeFragment.getInstance();
-        mInstance3 = ImageFragment.getInstance();
-        mInstance4 = TextFragment.getInstance();
-        mInstance5 = VerticalVideoFragment.getInstance();
+        if(savedInstanceState!=null){
+            mInstance = RecFragment.getInstance();
+            mInstance1 = VideoFragment.getInstance();
+            mInstance2 = JokeFragment.getInstance();
+            mInstance3 = ImageFragment.getInstance();
+            mInstance4 = TextFragment.getInstance();
+            mInstance5 = VerticalVideoFragment.getInstance();
+        }else {
+            mInstance = RecFragment.getInstance();
+            mInstance1 = VideoFragment.getInstance();
+            mInstance2 = JokeFragment.getInstance();
+            mInstance3 = ImageFragment.getInstance();
+            mInstance4 = TextFragment.getInstance();
+            mInstance5 = VerticalVideoFragment.getInstance();
+        }
         mFragments.add(mInstance);
         mFragments.add(mInstance1);
         mFragments.add(mInstance2);
