@@ -1,7 +1,9 @@
 package com.matrix.yukun.matrix.main_module.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
@@ -119,12 +121,9 @@ public class ImageSecondFragment extends BaseFragment {
 
     @Override
     public void initListener() {
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initData();
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            initData();
+            mSwipeRefreshLayout.setRefreshing(false);
         });
 
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
