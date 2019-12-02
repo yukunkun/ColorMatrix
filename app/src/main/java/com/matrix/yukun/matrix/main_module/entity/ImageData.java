@@ -11,6 +11,7 @@ public class ImageData {
     private String url;
     private String used;
     private String who;
+    private boolean isCollect;
 
     public String get_id() {
         return _id;
@@ -82,5 +83,13 @@ public class ImageData {
 
     public void setWho(String who) {
         this.who = who;
+    }
+
+    public boolean isCollect() {
+        return isCollect;
+    }
+
+    public void setCollect(boolean collect) {
+        isCollect = collect;
     }
 }

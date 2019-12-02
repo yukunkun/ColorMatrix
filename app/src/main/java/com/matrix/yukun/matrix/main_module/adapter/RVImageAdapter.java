@@ -13,6 +13,7 @@ import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
 import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
 import com.matrix.yukun.matrix.main_module.entity.ImageData;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.util.DataUtils;
 import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import org.litepal.crud.DataSupport;
@@ -32,6 +33,11 @@ public class RVImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.mImageData = mImageData;
     }
 
+    public void updateItem(int pos,ImageData imageData){
+        mImageData.set(pos,imageData);
+        notifyItemChanged(pos);
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(mContext).inflate(R.layout.fragment_image_item, null);
@@ -43,6 +49,11 @@ public class RVImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if(holder instanceof MyHolder){
              ImageData data = mImageData.get(position);
             GlideUtil.loadImage(data.getUrl(),((MyHolder) holder).mImageView);
+            if(data.isCollect()){
+                ((MyHolder) holder).mIvColl.setImageResource(R.mipmap.collection_fill);
+            }else {
+                ((MyHolder) holder).mIvColl.setImageResource(R.mipmap.collection);
+            }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -52,22 +63,12 @@ public class RVImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             ((MyHolder) holder).mIvColl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    CollectsInfo collectInfo=new CollectsInfo();
-                    List<CollectsInfo> newsList = DataSupport.where("cover = ?", data.getUrl()).find(CollectsInfo.class);
-                    if(newsList.size()>0){
-                        ToastUtils.showToast("已经收藏成功了");
-                        return;
+                    if(data.isCollect()){
+                        data.setCollect(false);
+                    }else {
+                        data.setCollect(true);
                     }
-                    collectInfo.setHeader(data.getUrl());
-                    collectInfo.setCover(data.getUrl());
-                    collectInfo.setTitle("佚名");
-                    collectInfo.setName("佚名");
-                    collectInfo.setType(2);
-                    collectInfo.setPlay_url(data.getUrl());
-                    collectInfo.setGif(false);
-                    collectInfo.save();
-                    Toast.makeText(mContext, "添加到收藏成功", Toast.LENGTH_SHORT).show();
-                    ((MyHolder) holder).mIvColl.setImageResource(R.mipmap.collection_fill);
+                    mOnClickItemListener.onClickItemClick(position,data);
                 }
             });
         }
@@ -89,5 +90,14 @@ public class RVImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 //            layoutParams.height= ScreenUtil.getDisplayHeight();
 //            mImageView.setLayoutParams(layoutParams);
         }
+    }
+    OnClickItemListener mOnClickItemListener;
+
+    public void setOnClickItemListener(OnClickItemListener onClickItemListener) {
+        mOnClickItemListener = onClickItemListener;
+    }
+
+    public interface OnClickItemListener{
+        void onClickItemClick(int pos,ImageData imageData);
     }
 }
