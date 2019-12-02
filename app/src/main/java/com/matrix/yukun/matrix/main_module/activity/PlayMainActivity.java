@@ -142,6 +142,7 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
         if (!isFirst) {
             GestureDialog gestureDialog = GestureDialog.getInstance();
             gestureDialog.show(getSupportFragmentManager(), "");
+            SPUtils.getInstance().saveBoolean("first",true);
         }
     }
 

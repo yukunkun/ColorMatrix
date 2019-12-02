@@ -24,6 +24,7 @@ import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.activity.BriefVersionActivity;
+import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 import com.matrix.yukun.matrix.main_module.activity.PlayMainActivity;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.main_module.search.DBSearchInfo;
@@ -212,8 +213,11 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
 
     private void forward() {
         if (conJump) {
-            Intent intent = null;
-            if (istrue()) {
+            Intent intent =null;
+            if(!SPUtils.getInstance().getBoolean("first")&&TextUtils.isEmpty(SPUtils.getInstance().getString("user"))){
+                intent = new Intent(this, LoginActivity.class);
+            }
+            else if (istrue()) {
                 intent = new Intent(this, LockActivity.class);
             } else {
                 if (SPUtils.getInstance().getBoolean("isbrief")) {

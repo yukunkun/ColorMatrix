@@ -19,6 +19,7 @@ import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
+import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
@@ -95,7 +96,12 @@ public class ReViewActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_back:
-                finish();
+                if(!SPUtils.getInstance().getBoolean("first")){
+                    PlayMainActivity.start(this);
+                    finish();
+                }else {
+                    finish();
+                }
                 break;
             case R.id.tv_complete:
                 if(!TextUtils.isEmpty(mEtName.getText().toString().trim())
@@ -155,7 +161,6 @@ public class ReViewActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void register(String name, String sig, String headerPath, String gender) {
-
         UserInfoBMob userInfoBMob=new UserInfoBMob();
         userInfoBMob.setAccount(mCount);
         userInfoBMob.setPasswd(mPassword);
@@ -170,7 +175,12 @@ public class ReViewActivity extends BaseActivity implements View.OnClickListener
                 ToastUtils.showToast("注册成功");
                 MyApp.setUserInfo(userInfoBMob);
                 EventBus.getDefault().post(new EventUpdateHeader());
-                finish();
+                if(!SPUtils.getInstance().getBoolean("first")){
+                    PlayMainActivity.start(ReViewActivity.this);
+                    finish();
+                }else {
+                    finish();
+                }
             }
 
             @Override

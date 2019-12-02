@@ -21,6 +21,7 @@ import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
+import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.mine_module.activity.ResponsbilityActivity;
 import com.matrix.yukun.matrix.mine_module.entity.WebType;
@@ -46,7 +47,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private EditText mTvRegisterName;
     private EditText mTvRegisterPassword;
     private TextView mTvLogin;
-    private String url="https://www.apiopen.top/login";
     private TextView mTvBack;
     private TextView mTvSecret;
     private TextView mTvAccount;
@@ -85,23 +85,28 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 1.0f);
         alphaAnimation.setDuration(300);
         this.mIvBack.startAnimation(alphaAnimation);
-        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+        mCardViewRegister.postDelayed(new Runnable() {
             @Override
-            public void onAnimationStart(Animation animation) {
-            }
+            public void run() {
+                alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                    }
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                mCardViewLogin.bringToFront();
-                startAnimationSmall(mCardViewRegister);
-                startAnimationBig(mCardViewLogin);
-            }
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mCardViewLogin.bringToFront();
+                        startAnimationSmall(mCardViewRegister);
+                        startAnimationBig(mCardViewLogin);
+                    }
 
-            @Override
-            public void onAnimationRepeat(Animation animation) {
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
 
+                    }
+                });
             }
-        });
+        },100);
     }
 
     @Override
@@ -120,7 +125,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         int id = v.getId();
         if(id== R.id.iv_back){
-            finish();
+            if(!SPUtils.getInstance().getBoolean("first")){
+                PlayMainActivity.start(this);
+                finish();
+            }else {
+                finish();
+            }
         }
         if(id== R.id.card_login){
             loginIsFront=false;
@@ -172,7 +182,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             }
         }
         if(id== R.id.tv_back){
-            finish();
+            if(!SPUtils.getInstance().getBoolean("first")){
+                PlayMainActivity.start(this);
+                finish();
+            }else {
+                finish();
+            }
         }
         if(id== R.id.tv_secret){
             ResponsbilityActivity.start(this, WebType.SECRET.getType());
@@ -185,7 +200,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void devideRegist(String name,FindListener<UserInfoBMob> userInfoBMobFindListener) {
         BmobQuery<UserInfoBMob> query = new BmobQuery<UserInfoBMob>();
         //查询playerName叫“比目”的数据
-        query.addWhereEqualTo("name", name);
+        query.addWhereEqualTo("account", name);
         //返回50条数据，如果不加上这条语句，默认返回10条数据
         query.setLimit(50);
         //执行查询方法
@@ -215,14 +230,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     if(!TextUtils.isEmpty(userInfoBMob.getName())){
                         MyApp.setUserInfo(userInfoBMob);
                         EventBus.getDefault().post(new EventUpdateHeader());
+                        if(!SPUtils.getInstance().getBoolean("first")) {
+                            PlayMainActivity.start(LoginActivity.this);
+                        }
                         finish();
                     }else {
                         ToastUtils.showToast("登录出错，请检查账号密码");
+                        visiableLoad();
                     }
                 }else {
                     ToastUtils.showToast("登录出错");
+                    visiableLoad();
                 }
-                visiableLoad();
             }
         });
     }
