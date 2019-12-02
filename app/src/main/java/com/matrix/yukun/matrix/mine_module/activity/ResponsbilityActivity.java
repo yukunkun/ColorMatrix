@@ -43,6 +43,7 @@ public class ResponsbilityActivity extends BaseActivity {
         mList.add("file:///android_asset/responsbility.html");
         mList.add("file:///android_asset/introduce.html");
         mList.add("file:///android_asset/question.html");
+        mList.add("file:///android_asset/secret.html");
         loadWeb();
     }
 
@@ -59,6 +60,9 @@ public class ResponsbilityActivity extends BaseActivity {
                 break;
             case 3:
                 mWebView.loadUrl(mList.get(WebType.QUESTION.getType()));
+                break;
+            case 4:
+                mWebView.loadUrl(mList.get(WebType.SECRET.getType()));
                 break;
         }
     }

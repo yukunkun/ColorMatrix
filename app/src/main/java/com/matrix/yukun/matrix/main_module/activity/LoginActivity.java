@@ -22,6 +22,8 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.mine_module.activity.ResponsbilityActivity;
+import com.matrix.yukun.matrix.mine_module.entity.WebType;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -46,6 +48,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private TextView mTvLogin;
     private String url="https://www.apiopen.top/login";
     private TextView mTvBack;
+    private TextView mTvSecret;
+    private TextView mTvAccount;
 
     @Override
     public int getLayout() {
@@ -71,6 +75,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mTvRegisterName = findViewById(R.id.et_register_name);
         mTvRegisterPassword = findViewById(R.id.et_register_password);
         mTvLogin = findViewById(R.id.tv_login);
+        mTvSecret = findViewById(R.id.tv_secret);
+        mTvAccount = findViewById(R.id.tv_account);
     }
 
     @Override
@@ -106,6 +112,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mIvBack.setOnClickListener(this);
         mTvLogin.setOnClickListener(this);
         mTvBack.setOnClickListener(this);
+        mTvSecret.setOnClickListener(this);
+        mTvAccount.setOnClickListener(this);
     }
 
     @Override
@@ -165,6 +173,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
         if(id== R.id.tv_back){
             finish();
+        }
+        if(id== R.id.tv_secret){
+            ResponsbilityActivity.start(this, WebType.SECRET.getType());
+        }
+        if(id== R.id.tv_account){
+            ResponsbilityActivity.start(this, WebType.AGREEMENT.getType());
         }
     }
 

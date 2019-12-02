@@ -96,7 +96,9 @@
         <item>历史今日</item>
         <item>新华字典</item>
         <item>BT电影</item>
+<!--
         <item>电话查询</item>
+-->
     </string-array>
 
     <array name="setting_adout">

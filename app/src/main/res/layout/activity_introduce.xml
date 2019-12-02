@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.matrix.yukun.matrix.setting_module.IntroduceActivity">
+    android:layout_height="match_parent">
     <RelativeLayout
         android:background="@color/color_252525"
         android:layout_width="match_parent"

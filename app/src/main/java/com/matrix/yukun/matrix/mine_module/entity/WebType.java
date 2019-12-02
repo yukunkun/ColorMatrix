@@ -8,7 +8,9 @@ public enum WebType {
     AGREEMENT(0,"协议"),
     INTRODUCE(1,"简介"),
     RESPONSIBILITY(2,"免责"),
-    QUESTION(3,"桌面提示");
+    QUESTION(3,"桌面提示"),
+    SECRET(4,"隐私政策");
+
     int type;
     String value;
 

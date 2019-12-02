@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="@drawable/login_img_bg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".video_module.play.LoginActivity">
+    tools:context=".main_module.activity.LoginActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -266,5 +266,44 @@
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
         </FrameLayout>
+        <RelativeLayout
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/dimens_20"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_secret"
+                android:text="隐私政策"
+                android:textColor="@color/colorAccent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_account"
+                android:layout_marginRight="@dimen/dimens_5"
+                android:layout_toLeftOf="@+id/tv_secret"
+                android:textColor="@color/colorAccent"
+                android:text="用户协议"
+                android:layout_centerVertical="true"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_aggre"
+                android:layout_marginRight="@dimen/dimens_5"
+                android:layout_toLeftOf="@+id/tv_account"
+                android:text="注册即同意我们的"
+                android:layout_marginLeft="@dimen/dimens_3"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_toLeftOf="@+id/tv_aggre"
+                android:src="@mipmap/icon_dialog_cancel"
+                android:layout_width="@dimen/dimens_25"
+                android:layout_height="@dimen/dimens_25" />
+        </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

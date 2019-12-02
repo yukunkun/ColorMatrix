@@ -44,6 +44,8 @@ public class SettingActivity extends BaseActivity {
 
     @BindView(R.id.tv_version)
     TextView mTvVersion;
+    @BindView(R.id.tv_secret)
+    TextView mTvSecret;
     @BindView(R.id.cb_play)
     CheckBox mCbPlay;
     @BindView(R.id.cb_brief)
@@ -118,7 +120,7 @@ public class SettingActivity extends BaseActivity {
         finish();
     }
 
-    @OnClick({R2.id.iv_back, R2.id.tv_clear, R2.id.tv_update, R2.id.tv_introduce, R2.id.tv_about, R2.id.tv_sugg, R2.id.tv_mark_update,R2.id.tv_version})
+    @OnClick({R2.id.iv_back, R2.id.tv_clear, R2.id.tv_update, R2.id.tv_introduce, R2.id.tv_about, R2.id.tv_sugg, R2.id.tv_mark_update,R2.id.tv_version,R.id.tv_secret})
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.iv_back) {
@@ -146,8 +148,9 @@ public class SettingActivity extends BaseActivity {
 //            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 //            startActivity(intent);
             return;
-        }
-        else if (id == R.id.tv_version) {
+        }else if(id == R.id.tv_secret){
+            ResponsbilityActivity.start(this, WebType.SECRET.getType());
+        } else if (id == R.id.tv_version) {
             if(count<10){
                 count++;
             }else {
