@@ -37,5 +37,5 @@
             implementation project(path: ':videocompressor')
             implementation project(path: ':jiaozivideoplayer')
 
-#### [下载](http://app.qq.com/#id=detail&appid=1105962710)
-![应用宝下载地址](http://upload-images.jianshu.io/upload_images/3001453-7fc76659461b6b8e.png)
+#### [下载](http://www.paopaoche.net/android/282471.html)
+![应用宝下载地址](http://www.paopaoche.net/android/282471.html)
