@@ -7,162 +7,166 @@
     android:background="@color/color_write"
     android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardview"
+        app:cardElevation="@dimen/dimens_3"
+        app:cardCornerRadius="3sp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/color_write"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="wrap_content"
+            android:background="@color/color_write"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/ci_head"
-                android:layout_width="@dimen/dimens_40"
-                android:layout_height="@dimen/dimens_40"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <ImageView
+                    android:id="@+id/ci_head"
+                    android:layout_width="@dimen/dimens_40"
+                    android:layout_height="@dimen/dimens_40"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="220dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/ci_head"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/color_494949"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_times"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/color_494949"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/color_94abaaaa" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="280dp">
+
+                <ImageView
+                    android:id="@+id/im_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:transitionName="shareview" />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_deauty"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:text="6"
+                    android:textColor="@color/color_e1e1e1"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/icon_main_play" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_94abaaaa" />
+
+                <ImageView
+                    android:id="@+id/iv_play"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/play_times" />
+
+                <TextView
+                    android:id="@+id/tv_play_times"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/iv_play"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/color_494949"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/iv_share"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="4dp"
+                    android:src="@mipmap/skip" />
+
+                <ImageView
+                    android:id="@+id/iv_collect"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/iv_share"
+                    android:padding="2dp"
+                    android:src="@mipmap/collection" />
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="220dp"
-                android:layout_height="50dp"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/ci_head"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:singleLine="true"
-                android:text=""
-                android:textColor="@color/color_494949"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tv_times"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="10dp"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:paddingRight="10dp"
-                android:singleLine="true"
-                android:text=""
-                android:textColor="@color/color_494949"
-                android:textSize="16sp" />
-
-            <View
+                android:id="@+id/view_line"
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/color_94abaaaa" />
-        </RelativeLayout>
+                android:layout_height="1dp"
+                android:background="@color/colorAccent" />
+        </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="280dp">
+    </android.support.v7.widget.CardView>
 
-            <ImageView
-                android:id="@+id/im_cover"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:transitionName="shareview" />
-
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_deauty"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:maxLines="2"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="10dp"
-                android:text="6"
-                android:textColor="@color/color_e1e1e1"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_centerInParent="true"
-                android:src="@mipmap/icon_main_play" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/color_94abaaaa" />
-
-            <ImageView
-                android:id="@+id/iv_play"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:src="@mipmap/play_times" />
-
-            <TextView
-                android:id="@+id/tv_play_times"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/iv_play"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:singleLine="true"
-                android:text=""
-                android:textColor="@color/color_494949"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:id="@+id/iv_share"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:padding="4dp"
-                android:src="@mipmap/skip" />
-
-            <ImageView
-                android:id="@+id/iv_collect"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@+id/iv_share"
-                android:padding="2dp"
-                android:src="@mipmap/collection" />
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/view_line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorAccent" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="@color/color_eaeaea" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_banner"
+    <View
+        android:layout_below="@+id/cardview"
         android:layout_width="match_parent"
-        android:layout_height="380dp">
+        android:layout_height="@dimen/dimens_8"
+        android:background="@color/color_eaeaea" />
 
-    </RelativeLayout>
 </RelativeLayout>

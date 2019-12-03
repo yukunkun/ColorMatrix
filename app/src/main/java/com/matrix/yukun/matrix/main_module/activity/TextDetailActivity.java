@@ -1,5 +1,7 @@
 package com.matrix.yukun.matrix.main_module.activity;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -51,6 +53,19 @@ public class TextDetailActivity extends BaseActivity {
         intent.putExtra("url",url);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+    }
+
+    public static void start(Context context,String title,String url,View view){
+        Intent intent=new Intent(context,TextDetailActivity.class);
+        intent.putExtra("title",title);
+        intent.putExtra("url",url);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT_WATCH){
+            context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context,view,"shareView").toBundle());
+        }else {
+            context.startActivity(intent);
+            ((Activity)context).overridePendingTransition(R.anim.rotate, R.anim.rotate_out);
+        }
     }
 
 

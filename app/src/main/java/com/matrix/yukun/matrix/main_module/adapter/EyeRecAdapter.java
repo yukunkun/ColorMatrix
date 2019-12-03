@@ -253,8 +253,8 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ImageView mImCollect;
         @BindView(R2.id.ll)
         RelativeLayout linearLayout;
-        @BindView(R2.id.rl_banner)
-        RelativeLayout mLayoutBanner;
+//        @BindView(R2.id.rl_banner)
+//        RelativeLayout mLayoutBanner;
         @BindView(R2.id.view_line)
         TextView mViewLine;
 

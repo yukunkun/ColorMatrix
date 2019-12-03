@@ -6,6 +6,7 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.ImageView;
@@ -39,7 +40,7 @@ public class JokeDetailActivity extends BaseActivity {
         intent.putExtra("content",content);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if(Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT_WATCH){
-            context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context,view,"shareiew").toBundle());
+            context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context,view,"shareView").toBundle());
         }else {
             context.startActivity(intent);
             ((Activity)context).overridePendingTransition(R.anim.rotate, R.anim.rotate_out);
@@ -79,6 +80,18 @@ public class JokeDetailActivity extends BaseActivity {
             shareSend();
 
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // 当按下返回键时所执行的命令
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            // 此处写你按返回键之后要执行的事件的逻辑
+            finish();
+            return true;
+//            return super.onKeyDown(keyCode, event);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private void shareSend() {

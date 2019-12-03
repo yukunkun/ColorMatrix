@@ -32,10 +32,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import uk.co.senab.photoview.PhotoView;
 
-//import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-//import com.bumptech.glide.request.animation.GlideAnimation;
-//import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-
 public class ImageDetailActivity extends BaseActivity {
 
     @BindView(R2.id.photoview)
@@ -44,8 +40,6 @@ public class ImageDetailActivity extends BaseActivity {
     ImageView mIvMore;
     @BindView(R2.id.iv_back)
     ImageView mIvBack;
-    @BindView(R2.id.iv_images)
-    ImageView mIvImage;
     @BindView(R2.id.rl)
     RelativeLayout mRl;
     @BindView(R2.id.progress_bar)
@@ -54,7 +48,6 @@ public class ImageDetailActivity extends BaseActivity {
     ImageView ivChange;
     private String downloadurl;
     private boolean mIsGif;
-    private boolean isScreenFull;
 
     @Override
     public int getLayout() {
@@ -71,13 +64,14 @@ public class ImageDetailActivity extends BaseActivity {
     public static void start(Context context, String url, View view,boolean isGif) {
         Intent intent=new Intent(context, ImageDetailActivity.class);
         intent.putExtra("url",url);
+        intent.putExtra("isGif", isGif);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT_WATCH){
-            context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context,view,"shareView").toBundle());
-        }else {
+//        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT_WATCH){
+//            context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context,view,"shareView").toBundle());
+//        }else {
             context.startActivity(intent);
             ((Activity)context).overridePendingTransition(R.anim.rotate, R.anim.rotate_out);
-        }
+//        }
     }
 
 

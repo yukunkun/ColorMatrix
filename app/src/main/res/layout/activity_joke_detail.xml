@@ -39,6 +39,7 @@
             android:layout_gravity="center"
             android:background="@color/color_write"
             android:id="@+id/tv_content"
+            android:transitionName="shareView"
             android:textSize="20dp"
             android:paddingLeft="20dp"
             android:text=""

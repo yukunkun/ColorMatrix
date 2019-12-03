@@ -8,24 +8,17 @@
     <uk.co.senab.photoview.PhotoView
         android:id="@+id/photoview"
         android:transitionName="shareView"
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <ImageView
-        android:id="@+id/iv_images"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="center"
-        android:transitionName="shareView" />
 
     <ImageView
         android:id="@+id/iv_back"
         android:layout_width="@dimen/dimens_45"
         android:layout_height="50dp"
         android:layout_marginTop="@dimen/dimens_20"
-        android:padding="10dp"
+        android:padding="@dimen/dimens_10"
         android:src="@mipmap/ic_back" />
-
 
     <ImageView
         android:id="@+id/iv_more"
