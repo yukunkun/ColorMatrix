@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import okhttp3.Call;
 
@@ -39,7 +40,8 @@ public class AvatarChoiceActivity extends BaseActivity {
     private List<ImageData> mImageDatas=new ArrayList<>();
     private SmartRefreshLayout mSwipeRefreshLayout;
     private GridLayoutManager mLayoutManager;
-    private int page=1;
+    private Random mRandom=new Random();
+    private int page=getRandom();
 
     public static void start(Context context){
         Intent intent=new Intent(context,AvatarChoiceActivity.class);
@@ -60,6 +62,10 @@ public class AvatarChoiceActivity extends BaseActivity {
         mRvVerticalAdapter = new RVAvatarAdapter(this,mImageDatas);
         mRecyclerView.setAdapter(mRvVerticalAdapter);
         mRecyclerView.addItemDecoration(new SpacesItemDecoration(1));
+    }
+
+    public int getRandom(){
+        return mRandom.nextInt(50);
     }
 
     @Override
@@ -106,7 +112,7 @@ public class AvatarChoiceActivity extends BaseActivity {
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                page=1;
+                page=getRandom();
                 mImageDatas.clear();
                 initDate();
             }

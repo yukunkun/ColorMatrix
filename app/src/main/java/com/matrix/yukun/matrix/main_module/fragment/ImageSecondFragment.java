@@ -27,6 +27,7 @@ import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.SpacesItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -51,7 +52,7 @@ public class ImageSecondFragment extends BaseFragment {
     private RVPlayAllAdapter mRvVerticalAdapter;
     private String url="https://cdn.mom1.cn/?mom=json";
     private List<PlayAllBean> mPlayAllBeans=new ArrayList<>();
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private SmartRefreshLayout mSwipeRefreshLayout;
     private LinearLayoutManager mLayoutManager;
     private RelativeLayout mLayout;
 
@@ -97,6 +98,8 @@ public class ImageSecondFragment extends BaseFragment {
                                 PlayAllBean playAllBean=new PlayAllBean();
                                 playAllBean.setThumbnail(downloadUrl);
                                 mPlayAllBeans.add(playAllBean);
+                                mSwipeRefreshLayout.finishRefresh();
+                                mSwipeRefreshLayout.finishLoadMore();
                                 mLayout.setVisibility(View.GONE);
                                 mRvVerticalAdapter.notifyDataSetChanged();
                             }
@@ -121,10 +124,22 @@ public class ImageSecondFragment extends BaseFragment {
 
     @Override
     public void initListener() {
-        mSwipeRefreshLayout.setOnRefreshListener(() -> {
-            initData();
-            mSwipeRefreshLayout.setRefreshing(false);
+        mSwipeRefreshLayout.setOnRefreshListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                initData();
+                mSwipeRefreshLayout.finishRefresh();
+            }
         });
+//        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+//            initData();
+//            mSwipeRefreshLayout.setRefreshing(false);
+//        });
 
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

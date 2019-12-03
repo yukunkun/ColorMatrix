@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
-        <android.support.v4.widget.SwipeRefreshLayout
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:layout_width="match_parent"
             android:id="@+id/srl_layout"
             android:layout_height="match_parent">
@@ -15,7 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </android.support.v7.widget.RecyclerView>
-        </android.support.v4.widget.SwipeRefreshLayout>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     <RelativeLayout
         android:id="@+id/rl_remind"
         android:visibility="visible"

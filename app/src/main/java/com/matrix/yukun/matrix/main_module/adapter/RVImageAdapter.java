@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
 import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
@@ -48,7 +49,7 @@ public class RVImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if(holder instanceof MyHolder){
              ImageData data = mImageData.get(position);
-            GlideUtil.loadImage(data.getUrl(),((MyHolder) holder).mImageView);
+            GlideUtil.loadImage(data.getUrl(),((MyHolder) holder).mImageView/*, GlideUtil.getErrorOptions(R.mipmap.icon_error,R.mipmap.icon_error,R.mipmap.icon_error)*/);
             if(data.isCollect()){
                 ((MyHolder) holder).mIvColl.setImageResource(R.mipmap.collection_fill);
             }else {

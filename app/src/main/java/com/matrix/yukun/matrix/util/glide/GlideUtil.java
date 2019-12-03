@@ -2,6 +2,7 @@ package com.matrix.yukun.matrix.util.glide;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -29,7 +30,9 @@ public class GlideUtil {
     public static void loadImage(String url, ImageView imageView){
         Glide.with(context).load(url).into(imageView);
     }
-
+    public static void loadImage(String url, ImageView imageView,RequestOptions options){
+        Glide.with(context).load(url).apply(options).into(imageView);
+    }
     public static void loadPlaceholderImage(String url, ImageView imageView){
         Glide.with(context).load(url).apply(getOptions()).into(imageView);
     }
@@ -83,6 +86,14 @@ public class GlideUtil {
     }
     private static RequestOptions getBoardOptions(){
         RequestOptions options = new RequestOptions().placeholder(R.mipmap.bg_header_nav).transform(new GlideCircleWithBorder(context, 1,Color.parseColor("#b1b1b1")));
+        return options;
+    }
+
+    public static RequestOptions getErrorOptions(int place,int fall,int error ){
+        RequestOptions options = new RequestOptions()
+//                .placeholder(place)//图片加载出来前，显示的图片
+                .fallback(fall) //url为空的时候,显示的图片
+                .error(error);//图片加载失败后，显示的图片
         return options;
     }
 

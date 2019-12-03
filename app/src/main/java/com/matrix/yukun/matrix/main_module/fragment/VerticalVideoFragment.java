@@ -1,6 +1,7 @@
 package com.matrix.yukun.matrix.main_module.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,9 @@ import com.matrix.yukun.matrix.main_module.entity.ImageData;
 import com.matrix.yukun.matrix.main_module.search.DBSearchInfo;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.SpacesItemDecoration;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -28,6 +32,7 @@ import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import okhttp3.Call;
 
@@ -40,9 +45,10 @@ public class VerticalVideoFragment extends BaseFragment {
     private RVImageAdapter mRvVerticalAdapter;
     private String url="http://gank.io/api/data/%E7%A6%8F%E5%88%A9/10/";
     private List<ImageData> mImageDatas=new ArrayList<>();
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private SmartRefreshLayout mSwipeRefreshLayout;
     private GridLayoutManager mLayoutManager;
-    private int page=1;
+    private Random mRandom=new Random();
+    private int page=getRandom();
 
     public static VerticalVideoFragment getInstance(){
         VerticalVideoFragment verticalVideoFragment=new VerticalVideoFragment();
@@ -80,10 +86,12 @@ public class VerticalVideoFragment extends BaseFragment {
                             Gson gson=new Gson();
                             List<ImageData> imageDatas  = gson.fromJson(results.toString(), new TypeToken<List<ImageData>>() {}.getType());
                             updateImageData(imageDatas);
+                            mSwipeRefreshLayout.finishRefresh();
+                            mSwipeRefreshLayout.finishLoadMore();
                             mImageDatas.addAll(imageDatas);
                             mRvVerticalAdapter.notifyDataSetChanged();
                         }else{
-                            ToastUtils.showToast("error");
+                            ToastUtils.showToast("没有更多了");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -108,37 +116,57 @@ public class VerticalVideoFragment extends BaseFragment {
             }
         }
     }
+    public int getRandom(){
+        return mRandom.nextInt(50);
+    }
 
     @Override
     public void initListener() {
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+        mSwipeRefreshLayout.setOnRefreshListener(new OnRefreshLoadMoreListener() {
             @Override
-            public void onRefresh() {
-                page=1;
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page=getRandom();
                 mImageDatas.clear();
                 initData();
-                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        mSwipeRefreshLayout.setOnLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if(newState == RecyclerView.SCROLL_STATE_IDLE){
-                    int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
-                    if(lastVisibleItemPosition==mLayoutManager.getItemCount()-1){
-                        page++;
-                        initData();
-                    }
-                }
-                super.onScrollStateChanged(recyclerView, newState);
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                page++;
+                initData();
             }
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
             }
         });
+
+//        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+//                    int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
+//                    if(lastVisibleItemPosition==mLayoutManager.getItemCount()-1){
+//                        page++;
+//                        initData();
+//                    }
+//                }
+//                super.onScrollStateChanged(recyclerView, newState);
+//            }
+//
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//            }
+//        });
 
         mRvVerticalAdapter.setOnClickItemListener(new RVImageAdapter.OnClickItemListener() {
             @Override
