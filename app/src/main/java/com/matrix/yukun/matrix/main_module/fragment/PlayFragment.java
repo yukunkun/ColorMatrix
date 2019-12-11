@@ -54,6 +54,8 @@ import com.matrix.yukun.matrix.selfview.guideview.SimpleComponent;
 import com.matrix.yukun.matrix.selfview.guideview.SimpleComponent2;
 import com.matrix.yukun.matrix.tool_module.btmovie.SpecialActivity;
 import com.matrix.yukun.matrix.tool_module.weather.activity.HeWeatherActivity;
+import com.matrix.yukun.matrix.tool_module.weather.bean.OnEventpos;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
@@ -68,7 +70,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+//import cn.leancloud.AVObject;
 import de.hdodenhof.circleimageview.CircleImageView;
+import interfaces.heweather.com.interfacesmodule.bean.Code;
+import interfaces.heweather.com.interfacesmodule.bean.weather.now.Now;
+import interfaces.heweather.com.interfacesmodule.bean.weather.now.NowBase;
+import interfaces.heweather.com.interfacesmodule.view.HeWeather;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 import okhttp3.Call;
 
@@ -210,36 +217,26 @@ public class PlayFragment extends BaseFragment {
             getWeather(SPUtils.getInstance().getString("city"));
             ivUpdate.setVisibility(View.GONE);
         }
+//        AVObject testObject = new AVObject("TestObject");
+//        testObject.put("words", "Hello world!");
+//        testObject.saveInBackground().blockingSubscribe();
     }
 
     private void getWeather(String city) {
-        NetworkUtils.networkGet(weatherURL)
-                .addParams("city", city)
-                .build().execute(new StringCallback() {
+        HeWeather.getWeatherNow(getContext(), city, new HeWeather.OnResultWeatherNowBeanListener() {
             @Override
-            public void onError(Call call, Exception e, int id) {
-
+            public void onError(Throwable throwable) {
+                LogUtil.i("=======throwable", throwable.toString());
             }
 
             @Override
-            public void onResponse(String response, int id) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    if (jsonObject.optInt("code") == 200) {
-                        Gson gson = new Gson();
-                        Weather weather = gson.fromJson(jsonObject.optString("data"), Weather.class);
-                        Weather.ForecastBean forecastBean = weather.getForecast().get(0);
-                        mTvWeather.setText(city + '\n' + forecastBean.getLow().substring(3, forecastBean.getLow().length()) + "~" + forecastBean.getHigh().substring(3, forecastBean.getHigh().length()));
-                    } else {
-                        mTvWeather.setText("请开启定位");
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            public void onSuccess(Now now) {
+                if (Code.OK.getCode().equalsIgnoreCase(now.getStatus())) {
+                    NowBase nowNow = now.getNow();
+                    mTvWeather.setText(city + '\n' + "体感温度:" +nowNow.getTmp()+"℃");
                 }
             }
         });
-
-
     }
 
     public AMapLocationClient mLocationClient = null;

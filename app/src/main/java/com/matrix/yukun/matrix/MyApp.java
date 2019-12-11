@@ -4,9 +4,7 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
-
 import com.amap.api.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.matrix.yukun.matrix.download_module.service.DownLoadService;
@@ -27,12 +25,12 @@ import com.tencent.bugly.beta.Beta;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.cookie.CookieJarImpl;
 import com.zhy.http.okhttp.cookie.store.PersistentCookieStore;
-
 import org.litepal.LitePalApplication;
-
 import java.util.List;
-
 import cn.bmob.v3.Bmob;
+//import cn.leancloud.AVLogger;
+//import cn.leancloud.AVOSCloud;
+//import cn.leancloud.AVLogger;
 import interfaces.heweather.com.interfacesmodule.view.HeConfig;
 import okhttp3.OkHttpClient;
 
@@ -51,12 +49,16 @@ public class MyApp extends LitePalApplication{
         Beta.autoCheckUpgrade = false;//设置不自动检查
         Bugly.init(getApplicationContext(), "884e2d9286", false);
         Bmob.initialize(this, AppConstant.BMOBAPPID);
+//        AVOSCloud.setLogLevel(AVLogger.Level.DEBUG);
+//        AVOSCloud.initialize(this, AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY, "https://eggtbmvr.lc-cn-n1-shared.com");
 
         String processName = getProcessName(this, android.os.Process.myPid());
         // android 7.0系统解决拍照的问题
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
+        HeConfig.init(AppConstant.HE_WEATHER_ID, AppConstant.HE_WEATHER_SDK);
+        HeConfig.switchToFreeServerNode();
         updateNight();
         //服务
         DownLoadService.start(this);
@@ -66,14 +68,12 @@ public class MyApp extends LitePalApplication{
 //            return;
 //        }
 //        refWatcher = LeakCanary.install(this);//获取一个 Watcher
-        HeConfig.init(AppConstant.HE_WEATHER_ID, AppConstant.HE_WEATHER_SDK);
-        HeConfig.switchToFreeServerNode();
-        CookieJarImpl cookieJar = new CookieJarImpl(new PersistentCookieStore(getApplicationContext()));
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .cookieJar(cookieJar)
-                //其他配置
-                .build();
-        OkHttpUtils.initClient(okHttpClient);
+//        CookieJarImpl cookieJar = new CookieJarImpl(new PersistentCookieStore(getApplicationContext()));
+//        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+//                .cookieJar(cookieJar)
+//                //其他配置
+//                .build();
+//        OkHttpUtils.initClient(okHttpClient);
     }
 
 
@@ -151,7 +151,6 @@ public class MyApp extends LitePalApplication{
     static {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
-            @NonNull
             @Override
             public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
                 return new ClassicsHeader(context);

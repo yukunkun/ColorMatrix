@@ -131,7 +131,7 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
     }
 
     private void getBanner() {
-        mBannerView = new BannerView(getActivity(), ADSize.BANNER, AppConstant.APPID,
+        mBannerView = new BannerView(getActivity(), ADSize.BANNER, AppConstant.ADAPPID,
                 AppConstant.BANNER_ADID);
         mBannerView.setRefresh(30);
         mBannerView.setADListener(new AbstractBannerADListener() {

@@ -109,9 +109,10 @@
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
+            android:paddingBottom="@dimen/dimens_5"
             android:paddingLeft="@dimen/dimens_10"
             android:paddingRight="@dimen/dimens_10"
-            android:layout_height="@dimen/dimens_40">
+            android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/tv_quality"
                 android:gravity="center_vertical"
@@ -120,11 +121,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:layout_below="@+id/tv_quality"
                 android:id="@+id/tv_pm"
                 android:gravity="center_vertical"
                 android:textSize="@dimen/dimens_16"
                 android:textColor="@color/color_whit"
-                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>

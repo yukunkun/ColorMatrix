@@ -8,16 +8,19 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ContextThemeWrapper;
+//import android.support.v4.app.ActivityCompat;
+//import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import java.util.Formatter;
 import java.util.Locale;
+
+//import androidx.appcompat.app.Activity;
 
 /**
  * Created by Nathen
@@ -80,10 +83,10 @@ public class JZUtils {
      * @param context context
      * @return AppCompatActivity if it's not null
      */
-    public static AppCompatActivity getAppCompActivity(Context context) {
+    public static Activity getAppCompActivity(Context context) {
         if (context == null) return null;
-        if (context instanceof AppCompatActivity) {
-            return (AppCompatActivity) context;
+        if (context instanceof Activity) {
+            return (Activity) context;
         } else if (context instanceof ContextThemeWrapper) {
             return getAppCompActivity(((ContextThemeWrapper) context).getBaseContext());
         }

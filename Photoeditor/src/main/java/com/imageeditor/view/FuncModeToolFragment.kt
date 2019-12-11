@@ -109,7 +109,7 @@ class FuncModeToolFragment : Fragment(), EditorModeHandler {
     /*handle mode*/
     override fun handleScrawlMode(selected: Boolean) {
         if (selected) {
-            val scrawlDetails = ScrawlDetailsView(context);
+            val scrawlDetails = ScrawlDetailsView(this!!.context!!)
             scrawlDetails.onColorChangeListener = object : ColorSeekBar.OnColorChangeListener {
                 override fun onColorChangeListener(colorBarPosition: Int, alphaBarPosition: Int, color: Int) {
                     callback2Listeners(mFuncDetailsListeners) {
@@ -146,7 +146,7 @@ class FuncModeToolFragment : Fragment(), EditorModeHandler {
                     }
                 }
             }
-            val mosaicDetails = MosaicDetailsView(context,listener)
+            val mosaicDetails = MosaicDetailsView(this!!.context!!,listener)
             mosaicDetails.onRevokeListener = object : OnRevokeListener {
                 override fun revoke(editorMode: EditorMode) {
                     callback2Listeners(mOnRevokeListeners) {

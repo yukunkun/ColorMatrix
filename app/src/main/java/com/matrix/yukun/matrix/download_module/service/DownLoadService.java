@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.qq.e.comm.DownloadService;
@@ -46,7 +45,6 @@ public class DownLoadService extends Service {
         context.stopService(intent);
     }
 
-    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -115,7 +113,6 @@ public class DownLoadService extends Service {
      */
     public static class InnerService extends Service {
 
-        @Nullable
         @Override
         public IBinder onBind(Intent intent) {
             return null;

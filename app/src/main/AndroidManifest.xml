@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.matrix.yukun.matrix">
 
-    <uses-sdk android:targetSdkVersion="27" />
+    <uses-sdk android:targetSdkVersion="28" />
 
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -152,6 +152,17 @@
         <service
             android:name="com.qq.e.comm.DownloadService"
             android:exported="false" /> <!-- 请开发者注意字母的大小写，ADActivity，而不是AdActivity -->
+
+        <!--<service android:name="cn.leancloud.push.PushService"/>-->
+        <!--<receiver android:name="cn.leancloud.push.AVBroadcastReceiver">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.BOOT_COMPLETED"/>-->
+                <!--<action android:name="android.intent.action.USER_PRESENT"/>-->
+                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+
+
         <activity
             android:name="com.qq.e.ads.ADActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
@@ -211,15 +222,7 @@
 
         <activity
             android:name=".tool_module.cropmap.CameraActivity"
-            android:screenOrientation="portrait" /> <!-- <provider -->
-        <!-- android:name="android.support.v4.content.FileProvider" -->
-        <!-- android:authorities="com.xykj.customview.fileprovider" -->
-        <!-- android:exported="false" -->
-        <!-- android:grantUriPermissions="true"> -->
-        <!-- <meta-data -->
-        <!-- android:name="android.support.FILE_PROVIDER_PATHS" -->
-        <!-- android:resource="@xml/camera" /> -->
-        <!-- </provider> -->
+            android:screenOrientation="portrait" />
         <activity
             android:name=".tool_module.weather.WeatherActivity"
             android:screenOrientation="portrait" />
