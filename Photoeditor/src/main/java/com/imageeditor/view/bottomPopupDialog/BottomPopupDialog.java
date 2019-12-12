@@ -116,7 +116,7 @@ public class BottomPopupDialog extends BottomSheetDialog implements AdapterView.
      * 解决dialog打开→关闭后，不能再打开的问题
      */
     private void setBehaviorCallback() {
-        View view = getDelegate().findViewById(android.support.design.R.id.design_bottom_sheet);
+        View view = getDelegate().findViewById(R.id.design_bottom_sheet);
         final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(view);
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
