@@ -1,7 +1,7 @@
 package com.matrix.yukun.matrix.tool_module.weather.adapter;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;

@@ -5,19 +5,13 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 
-import com.matrix.yukun.matrix.MyApp;
+import androidx.core.app.ActivityCompat;
+
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
-import com.matrix.yukun.matrix.tool_module.weather.bean.OnEventpos;
 import com.matrix.yukun.matrix.util.log.LogUtil;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.List;

@@ -20,7 +20,7 @@
             android:layout_width="@dimen/dimens_60"
             android:layout_height="match_parent" />
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:gravity="center"
             app:tabGravity="center"

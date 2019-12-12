@@ -1,7 +1,7 @@
 package com.matrix.yukun.matrix.main_module.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
@@ -11,7 +11,6 @@ import com.matrix.yukun.matrix.main_module.activity.TextDetailActivity;
 import com.matrix.yukun.matrix.main_module.entity.TouTiaoBean;
 import com.matrix.yukun.matrix.util.DataUtils;
 import com.matrix.yukun.matrix.util.glide.GlideUtil;
-import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import java.util.List;
 

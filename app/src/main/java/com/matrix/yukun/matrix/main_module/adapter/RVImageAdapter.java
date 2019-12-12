@@ -1,23 +1,16 @@
 package com.matrix.yukun.matrix.main_module.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
-import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
 import com.matrix.yukun.matrix.main_module.entity.ImageData;
-import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
-import com.matrix.yukun.matrix.util.DataUtils;
 import com.matrix.yukun.matrix.util.glide.GlideUtil;
-
-import org.litepal.crud.DataSupport;
 
 import java.util.List;
 

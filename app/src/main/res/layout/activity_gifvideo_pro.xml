@@ -60,7 +60,7 @@
                 android:layout_marginRight="@dimen/dimens_10"
                 android:layout_marginLeft="@dimen/dimens_10"
                 android:layout_height="wrap_content" />
-            <android.support.design.widget.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btn_share"
                 android:layout_width="wrap_content"
                 android:src="@mipmap/icon_share"

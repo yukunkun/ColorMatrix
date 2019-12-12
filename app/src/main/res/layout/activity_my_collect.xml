@@ -34,17 +34,17 @@
               android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"/>
     </RelativeLayout>
-    <android.support.v4.widget.SwipeRefreshLayout android:layout_width="match_parent"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:layout_width="match_parent"
                                                   android:layout_below="@+id/rl"
                                                   android:id="@+id/sw"
                                                   android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
+        <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
                                                 android:id="@+id/rv_collect"
                                                 android:background="@color/color_eaeaea"
                                                 android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <RelativeLayout
         android:id="@+id/rl_remind"

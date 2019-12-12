@@ -1,6 +1,6 @@
 package com.imageeditor
 
-import android.support.v4.util.LruCache
+import androidx.collection.LruCache
 import com.miracle.view.imageeditor.bean.EditorCacheData
 
 /**
@@ -9,7 +9,7 @@ import com.miracle.view.imageeditor.bean.EditorCacheData
  * Created by lxw
  */
 object LayerCache {
-    private val mLayerCache = LruCache<String, MutableMap<String, EditorCacheData>>(5)
+    private val mLayerCache = androidx.collection.LruCache<String, MutableMap<String, EditorCacheData>>(5)
 
     fun getCacheDataById(editorId: String): MutableMap<String, EditorCacheData> {
         var cache = mLayerCache[editorId]

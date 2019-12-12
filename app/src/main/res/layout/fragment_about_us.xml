@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:background="@color/color_write"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:background="@color/color_whit"
         android:layout_height="@dimen/dimens_260">
 
-        <android.support.design.widget.CollapsingToolbarLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:id="@+id/coll"
             app:title="我的"
@@ -64,7 +64,7 @@
                     android:background="@drawable/shape_rec_bg"
                     android:layout_height="20dp"/>
             </RelativeLayout>
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:visibility="gone"
                 android:layout_marginTop="@dimen/dimens_25"
@@ -85,7 +85,7 @@
                         android:layout_height="@dimen/dimens_50" />
                 </RelativeLayout>
 
-            </android.support.v7.widget.Toolbar>
+            </androidx.appcompat.widget.Toolbar>
             <ImageView
                 android:id="@+id/iv_share"
                 android:layout_gravity="right"
@@ -97,10 +97,10 @@
                 android:layout_marginRight="@dimen/dimens_10"
                 android:layout_width="@dimen/dimens_45"
                 android:layout_height="@dimen/dimens_45"/>
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:background="@color/color_e9e7e7"
         android:layout_height="800dp">
@@ -116,10 +116,10 @@
                 android:layout_height="match_parent">
             </com.matrix.yukun.matrix.selfview.NoScrollListView>
         </RelativeLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     // layout_anchor 依附的view
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -130,4 +130,4 @@
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right"/>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

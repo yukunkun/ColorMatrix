@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.service.wallpaper.WallpaperService;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.view.SurfaceHolder;
 import android.view.animation.LinearInterpolator;
 

@@ -2,7 +2,7 @@ package com.matrix.yukun.matrix.tool_module.barrage.dialog;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;

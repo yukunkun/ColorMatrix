@@ -1,10 +1,9 @@
 package com.matrix.yukun.matrix.main_module.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
@@ -16,7 +15,6 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.adapter.RVImageAdapter;
 import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
 import com.matrix.yukun.matrix.main_module.entity.ImageData;
-import com.matrix.yukun.matrix.main_module.search.DBSearchInfo;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.SpacesItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;

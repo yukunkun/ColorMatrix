@@ -6,7 +6,7 @@
     android:paddingTop="@dimen/dimens_20"
     android:paddingBottom="@dimen/dimens_20"
     android:layout_height="match_parent">
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/cardview"
         android:layout_width="match_parent"
         android:background="@color/color_bfbfbf"
@@ -81,5 +81,5 @@
                     android:layout_height="wrap_content" />
             </RelativeLayout>
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

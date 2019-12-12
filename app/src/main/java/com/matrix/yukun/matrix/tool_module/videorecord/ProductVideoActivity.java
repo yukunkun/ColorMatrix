@@ -4,7 +4,7 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.provider.Settings;
-import android.support.annotation.IdRes;
+import androidx.annotation.IdRes;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;

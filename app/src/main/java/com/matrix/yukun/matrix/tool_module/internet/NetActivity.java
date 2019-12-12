@@ -2,7 +2,7 @@ package com.matrix.yukun.matrix.tool_module.internet;
 
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;

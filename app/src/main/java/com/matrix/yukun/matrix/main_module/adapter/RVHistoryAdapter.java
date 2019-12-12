@@ -5,7 +5,7 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +18,6 @@ import com.matrix.yukun.matrix.main_module.activity.VideoDetailPlayActivity;
 import com.matrix.yukun.matrix.main_module.entity.EyesInfo;
 import com.matrix.yukun.matrix.main_module.entity.HistoryPlay;
 import com.matrix.yukun.matrix.util.DataUtils;
-import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import org.litepal.crud.DataSupport;
 

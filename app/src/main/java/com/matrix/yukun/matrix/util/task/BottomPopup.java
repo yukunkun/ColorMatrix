@@ -2,8 +2,8 @@ package com.matrix.yukun.matrix.util.task;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.support.annotation.CallSuper;
-import android.support.annotation.StyleRes;
+import androidx.annotation.CallSuper;
+import androidx.annotation.StyleRes;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;

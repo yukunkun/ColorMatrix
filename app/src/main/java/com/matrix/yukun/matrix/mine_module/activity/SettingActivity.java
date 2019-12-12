@@ -1,24 +1,18 @@
 package com.matrix.yukun.matrix.mine_module.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
+
+import androidx.appcompat.app.AppCompatDelegate;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ScrollView;
-import android.widget.Switch;
 import android.widget.TextView;
 
-import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
@@ -29,14 +23,11 @@ import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.mine_module.entity.EventClose;
 import com.matrix.yukun.matrix.mine_module.entity.WebType;
 import com.matrix.yukun.matrix.mine_module.view.FankuiDialog;
-import com.matrix.yukun.matrix.util.ActivityManager;
-import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.tencent.bugly.beta.Beta;
 
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 

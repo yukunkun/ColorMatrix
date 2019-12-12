@@ -2,14 +2,12 @@ package com.matrix.yukun.matrix.tool_module.map.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -19,29 +17,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
-import com.amap.api.maps.AMap;
-import com.amap.api.maps.CameraUpdateFactory;
-import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
-import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.model.MyLocationStyle;
-import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
-import com.amap.api.services.route.BusRouteResult;
-import com.amap.api.services.route.DrivePath;
-import com.amap.api.services.route.DriveRouteResult;
-import com.amap.api.services.route.RideRouteResult;
-import com.amap.api.services.route.RouteSearch;
-import com.amap.api.services.route.WalkPath;
-import com.amap.api.services.route.WalkRouteResult;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -54,18 +35,12 @@ import com.matrix.yukun.matrix.tool_module.map.adapter.NavMapAdapter;
 import com.matrix.yukun.matrix.tool_module.map.fragment.BusResultFragment;
 import com.matrix.yukun.matrix.tool_module.map.fragment.DriveResultFragment;
 import com.matrix.yukun.matrix.tool_module.map.fragment.WalkResultFragment;
-import com.matrix.yukun.matrix.tool_module.map.maputil.AMapInit;
-import com.matrix.yukun.matrix.tool_module.map.maputil.AMapUtil;
-import com.matrix.yukun.matrix.tool_module.map.overlay.DrivingRouteOverlay;
-import com.matrix.yukun.matrix.tool_module.map.overlay.WalkRouteOverlay;
-import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class NavMapActivity extends BaseActivity implements Inputtips.InputtipsListener {

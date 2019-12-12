@@ -1,8 +1,8 @@
 package com.miracle.view.imageeditor.view
 
 import android.content.Context
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,18 +19,18 @@ import com.miracle.view.imageeditor.layer.StickerUtils
  * Created by lxw
  */
 class StickerDetailsView(ctx: Context) : FrameLayout(ctx) {
-    private val stickerView: RecyclerView
+    private val stickerView: androidx.recyclerview.widget.RecyclerView
     var onStickerClickListener: OnStickerClickResult? = null
 
     init {
         LayoutInflater.from(ctx).inflate(R.layout.sticker_details, this, true)
-        stickerView = findViewById<RecyclerView>(R.id.rvSticker)
-        val layoutManager = GridLayoutManager(ctx, 8)
+        stickerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.rvSticker)
+        val layoutManager = androidx.recyclerview.widget.GridLayoutManager(ctx, 8)
         stickerView.adapter = SimpleStickerAdapter(Sticker.Emoji)
         stickerView.layoutManager = layoutManager
     }
 
-    inner class SimpleStickerAdapter(val sticker: Sticker) : RecyclerView.Adapter<SimpleStickerAdapter.SimpleStickerHolder>() {
+    inner class SimpleStickerAdapter(val sticker: Sticker) : androidx.recyclerview.widget.RecyclerView.Adapter<SimpleStickerAdapter.SimpleStickerHolder>() {
         val stickerResource: IntArray = StickerUtils.getStickers(sticker)!!
 
         override fun onBindViewHolder(holder: SimpleStickerHolder, position: Int) {
@@ -47,7 +47,7 @@ class StickerDetailsView(ctx: Context) : FrameLayout(ctx) {
 
         override fun getItemCount() = stickerResource.size
 
-        inner class SimpleStickerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        inner class SimpleStickerHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
             val iv = itemView.findViewById<ImageView>(R.id.ivSimpleSticker)
         }
     }

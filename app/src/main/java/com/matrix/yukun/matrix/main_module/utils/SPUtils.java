@@ -2,7 +2,7 @@ package com.matrix.yukun.matrix.main_module.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 
 import com.matrix.yukun.matrix.MyApp;
 

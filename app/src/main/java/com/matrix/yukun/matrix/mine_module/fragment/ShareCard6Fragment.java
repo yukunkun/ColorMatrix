@@ -3,7 +3,7 @@ package com.matrix.yukun.matrix.mine_module.fragment;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
+import androidx.cardview.widget.CardView;
 import android.transition.Explode;
 import android.transition.Scene;
 import android.transition.TransitionManager;

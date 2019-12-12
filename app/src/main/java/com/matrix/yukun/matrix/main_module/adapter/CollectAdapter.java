@@ -8,14 +8,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.haozhang.lib.SlantedTextView;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
@@ -30,7 +29,6 @@ import org.litepal.crud.DataSupport;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by yukun on 17-11-20.

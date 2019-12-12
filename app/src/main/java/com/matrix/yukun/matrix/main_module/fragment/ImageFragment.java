@@ -1,15 +1,14 @@
 package com.matrix.yukun.matrix.main_module.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -22,7 +21,6 @@ import com.matrix.yukun.matrix.main_module.dialog.ShareDialog;
 import com.matrix.yukun.matrix.main_module.entity.EventShowSecond;
 import com.matrix.yukun.matrix.main_module.entity.ImageInfo;
 import com.matrix.yukun.matrix.main_module.netutils.NetworkUtils;
-import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.OnTwoLevelListener;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
@@ -40,7 +38,6 @@ import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import okhttp3.Call;
 

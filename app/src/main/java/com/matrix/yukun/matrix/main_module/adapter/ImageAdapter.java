@@ -1,11 +1,10 @@
 package com.matrix.yukun.matrix.main_module.adapter;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
-import com.matrix.yukun.matrix.main_module.activity.TextDetailActivity;
 import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
 import com.matrix.yukun.matrix.main_module.entity.ImageInfo;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;

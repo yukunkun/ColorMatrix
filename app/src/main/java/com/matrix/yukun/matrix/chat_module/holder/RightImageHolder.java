@@ -1,6 +1,6 @@
 package com.matrix.yukun.matrix.chat_module.holder;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;

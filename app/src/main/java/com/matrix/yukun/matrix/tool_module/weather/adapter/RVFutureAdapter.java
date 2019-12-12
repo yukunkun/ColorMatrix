@@ -1,14 +1,13 @@
 package com.matrix.yukun.matrix.tool_module.weather.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.tool_module.weather.bean.WeaTomorrow;
 
 import java.util.List;
 

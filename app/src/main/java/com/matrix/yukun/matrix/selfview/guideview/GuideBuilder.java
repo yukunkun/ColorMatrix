@@ -1,8 +1,8 @@
 package com.matrix.yukun.matrix.selfview.guideview;
 
-import android.support.annotation.AnimatorRes;
-import android.support.annotation.IdRes;
-import android.support.annotation.IntRange;
+import androidx.annotation.AnimatorRes;
+import androidx.annotation.IdRes;
+import androidx.annotation.IntRange;
 import android.view.View;
 
 import java.util.ArrayList;

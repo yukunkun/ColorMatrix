@@ -12,7 +12,7 @@ import android.media.MediaCodecInfo;
 import android.media.MediaExtractor;
 import android.media.MediaFormat;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.util.Log;
 
 import com.matrix.yukun.matrix.tool_module.gif.utils.bitmap.FastYUVtoRGB;

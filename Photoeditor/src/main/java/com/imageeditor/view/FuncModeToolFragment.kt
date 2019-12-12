@@ -1,7 +1,7 @@
 package com.miracle.view.imageeditor.view
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +18,7 @@ import java.util.*
 /**
  * Created by lxw
  */
-class FuncModeToolFragment : Fragment(), EditorModeHandler {
+class FuncModeToolFragment : androidx.fragment.app.Fragment(), EditorModeHandler {
     private lateinit var mFuncModePanel: LinearLayout
     private lateinit var mFuncDetailsPanel: FrameLayout
     private var mSelectedMode: EditorMode? = null

@@ -1,7 +1,7 @@
 package com.matrix.yukun.matrix;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.iflytek.sunflower.FlowerCollector;
 import com.matrix.yukun.matrix.util.ActivityManager;

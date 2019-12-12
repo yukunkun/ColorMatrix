@@ -3,8 +3,8 @@ package com.miracle.view.imageeditor.layer
 import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.*
-import android.support.v4.util.ArrayMap
-import android.support.v4.view.ViewCompat
+import androidx.collection.ArrayMap
+import androidx.core.view.ViewCompat
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -40,7 +40,7 @@ abstract class BaseLayerView<T : SaveStateMarker> : View, LayerTransformer
     protected var displayBitmap: Bitmap? = null
     protected var displayCanvas: Canvas? = null
     /*saveState Info*/
-    protected var saveStateMap = ArrayMap<String, T>()
+    protected var saveStateMap = androidx.collection.ArrayMap<String, T>()
     /*gesture*/
     protected lateinit var gestureDetector: CustomGestureDetector
     protected val adInterpolator = AccelerateDecelerateInterpolator()
@@ -237,13 +237,13 @@ abstract class BaseLayerView<T : SaveStateMarker> : View, LayerTransformer
 
     //cache layer data.
     override fun saveLayerData(output: MutableMap<String, EditorCacheData>) {
-        output.put(getLayerTag(), EditorCacheData(ArrayMap<String, T>(saveStateMap)))
+        output.put(getLayerTag(), EditorCacheData(androidx.collection.ArrayMap<String, T>(saveStateMap)))
     }
 
     override fun restoreLayerData(input: MutableMap<String, EditorCacheData>) {
         val lastCache = input[getLayerTag()]
         lastCache?.let {
-            val restore = lastCache.layerCache as ArrayMap<String, T>
+            val restore = lastCache.layerCache as androidx.collection.ArrayMap<String, T>
             for (key in restore.keys) {
                 val value = restore[key]
                 value?.let {

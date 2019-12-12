@@ -2,7 +2,7 @@ package com.matrix.yukun.matrix.tool_module.notebook.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;

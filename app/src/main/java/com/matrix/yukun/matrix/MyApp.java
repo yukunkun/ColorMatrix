@@ -28,9 +28,9 @@ import com.zhy.http.okhttp.cookie.store.PersistentCookieStore;
 import org.litepal.LitePalApplication;
 import java.util.List;
 import cn.bmob.v3.Bmob;
-import cn.leancloud.AVLogger;
-import cn.leancloud.core.AVOSCloud;
-import cn.leancloud.session.AVConnectionManager;
+//import cn.leancloud.AVLogger;
+//import cn.leancloud.core.AVOSCloud;
+//import cn.leancloud.session.AVConnectionManager;
 import interfaces.heweather.com.interfacesmodule.view.HeConfig;
 
 /**
@@ -48,8 +48,8 @@ public class MyApp extends LitePalApplication{
         Beta.autoCheckUpgrade = false;//设置不自动检查
         Bugly.init(getApplicationContext(), "884e2d9286", false);
         Bmob.initialize(this, AppConstant.BMOBAPPID);
-        AVOSCloud.initialize(/*this, */AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY);
-        AVOSCloud.setLogLevel(AVLogger.Level.DEBUG);
+//        AVOSCloud.initialize(/*this, */AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY);
+//        AVOSCloud.setLogLevel(AVLogger.Level.DEBUG);
         String processName = getProcessName(this, android.os.Process.myPid());
         // android 7.0系统解决拍照的问题
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();

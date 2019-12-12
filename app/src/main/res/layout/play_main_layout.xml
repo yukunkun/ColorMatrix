@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -80,7 +80,7 @@
                 android:src="@mipmap/icon_share" />
         </RelativeLayout>
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/tablayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,13 +90,13 @@
             app:tabMinWidth="80dp"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/bg_blue"
-            app:tabTextColor="@color/color_2b2b2b"></android.support.design.widget.TabLayout>
-    </android.support.design.widget.AppBarLayout>
-   <android.support.v4.view.ViewPager
+            app:tabTextColor="@color/color_2b2b2b"></com.google.android.material.tabs.TabLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+   <androidx.viewpager.widget.ViewPager
        android:layout_width="match_parent"
        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_height="match_parent"
         android:id="@+id/viewpager">
-   </android.support.v4.view.ViewPager>
+   </androidx.viewpager.widget.ViewPager>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

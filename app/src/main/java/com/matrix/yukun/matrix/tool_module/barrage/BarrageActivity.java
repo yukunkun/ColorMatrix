@@ -3,7 +3,7 @@ package com.matrix.yukun.matrix.tool_module.barrage;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.PowerManager;
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;

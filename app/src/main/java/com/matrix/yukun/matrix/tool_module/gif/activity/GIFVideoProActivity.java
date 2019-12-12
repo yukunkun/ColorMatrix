@@ -2,7 +2,7 @@ package com.matrix.yukun.matrix.tool_module.gif.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;

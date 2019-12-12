@@ -2,7 +2,7 @@ package com.matrix.yukun.matrix.tool_module.map.fragment;
 
 import android.location.Location;
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,13 +43,6 @@ import com.matrix.yukun.matrix.tool_module.map.overlay.BusRouteOverlay;
 import com.matrix.yukun.matrix.tool_module.map.overlay.DrivingRouteOverlay;
 import com.matrix.yukun.matrix.tool_module.map.overlay.WalkRouteOverlay;
 import com.matrix.yukun.matrix.util.log.LogUtil;
-
-import java.util.Arrays;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * author: kun .

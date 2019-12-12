@@ -1,16 +1,14 @@
 package com.matrix.yukun.matrix.main_module.activity;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -28,7 +26,6 @@ import com.matrix.yukun.matrix.main_module.dialog.ImageDownLoadDialog;
 import com.matrix.yukun.matrix.util.StatusBarUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import uk.co.senab.photoview.PhotoView;
 

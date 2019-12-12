@@ -45,7 +45,7 @@
         android:layout_marginRight="@dimen/dimens_45"
         android:layout_centerInParent="true"
         android:layout_height="wrap_content">
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/card"
             android:layout_centerInParent="true"
             app:cardBackgroundColor="@color/colorAccent"
@@ -150,7 +150,7 @@
 
                 </LinearLayout>
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
 </RelativeLayout>

@@ -2,9 +2,9 @@ package com.matrix.yukun.matrix.download_module;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.support.annotation.IdRes;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import androidx.annotation.IdRes;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;

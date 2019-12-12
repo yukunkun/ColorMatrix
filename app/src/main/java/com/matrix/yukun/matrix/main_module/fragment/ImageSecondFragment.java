@@ -1,39 +1,26 @@
 package com.matrix.yukun.matrix.main_module.fragment;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.main_module.adapter.ImageAdapter;
 import com.matrix.yukun.matrix.main_module.adapter.RVPlayAllAdapter;
-import com.matrix.yukun.matrix.main_module.adapter.ShareCallBack;
-import com.matrix.yukun.matrix.main_module.dialog.ShareDialog;
-import com.matrix.yukun.matrix.main_module.entity.ImageInfo;
 import com.matrix.yukun.matrix.main_module.entity.PlayAllBean;
-import com.matrix.yukun.matrix.main_module.netutils.NetworkUtils;
-import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.SpacesItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-import org.greenrobot.eventbus.EventBus;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.litepal.crud.DataSupport;

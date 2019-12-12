@@ -44,11 +44,11 @@
             android:layout_height="@dimen/dimens_40" />
     </RelativeLayout>
     <include layout="@layout/include_line_no_marg"/>
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:background="@color/color_write"
         android:layout_height="match_parent">
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_layout"
             android:layout_width="match_parent"
             android:fitsSystemWindows="true"
@@ -235,17 +235,17 @@
                     </LinearLayout>
                 </LinearLayout>
                <include layout="@layout/include_line_no_marg"/>
-        </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
             <RelativeLayout
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv"
                     android:background="@color/color_eaeaea"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                </android.support.v7.widget.RecyclerView>
+                </androidx.recyclerview.widget.RecyclerView>
                 <RelativeLayout
                     android:id="@+id/rl_remind"
                     android:visibility="visible"
@@ -270,6 +270,6 @@
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
             </RelativeLayout>
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </LinearLayout>

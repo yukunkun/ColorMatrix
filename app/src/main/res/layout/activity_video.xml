@@ -81,13 +81,13 @@
             android:layout_marginTop="@dimen/dimens_10"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimens_40">
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_gallary"
                 android:layout_centerVertical="true"
                 android:layout_width="match_parent"
                 android:layout_marginRight="@dimen/dimens_70"
                 android:layout_height="match_parent">
-            </android.support.v7.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
             <TextView
                 android:id="@+id/tv_clip"
                 android:text="开始裁剪"
@@ -101,12 +101,12 @@
                 android:layout_width="@dimen/dimens_60"
                 android:layout_height="@dimen/dimens_30" />
         </RelativeLayout>
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_marginTop="@dimen/dimens_12"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimens_80">
-        </android.support.v7.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
 
         <TextView
             android:id="@+id/tv_product_gif"

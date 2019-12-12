@@ -3,7 +3,7 @@ package com.matrix.yukun.matrix.main_module.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +29,6 @@ import com.matrix.yukun.matrix.tool_module.internet.NetActivity;
 import com.matrix.yukun.matrix.tool_module.notebook.activity.NoteActivity;
 import com.matrix.yukun.matrix.tool_module.qrcode.QRCodeActivity;
 import com.matrix.yukun.matrix.tool_module.videorecord.ProductVideoActivity;
-import com.matrix.yukun.matrix.tool_module.weather.WeatherActivity;
 import com.matrix.yukun.matrix.tool_module.weather.activity.HeWeatherActivity;
 
 import java.util.HashMap;

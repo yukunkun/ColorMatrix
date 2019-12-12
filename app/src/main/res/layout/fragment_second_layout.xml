@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </WebView>
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/bt_add_conference"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"

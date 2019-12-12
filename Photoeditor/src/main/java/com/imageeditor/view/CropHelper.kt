@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.graphics.Rect
 import android.graphics.RectF
-import android.support.v4.util.ArrayMap
+import androidx.collection.ArrayMap
 import com.imageeditor.LayerViewProvider
 import com.imageeditor.Utils
 import com.miracle.view.imageeditor.bean.CropSaveState
@@ -28,7 +28,7 @@ class CropHelper(private val mCropView: CropView, private val mCropDetailsView: 
     private val mRootEditorDelegate = mProvider.getRootEditorDelegate()
     private val mFuncAndActionBarAnimHelper = mProvider.getFuncAndActionBarAnimHelper()
     private val mLayerComposite = mProvider.getLayerCompositeView()
-    private val mSavedStateMap = ArrayMap<String, CropSaveState>()
+    private val mSavedStateMap = androidx.collection.ArrayMap<String, CropSaveState>()
 
     init {
         mCropView.onCropViewUpdatedListener = object : CropView.OnCropViewUpdatedListener {
@@ -225,7 +225,7 @@ class CropHelper(private val mCropView: CropView, private val mCropDetailsView: 
         mCropSaveState?.let {
             it.reset()
             mSavedStateMap.put(tag, it)
-            output.put(tag, EditorCacheData(ArrayMap<String, CropSaveState>(mSavedStateMap)))
+            output.put(tag, EditorCacheData(androidx.collection.ArrayMap<String, CropSaveState>(mSavedStateMap)))
         }
         mCropSaveState ?: let {
             output.remove(tag)
@@ -252,7 +252,7 @@ class CropHelper(private val mCropView: CropView, private val mCropDetailsView: 
         val tag = getLayerTag()
         val cachedData = input[tag]
         cachedData?.let {
-            val layerCache = it.layerCache as ArrayMap<String, CropSaveState>
+            val layerCache = it.layerCache as androidx.collection.ArrayMap<String, CropSaveState>
             if (!layerCache.isEmpty) {
                 val result = layerCache[tag]
                 mCropSaveState = result?.deepCopy() as CropSaveState?

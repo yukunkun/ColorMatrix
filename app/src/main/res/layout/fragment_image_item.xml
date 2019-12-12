@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_e6e6e6">
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_marginRight="@dimen/dimens_5"
         android:layout_marginLeft="@dimen/dimens_5"
         android:layout_marginTop="@dimen/dimens_3"
@@ -41,5 +41,5 @@
                 android:layout_width="@dimen/dimens_35"
                 android:layout_height="@dimen/dimens_35" />
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

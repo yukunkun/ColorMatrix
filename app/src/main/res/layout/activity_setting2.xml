@@ -27,12 +27,12 @@
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"/>
     </RelativeLayout>
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp_card"
         android:layout_marginTop="@dimen/dimens_30"
         android:layout_width="match_parent"
         android:layout_height="430dp">
-    </android.support.v4.view.ViewPager>
+    </androidx.viewpager.widget.ViewPager>
     <RadioGroup
         android:id="@+id/rg_layout"
         android:layout_marginTop="@dimen/dimens_12"

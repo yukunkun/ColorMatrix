@@ -44,12 +44,12 @@
     <View android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/color_9b2f4de6"/>
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:orientation="vertical"
         android:background="@color/color_write"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:background="@color/color_whit"
             app:elevation="0dp"
             android:fitsSystemWindows="true"
@@ -84,18 +84,18 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent" />
             </LinearLayout>
-        </android.support.design.widget.AppBarLayout>
-        <android.support.v4.widget.SwipeRefreshLayout
+        </com.google.android.material.appbar.AppBarLayout>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/sw_refresh"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_list"
                 android:background="@color/colorBackground"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            </android.support.v7.widget.RecyclerView>
-        </android.support.v4.widget.SwipeRefreshLayout>
-    </android.support.design.widget.CoordinatorLayout>
+            </androidx.recyclerview.widget.RecyclerView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>

@@ -3,7 +3,7 @@ package com.miracle.view.imageeditor.layer
 import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.*
-import android.support.v4.util.ArrayMap
+import androidx.collection.ArrayMap
 import android.util.AttributeSet
 import android.view.MotionEvent
 import com.imageeditor.*
@@ -21,7 +21,7 @@ abstract class BasePastingLayerView<T : PastingSaveStateMarker> : BaseLayerView<
     var onLayerViewDoubleClick: OnLayerViewDoubleClick? = null
     var dragViewRect: RectF = RectF()
     /*pasting info...*/
-    protected val pastingMap = ArrayMap<String, RectF>()
+    protected val pastingMap = androidx.collection.ArrayMap<String, RectF>()
     protected var pastingOutOfBound = false
     protected var pastingDoubleClick = false
     protected var currentPastingState: T? = null

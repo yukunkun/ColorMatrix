@@ -1,12 +1,10 @@
 package com.matrix.yukun.matrix.tool_module.cropmap;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
+import androidx.core.content.FileProvider;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -18,7 +16,6 @@ import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.tool_module.garrary.bean.EventDetail;
-import com.matrix.yukun.matrix.tool_module.qrcode.cropper.BitmapUtil;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
