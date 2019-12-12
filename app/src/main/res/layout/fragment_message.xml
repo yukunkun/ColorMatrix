@@ -1,65 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:id="@+id/rl_contain"
-        android:paddingTop="@dimen/dimens_25"
+        android:layout_height="75dp"
         android:background="@color/color_2e6891"
-        android:layout_height="75dp">
+        android:paddingTop="@dimen/dimens_25">
+
         <ImageView
+            android:id="@+id/iv_contact"
             android:layout_width="@dimen/dimens_40"
-            android:src="@mipmap/icon_message_contact"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:padding="@dimen/dimens_5"
-            android:background="?android:attr/selectableItemBackground"
-            android:id="@+id/iv_main"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="5dp"
-            android:layout_centerVertical="true"
-            android:layout_height="match_parent"/>
-        <TextView android:layout_width="wrap_content"
-            android:gravity="center"
-            android:text="小密圈"
-            android:textSize="18sp"
-            android:textColor="@color/color_write"
-            android:layout_centerHorizontal="true"
-            android:layout_height="match_parent"/>
-        <ImageView
-            android:layout_width="40dp"
-            android:clickable="true"
-            android:background="?android:attr/selectableItemBackground"
-            android:src="@mipmap/ic_explore_search_pressed"
-            android:id="@+id/iv_search"
-            android:padding="@dimen/dimens_3"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_height="match_parent"/>
-    </RelativeLayout>
-    <View android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/color_9b2f4de6"/>
-    <android.support.design.widget.CoordinatorLayout
-        android:orientation="vertical"
-        android:background="@color/color_write"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.design.widget.AppBarLayout
-            android:background="@color/color_whit"
-            app:elevation="0dp"
-            android:fitsSystemWindows="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:src="@mipmap/icon_message_contact" />
 
-        </android.support.design.widget.AppBarLayout>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_list"
-                android:background="@color/colorBackground"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </android.support.v7.widget.RecyclerView>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/secret_circle"
+            android:textColor="@color/color_write"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/iv_add"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:padding="@dimen/dimens_3"
+            android:src="@mipmap/add" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_9b2f4de6" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_write"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_whit"
+            android:fitsSystemWindows="true"
+            app:elevation="0dp"></android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground"></android.support.v7.widget.RecyclerView>
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

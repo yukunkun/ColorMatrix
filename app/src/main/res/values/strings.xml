@@ -57,6 +57,8 @@
     <string name="nav">导航</string>
     <string name="copy_to_save">已经复制到剪切板</string>
     <string name="copy_to_jianjieban">复制到剪切板</string>
+    <string name="secret_circle">小密圈</string>
+    <string name="logining">登录中...</string>
     <string-array name="calendar_week">
         <item>日</item>
         <item>一</item>

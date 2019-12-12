@@ -29,6 +29,7 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.chat_module.ChatMemberActivity;
 import com.matrix.yukun.matrix.download_module.DownLoadActivity;
+import com.matrix.yukun.matrix.leancloud_module.LeanCloudInit;
 import com.matrix.yukun.matrix.main_module.activity.HistoryTodayActivity;
 import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 import com.matrix.yukun.matrix.main_module.activity.MViewPagerAdapter;
@@ -364,6 +365,7 @@ public class PlayFragment extends BaseFragment {
             mTvName.setText(MyApp.userInfo.getName());
             mTvSig.setText("签名：" + MyApp.userInfo.getSignature());
             mTvClose.setText("退出");
+            LeanCloudInit.getInstance().init(MyApp.userInfo.getId());
         }
     }
 
@@ -417,6 +419,7 @@ public class PlayFragment extends BaseFragment {
             mTvSig.setText(getContext().getResources().getString(R.string.title_content));
             mTvClose.setText("登录");
             DataSupport.deleteAll(UserInfo.class);
+            LeanCloudInit.getInstance().logout();
             MyApp.setUserInfo(null);
             Intent intent = new Intent(getContext(), LoginActivity.class);
             startActivity(intent);

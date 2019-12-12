@@ -61,7 +61,7 @@
             android:button="@null"
             android:drawableTop="@drawable/live_section_message"
             android:gravity="center"
-            android:text="小秘圈"
+            android:text="@string/secret_circle"
             android:textColor="@drawable/selector_main_text" />
 
         <RadioButton

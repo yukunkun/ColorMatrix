@@ -60,6 +60,7 @@ public class MyApp extends LitePalApplication{
         updateNight();
         //服务
         DownLoadService.start(this);
+
         //  内存泄漏监测
 //        if (LeakCanary.isInAnalyzerProcess(this)) {
 //            // 判断是否和 LeakCanary 初始化同一进程

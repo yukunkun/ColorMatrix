@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.leancloud_module.LeanCloudInit;
 import com.matrix.yukun.matrix.main_module.activity.BriefVersionActivity;
 import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 import com.matrix.yukun.matrix.main_module.activity.PlayMainActivity;
@@ -243,6 +244,7 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
             Gson gson=new Gson();
             UserInfoBMob userInfoBMob = gson.fromJson(user, UserInfoBMob.class);
             MyApp.setUserInfo(userInfoBMob);
+            LeanCloudInit.getInstance().init(userInfoBMob.getId());
         }
     }
 

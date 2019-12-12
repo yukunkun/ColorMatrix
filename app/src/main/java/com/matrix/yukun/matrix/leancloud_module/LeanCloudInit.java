@@ -1,5 +1,9 @@
 package com.matrix.yukun.matrix.leancloud_module;
 
+import cn.leancloud.im.v2.AVIMClient;
+import cn.leancloud.im.v2.AVIMException;
+import cn.leancloud.im.v2.callback.AVIMClientCallback;
+
 /**
  * author: kun .
  * date:   On 2019/12/12
@@ -7,6 +11,8 @@ package com.matrix.yukun.matrix.leancloud_module;
 public class LeanCloudInit {
 
     public static LeanCloudInit mLeanCloudInit = new LeanCloudInit();
+    private AVIMClient mAvimClient;
+    private boolean isLogionleanCloud=false;
 
     public LeanCloudInit() {
     }
@@ -15,8 +21,37 @@ public class LeanCloudInit {
         return mLeanCloudInit;
     }
 
-    public void init(){
-
+    public void init(String userId){
+        mAvimClient = AVIMClient.getInstance(userId);
+        mAvimClient.open(new AVIMClientCallback() {
+            @Override
+            public void done(AVIMClient client, AVIMException e) {
+                if(e==null){
+                    isLogionleanCloud=true;
+                }
+            }
+        });
     }
 
+    public boolean isLogionleanCloud() {
+        return isLogionleanCloud;
+    }
+
+    public void setAvimClient(AVIMClient avimClient) {
+        mAvimClient = avimClient;
+    }
+
+    public void logout(){
+        if(mAvimClient!=null){
+            mAvimClient.close(new AVIMClientCallback() {
+                @Override
+                public void done(AVIMClient client, AVIMException e) {
+                    if(e!=null){
+                        mAvimClient=null;
+                        isLogionleanCloud=false;
+                    }
+                }
+            });
+        }
+    }
 }

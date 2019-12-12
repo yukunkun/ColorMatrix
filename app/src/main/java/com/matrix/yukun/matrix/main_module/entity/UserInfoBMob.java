@@ -7,6 +7,7 @@ import cn.bmob.v3.BmobObject;
  * date:   On 2019/11/14
  */
 public class UserInfoBMob extends BmobObject {
+    private String id;
     private String key;
     private String account;
     private String phone;
@@ -17,6 +18,14 @@ public class UserInfoBMob extends BmobObject {
     private String signature;
     private String gender;
     private String createTime;
+
+    public String getId() {
+        return getObjectId();
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getAccount() {
         return account;
@@ -96,5 +105,21 @@ public class UserInfoBMob extends BmobObject {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfoBMob{" +
+                "key='" + key + '\'' +
+                ", account='" + account + '\'' +
+                ", phone='" + phone + '\'' +
+                ", name='" + name + '\'' +
+                ", passwd='" + passwd + '\'' +
+                ", text='" + text + '\'' +
+                ", avator='" + avator + '\'' +
+                ", signature='" + signature + '\'' +
+                ", gender='" + gender + '\'' +
+                ", createTime='" + createTime + '\'' +
+                '}';
     }
 }
