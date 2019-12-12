@@ -1,63 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl"
-    android:layout_height="match_parent"
-    >
-    <FrameLayout android:layout_width="match_parent"
-                 android:id="@+id/fl_layout"
-                 android:layout_marginBottom="54dp"
-                 android:layout_height="match_parent">
-    </FrameLayout>
-    <View android:layout_width="match_parent"
-          android:background="@color/color_eaeaea"
-          android:layout_alignParentBottom="true"
-          android:layout_marginBottom="54dp"
-          android:layout_height="0.5dp" />
-        <RadioGroup android:layout_width="match_parent"
-            android:paddingTop="4dp"
-                    android:id="@+id/rg"
-                    android:orientation="horizontal"
-                    android:background="@color/color_write"
-                    android:layout_height="54dp"
-                    android:layout_alignParentBottom="true">
-            <RadioButton android:id="@+id/index"
-                         android:layout_width="0dp"
-                         android:layout_weight="1"
-                         android:text="首页"
-                         android:textColor="@drawable/selector_main_text"
-                         android:layout_height="wrap_content"
-                         android:button="@null"
-                         android:gravity="center"
-                         android:drawableTop="@drawable/live_section_index"/>
-                <RadioButton android:id="@+id/gaia"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:text="gaia"
-                    android:textColor="@drawable/selector_main_text"
-                    android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:drawableTop="@drawable/live_section_gaia"/>
-            <RadioButton android:layout_width="0dp"
-                         android:layout_weight="1"
-                         android:id="@+id/collect"
-                         android:button="@null"
-                         android:text="工具"
-                         android:gravity="center"
-                         android:textColor="@drawable/selector_main_text"
-                         android:drawableTop="@drawable/live_section_circle"
-                         android:layout_height="wrap_content"/>
-            <RadioButton android:layout_width="0dp"
-                         android:layout_weight="1"
-                         android:button="@null"
-                         android:id="@+id/me"
-                         android:text="我的"
-                         android:textColor="@drawable/selector_main_text"
-                         android:drawableTop="@drawable/live_section_me"
-                         android:gravity="center"
-                         android:layout_height="wrap_content"/>
-        </RadioGroup>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/fl_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dimens_50"></FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dimens_50"
+        android:background="@color/color_eaeaea" />
+
+    <RadioGroup
+        android:id="@+id/rg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_50"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_write"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="4dp">
+        <!-- 图片颜色 707070 1296db -->
+        <RadioButton
+            android:id="@+id/index"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="@dimen/sp_12"
+            android:button="@null"
+            android:drawableTop="@drawable/live_section_index"
+            android:gravity="center"
+            android:text="首页"
+            android:textColor="@drawable/selector_main_text" />
+
+        <RadioButton
+            android:id="@+id/gaia"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="@dimen/sp_12"
+            android:button="@null"
+            android:drawableTop="@drawable/live_section_gaia"
+            android:gravity="center"
+            android:text="gaia"
+            android:textColor="@drawable/selector_main_text" />
+        <RadioButton
+            android:id="@+id/chat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="@dimen/sp_12"
+
+            android:button="@null"
+            android:drawableTop="@drawable/live_section_message"
+            android:gravity="center"
+            android:text="小秘圈"
+            android:textColor="@drawable/selector_main_text" />
+
+        <RadioButton
+            android:id="@+id/collect"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="@dimen/sp_12"
+            android:button="@null"
+            android:drawableTop="@drawable/live_section_circle"
+            android:gravity="center"
+            android:text="工具"
+            android:textColor="@drawable/selector_main_text" />
+
+        <RadioButton
+            android:id="@+id/me"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="@dimen/sp_12"
+            android:button="@null"
+            android:drawableTop="@drawable/live_section_me"
+            android:gravity="center"
+            android:text="我的"
+            android:textColor="@drawable/selector_main_text" />
+    </RadioGroup>
 </RelativeLayout>

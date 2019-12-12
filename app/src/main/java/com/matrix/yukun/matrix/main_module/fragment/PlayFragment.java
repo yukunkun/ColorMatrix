@@ -23,7 +23,6 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationListener;
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
@@ -40,9 +39,7 @@ import com.matrix.yukun.matrix.main_module.entity.EventCategrayPos;
 import com.matrix.yukun.matrix.main_module.entity.EventShowSecond;
 import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
 import com.matrix.yukun.matrix.main_module.entity.UserInfo;
-import com.matrix.yukun.matrix.main_module.entity.Weather;
 import com.matrix.yukun.matrix.main_module.main.SearchActivity;
-import com.matrix.yukun.matrix.main_module.netutils.NetworkUtils;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
@@ -54,30 +51,22 @@ import com.matrix.yukun.matrix.selfview.guideview.SimpleComponent;
 import com.matrix.yukun.matrix.selfview.guideview.SimpleComponent2;
 import com.matrix.yukun.matrix.tool_module.btmovie.SpecialActivity;
 import com.matrix.yukun.matrix.tool_module.weather.activity.HeWeatherActivity;
-import com.matrix.yukun.matrix.tool_module.weather.bean.OnEventpos;
 import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.zhy.http.okhttp.callback.StringCallback;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
-//import cn.leancloud.AVObject;
+import cn.leancloud.AVObject;
 import de.hdodenhof.circleimageview.CircleImageView;
 import interfaces.heweather.com.interfacesmodule.bean.Code;
 import interfaces.heweather.com.interfacesmodule.bean.weather.now.Now;
 import interfaces.heweather.com.interfacesmodule.bean.weather.now.NowBase;
 import interfaces.heweather.com.interfacesmodule.view.HeWeather;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
-import okhttp3.Call;
 
 /**
  * Created by yukun on 18-1-2.
@@ -217,9 +206,6 @@ public class PlayFragment extends BaseFragment {
             getWeather(SPUtils.getInstance().getString("city"));
             ivUpdate.setVisibility(View.GONE);
         }
-//        AVObject testObject = new AVObject("TestObject");
-//        testObject.put("words", "Hello world!");
-//        testObject.saveInBackground().blockingSubscribe();
     }
 
     private void getWeather(String city) {

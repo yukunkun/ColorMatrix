@@ -28,11 +28,9 @@ import com.zhy.http.okhttp.cookie.store.PersistentCookieStore;
 import org.litepal.LitePalApplication;
 import java.util.List;
 import cn.bmob.v3.Bmob;
-//import cn.leancloud.AVLogger;
-//import cn.leancloud.AVOSCloud;
-//import cn.leancloud.AVLogger;
+import cn.leancloud.AVLogger;
+import cn.leancloud.core.AVOSCloud;
 import interfaces.heweather.com.interfacesmodule.view.HeConfig;
-import okhttp3.OkHttpClient;
 
 /**
  * Created by yukun on 17-1-24.
@@ -49,8 +47,8 @@ public class MyApp extends LitePalApplication{
         Beta.autoCheckUpgrade = false;//设置不自动检查
         Bugly.init(getApplicationContext(), "884e2d9286", false);
         Bmob.initialize(this, AppConstant.BMOBAPPID);
-//        AVOSCloud.setLogLevel(AVLogger.Level.DEBUG);
-//        AVOSCloud.initialize(this, AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY, "https://eggtbmvr.lc-cn-n1-shared.com");
+        AVOSCloud.setLogLevel(AVLogger.Level.DEBUG);
+        AVOSCloud.initialize(/*this, */AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY);
 
         String processName = getProcessName(this, android.os.Process.myPid());
         // android 7.0系统解决拍照的问题
