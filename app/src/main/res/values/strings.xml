@@ -5,7 +5,6 @@
     <string name="wapper">透明壁纸</string>
     <!--<string name="app_name">剪 图</string>-->
     <string name="hello_world">测试AudioRecord，实现录音功能</string>
-
     <string name="error_no_sdcard">没有SD卡，无法存储录音数据</string>
     <string name="error_state_record">正在录音中，请先停止录音</string>
     <string name="error_unknown">无法识别的错误</string>
@@ -58,7 +57,7 @@
     <string name="copy_to_save">已经复制到剪切板</string>
     <string name="copy_to_jianjieban">复制到剪切板</string>
     <string name="secret_circle">小密圈</string>
-    <string name="logining">登录中...</string>
+    <string name="logining">连接中...</string>
     <string-array name="calendar_week">
         <item>日</item>
         <item>一</item>

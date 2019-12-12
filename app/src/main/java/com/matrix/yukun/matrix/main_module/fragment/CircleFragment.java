@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.BaseFragment;
+import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.gaia_module.adapter.RVGaiaAdapter;
 import com.matrix.yukun.matrix.gaia_module.bean.BannerInfo;
@@ -18,6 +20,11 @@ import com.matrix.yukun.matrix.gaia_module.bean.GaiaIndexBean;
 import com.matrix.yukun.matrix.leancloud_module.LeanCloudInit;
 import com.matrix.yukun.matrix.leancloud_module.adapter.RVContactAdapter;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
+import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +33,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.leancloud.AVObject;
+import cn.leancloud.session.AVConnectionManager;
 
 /**
  * author: kun .
@@ -58,16 +67,21 @@ public class CircleFragment extends BaseFragment {
 
     @Override
     public void initView(View inflate, Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         mLinearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         rvList.setLayoutManager(mLinearLayoutManager);
         mRvContactAdapter = new RVContactAdapter(R.layout.contact_item_layout,mContactInfos);
         rvList.setAdapter(mRvContactAdapter);
+        updateTitle();
+        initData();
+    }
+
+    private void updateTitle() {
         if(!LeanCloudInit.getInstance().isLogionleanCloud()){
             tvTitle.setText(getString(R.string.logining));
         }else {
             tvTitle.setText(getString(R.string.secret_circle));
         }
-        initData();
     }
 
     public void initListener() {
@@ -88,9 +102,17 @@ public class CircleFragment extends BaseFragment {
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateHeader(EventUpdateHeader eventUpdateHeader) {
+        if (MyApp.userInfo != null) {
+            LeanCloudInit.getInstance().init(MyApp.userInfo.getId());
+            tvTitle.setText(getString(R.string.secret_circle));
+        }
+    }
 
     @Override
     public void onDestroy() {
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 

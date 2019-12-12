@@ -1,8 +1,13 @@
 package com.matrix.yukun.matrix.leancloud_module;
 
+import com.matrix.yukun.matrix.util.log.LogUtil;
+
 import cn.leancloud.im.v2.AVIMClient;
+import cn.leancloud.im.v2.AVIMConversation;
 import cn.leancloud.im.v2.AVIMException;
 import cn.leancloud.im.v2.callback.AVIMClientCallback;
+import cn.leancloud.im.v2.callback.AVIMClientStatusCallback;
+import cn.leancloud.im.v2.callback.AVIMConversationCreatedCallback;
 
 /**
  * author: kun .
@@ -27,18 +32,24 @@ public class LeanCloudInit {
             @Override
             public void done(AVIMClient client, AVIMException e) {
                 if(e==null){
+                    LogUtil.i("登录leancloud成功");
                     isLogionleanCloud=true;
+                }else {
+                    LogUtil.i("登录leancloud失败:"+e.toString() +" "+userId);
                 }
             }
         });
+        mAvimClient.getClientStatus(new AVIMClientStatusCallback() {
+            @Override
+            public void done(AVIMClient.AVIMClientStatus client) {
+                LogUtil.i("state "+client.name());
+            }
+        });
+
     }
 
     public boolean isLogionleanCloud() {
         return isLogionleanCloud;
-    }
-
-    public void setAvimClient(AVIMClient avimClient) {
-        mAvimClient = avimClient;
     }
 
     public void logout(){
@@ -46,7 +57,7 @@ public class LeanCloudInit {
             mAvimClient.close(new AVIMClientCallback() {
                 @Override
                 public void done(AVIMClient client, AVIMException e) {
-                    if(e!=null){
+                    if(e==null){
                         mAvimClient=null;
                         isLogionleanCloud=false;
                     }

@@ -133,7 +133,6 @@ public class PlayFragment extends BaseFragment {
     private MViewPagerAdapter mMViewPagerAdapter;
     private String[] mStringArray;
     private List<Fragment> mFragments = new ArrayList<>();
-    private String weatherURL = "https://www.apiopen.top/weatherApi";
     private VideoFragment mInstance1;
     private ImageFragment mInstance3;
     private TextFragment mInstance4;
@@ -365,7 +364,6 @@ public class PlayFragment extends BaseFragment {
             mTvName.setText(MyApp.userInfo.getName());
             mTvSig.setText("签名：" + MyApp.userInfo.getSignature());
             mTvClose.setText("退出");
-            LeanCloudInit.getInstance().init(MyApp.userInfo.getId());
         }
     }
 

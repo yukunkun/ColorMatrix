@@ -29,7 +29,7 @@ public class AppConstant {
     public static final String LOG = PATH+"/log";
     public static final String BMOBAPPID="25ed2d0072c0cf5b715fac0d30237f89";
     public static final String BMOBAPPKEY="01bdd37c4830a72bc0163f2ad9786fd7";
-    public static final String LEANCLOUDKEY="3vd97GvqGWtK2KCiLC7mj1ED";
     public static final String LEANCLOUDID="EGgTbmvR84fI6PlbnuLeGlAQ-gzGzoHsz";
+    public static final String LEANCLOUDKEY="3vd97GvqGWtK2KCiLC7mj1ED";
 
 }
