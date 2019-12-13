@@ -40,13 +40,6 @@ public class LeanCloudInit {
                 }
             }
         });
-//        mAvimClient.getClientStatus(new AVIMClientStatusCallback() {
-//            @Override
-//            public void done(AVIMClient.AVIMClientStatus client) {
-//                LogUtil.i("state "+client.name());
-//            }
-//        });
-
     }
 
     public boolean isLogionleanCloud() {
