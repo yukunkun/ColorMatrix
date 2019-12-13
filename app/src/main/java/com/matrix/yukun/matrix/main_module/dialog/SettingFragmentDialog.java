@@ -13,13 +13,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.entity.EventCategrayPos;
-
 import org.greenrobot.eventbus.EventBus;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -30,11 +26,11 @@ import butterknife.OnClick;
 
 public class SettingFragmentDialog extends DialogFragment {
 
-    @BindView(R2.id.iv_close)
+    @BindView(R.id.iv_close)
     ImageView mIvClose;
-    @BindView(R2.id.ll_lin)
+    @BindView(R.id.ll_lin)
     LinearLayout mLlLin;
-    @BindView(R2.id.ll_gril)
+    @BindView(R.id.ll_gril)
     LinearLayout mLlGril;
 
     public static SettingFragmentDialog getInstance() {
@@ -68,7 +64,7 @@ public class SettingFragmentDialog extends DialogFragment {
         }
     }
 
-    @OnClick({R2.id.iv_close, R2.id.ll_lin, R2.id.ll_gril, R2.id.ll_call})
+    @OnClick({R.id.iv_close, R.id.ll_lin, R.id.ll_gril, R.id.ll_call})
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.iv_close) {

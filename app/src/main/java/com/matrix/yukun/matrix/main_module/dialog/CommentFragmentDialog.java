@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.activity.VideoCommentActivity;
 import com.matrix.yukun.matrix.main_module.adapter.RVCommentAdapter;
 import com.matrix.yukun.matrix.main_module.entity.VideoCommentBean;
@@ -48,13 +47,13 @@ import okhttp3.Call;
 
 public class CommentFragmentDialog extends DialogFragment {
 
-    @BindView(R2.id.rl_remind)
+    @BindView(R.id.rl_remind)
     RelativeLayout mRlRemind;
-    @BindView(R2.id.iv_close)
+    @BindView(R.id.iv_close)
     ImageView mIvClose;
-    @BindView(R2.id.tv_more_comment)
+    @BindView(R.id.tv_more_comment)
     TextView mTvComment;
-    @BindView(R2.id.recyclerview)
+    @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
     private static String mVideoId;
     List<VideoCommentBean> mVideoCommentBeans=new ArrayList<>();
@@ -139,7 +138,7 @@ public class CommentFragmentDialog extends DialogFragment {
         }
     }
 
-    @OnClick({R2.id.iv_close, R2.id.tv_more_comment})
+    @OnClick({R.id.iv_close, R.id.tv_more_comment})
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.iv_close) {

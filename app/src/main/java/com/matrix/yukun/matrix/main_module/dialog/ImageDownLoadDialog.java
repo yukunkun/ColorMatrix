@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.utils.DownLoadUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 
@@ -36,15 +35,15 @@ import butterknife.OnClick;
 
 public class ImageDownLoadDialog extends DialogFragment {
 
-    @BindView(R2.id.iv_close)
+    @BindView(R.id.iv_close)
     ImageView mIvClose;
-    @BindView(R2.id.ll_download)
+    @BindView(R.id.ll_download)
     RelativeLayout mLlDownload;
-    @BindView(R2.id.ll_share)
+    @BindView(R.id.ll_share)
     RelativeLayout mLlShare;
-    @BindView(R2.id.ll_copy)
+    @BindView(R.id.ll_copy)
     RelativeLayout mLlCopy;
-    @BindView(R2.id.ll_internet)
+    @BindView(R.id.ll_internet)
     RelativeLayout mLlInternet;
     private static String mUrl;
 
@@ -80,7 +79,7 @@ public class ImageDownLoadDialog extends DialogFragment {
         }
     }
 
-    @OnClick({R2.id.iv_close, R2.id.ll_call, R.id.ll_download, R.id.ll_share,R.id.ll_copy,R.id.ll_internet})
+    @OnClick({R.id.iv_close, R.id.ll_call, R.id.ll_download, R.id.ll_share,R.id.ll_copy,R.id.ll_internet})
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.iv_close) {

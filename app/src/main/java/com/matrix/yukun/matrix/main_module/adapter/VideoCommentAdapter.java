@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
 import com.matrix.yukun.matrix.main_module.entity.EyesInfo;
 
@@ -72,11 +71,11 @@ public class VideoCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     class MHolder extends RecyclerView.ViewHolder {
-        @BindView(R2.id.cv_header)
+        @BindView(R.id.cv_header)
         CircleImageView mCvHead;
-        @BindView(R2.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView mTvName;
-        @BindView(R2.id.tv_des)
+        @BindView(R.id.tv_des)
         TextView mTvDes;
         @BindView(R.id.iv_comment_bg)
         ImageView mImageView;

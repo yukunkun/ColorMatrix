@@ -14,7 +14,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.adapter.RVCommentAdapter;
 import com.matrix.yukun.matrix.main_module.entity.VideoCommentBean;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
@@ -33,13 +32,13 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 public class VideoCommentActivity extends BaseActivity {
-    @BindView(R2.id.rl_remind)
+    @BindView(R.id.rl_remind)
     RelativeLayout mRlRemind;
-    @BindView(R2.id.iv_close)
+    @BindView(R.id.iv_close)
     ImageView mIvClose;
-    @BindView(R2.id.recyclerview)
+    @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
-    @BindView(R2.id.ll_contain)
+    @BindView(R.id.ll_contain)
     LinearLayout mLlin;
     private String mVideoId;
     private int page=1;
@@ -160,7 +159,7 @@ public class VideoCommentActivity extends BaseActivity {
             }
         });
     }
-    @OnClick({R2.id.iv_close})
+    @OnClick({R.id.iv_close})
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.iv_close) {

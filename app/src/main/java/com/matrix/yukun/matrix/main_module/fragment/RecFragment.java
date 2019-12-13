@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.activity.VideoDetailPlayActivity;
 import com.matrix.yukun.matrix.main_module.adapter.EyeRecAdapter;
 import com.matrix.yukun.matrix.main_module.dialog.ShareDialog;
@@ -47,14 +46,14 @@ import okhttp3.Call;
 
 public class RecFragment extends BaseFragment implements EyeRecAdapter.ShareCallBack {
     String url = "http://baobab.kaiyanapp.com/api/v4/tabs/selected?num=5&page=0";
-    @BindView(R2.id.rv_joke)
+    @BindView(R.id.rv_joke)
     RecyclerView mRvJoke;
-    @BindView(R2.id.sw)
+    @BindView(R.id.sw)
     SwipeRefreshLayout mSw;
     List<EyesInfo> eyesInfos=new ArrayList<>();
-    @BindView(R2.id.rl_remind)
+    @BindView(R.id.rl_remind)
     RelativeLayout mLayoutBg;
-    @BindView(R2.id.tv_remind)
+    @BindView(R.id.tv_remind)
     TextView mTvRemind;
     private int page;
     private EyeRecAdapter mJokeAdapter;

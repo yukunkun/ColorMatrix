@@ -91,7 +91,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         mSearchView.setFocusable(true);
         mSearchView.requestFocusFromTouch();
         mSearchView.setQueryHint("输入搜索内容");
-        mEditText = mSearchView.findViewById(androidx.appcompat.appcompat.R.id.search_src_text);
+        mEditText = mSearchView.findViewById(R.id.search_src_text);
         mEditText.setHintTextColor(ContextCompat.getColor(SearchActivity.this, R.color.C4));
         mEditText.setTextColor(ContextCompat.getColor(SearchActivity.this, R.color.white));
         getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.color_1e000000));

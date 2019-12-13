@@ -23,7 +23,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
+
 import com.matrix.yukun.matrix.main_module.activity.TextDetailActivity;
 import com.matrix.yukun.matrix.main_module.entity.EventCategrayPos;
 import com.matrix.yukun.matrix.main_module.entity.TextInfo;
@@ -51,7 +51,7 @@ import okhttp3.Call;
  */
 
 public class SpecialTxtFragment extends BaseFragment {
-    @BindView(R2.id.l_retail_me_not)
+    @BindView(R.id.l_retail_me_not)
     RetailMeNotLayout mLRetailMeNot;
     String url = "http://v3.wufazhuce.com:8000/api/onelist/idlist/?channel=wdj&version=4.0.2&uuid=ffffffff-a90e-706a-63f7-ccf973aae5ee&platform=android 或 http://v3.wufazhuce.com:8000/api/onelist/idlist/?channel=wdj&version=4.0.2&uuid=ffffffff-a90e-706a-63f7-ccf973aae5ee&platform=android";
     private JSONArray mData;

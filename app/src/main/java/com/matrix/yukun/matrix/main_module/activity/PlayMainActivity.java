@@ -32,7 +32,6 @@ import android.widget.VideoView;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.dialog.GestureDialog;
 import com.matrix.yukun.matrix.main_module.entity.EventVideo;
 import com.matrix.yukun.matrix.main_module.entity.EyesInfo;
@@ -61,7 +60,7 @@ import butterknife.BindView;
 
 public class PlayMainActivity extends BaseActivity implements View.OnClickListener, MediaPlayer.OnPreparedListener {
 
-    @BindView(R2.id.rg)
+    @BindView(R.id.rg)
     RadioGroup mRg;
     @BindView(R.id.fl_layout)
     FrameLayout flLayout;

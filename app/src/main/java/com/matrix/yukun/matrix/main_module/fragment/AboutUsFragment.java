@@ -26,7 +26,6 @@ import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.chat_module.ChatMemberActivity;
 import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 import com.matrix.yukun.matrix.main_module.activity.MyGallaryActivity;
@@ -51,19 +50,19 @@ import butterknife.BindView;
 
 public class AboutUsFragment extends BaseFragment {
 
-    @BindView(R2.id.iv_icon)
+    @BindView(R.id.iv_icon)
     ImageView mIvIcon;
-    @BindView(R2.id.fab)
+    @BindView(R.id.fab)
     FloatingActionButton mFloatingActionButton;
-    @BindView(R2.id.iv_bury)
+    @BindView(R.id.iv_bury)
     ImageView mIvBury;
-    @BindView(R2.id.tv_version)
+    @BindView(R.id.tv_version)
     TextView mTvVersion;
-    @BindView(R2.id.tv_name)
+    @BindView(R.id.tv_name)
     TextView mTvName;
-    @BindView(R2.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @BindView(R2.id.lv_list)
+    @BindView(R.id.lv_list)
     NoScrollListView mLvList;
     @BindView(R.id.iv_share)
     ImageView mIvShare;

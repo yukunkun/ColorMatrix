@@ -20,7 +20,6 @@ import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.download_module.DownLoadActivity;
 import com.matrix.yukun.matrix.main_module.adapter.CollectAdapter;
 import com.matrix.yukun.matrix.main_module.adapter.ShareCallBack;
@@ -199,13 +198,13 @@ public class PersonCenterActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R2.id.iv_back, R2.id.iv_avator, R2.id.iv_more, R2.id.ll_coll, R2.id.ll_download, R2.id.ll_history, R2.id.ll_attent, R2.id.iv_header})
+    @OnClick({R.id.iv_back, R.id.iv_avator, R.id.iv_more, R.id.ll_coll, R.id.ll_download, R.id.ll_history, R.id.ll_attent, R.id.iv_header})
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.iv_back) {
             finish();
         }
-        if (id == R2.id.iv_avator || id == R2.id.iv_header) {
+        if (id == R.id.iv_avator || id == R.id.iv_header) {
             Intent intent = new Intent(this, ImageDetailActivity.class);
             intent.putExtra("url", MyApp.userInfo.getAvator());
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -216,23 +215,23 @@ public class PersonCenterActivity extends BaseActivity {
                 overridePendingTransition(R.anim.rotate, R.anim.rotate_out);
             }
         }
-        if (id == R2.id.iv_more) {
+        if (id == R.id.iv_more) {
             Intent intent = new Intent(this, ShareActivity.class);
             startActivity(intent);
         }
-        if (id == R2.id.ll_coll) {
+        if (id == R.id.ll_coll) {
             Intent intentCol = new Intent(this, MyCollectActivity.class);
             startActivity(intentCol);
         }
-        if (id == R2.id.ll_download) {
+        if (id == R.id.ll_download) {
             Intent intent = new Intent(this, DownLoadActivity.class);
             startActivity(intent);
         }
-        if (id == R2.id.ll_history) {
+        if (id == R.id.ll_history) {
             Intent intent = new Intent(this, HistoryPlayActivity.class);
             startActivity(intent);
         }
-        if (id == R2.id.ll_attent) {
+        if (id == R.id.ll_attent) {
             Intent intent = new Intent(this, AttentionActivity.class);
             startActivity(intent);
         }

@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.utils.FileUtils;
 
 import java.io.File;
@@ -27,15 +26,15 @@ import butterknife.OnClick;
 public class VideoFileActivity extends BaseActivity {
 
     List<String> fileName;
-    @BindView(R2.id.rl_title)
+    @BindView(R.id.rl_title)
     RelativeLayout mRlTitle;
-    @BindView(R2.id.listview)
+    @BindView(R.id.listview)
     ListView mListview;
-    @BindView(R2.id.iv_back)
+    @BindView(R.id.iv_back)
     ImageView mIvBack;
-    @BindView(R2.id.tv_delete)
+    @BindView(R.id.tv_delete)
     TextView mTvDelete;
-    @BindView(R2.id.tv_remind)
+    @BindView(R.id.tv_remind)
     TextView mTvRemind;
     private LVAdapter mLvAdapter;
 
@@ -58,9 +57,9 @@ public class VideoFileActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (fileName.get(position).endsWith(".mp4")) {
                     Intent intent = new Intent(VideoFileActivity.this, VideoPlayActivity.class);
-                    intent.putExtra("video_path",fileName.get(position));
-                    intent.putExtra("video_cover",fileName.get(position));
-                    intent.putExtra("video_title","本地文件");
+                    intent.putExtra("video_path", fileName.get(position));
+                    intent.putExtra("video_cover", fileName.get(position));
+                    intent.putExtra("video_title", "本地文件");
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(VideoFileActivity.this, PhotoViewActivity.class);
@@ -93,15 +92,13 @@ public class VideoFileActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R2.id.iv_back, R2.id.tv_delete, R2.id.tv_remind})
+    @OnClick({R.id.iv_back, R.id.tv_delete, R.id.tv_remind})
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.tv_delete) {
             Toast.makeText(this, "长按可删除文件", Toast.LENGTH_SHORT).show();
-        } else if (i == R.id.tv_remind) {
         } else if (i == R.id.iv_back) {
             finish();
-
         }
     }
 }

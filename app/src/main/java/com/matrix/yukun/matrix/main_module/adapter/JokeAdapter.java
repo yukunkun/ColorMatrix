@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.activity.JokeDetailActivity;
 import com.matrix.yukun.matrix.main_module.entity.JokeInfo;
 
@@ -79,13 +78,13 @@ public class JokeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     class MHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R2.id.ci_head)
+        @BindView(R.id.ci_head)
         CircleImageView mCiHead;
-        @BindView(R2.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView mTvName;
-        @BindView(R2.id.tv_joke)
+        @BindView(R.id.tv_joke)
         TextView mTvJoke;
-        @BindView(R2.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView mTvTime;
         public MHolder(View itemView) {
             super(itemView);

@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.haozhang.lib.SlantedTextView;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
 import com.matrix.yukun.matrix.main_module.activity.TextDetailActivity;
 import com.matrix.yukun.matrix.main_module.activity.VideoDetailPlayActivity;
@@ -184,21 +183,21 @@ public class CollectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     class MHolder extends RecyclerView.ViewHolder {
-        @BindView(R2.id.ci_head)
+        @BindView(R.id.ci_head)
         ImageView mCiHead;
-        @BindView(R2.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView mTvName;
-        @BindView(R2.id.tv_times)
+        @BindView(R.id.tv_times)
         TextView mTvTimes;
-        @BindView(R2.id.im_cover)
+        @BindView(R.id.im_cover)
         ImageView mImCover;
-        @BindView(R2.id.tv_title)
+        @BindView(R.id.tv_title)
         TextView mTvTitle;
-        @BindView(R2.id.tv_play_times)
+        @BindView(R.id.tv_play_times)
         TextView mTvPlayTimes;
-        @BindView(R2.id.iv_share)
+        @BindView(R.id.iv_share)
         ImageView mImShare;
-        @BindView(R2.id.stv)
+        @BindView(R.id.stv)
         SlantedTextView mStv;
 
         public MHolder(View itemView) {

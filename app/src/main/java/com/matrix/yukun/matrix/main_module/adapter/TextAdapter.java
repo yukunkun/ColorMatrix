@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.activity.TextDetailActivity;
 import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
 import com.matrix.yukun.matrix.main_module.entity.NewsInfo;
@@ -134,23 +133,23 @@ public class TextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     class MHolder extends RecyclerView.ViewHolder {
-        @BindView(R2.id.ci_head)
+        @BindView(R.id.ci_head)
         CircleImageView mCiHead;
-        @BindView(R2.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView mTvName;
-        @BindView(R2.id.tv_title)
+        @BindView(R.id.tv_title)
         TextView mTvTitle;
-        @BindView(R2.id.im_cover)
+        @BindView(R.id.im_cover)
         ImageView mImCover;
-        @BindView(R2.id.iv_collect)
+        @BindView(R.id.iv_collect)
         ImageView mIvCollect;
-        @BindView(R2.id.tv_des)
+        @BindView(R.id.tv_des)
         TextView mTvDes;
-        @BindView(R2.id.tv_forword)
+        @BindView(R.id.tv_forword)
         TextView mTvForword;
-        @BindView(R2.id.delete)
+        @BindView(R.id.delete)
         Button mButton;
-        @BindView(R2.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView mTvTime;
         public MHolder(View itemView) {
             super(itemView);

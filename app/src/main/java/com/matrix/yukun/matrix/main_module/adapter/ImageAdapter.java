@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
 import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
 import com.matrix.yukun.matrix.main_module.entity.ImageInfo;
@@ -132,27 +131,27 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     class MHolder extends RecyclerView.ViewHolder {
-        @BindView(R2.id.ci_head)
+        @BindView(R.id.ci_head)
         CircleImageView mCiHead;
-        @BindView(R2.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView mTvName;
-        @BindView(R2.id.tv_times)
+        @BindView(R.id.tv_times)
         TextView mTvTimes;
-        @BindView(R2.id.im_cover)
+        @BindView(R.id.im_cover)
         ImageView mImCover;
-        @BindView(R2.id.tv_title)
+        @BindView(R.id.tv_title)
         TextView mTvTitle;
-        @BindView(R2.id.tv_play_times)
+        @BindView(R.id.tv_play_times)
         TextView mTvPlayTimes;
-        @BindView(R2.id.iv_share)
+        @BindView(R.id.iv_share)
         ImageView mImShare;
-        @BindView(R2.id.iv_collect)
+        @BindView(R.id.iv_collect)
         ImageView mImCollect;
-        @BindView(R2.id.ci_comment_head)
+        @BindView(R.id.ci_comment_head)
         CircleImageView mCiCommentHead;
-        @BindView(R2.id.tv_comment_name)
+        @BindView(R.id.tv_comment_name)
         TextView mTvCommentName;
-        @BindView(R2.id.tv_comment)
+        @BindView(R.id.tv_comment)
         TextView mTvCommen;
         public MHolder(View itemView) {
             super(itemView);

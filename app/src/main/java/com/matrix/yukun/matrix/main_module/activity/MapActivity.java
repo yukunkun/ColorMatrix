@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.dialog.ImageDownLoadDialog;
 import com.matrix.yukun.matrix.util.StatusBarUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -30,21 +29,21 @@ import uk.co.senab.photoview.PhotoView;
 
 public class MapActivity extends BaseActivity {
 
-    @BindView(R2.id.photoview)
+    @BindView(R.id.photoview)
     PhotoView mPhotoview;
-    @BindView(R2.id.iv_more)
+    @BindView(R.id.iv_more)
     ImageView mIvMore;
-    @BindView(R2.id.iv_back)
+    @BindView(R.id.iv_back)
     ImageView mIvBack;
-    @BindView(R2.id.iv_images)
+    @BindView(R.id.iv_images)
     ImageView mIvImage;
-    @BindView(R2.id.tv_clip)
+    @BindView(R.id.tv_clip)
     TextView mTvImage;
-    @BindView(R2.id.tv_sup)
+    @BindView(R.id.tv_sup)
     TextView mTvSup;
-    @BindView(R2.id.progress_bar)
+    @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
-    @BindView(R2.id.webview)
+    @BindView(R.id.webview)
     WebView mWebView;
     private String recomendMap="https://cdn.mom1.cn/?mom=json";
     private String beaudyurl="https://uploadbeta.com/api/pictures/random/?key=%E6%8E%A8%E5%A5%B3%E9%83%8E";
@@ -96,7 +95,7 @@ public class MapActivity extends BaseActivity {
 //        }).into(mPhotoview);
     }
 
-    @OnClick({R2.id.iv_more, R2.id.iv_back,R2.id.tv_clip,R2.id.tv_sup})
+    @OnClick({R.id.iv_more, R.id.iv_back,R.id.tv_clip,R.id.tv_sup})
 
     public void onClick(View view) {
         int i = view.getId();
@@ -105,7 +104,7 @@ public class MapActivity extends BaseActivity {
             imageDownLoadDialog.show(getSupportFragmentManager(),"");
         } else if (i == R.id.iv_back) {
             finish();
-        }else if(i==R2.id.tv_clip){
+        }else if(i==R.id.tv_clip){
             mWebView.loadUrl(downlaoUrl);
 //            mProgressBar.setVisibility(View.VISIBLE);
 //            setImage(beaudyurl);

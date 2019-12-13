@@ -7,9 +7,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.gaia_module.adapter.create_person.SpaceReDecoration;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.selfview.NoScrollListView;
@@ -83,7 +81,7 @@ public class ToolsRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     class MHolderTool extends RecyclerView.ViewHolder {
-        @BindView(R2.id.recyclerview)
+        @BindView(R.id.recyclerview)
         RecyclerView mRecyclerView;
         public MHolderTool(View itemView) {
             super(itemView);
@@ -92,7 +90,7 @@ public class ToolsRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     class MHolder extends RecyclerView.ViewHolder {
-        @BindView(R2.id.listview)
+        @BindView(R.id.listview)
         NoScrollListView listview;
         public MHolder(View itemView) {
             super(itemView);

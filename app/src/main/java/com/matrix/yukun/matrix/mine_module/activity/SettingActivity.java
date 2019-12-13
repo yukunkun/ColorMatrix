@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.activity.PlayMainActivity;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
@@ -111,7 +110,7 @@ public class SettingActivity extends BaseActivity {
         finish();
     }
 
-    @OnClick({R2.id.iv_back, R2.id.tv_clear, R2.id.tv_update, R2.id.tv_introduce, R2.id.tv_about, R2.id.tv_sugg, R2.id.tv_mark_update,R2.id.tv_version,R.id.tv_secret})
+    @OnClick({R.id.iv_back, R.id.tv_clear, R.id.tv_update, R.id.tv_introduce, R.id.tv_about, R.id.tv_sugg, R.id.tv_mark_update,R.id.tv_version,R.id.tv_secret})
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.iv_back) {

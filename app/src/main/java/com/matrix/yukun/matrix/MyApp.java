@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
 import android.text.TextUtils;
+
 import com.amap.api.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.matrix.yukun.matrix.download_module.service.DownLoadService;
@@ -25,31 +26,34 @@ import com.tencent.bugly.beta.Beta;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.cookie.CookieJarImpl;
 import com.zhy.http.okhttp.cookie.store.PersistentCookieStore;
+
 import org.litepal.LitePalApplication;
+
 import java.util.List;
+
 import cn.bmob.v3.Bmob;
-//import cn.leancloud.AVLogger;
-//import cn.leancloud.core.AVOSCloud;
-//import cn.leancloud.session.AVConnectionManager;
+import cn.leancloud.AVLogger;
+import cn.leancloud.AVOSCloud;
 import interfaces.heweather.com.interfacesmodule.view.HeConfig;
 
 /**
  * Created by yukun on 17-1-24.
  */
-public class MyApp extends LitePalApplication{
-    public  static MyApp myApp;
+public class MyApp extends LitePalApplication {
+    public static MyApp myApp;
     public static RefWatcher refWatcher;
     public static UserInfoBMob userInfo;
     public static boolean isNight;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        myApp=this;
+        myApp = this;
         Beta.autoCheckUpgrade = false;//设置不自动检查
         Bugly.init(getApplicationContext(), "884e2d9286", false);
         Bmob.initialize(this, AppConstant.BMOBAPPID);
-//        AVOSCloud.initialize(/*this, */AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY);
-//        AVOSCloud.setLogLevel(AVLogger.Level.DEBUG);
+        AVOSCloud.initialize(this, AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY,"https://eggtbmvr.lc-cn-n1-shared.com");
+        AVOSCloud.setLogLevel(AVLogger.Level.DEBUG);
         String processName = getProcessName(this, android.os.Process.myPid());
         // android 7.0系统解决拍照的问题
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -103,19 +107,19 @@ public class MyApp extends LitePalApplication{
     public static LatLng getLatLng() {
         String latitude = SPUtils.getInstance().getString("latitude");
         String longitude = SPUtils.getInstance().getString("longitude");
-        if (!TextUtils.isEmpty(latitude)){
-            LatLng latLng=new LatLng(Double.valueOf(latitude),Double.valueOf(longitude));
+        if (!TextUtils.isEmpty(latitude)) {
+            LatLng latLng = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
             return latLng;
-        }else {
+        } else {
             return null;
         }
     }
 
     public static void setUserInfo(UserInfoBMob user) {
-        userInfo=new UserInfoBMob();
-        userInfo=user;
-        Gson gson=new Gson();
-        SPUtils.getInstance().saveString("user",gson.toJson(userInfo));
+        userInfo = new UserInfoBMob();
+        userInfo = user;
+        Gson gson = new Gson();
+        SPUtils.getInstance().saveString("user", gson.toJson(userInfo));
     }
 
     public static boolean getNight() {
@@ -123,12 +127,12 @@ public class MyApp extends LitePalApplication{
     }
 
     public static void updateNight() {
-       isNight=SPUtils.getInstance().getBoolean("isNight");
+        isNight = SPUtils.getInstance().getBoolean("isNight");
     }
 
-    public static Application getInstance(){
-        if(myApp!=null){
-            myApp=new MyApp();
+    public static Application getInstance() {
+        if (myApp != null) {
+            myApp = new MyApp();
         }
         return myApp;
     }

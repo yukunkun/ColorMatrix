@@ -13,7 +13,6 @@ import android.widget.ImageView;
 
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.chat_module.emoji.CubeEmoticonTextView;
 
 import butterknife.BindView;
@@ -22,11 +21,11 @@ import butterknife.OnClick;
 public class JokeDetailActivity extends BaseActivity {
 
 
-    @BindView(R2.id.iv_back)
+    @BindView(R.id.iv_back)
     ImageView mIvBack;
-    @BindView(R2.id.iv_share)
+    @BindView(R.id.iv_share)
     ImageView mIvShare;
-    @BindView(R2.id.tv_content)
+    @BindView(R.id.tv_content)
     CubeEmoticonTextView mTvContent;
     private String mContent;
 
@@ -70,7 +69,7 @@ public class JokeDetailActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R2.id.iv_back, R2.id.iv_share})
+    @OnClick({R.id.iv_back, R.id.iv_share})
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.iv_back) {

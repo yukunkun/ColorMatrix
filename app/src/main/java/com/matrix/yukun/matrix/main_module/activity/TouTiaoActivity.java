@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.fragment.ImageSecondFragment;
 import com.matrix.yukun.matrix.main_module.fragment.TouTiaoFragment;
 import java.util.ArrayList;
@@ -19,11 +18,11 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class TouTiaoActivity extends BaseActivity {
-    @BindView(R2.id.tablayout)
+    @BindView(R.id.tablayout)
     TabLayout mTablayout;
-    @BindView(R2.id.iv_back)
+    @BindView(R.id.iv_back)
     ImageView mIvClose;
-    @BindView(R2.id.viewpager)
+    @BindView(R.id.viewpager)
     ViewPager mViewpager;
     private String[] mStringArray;
     List<Fragment> mFragments = new ArrayList<>();
@@ -99,7 +98,7 @@ public class TouTiaoActivity extends BaseActivity {
         mViewpager.setOffscreenPageLimit(5);
     }
 
-    @OnClick({R2.id.iv_back})
+    @OnClick({R.id.iv_back})
     public void onClick(View view) {
         int id = view.getId();
         if(id== R.id.iv_back){

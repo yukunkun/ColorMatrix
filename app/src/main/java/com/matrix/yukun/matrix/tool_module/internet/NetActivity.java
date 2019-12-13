@@ -16,7 +16,6 @@ import com.jrummyapps.android.colorpicker.ColorPickerDialog;
 import com.jrummyapps.android.colorpicker.ColorPickerDialogListener;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtil;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.ClockView;
@@ -29,33 +28,33 @@ import butterknife.OnClick;
 
 public class NetActivity extends BaseActivity {
 
-    @BindView(R2.id.iv_back)
+    @BindView(R.id.iv_back)
     ImageView mIvBack;
-    @BindView(R2.id.tv_history)
+    @BindView(R.id.tv_history)
     TextView mTvHistory;
-    @BindView(R2.id.iv_upload)
+    @BindView(R.id.iv_upload)
     ImageView mIvUpload;
-    @BindView(R2.id.tv_upload)
+    @BindView(R.id.tv_upload)
     TextView mTvUpload;
-    @BindView(R2.id.iv_download)
+    @BindView(R.id.iv_download)
     ImageView mIvDownload;
-    @BindView(R2.id.tv_download)
+    @BindView(R.id.tv_download)
     TextView mTvDownload;
-    @BindView(R2.id.clock_view)
+    @BindView(R.id.clock_view)
     ClockView mClockView;
-    @BindView(R2.id.switch_view)
+    @BindView(R.id.switch_view)
     Switch mSwitchView;
-    @BindView(R2.id.seekbar_tv)
+    @BindView(R.id.seekbar_tv)
     SeekBar mSeekbarTv;
-    @BindView(R2.id.seekbar_bg)
+    @BindView(R.id.seekbar_bg)
     SeekBar mSeekbarBg;
-    @BindView(R2.id.ll_float_contain)
+    @BindView(R.id.ll_float_contain)
     LinearLayout mLlFloatContain;
-    @BindView(R2.id.ctv_uplolad_bg)
+    @BindView(R.id.ctv_uplolad_bg)
     CircleTextView mCtvUploladBg;
-    @BindView(R2.id.ctv_download_bg)
+    @BindView(R.id.ctv_download_bg)
     CircleTextView mCtvDownloadBg;
-    @BindView(R2.id.ctv_bg)
+    @BindView(R.id.ctv_bg)
     CircleTextView mCtvBg;
     private TextView mTvFUpload;
     private TextView mTvFDownload;
@@ -173,7 +172,7 @@ public class NetActivity extends BaseActivity {
         FloatingViewManager.getInstance(NetActivity.this).addFloatingView(mInflate,mConfigs);
     }
 
-    @OnClick({R2.id.iv_back, R2.id.tv_history, R2.id.ctv_uplolad_bg, R2.id.ctv_download_bg, R2.id.ctv_bg})
+    @OnClick({R.id.iv_back, R.id.tv_history, R.id.ctv_uplolad_bg, R.id.ctv_download_bg, R.id.ctv_bg})
     public void onViewClicked(View view) {
         int id = view.getId();
         if( id== R.id.iv_back){

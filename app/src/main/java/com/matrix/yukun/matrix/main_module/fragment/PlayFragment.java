@@ -26,7 +26,6 @@ import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.chat_module.ChatMemberActivity;
 import com.matrix.yukun.matrix.download_module.DownLoadActivity;
 import com.matrix.yukun.matrix.leancloud_module.LeanCloudInit;
@@ -74,57 +73,57 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
  */
 
 public class PlayFragment extends BaseFragment {
-    @BindView(R2.id.iv_main)
+    @BindView(R.id.iv_main)
     ImageView mIvMain;
-    @BindView(R2.id.rl_contain)
+    @BindView(R.id.rl_contain)
     RelativeLayout mRlContain;
-    @BindView(R2.id.tablayout)
+    @BindView(R.id.tablayout)
     TabLayout mTablayout;
-    @BindView(R2.id.drawlayout)
+    @BindView(R.id.drawlayout)
     DrawerLayout mDrawlayout;
-    @BindView(R2.id.tv_weather)
+    @BindView(R.id.tv_weather)
     TextView mTvWeather;
-    @BindView(R2.id.viewpager)
+    @BindView(R.id.viewpager)
     ViewPager mViewpager;
-    @BindView(R2.id.im_snow)
+    @BindView(R.id.im_snow)
     ImageView mImSnow;
-    @BindView(R2.id.rl_main)
+    @BindView(R.id.rl_main)
     RelativeLayout mRlMain;
-    @BindView(R2.id.im_bird)
+    @BindView(R.id.im_bird)
     ImageView mImBird;
-    @BindView(R2.id.rl_movie)
+    @BindView(R.id.rl_movie)
     RelativeLayout mRlMovie;
-    @BindView(R2.id.im_modu)
+    @BindView(R.id.im_modu)
     ImageView mImModu;
-    @BindView(R2.id.rl_change_modul)
+    @BindView(R.id.rl_change_modul)
     RelativeLayout mRlChangeModul;
-    @BindView(R2.id.im_ball)
+    @BindView(R.id.im_ball)
     ImageView mImBall;
-    @BindView(R2.id.rl_me)
+    @BindView(R.id.rl_me)
     RelativeLayout mRlMe;
-    @BindView(R2.id.tv_close)
+    @BindView(R.id.tv_close)
     TextView mTvClose;
-    @BindView(R2.id.sc_contain)
+    @BindView(R.id.sc_contain)
     ScrollView mScrollview;
-    @BindView(R2.id.rl_down)
+    @BindView(R.id.rl_down)
     RelativeLayout mRlDown;
-    @BindView(R2.id.iv_chat)
+    @BindView(R.id.iv_chat)
     ImageView mIvChat;
-    @BindView(R2.id.iv_collect)
+    @BindView(R.id.iv_collect)
     ImageView mIvCollect;
-    @BindView(R2.id.iv_share)
+    @BindView(R.id.iv_share)
     ImageView mIvShare;
-    @BindView(R2.id.rl_collect)
+    @BindView(R.id.rl_collect)
     RelativeLayout mRlCollect;
-    @BindView(R2.id.rl_one_map)
+    @BindView(R.id.rl_one_map)
     RelativeLayout mRlOneMap;
     @BindView(R.id.head)
     CircleImageView mCircleImageView;
-    @BindView(R2.id.tv_name)
+    @BindView(R.id.tv_name)
     TextView mTvName;
-    @BindView(R2.id.rl_bg_special)
+    @BindView(R.id.rl_bg_special)
     TextView mTvSig;
-    @BindView(R2.id.iv_search)
+    @BindView(R.id.iv_search)
     ImageView mIvSearch;
     @BindView(R.id.ll_drawable)
     LinearLayout mLayout;
@@ -367,8 +366,8 @@ public class PlayFragment extends BaseFragment {
         }
     }
 
-    @OnClick({R2.id.iv_chat, R2.id.iv_main, R2.id.head, R2.id.iv_update, R2.id.tv_weather, R2.id.rl_collect, R2.id.rl_main, R2.id.iv_search,
-            R2.id.rl_movie, R2.id.rl_change_modul, R2.id.rl_me, R2.id.tv_close, R2.id.rl_bg_special, R2.id.iv_share, R.id.rl_down,R.id.rl_one_map})
+    @OnClick({R.id.iv_chat, R.id.iv_main, R.id.head, R.id.iv_update, R.id.tv_weather, R.id.rl_collect, R.id.rl_main, R.id.iv_search,
+            R.id.rl_movie, R.id.rl_change_modul, R.id.rl_me, R.id.tv_close, R.id.rl_bg_special, R.id.iv_share, R.id.rl_down,R.id.rl_one_map})
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.iv_main) {

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.entity.HistoryInfo;
 
 import java.util.List;
@@ -53,9 +52,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     class MHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R2.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView mTvTime;
-        @BindView(R2.id.tv_story)
+        @BindView(R.id.tv_story)
         TextView mTvStory;
         public MHolder(View itemView) {
             super(itemView);

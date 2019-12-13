@@ -10,7 +10,6 @@ import android.widget.RelativeLayout;
 
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.adapter.RVHistoryAdapter;
 import com.matrix.yukun.matrix.main_module.entity.HistoryPlay;
 
@@ -27,13 +26,13 @@ import static me.everything.android.ui.overscroll.OverScrollDecoratorHelper.ORIE
 
 public class HistoryPlayActivity extends BaseActivity {
 
-    @BindView(R2.id.iv_back)
+    @BindView(R.id.iv_back)
     ImageView mIVBack;
-    @BindView(R2.id.iv_delete)
+    @BindView(R.id.iv_delete)
     ImageView mIvDelete;
-    @BindView(R2.id.rv)
+    @BindView(R.id.rv)
     RecyclerView mRecyclerView;
-    @BindView(R2.id.rl_remind)
+    @BindView(R.id.rl_remind)
     RelativeLayout mLayout;
     List<HistoryPlay> mHistoryPlayList=new ArrayList<>();
     private RVHistoryAdapter mRvHistoryAdapter;

@@ -21,26 +21,23 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.WaterLoadView;
-import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class TextDetailActivity extends BaseActivity {
 
-    @BindView(R2.id.iv_back)
+    @BindView(R.id.iv_back)
     ImageView mIvBack;
-    @BindView(R2.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView mTvTitle;
-    @BindView(R2.id.rl)
+    @BindView(R.id.rl)
     RelativeLayout mRl;
-    @BindView(R2.id.webview)
+    @BindView(R.id.webview)
     WebView mWebview;
     WaterLoadView mProgress;
     private String mUrl;
@@ -160,7 +157,7 @@ public class TextDetailActivity extends BaseActivity {
         }
     };
 
-    @OnClick(R2.id.iv_back)
+    @OnClick(R.id.iv_back)
     public void onClick() {
         finish();
     }

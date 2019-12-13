@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
@@ -146,11 +145,11 @@ public class ToolsItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     class MHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R2.id.tv_tool_name)
+        @BindView(R.id.tv_tool_name)
         TextView mTvName;
-        @BindView(R2.id.iv_image)
+        @BindView(R.id.iv_image)
         ImageView mTvIcon;
-        @BindView(R2.id.ll_contain)
+        @BindView(R.id.ll_contain)
         LinearLayout ll_contain;
         public MHolder(View itemView) {
             super(itemView);

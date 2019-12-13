@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.chat_module.adapter.ChatAdapter;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
 import com.matrix.yukun.matrix.chat_module.entity.EventVoiceClick;
@@ -42,19 +41,19 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.View, InputListener {
-    @BindView(R2.id.iv_backs)
+    @BindView(R.id.iv_backs)
     ImageView mIvBack;
-    @BindView(R2.id.iv_member)
+    @BindView(R.id.iv_member)
     ImageView mIvMem;
-    @BindView(R2.id.name)
+    @BindView(R.id.name)
     TextView mName;
-    @BindView(R2.id.title)
+    @BindView(R.id.title)
     RelativeLayout mTitle;
-    @BindView(R2.id.rv_chatview)
+    @BindView(R.id.rv_chatview)
     CubeRecyclerView mRvChatview;
-    @BindView(R2.id.sr_refresh)
+    @BindView(R.id.sr_refresh)
     CubeSwipeRefreshLayout mSrRefresh;
-    @BindView(R2.id.fl)
+    @BindView(R.id.fl)
     FrameLayout mRootView;
     ChatPresenter mChatPresenter;
     public static int TYPE_MEM=1;
@@ -263,7 +262,7 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
         mChatPresenter.sendRoboteMessage(getString(R.string.shake_you));
     }
 
-    @OnClick({R2.id.iv_backs, R2.id.iv_member})
+    @OnClick({R.id.iv_backs, R.id.iv_member})
     public void onViewClicked(View view) {
         if(view.getId()== R.id.iv_backs){
             finish();

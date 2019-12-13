@@ -11,11 +11,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
-
 import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.utils.SpacesDoubleDecoration;
 import com.matrix.yukun.matrix.tool_module.gif.adapter.RVGifAdapter;
 
@@ -27,23 +25,23 @@ import butterknife.BindView;
 
 public class GIFActivity extends BaseActivity {
 
-    @BindView(R2.id.rv_joke)
+    @BindView(R.id.rv_joke)
     RecyclerView mRvJoke;
-    @BindView(R2.id.sw)
+    @BindView(R.id.sw)
     SwipeRefreshLayout mSw;
-    @BindView(R2.id.rl_video_contain)
+    @BindView(R.id.rl_video_contain)
     RelativeLayout mLayoutVideo;
-    @BindView(R2.id.jzps_player)
+    @BindView(R.id.jzps_player)
     VideoView mVideoView;
-    @BindView(R2.id.iv_close_video)
+    @BindView(R.id.iv_close_video)
     ImageView mIvCloseVideo;
-    @BindView(R2.id.iv_play_video)
+    @BindView(R.id.iv_play_video)
     ImageView mIvVideoPlay;
-    @BindView(R2.id.rl_remind)
+    @BindView(R.id.rl_remind)
     RelativeLayout mLayoutBg;
-    @BindView(R2.id.tv_remind)
+    @BindView(R.id.tv_remind)
     TextView mTvRemind;
-    @BindView(R2.id.iv_back)
+    @BindView(R.id.iv_back)
     ImageView mIvback;
     private GridLayoutManager mGridLayoutManager;
     private List<String> mList=new ArrayList<>();

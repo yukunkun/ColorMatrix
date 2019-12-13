@@ -21,7 +21,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.dialog.ImageDownLoadDialog;
 import com.matrix.yukun.matrix.util.StatusBarUtil;
 
@@ -31,15 +30,15 @@ import uk.co.senab.photoview.PhotoView;
 
 public class ImageDetailActivity extends BaseActivity {
 
-    @BindView(R2.id.photoview)
+    @BindView(R.id.photoview)
     PhotoView mPhotoview;
-    @BindView(R2.id.iv_more)
+    @BindView(R.id.iv_more)
     ImageView mIvMore;
-    @BindView(R2.id.iv_back)
+    @BindView(R.id.iv_back)
     ImageView mIvBack;
-    @BindView(R2.id.rl)
+    @BindView(R.id.rl)
     RelativeLayout mRl;
-    @BindView(R2.id.progress_bar)
+    @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
     @BindView(R.id.iv_change)
     ImageView ivChange;
@@ -93,7 +92,7 @@ public class ImageDetailActivity extends BaseActivity {
         }).into(mPhotoview);
     }
 
-    @OnClick({R2.id.iv_more, R2.id.iv_back,R2.id.iv_change})
+    @OnClick({R.id.iv_more, R.id.iv_back,R.id.iv_change})
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.iv_more) {

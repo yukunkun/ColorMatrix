@@ -18,7 +18,6 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bumptech.glide.Glide;
 import com.haozhang.lib.SlantedTextView;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.entity.CollectsInfo;
 import com.matrix.yukun.matrix.main_module.entity.EyesInfo;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
@@ -234,27 +233,27 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     class MHolder extends RecyclerView.ViewHolder {
-        @BindView(R2.id.ci_head)
+        @BindView(R.id.ci_head)
         ImageView mCiHead;
-        @BindView(R2.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView mTvName;
-        @BindView(R2.id.tv_times)
+        @BindView(R.id.tv_times)
         TextView mTvTimes;
-        @BindView(R2.id.im_cover)
+        @BindView(R.id.im_cover)
         ImageView mImCover;
-        @BindView(R2.id.tv_title)
+        @BindView(R.id.tv_title)
         TextView mTvTitle;
-        @BindView(R2.id.tv_play_times)
+        @BindView(R.id.tv_play_times)
         TextView mTvPlayTimes;
-        @BindView(R2.id.iv_share)
+        @BindView(R.id.iv_share)
         ImageView mImShare;
-        @BindView(R2.id.iv_collect)
+        @BindView(R.id.iv_collect)
         ImageView mImCollect;
-        @BindView(R2.id.ll)
+        @BindView(R.id.ll)
         RelativeLayout linearLayout;
 //        @BindView(R2.id.rl_banner)
 //        RelativeLayout mLayoutBanner;
-        @BindView(R2.id.view_line)
+        @BindView(R.id.view_line)
         TextView mViewLine;
 
         public MHolder(View itemView) {
@@ -264,19 +263,19 @@ public class EyeRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     class HeaderHolder extends RecyclerView.ViewHolder {
-        @BindView(R2.id.con_banner)
+        @BindView(R.id.con_banner)
         ConvenientBanner mConBanner;
-        @BindView(R2.id.tv_video)
+        @BindView(R.id.tv_video)
         TextView mTvVideo;
-        @BindView(R2.id.tv_video_joke)
+        @BindView(R.id.tv_video_joke)
         TextView mTvVideoJoke;
-        @BindView(R2.id.tv_image)
+        @BindView(R.id.tv_image)
         TextView mTvImage;
-        @BindView(R2.id.tv_joke)
+        @BindView(R.id.tv_joke)
         TextView mTvJoke;
-        @BindView(R2.id.tv_txt)
+        @BindView(R.id.tv_txt)
         TextView mTvTxt;
-        @BindView(R2.id.tv_essay)
+        @BindView(R.id.tv_essay)
         TextView mTvEssay;
 
         public HeaderHolder(View itemView) {

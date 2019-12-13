@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.adapter.CollectAdapter;
 import com.matrix.yukun.matrix.main_module.adapter.ShareCallBack;
 import com.matrix.yukun.matrix.main_module.dialog.ShareDialog;
@@ -30,17 +29,17 @@ import butterknife.OnClick;
 
 public class MyCollectActivity extends BaseActivity {
 
-    @BindView(R2.id.iv_back)
+    @BindView(R.id.iv_back)
     ImageView mIvBack;
-    @BindView(R2.id.tv_deal)
+    @BindView(R.id.tv_deal)
     TextView mTvDeal;
-    @BindView(R2.id.rl)
+    @BindView(R.id.rl)
     RelativeLayout mRl;
-    @BindView(R2.id.rv_collect)
+    @BindView(R.id.rv_collect)
     RecyclerView mRvCollect;
-    @BindView(R2.id.sw)
+    @BindView(R.id.sw)
     SwipeRefreshLayout mSw;
-    @BindView(R2.id.rl_remind)
+    @BindView(R.id.rl_remind)
     RelativeLayout mRelativeLayout;
     GridLayoutManager mLayoutManager;
     CollectAdapter mCollectAdapter;
@@ -85,7 +84,7 @@ public class MyCollectActivity extends BaseActivity {
     }
 
 
-    @OnClick({R2.id.iv_back, R2.id.tv_deal})
+    @OnClick({R.id.iv_back, R.id.tv_deal})
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.iv_back) {

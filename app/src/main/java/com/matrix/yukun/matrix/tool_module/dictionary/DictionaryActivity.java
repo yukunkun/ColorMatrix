@@ -16,7 +16,6 @@ import com.google.gson.Gson;
 import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.KeyBoardUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -32,25 +31,25 @@ import okhttp3.Call;
 public class DictionaryActivity extends BaseActivity {
     String Url = "http://v.juhe.cn/xhzd/query";
     String TAG = getClass().getSimpleName();
-    @BindView(R2.id.iv_back)
+    @BindView(R.id.iv_back)
     ImageView mIvBack;
-    @BindView(R2.id.iv_search)
+    @BindView(R.id.iv_search)
     ImageView mIvSearch;
-    @BindView(R2.id.tv_internet)
+    @BindView(R.id.tv_internet)
     TextView mTvInternet;
-    @BindView(R2.id.et_search)
+    @BindView(R.id.et_search)
     EditText mEtSearch;
-    @BindView(R2.id.tv_word)
+    @BindView(R.id.tv_word)
     TextView mTvWord;
-    @BindView(R2.id.tv_pinyin)
+    @BindView(R.id.tv_pinyin)
     TextView mTvPinyin;
-    @BindView(R2.id.tv_bushou)
+    @BindView(R.id.tv_bushou)
     TextView mTvBushou;
-    @BindView(R2.id.tv_jijie)
+    @BindView(R.id.tv_jijie)
     TextView mTvJijie;
-    @BindView(R2.id.tv_xiangjie)
+    @BindView(R.id.tv_xiangjie)
     TextView mTvXiangjie;
-    @BindView(R2.id.ll_con)
+    @BindView(R.id.ll_con)
     LinearLayout  mLayout;
     private DictionaryBean mDictionaryBean;
 

@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.activity.VideoDetailPlayActivity;
 import com.matrix.yukun.matrix.main_module.adapter.VideoAdapter;
 import com.matrix.yukun.matrix.main_module.dialog.ShareDialog;
@@ -46,11 +45,11 @@ import okhttp3.Call;
 public class VideoFragment extends BaseFragment implements VideoAdapter.ItemClickCallBack {
     String url = "http://baobab.kaiyanapp.com/api/v4/tabs/selected?num=5&page=0";
     int page = 1;
-    @BindView(R2.id.rv_joke)
+    @BindView(R.id.rv_joke)
     RecyclerView mRvJoke;
-    @BindView(R2.id.sw)
+    @BindView(R.id.sw)
     SwipeRefreshLayout mSw;
-    @BindView(R2.id.rl_remind)
+    @BindView(R.id.rl_remind)
     RelativeLayout  mLayoutRemind;
     List<EyesInfo> eyesInfos=new ArrayList<>();
     private VideoAdapter mJokeAdapter;

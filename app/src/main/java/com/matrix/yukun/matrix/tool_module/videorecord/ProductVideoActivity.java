@@ -26,7 +26,6 @@ import android.widget.Toast;
 
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.main_module.utils.FileUtils;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtils;
 import com.matrix.yukun.matrix.main_module.views.TagLayout;
@@ -40,93 +39,93 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ProductVideoActivity extends BaseActivity implements CameraControler.view {
-    @BindView(R2.id.surfaceview)
+    @BindView(R.id.surfaceview)
     SurfaceView mSurfaceview;
-    @BindView(R2.id.text)
+    @BindView(R.id.text)
     TextView mText;
-    @BindView(R2.id.camera)
+    @BindView(R.id.camera)
     Button mCameraStar;
-    @BindView(R2.id.btn_record_wav)
+    @BindView(R.id.btn_record_wav)
     Button mBtnRecordWav;
-    @BindView(R2.id.btn_record_amr)
+    @BindView(R.id.btn_record_amr)
     Button mBtnRecordAmr;
-    @BindView(R2.id.btn_stop)
+    @BindView(R.id.btn_stop)
     Button mBtnStop;
-    @BindView(R2.id.iv_back)
+    @BindView(R.id.iv_back)
     ImageView mIvBack;
-    @BindView(R2.id.iv_setting)
+    @BindView(R.id.iv_setting)
     ImageView mIvSetting;
-    @BindView(R2.id.ll_setting)
+    @BindView(R.id.ll_setting)
     LinearLayout mLlSetting;
-    @BindView(R2.id.iv_play)
+    @BindView(R.id.iv_play)
     ImageView mIvPlay;
-    @BindView(R2.id.rl_line)
+    @BindView(R.id.rl_line)
     RelativeLayout mRlLine;
-    @BindView(R2.id.iv_back_setting)
+    @BindView(R.id.iv_back_setting)
     ImageView mIvBackSetting;
-    @BindView(R2.id.switchBtn)
+    @BindView(R.id.switchBtn)
     Switch mSwitchBtn;
-    @BindView(R2.id.iv_face)
+    @BindView(R.id.iv_face)
     ImageView mIvFace;
-    @BindView(R2.id.iv_bline)
+    @BindView(R.id.iv_bline)
     ImageView mIvBline;
-    @BindView(R2.id.iv_takphoto)
+    @BindView(R.id.iv_takphoto)
     ImageView mIvTakphoto;
-    @BindView(R2.id.switchScreen)
+    @BindView(R.id.switchScreen)
     Switch mSwitchScreen;
-    @BindView(R2.id.switchColor)
+    @BindView(R.id.switchColor)
     Switch mSwitchColor;
-    @BindView(R2.id.iv_add_setting)
+    @BindView(R.id.iv_add_setting)
     ImageView mIvAddSetting;
-    @BindView(R2.id.taglayout)
+    @BindView(R.id.taglayout)
     TagLayout mTaglayout;
-    @BindView(R2.id.switchWrite)
+    @BindView(R.id.switchWrite)
     Switch mSwitchWrite;
-    @BindView(R2.id.taglayoutScreen)
+    @BindView(R.id.taglayoutScreen)
     TagLayout mTaglayoutScreen;
-    @BindView(R2.id.rl_camera_setting)
+    @BindView(R.id.rl_camera_setting)
     RelativeLayout mRlCameraSetting;
-    @BindView(R2.id.rl_bottom_setting)
+    @BindView(R.id.rl_bottom_setting)
     RelativeLayout mRlBottomSetting;
-    @BindView(R2.id.tv_voice)
+    @BindView(R.id.tv_voice)
     TextView mTvVoice;
-    @BindView(R2.id.tv_no_voice)
+    @BindView(R.id.tv_no_voice)
     RadioButton mTvNoVoice;
-    @BindView(R2.id.tv_voice_1)
+    @BindView(R.id.tv_voice_1)
     RadioButton mTvVoice1;
-    @BindView(R2.id.tv_voice_2)
+    @BindView(R.id.tv_voice_2)
     RadioButton mTvVoice2;
-    @BindView(R2.id.rg_voice)
+    @BindView(R.id.rg_voice)
     RadioGroup mRgVoice;
-    @BindView(R2.id.tv_sp)
+    @BindView(R.id.tv_sp)
     TextView mTvSp;
-    @BindView(R2.id.tv_all)
+    @BindView(R.id.tv_all)
     RadioButton mTvAll;
-    @BindView(R2.id.tv_43)
+    @BindView(R.id.tv_43)
     RadioButton mTv43;
-    @BindView(R2.id.tv_169)
+    @BindView(R.id.tv_169)
     RadioButton mTv169;
-    @BindView(R2.id.rg_screen)
+    @BindView(R.id.rg_screen)
     RadioGroup mRgScreen;
-    @BindView(R2.id.tv_light)
+    @BindView(R.id.tv_light)
     TextView mTvLight;
-    @BindView(R2.id.sb_light)
+    @BindView(R.id.sb_light)
     SeekBar mSbLight;
-    @BindView(R2.id.ll_screen_setting)
+    @BindView(R.id.ll_screen_setting)
     LinearLayout mLlScreenSetting;
-    @BindView(R2.id.tv_top)
+    @BindView(R.id.tv_top)
     TextView mTvTop;
-    @BindView(R2.id.tv_bottom)
+    @BindView(R.id.tv_bottom)
     TextView mTvBottom;
-    @BindView(R2.id.tv_left)
+    @BindView(R.id.tv_left)
     TextView mTvLeft;
-    @BindView(R2.id.tv_right)
+    @BindView(R.id.tv_right)
     TextView mTvRight;
-    @BindView(R2.id.sp_record)
+    @BindView(R.id.sp_record)
     Spinner mSpRecord;
-    @BindView(R2.id.iv_file)
+    @BindView(R.id.iv_file)
     ImageView mIvFile;
-    @BindView(R2.id.tv_video)
+    @BindView(R.id.tv_video)
     TextView mTvVideo;
     private Timer timer = new Timer();
     int cnt = 0;
@@ -405,8 +404,8 @@ public class ProductVideoActivity extends BaseActivity implements CameraControle
         mCamerPresent.setSupportedColorEffects(value);
     }
 
-    @OnClick({R2.id.iv_add_setting, R2.id.iv_file, R2.id.iv_takphoto, R2.id.iv_play, R2.id.iv_face, R2.id.iv_bline, R2.id.camera,
-            R2.id.iv_back, R2.id.btn_record_wav, R2.id.iv_setting, R2.id.iv_back_setting, R2.id.btn_record_amr, R2.id.btn_stop})
+    @OnClick({R.id.iv_add_setting, R.id.iv_file, R.id.iv_takphoto, R.id.iv_play, R.id.iv_face, R.id.iv_bline, R.id.camera,
+            R.id.iv_back, R.id.btn_record_wav, R.id.iv_setting, R.id.iv_back_setting, R.id.btn_record_amr, R.id.btn_stop})
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.camera) {

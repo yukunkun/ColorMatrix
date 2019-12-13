@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
+import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.adapter.LVAdapter;
 import com.matrix.yukun.matrix.main_module.entity.HistoryInfo;
 import com.matrix.yukun.matrix.main_module.entity.SortModel;
@@ -37,17 +37,17 @@ import okhttp3.Call;
 
 public class HistoryTodayActivity extends BaseActivity {
 
-    @BindView(R2.id.iv_back)
+    @BindView(R.id.iv_back)
     ImageView mIvBack;
-    @BindView(R2.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView mTvTitle;
-    @BindView(R2.id.rl)
+    @BindView(R.id.rl)
     RelativeLayout mRl;
-    @BindView(R2.id.recyclerview)
+    @BindView(R.id.recyclerview)
     ListView mListview;
-    @BindView(R2.id.bar)
+    @BindView(R.id.bar)
     SideBar mBar;
-    @BindView(R2.id.av_load)
+    @BindView(R.id.av_load)
     AVLoadingIndicatorView mAvLload;
 
     private List<HistoryInfo> mList = new ArrayList<>();
@@ -147,7 +147,7 @@ public class HistoryTodayActivity extends BaseActivity {
         return filterDateList;
     }
 
-    @OnClick(R2.id.iv_back)
+    @OnClick(R.id.iv_back)
     public void onClick() {
         finish();
     }

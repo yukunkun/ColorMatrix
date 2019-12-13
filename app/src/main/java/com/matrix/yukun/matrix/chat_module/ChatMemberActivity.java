@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.view.View;
 
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
 import com.matrix.yukun.matrix.BaseActivity;
 
 import butterknife.OnClick;
@@ -29,7 +28,7 @@ public class ChatMemberActivity extends BaseActivity {
 
     }
 
-    @OnClick({R2.id.iv_backs, R2.id.rl_chat_mem, R2.id.rl_chat_womem})
+    @OnClick({R.id.iv_backs, R.id.rl_chat_mem, R.id.rl_chat_womem})
     public void onViewClicked(View view) {
         if(view.getId()== R.id.iv_backs){
             finish();

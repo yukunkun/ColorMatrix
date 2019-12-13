@@ -11,21 +11,19 @@ import android.widget.RelativeLayout;
 import com.bumptech.glide.Glide;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.R2;
-
 import butterknife.BindView;
 import cn.jzvd.Jzvd;
 import cn.jzvd.JzvdStd;
 
 public class VideoPlayActivity extends BaseActivity {
 
-    @BindView(R2.id.videoplayer)
+    @BindView(R.id.videoplayer)
     JzvdStd mVideoplayer;
-    @BindView(R2.id.im_cover)
+    @BindView(R.id.im_cover)
     ImageView mImCover;
-    @BindView(R2.id.im_play)
+    @BindView(R.id.im_play)
     ImageView mImPlay;
-    @BindView(R2.id.rl_bg)
+    @BindView(R.id.rl_bg)
     RelativeLayout mRlBg;
     private String mVideoPath;
     private String mVideoCover;
