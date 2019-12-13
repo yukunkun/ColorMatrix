@@ -12,6 +12,8 @@ import android.util.Log;
 import com.matrix.yukun.matrix.leancloud_module.LeanCloudMessageHandler;
 import com.qq.e.comm.DownloadService;
 
+import cn.leancloud.im.v2.AVIMMessageManager;
+
 //import cn.leancloud.im.v2.AVIMMessageManager;
 
 /**
@@ -72,7 +74,7 @@ public class DownLoadService extends Service {
     //初始化数值
     private void initListener() {
         DownLoadEngine.getInstance().startDownLoadServiceImpl();
-//        AVIMMessageManager.setConversationEventHandler(new LeanCloudMessageHandler());
+        AVIMMessageManager.setConversationEventHandler(new LeanCloudMessageHandler());
     }
 
     //释放数值

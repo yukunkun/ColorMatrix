@@ -52,7 +52,7 @@ public class MyApp extends LitePalApplication {
         Beta.autoCheckUpgrade = false;//设置不自动检查
         Bugly.init(getApplicationContext(), "884e2d9286", false);
         Bmob.initialize(this, AppConstant.BMOBAPPID);
-        AVOSCloud.initialize(this, AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY,"https://eggtbmvr.lc-cn-n1-shared.com");
+        AVOSCloud.initialize(this, AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY,AppConstant.LEANCLOUDURL);
         AVOSCloud.setLogLevel(AVLogger.Level.DEBUG);
         String processName = getProcessName(this, android.os.Process.myPid());
         // android 7.0系统解决拍照的问题

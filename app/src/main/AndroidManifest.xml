@@ -34,6 +34,7 @@
     <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW" /> <!-- 声明程序使用camera和自动对焦功能 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -47,6 +48,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:label,android:appComponentFactory">
+        <activity android:name=".leancloud_module.activity.ContactMemberActivity"></activity>
         <activity
             android:name=".main_module.activity.AvatarChoiceActivity"
             android:screenOrientation="portrait" />
@@ -72,9 +74,11 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="6255ee43c977c10b8ec24f8b1bb1649d" />
-        <!--<meta-data
+        <!--
+<meta-data
             android:name="CHANNEL"
-            android:value="${CHANNEL_VALUE}" />-->
+            android:value="${CHANNEL_VALUE}" />
+        -->
         <meta-data
             android:name="IFLYTEK_APPKEY"
             android:value="58833c92" />
@@ -144,8 +148,9 @@
         <service
             android:name="com.qq.e.comm.DownloadService"
             android:exported="false" /> <!-- 请开发者注意字母的大小写，ADActivity，而不是AdActivity -->
-        <!--leancloud相关-->
+        <!-- leancloud相关 -->
         <service android:name="cn.leancloud.push.PushService" />
+
         <receiver android:name="cn.leancloud.push.AVBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -153,7 +158,6 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-
 
         <activity
             android:name="com.qq.e.ads.ADActivity"
