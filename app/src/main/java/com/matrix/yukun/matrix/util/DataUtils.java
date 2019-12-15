@@ -3,6 +3,8 @@ package com.matrix.yukun.matrix.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * author: kun .
@@ -21,6 +23,14 @@ public class DataUtils {
         return date.getTime();
     }
 
+    public static boolean isNumericzidai(String str) {
+        Pattern pattern = Pattern.compile("[0-9]*");
+        Matcher isNum = pattern.matcher(str);
+        if (!isNum.matches()) {
+            return false;
+        }
+        return true;
+    }
     /**
      *
      * @param time 秒

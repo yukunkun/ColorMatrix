@@ -5,10 +5,6 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import com.google.android.material.tabs.TabLayout;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-import androidx.drawerlayout.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -23,6 +19,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationListener;
 import com.bumptech.glide.Glide;
+import com.google.android.material.tabs.TabLayout;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
@@ -52,21 +49,28 @@ import com.matrix.yukun.matrix.selfview.guideview.SimpleComponent2;
 import com.matrix.yukun.matrix.tool_module.btmovie.SpecialActivity;
 import com.matrix.yukun.matrix.tool_module.weather.activity.HeWeatherActivity;
 import com.matrix.yukun.matrix.util.log.LogUtil;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.OnClick;
-//import cn.leancloud.AVObject;
 import de.hdodenhof.circleimageview.CircleImageView;
 import interfaces.heweather.com.interfacesmodule.bean.Code;
 import interfaces.heweather.com.interfacesmodule.bean.weather.now.Now;
 import interfaces.heweather.com.interfacesmodule.bean.weather.now.NowBase;
 import interfaces.heweather.com.interfacesmodule.view.HeWeather;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+
+//import cn.leancloud.AVObject;
 
 /**
  * Created by yukun on 18-1-2.
@@ -418,6 +422,7 @@ public class PlayFragment extends BaseFragment {
             DataSupport.deleteAll(UserInfo.class);
             LeanCloudInit.getInstance().logout();
             MyApp.setUserInfo(null);
+            SPUtils.getInstance().clearKey("user");
             Intent intent = new Intent(getContext(), LoginActivity.class);
             startActivity(intent);
         } else if (i == R.id.head) {

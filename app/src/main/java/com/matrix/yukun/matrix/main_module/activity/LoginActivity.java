@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import androidx.cardview.widget.CardView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -25,11 +24,13 @@ import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.mine_module.activity.ResponsbilityActivity;
 import com.matrix.yukun.matrix.mine_module.entity.WebType;
+import com.matrix.yukun.matrix.util.DataUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
+import androidx.cardview.widget.CardView;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
@@ -151,6 +152,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 startAnimationSmall(mCardViewLogin);
                 startAnimationBig(mCardViewRegister);
             }else {
+                if(TextUtils.isEmpty(mTvRegisterName.getText().toString().trim())||!DataUtils.isNumericzidai(mTvRegisterName.getText().toString().trim())){
+                    ToastUtils.showToast("账号不能为空且只能为数字");
+                    return;
+                }
                 if(!TextUtils.isEmpty(mTvRegisterName.getText().toString().trim())&&!TextUtils.isEmpty(mTvRegisterPassword.getText().toString().trim())){
                     devideRegist(mTvRegisterName.getText().toString().trim(),new FindListener<UserInfoBMob>() {
                         @Override
@@ -206,6 +211,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         //执行查询方法
         query.findObjects(userInfoBMobFindListener);
     }
+
 
     /**
      * 登录

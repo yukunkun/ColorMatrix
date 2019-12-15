@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".leancloud_module.activity.SearchFriendActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/rl_contain"
+        android:background="@color/color_whit"
+        android:layout_height="50dp">
+        <ImageView
+            android:layout_width="@dimen/dimens_40"
+            android:src="@mipmap/joke_back"
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:id="@+id/iv_back"
+            android:paddingLeft="@dimen/dimens_3"
+            android:layout_marginTop="10dp"
+            android:paddingRight="8dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:layout_height="match_parent"/>
+        <TextView android:layout_width="wrap_content"
+            android:gravity="center"
+            android:text="搜索好友/群"
+            android:textSize="16sp"
+            android:textColor="@color/color_text"
+            android:layout_centerHorizontal="true"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:clickable="true"
+            android:visibility="gone"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@mipmap/icon_gaia_search_work"
+            android:id="@+id/iv_search"
+            android:layout_marginTop="10dp"
+            android:padding="@dimen/dimens_5"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
+    <include layout="@layout/include_line_no_marg"/>
+    <RelativeLayout
+        android:layout_marginTop="@dimen/dimens_10"
+        android:padding="@dimen/dimens_3"
+        android:background="@drawable/shape_search_bg"
+        android:layout_marginBottom="@dimen/dimens_10"
+        android:layout_marginLeft="@dimen/dimens_30"
+        android:layout_marginRight="@dimen/dimens_30"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_40">
+        <ImageView
+            android:padding="@dimen/dimens_5"
+            android:src="@mipmap/icon_gaia_search_work"
+            android:layout_width="@dimen/dimens_40"
+            android:layout_height="match_parent" />
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/dimens_14"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:background="@color/transparent"
+            android:paddingLeft="@dimen/dimens_10"
+            android:hint="输入好友昵称或者账号"
+            android:layout_marginLeft="@dimen/dimens_40"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_member"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
+</LinearLayout>

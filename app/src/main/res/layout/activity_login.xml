@@ -199,6 +199,7 @@
                                 android:layout_width="match_parent"
                                 android:singleLine="true"
                                 android:textSize="14sp"
+                                android:phoneNumber="true"
                                 android:layout_marginTop="@dimen/dimens_5"
                                 android:paddingLeft="@dimen/dimens_5"
                                 android:hint="请输入账号"

@@ -7,8 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import androidx.core.view.ViewCompat;
-import androidx.appcompat.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ViewGroup;
@@ -41,6 +39,8 @@ import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.view.ViewCompat;
 import butterknife.BindView;
 
 public class SplashActivity extends BaseActivity implements SplashADListener/* implements SplashADListener */ {
@@ -243,8 +243,12 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
         if(!TextUtils.isEmpty(user)){
             Gson gson=new Gson();
             UserInfoBMob userInfoBMob = gson.fromJson(user, UserInfoBMob.class);
-            MyApp.setUserInfo(userInfoBMob);
-            LeanCloudInit.getInstance().init(userInfoBMob.getId());
+            if(userInfoBMob!=null){
+                LogUtil.i(userInfoBMob.toString());
+                MyApp.setUserInfo(userInfoBMob);
+                LeanCloudInit.getInstance().init(userInfoBMob.getId());
+            }
+
         }
     }
 

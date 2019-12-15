@@ -1,12 +1,6 @@
 package com.matrix.yukun.matrix.main_module.fragment;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,19 +12,15 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.download_module.service.DownloadNotificationService;
 import com.matrix.yukun.matrix.leancloud_module.LeanCloudInit;
 import com.matrix.yukun.matrix.leancloud_module.activity.ContactMemberActivity;
+import com.matrix.yukun.matrix.leancloud_module.activity.SearchFriendActivity;
 import com.matrix.yukun.matrix.leancloud_module.adapter.RVContactAdapter;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
 import com.matrix.yukun.matrix.leancloud_module.impl.ConversitionListenerImpl;
 import com.matrix.yukun.matrix.leancloud_module.utils.MessageWrapper;
-import com.matrix.yukun.matrix.main_module.activity.VerticalVideoActivity;
-import com.matrix.yukun.matrix.main_module.dialog.ShareDialog;
 import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
-import com.matrix.yukun.matrix.main_module.entity.PlayAllBean;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtil;
-import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -40,6 +30,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.leancloud.im.v2.AVIMConversation;
@@ -144,7 +136,7 @@ public class CircleFragment extends BaseFragment {
         View popView = LayoutInflater.from(getContext()).inflate(R.layout.main_plus_popupwindow, null);
         TextView mTvCreateGroup = (TextView) popView.findViewById(R.id.create_group_tv);
         TextView mTvAddFriend = (TextView) popView.findViewById(R.id.add_friend_tv);
-        TextView mTvAddGroup = (TextView) popView.findViewById(R.id.add_friend_tv);
+        TextView mTvAddGroup = (TextView) popView.findViewById(R.id.add_group_tv);
         popupWindow = new PopupWindow(popView, ScreenUtil.dip2px(130), ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popupWindow.setTouchable(true);// 设置弹出窗体可触摸
         popupWindow.setOutsideTouchable(true); // 设置点击弹出框之外的区域后，弹出框消失
@@ -169,13 +161,15 @@ public class CircleFragment extends BaseFragment {
         mTvAddFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SearchFriendActivity.start(getContext(),0);
+                popupWindow.dismiss();
             }
         });
         mTvAddGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SearchFriendActivity.start(getContext(),1);
+                popupWindow.dismiss();
             }
         });
 
