@@ -1,6 +1,7 @@
 package com.matrix.yukun.matrix.main_module.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,12 @@ import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.leancloud_module.LeanCloudInit;
+import com.matrix.yukun.matrix.leancloud_module.activity.AcceptAddActivity;
 import com.matrix.yukun.matrix.leancloud_module.activity.ContactMemberActivity;
+import com.matrix.yukun.matrix.leancloud_module.activity.LeanChatActivity;
 import com.matrix.yukun.matrix.leancloud_module.activity.SearchFriendActivity;
 import com.matrix.yukun.matrix.leancloud_module.adapter.RVContactAdapter;
+import com.matrix.yukun.matrix.leancloud_module.common.LeanConatant;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
 import com.matrix.yukun.matrix.leancloud_module.impl.ConversitionListenerImpl;
 import com.matrix.yukun.matrix.leancloud_module.utils.MessageWrapper;
@@ -71,28 +75,34 @@ public class CircleFragment extends BaseFragment {
     @Override
     public void initView(View inflate, Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
-        mLinearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
+        mLinearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         rvList.setLayoutManager(mLinearLayoutManager);
-        mRvContactAdapter = new RVContactAdapter(R.layout.contact_item_layout,mContactInfos);
+        mRvContactAdapter = new RVContactAdapter(R.layout.contact_item_layout, mContactInfos);
         rvList.setAdapter(mRvContactAdapter);
-        OverScrollDecoratorHelper.setUpOverScroll(rvList,RecyclerView.HORIZONTAL);
+        OverScrollDecoratorHelper.setUpOverScroll(rvList, RecyclerView.HORIZONTAL);
         updateTitle();
         initData();
     }
 
     private void updateTitle() {
-        if(!LeanCloudInit.getInstance().isLogionleanCloud()){
+        if (!LeanCloudInit.getInstance().isLogionleanCloud()) {
             tvTitle.setText(getString(R.string.logining));
-        }else {
+        } else {
             tvTitle.setText(getString(R.string.secret_circle));
         }
     }
 
+    @Override
     public void initListener() {
-        mRvContactAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        mRvContactAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ContactInfo contactInfo = mContactInfos.get(position);
+                if (contactInfo != null && !TextUtils.isEmpty(contactInfo.getFrom()) && contactInfo.getFrom().equals(LeanConatant.SystemMessage)) {
+                    AcceptAddActivity.start(getContext(), contactInfo);
+                } else {
+                    LeanChatActivity.start(getContext(), contactInfo);
+                }
             }
         });
     }
@@ -145,7 +155,7 @@ public class CircleFragment extends BaseFragment {
         ScreenUtil.setBackgroundAlpha(getActivity(), 0.9f);
         int popWidth = popupWindow.getContentView().getMeasuredWidth();
         int windowWidth = ScreenUtil.getDisplayWidth();
-        popupWindow.showAsDropDown(ivAdd, -ScreenUtil.dip2px(130)+ivAdd.getWidth()-3, 0);
+        popupWindow.showAsDropDown(ivAdd, -ScreenUtil.dip2px(130) + ivAdd.getWidth() - 3, 0);
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -161,14 +171,14 @@ public class CircleFragment extends BaseFragment {
         mTvAddFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchFriendActivity.start(getContext(),0);
+                SearchFriendActivity.start(getContext(), 0);
                 popupWindow.dismiss();
             }
         });
         mTvAddGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchFriendActivity.start(getContext(),1);
+                SearchFriendActivity.start(getContext(), 1);
                 popupWindow.dismiss();
             }
         });

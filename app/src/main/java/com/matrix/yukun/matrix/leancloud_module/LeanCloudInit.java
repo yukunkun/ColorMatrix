@@ -1,6 +1,9 @@
 package com.matrix.yukun.matrix.leancloud_module;
 
-import com.matrix.yukun.matrix.MyApp;
+import android.widget.TextView;
+
+import com.matrix.yukun.matrix.AppConstant;
+import com.matrix.yukun.matrix.leancloud_module.common.LeanConatant;
 import com.matrix.yukun.matrix.leancloud_module.impl.ConversitionListenerImpl;
 import com.matrix.yukun.matrix.util.DataUtils;
 import com.matrix.yukun.matrix.util.log.LogUtil;
@@ -28,8 +31,8 @@ import cn.leancloud.im.v2.messages.AVIMTextMessage;
 public class LeanCloudInit {
 
     public static LeanCloudInit mLeanCloudInit = new LeanCloudInit();
-    private AVIMClient mAvimClient;
-    private boolean isLogionleanCloud=false;
+    private static AVIMClient mAvimClient;
+    private boolean isLogionleanCloud = false;
 
     public LeanCloudInit() {
 
@@ -39,22 +42,58 @@ public class LeanCloudInit {
         return mLeanCloudInit;
     }
 
-    public void init(String userId){
+    public void init(String userId) {
         mAvimClient = AVIMClient.getInstance(userId);
         mAvimClient.open(new AVIMClientCallback() {
             @Override
             public void done(AVIMClient client, AVIMException e) {
-                if(e==null){
+                if (e == null) {
                     LogUtil.i("登录leancloud成功");
-                    isLogionleanCloud=true;
-                }else {
-                    LogUtil.i("登录leancloud失败:"+e.toString() +" "+userId);
+                    isLogionleanCloud = true;
+                } else {
+                    LogUtil.i("登录leancloud失败:" + e.toString() + " " + userId);
                 }
             }
         });
     }
 
-    public void searchRecent(ConversitionListenerImpl listener){
+    public void sendSysytemMessage(String id,Map map, AVIMTextMessage avimTextMessage) {
+        AVIMClient mAvimClientSystem = AVIMClient.getInstance(LeanConatant.SystemAdmin);
+        mAvimClientSystem.open(new AVIMClientCallback() {
+            @Override
+            public void done(AVIMClient client, AVIMException e) {
+                if (e == null) {
+                    mAvimClient.createConversation(Arrays.asList(id), "系统消息", map, false, true,
+                            new AVIMConversationCreatedCallback() {
+                                @Override
+                                public void done(AVIMConversation conversation, AVIMException e) {
+                                    if (e == null) {
+                                        // 创建成功
+                                        conversation.sendMessage(avimTextMessage, new AVIMConversationCallback() {
+                                            @Override
+                                            public void done(AVIMException e) {
+                                                if (e == null) {
+
+                                                } else {
+
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        LogUtil.i("createConversation失败:" + e.toString());
+                                    }
+                                }
+                            });
+
+                } else {
+                    LogUtil.i("登录leancloud失败:" + e.toString());
+                }
+            }
+        });
+    }
+
+
+    public void searchRecent(ConversitionListenerImpl listener) {
 
         AVIMConversationsQuery query = mAvimClient.getConversationsQuery();
         /* 设置查询选项，指定返回对话的最后一条消息 */
@@ -66,61 +105,42 @@ public class LeanCloudInit {
             @Override
             public void done(List<AVIMConversation> convs, AVIMException e) {
                 if (e == null) {
-                    LogUtil.i(convs.size()+" "+convs.toString());
+                    LogUtil.i(convs.size() + " " + convs.toString());
                     listener.conversitionData(convs);
                     // 获取符合查询条件的 Conversation 列表
-                }else {
+                } else {
                     LogUtil.i(e.toString());
                     listener.error(e);
                 }
             }
         });
 
-//        Map<String ,Object> map=new HashMap();
-//        map.put("avator","http://mmbiz.qpic.cn/mmbiz/PwIlO51l7wuFyoFwAXfqPNETWCibjNACIt6ydN7vw8LeIwT7IjyG3eeribmK4rhibecvNKiaT2qeJRIWXLuKYPiaqtQ/0");
-//        map.put("from",MyApp.getUserInfo().getName());
-//        map.put("to","地方分发到");
-//        map.put("userId",MyApp.getUserInfo().getObjectId());
-//        mAvimClient.createConversation(Arrays.asList("地方分发到"), "", map, false, true,
-//                new AVIMConversationCreatedCallback() {
-//                    @Override
-//                    public void done(AVIMConversation conversation, AVIMException e) {
-//                        if(e == null) {
-//                            // 创建成功
-//                            LogUtil.i("createConversation成功");
-//                            AVIMTextMessage avimTextMessage=new AVIMTextMessage();
-//                            avimTextMessage.setText("一个坏蛋:"+ DataUtils.getDataTime(System.currentTimeMillis())+"反对犯得上");
-//                            conversation.sendMessage(avimTextMessage, new AVIMConversationCallback() {
-//                                @Override
-//                                public void done(AVIMException e) {
-//                                    if(e==null){
-//                                        LogUtil.i("sendMessage成功");
-//                                        isLogionleanCloud=true;
-//                                    }else {
-//                                        LogUtil.i("sendMessage失败:"+e.toString());
-//                                    }
-//                                }
-//                            });
-//                        }else {
-//                            LogUtil.i("createConversation失败:"+e.toString());
-//                        }
-//                    }
-//                });
+    }
 
+    public void sendSystemAdd(String id, String userInfo) {
+
+        Map<String, Object> map = new HashMap();
+        map.put("avator", AppConstant.APP_ICON_URl);
+        map.put("from", LeanConatant.SystemMessage);
+        map.put("to", id);
+        map.put("userId", LeanConatant.SystemAdmin);
+        AVIMTextMessage avimTextMessage = new AVIMTextMessage();
+        avimTextMessage.setText(userInfo);
+        sendSysytemMessage(id,map, avimTextMessage);
     }
 
     public boolean isLogionleanCloud() {
         return isLogionleanCloud;
     }
 
-    public void logout(){
-        if(mAvimClient!=null){
+    public void logout() {
+        if (mAvimClient != null) {
             mAvimClient.close(new AVIMClientCallback() {
                 @Override
                 public void done(AVIMClient client, AVIMException e) {
-                    if(e==null){
-                        mAvimClient=null;
-                        isLogionleanCloud=false;
+                    if (e == null) {
+                        mAvimClient = null;
+                        isLogionleanCloud = false;
                     }
                 }
             });

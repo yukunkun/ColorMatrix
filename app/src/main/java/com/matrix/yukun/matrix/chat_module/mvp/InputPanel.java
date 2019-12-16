@@ -286,7 +286,12 @@ public class InputPanel implements View.OnClickListener, EmojiPreFragment.OnEmoj
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_PICK);
         intent.setType("video/*");
-        ((Activity) mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_VIDEO);
+        try{
+            ((Activity) mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_VIDEO);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void openPhoto() {

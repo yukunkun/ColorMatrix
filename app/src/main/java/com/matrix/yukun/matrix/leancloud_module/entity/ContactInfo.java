@@ -1,5 +1,6 @@
 package com.matrix.yukun.matrix.leancloud_module.entity;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -8,7 +9,7 @@ import java.util.Set;
  * author: kun .
  * date:   On 2019/12/12
  */
-public class ContactInfo {
+public class ContactInfo implements Serializable {
     private String conversationId;
     private List<String> members; // 成员
     private String creator;     // 创建者

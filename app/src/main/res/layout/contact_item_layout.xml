@@ -44,7 +44,7 @@
     <LinearLayout
         android:layout_marginRight="@dimen/dimens_3"
         android:layout_alignParentRight="true"
-        android:layout_width="@dimen/dimens_60"
+        android:layout_width="@dimen/dimens_70"
         android:orientation="vertical"
         android:layout_centerVertical="true"
         android:layout_height="wrap_content">

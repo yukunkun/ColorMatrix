@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value="matrix" ></dbname>
-    <version value="16" ></version>
+    <version value="17" ></version>
     <list>
         <mapping class="com.matrix.yukun.matrix.main_module.entity.CollectsInfo"></mapping>
         <mapping class="com.matrix.yukun.matrix.tool_module.calarder.contant.CalandarBean"></mapping>
@@ -15,5 +15,7 @@
         <mapping class="com.matrix.yukun.matrix.main_module.entity.ImageInfo"></mapping>
         <mapping class="com.matrix.yukun.matrix.chat_module.entity.ChatListInfo"></mapping>
         <mapping class="com.matrix.yukun.matrix.main_module.search.DBSearchInfo"></mapping>
+        // leancloud
+        <mapping class="com.matrix.yukun.matrix.leancloud_module.entity.AddFriendInfo"/>
     </list>
 </litepal>

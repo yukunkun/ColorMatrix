@@ -48,7 +48,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:label,android:appComponentFactory">
-        <activity android:name=".leancloud_module.activity.SearchFriendActivity"></activity>
+        <activity android:name=".leancloud_module.activity.AcceptAddActivity"></activity>
+        <activity android:name=".leancloud_module.activity.LeanChatActivity" />
+        <activity android:name=".leancloud_module.activity.LeanBaseActivity" />
+        <activity android:name=".leancloud_module.activity.SearchFriendActivity" />
         <activity android:name=".leancloud_module.activity.ContactMemberActivity" />
         <activity
             android:name=".main_module.activity.AvatarChoiceActivity"

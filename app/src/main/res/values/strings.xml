@@ -58,6 +58,7 @@
     <string name="copy_to_jianjieban">复制到剪切板</string>
     <string name="secret_circle">小密圈</string>
     <string name="logining">连接中...</string>
+    <string name="system_message">你有一条系统消息</string>
     <string-array name="calendar_week">
         <item>日</item>
         <item>一</item>

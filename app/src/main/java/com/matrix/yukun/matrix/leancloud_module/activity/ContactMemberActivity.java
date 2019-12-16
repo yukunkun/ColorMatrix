@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.util.StatusBarUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -30,6 +31,9 @@ public class ContactMemberActivity extends BaseActivity {
 
     @Override
     public int getLayout() {
+        StatusBarUtil.setRootViewFitsSystemWindows(this, false);
+        //设置状态栏透明
+        StatusBarUtil.setTranslucentStatus(this);
         return R.layout.activity_contact_member;
     }
 
@@ -53,6 +57,7 @@ public class ContactMemberActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.iv_back:
                 finish();
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 break;
             case R.id.iv_search:
                 break;

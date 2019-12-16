@@ -1,5 +1,7 @@
 package com.matrix.yukun.matrix.main_module.entity;
 
+import com.google.gson.Gson;
+
 import cn.bmob.v3.BmobObject;
 
 /**
@@ -105,6 +107,13 @@ public class UserInfoBMob extends BmobObject {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+
+    public static String toJson(UserInfoBMob userInfoBMob){
+        Gson gson=new Gson();
+        String toJson = gson.toJson(userInfoBMob);
+        return toJson;
     }
 
     @Override
