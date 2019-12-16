@@ -5,8 +5,16 @@ package com.matrix.yukun.matrix.main_module.entity;
  */
 
 public class EventUpdateHeader {
-
+    private boolean isLoginOut;
     public EventUpdateHeader() {
 
+    }
+
+    public boolean isLoginOut() {
+        return isLoginOut;
+    }
+
+    public void setLoginOut(boolean loginOut) {
+        isLoginOut = loginOut;
     }
 }

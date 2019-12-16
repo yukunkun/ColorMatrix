@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.MyApp;
@@ -20,28 +20,26 @@ import com.matrix.yukun.matrix.leancloud_module.activity.LeanChatActivity;
 import com.matrix.yukun.matrix.leancloud_module.activity.SearchFriendActivity;
 import com.matrix.yukun.matrix.leancloud_module.adapter.RVContactAdapter;
 import com.matrix.yukun.matrix.leancloud_module.common.LeanConatant;
+import com.matrix.yukun.matrix.leancloud_module.common.LoginDialog;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
 import com.matrix.yukun.matrix.leancloud_module.impl.ConversitionListenerImpl;
 import com.matrix.yukun.matrix.leancloud_module.utils.MessageWrapper;
+import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtil;
 import com.matrix.yukun.matrix.util.log.LogUtil;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.leancloud.im.v2.AVIMConversation;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
-//import cn.leancloud.AVObject;
-//import cn.leancloud.session.AVConnectionManager;
+
 
 /**
  * author: kun .
@@ -58,6 +56,10 @@ public class CircleFragment extends BaseFragment {
     @BindView(R.id.rv_list)
     RecyclerView rvList;
     PopupWindow popupWindow;
+    @BindView(R.id.tv_login)
+    TextView tvLogin;
+    @BindView(R.id.rl_remind)
+    RelativeLayout rlRemind;
     private LinearLayoutManager mLinearLayoutManager;
     private List<ContactInfo> mContactInfos = new ArrayList<>();
     private RVContactAdapter mRvContactAdapter;
@@ -80,12 +82,19 @@ public class CircleFragment extends BaseFragment {
         mRvContactAdapter = new RVContactAdapter(R.layout.contact_item_layout, mContactInfos);
         rvList.setAdapter(mRvContactAdapter);
         OverScrollDecoratorHelper.setUpOverScroll(rvList, RecyclerView.HORIZONTAL);
-        updateTitle();
-        initData();
+        if (MyApp.getUserInfo() == null) {
+            rlRemind.setVisibility(View.VISIBLE);
+        } else {
+            updateTitle();
+            initData();
+        }
     }
 
     private void updateTitle() {
         if (!LeanCloudInit.getInstance().isLogionleanCloud()) {
+            if (MyApp.getUserInfo() != null) {
+                LeanCloudInit.getInstance().init(MyApp.getUserInfo().getId());
+            }
             tvTitle.setText(getString(R.string.logining));
         } else {
             tvTitle.setText(getString(R.string.secret_circle));
@@ -119,12 +128,13 @@ public class CircleFragment extends BaseFragment {
 
             @Override
             public void error(Exception e) {
+                LogUtil.i(e.toString());
 //                ToastUtils.showToast("获取失败:"+e);
             }
         });
     }
 
-    @OnClick({R.id.iv_contact, R.id.iv_add})
+    @OnClick({R.id.iv_contact, R.id.iv_add,R.id.tv_login})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_contact:
@@ -132,6 +142,9 @@ public class CircleFragment extends BaseFragment {
                 break;
             case R.id.iv_add:
                 showMorePopWindow();
+                break;
+            case R.id.tv_login:
+                LoginActivity.start(getContext());
                 break;
         }
     }
@@ -182,15 +195,24 @@ public class CircleFragment extends BaseFragment {
                 popupWindow.dismiss();
             }
         });
-
     }
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateHeader(EventUpdateHeader eventUpdateHeader) {
-        if (MyApp.userInfo != null) {
-            LeanCloudInit.getInstance().init(MyApp.userInfo.getId());
-            tvTitle.setText(getString(R.string.secret_circle));
+        LogUtil.i("=========="+MyApp.getUserInfo());
+        if(eventUpdateHeader.isLoginOut()&&mRvContactAdapter!=null){
+            rlRemind.setVisibility(View.VISIBLE);
+            mContactInfos.clear();
+            mRvContactAdapter.notifyDataSetChanged();
+        }else {
+            if (MyApp.getUserInfo() != null) {
+                LeanCloudInit.getInstance().init(MyApp.userInfo.getId());
+                mContactInfos.clear();
+                rlRemind.setVisibility(View.GONE);
+                updateTitle();
+                initData();
+            }
         }
     }
 

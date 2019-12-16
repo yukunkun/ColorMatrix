@@ -422,6 +422,9 @@ public class PlayFragment extends BaseFragment {
             DataSupport.deleteAll(UserInfo.class);
             LeanCloudInit.getInstance().logout();
             MyApp.setUserInfo(null);
+            EventUpdateHeader eventUpdateHeader = new EventUpdateHeader();
+            eventUpdateHeader.setLoginOut(true);
+            EventBus.getDefault().post(eventUpdateHeader);
             SPUtils.getInstance().clearKey("user");
             Intent intent = new Intent(getContext(), LoginActivity.class);
             startActivity(intent);

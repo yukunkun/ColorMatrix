@@ -16,15 +16,26 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.leancloud_module.LeanCloudInit;
 import com.matrix.yukun.matrix.leancloud_module.entity.AddFriendInfo;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
+import com.matrix.yukun.matrix.leancloud_module.entity.FriendsBMob;
+import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
+import com.matrix.yukun.matrix.main_module.activity.PlayMainActivity;
+import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
+import com.matrix.yukun.matrix.main_module.utils.SPUtils;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.glide.GlideUtil;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+
+import org.greenrobot.eventbus.EventBus;
 import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,7 +43,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.helper.GsonUtil;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 public class AcceptAddActivity extends BaseActivity {
 
@@ -85,6 +101,7 @@ public class AcceptAddActivity extends BaseActivity {
             if (!addFriendInfos.isEmpty()) {
                 addFriendInfo.setAdd(true);
             }
+            addFriendInfo.setUserInfoBMob(lastMessage);
             addFriendInfo.setName(userInfoBMob.getName());
             addFriendInfo.setAvatar(userInfoBMob.getAvator());
             addFriendInfo.setCreateTime(mContactInfo.getLastTime());
@@ -153,9 +170,108 @@ public class AcceptAddActivity extends BaseActivity {
                     tvAdd.setBackgroundResource(R.drawable.shape_collect_bg_checked);
                     item.setAdd(true);
                     item.save();
+                    buildFriendContact(item);
                 }
             });
         }
     }
 
+    private void buildFriendContact(AddFriendInfo item) {
+        ArrayList<String> mList=new ArrayList();
+        mList.add(item.getUserInfoBMob());
+
+        FriendsBMob friendsBMob=new FriendsBMob();
+        friendsBMob.setUserId(MyApp.getUserInfo().getId());
+        friendsBMob.setAvator(MyApp.getUserInfo().getAvator());
+        friendsBMob.setName(MyApp.getUserInfo().getName());
+
+        BmobQuery<FriendsBMob> query = new BmobQuery<>();
+        //查询playerName叫“比目”的数据
+        query.addWhereEqualTo("userId", MyApp.getUserInfo().getId());
+        //执行查询方法
+        query.findObjects(new FindListener<FriendsBMob>() {
+            @Override
+            public void done(List<FriendsBMob> list, BmobException e) {
+                if(e==null&&!list.isEmpty()){
+                    LogUtil.i(list.toString());
+                    mList.addAll(list.get(0).getFriendList());
+                    friendsBMob.setFriendList(mList);
+                    friendsBMob.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e==null){
+
+                            }else {
+                                ToastUtils.showToast("添加好友失败");
+                            }
+                        }
+                    });
+                }else {
+                    if(e.getErrorCode()==101){
+                        friendsBMob.setFriendList(mList);
+                        friendsBMob.save(new SaveListener<String>() {
+                            @Override
+                            public void done(String s, BmobException e) {
+                                if(e==null){
+
+                                }else {
+                                    ToastUtils.showToast("添加好友失败");
+                                }
+                            }
+
+                        });
+                    }
+                    LogUtil.i(e.toString());
+                }
+            }
+        });
+
+
+        ArrayList otherList=new ArrayList();
+        otherList.add(GsonUtil.toJson(MyApp.getUserInfo()));
+        FriendsBMob othersBMob=new FriendsBMob();
+        othersBMob.setUserId(item.getUserId());
+        othersBMob.setAvator(item.getAvatar());
+        friendsBMob.setName(item.getName());
+
+        query.findObjects(new FindListener<FriendsBMob>() {
+            @Override
+            public void done(List<FriendsBMob> list, BmobException e) {
+                if(e==null&&!list.isEmpty()){
+                    LogUtil.i(list.toString());
+                    otherList.addAll(list.get(0).getFriendList());
+                    othersBMob.setFriendList(otherList);
+                    othersBMob.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e==null){
+                                ToastUtils.showToast("添加好友成功");
+                            }else {
+                                ToastUtils.showToast("添加好友失败");
+                            }
+                        }
+                    });
+                }else {
+                    if(e.getErrorCode()==101){
+                        othersBMob.setFriendList(otherList);
+                        othersBMob.save(new SaveListener<String>() {
+                            @Override
+                            public void done(String s, BmobException e) {
+                                if(e==null){
+                                    ToastUtils.showToast("添加好友成功");
+                                }else {
+                                    ToastUtils.showToast("添加好友失败");
+                                }
+                            }
+
+                        });
+                    }
+                    LogUtil.i(e.toString());
+                }
+            }
+        });
+
+
+
+    }
 }

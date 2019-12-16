@@ -219,7 +219,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
      * @param password
      */
     private void login(String name, String password) {
-        BmobQuery<UserInfoBMob> query = new BmobQuery<UserInfoBMob>();
+        BmobQuery<UserInfoBMob> query = new BmobQuery<>();
         //查询playerName叫“比目”的数据
         query.addWhereEqualTo("account", name);
         query.addWhereEqualTo("passwd", password);

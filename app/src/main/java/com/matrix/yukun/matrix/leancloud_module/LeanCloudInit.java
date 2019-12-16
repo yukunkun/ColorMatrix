@@ -94,7 +94,6 @@ public class LeanCloudInit {
 
 
     public void searchRecent(ConversitionListenerImpl listener) {
-
         AVIMConversationsQuery query = mAvimClient.getConversationsQuery();
         /* 设置查询选项，指定返回对话的最后一条消息 */
         query.setWithLastMessagesRefreshed(true);
@@ -134,16 +133,16 @@ public class LeanCloudInit {
     }
 
     public void logout() {
-        if (mAvimClient != null) {
-            mAvimClient.close(new AVIMClientCallback() {
-                @Override
-                public void done(AVIMClient client, AVIMException e) {
-                    if (e == null) {
-                        mAvimClient = null;
-                        isLogionleanCloud = false;
-                    }
-                }
-            });
-        }
+//        if (mAvimClient != null) {
+//            mAvimClient.close(new AVIMClientCallback() {
+//                @Override
+//                public void done(AVIMClient client, AVIMException e) {
+//                    if (e == null) {
+//                        mAvimClient = null;
+//                        isLogionleanCloud = false;
+//                    }
+//                }
+//            });
+//        }
     }
 }

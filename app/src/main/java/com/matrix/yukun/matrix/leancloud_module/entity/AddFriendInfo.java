@@ -12,6 +12,7 @@ public class AddFriendInfo extends DataSupport {
     private boolean isAdd;
     private String createTime;
     private String userId;
+    private String userInfoBMob;
 
     public String getUserId() {
         return userId;
@@ -51,5 +52,13 @@ public class AddFriendInfo extends DataSupport {
 
     public void setAdd(boolean add) {
         isAdd = add;
+    }
+
+    public String getUserInfoBMob() {
+        return userInfoBMob;
+    }
+
+    public void setUserInfoBMob(String userInfoBMob) {
+        this.userInfoBMob = userInfoBMob;
     }
 }
