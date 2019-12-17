@@ -160,19 +160,21 @@ public class AcceptAddActivity extends BaseActivity {
                 tvAdd.setText("已添加");
                 tvAdd.setTextColor(mContext.getResources().getColor(R.color.color_b9b9b9));
                 tvAdd.setBackgroundResource(R.drawable.shape_collect_bg_checked);
+            }else {
+                tvAdd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        tvAdd.setClickable(false);
+                        tvAdd.setText("已添加");
+                        tvAdd.setTextColor(mContext.getResources().getColor(R.color.color_b9b9b9));
+                        tvAdd.setBackgroundResource(R.drawable.shape_collect_bg_checked);
+                        item.setAdd(true);
+                        item.save();
+                        buildFriendContact(item);
+                    }
+                });
             }
-            tvAdd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    tvAdd.setClickable(false);
-                    tvAdd.setText("已添加");
-                    tvAdd.setTextColor(mContext.getResources().getColor(R.color.color_b9b9b9));
-                    tvAdd.setBackgroundResource(R.drawable.shape_collect_bg_checked);
-                    item.setAdd(true);
-                    item.save();
-                    buildFriendContact(item);
-                }
-            });
+
         }
     }
 
@@ -184,7 +186,7 @@ public class AcceptAddActivity extends BaseActivity {
         friendsBMob.setUserId(MyApp.getUserInfo().getId());
         friendsBMob.setAvator(MyApp.getUserInfo().getAvator());
         friendsBMob.setName(MyApp.getUserInfo().getName());
-
+        LogUtil.i(item.toString());
         BmobQuery<FriendsBMob> query = new BmobQuery<>();
         //查询playerName叫“比目”的数据
         query.addWhereEqualTo("userId", MyApp.getUserInfo().getId());
@@ -195,7 +197,12 @@ public class AcceptAddActivity extends BaseActivity {
                 if(e==null&&!list.isEmpty()){
                     LogUtil.i(list.toString());
                     mList.addAll(list.get(0).getFriendList());
+                    boolean goodFriend = isGoodFriend(item.getUserInfoBMob(), list.get(0).getFriendList());
+                    if(goodFriend){
+                        return;
+                    }
                     friendsBMob.setFriendList(mList);
+                    LogUtil.i(friendsBMob.toString());
                     friendsBMob.update(new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
@@ -207,8 +214,9 @@ public class AcceptAddActivity extends BaseActivity {
                         }
                     });
                 }else {
-                    if(e.getErrorCode()==101){
+                    if(e.getErrorCode()==101||e.getErrorCode()==9015){
                         friendsBMob.setFriendList(mList);
+                        LogUtil.i(friendsBMob.toString());
                         friendsBMob.save(new SaveListener<String>() {
                             @Override
                             public void done(String s, BmobException e) {
@@ -229,18 +237,25 @@ public class AcceptAddActivity extends BaseActivity {
 
         ArrayList otherList=new ArrayList();
         otherList.add(GsonUtil.toJson(MyApp.getUserInfo()));
+        UserInfoBMob infoBMob= (UserInfoBMob) GsonUtil.toObject(item.getUserInfoBMob(),UserInfoBMob.class);
         FriendsBMob othersBMob=new FriendsBMob();
-        othersBMob.setUserId(item.getUserId());
-        othersBMob.setAvator(item.getAvatar());
-        friendsBMob.setName(item.getName());
-
+        othersBMob.setUserId(infoBMob.getId());
+        othersBMob.setAvator(infoBMob.getAvator());
+        othersBMob.setName(infoBMob.getName());
+        LogUtil.i(item.toString());
+        LogUtil.i(othersBMob.toString());
         query.findObjects(new FindListener<FriendsBMob>() {
             @Override
             public void done(List<FriendsBMob> list, BmobException e) {
                 if(e==null&&!list.isEmpty()){
                     LogUtil.i(list.toString());
                     otherList.addAll(list.get(0).getFriendList());
+                    boolean goodFriend = isGoodFriend(GsonUtil.toJson(MyApp.getUserInfo()), list.get(0).getFriendList());
+                    if(goodFriend){
+                        return;
+                    }
                     othersBMob.setFriendList(otherList);
+                    LogUtil.i(othersBMob.toString());
                     othersBMob.update(new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
@@ -252,8 +267,9 @@ public class AcceptAddActivity extends BaseActivity {
                         }
                     });
                 }else {
-                    if(e.getErrorCode()==101){
+                    if(e.getErrorCode()==101||e.getErrorCode()==9015){
                         othersBMob.setFriendList(otherList);
+                        LogUtil.i(othersBMob.toString());
                         othersBMob.save(new SaveListener<String>() {
                             @Override
                             public void done(String s, BmobException e) {
@@ -273,5 +289,17 @@ public class AcceptAddActivity extends BaseActivity {
 
 
 
+    }
+
+    private boolean isGoodFriend(String othersBMob, ArrayList<String> friendList) {
+        UserInfoBMob infoBMob= (UserInfoBMob) GsonUtil.toObject(othersBMob,UserInfoBMob.class);
+        for (int i = 0; i < friendList.size(); i++) {
+            String userStr = friendList.get(i);
+            UserInfoBMob userInfoBMob= (UserInfoBMob) GsonUtil.toObject(userStr,UserInfoBMob.class);
+            if(infoBMob.getId().equals(userInfoBMob.getId())){
+                return true;
+            }
+        }
+        return false;
     }
 }

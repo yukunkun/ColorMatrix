@@ -48,4 +48,30 @@
             android:layout_height="match_parent"/>
     </RelativeLayout>
     <include layout="@layout/include_line_no_marg"/>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:background="@color/color_whit"
+            android:layout_height="wrap_content">
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tablayout"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:tabMode="scrollable"
+                app:tabIndicatorColor="@color/color_2e4eef"
+                app:tabTextColor="@color/color_2b2b2b"
+                app:tabSelectedTextColor="@color/color_2e4eef"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.google.android.material.tabs.TabLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+        <include layout="@layout/include_line_no_marg"/>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </androidx.viewpager.widget.ViewPager>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>

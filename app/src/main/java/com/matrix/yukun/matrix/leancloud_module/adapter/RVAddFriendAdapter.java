@@ -47,7 +47,7 @@ public class RVAddFriendAdapter extends BaseQuickAdapter<UserInfoBMob,BaseViewHo
                 tvAddView.setText("已申请");
                 tvAddView.setTextColor(mContext.getResources().getColor(R.color.color_back_more));
                 tvAddView.setBackgroundResource(R.drawable.shape_collect_bg_checked);
-                LeanCloudInit.getInstance().sendSystemAdd(item.getId(),UserInfoBMob.toJson(item));
+                LeanCloudInit.getInstance().sendSystemAdd(item.getId(),UserInfoBMob.toJson(MyApp.getUserInfo()));
 
             }
         });

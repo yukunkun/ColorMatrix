@@ -54,4 +54,15 @@ public class FriendsBMob extends BmobObject {
     public void setId(String id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "FriendsBMob{" +
+                " userId='" + userId + '\'' +
+                ", avator='" + avator + '\'' +
+                ", name='" + name + '\'' +
+                ", id='" + getId() + '\'' +
+                ", mFriendList=" + mFriendList +
+                '}';
+    }
 }

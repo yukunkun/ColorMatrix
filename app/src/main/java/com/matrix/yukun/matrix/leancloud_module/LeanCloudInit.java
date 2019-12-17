@@ -1,18 +1,15 @@
 package com.matrix.yukun.matrix.leancloud_module;
 
-import android.widget.TextView;
-
 import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.leancloud_module.common.LeanConatant;
 import com.matrix.yukun.matrix.leancloud_module.impl.ConversitionListenerImpl;
-import com.matrix.yukun.matrix.util.DataUtils;
+import com.matrix.yukun.matrix.leancloud_module.impl.LoginListenerImpl;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import cn.leancloud.AVQuery;
 import cn.leancloud.im.v2.AVIMClient;
 import cn.leancloud.im.v2.AVIMConversation;
@@ -42,6 +39,26 @@ public class LeanCloudInit {
         return mLeanCloudInit;
     }
 
+    public void init(String userId, LoginListenerImpl loginListener) {
+        mAvimClient = AVIMClient.getInstance(userId);
+        mAvimClient.open(new AVIMClientCallback() {
+            @Override
+            public void done(AVIMClient client, AVIMException e) {
+                if (e == null) {
+                    if(loginListener!=null){
+                        loginListener.login();
+                    }
+                    LogUtil.i("登录leancloud成功");
+                    isLogionleanCloud = true;
+                } else {
+                    if(loginListener!=null){
+                        loginListener.error(e);
+                    }
+                }
+            }
+        });
+    }
+
     public void init(String userId) {
         mAvimClient = AVIMClient.getInstance(userId);
         mAvimClient.open(new AVIMClientCallback() {
@@ -57,7 +74,7 @@ public class LeanCloudInit {
         });
     }
 
-    public void sendSysytemMessage(String id,Map map, AVIMTextMessage avimTextMessage) {
+    public void sendSystemMessage(String id,Map map, AVIMTextMessage avimTextMessage) {
         AVIMClient mAvimClientSystem = AVIMClient.getInstance(LeanConatant.SystemAdmin);
         mAvimClientSystem.open(new AVIMClientCallback() {
             @Override
@@ -125,7 +142,7 @@ public class LeanCloudInit {
         map.put("userId", LeanConatant.SystemAdmin);
         AVIMTextMessage avimTextMessage = new AVIMTextMessage();
         avimTextMessage.setText(userInfo);
-        sendSysytemMessage(id,map, avimTextMessage);
+        sendSystemMessage(id,map, avimTextMessage);
     }
 
     public boolean isLogionleanCloud() {

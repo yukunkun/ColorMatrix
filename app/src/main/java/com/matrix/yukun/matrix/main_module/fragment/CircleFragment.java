@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.MyApp;
@@ -23,16 +24,21 @@ import com.matrix.yukun.matrix.leancloud_module.common.LeanConatant;
 import com.matrix.yukun.matrix.leancloud_module.common.LoginDialog;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
 import com.matrix.yukun.matrix.leancloud_module.impl.ConversitionListenerImpl;
+import com.matrix.yukun.matrix.leancloud_module.impl.LoginListenerImpl;
 import com.matrix.yukun.matrix.leancloud_module.utils.MessageWrapper;
 import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
 import com.matrix.yukun.matrix.main_module.utils.ScreenUtil;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.log.LogUtil;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -86,16 +92,23 @@ public class CircleFragment extends BaseFragment {
             rlRemind.setVisibility(View.VISIBLE);
         } else {
             updateTitle();
-            initData();
         }
     }
 
     private void updateTitle() {
-        if (!LeanCloudInit.getInstance().isLogionleanCloud()) {
-            if (MyApp.getUserInfo() != null) {
-                LeanCloudInit.getInstance().init(MyApp.getUserInfo().getId());
-            }
-            tvTitle.setText(getString(R.string.logining));
+        if (MyApp.getUserInfo() != null && !LeanCloudInit.getInstance().isLogionleanCloud()) {
+            LeanCloudInit.getInstance().init(MyApp.getUserInfo().getId(), new LoginListenerImpl() {
+                @Override
+                public void login() {
+                    tvTitle.setText(getString(R.string.secret_circle));
+                    initData();
+                }
+
+                @Override
+                public void error(Exception e) {
+                    ToastUtils.showToast("登录失败："+e.toString());
+                }
+            });
         } else {
             tvTitle.setText(getString(R.string.secret_circle));
         }
@@ -134,7 +147,7 @@ public class CircleFragment extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.iv_contact, R.id.iv_add,R.id.tv_login})
+    @OnClick({R.id.iv_contact, R.id.iv_add, R.id.tv_login})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_contact:
@@ -200,18 +213,16 @@ public class CircleFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateHeader(EventUpdateHeader eventUpdateHeader) {
-        LogUtil.i("=========="+MyApp.getUserInfo());
-        if(eventUpdateHeader.isLoginOut()&&mRvContactAdapter!=null){
+        if (eventUpdateHeader.isLoginOut() && mRvContactAdapter != null) {
             rlRemind.setVisibility(View.VISIBLE);
             mContactInfos.clear();
             mRvContactAdapter.notifyDataSetChanged();
-        }else {
-            if (MyApp.getUserInfo() != null) {
+        } else {
+            if (MyApp.getUserInfo() != null && !LeanCloudInit.getInstance().isLogionleanCloud()) {
                 LeanCloudInit.getInstance().init(MyApp.userInfo.getId());
                 mContactInfos.clear();
                 rlRemind.setVisibility(View.GONE);
                 updateTitle();
-                initData();
             }
         }
     }

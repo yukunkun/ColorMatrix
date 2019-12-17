@@ -61,4 +61,16 @@ public class AddFriendInfo extends DataSupport {
     public void setUserInfoBMob(String userInfoBMob) {
         this.userInfoBMob = userInfoBMob;
     }
+
+    @Override
+    public String toString() {
+        return "AddFriendInfo{" +
+                "name='" + name + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", isAdd=" + isAdd +
+                ", createTime='" + createTime + '\'' +
+                ", userId='" + userId + '\'' +
+                ", userInfoBMob='" + userInfoBMob + '\'' +
+                '}';
+    }
 }
