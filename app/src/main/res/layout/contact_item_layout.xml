@@ -59,11 +59,17 @@
             android:layout_height="wrap_content" />
         <TextView
             android:layout_marginTop="@dimen/dimens_3"
-            android:id="@+id/tv_ccount"
-            android:text=""
-            android:textSize="@dimen/sp_12"
+            android:id="@+id/tv_account"
+            android:background="@drawable/chat_message_point"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            android:gravity="center"
+            android:textColor="@color/color_whit"
+            android:paddingLeft="@dimen/dimens_5"
+            android:paddingRight="@dimen/dimens_5"
+            android:textSize="@dimen/dp_10"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="@dimen/dimens_20" />
     </LinearLayout>
 
 </RelativeLayout>

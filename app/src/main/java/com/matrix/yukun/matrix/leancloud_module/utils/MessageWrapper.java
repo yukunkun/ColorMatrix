@@ -33,6 +33,7 @@ public class MessageWrapper {
         for (int i = 0; i < avimConversations.size(); i++) {
             ContactInfo contactInfo = new ContactInfo();
             AVIMConversation avimConversation = avimConversations.get(i);
+            LogUtil.i(avimConversation.getUnreadMessagesCount()+"");
             contactInfo.setAvator((String) avimConversation.getAttribute("avator"));
             contactInfo.setTo((String) avimConversation.getAttribute("to"));
             contactInfo.setFrom((String) avimConversation.getAttribute("from"));

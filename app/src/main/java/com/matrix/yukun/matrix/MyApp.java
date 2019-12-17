@@ -34,6 +34,7 @@ import java.util.List;
 import cn.bmob.v3.Bmob;
 import cn.leancloud.AVLogger;
 import cn.leancloud.AVOSCloud;
+import cn.leancloud.im.AVIMOptions;
 import interfaces.heweather.com.interfacesmodule.view.HeConfig;
 
 /**
@@ -54,6 +55,7 @@ public class MyApp extends LitePalApplication {
         Bmob.initialize(this, AppConstant.BMOBAPPID);
         AVOSCloud.initialize(this, AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY,AppConstant.LEANCLOUDURL);
         AVOSCloud.setLogLevel(AVLogger.Level.DEBUG);
+        AVIMOptions.getGlobalOptions().setUnreadNotificationEnabled(true);
         String processName = getProcessName(this, android.os.Process.myPid());
         // android 7.0系统解决拍照的问题
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();

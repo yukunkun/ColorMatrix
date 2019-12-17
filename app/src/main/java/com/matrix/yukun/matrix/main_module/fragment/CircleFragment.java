@@ -44,6 +44,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.leancloud.im.v2.AVIMConversation;
+import cn.leancloud.im.v2.Conversation;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 
@@ -96,7 +97,7 @@ public class CircleFragment extends BaseFragment {
     }
 
     private void updateTitle() {
-        if (MyApp.getUserInfo() != null && !LeanCloudInit.getInstance().isLogionleanCloud()) {
+        if (!LeanCloudInit.getInstance().isLogionleanCloud()) {
             LeanCloudInit.getInstance().init(MyApp.getUserInfo().getId(), new LoginListenerImpl() {
                 @Override
                 public void login() {
@@ -110,6 +111,7 @@ public class CircleFragment extends BaseFragment {
                 }
             });
         } else {
+            initData();
             tvTitle.setText(getString(R.string.secret_circle));
         }
     }

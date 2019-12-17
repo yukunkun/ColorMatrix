@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import cn.leancloud.im.v2.AVIMConversation;
+
 /**
  * author: kun .
  * date:   On 2019/12/12

@@ -1,6 +1,8 @@
 package com.matrix.yukun.matrix.leancloud_module.adapter;
 
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -38,6 +40,13 @@ public class RVContactAdapter extends BaseQuickAdapter<ContactInfo,BaseViewHolde
             helper.setText(R.id.tv_context,item.getLastMessage());
             GlideUtil.loadCircleImage(item.getAvator()+"",helper.getView(R.id.iv_avatar));
             helper.setText(R.id.tv_time, coverToTime(Long.valueOf(item.getLastTime())));
+        }
+        TextView tvAccount=helper.getView(R.id.tv_account);
+        if(item.getUnreadMessagesCount()>0){
+            tvAccount.setVisibility(View.VISIBLE);
+            tvAccount.setText(item.getUnreadMessagesCount());
+        }else {
+            tvAccount.setVisibility(View.GONE);
         }
     }
 

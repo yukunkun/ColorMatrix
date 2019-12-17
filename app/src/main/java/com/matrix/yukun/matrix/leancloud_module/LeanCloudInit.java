@@ -51,6 +51,7 @@ public class LeanCloudInit {
                     LogUtil.i("登录leancloud成功");
                     isLogionleanCloud = true;
                 } else {
+                    LogUtil.i("登录leancloud成功");
                     if(loginListener!=null){
                         loginListener.error(e);
                     }
@@ -111,25 +112,26 @@ public class LeanCloudInit {
 
 
     public void searchRecent(ConversitionListenerImpl listener) {
-        AVIMConversationsQuery query = mAvimClient.getConversationsQuery();
-        /* 设置查询选项，指定返回对话的最后一条消息 */
-        query.setWithLastMessagesRefreshed(true);
+        if(mAvimClient!=null){
+            AVIMConversationsQuery query = mAvimClient.getConversationsQuery();
+            /* 设置查询选项，指定返回对话的最后一条消息 */
+            query.setWithLastMessagesRefreshed(true);
 //        query.whereContainsIn("m", Arrays.asList(MyApp.getUserInfo().getObjectId()));
 //        query.whereEqualTo("objectId","5df3375a90aef5aa8428effd");
-        query.setQueryPolicy(AVQuery.CachePolicy.IGNORE_CACHE);
-        query.findInBackground(new AVIMConversationQueryCallback() {
-            @Override
-            public void done(List<AVIMConversation> convs, AVIMException e) {
-                if (e == null) {
-                    LogUtil.i(convs.size() + " " + convs.toString());
-                    listener.conversitionData(convs);
-                    // 获取符合查询条件的 Conversation 列表
-                } else {
-                    LogUtil.i(e.toString());
-                    listener.error(e);
+            query.setQueryPolicy(AVQuery.CachePolicy.IGNORE_CACHE);
+            query.findInBackground(new AVIMConversationQueryCallback() {
+                @Override
+                public void done(List<AVIMConversation> convs, AVIMException e) {
+                    if (e == null) {
+                        listener.conversitionData(convs);
+                        // 获取符合查询条件的 Conversation 列表
+                    } else {
+                        LogUtil.i(e.toString());
+                        listener.error(e);
+                    }
                 }
-            }
-        });
+            });
+        }
 
     }
 
