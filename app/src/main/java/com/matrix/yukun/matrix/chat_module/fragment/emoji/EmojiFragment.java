@@ -37,7 +37,7 @@ public class EmojiFragment extends BaseFragment {
 
     public EmojiFragment(View chatContainer, Activity chatActivity) {
         this.mChatContainer = chatContainer;
-        this.mChatActivity = (ChatBaseActivity)chatActivity;
+//        this.mChatActivity = (ChatBaseActivity)chatActivity;
     }
     @Override
     public int getLayout() {

@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/ll_root"
     tools:context=".leancloud_module.activity.LeanBaseActivity">
 
     <RelativeLayout
-        android:id="@+id/rl_contain"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/color_whit">

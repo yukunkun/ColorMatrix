@@ -52,7 +52,7 @@ public class ChatPictureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 photo.setHeight(mHeight);
             }
             ViewGroup.LayoutParams layoutParams = ((MyHolder) holder).mImageView.getLayoutParams();
-            layoutParams.width=photo.width/2;
+            layoutParams.width=photo.width;
             ((MyHolder) holder).mImageView.setLayoutParams(layoutParams);
             if(!photo.selected){
                 ((MyHolder) holder).mCheckBox.setImageResource(R.mipmap.icon_checkbox);

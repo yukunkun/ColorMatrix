@@ -31,8 +31,11 @@ public abstract class MVPBaseActivity<T extends BasePresenter> extends AppCompat
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             View v = getCurrentFocus();
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm == null) return super.dispatchTouchEvent(ev);
-            imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            if (imm == null){
+                return super.dispatchTouchEvent(ev);
+            } else if(v!=null){
+                imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
         }
         return super.dispatchTouchEvent(ev);
     }

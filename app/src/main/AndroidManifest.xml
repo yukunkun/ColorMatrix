@@ -34,6 +34,7 @@
     <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW" /> <!-- 声明程序使用camera和自动对焦功能 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -48,11 +49,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:label,android:appComponentFactory">
-        <activity android:name=".leancloud_module.activity.AcceptAddActivity"></activity>
-        <activity android:name=".leancloud_module.activity.LeanChatActivity" />
-        <activity android:name=".leancloud_module.activity.LeanBaseActivity" />
-        <activity android:name=".leancloud_module.activity.SearchFriendActivity" />
-        <activity android:name=".leancloud_module.activity.ContactMemberActivity" />
+        <activity android:name=".leancloud_module.activity.AcceptAddActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".leancloud_module.activity.LeanChatActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".leancloud_module.activity.LeanBaseActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".leancloud_module.activity.SearchFriendActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".leancloud_module.activity.ContactMemberActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".main_module.activity.AvatarChoiceActivity"
             android:screenOrientation="portrait" />

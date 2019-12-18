@@ -14,10 +14,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.ColorMatrix;
 import android.net.Uri;
 import android.os.Handler;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -77,25 +79,25 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
     private Bitmap mBitOrigin;
     private Bitmap mBitPath;
     private Bitmap mBitSeek;
-    private int rotate=0;
+    private int rotate = 0;
     private ImageView textRotate;
     private Bitmap mBitRotate;
-    private int roate=0;
+    private int roate = 0;
     private ValueAnimator animator;
     private MyRelativeLayout layoutContain;
-    private boolean flag=true;
-    private boolean isShow=false;
-    private Handler handler=new Handler();
+    private boolean flag = true;
+    private boolean isShow = false;
+    private Handler handler = new Handler();
     private Bitmap bitmap;
     private TextView mTvMovie;
     private TextView mTvWeather;
     private TextView mTvMovieRec;
     private TextView mTvSetting;
     private ImageView mIvBack;
-    private boolean mIsMenuOpen=false;
-    private int radias=180; //动画半径
+    private boolean mIsMenuOpen = false;
+    private int radias = 180; //动画半径
     private ImageView mIvRotate;
-    private final int ACTION_REQUEST_EDITOR=1;
+    private final int ACTION_REQUEST_EDITOR = 1;
     private RecyclerView mRecyclerView;
     private ImageView mIvShare;
     private LinearLayout mLlToolChoose;
@@ -108,18 +110,19 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
     public int getLayout() {
         return R.layout.activity_main;
     }
+
     @Override
     public void initView() {
         EventBus.getDefault().register(this);
         mIvImage = findViewById(R.id.iv_image);
-        mIvDownload =  findViewById(R.id.loadimage);
-        mIvEditImage =  findViewById(R.id.imagemore);
+        mIvDownload = findViewById(R.id.loadimage);
+        mIvEditImage = findViewById(R.id.imagemore);
         mTvMovie = findViewById(R.id.textmovie);
         mTvWeather = findViewById(R.id.textweather);
-        mIvBack =  findViewById(R.id.back);
+        mIvBack = findViewById(R.id.back);
         mTvMovieRec = findViewById(R.id.textmovierec);
         mTvSetting = findViewById(R.id.textseting);
-        layoutContain=findViewById(R.id.my_relat);
+        layoutContain = findViewById(R.id.my_relat);
         mIvRotate = findViewById(R.id.iv_rotate);
         mRecyclerView = findViewById(R.id.recycler);
         mIvShare = findViewById(R.id.iv_share);
@@ -128,14 +131,14 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
         mLlBottomTool = findViewById(R.id.ll_tool_bottom);
         mIvCamera = findViewById(R.id.iv_camera);
         mIvPhoto = findViewById(R.id.iv_photo);
-        PhotoChooseDialog photoChooseDialog=PhotoChooseDialog.getInstance();
-        photoChooseDialog.show(getSupportFragmentManager(),"");
+        PhotoChooseDialog photoChooseDialog = PhotoChooseDialog.getInstance();
+        photoChooseDialog.show(getSupportFragmentManager(), "");
         setAdapter();
         getPermission();
     }
 
     private void setAdapter() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         String[] stringArray = getResources().getStringArray(R.array.photo);
         mRVPhotoAdapter = new RVPhotoAdapter(this, Arrays.asList(stringArray));
         mRecyclerView.setAdapter(mRVPhotoAdapter);
@@ -149,11 +152,12 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
             }
         });
     }
+
     /**
      * 打开相册
      */
-    public void choosePhoto(){
-        Intent intent=new Intent(ImageCropActivity.this, PhotoListActivity.class);
+    public void choosePhoto() {
+        Intent intent = new Intent(ImageCropActivity.this, PhotoListActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.right_in, R.anim.left_out);
     }
@@ -161,91 +165,93 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
     /**
      * 打开相机
      */
-    public void openCamera(){
-        Intent intent=new Intent(this, CameraActivity.class);
+    public void openCamera() {
+        Intent intent = new Intent(this, CameraActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.right_in, R.anim.left_out);
     }
 
     private void setBitmapColor(int pos) {
-        if(mBitPath==null){
+        if (mBitPath == null) {
             Toast.makeText(ImageCropActivity.this, "请选择图片", Toast.LENGTH_SHORT).show();
             return;
         }
         //得到不同的ColorMatrix,并且返回回来
         ColorMatrix colorMatrix = BitmapUtil.matrixTrans(pos);
-        handleColorRotateBmp(colorMatrix, mBitPath) ;
+        handleColorRotateBmp(colorMatrix, mBitPath);
     }
+
     //图片回调
-    @Subscribe(threadMode=ThreadMode.MAIN)
-    public void getDetail(EventDetail event){
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getDetail(EventDetail event) {
         path = event.path;
         photoName = event.photoName;
-        if(path==null||path.length()==0){
+        if (path == null || path.length() == 0) {
             ToastUtils.showToast("选择为空");
             return;
         }
-        EditorSetup setup = new EditorSetup(path, path, AppConstant.IMAGEPATH+"/"+photoName, true);
+        EditorSetup setup = new EditorSetup(path, path, AppConstant.IMAGEPATH + "/" + photoName, true);
         Intent intent = ImageEditorActivity.Companion.intent(ImageCropActivity.this, setup);
         ImageCropActivity.this.startActivityForResult(intent, ACTION_REQUEST_EDITOR);
     }
 
     private void detailImage(String path) {
-        if(mBitOrigin!=null){
+        if (mBitOrigin != null) {
             mBitOrigin.recycle();
         }
-        Bitmap bitmap=null;
+        Bitmap bitmap = null;
 //        if(new File(path).length()/1024/1024>3){
 //            bitmap= ImageUtils.getSmallBitmap(path);//图片处理,压缩大小
 //        }else {
 //            bitmap=BitmapFactory.decodeFile(path);
 //        }
         String compressImage = BitmapUtil.compressImage(path);
-        bitmap=BitmapFactory.decodeFile(compressImage);
-        mBitOrigin=bitmap;
+        bitmap = BitmapFactory.decodeFile(compressImage);
+        mBitOrigin = bitmap;
         mBitCompress = Bitmap.createBitmap(mBitOrigin.getWidth(), mBitOrigin.getHeight(),
                 Bitmap.Config.ARGB_4444);
-        mBitPath=Bitmap.createBitmap(mBitOrigin.getWidth(), mBitOrigin.getHeight(),
+        mBitPath = Bitmap.createBitmap(mBitOrigin.getWidth(), mBitOrigin.getHeight(),
                 Bitmap.Config.ARGB_4444);
-        mBitSeek=mBitOrigin;
-        mBitRotate=mBitOrigin;
+        mBitSeek = mBitOrigin;
+        mBitRotate = mBitOrigin;
         //得到第一个原图
         ColorMatrix colorMatrix = BitmapUtil.matrixTrans(0);
-        handleColorRotateBmp(colorMatrix, mBitPath) ;
+        handleColorRotateBmp(colorMatrix, mBitPath);
     }
 
-    public void getCrop(Bitmap bitmap){
-        if(mBitOrigin!=null){
+    public void getCrop(Bitmap bitmap) {
+        if (mBitOrigin != null) {
             mBitOrigin.recycle();
         }
-        mBitOrigin=bitmap;
+        mBitOrigin = bitmap;
         mBitCompress = Bitmap.createBitmap(mBitOrigin.getWidth(), mBitOrigin.getHeight(),
                 Bitmap.Config.ARGB_4444);
-        mBitPath=Bitmap.createBitmap(mBitOrigin.getWidth(), mBitOrigin.getHeight(),
+        mBitPath = Bitmap.createBitmap(mBitOrigin.getWidth(), mBitOrigin.getHeight(),
                 Bitmap.Config.ARGB_4444);
-        mBitSeek=mBitOrigin;
-        mBitRotate=mBitOrigin;
+        mBitSeek = mBitOrigin;
+        mBitRotate = mBitOrigin;
         //得到第一个原图
         ColorMatrix colorMatrix = BitmapUtil.matrixTrans(0);
-        handleColorRotateBmp(colorMatrix, mBitPath) ;
+        handleColorRotateBmp(colorMatrix, mBitPath);
     }
 
     //从新绘制
-    private void handleColorRotateBmp(ColorMatrix colorMatrix,Bitmap bitmaps){
+    private void handleColorRotateBmp(ColorMatrix colorMatrix, Bitmap bitmaps) {
         Bitmap bitmap = BitmapUtil.handleColorRotateBmp(colorMatrix, mBitOrigin, bitmaps);
         mIvImage.setImageBitmap(bitmap);
-        mBitSeek=bitmap;//进度的Bitmap
-        mBitRotate=bitmap;//旋转的Bitmap
-        mBitCompress= BitmapUtil.mTempBit(bitmap);
+        mBitSeek = bitmap;//进度的Bitmap
+        mBitRotate = bitmap;//旋转的Bitmap
+        mBitCompress = BitmapUtil.mTempBit(bitmap);
     }
+
     //旋转
-    private void handleColorRoate(int progress){
-        if(mBitRotate!=null){
+    private void handleColorRoate(int progress) {
+        if (mBitRotate != null) {
             Bitmap bitmap = BitmapUtil.rotateBitmap(mBitRotate, progress);
             mIvImage.setImageBitmap(null);
             mIvImage.setImageBitmap(bitmap);
-            mBitCompress= BitmapUtil.mTempBit(bitmap);
-            mBitSeek=bitmap;//进度的Bitmap
+            mBitCompress = BitmapUtil.mTempBit(bitmap);
+            mBitSeek = bitmap;//进度的Bitmap
         }
     }
 
@@ -265,17 +271,18 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
         mIvCamera.setOnClickListener(this);
         mTvTool.setOnClickListener(this);
     }
+
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        switch (id){
+        switch (id) {
             case R.id.imagemore:
-                if(!isShow){
+                if (!isShow) {
                     showMore();
-                }else {
+                } else {
                     mPopupWindow.dismiss();
                 }
-                isShow=!isShow;
+                isShow = !isShow;
                 break;
             case R.id.textmovie:
                 //电影推荐
@@ -286,11 +293,11 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
             case R.id.textweather:
                 //天气提醒
                 closeMenu();
-                Intent intentWea=new Intent(ImageCropActivity.this, WeatherActivity.class);
+                Intent intentWea = new Intent(ImageCropActivity.this, WeatherActivity.class);
                 startActivity(intentWea);
                 break;
             case R.id.textmovierec:
-               //空
+                //空
                 break;
             case R.id.textseting:
                 //设置
@@ -300,10 +307,10 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
 //                overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 break;
             case R.id.loadimage:
-                flag=false;
+                flag = false;
                 //load
-                if(path==null){
-                    if(photoName==null||photoName.length()==0){
+                if (path == null) {
+                    if (photoName == null || photoName.length() == 0) {
                         Toast.makeText(ImageCropActivity.this, "请先选择图片", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -318,7 +325,7 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
                             @Override
                             public void run() {
                                 Toast.makeText(ImageCropActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
-                                flag=true;
+                                flag = true;
                             }
                         });
                     }
@@ -329,12 +336,13 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
                 roate++;
                 break;
             case R.id.iv_share:
-                if(photoName!=null){
+                if (photoName != null) {
                     bitmap = ImageUtils.createViewBitmap(layoutContain, layoutContain.getWidth(), layoutContain.getHeight());
                     FileUtil.loadImage(bitmap, photoName);
-                    File file = new File(AppConstant.IMAGEPATH+"/"+photoName);//这里share.jpg是sd卡根目录下的一个图片文件
+                    File file = new File(AppConstant.IMAGEPATH + "/" + photoName);//这里share.jpg是sd卡根目录下的一个图片文件
                     Uri imageUri = Uri.fromFile(file);
-                    Intent shareIntent = new Intent();shareIntent.setAction(Intent.ACTION_SEND);
+                    Intent shareIntent = new Intent();
+                    shareIntent.setAction(Intent.ACTION_SEND);
                     shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
                     shareIntent.setType("image/*");
                     startActivity(Intent.createChooser(shareIntent, "分享图片"));
@@ -352,16 +360,16 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
                 choosePhoto();
                 break;
             case R.id.tv_tool_choose:
-                if(mTvTool.getText().toString().equals("重选")){
+                if (mTvTool.getText().toString().equals("重选")) {
                     mRecyclerView.setVisibility(View.GONE);
                     mLlToolChoose.setVisibility(View.VISIBLE);
                     mTvTool.setText("预览");
-                }else if(mTvTool.getText().toString().equals("预览")){
+                } else if (mTvTool.getText().toString().equals("预览")) {
                     mLlBottomTool.setVisibility(View.GONE);
                     mRecyclerView.setVisibility(View.GONE);
                     mLlToolChoose.setVisibility(View.GONE);
                     mTvTool.setText("滤镜");
-                }else if(mTvTool.getText().toString().equals("滤镜")){
+                } else if (mTvTool.getText().toString().equals("滤镜")) {
                     mLlBottomTool.setVisibility(View.VISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     mLlToolChoose.setVisibility(View.GONE);
@@ -374,16 +382,16 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==Activity.RESULT_CANCELED){
-           if(requestCode== ACTION_REQUEST_EDITOR){
-               if(!TextUtils.isEmpty(path)){
-                   detailImage(path);
-               }
+        if (resultCode == Activity.RESULT_CANCELED) {
+            if (requestCode == ACTION_REQUEST_EDITOR) {
+                if (!TextUtils.isEmpty(path) && new File(path).exists()) {
+                    detailImage(path);
+                }
             }
         }
-        if(resultCode==Activity.RESULT_OK){
-            if(requestCode== ACTION_REQUEST_EDITOR){
-                if(data!=null){
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == ACTION_REQUEST_EDITOR) {
+                if (data != null) {
                     EditorResult editorResult = (EditorResult) data.getSerializableExtra(Activity.RESULT_OK + "");
                     detailImage(editorResult.getEditor2SavedPath());
                 }
@@ -392,22 +400,22 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void judgeDesk() {
-        SharedPreferences preferences=getSharedPreferences("desk", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("desk", Context.MODE_PRIVATE);
         boolean auto = preferences.getBoolean("desk", false);
-        if(!auto){
+        if (!auto) {
             //创建快捷图标
             DeskMapUtil.createShortCut(getApplicationContext());
             //保存图标tag
             SharedPreferences sp = getSharedPreferences("desk", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sp.edit();
-            editor.putBoolean("desk",true);
+            editor.putBoolean("desk", true);
             editor.commit();
         }
     }
 
     //share的动画
     private void addAnimation() {
-        animator = ValueAnimator.ofInt(0,-600,0);
+        animator = ValueAnimator.ofInt(0, -600, 0);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -430,8 +438,8 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void showMore() {
-        View view = View.inflate(ImageCropActivity.this, R.layout.popuwindow,null);
-        mPopupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        View view = View.inflate(ImageCropActivity.this, R.layout.popuwindow, null);
+        mPopupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         seekBarBaoHe = (SeekBar) view.findViewById(R.id.seekbarbaohe);
         seekBarLight = (SeekBar) view.findViewById(R.id.seekbarlight);
         textRotate = (ImageView) view.findViewById(R.id.rotate);
@@ -442,9 +450,9 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.color.color_000000_alpha));
 
-        if (mPopupWindow !=null&&!mPopupWindow.isShowing()) {
+        if (mPopupWindow != null && !mPopupWindow.isShowing()) {
             int width = ScreenUtils.instance().getWidth(getApplicationContext());
-            mPopupWindow.showAsDropDown(mIvEditImage,-width,0);
+            mPopupWindow.showAsDropDown(mIvEditImage, -width, 0);
         }
         seekBarListener();
     }
@@ -453,11 +461,11 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
         seekBarBaoHe.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
-                if(b){
-                    if(mBitPath!=null){
+                if (b) {
+                    if (mBitPath != null) {
                         Bitmap bitmap = BitmapUtil.handleColorBmp(mBitCompress, mBitSeek, progress, rotate);
                         mIvImage.setImageBitmap(bitmap);
-                        mBitRotate=bitmap;
+                        mBitRotate = bitmap;
                     }
                 }
             }
@@ -475,11 +483,11 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
         seekBarLight.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
-                if(b){
-                    if(mBitPath!=null){
+                if (b) {
+                    if (mBitPath != null) {
                         Bitmap bitmap = BitmapUtil.handleColorMatrixBmp(mBitCompress, mBitSeek, progress);
                         mIvImage.setImageBitmap(bitmap);
-                        mBitRotate=bitmap;
+                        mBitRotate = bitmap;
                     }
                 }
             }
@@ -497,21 +505,21 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
         textRotate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(rotate==2){
-                    rotate=0;
-                }else {
+                if (rotate == 2) {
+                    rotate = 0;
+                } else {
                     rotate++;
                 }
                 //toast
-                FileUtil.showToast(ImageCropActivity.this,rotate);
+                FileUtil.showToast(ImageCropActivity.this, rotate);
             }
         });
     }
-    
+
     public void Back(View view) {
         if (!mIsMenuOpen) {
             mIsMenuOpen = true;
-            if(mTvSetting.getVisibility()==View.GONE){
+            if (mTvSetting.getVisibility() == View.GONE) {
                 mTvSetting.setVisibility(View.VISIBLE);
 //                mTvWeather.setVisibility(View.VISIBLE);
                 mTvMovie.setVisibility(View.VISIBLE);
@@ -524,26 +532,27 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void openMenu() {
-        AnimUtils.doAnimateOpen(mTvSetting, 0, 4, radias,500);
+        AnimUtils.doAnimateOpen(mTvSetting, 0, 4, radias, 500);
 //        AnimUtils.doAnimateOpen(mTvWeather, 1, 4, radias,420);
-        AnimUtils.doAnimateOpen(mTvMovie, 1, 4, radias,340);
+        AnimUtils.doAnimateOpen(mTvMovie, 1, 4, radias, 340);
 //        AnimUtils.doAnimateOpen(mTvMovieRec, 3, 4, radias,260);
-        AnimUtils.setSettingDown(this,mIvBack);
+        AnimUtils.setSettingDown(this, mIvBack);
     }
+
     private void closeMenu() {
         mIsMenuOpen = false;
-        AnimUtils.doAnimateClose(mTvSetting, 0, 4, radias,400);
+        AnimUtils.doAnimateClose(mTvSetting, 0, 4, radias, 400);
 //        AnimUtils.doAnimateClose(mTvWeather, 1, 4, radias,400);
-        AnimUtils.doAnimateClose(mTvMovie, 1, 4, radias,400);
+        AnimUtils.doAnimateClose(mTvMovie, 1, 4, radias, 400);
 //        AnimUtils.doAnimateClose(mTvMovieRec, 3, 4, radias,400);
-        AnimUtils.setSettingUp(this,mIvBack);
+        AnimUtils.setSettingUp(this, mIvBack);
     }
 
     private void getPermission() {
         if (ContextCompat.checkSelfPermission(ImageCropActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(ImageCropActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-        }else{
+        } else {
 //            //快捷图标
 //            judgeDesk();
         }
@@ -585,7 +594,7 @@ public class ImageCropActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        flag=false;
+        flag = false;
         EventBus.getDefault().unregister(this);
     }
 }

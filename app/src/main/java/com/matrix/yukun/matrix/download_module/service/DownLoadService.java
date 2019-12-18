@@ -2,6 +2,8 @@ package com.matrix.yukun.matrix.download_module.service;
 
 import android.app.ActivityManager;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +11,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.leancloud_module.LeanCloudMessageHandler;
 import com.qq.e.comm.DownloadService;
 
@@ -24,6 +27,8 @@ public class DownLoadService extends Service {
     private static final int FORE_SERVICE_ID = 1;
     static DownLoadService mDownLoadService;
     String TAG=DownloadService.class.getSimpleName();
+    String CHANNEL_ONE_ID = "com.primedu.cn";
+    String CHANNEL_ONE_NAME = "matrix";
 
     @Override
     public void onCreate() {
@@ -42,7 +47,12 @@ public class DownLoadService extends Service {
     public static void start(Context context){
         Intent intent = new Intent(context, DownLoadService.class);
 //        ContextCompat.startForegroundService(context, intent);
-        context.startService(intent);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+            //解决android8.0以上无法启动服务的问题
+            context.startForegroundService(intent);
+        }else {
+            context.startService(intent);
+        }
     }
 
     public static void stop(Context context){
@@ -54,19 +64,33 @@ public class DownLoadService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
-    @Override
 
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG,"onStartCommand");
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
+        //适配8.0service
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationChannel mChannel = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            mChannel = new NotificationChannel(CHANNEL_ONE_ID, CHANNEL_ONE_NAME, NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(mChannel);
+            Notification notification = new Notification.Builder(getApplicationContext(), CHANNEL_ONE_ID).build();
+            this.startForeground(1, notification);
+        }else {
             this.startForeground(FORE_SERVICE_ID, new Notification());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 this.startService(new Intent(getApplication(), InnerService.class));
             }
         }
-        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForeground(FORE_SERVICE_ID, new Notification());
-        }
+
+//        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
+//            this.startForeground(FORE_SERVICE_ID, new Notification());
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                this.startService(new Intent(getApplication(), InnerService.class));
+//            }
+//        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            startForeground(FORE_SERVICE_ID, new Notification());
+//        }
         initListener();
         return START_STICKY;
     }

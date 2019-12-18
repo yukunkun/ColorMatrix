@@ -13,16 +13,21 @@ import android.widget.TextView;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.emoji.CubeEmoticonEditText;
+import com.matrix.yukun.matrix.chat_module.entity.Photo;
+import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
+import com.matrix.yukun.matrix.leancloud_module.InputPanelManager;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
 import com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout;
+
+import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LeanBaseActivity extends BaseActivity {
+public class LeanBaseActivity extends BaseActivity implements InputListener {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -30,45 +35,15 @@ public class LeanBaseActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.iv_detail)
     ImageView ivDetail;
-    @BindView(R.id.rl_contain)
-    RelativeLayout rlContain;
     @BindView(R.id.rv_chatview)
     CubeRecyclerView rvChatview;
     @BindView(R.id.sr_refresh)
     CubeSwipeRefreshLayout srRefresh;
-    @BindView(R.id.et_messg)
-    CubeEmoticonEditText etMessg;
-    @BindView(R.id.send_btn)
-    Button sendBtn;
-    @BindView(R.id.bt_add)
-    Button btAdd;
-    @BindView(R.id.iv_voice)
-    ImageView ivVoice;
-    @BindView(R.id.iv_picture)
-    ImageView ivPicture;
-    @BindView(R.id.iv_video)
-    ImageView ivVideo;
-    @BindView(R.id.iv_emoji)
-    ImageView ivEmoji;
-    @BindView(R.id.select_img_rv)
-    RecyclerView selectImgRv;
-    @BindView(R.id.image_album)
-    TextView imageAlbum;
-    @BindView(R.id.image_editor)
-    TextView imageEditor;
-    @BindView(R.id.cb_origin)
-    CheckBox cbOrigin;
-    @BindView(R.id.btn_send_photo)
-    Button btnSendPhoto;
-    @BindView(R.id.bottom_bar)
-    RelativeLayout bottomBar;
-    @BindView(R.id.select_pic_view)
-    RelativeLayout selectPicView;
-    @BindView(R.id.fl_contain)
-    FrameLayout flContain;
-    @BindView(R.id.ll_bottom)
-    LinearLayout llBottom;
+    @BindView(R.id.ll_root)
+    LinearLayout mLayoutRoot;
+
     private ContactInfo mData;
+    private InputPanelManager mInputPanelManager;
 
     @Override
     public int getLayout() {
@@ -78,14 +53,9 @@ public class LeanBaseActivity extends BaseActivity {
     @Override
     public void initView() {
         mData = (ContactInfo) getIntent().getSerializableExtra("data");
+        mInputPanelManager = new InputPanelManager(this,mLayoutRoot,this);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     @OnClick({R.id.iv_back, R.id.iv_emoji, R.id.image_editor, R.id.cb_origin, R.id.btn_send_photo})
     public void onViewClicked(View view) {
@@ -101,5 +71,46 @@ public class LeanBaseActivity extends BaseActivity {
             case R.id.btn_send_photo:
                 break;
         }
+    }
+
+    @Override
+    public void initListener() {
+        rvChatview.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                if (bottom < oldBottom) {
+                    rvChatview.post(new Runnable() {
+                        @Override
+                        public void run() {
+//                            if (mChatAdapter.getItemCount() > 0) {
+//                                mRvChatview.smoothScrollToPosition(mChatAdapter.getItemCount()-1);
+//                            }
+                        }
+                    });
+                }
+            }
+        });
+        //点击
+        this.rvChatview.setEventListener(new CubeRecyclerView.OnEventListener() {
+            @Override
+            public void onStartTouch() {
+                mInputPanelManager.dismissLayout();
+            }
+        });
+    }
+
+    @Override
+    public void onSendMessageClick(String msg) {
+
+    }
+
+    @Override
+    public void onPictureClick(List<Photo> picPath) {
+
+    }
+
+    @Override
+    public void onBottomMove(int position) {
+
     }
 }

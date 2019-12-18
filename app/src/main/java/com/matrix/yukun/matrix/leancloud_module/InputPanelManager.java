@@ -1,4 +1,4 @@
-package com.matrix.yukun.matrix.chat_module.mvp;
+package com.matrix.yukun.matrix.leancloud_module;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -9,8 +9,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -25,10 +23,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.imageeditor.ImageEditorActivity;
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.ChatBaseActivity;
-import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.chat_module.adapter.ChatPictureAdapter;
 import com.matrix.yukun.matrix.chat_module.emoji.CubeEmoticonEditText;
 import com.matrix.yukun.matrix.chat_module.entity.Photo;
@@ -37,22 +36,26 @@ import com.matrix.yukun.matrix.chat_module.fragment.emoji.EmojiPreFragment;
 import com.matrix.yukun.matrix.chat_module.fragment.more.ChatToolFragment;
 import com.matrix.yukun.matrix.chat_module.fragment.voice.RecordFragment;
 import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
+import com.matrix.yukun.matrix.leancloud_module.activity.LeanBaseActivity;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.FileUtil;
 import com.matrix.yukun.matrix.util.KeyBoardUtil;
 import com.matrix.yukun.matrix.util.SpacesItemDecoration;
-import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.miracle.view.imageeditor.bean.EditorSetup;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 
 /**
  * author: kun .
  * date:   On 2019/5/10
  */
-public class InputPanel implements View.OnClickListener, EmojiPreFragment.OnEmojiClickListener, ChatToolFragment.ShakeClickListener {
+public class InputPanelManager implements View.OnClickListener, EmojiPreFragment.OnEmojiClickListener, ChatToolFragment.ShakeClickListener {
     public String TAG = "InputPanel";
     private View mRootView;
     private InputListener mInputListener;
@@ -83,7 +86,7 @@ public class InputPanel implements View.OnClickListener, EmojiPreFragment.OnEmoj
     private ImageView mIvVideo;
     private CheckBox mCheckBox;
 
-    public InputPanel(Context context, View rootView, InputListener inputListener) {
+    public InputPanelManager(Context context, View rootView, InputListener inputListener) {
         mRootView = rootView;
         mContext = context;
         mInputListener = inputListener;
@@ -108,6 +111,8 @@ public class InputPanel implements View.OnClickListener, EmojiPreFragment.OnEmoj
         mTvPhoto = mRootView.findViewById(R.id.image_album);
         mBtImageSend = mRootView.findViewById(R.id.btn_send_photo);
         mCheckBox = mRootView.findViewById(R.id.cb_origin);
+        mIvVoice.setVisibility(View.GONE);
+        mIvVideo.setVisibility(View.GONE);
     }
 
     private void initData() {
@@ -159,18 +164,21 @@ public class InputPanel implements View.OnClickListener, EmojiPreFragment.OnEmoj
             editable.replace(start, end, key);
         }
         this.mEtMessage.requestFocus();
-    };
+    }
+
+    @Override
+    public void shakeClickListener() {
+
+    }
 
     private void initListener() {
         mBtAdd.setOnClickListener(this);
         mBtSend.setOnClickListener(this);
         mIvEmoji.setOnClickListener(this);
-        mIvVoice.setOnClickListener(this);
         mIvPicture.setOnClickListener(this);
         mBtImageSend.setOnClickListener(this);
         mTvEdit.setOnClickListener(this);
         mTvPhoto.setOnClickListener(this);
-        mIvVideo.setOnClickListener(this);
         EmojiPreFragment.setOnEmojiClickListener(this);
         ChatToolFragment.setShakeClickListener(this);
         mEtMessage.addTextChangedListener(new TextWatcher() {
@@ -255,14 +263,8 @@ public class InputPanel implements View.OnClickListener, EmojiPreFragment.OnEmoj
                 taggleToPicture();
                 showSelectPicture();
                 break;
-            case R.id.iv_video:
-                openVideo();
-                break;
             case R.id.iv_emoji:
                 taggleToEmoji();
-                break;
-            case R.id.iv_voice:
-                taggleToVoice();
                 break;
             case R.id.btn_send_photo:
                 mInputListener.onPictureClick(imgSendList);
@@ -288,7 +290,7 @@ public class InputPanel implements View.OnClickListener, EmojiPreFragment.OnEmoj
         intent.setAction(Intent.ACTION_PICK);
         intent.setType("video/*");
         try{
-            ((Activity) mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_VIDEO);
+            ((Activity) mContext).startActivityForResult(intent, InputPanelManager.ACTION_REQUEST_VIDEO);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -299,7 +301,7 @@ public class InputPanel implements View.OnClickListener, EmojiPreFragment.OnEmoj
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_PICK);
         intent.setType("image/*");
-        ((Activity) mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_IMAGE);
+        ((Activity) mContext).startActivityForResult(intent, InputPanelManager.ACTION_REQUEST_IMAGE);
     }
 
     private void showSelectPicture() {
@@ -361,14 +363,12 @@ public class InputPanel implements View.OnClickListener, EmojiPreFragment.OnEmoj
 
     private void taggleToSend() {
         dismissMore();
-        dismissVoice();
         dismissEmoji();
         dismissPicture();
     }
 
     private void taggleToPicture() {
         dismissMore();
-        dismissVoice();
         dismissEmoji();
         showPicture();
     }
@@ -377,20 +377,17 @@ public class InputPanel implements View.OnClickListener, EmojiPreFragment.OnEmoj
         dismissPicture();
         dismissEmoji();
         dismissMore();
-        showVoice();
 
     }
 
     private void taggleToMore() {
         dismissPicture();
-        dismissVoice();
         dismissEmoji();
         showMore();
     }
 
     private void taggleToEmoji() {
         dismissMore();
-        dismissVoice();
         dismissPicture();
         showEmoji();
     }
@@ -399,9 +396,6 @@ public class InputPanel implements View.OnClickListener, EmojiPreFragment.OnEmoj
         mRlSelectPicture.setVisibility(View.GONE);
     }
 
-    private void dismissVoice() {
-        mFrameLayout.setVisibility(View.GONE);
-    }
 
     private void dismissEmoji() {
         mFrameLayout.setVisibility(View.GONE);
@@ -415,27 +409,16 @@ public class InputPanel implements View.OnClickListener, EmojiPreFragment.OnEmoj
         mRlSelectPicture.setVisibility(View.VISIBLE);
     }
 
-    private void showVoice() {
-        mFrameLayout.setVisibility(View.VISIBLE);
-        (((ChatBaseActivity) mContext).getSupportFragmentManager()).popBackStack();
-        (((ChatBaseActivity) mContext).getSupportFragmentManager()).beginTransaction().replace(R.id.fl_contain, new RecordFragment(mRootView, (Activity) mContext)).commit();
-    }
-
     private void showEmoji() {
         mFrameLayout.setVisibility(View.VISIBLE);
-        (((ChatBaseActivity) mContext).getSupportFragmentManager()).popBackStack();
-        (((ChatBaseActivity) mContext).getSupportFragmentManager()).beginTransaction().replace(R.id.fl_contain, new EmojiFragment(mRootView, (Activity) mContext)).commit();
+        (((LeanBaseActivity) mContext).getSupportFragmentManager()).popBackStack();
+        (((LeanBaseActivity) mContext).getSupportFragmentManager()).beginTransaction().replace(R.id.fl_contain, new EmojiFragment(mRootView, (Activity) mContext)).commit();
     }
 
     private void showMore() {
         mFrameLayout.setVisibility(View.VISIBLE);
         cameraSavePath = AppConstant.IMAGEPATH + "/yk_" + System.currentTimeMillis() + ".png";
-        (((ChatBaseActivity) mContext).getSupportFragmentManager()).popBackStack();
-        (((ChatBaseActivity) mContext).getSupportFragmentManager()).beginTransaction().replace(R.id.fl_contain, ChatToolFragment.getInstance(mContext, cameraSavePath,false)).commit();
-    }
-
-    @Override
-    public void shakeClickListener() {
-        ((ChatBaseActivity) mContext).sendShakeListener();
+        (((LeanBaseActivity) mContext).getSupportFragmentManager()).popBackStack();
+        (((LeanBaseActivity) mContext).getSupportFragmentManager()).beginTransaction().replace(R.id.fl_contain, ChatToolFragment.getInstance(mContext, cameraSavePath,true)).commit();
     }
 }

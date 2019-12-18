@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.matrix.yukun.matrix.BaseFragment;
+import com.matrix.yukun.matrix.BuildConfig;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.ChatBaseActivity;
 import com.matrix.yukun.matrix.chat_module.mvp.InputPanel;
@@ -30,14 +31,17 @@ public class ChatToolFragment extends BaseFragment implements View.OnClickListen
     private LinearLayout mLlFile;
     private static Context mContext;
     private Uri uri;
+    public static boolean mIsLeanChat;
     public static File cameraSavePath;//拍照照片路径
 
-    public static ChatToolFragment getInstance(Context context, String mCameraSavePath){
+    public static ChatToolFragment getInstance(Context context, String mCameraSavePath,boolean isLeanChat){
         mContext=context;
+        mIsLeanChat=isLeanChat;
         cameraSavePath=new File(mCameraSavePath);
         ChatToolFragment chatToolFragment=new ChatToolFragment();
         return chatToolFragment;
     }
+
     @Override
     public int getLayout() {
         return R.layout.tool_chat_fragment;
@@ -53,7 +57,10 @@ public class ChatToolFragment extends BaseFragment implements View.OnClickListen
         mLlCamera.setOnClickListener(this);
         mLlShake.setOnClickListener(this);
         mLlFile.setOnClickListener(this);
-
+        if(mIsLeanChat){
+            mLlCamera.setVisibility(View.GONE);
+            mLlFile.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -66,7 +73,9 @@ public class ChatToolFragment extends BaseFragment implements View.OnClickListen
         }
         else if(id== R.id.ll_shake){
             //发送shake
-            ((ChatBaseActivity)(mContext)).sendShakeListener();
+            if(mShakeClickListener!=null){
+                mShakeClickListener.shakeClickListener();
+            }
         }
         else if(id== R.id.ll_file){
             openFile();
@@ -91,7 +100,7 @@ public class ChatToolFragment extends BaseFragment implements View.OnClickListen
     private void openCamera(){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            uri = FileProvider.getUriForFile(mContext, "com.xykj.customview.fileprovider", cameraSavePath);
+            uri = FileProvider.getUriForFile(mContext, BuildConfig.APPLICATION_ID+".fileprovider", cameraSavePath);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         } else {
             uri = Uri.fromFile(cameraSavePath);
@@ -100,13 +109,13 @@ public class ChatToolFragment extends BaseFragment implements View.OnClickListen
         ((Activity)mContext).startActivityForResult(intent, InputPanel.ACTION_REQUEST_CAMERA);
     }
 
-//    ShakeClickListener mShakeClickListener;
-//
-//    public void setShakeClickListener(ShakeClickListener shakeClickListener) {
-//        mShakeClickListener = shakeClickListener;
-//    }
-//
-//    public interface ShakeClickListener{
-//        void shakeClickListener();
-//    }
+    static ShakeClickListener mShakeClickListener;
+
+    public static void setShakeClickListener(ShakeClickListener shakeClickListener) {
+        mShakeClickListener = shakeClickListener;
+    }
+
+    public interface ShakeClickListener{
+        void shakeClickListener();
+    }
 }
