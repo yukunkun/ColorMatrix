@@ -39,7 +39,7 @@ public class ContactMemberActivity extends BaseActivity {
     TabLayout tablayout;
     @BindView(R.id.view_pager)
     ViewPager viewPager;
-    String[] mStrings = new String[]{"好友", "群组"};
+    String[] mStrings = new String[]{"好友"/*, "群组"*/};
     List<Fragment> mFrameLayouts = new ArrayList<>();
     private MViewPagerAdapter mMViewPagerAdapter;
 
@@ -63,7 +63,7 @@ public class ContactMemberActivity extends BaseActivity {
             tablayout.addTab(tablayout.newTab().setText(mStrings[i]));
         }
         mFrameLayouts.add(FriendFragment.getInstance());
-        mFrameLayouts.add(GroupFragment.getInstance());
+//        mFrameLayouts.add(GroupFragment.getInstance());
         mMViewPagerAdapter = new MViewPagerAdapter(getSupportFragmentManager(), mFrameLayouts, mStrings);
         viewPager.setAdapter(mMViewPagerAdapter);
         tablayout.setupWithViewPager(viewPager);

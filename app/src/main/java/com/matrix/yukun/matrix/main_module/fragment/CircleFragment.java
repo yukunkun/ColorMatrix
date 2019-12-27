@@ -175,6 +175,7 @@ public class CircleFragment extends BaseFragment {
         TextView mTvCreateGroup = (TextView) popView.findViewById(R.id.create_group_tv);
         TextView mTvAddFriend = (TextView) popView.findViewById(R.id.add_friend_tv);
         TextView mTvAddGroup = (TextView) popView.findViewById(R.id.add_group_tv);
+        mTvCreateGroup.setVisibility(View.GONE);
         popupWindow = new PopupWindow(popView, ScreenUtil.dip2px(130), ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popupWindow.setTouchable(true);// 设置弹出窗体可触摸
         popupWindow.setOutsideTouchable(true); // 设置点击弹出框之外的区域后，弹出框消失
@@ -208,6 +209,7 @@ public class CircleFragment extends BaseFragment {
             public void onClick(View v) {
                 SearchFriendActivity.start(getContext(), 1);
                 popupWindow.dismiss();
+                ToastUtils.showToast("群组相关正在开发中");
             }
         });
     }

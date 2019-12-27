@@ -16,12 +16,16 @@ import com.matrix.yukun.matrix.chat_module.emoji.CubeEmoticonEditText;
 import com.matrix.yukun.matrix.chat_module.entity.Photo;
 import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
 import com.matrix.yukun.matrix.leancloud_module.InputPanelManager;
+import com.matrix.yukun.matrix.leancloud_module.adapter.LeanChatAdapter;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
+import com.matrix.yukun.matrix.leancloud_module.entity.LeanChatMessage;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
 import com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,8 +46,11 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
     @BindView(R.id.ll_root)
     LinearLayout mLayoutRoot;
 
-    private ContactInfo mData;
-    private InputPanelManager mInputPanelManager;
+    public ContactInfo mData;
+    public InputPanelManager mInputPanelManager;
+    private LinearLayoutManager mLayoutManager;
+    private List<LeanChatMessage> mLeanChatMessages = new ArrayList<>();
+    public LeanChatAdapter mLeanChatAdapter;
 
     @Override
     public int getLayout() {
@@ -53,50 +60,17 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
     @Override
     public void initView() {
         mData = (ContactInfo) getIntent().getSerializableExtra("data");
-        mInputPanelManager = new InputPanelManager(this,mLayoutRoot,this);
-    }
+        mInputPanelManager = new InputPanelManager(this, mLayoutRoot, this);
+        mLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        rvChatview.setLayoutManager(mLayoutManager);
+        mLeanChatAdapter = new LeanChatAdapter(mLeanChatMessages,this);
+        rvChatview.setAdapter(mLeanChatAdapter);
 
-
-    @OnClick({R.id.iv_back, R.id.iv_emoji, R.id.image_editor, R.id.cb_origin, R.id.btn_send_photo})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.iv_back:
-                break;
-            case R.id.iv_emoji:
-                break;
-            case R.id.image_editor:
-                break;
-            case R.id.cb_origin:
-                break;
-            case R.id.btn_send_photo:
-                break;
-        }
     }
 
     @Override
     public void initListener() {
-        rvChatview.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                if (bottom < oldBottom) {
-                    rvChatview.post(new Runnable() {
-                        @Override
-                        public void run() {
-//                            if (mChatAdapter.getItemCount() > 0) {
-//                                mRvChatview.smoothScrollToPosition(mChatAdapter.getItemCount()-1);
-//                            }
-                        }
-                    });
-                }
-            }
-        });
-        //点击
-        this.rvChatview.setEventListener(new CubeRecyclerView.OnEventListener() {
-            @Override
-            public void onStartTouch() {
-                mInputPanelManager.dismissLayout();
-            }
-        });
+
     }
 
     @Override
