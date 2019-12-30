@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.leancloud_module.activity.LeanChatActivity;
+import com.matrix.yukun.matrix.leancloud_module.adapter.LeanChatAdapter;
 import com.matrix.yukun.matrix.leancloud_module.adapter.RVFriendListAdapter;
 import com.matrix.yukun.matrix.leancloud_module.entity.FriendsBMob;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
@@ -52,6 +55,17 @@ public class FriendFragment extends BaseFragment {
         mRvFriendListAdapter = new RVFriendListAdapter(getContext(),R.layout.friend_item_layout,mFriendsBMobs);
         mRecyclerView.setAdapter(mRvFriendListAdapter);
         initFriendData();
+        initlistener();
+    }
+
+    private void initlistener() {
+        mRvFriendListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                LogUtil.i("=========",mFriendsBMobs.get(position).toString());
+                LeanChatActivity.start(getContext(),mFriendsBMobs.get(position));
+            }
+        });
     }
 
     private void initFriendData() {

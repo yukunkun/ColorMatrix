@@ -30,6 +30,10 @@ public enum ChatType {
         this.name = name;
     }
 
+    public int getIndex() {
+        return index;
+    }
+
     public static ChatType convert(int stateCode) {
         for (ChatType ec : ChatType.values()) {
             if (ec.index == stateCode) {

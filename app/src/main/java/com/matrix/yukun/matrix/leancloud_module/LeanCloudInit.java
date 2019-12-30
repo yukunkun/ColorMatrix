@@ -28,7 +28,7 @@ import cn.leancloud.im.v2.messages.AVIMTextMessage;
 public class LeanCloudInit {
 
     public static LeanCloudInit mLeanCloudInit = new LeanCloudInit();
-    private static AVIMClient mAvimClient;
+    public static AVIMClient mAvimClient;
     private boolean isLogionleanCloud = false;
 
     public LeanCloudInit() {

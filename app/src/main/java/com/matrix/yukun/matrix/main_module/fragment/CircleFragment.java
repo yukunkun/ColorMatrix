@@ -122,11 +122,12 @@ public class CircleFragment extends BaseFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ContactInfo contactInfo = mContactInfos.get(position);
-                if (contactInfo != null && !TextUtils.isEmpty(contactInfo.getFrom()) && contactInfo.getFrom().equals(LeanConatant.SystemMessage)) {
-                    AcceptAddActivity.start(getContext(), contactInfo);
-                } else {
-                    LeanChatActivity.start(getContext(), contactInfo);
-                }
+                LogUtil.i(contactInfo.toString());
+//                if (contactInfo != null && !TextUtils.isEmpty(contactInfo.getFrom()) && contactInfo.getFrom().equals(LeanConatant.SystemMessage)) {
+//                    AcceptAddActivity.start(getContext(), contactInfo);
+//                } else {
+//                    LeanChatActivity.start(getContext(), contactInfo);
+//                }
             }
         });
     }

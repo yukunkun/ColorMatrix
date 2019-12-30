@@ -16,11 +16,14 @@ import com.matrix.yukun.matrix.chat_module.emoji.CubeEmoticonEditText;
 import com.matrix.yukun.matrix.chat_module.entity.Photo;
 import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
 import com.matrix.yukun.matrix.leancloud_module.InputPanelManager;
+import com.matrix.yukun.matrix.leancloud_module.MessageManager;
 import com.matrix.yukun.matrix.leancloud_module.adapter.LeanChatAdapter;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
 import com.matrix.yukun.matrix.leancloud_module.entity.LeanChatMessage;
+import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
 import com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,7 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
     LinearLayout mLayoutRoot;
 
     public ContactInfo mData;
+    public UserInfoBMob mInfoBMob;
     public InputPanelManager mInputPanelManager;
     private LinearLayoutManager mLayoutManager;
     private List<LeanChatMessage> mLeanChatMessages = new ArrayList<>();
@@ -60,6 +64,7 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
     @Override
     public void initView() {
         mData = (ContactInfo) getIntent().getSerializableExtra("data");
+        mInfoBMob = (UserInfoBMob) getIntent().getSerializableExtra("user");
         mInputPanelManager = new InputPanelManager(this, mLayoutRoot, this);
         mLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rvChatview.setLayoutManager(mLayoutManager);
@@ -69,13 +74,30 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
     }
 
     @Override
+    public void initDate() {
+        if(mInfoBMob!=null)
+            LogUtil.i(mInfoBMob.toString());
+        if(mData!=null)
+            LogUtil.i(mData.toString());
+        if(mInfoBMob==null && mData!=null){
+            mInfoBMob=new UserInfoBMob();
+            mInfoBMob.setAvator(mData.getAvator()+"");
+            mInfoBMob.setName(mData.getFrom());
+            mInfoBMob.setId(mData.getUserId());
+            MessageManager.getInstance().createConversion(mInfoBMob.getId());
+        }else {
+            MessageManager.getInstance().createConversion(mInfoBMob.getId());
+        }
+    }
+
+    @Override
     public void initListener() {
 
     }
 
     @Override
     public void onSendMessageClick(String msg) {
-
+        MessageManager.getInstance().sendTxtMessage(msg);
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
+import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
 
 import butterknife.OnClick;
@@ -16,6 +17,13 @@ public class LeanChatActivity extends LeanBaseActivity {
         Intent intent=new Intent(context,LeanChatActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("data",contactInfo);
+        context.startActivity(intent);
+    }
+
+    public static void start(Context context, UserInfoBMob userInfoBMob){
+        Intent intent=new Intent(context,LeanChatActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("user",userInfoBMob);
         context.startActivity(intent);
     }
 

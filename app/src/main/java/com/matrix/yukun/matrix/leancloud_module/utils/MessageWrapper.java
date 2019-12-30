@@ -46,6 +46,7 @@ public class MessageWrapper {
             contactInfo.setUnreadMessagesCount(avimConversation.getUnreadMessagesCount());
             contactInfo.setLastTime(String.valueOf((avimConversation.getLastMessageAt()!=null?avimConversation.getLastMessageAt().getTime():System.currentTimeMillis())));
             contactInfo.setLastMessage(wrapperLastMessage(avimConversation));
+            LogUtil.i(contactInfo.toString());
             infos.add(contactInfo);
         }
         return infos;

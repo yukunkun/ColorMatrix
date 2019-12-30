@@ -96,7 +96,6 @@ public class AcceptAddActivity extends BaseActivity {
         String lastMessage = mContactInfo.getLastMessage();
         if (!TextUtils.isEmpty(lastMessage)) {
             UserInfoBMob userInfoBMob = (UserInfoBMob) GsonUtil.toObject(lastMessage, UserInfoBMob.class);
-
             List<AddFriendInfo> addFriendInfos = DataSupport.where("avatar = ?", userInfoBMob.getAvator()).find(AddFriendInfo.class);
             if (!addFriendInfos.isEmpty()) {
                 addFriendInfo.setAdd(true);

@@ -10,14 +10,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
-
-import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.leancloud_module.LeanCloudMessageHandler;
 import com.qq.e.comm.DownloadService;
-
 import cn.leancloud.im.v2.AVIMMessageManager;
-
-//import cn.leancloud.im.v2.AVIMMessageManager;
 
 /**
  * author: kun .
@@ -82,15 +77,6 @@ public class DownLoadService extends Service {
                 this.startService(new Intent(getApplication(), InnerService.class));
             }
         }
-
-//        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
-//            this.startForeground(FORE_SERVICE_ID, new Notification());
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-//                this.startService(new Intent(getApplication(), InnerService.class));
-//            }
-//        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            startForeground(FORE_SERVICE_ID, new Notification());
-//        }
         initListener();
         return START_STICKY;
     }
