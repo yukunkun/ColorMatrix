@@ -44,7 +44,7 @@ public class RVContactAdapter extends BaseQuickAdapter<ContactInfo,BaseViewHolde
         TextView tvAccount=helper.getView(R.id.tv_account);
         if(item.getUnreadMessagesCount()>0){
             tvAccount.setVisibility(View.VISIBLE);
-            tvAccount.setText(item.getUnreadMessagesCount());
+            tvAccount.setText(item.getUnreadMessagesCount()+"");
         }else {
             tvAccount.setVisibility(View.GONE);
         }

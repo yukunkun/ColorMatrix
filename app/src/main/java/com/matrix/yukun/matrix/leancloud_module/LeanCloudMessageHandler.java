@@ -15,6 +15,10 @@ import cn.leancloud.im.v2.AVIMMessage;
  */
 public class LeanCloudMessageHandler extends AVIMConversationEventHandler {
 
+    public LeanCloudMessageHandler() {
+        LogUtil.i("init LeanCloudMessageHandler");
+    }
+
     @Override
     public void onMessageUpdated(AVIMClient client, AVIMConversation conversation, AVIMMessage message) {
         LogUtil.i("onMessageUpdated -->");
@@ -42,6 +46,6 @@ public class LeanCloudMessageHandler extends AVIMConversationEventHandler {
 
     @Override
     public void onUnreadMessagesCountUpdated(AVIMClient client, AVIMConversation conversation) {
-        LogUtil.i("onUnreadMessagesCountUpdated -->",conversation.getUnreadMessagesCount()+"");
+        LogUtil.i("onUnreadMessagesCountUpdated -->",conversation.getConversationId()+" "+conversation.getUnreadMessagesCount()+"");
     }
 }

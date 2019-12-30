@@ -22,7 +22,6 @@ import cn.leancloud.AVFile;
 import cn.leancloud.im.v2.AVIMClient;
 import cn.leancloud.im.v2.AVIMConversation;
 import cn.leancloud.im.v2.AVIMException;
-import cn.leancloud.im.v2.annotation.AVIMMessageType;
 import cn.leancloud.im.v2.callback.AVIMConversationCallback;
 import cn.leancloud.im.v2.callback.AVIMConversationCreatedCallback;
 import cn.leancloud.im.v2.messages.AVIMImageMessage;
@@ -39,7 +38,7 @@ public class MessageManager {
     private AVIMConversation mConversation;
 
     public MessageManager() {
-        mAvimClient = LeanCloudInit.mAvimClient;
+        mAvimClient = AVIMClient.getInstance(MyApp.getUserInfo().getId());
     }
 
     public static MessageManager getInstance() {
@@ -142,7 +141,7 @@ public class MessageManager {
         map.put("from", userInfo.getObjectId());
         map.put("to", toId);
         map.put("userId", userInfo.getObjectId());
-        LogUtil.i("getAttr:",map.toString());
+        LogUtil.i("getAttr:",map.toString()+" "+mAvimClient.getClientId());
         return map;
     }
 

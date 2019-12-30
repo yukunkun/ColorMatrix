@@ -1,6 +1,7 @@
 package com.matrix.yukun.matrix.leancloud_module;
 
 import com.matrix.yukun.matrix.AppConstant;
+import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.leancloud_module.common.LeanConatant;
 import com.matrix.yukun.matrix.leancloud_module.impl.ConversitionListenerImpl;
 import com.matrix.yukun.matrix.leancloud_module.impl.LoginListenerImpl;
@@ -100,6 +101,7 @@ public class LeanCloudInit {
                                     } else {
                                         LogUtil.i("createConversation失败:" + e.toString());
                                     }
+                                    // mAvimClient 重新初始化
                                 }
                             });
 

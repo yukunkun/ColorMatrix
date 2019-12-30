@@ -119,7 +119,7 @@ public class UserInfoBMob extends BmobObject {
     @Override
     public String toString() {
         return "UserInfoBMob{" +
-                "id='" + id + '\'' +
+                "id='" + getObjectId() + '\'' +
                 ", key='" + key + '\'' +
                 ", account='" + account + '\'' +
                 ", phone='" + phone + '\'' +
