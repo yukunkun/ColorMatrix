@@ -2,14 +2,12 @@ package com.matrix.yukun.matrix.leancloud_module.fragment;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.leancloud_module.activity.LeanChatActivity;
-import com.matrix.yukun.matrix.leancloud_module.adapter.LeanChatAdapter;
 import com.matrix.yukun.matrix.leancloud_module.adapter.RVFriendListAdapter;
 import com.matrix.yukun.matrix.leancloud_module.entity.FriendsBMob;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
@@ -80,7 +78,7 @@ public class FriendFragment extends BaseFragment {
                     for (int i = 0; i < list.size(); i++) {
                         ArrayList<String> friendList = list.get(i).getFriendList();
                         for (int j = 0; j < friendList.size(); j++) {
-                            String userinfo = friendList.get(i);
+                            String userinfo = friendList.get(j);
                             UserInfoBMob userInfoBMob= (UserInfoBMob) GsonUtil.toObject(userinfo, UserInfoBMob.class);
                             mFriendsBMobs.add(userInfoBMob);
                             LogUtil.i(list.toString());

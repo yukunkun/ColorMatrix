@@ -1,7 +1,6 @@
 package com.matrix.yukun.matrix.leancloud_module;
 
 import com.matrix.yukun.matrix.AppConstant;
-import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.leancloud_module.common.LeanConatant;
 import com.matrix.yukun.matrix.leancloud_module.impl.ConversitionListenerImpl;
 import com.matrix.yukun.matrix.leancloud_module.impl.LoginListenerImpl;
@@ -11,6 +10,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import cn.leancloud.AVQuery;
 import cn.leancloud.im.v2.AVIMClient;
 import cn.leancloud.im.v2.AVIMConversation;
@@ -82,7 +82,7 @@ public class LeanCloudInit {
             @Override
             public void done(AVIMClient client, AVIMException e) {
                 if (e == null) {
-                    mAvimClient.createConversation(Arrays.asList(id), "系统消息", map, false, true,
+                    mAvimClientSystem.createConversation(Arrays.asList(id), "系统消息", map, false, true,
                             new AVIMConversationCreatedCallback() {
                                 @Override
                                 public void done(AVIMConversation conversation, AVIMException e) {
@@ -137,13 +137,14 @@ public class LeanCloudInit {
 
     }
 
-    public void sendSystemAdd(String id, String userInfo) {
+    public void sendSystemAdd(String id, String userInfo,String toUserName) {
 
         Map<String, Object> map = new HashMap();
-        map.put("avator", AppConstant.APP_ICON_URl);
         map.put("from", LeanConatant.SystemMessage);
         map.put("to", id);
-        map.put("userId", LeanConatant.SystemAdmin);
+        map.put("fromUserName", "系统消息");
+        map.put("toUserName", toUserName);
+        map.put("avator", AppConstant.APP_ICON_URl);
         AVIMTextMessage avimTextMessage = new AVIMTextMessage();
         avimTextMessage.setText(userInfo);
         sendSystemMessage(id,map, avimTextMessage);

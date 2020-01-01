@@ -13,7 +13,6 @@ import com.matrix.yukun.matrix.leancloud_module.entity.FriendsBMob;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.glide.GlideUtil;
-import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +55,7 @@ public class RVAddFriendAdapter extends BaseQuickAdapter<UserInfoBMob,BaseViewHo
                     tvAddView.setText("已申请");
                     tvAddView.setTextColor(mContext.getResources().getColor(R.color.color_back_more));
                     tvAddView.setBackgroundResource(R.drawable.shape_collect_bg_checked);
-                    LeanCloudInit.getInstance().sendSystemAdd(item.getId(),UserInfoBMob.toJson(MyApp.getUserInfo()));
+                    LeanCloudInit.getInstance().sendSystemAdd(item.getId(),UserInfoBMob.toJson(MyApp.getUserInfo()),item.getName());
                 }
             });
         }

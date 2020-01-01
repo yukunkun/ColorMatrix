@@ -3,10 +3,8 @@ package com.matrix.yukun.matrix.main_module.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
+import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -30,22 +28,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.OnClick;
 import okhttp3.Call;
 
 public class AvatarChoiceActivity extends BaseActivity {
 
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
     private RecyclerView mRecyclerView;
     private RVAvatarAdapter mRvVerticalAdapter;
-    private String url="http://gank.io/api/data/%E7%A6%8F%E5%88%A9/30/";
-    private List<ImageData> mImageDatas=new ArrayList<>();
+    private String url = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/30/";
+    private List<ImageData> mImageDatas = new ArrayList<>();
     private SmartRefreshLayout mSwipeRefreshLayout;
     private GridLayoutManager mLayoutManager;
-    private Random mRandom=new Random();
-    private int page=getRandom();
+    private Random mRandom = new Random();
+    private int page = getRandom();
 
-    public static void start(Context context){
-        Intent intent=new Intent(context,AvatarChoiceActivity.class);
-        ((Activity)context).startActivityForResult(intent, 1001);
+    public static void start(Context context) {
+        Intent intent = new Intent(context, AvatarChoiceActivity.class);
+        ((Activity) context).startActivityForResult(intent, 1001);
     }
 
     @Override
@@ -57,35 +62,36 @@ public class AvatarChoiceActivity extends BaseActivity {
     public void initView() {
         mRecyclerView = findViewById(R.id.recyclerview);
         mSwipeRefreshLayout = findViewById(R.id.smart_layout);
-        mLayoutManager = new GridLayoutManager(this,4);
+        mLayoutManager = new GridLayoutManager(this, 4);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRvVerticalAdapter = new RVAvatarAdapter(this,mImageDatas);
+        mRvVerticalAdapter = new RVAvatarAdapter(this, mImageDatas);
         mRecyclerView.setAdapter(mRvVerticalAdapter);
         mRecyclerView.addItemDecoration(new SpacesItemDecoration(1));
     }
 
-    public int getRandom(){
-        return mRandom.nextInt(50);
+    public int getRandom() {
+        return mRandom.nextInt(40);
     }
 
     @Override
     public void initDate() {
-        OkHttpUtils.get().url(url+page)
+        OkHttpUtils.get().url(url + page)
                 .build().execute(new StringCallback() {
             @Override
             public void onResponse(String response, int id) {
-                if(!TextUtils.isEmpty(response)){
+                if (!TextUtils.isEmpty(response)) {
                     try {
-                        JSONObject jsonObject=new JSONObject(response);
+                        JSONObject jsonObject = new JSONObject(response);
                         JSONArray results = jsonObject.optJSONArray("results");
-                        if(results!=null&&results.length()>0){
-                            Gson gson=new Gson();
-                            List<ImageData> imageDatas  = gson.fromJson(results.toString(), new TypeToken<List<ImageData>>() {}.getType());
+                        if (results != null && results.length() > 0) {
+                            Gson gson = new Gson();
+                            List<ImageData> imageDatas = gson.fromJson(results.toString(), new TypeToken<List<ImageData>>() {
+                            }.getType());
                             mImageDatas.addAll(imageDatas);
                             mRvVerticalAdapter.notifyDataSetChanged();
                             mSwipeRefreshLayout.finishLoadMore();
                             mSwipeRefreshLayout.finishRefresh();
-                        }else{
+                        } else {
                             ToastUtils.showToast("error");
                         }
                     } catch (JSONException e) {
@@ -94,6 +100,7 @@ public class AvatarChoiceActivity extends BaseActivity {
 
                 }
             }
+
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -112,7 +119,7 @@ public class AvatarChoiceActivity extends BaseActivity {
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                page=getRandom();
+                page = getRandom();
                 mImageDatas.clear();
                 initDate();
             }
@@ -120,12 +127,18 @@ public class AvatarChoiceActivity extends BaseActivity {
         mRvVerticalAdapter.setOnItemClickListener(new RVAvatarAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(int pos, String url) {
-                Intent intent=new Intent();
-                intent.putExtra("pos",pos);
-                intent.putExtra("url",url);
-                setResult(1002,intent);
+                Intent intent = new Intent();
+                intent.putExtra("pos", pos);
+                intent.putExtra("url", url);
+                setResult(1002, intent);
                 finish();
             }
         });
+    }
+
+
+    @OnClick(R.id.iv_back)
+    public void onViewClicked() {
+        finish();
     }
 }

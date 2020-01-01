@@ -9,7 +9,7 @@ import cn.bmob.v3.BmobObject;
  * date:   On 2019/11/14
  */
 public class UserInfoBMob extends BmobObject {
-    private String id;
+    public String id;
     private String key;
     private String account;
     private String phone;

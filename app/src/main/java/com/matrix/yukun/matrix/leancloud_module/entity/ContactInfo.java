@@ -2,10 +2,6 @@ package com.matrix.yukun.matrix.leancloud_module.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import cn.leancloud.im.v2.AVIMConversation;
 
 /**
  * author: kun .
@@ -18,10 +14,12 @@ public class ContactInfo implements Serializable {
     boolean isTransient; // 是否为临时对话
     private String lastMessage;
     private String lastTime;
-    private String avator;
+    private String fromAvator;
+    private String toAvator;
     private String from;
     private String to;
-    private String userId;
+    private String fromUserName;
+    private String toUserName;
     private boolean isSyncLastMessage = false;
     /**
      * 未读消息数量
@@ -57,12 +55,20 @@ public class ContactInfo implements Serializable {
         this.members = members;
     }
 
-    public String getAvator() {
-        return avator;
+    public String getFromAvator() {
+        return fromAvator;
     }
 
-    public void setAvator(String avator) {
-        this.avator = avator;
+    public void setFromAvator(String fromAvator) {
+        this.fromAvator = fromAvator;
+    }
+
+    public String getToAvator() {
+        return toAvator;
+    }
+
+    public void setToAvator(String toAvator) {
+        this.toAvator = toAvator;
     }
 
     public String getFrom() {
@@ -81,12 +87,20 @@ public class ContactInfo implements Serializable {
         this.to = to;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getFromUserName() {
+        return fromUserName;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setFromUserName(String fromUserName) {
+        this.fromUserName = fromUserName;
+    }
+
+    public String getToUserName() {
+        return toUserName;
+    }
+
+    public void setToUserName(String toUserName) {
+        this.toUserName = toUserName;
     }
 
     public String getCreator() {
@@ -172,14 +186,18 @@ public class ContactInfo implements Serializable {
     @Override
     public String toString() {
         return "ContactInfo{" +
-                "conversationId='" + conversationId + '\'' +
+                "conversationId='" + conversationId +
+                ", from='" + from +
+                ", to='" + to +
+                ", fromUserName='" + fromUserName +
+                ", toUserName='" + toUserName +
+                ", fromAvator='" + fromAvator +
+                ", toAvator=" + toAvator +
                 ", members=" + members +
-                ", creator='" + creator + '\'' +
+                ", creator='" + creator +
                 ", isTransient=" + isTransient +
-                ", lastMessage='" + lastMessage + '\'' +
-                ", lastTime='" + lastTime + '\'' +
-                ", avator='" + avator + '\'' +
-                ", userId='" + userId + '\'' +
+                ", lastMessage=" + lastMessage +
+                ", lastTime='" + lastTime +
                 ", isSyncLastMessage=" + isSyncLastMessage +
                 ", unreadMessagesCount=" + unreadMessagesCount +
                 ", unreadMessagesMentioned=" + unreadMessagesMentioned +

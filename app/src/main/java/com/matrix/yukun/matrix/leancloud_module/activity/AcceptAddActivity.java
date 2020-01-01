@@ -3,7 +3,6 @@ package com.matrix.yukun.matrix.leancloud_module.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,15 +15,10 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.leancloud_module.LeanCloudInit;
 import com.matrix.yukun.matrix.leancloud_module.entity.AddFriendInfo;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
 import com.matrix.yukun.matrix.leancloud_module.entity.FriendsBMob;
-import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
-import com.matrix.yukun.matrix.main_module.activity.PlayMainActivity;
-import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
-import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.glide.GlideUtil;
 import com.matrix.yukun.matrix.util.log.LogUtil;
@@ -32,11 +26,11 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
-import org.greenrobot.eventbus.EventBus;
 import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -100,6 +94,7 @@ public class AcceptAddActivity extends BaseActivity {
             if (!addFriendInfos.isEmpty()) {
                 addFriendInfo.setAdd(true);
             }
+            addFriendInfo.setBelongId(MyApp.getUserInfo().getId());
             addFriendInfo.setUserInfoBMob(lastMessage);
             addFriendInfo.setName(userInfoBMob.getName());
             addFriendInfo.setAvatar(userInfoBMob.getAvator());
@@ -109,7 +104,7 @@ public class AcceptAddActivity extends BaseActivity {
                 addFriendInfo.save();
             }
         }
-        List<AddFriendInfo> all = DataSupport.findAll(AddFriendInfo.class);
+        List<AddFriendInfo> all = DataSupport.where("belongId = ?" , MyApp.getUserInfo().getId()).find(AddFriendInfo.class);
         data.addAll(all);
         mRvAdapter.notifyDataSetChanged();
     }

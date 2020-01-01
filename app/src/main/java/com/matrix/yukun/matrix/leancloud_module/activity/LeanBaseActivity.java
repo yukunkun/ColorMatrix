@@ -1,18 +1,12 @@
 package com.matrix.yukun.matrix.leancloud_module.activity;
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.matrix.yukun.matrix.BaseActivity;
+import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.chat_module.emoji.CubeEmoticonEditText;
 import com.matrix.yukun.matrix.chat_module.entity.Photo;
 import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
 import com.matrix.yukun.matrix.leancloud_module.InputPanelManager;
@@ -31,8 +25,6 @@ import java.util.List;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class LeanBaseActivity extends BaseActivity implements InputListener {
 
@@ -55,6 +47,9 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
     private LinearLayoutManager mLayoutManager;
     private List<LeanChatMessage> mLeanChatMessages = new ArrayList<>();
     public LeanChatAdapter mLeanChatAdapter;
+    public String chatId;
+    public String chatName;
+    public String chatAvator;
 
     @Override
     public int getLayout() {
@@ -70,23 +65,22 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
         rvChatview.setLayoutManager(mLayoutManager);
         mLeanChatAdapter = new LeanChatAdapter(mLeanChatMessages,this);
         rvChatview.setAdapter(mLeanChatAdapter);
-
     }
 
     @Override
     public void initDate() {
-        if(mInfoBMob!=null)
-            LogUtil.i(mInfoBMob.toString());
-        if(mData!=null)
-            LogUtil.i(mData.toString());
+//        if(mInfoBMob!=null)
+//            LogUtil.i(mInfoBMob.toString());
+//        if(mData!=null)
+//            LogUtil.i(mData.toString());
         if(mInfoBMob==null && mData!=null){
-            mInfoBMob=new UserInfoBMob();
-            mInfoBMob.setAvator(mData.getAvator()+"");
-            mInfoBMob.setName(mData.getFrom());
-            mInfoBMob.setId(mData.getUserId());
-            MessageManager.getInstance().createConversion(mInfoBMob.getId());
+            chatId=(!mData.getFrom().equals(MyApp.getUserInfo().getId()))?mData.getFrom():mData.getTo();
+            chatName=(!mData.getFrom().equals(MyApp.getUserInfo().getId()))?mData.getFromUserName():mData.getToUserName();
+            chatAvator=(!mData.getFrom().equals(MyApp.getUserInfo().getId()))?mData.getFromAvator():mData.getToAvator();
         }else {
-            MessageManager.getInstance().createConversion(mInfoBMob.getId());
+            chatId=mInfoBMob.getId();
+            chatName=mInfoBMob.getName();
+            chatAvator=mInfoBMob.getAvator();
         }
     }
 
@@ -97,7 +91,8 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
 
     @Override
     public void onSendMessageClick(String msg) {
-        MessageManager.getInstance().sendTxtMessage(msg);
+        LogUtil.i("========",chatId+" "+chatName+" "+chatAvator);
+        MessageManager.getInstance().sendTxtMessage(msg,chatId,chatName,chatAvator);
     }
 
     @Override

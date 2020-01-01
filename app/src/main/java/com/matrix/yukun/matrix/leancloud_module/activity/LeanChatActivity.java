@@ -34,6 +34,13 @@ public class LeanChatActivity extends LeanBaseActivity {
     }
 
     @Override
+    public void initDate() {
+        super.initDate();
+        tvTitle.setText(chatName);
+
+    }
+
+    @Override
     public void initListener() {
         super.initListener();
         rvChatview.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {

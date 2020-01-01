@@ -4,9 +4,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.matrix.yukun.matrix.MyApp;
@@ -17,6 +14,8 @@ import com.matrix.yukun.matrix.util.DataUtils;
 import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * author: kun .
@@ -30,15 +29,15 @@ public class RVContactAdapter extends BaseQuickAdapter<ContactInfo,BaseViewHolde
 
     @Override
     protected void convert(BaseViewHolder helper, ContactInfo item) {
-        if(item!=null&& !TextUtils.isEmpty(item.getFrom())&&item.getFrom().equals(LeanConatant.SystemMessage)){
+        if(item!=null&& !TextUtils.isEmpty(item.getFrom())&&(item.getFrom().equals(LeanConatant.SystemMessage)|| item.getTo().equals(LeanConatant.SystemMessage))){
             helper.setText(R.id.tv_name, item.getFrom());
             helper.setText(R.id.tv_context,mContext.getString(R.string.system_message));
             GlideUtil.loadCircleImage(R.mipmap.icon_system_msg,helper.getView(R.id.iv_avatar));
             helper.setText(R.id.tv_time, coverToTime(Long.valueOf(item.getLastTime())));
         }else {
-            helper.setText(R.id.tv_name, MyApp.getUserInfo().getName().equals(item.getTo())?item.getFrom():item.getTo());
+            helper.setText(R.id.tv_name,(!item.getFrom().equals(MyApp.getUserInfo().getId()))?item.getFromUserName():item.getToUserName());
             helper.setText(R.id.tv_context,item.getLastMessage());
-            GlideUtil.loadCircleImage(item.getAvator()+"",helper.getView(R.id.iv_avatar));
+            GlideUtil.loadCircleImage((!item.getFrom().equals(MyApp.getUserInfo().getId()))?item.getFromAvator():item.getToAvator(),helper.getView(R.id.iv_avatar));
             helper.setText(R.id.tv_time, coverToTime(Long.valueOf(item.getLastTime())));
         }
         TextView tvAccount=helper.getView(R.id.tv_account);

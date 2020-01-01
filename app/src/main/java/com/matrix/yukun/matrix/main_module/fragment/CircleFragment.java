@@ -21,7 +21,6 @@ import com.matrix.yukun.matrix.leancloud_module.activity.LeanChatActivity;
 import com.matrix.yukun.matrix.leancloud_module.activity.SearchFriendActivity;
 import com.matrix.yukun.matrix.leancloud_module.adapter.RVContactAdapter;
 import com.matrix.yukun.matrix.leancloud_module.common.LeanConatant;
-import com.matrix.yukun.matrix.leancloud_module.common.LoginDialog;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
 import com.matrix.yukun.matrix.leancloud_module.impl.ConversitionListenerImpl;
 import com.matrix.yukun.matrix.leancloud_module.impl.LoginListenerImpl;
@@ -44,7 +43,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.leancloud.im.v2.AVIMConversation;
-import cn.leancloud.im.v2.Conversation;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 
@@ -123,11 +121,11 @@ public class CircleFragment extends BaseFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ContactInfo contactInfo = mContactInfos.get(position);
                 LogUtil.i(contactInfo.toString());
-//                if (contactInfo != null && !TextUtils.isEmpty(contactInfo.getFrom()) && contactInfo.getFrom().equals(LeanConatant.SystemMessage)) {
-//                    AcceptAddActivity.start(getContext(), contactInfo);
-//                } else {
-//                    LeanChatActivity.start(getContext(), contactInfo);
-//                }
+                if (contactInfo != null && !TextUtils.isEmpty(contactInfo.getFrom()) && (contactInfo.getFrom().equals(LeanConatant.SystemMessage) || contactInfo.getTo().equals(LeanConatant.SystemMessage))) {
+                    AcceptAddActivity.start(getContext(), contactInfo);
+                } else {
+                    LeanChatActivity.start(getContext(), contactInfo);
+                }
             }
         });
     }

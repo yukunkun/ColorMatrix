@@ -7,12 +7,21 @@ import org.litepal.crud.DataSupport;
  * date:   On 2019/12/16
  */
 public class AddFriendInfo extends DataSupport {
+    private String belongId;
     private String name;
     private String avatar;
     private boolean isAdd;
     private String createTime;
     private String userId;
     private String userInfoBMob;
+
+    public String getBelongId() {
+        return belongId;
+    }
+
+    public void setBelongId(String belongId) {
+        this.belongId = belongId;
+    }
 
     public String getUserId() {
         return userId;

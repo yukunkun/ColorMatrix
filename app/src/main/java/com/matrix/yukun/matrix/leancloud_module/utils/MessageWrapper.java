@@ -33,10 +33,13 @@ public class MessageWrapper {
         for (int i = 0; i < avimConversations.size(); i++) {
             ContactInfo contactInfo = new ContactInfo();
             AVIMConversation avimConversation = avimConversations.get(i);
-            contactInfo.setAvator((String) avimConversation.getAttribute("avator"));
+            LogUtil.i("========",(String) avimConversation.getLastMessage().toJSONString());
+            contactInfo.setFromAvator((String) avimConversation.getAttribute("fromAvator"));
+            contactInfo.setToAvator((String) avimConversation.getAttribute("toAvator"));
             contactInfo.setTo((String) avimConversation.getAttribute("to"));
             contactInfo.setFrom((String) avimConversation.getAttribute("from"));
-            contactInfo.setUserId((String) avimConversation.getAttribute("userId"));
+            contactInfo.setFromUserName((String) avimConversation.getAttribute("fromUserName"));
+            contactInfo.setToUserName((String) avimConversation.getAttribute("toUserName"));
             contactInfo.setConversationId(avimConversation.getConversationId());
             contactInfo.setCreator(avimConversation.getCreator());
             contactInfo.setLastReadAt(avimConversation.getLastReadAt());
@@ -45,7 +48,7 @@ public class MessageWrapper {
             contactInfo.setUnreadMessagesCount(avimConversation.getUnreadMessagesCount());
             contactInfo.setLastTime(String.valueOf((avimConversation.getLastMessageAt()!=null?avimConversation.getLastMessageAt().getTime():System.currentTimeMillis())));
             contactInfo.setLastMessage(wrapperLastMessage(avimConversation));
-            LogUtil.i((String) avimConversation.getAttribute("userId"));
+            LogUtil.i("===========",contactInfo.toString());
             infos.add(contactInfo);
         }
         return infos;

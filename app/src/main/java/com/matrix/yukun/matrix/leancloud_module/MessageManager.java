@@ -1,17 +1,13 @@
 package com.matrix.yukun.matrix.leancloud_module;
 
-import android.os.Environment;
-
-import com.google.protobuf.Extension;
-import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.chat_module.entity.ChatType;
-import com.matrix.yukun.matrix.leancloud_module.common.LeanConatant;
 import com.matrix.yukun.matrix.leancloud_module.entity.LeanChatMessage;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -50,8 +46,8 @@ public class MessageManager {
      *
      * @param toId
      */
-    public void createConversion(String toId) {
-        mAvimClient.createConversation(Arrays.asList(toId), "", getAttr(toId), false, true, new AVIMConversationCreatedCallback() {
+    public void createConversion(String toId,String toUserName,String toAvator) {
+        mAvimClient.createConversation(Arrays.asList(toId), "", getAttr(toId,toUserName,toAvator), false, true, new AVIMConversationCreatedCallback() {
                     @Override
                     public void done(AVIMConversation conversation, AVIMException e) {
                         if (e == null) {
@@ -70,8 +66,8 @@ public class MessageManager {
      * @param members
      * @param toId
      */
-    public void createConversion(List<String> members, String toId) {
-        mAvimClient.createConversation(members, "", getAttr(toId), false, true, new AVIMConversationCreatedCallback() {
+    public void createConversion(List<String> members, String toId,String toUserName,String toAvator) {
+        mAvimClient.createConversation(members, "", getAttr(toId,toUserName,toAvator), false, true, new AVIMConversationCreatedCallback() {
                     @Override
                     public void done(AVIMConversation conversation, AVIMException e) {
                         if (e == null) {
@@ -84,25 +80,35 @@ public class MessageManager {
         );
     }
 
-    public void sendTxtMessage(String txt) {
-        AVIMTextMessage avimTextMessage = new AVIMTextMessage();
-        avimTextMessage.setText(txt);
-        mConversation.sendMessage(avimTextMessage, new AVIMConversationCallback() {
-            @Override
-            public void done(AVIMException e) {
-                if (e == null) {
+    public void sendTxtMessage(String txt,String toId,String toUserName,String toAvator) {
+        mAvimClient.createConversation(Arrays.asList(toId), toUserName, getAttr(toId,toUserName,toAvator), false, true, new AVIMConversationCreatedCallback() {
+                    @Override
+                    public void done(AVIMConversation conversation, AVIMException e) {
+                        if (e == null) {
+                            AVIMTextMessage avimTextMessage = new AVIMTextMessage();
+                            avimTextMessage.setText(txt);
+                            conversation.sendMessage(avimTextMessage, new AVIMConversationCallback() {
+                                @Override
+                                public void done(AVIMException e) {
+                                    if (e == null) {
 
-                } else {
-                    ToastUtils.showToast("发送消息失败");
+                                    } else {
+                                        ToastUtils.showToast("发送消息失败");
+                                    }
+                                }
+                            });
+                        } else {
+                            ToastUtils.showToast("创建会话失败");
+                        }
+                    }
                 }
-            }
-        });
+        );
     }
 
     public void sendImageMessage(String imagePath) {
         AVFile file = null;
         try {
-            file = AVFile.withAbsoluteLocalPath("San_Francisco.png", Environment.getExternalStorageDirectory() + "/San_Francisco.png");
+            file = AVFile.withAbsoluteLocalPath(new File(imagePath).getName(), imagePath);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -134,14 +140,16 @@ public class MessageManager {
         });
     }
 
-    public Map<String, Object> getAttr(String toId) {
+    public Map<String, Object> getAttr(String toId,String toUserName,String toAvator) {
         UserInfoBMob userInfo = MyApp.getUserInfo();
         Map<String, Object> map = new HashMap();
-        map.put("avator", userInfo.getAvator());
         map.put("from", userInfo.getObjectId());
         map.put("to", toId);
-        map.put("userId", userInfo.getObjectId());
-        LogUtil.i("getAttr:",map.toString()+" "+mAvimClient.getClientId());
+        map.put("fromUserName", userInfo.getName());
+        map.put("toUserName", toUserName);
+        map.put("fromAvator", userInfo.getAvator());
+        map.put("toAvator", toAvator);
+        LogUtil.i("=======getAttr:",map.toString()+" "+mAvimClient.getClientId());
         return map;
     }
 
