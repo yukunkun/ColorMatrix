@@ -8,6 +8,7 @@ import com.matrix.yukun.matrix.leancloud_module.utils.MessageWrapper;
 import com.matrix.yukun.matrix.main_module.activity.VerticalVideoActivity;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
+import com.matrix.yukun.matrix.util.ThreadUtil;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import java.io.File;
@@ -94,31 +95,44 @@ public class MessageManager {
     }
 
     public void sendTxtMessage(String txt,String toId,String toUserName,String toAvator) {
-        mAvimClient.createConversation(Arrays.asList(toId), toUserName, getAttr(toId,toUserName,toAvator), false, true, new AVIMConversationCreatedCallback() {
-                    @Override
-                    public void done(AVIMConversation conversation, AVIMException e) {
-                        if (e == null) {
-                            AVIMTextMessage avimTextMessage = new AVIMTextMessage();
-                            avimTextMessage.setText(txt);
-                            conversation.sendMessage(avimTextMessage, new AVIMConversationCallback() {
-                                @Override
-                                public void done(AVIMException e) {
-                                    if (e == null) {
+//        mAvimClient.createConversation(Arrays.asList(toId), toUserName, getAttr(toId,toUserName,toAvator), false, true, new AVIMConversationCreatedCallback() {
+//                    @Override
+//                    public void done(AVIMConversation conversation, AVIMException e) {
+//                        if (e == null) {
+//                            AVIMTextMessage avimTextMessage = new AVIMTextMessage();
+//                            avimTextMessage.setText(txt);
+//                            conversation.sendMessage(avimTextMessage, new AVIMConversationCallback() {
+//                                @Override
+//                                public void done(AVIMException e) {
+//                                    if (e == null) {
+//
+//                                    } else {
+//                                        ToastUtils.showToast("发送消息失败");
+//                                    }
+//                                }
+//                            });
+//                        } else {
+//                            ToastUtils.showToast("创建会话失败");
+//                        }
+//                    }
+//                }
+//        );
+        AVIMTextMessage avimTextMessage = new AVIMTextMessage();
+        avimTextMessage.setText(txt);
+        mConversation.sendMessage(avimTextMessage, new AVIMConversationCallback() {
+            @Override
+            public void done(AVIMException e) {
+                if (e == null) {
 
-                                    } else {
-                                        ToastUtils.showToast("发送消息失败");
-                                    }
-                                }
-                            });
-                        } else {
-                            ToastUtils.showToast("创建会话失败");
-                        }
-                    }
+                } else {
+                    ToastUtils.showToast("发送消息失败");
                 }
-        );
+            }
+        });
     }
 
     public void sendImageMessage(String imagePath) {
+        LogUtil.e(Thread.currentThread().getName());
         AVFile file = null;
         try {
             file = AVFile.withAbsoluteLocalPath(new File(imagePath).getName(), imagePath);
@@ -132,6 +146,7 @@ public class MessageManager {
                 if (e == null) {
 
                 } else {
+                    LogUtil.e(e.toString()+" "+Thread.currentThread().getName());
                     ToastUtils.showToast("发送消息失败");
                 }
             }
@@ -181,6 +196,7 @@ public class MessageManager {
         leanChatMessage.setMsgFromAvator((String) conversation.getAttribute("fromAvator"));
         leanChatMessage.setMsgtoAvator((String) conversation.getAttribute("toAvator"));
         //update adapter
+        LogUtil.i(leanChatMessage.toString());
         mLeanChatMessages.add(leanChatMessage);
         mLeanChatAdapter.notifyItemInserted(mLeanChatMessages.size());
     }

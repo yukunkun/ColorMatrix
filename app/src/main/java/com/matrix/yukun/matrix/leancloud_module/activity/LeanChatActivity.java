@@ -9,6 +9,7 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
+import com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout;
 import com.matrix.yukun.matrix.util.KeyBoardUtil;
 
 import butterknife.OnClick;
@@ -65,6 +66,22 @@ public class LeanChatActivity extends LeanBaseActivity {
             @Override
             public void onStartTouch() {
                 mInputPanelManager.dismissLayout();
+            }
+        });
+        srRefresh.setOnPullRefreshListener(new CubeSwipeRefreshLayout.OnPullRefreshListener() {
+            @Override
+            public void onRefresh() {
+                srRefresh.setRefreshing(false);
+            }
+
+            @Override
+            public void onPullDistance(int distance) {
+
+            }
+
+            @Override
+            public void onPullEnable(boolean enable) {
+
             }
         });
     }

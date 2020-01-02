@@ -4,6 +4,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
@@ -85,6 +86,7 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
             chatName=mInfoBMob.getName();
             chatAvator=mInfoBMob.getAvator();
         }
+        MessageManager.getInstance().createConversion(chatId,chatName,chatAvator);
     }
 
     @Override
@@ -94,13 +96,16 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
 
     @Override
     public void onSendMessageClick(String msg) {
-        LogUtil.i("========",chatId+" "+chatName+" "+chatAvator);
         MessageManager.getInstance().sendTxtMessage(msg,chatId,chatName,chatAvator);
     }
 
     @Override
     public void onPictureClick(List<Photo> picPath) {
-
+        for (int i = 0; i < picPath.size(); i++) {
+            LogUtil.i("path:"+picPath.get(i).path);
+            MessageManager.getInstance().sendImageMessage(picPath.get(i).path);
+            MessageManager.getInstance().sendImageMessage("icon.png", AppConstant.APP_ICON_URl);
+        }
     }
 
     @Override

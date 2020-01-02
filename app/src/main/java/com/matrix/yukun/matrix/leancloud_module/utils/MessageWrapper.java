@@ -70,6 +70,8 @@ public class MessageWrapper {
         if(message instanceof AVIMImageMessage){
             leanChatMessage.setType(ChatType.IMAGE.getIndex());
             leanChatMessage.setImageUrl(((AVIMImageMessage) message).getFileUrl());
+            leanChatMessage.setImageWidth(((AVIMImageMessage) message).getWidth());
+            leanChatMessage.setImageHeight(((AVIMImageMessage) message).getHeight());
         }
 
         return leanChatMessage;

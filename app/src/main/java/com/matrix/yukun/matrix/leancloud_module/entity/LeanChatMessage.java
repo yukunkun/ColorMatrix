@@ -21,6 +21,8 @@ public class LeanChatMessage extends DataSupport implements MultiItemEntity {
     private int type;
     private long timeStamp;
     private boolean isReceived;
+    private long imageWidth;
+    private long imageHeight;
 
     public String getContent() {
         return content;
@@ -131,20 +133,39 @@ public class LeanChatMessage extends DataSupport implements MultiItemEntity {
         isReceived = receiver;
     }
 
+    public long getImageWidth() {
+        return imageWidth;
+    }
+
+    public void setImageWidth(long imageWidth) {
+        this.imageWidth = imageWidth;
+    }
+
+    public long getImageHeight() {
+        return imageHeight;
+    }
+
+    public void setImageHeight(long imageHeight) {
+        this.imageHeight = imageHeight;
+    }
+
     @Override
     public String toString() {
         return "LeanChatMessage{" +
-                "msgId='" + msgId +
-                ", content='" + content +
-                ", imageUrl='" + imageUrl +
-                ", msgFrom='" + msgFrom +
-                ", msgTo='" + msgTo +
-                ", msgFromUserName='" + msgFromUserName +
-                ", msgToUserName='" + msgToUserName +
-                ", msgFromAvator='" + msgFromAvator +
-                ", msgToAvator='" + msgToAvator +
+                "msgId='" + msgId + '\'' +
+                ", content='" + content + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", msgFrom='" + msgFrom + '\'' +
+                ", msgTo='" + msgTo + '\'' +
+                ", msgFromUserName='" + msgFromUserName + '\'' +
+                ", msgToUserName='" + msgToUserName + '\'' +
+                ", msgFromAvator='" + msgFromAvator + '\'' +
+                ", msgToAvator='" + msgToAvator + '\'' +
                 ", type=" + type +
                 ", timeStamp=" + timeStamp +
+                ", isReceived=" + isReceived +
+                ", imageWidth=" + imageWidth +
+                ", imageHeight=" + imageHeight +
                 '}';
     }
 }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.leancloud_module.adapter.LeanChatAdapter;
 import com.matrix.yukun.matrix.leancloud_module.entity.LeanChatMessage;
+import com.matrix.yukun.matrix.main_module.activity.ImageDetailActivity;
 import com.matrix.yukun.matrix.util.DataUtils;
 import com.matrix.yukun.matrix.util.glide.GlideUtil;
 
@@ -39,7 +40,6 @@ public abstract class BaseHolder {
         initListener();
     }
 
-
     private void initData() {
         //不是自己发送的消息
         if (item.isReceived()) {
@@ -52,6 +52,21 @@ public abstract class BaseHolder {
             mIvOtherAvator.setVisibility(View.GONE);
         }
         mTvTime.setText(DataUtils.getDataTime(item.getTimeStamp()));
+        mIvMyAvator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageDetailActivity.start(context,item.getMsgFromAvator(),false);
+
+            }
+        });
+
+        mIvOtherAvator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageDetailActivity.start(context,item.getMsgFromAvator(),false);
+
+            }
+        });
     }
 
     private void initView() {
