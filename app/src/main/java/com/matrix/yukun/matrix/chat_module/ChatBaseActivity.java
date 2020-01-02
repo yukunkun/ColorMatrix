@@ -3,7 +3,6 @@ package com.matrix.yukun.matrix.chat_module;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.adapter.ChatAdapter;
 import com.matrix.yukun.matrix.chat_module.entity.ChatListInfo;
@@ -22,11 +22,11 @@ import com.matrix.yukun.matrix.chat_module.mvp.ChatControler;
 import com.matrix.yukun.matrix.chat_module.mvp.ChatPresenter;
 import com.matrix.yukun.matrix.chat_module.mvp.InputPanel;
 import com.matrix.yukun.matrix.chat_module.mvp.MVPBaseActivity;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
 import com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout;
 import com.matrix.yukun.matrix.util.GetPhotoFromPhotoAlbum;
 import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.miracle.view.imageeditor.bean.EditorResult;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,6 +37,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -286,6 +287,11 @@ public class ChatBaseActivity extends MVPBaseActivity implements ChatControler.V
 
     @Override
     public void onBottomMove(int position) {
+
+    }
+
+    @Override
+    public void onShaked() {
 
     }
 

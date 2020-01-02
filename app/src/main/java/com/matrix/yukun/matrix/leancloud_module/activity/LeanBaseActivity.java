@@ -1,5 +1,7 @@
 package com.matrix.yukun.matrix.leancloud_module.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -10,20 +12,24 @@ import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.chat_module.entity.Photo;
 import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
+import com.matrix.yukun.matrix.chat_module.mvp.InputPanel;
 import com.matrix.yukun.matrix.leancloud_module.InputPanelManager;
 import com.matrix.yukun.matrix.leancloud_module.MessageManager;
 import com.matrix.yukun.matrix.leancloud_module.adapter.LeanChatAdapter;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
 import com.matrix.yukun.matrix.leancloud_module.entity.LeanChatMessage;
-import com.matrix.yukun.matrix.leancloud_module.utils.MessageWrapper;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
 import com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout;
+import com.matrix.yukun.matrix.util.GetPhotoFromPhotoAlbum;
 import com.matrix.yukun.matrix.util.log.LogUtil;
+import com.miracle.view.imageeditor.bean.EditorResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -65,9 +71,9 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
         mInputPanelManager = new InputPanelManager(this, mLayoutRoot, this);
         mLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rvChatview.setLayoutManager(mLayoutManager);
-        mLeanChatAdapter = new LeanChatAdapter(mLeanChatMessages,this);
+        mLeanChatAdapter = new LeanChatAdapter(mLeanChatMessages, this);
         rvChatview.setAdapter(mLeanChatAdapter);
-        MessageManager.getInstance().initAdapter(mLeanChatAdapter,mLeanChatMessages);
+        MessageManager.getInstance().initAdapter(mLeanChatAdapter, mLeanChatMessages);
 
     }
 
@@ -77,16 +83,16 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
 //            LogUtil.i(mInfoBMob.toString());
 //        if(mData!=null)
 //            LogUtil.i(mData.toString());
-        if(mInfoBMob==null && mData!=null){
-            chatId=(!mData.getFrom().equals(MyApp.getUserInfo().getId()))?mData.getFrom():mData.getTo();
-            chatName=(!mData.getFrom().equals(MyApp.getUserInfo().getId()))?mData.getFromUserName():mData.getToUserName();
-            chatAvator=(!mData.getFrom().equals(MyApp.getUserInfo().getId()))?mData.getFromAvator():mData.getToAvator();
-        }else {
-            chatId=mInfoBMob.getId();
-            chatName=mInfoBMob.getName();
-            chatAvator=mInfoBMob.getAvator();
+        if (mInfoBMob == null && mData != null) {
+            chatId = (!mData.getFrom().equals(MyApp.getUserInfo().getId())) ? mData.getFrom() : mData.getTo();
+            chatName = (!mData.getFrom().equals(MyApp.getUserInfo().getId())) ? mData.getFromUserName() : mData.getToUserName();
+            chatAvator = (!mData.getFrom().equals(MyApp.getUserInfo().getId())) ? mData.getFromAvator() : mData.getToAvator();
+        } else {
+            chatId = mInfoBMob.getId();
+            chatName = mInfoBMob.getName();
+            chatAvator = mInfoBMob.getAvator();
         }
-        MessageManager.getInstance().createConversion(chatId,chatName,chatAvator);
+        MessageManager.getInstance().createConversion(chatId, chatName, chatAvator);
     }
 
     @Override
@@ -95,16 +101,48 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        String photoPath;
+        if (requestCode == InputPanel.ACTION_REQUEST_IMAGE && resultCode == RESULT_OK) {
+            if (data.getData() != null) {
+                photoPath = GetPhotoFromPhotoAlbum.getPath(this, data.getData());
+                MessageManager.getInstance().sendImageMessage(photoPath);
+                MessageManager.getInstance().imageToMessage(photoPath,chatId, chatName, chatAvator);
+            } else {
+                ToastUtils.showToast("send message error");
+            }
+        }
+
+        if (resultCode == RESULT_OK && requestCode == InputPanel.ACTION_REQUEST_EDITOR) {
+            if (data != null) {
+                EditorResult editorResult = (EditorResult) data.getSerializableExtra(Activity.RESULT_OK + "");
+                MessageManager.getInstance().sendImageMessage(editorResult.getEditor2SavedPath());
+                MessageManager.getInstance().imageToMessage(editorResult.getEditor2SavedPath(),chatId, chatName, chatAvator);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onShaked() {
+        MessageManager.getInstance().txtToMessage("抖一抖",chatId, chatName, chatAvator);
+        MessageManager.getInstance().sendTxtMessage("抖一抖", chatId, chatName, chatAvator);
+    }
+
+    @Override
     public void onSendMessageClick(String msg) {
-        MessageManager.getInstance().sendTxtMessage(msg,chatId,chatName,chatAvator);
+        MessageManager.getInstance().txtToMessage(msg,chatId, chatName, chatAvator);
+        MessageManager.getInstance().sendTxtMessage(msg, chatId, chatName, chatAvator);
     }
 
     @Override
     public void onPictureClick(List<Photo> picPath) {
         for (int i = 0; i < picPath.size(); i++) {
-            LogUtil.i("path:"+picPath.get(i).path);
+            LogUtil.i("path:" + picPath.get(i).path);
             MessageManager.getInstance().sendImageMessage(picPath.get(i).path);
             MessageManager.getInstance().sendImageMessage("icon.png", AppConstant.APP_ICON_URl);
+            MessageManager.getInstance().imageToMessage(picPath.get(i).path,chatId, chatName, chatAvator);
         }
     }
 

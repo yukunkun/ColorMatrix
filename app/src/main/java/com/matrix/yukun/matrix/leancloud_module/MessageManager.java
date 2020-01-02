@@ -5,21 +5,17 @@ import com.matrix.yukun.matrix.chat_module.entity.ChatType;
 import com.matrix.yukun.matrix.leancloud_module.adapter.LeanChatAdapter;
 import com.matrix.yukun.matrix.leancloud_module.entity.LeanChatMessage;
 import com.matrix.yukun.matrix.leancloud_module.utils.MessageWrapper;
-import com.matrix.yukun.matrix.main_module.activity.VerticalVideoActivity;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
-import com.matrix.yukun.matrix.util.ThreadUtil;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.bmob.v3.util.V;
 import cn.leancloud.AVFile;
 import cn.leancloud.im.v2.AVIMClient;
 import cn.leancloud.im.v2.AVIMConversation;
@@ -50,9 +46,9 @@ public class MessageManager {
         return manager;
     }
 
-    public void initAdapter(LeanChatAdapter mLeanChatAdapter,List<LeanChatMessage> mLeanChatMessages){
-        this.mLeanChatAdapter=mLeanChatAdapter;
-        this.mLeanChatMessages=mLeanChatMessages;
+    public void initAdapter(LeanChatAdapter mLeanChatAdapter, List<LeanChatMessage> mLeanChatMessages) {
+        this.mLeanChatAdapter = mLeanChatAdapter;
+        this.mLeanChatMessages = mLeanChatMessages;
     }
 
     /**
@@ -60,8 +56,8 @@ public class MessageManager {
      *
      * @param toId
      */
-    public void createConversion(String toId,String toUserName,String toAvator) {
-        mAvimClient.createConversation(Arrays.asList(toId), "", getAttr(toId,toUserName,toAvator), false, true, new AVIMConversationCreatedCallback() {
+    public void createConversion(String toId, String toUserName, String toAvator) {
+        mAvimClient.createConversation(Arrays.asList(toId), "", getAttr(toId, toUserName, toAvator), false, true, new AVIMConversationCreatedCallback() {
                     @Override
                     public void done(AVIMConversation conversation, AVIMException e) {
                         if (e == null) {
@@ -80,8 +76,8 @@ public class MessageManager {
      * @param members
      * @param toId
      */
-    public void createConversion(List<String> members, String toId,String toUserName,String toAvator) {
-        mAvimClient.createConversation(members, "", getAttr(toId,toUserName,toAvator), false, true, new AVIMConversationCreatedCallback() {
+    public void createConversion(List<String> members, String toId, String toUserName, String toAvator) {
+        mAvimClient.createConversation(members, "", getAttr(toId, toUserName, toAvator), false, true, new AVIMConversationCreatedCallback() {
                     @Override
                     public void done(AVIMConversation conversation, AVIMException e) {
                         if (e == null) {
@@ -94,7 +90,7 @@ public class MessageManager {
         );
     }
 
-    public void sendTxtMessage(String txt,String toId,String toUserName,String toAvator) {
+    public void sendTxtMessage(String txt, String toId, String toUserName, String toAvator) {
 //        mAvimClient.createConversation(Arrays.asList(toId), toUserName, getAttr(toId,toUserName,toAvator), false, true, new AVIMConversationCreatedCallback() {
 //                    @Override
 //                    public void done(AVIMConversation conversation, AVIMException e) {
@@ -146,7 +142,7 @@ public class MessageManager {
                 if (e == null) {
 
                 } else {
-                    LogUtil.e(e.toString()+" "+Thread.currentThread().getName());
+                    LogUtil.e(e.toString() + " " + Thread.currentThread().getName());
                     ToastUtils.showToast("发送消息失败");
                 }
             }
@@ -168,7 +164,7 @@ public class MessageManager {
         });
     }
 
-    public Map<String, Object> getAttr(String toId,String toUserName,String toAvator) {
+    public Map<String, Object> getAttr(String toId, String toUserName, String toAvator) {
         UserInfoBMob userInfo = MyApp.getUserInfo();
         Map<String, Object> map = new HashMap();
         map.put("from", userInfo.getObjectId());
@@ -177,18 +173,19 @@ public class MessageManager {
         map.put("toUserName", toUserName);
         map.put("fromAvator", userInfo.getAvator());
         map.put("toAvator", toAvator);
-        LogUtil.i("=======getAttr:",map.toString()+" "+mAvimClient.getClientId());
+        LogUtil.i("=======getAttr:", map.toString() + " " + mAvimClient.getClientId());
         return map;
     }
 
     /**
      * 接收消息
+     *
      * @param message
      * @param conversation
      * @param client
      */
     public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
-        LeanChatMessage leanChatMessage= MessageWrapper.getInstance().wrapperTo(message);
+        LeanChatMessage leanChatMessage = MessageWrapper.getInstance().wrapperTo(message);
         leanChatMessage.setMsgFrom((String) conversation.getAttribute("from"));
         leanChatMessage.setMsgTo((String) conversation.getAttribute("to"));
         leanChatMessage.setMsgFromUserName((String) conversation.getAttribute("fromUserName"));
@@ -201,8 +198,41 @@ public class MessageManager {
         mLeanChatAdapter.notifyItemInserted(mLeanChatMessages.size());
     }
 
+    public LeanChatMessage txtToMessage(String txt, String chatId, String chatName, String chatAvator) {
+        LeanChatMessage leanChatMessage = new LeanChatMessage();
+        leanChatMessage.setContent(txt);
+        leanChatMessage.setMsgFrom(MyApp.getUserInfo().getId());
+        leanChatMessage.setMsgFromAvator(MyApp.getUserInfo().getAvator());
+        leanChatMessage.setMsgFromUserName(MyApp.getUserInfo().getName());
+        leanChatMessage.setMsgTo(chatId);
+        leanChatMessage.setMsgToAvator(chatAvator);
+        leanChatMessage.setMsgToUserName(chatName);
+        leanChatMessage.setTimeStamp(System.currentTimeMillis());
+        leanChatMessage.setType(ChatType.TEXT.getIndex());
+        mLeanChatMessages.add(leanChatMessage);
+        mLeanChatAdapter.notifyItemInserted(mLeanChatMessages.size());
+        return leanChatMessage;
+    }
+
+    public LeanChatMessage imageToMessage(String path, String chatId, String chatName, String chatAvator) {
+        LeanChatMessage leanChatMessage = new LeanChatMessage();
+        leanChatMessage.setImagePath(path);
+        leanChatMessage.setMsgFrom(MyApp.getUserInfo().getId());
+        leanChatMessage.setMsgFromAvator(MyApp.getUserInfo().getAvator());
+        leanChatMessage.setMsgFromUserName(MyApp.getUserInfo().getName());
+        leanChatMessage.setMsgTo(chatId);
+        leanChatMessage.setMsgToAvator(chatAvator);
+        leanChatMessage.setMsgToUserName(chatName);
+        leanChatMessage.setTimeStamp(System.currentTimeMillis());
+        leanChatMessage.setType(ChatType.IMAGE.getIndex());
+        mLeanChatMessages.add(leanChatMessage);
+        mLeanChatAdapter.notifyItemInserted(mLeanChatMessages.size());
+        return leanChatMessage;
+    }
+
     /**
      * 消息回执
+     *
      * @param message
      * @param conversation
      * @param client

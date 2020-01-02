@@ -18,6 +18,7 @@ import java.util.List;
 public class LeanChatAdapter extends BaseMultiItemQuickAdapter<LeanChatMessage,BaseViewHolder> {
 
     private Context mContext;
+
     public LeanChatAdapter(List<LeanChatMessage> data, Context context) {
         super(data);
         mContext=context;

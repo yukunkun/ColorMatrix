@@ -1,6 +1,7 @@
 package com.matrix.yukun.matrix.leancloud_module.adapter.chatholder;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +40,11 @@ public class ImageHolder extends BaseHolder {
             setGravity(mImageView, Gravity.RIGHT| Gravity.CENTER_VERTICAL);
             mImageView.setBackgroundResource(R.drawable.balloon_r_pressed);
         }
-        GlideUtil.loadImage(item.getImageUrl(),mImageView);
+        if(!TextUtils.isEmpty(item.getImagePath())){
+            GlideUtil.loadPlaceholderImage(item.getImagePath(),mImageView);
+        }else {
+            GlideUtil.loadPlaceholderImage(item.getImageUrl(),mImageView);
+        }
     }
 
     @Override
@@ -47,7 +52,11 @@ public class ImageHolder extends BaseHolder {
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageDetailActivity.start(context,item.getImageUrl(),false);
+                if(!TextUtils.isEmpty(item.getImagePath())){
+                    ImageDetailActivity.start(context,item.getImagePath(),false);
+                }else {
+                    ImageDetailActivity.start(context,item.getImageUrl(),false);
+                }
             }
         });
     }

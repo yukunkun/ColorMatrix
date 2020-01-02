@@ -16,4 +16,5 @@ public interface InputListener {
 
     void onBottomMove(int position);
 
+    void onShaked();
 }

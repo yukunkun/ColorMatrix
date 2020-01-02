@@ -1,8 +1,8 @@
 package com.matrix.yukun.matrix.leancloud_module.entity;
 
-import org.litepal.crud.DataSupport;
-
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+
+import org.litepal.crud.DataSupport;
 
 /**
  * author: kun .
@@ -23,6 +23,7 @@ public class LeanChatMessage extends DataSupport implements MultiItemEntity {
     private boolean isReceived;
     private long imageWidth;
     private long imageHeight;
+    private String imagePath;
 
     public String getContent() {
         return content;
@@ -149,6 +150,14 @@ public class LeanChatMessage extends DataSupport implements MultiItemEntity {
         this.imageHeight = imageHeight;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     @Override
     public String toString() {
         return "LeanChatMessage{" +
@@ -166,6 +175,7 @@ public class LeanChatMessage extends DataSupport implements MultiItemEntity {
                 ", isReceived=" + isReceived +
                 ", imageWidth=" + imageWidth +
                 ", imageHeight=" + imageHeight +
+                ", imagePath=" + imagePath +
                 '}';
     }
 }

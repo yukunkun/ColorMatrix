@@ -1,6 +1,7 @@
 package com.matrix.yukun.matrix.leancloud_module.adapter.chatholder;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,14 @@ public class TextHolder extends BaseHolder {
             setGravity(mTvTxt, Gravity.RIGHT| Gravity.CENTER_VERTICAL);
             mTvTxt.setBackgroundResource(R.drawable.balloon_r_pressed);
         }
-        mTvTxt.setText(item.getContent());
+        if(item.getContent().equals("抖一抖")){
+            Drawable nav_up=context.getResources().getDrawable(R.mipmap.icon_chat_shake);
+            nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
+            mTvTxt.setCompoundDrawables(nav_up, null, null, null);
+            mTvTxt.setText(" "+item.getContent());
+        }else {
+            mTvTxt.setText(item.getContent());
+        }
     }
 
     @Override

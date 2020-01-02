@@ -27,14 +27,12 @@ import android.widget.TextView;
 import com.imageeditor.ImageEditorActivity;
 import com.matrix.yukun.matrix.AppConstant;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.chat_module.ChatBaseActivity;
 import com.matrix.yukun.matrix.chat_module.adapter.ChatPictureAdapter;
 import com.matrix.yukun.matrix.chat_module.emoji.CubeEmoticonEditText;
 import com.matrix.yukun.matrix.chat_module.entity.Photo;
 import com.matrix.yukun.matrix.chat_module.fragment.emoji.EmojiFragment;
 import com.matrix.yukun.matrix.chat_module.fragment.emoji.EmojiPreFragment;
 import com.matrix.yukun.matrix.chat_module.fragment.more.ChatToolFragment;
-import com.matrix.yukun.matrix.chat_module.fragment.voice.RecordFragment;
 import com.matrix.yukun.matrix.chat_module.inputListener.InputListener;
 import com.matrix.yukun.matrix.leancloud_module.activity.LeanBaseActivity;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
@@ -168,7 +166,7 @@ public class InputPanelManager implements View.OnClickListener, EmojiPreFragment
 
     @Override
     public void shakeClickListener() {
-
+        mInputListener.onShaked();
     }
 
     private void initListener() {
