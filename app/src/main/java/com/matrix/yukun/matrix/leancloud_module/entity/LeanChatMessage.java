@@ -9,22 +9,18 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
  * date:   On 2019/12/26
  */
 public class LeanChatMessage extends DataSupport implements MultiItemEntity {
-    private String userId;
+    private String msgId;
     private String content;
     private String imageUrl;
-    private String userName;
     private String msgFrom;
     private String msgTo;
+    private String msgFromUserName;
+    private String msgToUserName;
+    private String msgFromAvator;
+    private String msgToAvator;
     private int type;
     private long timeStamp;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+    private boolean isReceived;
 
     public String getContent() {
         return content;
@@ -42,12 +38,44 @@ public class LeanChatMessage extends DataSupport implements MultiItemEntity {
         this.imageUrl = imageUrl;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getMsgId() {
+        return msgId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
+    }
+
+    public String getMsgFromUserName() {
+        return msgFromUserName;
+    }
+
+    public void setMsgFromUserName(String msgFromUserName) {
+        this.msgFromUserName = msgFromUserName;
+    }
+
+    public String getMsgToUserName() {
+        return msgToUserName;
+    }
+
+    public void setMsgToUserName(String msgToUserName) {
+        this.msgToUserName = msgToUserName;
+    }
+
+    public String getMsgFromAvator() {
+        return msgFromAvator;
+    }
+
+    public void setMsgFromAvator(String msgFromAvator) {
+        this.msgFromAvator = msgFromAvator;
+    }
+
+    public String getMsgtoAvator() {
+        return msgToAvator;
+    }
+
+    public void setMsgtoAvator(String msgToAvator) {
+        this.msgToAvator = msgToAvator;
     }
 
     public String getMsgFrom() {
@@ -85,5 +113,38 @@ public class LeanChatMessage extends DataSupport implements MultiItemEntity {
     @Override
     public int getItemType() {
         return type;
+    }
+
+    public String getMsgToAvator() {
+        return msgToAvator;
+    }
+
+    public void setMsgToAvator(String msgToAvator) {
+        this.msgToAvator = msgToAvator;
+    }
+
+    public boolean isReceived() {
+        return isReceived;
+    }
+
+    public void setReceived(boolean receiver) {
+        isReceived = receiver;
+    }
+
+    @Override
+    public String toString() {
+        return "LeanChatMessage{" +
+                "msgId='" + msgId +
+                ", content='" + content +
+                ", imageUrl='" + imageUrl +
+                ", msgFrom='" + msgFrom +
+                ", msgTo='" + msgTo +
+                ", msgFromUserName='" + msgFromUserName +
+                ", msgToUserName='" + msgToUserName +
+                ", msgFromAvator='" + msgFromAvator +
+                ", msgToAvator='" + msgToAvator +
+                ", type=" + type +
+                ", timeStamp=" + timeStamp +
+                '}';
     }
 }

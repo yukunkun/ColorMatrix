@@ -371,6 +371,7 @@ public class InputPanelManager implements View.OnClickListener, EmojiPreFragment
         dismissMore();
         dismissEmoji();
         showPicture();
+        KeyBoardUtil.closeKeyboard(mContext, mEtMessage);
     }
 
     private void taggleToVoice() {
@@ -384,12 +385,14 @@ public class InputPanelManager implements View.OnClickListener, EmojiPreFragment
         dismissPicture();
         dismissEmoji();
         showMore();
+        KeyBoardUtil.closeKeyboard(mContext, mEtMessage);
     }
 
     private void taggleToEmoji() {
         dismissMore();
         dismissPicture();
         showEmoji();
+        KeyBoardUtil.closeKeyboard(mContext, mEtMessage);
     }
 
     private void dismissPicture() {

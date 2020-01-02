@@ -14,6 +14,7 @@ import com.matrix.yukun.matrix.leancloud_module.MessageManager;
 import com.matrix.yukun.matrix.leancloud_module.adapter.LeanChatAdapter;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
 import com.matrix.yukun.matrix.leancloud_module.entity.LeanChatMessage;
+import com.matrix.yukun.matrix.leancloud_module.utils.MessageWrapper;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
 import com.matrix.yukun.matrix.selfview.CubeSwipeRefreshLayout;
@@ -65,6 +66,8 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
         rvChatview.setLayoutManager(mLayoutManager);
         mLeanChatAdapter = new LeanChatAdapter(mLeanChatMessages,this);
         rvChatview.setAdapter(mLeanChatAdapter);
+        MessageManager.getInstance().initAdapter(mLeanChatAdapter,mLeanChatMessages);
+
     }
 
     @Override

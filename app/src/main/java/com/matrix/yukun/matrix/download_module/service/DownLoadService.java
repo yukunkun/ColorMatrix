@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
+
+import com.matrix.yukun.matrix.leancloud_module.CustomMessageHandler;
 import com.matrix.yukun.matrix.leancloud_module.LeanCloudMessageHandler;
 import com.qq.e.comm.DownloadService;
 import cn.leancloud.im.v2.AVIMMessageManager;
@@ -85,6 +87,7 @@ public class DownLoadService extends Service {
     private void initListener() {
         DownLoadEngine.getInstance().startDownLoadServiceImpl();
         AVIMMessageManager.setConversationEventHandler(new LeanCloudMessageHandler());
+        AVIMMessageManager.registerDefaultMessageHandler(new CustomMessageHandler());
     }
 
     //释放数值

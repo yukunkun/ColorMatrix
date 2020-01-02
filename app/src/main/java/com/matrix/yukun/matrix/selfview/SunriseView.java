@@ -8,6 +8,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import androidx.annotation.Nullable;
+
+import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -60,7 +62,7 @@ public class SunriseView extends View {
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeCap(Paint.Cap.ROUND); // 定义线段断电形状为圆头
-        mPaint.setColor(context.getResources().getColor(R.color.color_f733d6));
+//        mPaint.setColor(context.getResources().getColor(R.color.color_f733d6));
         mPaintRec=new Paint();
         mPaintRec.setStrokeWidth(10);
         mPaintRec.setAntiAlias(true);
@@ -123,6 +125,8 @@ public class SunriseView extends View {
             canvas.save();
             RectF rectF=new RectF(-mHeight/2,-mHeight/2+20,mHeight/2,mHeight/2+20);
             canvas.drawArc(rectF,-180,180,false,mPaint);
+            SweepGradient gradient=new SweepGradient(-mHeight/2,-mHeight/2,  0xFFf733d6,0xFF000058);
+            mPaint.setShader(gradient);
             canvas.drawText(mHeadText,-mHeight/2,60,mPaintText);
             canvas.drawText(mBackText,mHeight/2,60,mPaintText);
             float x = (float)(radio*Math.cos((180-progress*180)*Math.PI/180));

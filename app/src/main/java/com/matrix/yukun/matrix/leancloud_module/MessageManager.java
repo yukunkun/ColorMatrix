@@ -2,22 +2,28 @@ package com.matrix.yukun.matrix.leancloud_module;
 
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.chat_module.entity.ChatType;
+import com.matrix.yukun.matrix.leancloud_module.adapter.LeanChatAdapter;
 import com.matrix.yukun.matrix.leancloud_module.entity.LeanChatMessage;
+import com.matrix.yukun.matrix.leancloud_module.utils.MessageWrapper;
+import com.matrix.yukun.matrix.main_module.activity.VerticalVideoActivity;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.bmob.v3.util.V;
 import cn.leancloud.AVFile;
 import cn.leancloud.im.v2.AVIMClient;
 import cn.leancloud.im.v2.AVIMConversation;
 import cn.leancloud.im.v2.AVIMException;
+import cn.leancloud.im.v2.AVIMMessage;
 import cn.leancloud.im.v2.callback.AVIMConversationCallback;
 import cn.leancloud.im.v2.callback.AVIMConversationCreatedCallback;
 import cn.leancloud.im.v2.messages.AVIMImageMessage;
@@ -32,6 +38,8 @@ public class MessageManager {
     private static MessageManager manager = new MessageManager();
     private AVIMClient mAvimClient;
     private AVIMConversation mConversation;
+    private List<LeanChatMessage> mLeanChatMessages;
+    public LeanChatAdapter mLeanChatAdapter;
 
     public MessageManager() {
         mAvimClient = AVIMClient.getInstance(MyApp.getUserInfo().getId());
@@ -39,6 +47,11 @@ public class MessageManager {
 
     public static MessageManager getInstance() {
         return manager;
+    }
+
+    public void initAdapter(LeanChatAdapter mLeanChatAdapter,List<LeanChatMessage> mLeanChatMessages){
+        this.mLeanChatAdapter=mLeanChatAdapter;
+        this.mLeanChatMessages=mLeanChatMessages;
     }
 
     /**
@@ -153,17 +166,34 @@ public class MessageManager {
         return map;
     }
 
-    public LeanChatMessage wrapperTo(AVIMTextMessage avimTextMessage) {
-        LeanChatMessage leanChatMessage = new LeanChatMessage();
-        leanChatMessage.setType(ChatType.TEXT.getIndex());
-
-        return leanChatMessage;
+    /**
+     * 接收消息
+     * @param message
+     * @param conversation
+     * @param client
+     */
+    public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
+        LeanChatMessage leanChatMessage= MessageWrapper.getInstance().wrapperTo(message);
+        leanChatMessage.setMsgFrom((String) conversation.getAttribute("from"));
+        leanChatMessage.setMsgTo((String) conversation.getAttribute("to"));
+        leanChatMessage.setMsgFromUserName((String) conversation.getAttribute("fromUserName"));
+        leanChatMessage.setMsgTo((String) conversation.getAttribute("toUserName"));
+        leanChatMessage.setMsgFromAvator((String) conversation.getAttribute("fromAvator"));
+        leanChatMessage.setMsgtoAvator((String) conversation.getAttribute("toAvator"));
+        //update adapter
+        mLeanChatMessages.add(leanChatMessage);
+        mLeanChatAdapter.notifyItemInserted(mLeanChatMessages.size());
     }
 
-    public LeanChatMessage wrapperTo(AVIMImageMessage avimImageMessage) {
-        LeanChatMessage leanChatMessage = new LeanChatMessage();
-        leanChatMessage.setType(ChatType.IMAGE.getIndex());
+    /**
+     * 消息回执
+     * @param message
+     * @param conversation
+     * @param client
+     */
 
-        return leanChatMessage;
+    public void onMessageReceipt(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
+
     }
+
 }

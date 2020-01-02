@@ -1,5 +1,6 @@
 package com.matrix.yukun.matrix.leancloud_module.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -8,6 +9,7 @@ import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.selfview.CubeRecyclerView;
+import com.matrix.yukun.matrix.util.KeyBoardUtil;
 
 import butterknife.OnClick;
 

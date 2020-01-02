@@ -1,6 +1,9 @@
 package com.matrix.yukun.matrix.leancloud_module.utils;
 
+import com.matrix.yukun.matrix.MyApp;
+import com.matrix.yukun.matrix.chat_module.entity.ChatType;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
+import com.matrix.yukun.matrix.leancloud_module.entity.LeanChatMessage;
 import com.matrix.yukun.matrix.util.log.LogUtil;
 
 import java.util.ArrayList;
@@ -52,6 +55,24 @@ public class MessageWrapper {
             infos.add(contactInfo);
         }
         return infos;
+    }
+
+    public LeanChatMessage wrapperTo(AVIMMessage message){
+        LeanChatMessage leanChatMessage=new LeanChatMessage();
+        leanChatMessage.setTimeStamp(message.getTimestamp());
+        if(!message.getFrom().equals(MyApp.getUserInfo().getId())){
+            leanChatMessage.setReceived(true);
+        }
+        if(message instanceof AVIMTextMessage){
+            leanChatMessage.setType(ChatType.TEXT.getIndex());
+            leanChatMessage.setContent(((AVIMTextMessage) message).getText());
+        }
+        if(message instanceof AVIMImageMessage){
+            leanChatMessage.setType(ChatType.IMAGE.getIndex());
+            leanChatMessage.setImageUrl(((AVIMImageMessage) message).getFileUrl());
+        }
+
+        return leanChatMessage;
     }
 
     private String wrapperLastMessage(AVIMConversation avimConversation) {

@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:paddingBottom="@dimen/dimens_10"
     android:paddingTop="@dimen/dimens_12"
+    android:id="@+id/ll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
@@ -20,6 +21,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:id="@+id/iv_left_head"
+            android:scaleType="centerCrop"
             android:src="@mipmap/tool_icon"
             android:layout_width="@dimen/dimens_45"
             android:layout_height="@dimen/dimens_45"/>
@@ -27,21 +29,27 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dimens_5"
             android:layout_marginLeft="5dp"
+            android:gravity="end"
             android:layout_marginTop="5dp"
             android:id="@+id/iv_right_head"
+            android:scaleType="centerCrop"
             android:src="@mipmap/tool_icon"
             android:layout_width="@dimen/dimens_45"
             android:layout_height="@dimen/dimens_45"/>
-        <FrameLayout
-            android:id="@+id/fr_layout"
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:orientation="vertical"
             android:layout_marginLeft="@dimen/dimens_5"
             android:layout_marginRight="@dimen/dimens_5"
             android:layout_toRightOf="@+id/iv_left_head"
             android:layout_toLeftOf="@+id/iv_right_head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-        </FrameLayout>
+            <FrameLayout
+                android:id="@+id/fr_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
     </RelativeLayout>
 
 </LinearLayout>
