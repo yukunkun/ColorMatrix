@@ -34,27 +34,31 @@ public class MessageWrapper {
     public List<ContactInfo> covertToContactInfo(List<AVIMConversation> avimConversations) {
         List<ContactInfo> infos = new ArrayList<>();
         for (int i = 0; i < avimConversations.size(); i++) {
-            ContactInfo contactInfo = new ContactInfo();
             AVIMConversation avimConversation = avimConversations.get(i);
-            LogUtil.i("========",(String) avimConversation.getLastMessage().toJSONString());
-            contactInfo.setFromAvator((String) avimConversation.getAttribute("fromAvator"));
-            contactInfo.setToAvator((String) avimConversation.getAttribute("toAvator"));
-            contactInfo.setTo((String) avimConversation.getAttribute("to"));
-            contactInfo.setFrom((String) avimConversation.getAttribute("from"));
-            contactInfo.setFromUserName((String) avimConversation.getAttribute("fromUserName"));
-            contactInfo.setToUserName((String) avimConversation.getAttribute("toUserName"));
-            contactInfo.setConversationId(avimConversation.getConversationId());
-            contactInfo.setCreator(avimConversation.getCreator());
-            contactInfo.setLastReadAt(avimConversation.getLastReadAt());
-            contactInfo.setLastDeliveredAt(avimConversation.getLastDeliveredAt());
-            contactInfo.setMembers(avimConversation.getMembers());
-            contactInfo.setUnreadMessagesCount(avimConversation.getUnreadMessagesCount());
-            contactInfo.setLastTime(String.valueOf((avimConversation.getLastMessageAt()!=null?avimConversation.getLastMessageAt().getTime():System.currentTimeMillis())));
-            contactInfo.setLastMessage(wrapperLastMessage(avimConversation));
+            ContactInfo contactInfo=wrapperTo(avimConversation);
             LogUtil.i("===========",contactInfo.toString());
             infos.add(contactInfo);
         }
         return infos;
+    }
+
+    public ContactInfo wrapperTo(AVIMConversation avimConversation){
+        ContactInfo contactInfo = new ContactInfo();
+        contactInfo.setFromAvator((String) avimConversation.getAttribute("fromAvator"));
+        contactInfo.setToAvator((String) avimConversation.getAttribute("toAvator"));
+        contactInfo.setTo((String) avimConversation.getAttribute("to"));
+        contactInfo.setFrom((String) avimConversation.getAttribute("from"));
+        contactInfo.setFromUserName((String) avimConversation.getAttribute("fromUserName"));
+        contactInfo.setToUserName((String) avimConversation.getAttribute("toUserName"));
+        contactInfo.setConversationId(avimConversation.getConversationId());
+        contactInfo.setCreator(avimConversation.getCreator());
+        contactInfo.setLastReadAt(avimConversation.getLastReadAt());
+        contactInfo.setLastDeliveredAt(avimConversation.getLastDeliveredAt());
+        contactInfo.setMembers(avimConversation.getMembers());
+        contactInfo.setUnreadMessagesCount(avimConversation.getUnreadMessagesCount());
+        contactInfo.setLastTime(String.valueOf((avimConversation.getLastMessageAt()!=null?avimConversation.getLastMessageAt().getTime():System.currentTimeMillis())));
+        contactInfo.setLastMessage(wrapperLastMessage(avimConversation));
+        return contactInfo;
     }
 
     public LeanChatMessage wrapperTo(AVIMMessage message){

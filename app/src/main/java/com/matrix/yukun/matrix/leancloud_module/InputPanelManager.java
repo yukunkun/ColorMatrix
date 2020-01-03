@@ -348,6 +348,7 @@ public class InputPanelManager implements View.OnClickListener, EmojiPreFragment
 
     public void dismissLayout() {
         taggleToSend();
+        KeyBoardUtil.closeKeyboard(mContext, mEtMessage);
     }
 
     //清空图片集合

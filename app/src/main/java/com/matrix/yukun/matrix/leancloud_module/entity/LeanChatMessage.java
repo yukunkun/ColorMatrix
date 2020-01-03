@@ -161,15 +161,15 @@ public class LeanChatMessage extends DataSupport implements MultiItemEntity {
     @Override
     public String toString() {
         return "LeanChatMessage{" +
-                "msgId='" + msgId + '\'' +
-                ", content='" + content + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", msgFrom='" + msgFrom + '\'' +
+                "  msgFrom='" + msgFrom + '\'' +
                 ", msgTo='" + msgTo + '\'' +
                 ", msgFromUserName='" + msgFromUserName + '\'' +
                 ", msgToUserName='" + msgToUserName + '\'' +
                 ", msgFromAvator='" + msgFromAvator + '\'' +
                 ", msgToAvator='" + msgToAvator + '\'' +
+                ", msgId='" + msgId + '\'' +
+                ", content='" + content + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 ", type=" + type +
                 ", timeStamp=" + timeStamp +
                 ", isReceived=" + isReceived +

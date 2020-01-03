@@ -34,7 +34,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
-public class LeanBaseActivity extends BaseActivity implements InputListener {
+public class LeanBaseActivity extends BaseActivity implements InputListener, MessageManager.onUpdateListener {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -73,16 +73,18 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
         rvChatview.setLayoutManager(mLayoutManager);
         mLeanChatAdapter = new LeanChatAdapter(mLeanChatMessages, this);
         rvChatview.setAdapter(mLeanChatAdapter);
-        MessageManager.getInstance().initAdapter(mLeanChatAdapter, mLeanChatMessages);
 
+        MessageManager.getInstance().setOnUpdateListener(this);
+    }
+
+    @Override
+    public void onUpdateMessage(LeanChatMessage leanChatMessage) {
+        mLeanChatMessages.add(leanChatMessage);
+        mLeanChatAdapter.notifyItemInserted(mLeanChatMessages.size());
     }
 
     @Override
     public void initDate() {
-//        if(mInfoBMob!=null)
-//            LogUtil.i(mInfoBMob.toString());
-//        if(mData!=null)
-//            LogUtil.i(mData.toString());
         if (mInfoBMob == null && mData != null) {
             chatId = (!mData.getFrom().equals(MyApp.getUserInfo().getId())) ? mData.getFrom() : mData.getTo();
             chatName = (!mData.getFrom().equals(MyApp.getUserInfo().getId())) ? mData.getFromUserName() : mData.getToUserName();
@@ -92,7 +94,10 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
             chatName = mInfoBMob.getName();
             chatAvator = mInfoBMob.getAvator();
         }
+        LogUtil.i(chatId+" "+MyApp.getUserInfo().getId());
+        MessageManager.getInstance().initData(chatId);
         MessageManager.getInstance().createConversion(chatId, chatName, chatAvator);
+
     }
 
     @Override
@@ -102,13 +107,13 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
         String photoPath;
         if (requestCode == InputPanel.ACTION_REQUEST_IMAGE && resultCode == RESULT_OK) {
             if (data.getData() != null) {
                 photoPath = GetPhotoFromPhotoAlbum.getPath(this, data.getData());
                 MessageManager.getInstance().sendImageMessage(photoPath);
-                MessageManager.getInstance().imageToMessage(photoPath,chatId, chatName, chatAvator);
+                LeanChatMessage leanChatMessage = MessageManager.getInstance().imageToMessage(photoPath, chatId, chatName, chatAvator);
+                refreshAdapter(leanChatMessage);
             } else {
                 ToastUtils.showToast("send message error");
             }
@@ -118,7 +123,8 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
             if (data != null) {
                 EditorResult editorResult = (EditorResult) data.getSerializableExtra(Activity.RESULT_OK + "");
                 MessageManager.getInstance().sendImageMessage(editorResult.getEditor2SavedPath());
-                MessageManager.getInstance().imageToMessage(editorResult.getEditor2SavedPath(),chatId, chatName, chatAvator);
+                LeanChatMessage leanChatMessage = MessageManager.getInstance().imageToMessage(editorResult.getEditor2SavedPath(), chatId, chatName, chatAvator);
+                refreshAdapter(leanChatMessage);
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -126,14 +132,21 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
 
     @Override
     public void onShaked() {
-        MessageManager.getInstance().txtToMessage("抖一抖",chatId, chatName, chatAvator);
+        LeanChatMessage leanChatMessage = MessageManager.getInstance().txtToMessage("抖一抖", chatId, chatName, chatAvator);
         MessageManager.getInstance().sendTxtMessage("抖一抖", chatId, chatName, chatAvator);
+        refreshAdapter(leanChatMessage);
+    }
+
+    private void refreshAdapter(LeanChatMessage leanChatMessage) {
+        mLeanChatMessages.add(leanChatMessage);
+        mLeanChatAdapter.notifyItemInserted(mLeanChatMessages.size());
     }
 
     @Override
     public void onSendMessageClick(String msg) {
-        MessageManager.getInstance().txtToMessage(msg,chatId, chatName, chatAvator);
+        LeanChatMessage leanChatMessage = MessageManager.getInstance().txtToMessage(msg, chatId, chatName, chatAvator);
         MessageManager.getInstance().sendTxtMessage(msg, chatId, chatName, chatAvator);
+        refreshAdapter(leanChatMessage);
     }
 
     @Override
@@ -142,7 +155,8 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
             LogUtil.i("path:" + picPath.get(i).path);
             MessageManager.getInstance().sendImageMessage(picPath.get(i).path);
             MessageManager.getInstance().sendImageMessage("icon.png", AppConstant.APP_ICON_URl);
-            MessageManager.getInstance().imageToMessage(picPath.get(i).path,chatId, chatName, chatAvator);
+            LeanChatMessage leanChatMessage = MessageManager.getInstance().imageToMessage(picPath.get(i).path, chatId, chatName, chatAvator);
+            refreshAdapter(leanChatMessage);
         }
     }
 
@@ -150,4 +164,6 @@ public class LeanBaseActivity extends BaseActivity implements InputListener {
     public void onBottomMove(int position) {
 
     }
+
+
 }

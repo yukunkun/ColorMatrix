@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.leancloud_module.CustomMessageHandler;
 import com.matrix.yukun.matrix.leancloud_module.LeanCloudInit;
 import com.matrix.yukun.matrix.leancloud_module.activity.AcceptAddActivity;
 import com.matrix.yukun.matrix.leancloud_module.activity.ContactMemberActivity;
@@ -24,6 +25,7 @@ import com.matrix.yukun.matrix.leancloud_module.common.LeanConatant;
 import com.matrix.yukun.matrix.leancloud_module.entity.ContactInfo;
 import com.matrix.yukun.matrix.leancloud_module.impl.ConversitionListenerImpl;
 import com.matrix.yukun.matrix.leancloud_module.impl.LoginListenerImpl;
+import com.matrix.yukun.matrix.leancloud_module.impl.UpdateMessageListener;
 import com.matrix.yukun.matrix.leancloud_module.utils.MessageWrapper;
 import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
 import com.matrix.yukun.matrix.main_module.entity.EventUpdateHeader;
@@ -42,7 +44,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.leancloud.im.v2.AVIMClient;
 import cn.leancloud.im.v2.AVIMConversation;
+import cn.leancloud.im.v2.AVIMMessage;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 
@@ -50,7 +54,7 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
  * author: kun .
  * date:   On 2019/7/3
  */
-public class CircleFragment extends BaseFragment {
+public class CircleFragment extends BaseFragment implements UpdateMessageListener {
 
     @BindView(R.id.iv_contact)
     ImageView ivContact;
@@ -82,6 +86,7 @@ public class CircleFragment extends BaseFragment {
     @Override
     public void initView(View inflate, Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
+        CustomMessageHandler.getInstance().addUpdateMessageListener(this);
         mLinearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         rvList.setLayoutManager(mLinearLayoutManager);
         mRvContactAdapter = new RVContactAdapter(R.layout.contact_item_layout, mContactInfos);
@@ -218,6 +223,7 @@ public class CircleFragment extends BaseFragment {
     public void updateHeader(EventUpdateHeader eventUpdateHeader) {
         if (eventUpdateHeader.isLoginOut() && mRvContactAdapter != null) {
             rlRemind.setVisibility(View.VISIBLE);
+            LeanCloudInit.getInstance().setLogionleanCloud(false);
             mContactInfos.clear();
             mRvContactAdapter.notifyDataSetChanged();
         } else {
@@ -233,8 +239,39 @@ public class CircleFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         EventBus.getDefault().unregister(this);
+        CustomMessageHandler.getInstance().removeUpdateMessageListener(this);
         super.onDestroy();
     }
 
 
+    @Override
+    public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
+        ContactInfo contactInfo = MessageWrapper.getInstance().wrapperTo(conversation);
+        int havConv = isHavConv(contactInfo);
+        if(havConv!=-1){
+            mContactInfos.get(havConv).setLastMessage(contactInfo.getLastMessage());
+            mContactInfos.get(havConv).setLastTime(contactInfo.getLastTime());
+            mContactInfos.get(havConv).setUnreadMessagesCount(mContactInfos.get(havConv).getUnreadMessagesCount()+1);
+            mRvContactAdapter.notifyItemChanged(havConv);
+        }else {
+            mContactInfos.add(0,contactInfo);
+            mRvContactAdapter.notifyItemInserted(0);
+            mRvContactAdapter.notifyItemChanged(0,mContactInfos.size());
+        }
+    }
+
+    private int isHavConv(ContactInfo contactInfo) {
+        for (int i = 0; i < mContactInfos.size(); i++) {
+            ContactInfo info = mContactInfos.get(i);
+            if(info.getConversationId().equals(contactInfo.getConversationId())){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public void onMessageReceipt(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
+
+    }
 }

@@ -1,5 +1,7 @@
 package com.matrix.yukun.matrix.leancloud_module;
 
+import android.text.TextUtils;
+
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.chat_module.entity.ChatType;
 import com.matrix.yukun.matrix.leancloud_module.adapter.LeanChatAdapter;
@@ -35,8 +37,7 @@ public class MessageManager {
     private static MessageManager manager = new MessageManager();
     private AVIMClient mAvimClient;
     private AVIMConversation mConversation;
-    private List<LeanChatMessage> mLeanChatMessages;
-    public LeanChatAdapter mLeanChatAdapter;
+    private String mChatId;
 
     public MessageManager() {
         mAvimClient = AVIMClient.getInstance(MyApp.getUserInfo().getId());
@@ -46,9 +47,8 @@ public class MessageManager {
         return manager;
     }
 
-    public void initAdapter(LeanChatAdapter mLeanChatAdapter, List<LeanChatMessage> mLeanChatMessages) {
-        this.mLeanChatAdapter = mLeanChatAdapter;
-        this.mLeanChatMessages = mLeanChatMessages;
+    public void initData(String chatId) {
+        this.mChatId = chatId;
     }
 
     /**
@@ -91,28 +91,6 @@ public class MessageManager {
     }
 
     public void sendTxtMessage(String txt, String toId, String toUserName, String toAvator) {
-//        mAvimClient.createConversation(Arrays.asList(toId), toUserName, getAttr(toId,toUserName,toAvator), false, true, new AVIMConversationCreatedCallback() {
-//                    @Override
-//                    public void done(AVIMConversation conversation, AVIMException e) {
-//                        if (e == null) {
-//                            AVIMTextMessage avimTextMessage = new AVIMTextMessage();
-//                            avimTextMessage.setText(txt);
-//                            conversation.sendMessage(avimTextMessage, new AVIMConversationCallback() {
-//                                @Override
-//                                public void done(AVIMException e) {
-//                                    if (e == null) {
-//
-//                                    } else {
-//                                        ToastUtils.showToast("发送消息失败");
-//                                    }
-//                                }
-//                            });
-//                        } else {
-//                            ToastUtils.showToast("创建会话失败");
-//                        }
-//                    }
-//                }
-//        );
         AVIMTextMessage avimTextMessage = new AVIMTextMessage();
         avimTextMessage.setText(txt);
         mConversation.sendMessage(avimTextMessage, new AVIMConversationCallback() {
@@ -194,8 +172,9 @@ public class MessageManager {
         leanChatMessage.setMsgtoAvator((String) conversation.getAttribute("toAvator"));
         //update adapter
         LogUtil.i(leanChatMessage.toString());
-        mLeanChatMessages.add(leanChatMessage);
-        mLeanChatAdapter.notifyItemInserted(mLeanChatMessages.size());
+        if (isCurrentChat(message.getFrom()) && mOnUpdateListener != null) {
+            mOnUpdateListener.onUpdateMessage(leanChatMessage);
+        }
     }
 
     public LeanChatMessage txtToMessage(String txt, String chatId, String chatName, String chatAvator) {
@@ -209,8 +188,6 @@ public class MessageManager {
         leanChatMessage.setMsgToUserName(chatName);
         leanChatMessage.setTimeStamp(System.currentTimeMillis());
         leanChatMessage.setType(ChatType.TEXT.getIndex());
-        mLeanChatMessages.add(leanChatMessage);
-        mLeanChatAdapter.notifyItemInserted(mLeanChatMessages.size());
         return leanChatMessage;
     }
 
@@ -225,8 +202,6 @@ public class MessageManager {
         leanChatMessage.setMsgToUserName(chatName);
         leanChatMessage.setTimeStamp(System.currentTimeMillis());
         leanChatMessage.setType(ChatType.IMAGE.getIndex());
-        mLeanChatMessages.add(leanChatMessage);
-        mLeanChatAdapter.notifyItemInserted(mLeanChatMessages.size());
         return leanChatMessage;
     }
 
@@ -242,4 +217,21 @@ public class MessageManager {
 
     }
 
+    private boolean isCurrentChat(String chatId) {
+        if (TextUtils.isEmpty(mChatId) || TextUtils.isEmpty(chatId)) {
+            return false;
+        }
+        return mChatId.equals(chatId);
+    }
+
+
+    public onUpdateListener mOnUpdateListener;
+
+    public void setOnUpdateListener(onUpdateListener onUpdateListener) {
+        mOnUpdateListener = onUpdateListener;
+    }
+
+    public interface onUpdateListener {
+        void onUpdateMessage(LeanChatMessage leanChatMessage);
+    }
 }

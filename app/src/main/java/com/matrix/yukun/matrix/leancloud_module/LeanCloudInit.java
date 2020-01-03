@@ -154,6 +154,10 @@ public class LeanCloudInit {
         return isLogionleanCloud;
     }
 
+    public void setLogionleanCloud(boolean b) {
+        isLogionleanCloud=b;
+    }
+
     public void logout() {
 //        if (mAvimClient != null) {
 //            mAvimClient.close(new AVIMClientCallback() {
