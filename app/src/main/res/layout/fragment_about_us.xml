@@ -81,6 +81,7 @@
                     android:layout_height="match_parent">
                     <ImageView
                         android:id="@+id/circleview"
+                        android:scaleType="centerCrop"
                         android:layout_width="@dimen/dimens_50"
                         android:layout_height="@dimen/dimens_50" />
                 </RelativeLayout>

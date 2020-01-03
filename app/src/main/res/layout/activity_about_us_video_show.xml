@@ -38,6 +38,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_header"
             android:clickable="true"
+            android:scaleType="centerCrop"
             android:background="?android:attr/selectableItemBackground"
             android:layout_centerInParent="true"
             android:layout_width="@dimen/dimens_40"

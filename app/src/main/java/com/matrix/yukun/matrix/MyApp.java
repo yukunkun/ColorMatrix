@@ -51,9 +51,9 @@ public class MyApp extends LitePalApplication {
         super.onCreate();
         myApp = this;
         Beta.autoCheckUpgrade = false;//设置不自动检查
-        Bugly.init(getApplicationContext(), "884e2d9286", false);
+        Bugly.init(getApplicationContext(), AppConstant.BUGLYID, false);
         Bmob.initialize(this, AppConstant.BMOBAPPID);
-        AVOSCloud.initialize(this, AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY,AppConstant.LEANCLOUDURL);
+        AVOSCloud.initialize(this,AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY,AppConstant.LEANCLOUDURL);
         AVOSCloud.setLogLevel(AVLogger.Level.DEBUG);
         AVIMOptions.getGlobalOptions().setUnreadNotificationEnabled(true);
         String processName = getProcessName(this, android.os.Process.myPid());

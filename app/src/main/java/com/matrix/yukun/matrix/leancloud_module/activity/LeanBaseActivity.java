@@ -154,7 +154,7 @@ public class LeanBaseActivity extends BaseActivity implements InputListener, Mes
         for (int i = 0; i < picPath.size(); i++) {
             LogUtil.i("path:" + picPath.get(i).path);
             MessageManager.getInstance().sendImageMessage(picPath.get(i).path);
-            MessageManager.getInstance().sendImageMessage("icon.png", AppConstant.APP_ICON_URl);
+//            MessageManager.getInstance().sendImageMessage("icon.png", AppConstant.APP_ICON_URl);
             LeanChatMessage leanChatMessage = MessageManager.getInstance().imageToMessage(picPath.get(i).path, chatId, chatName, chatAvator);
             refreshAdapter(leanChatMessage);
         }

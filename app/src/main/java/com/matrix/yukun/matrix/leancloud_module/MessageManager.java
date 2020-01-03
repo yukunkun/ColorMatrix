@@ -1,23 +1,19 @@
 package com.matrix.yukun.matrix.leancloud_module;
 
 import android.text.TextUtils;
-
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.chat_module.entity.ChatType;
-import com.matrix.yukun.matrix.leancloud_module.adapter.LeanChatAdapter;
 import com.matrix.yukun.matrix.leancloud_module.entity.LeanChatMessage;
 import com.matrix.yukun.matrix.leancloud_module.utils.MessageWrapper;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.util.log.LogUtil;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import cn.leancloud.AVFile;
 import cn.leancloud.im.v2.AVIMClient;
 import cn.leancloud.im.v2.AVIMConversation;
@@ -114,13 +110,14 @@ public class MessageManager {
             e.printStackTrace();
         }
         AVIMImageMessage avimImageMessage = new AVIMImageMessage(file);
+        avimImageMessage.setText("图片");
         mConversation.sendMessage(avimImageMessage, new AVIMConversationCallback() {
             @Override
             public void done(AVIMException e) {
                 if (e == null) {
-
+                    ToastUtils.showToast("发送消息成功");
                 } else {
-                    LogUtil.e(e.toString() + " " + Thread.currentThread().getName());
+                    LogUtil.e(e.toString()+e.getAppCode());
                     ToastUtils.showToast("发送消息失败");
                 }
             }
