@@ -41,6 +41,7 @@ public class LeanCloudInit {
     }
 
     public void init(String userId, LoginListenerImpl loginListener) {
+        LogUtil.i("leancloud 登录");
         mAvimClient = AVIMClient.getInstance(userId);
         mAvimClient.open(new AVIMClientCallback() {
             @Override
@@ -62,6 +63,7 @@ public class LeanCloudInit {
     }
 
     public void init(String userId) {
+        LogUtil.i("leancloud 登录");
         mAvimClient = AVIMClient.getInstance(userId);
         mAvimClient.open(new AVIMClientCallback() {
             @Override

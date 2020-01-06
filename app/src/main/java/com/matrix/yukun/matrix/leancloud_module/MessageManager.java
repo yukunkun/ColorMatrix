@@ -57,8 +57,10 @@ public class MessageManager {
                     @Override
                     public void done(AVIMConversation conversation, AVIMException e) {
                         if (e == null) {
+                            LogUtil.i("创建会话成功");
                             mConversation = conversation;
                         } else {
+                            LogUtil.i(e.toString());
                             ToastUtils.showToast("创建会话失败");
                         }
                     }
@@ -89,16 +91,20 @@ public class MessageManager {
     public void sendTxtMessage(String txt, String toId, String toUserName, String toAvator) {
         AVIMTextMessage avimTextMessage = new AVIMTextMessage();
         avimTextMessage.setText(txt);
-        mConversation.sendMessage(avimTextMessage, new AVIMConversationCallback() {
-            @Override
-            public void done(AVIMException e) {
-                if (e == null) {
+        if(mConversation!=null){
+            mConversation.sendMessage(avimTextMessage, new AVIMConversationCallback() {
+                @Override
+                public void done(AVIMException e) {
+                    if (e == null) {
 
-                } else {
-                    ToastUtils.showToast("发送消息失败");
+                    } else {
+                        ToastUtils.showToast("发送消息失败");
+                    }
                 }
-            }
-        });
+            });
+        }else {
+            ToastUtils.showToast("创建会话失败");
+        }
     }
 
     public void sendImageMessage(String imagePath) {

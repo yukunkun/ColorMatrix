@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.matrix.yukun.matrix.download_module.service.DownLoadService;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
+import com.matrix.yukun.matrix.util.log.LogUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -23,14 +24,8 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.cookie.CookieJarImpl;
-import com.zhy.http.okhttp.cookie.store.PersistentCookieStore;
-
 import org.litepal.LitePalApplication;
-
 import java.util.List;
-
 import cn.bmob.v3.Bmob;
 import cn.leancloud.AVLogger;
 import cn.leancloud.AVOSCloud;
@@ -50,13 +45,17 @@ public class MyApp extends LitePalApplication {
     public void onCreate() {
         super.onCreate();
         myApp = this;
-        Beta.autoCheckUpgrade = false;//设置不自动检查
-        Bugly.init(getApplicationContext(), AppConstant.BUGLYID, false);
-        Bmob.initialize(this, AppConstant.BMOBAPPID);
+        LogUtil.i(getProcessName(this, android.os.Process.myPid()));
+        if(!getProcessName(this, android.os.Process.myPid()).equals("com.matrix.yukun.matrix")){
+            return;
+        }
         AVOSCloud.initialize(this,AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY,AppConstant.LEANCLOUDURL);
         AVOSCloud.setLogLevel(AVLogger.Level.DEBUG);
         AVIMOptions.getGlobalOptions().setUnreadNotificationEnabled(true);
-        String processName = getProcessName(this, android.os.Process.myPid());
+        Beta.autoCheckUpgrade = false;//设置不自动检查
+        Bugly.init(getApplicationContext(), AppConstant.BUGLYID, false);
+        Bmob.initialize(this, AppConstant.BMOBAPPID);
+
         // android 7.0系统解决拍照的问题
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
