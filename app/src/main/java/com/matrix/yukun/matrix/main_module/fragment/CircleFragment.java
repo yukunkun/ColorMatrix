@@ -44,9 +44,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.leancloud.AVObject;
 import cn.leancloud.im.v2.AVIMClient;
 import cn.leancloud.im.v2.AVIMConversation;
+import cn.leancloud.im.v2.AVIMException;
 import cn.leancloud.im.v2.AVIMMessage;
+import cn.leancloud.im.v2.callback.AVIMClientCallback;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 
@@ -151,6 +154,9 @@ public class CircleFragment extends BaseFragment implements UpdateMessageListene
 //                ToastUtils.showToast("获取失败:"+e);
             }
         });
+//        AVObject testObject = new AVObject("TestObject");
+//        testObject.put("words", "Hello world!");
+//        testObject.saveInBackground().blockingSubscribe();
     }
 
     @OnClick({R.id.iv_contact, R.id.iv_add, R.id.tv_login})

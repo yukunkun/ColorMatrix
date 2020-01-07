@@ -162,14 +162,14 @@ public class PlayFragment extends BaseFragment {
             mTablayout.addTab(mTablayout.newTab().setText(mStringArray[i]));
         }
         setDrawableWidth();
-        if(savedInstanceState!=null){
+        if (savedInstanceState != null) {
             mInstance = RecFragment.getInstance();
             mInstance1 = VideoFragment.getInstance();
             mInstance2 = JokeFragment.getInstance();
             mInstance3 = ImageFragment.getInstance();
             mInstance4 = TextFragment.getInstance();
             mInstance5 = VerticalVideoFragment.getInstance();
-        }else {
+        } else {
             mInstance = RecFragment.getInstance();
             mInstance1 = VideoFragment.getInstance();
             mInstance2 = JokeFragment.getInstance();
@@ -212,20 +212,22 @@ public class PlayFragment extends BaseFragment {
     }
 
     private void getWeather(String city) {
-        HeWeather.getWeatherNow(getContext(), city, new HeWeather.OnResultWeatherNowBeanListener() {
-            @Override
-            public void onError(Throwable throwable) {
-                LogUtil.i("=======throwable", throwable.toString());
-            }
-
-            @Override
-            public void onSuccess(Now now) {
-                if (Code.OK.getCode().equalsIgnoreCase(now.getStatus())) {
-                    NowBase nowNow = now.getNow();
-                    mTvWeather.setText(city + '\n' + "体感温度:" +nowNow.getTmp()+"℃");
+        if (getContext() != null) {
+            HeWeather.getWeatherNow(getContext(), city, new HeWeather.OnResultWeatherNowBeanListener() {
+                @Override
+                public void onError(Throwable throwable) {
+                    LogUtil.i("=======throwable", throwable.toString());
                 }
-            }
-        });
+
+                @Override
+                public void onSuccess(Now now) {
+                    if (Code.OK.getCode().equalsIgnoreCase(now.getStatus())) {
+                        NowBase nowNow = now.getNow();
+                        mTvWeather.setText(city + '\n' + "体感温度:" + nowNow.getTmp() + "℃");
+                    }
+                }
+            });
+        }
     }
 
     public AMapLocationClient mLocationClient = null;
@@ -245,7 +247,7 @@ public class PlayFragment extends BaseFragment {
                         SPUtils.getInstance().saveString("latitude", String.valueOf(aMapLocation.getLatitude()));
                         SPUtils.getInstance().saveString("longitude", String.valueOf(aMapLocation.getLongitude()));
                         getWeather(aMapLocation.getCity());
-                    }else {
+                    } else {
                         ivUpdate.setVisibility(View.VISIBLE);
                     }
                 }
@@ -371,7 +373,7 @@ public class PlayFragment extends BaseFragment {
     }
 
     @OnClick({R.id.iv_chat, R.id.iv_main, R.id.head, R.id.iv_update, R.id.tv_weather, R.id.rl_collect, R.id.rl_main, R.id.iv_search,
-            R.id.rl_movie, R.id.rl_change_modul, R.id.rl_me, R.id.tv_close, R.id.rl_bg_special, R.id.iv_share, R.id.rl_down,R.id.rl_one_map})
+            R.id.rl_movie, R.id.rl_change_modul, R.id.rl_me, R.id.tv_close, R.id.rl_bg_special, R.id.iv_share, R.id.rl_down, R.id.rl_one_map})
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.iv_main) {
@@ -409,7 +411,7 @@ public class PlayFragment extends BaseFragment {
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
             }
-        } else if(i == R.id.rl_one_map){
+        } else if (i == R.id.rl_one_map) {
             MapActivity.start(getContext());
             closeDrawLayout();
         } else if (i == R.id.tv_close) {//退出
@@ -420,7 +422,7 @@ public class PlayFragment extends BaseFragment {
             mTvSig.setText(getContext().getResources().getString(R.string.title_content));
             mTvClose.setText("登录");
             DataSupport.deleteAll(UserInfo.class);
-            LeanCloudInit.getInstance().logout();
+//            LeanCloudInit.getInstance().logout();
             MyApp.setUserInfo(null);
             EventUpdateHeader eventUpdateHeader = new EventUpdateHeader();
             eventUpdateHeader.setLoginOut(true);
@@ -467,7 +469,7 @@ public class PlayFragment extends BaseFragment {
             startActivity(intentDown);
         } else if (i == R.id.iv_search) {
             SearchActivity.start(getContext(), mIvSearch);
-        }else if (i == R.id.iv_update) {
+        } else if (i == R.id.iv_update) {
             updatePosition();
             ToastUtils.showToast("请确保位置打开位置权限");
         }

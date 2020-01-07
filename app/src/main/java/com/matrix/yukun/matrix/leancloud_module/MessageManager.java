@@ -108,7 +108,6 @@ public class MessageManager {
     }
 
     public void sendImageMessage(String imagePath) {
-        LogUtil.e(Thread.currentThread().getName());
         AVFile file = null;
         try {
             file = AVFile.withAbsoluteLocalPath(new File(imagePath).getName(), imagePath);
@@ -132,6 +131,7 @@ public class MessageManager {
 
     public void sendImageMessage(String imageName, String ImageUrl) {
         AVFile file = new AVFile(imageName, ImageUrl, null);
+        file.saveInBackground();
         AVIMImageMessage avimImageMessage = new AVIMImageMessage(file);
         mConversation.sendMessage(avimImageMessage, new AVIMConversationCallback() {
             @Override

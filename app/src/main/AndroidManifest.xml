@@ -157,7 +157,7 @@
             android:name="com.qq.e.comm.DownloadService"
             android:exported="false" /> <!-- 请开发者注意字母的大小写，ADActivity，而不是AdActivity -->
         <!-- leancloud相关 -->
-
+        <service android:name="cn.leancloud.push.PushService"/>
         <receiver android:name="cn.leancloud.push.AVBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

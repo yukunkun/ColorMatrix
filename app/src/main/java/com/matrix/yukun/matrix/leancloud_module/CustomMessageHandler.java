@@ -32,21 +32,18 @@ public class CustomMessageHandler extends AVIMMessageHandler {
         if (!mMessageListeners.contains(listener)) {
             mMessageListeners.add(listener);
         }
-        LogUtil.i("=====",mMessageListeners.size()+"");
     }
 
     public void removeUpdateMessageListener(UpdateMessageListener listener) {
         if (!mMessageListeners.isEmpty()) {
             mMessageListeners.remove(listener);
         }
-        LogUtil.i("=====",mMessageListeners.size()+"");
     }
 
     @Override
     public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
         LogUtil.i(TAG, "onMessage:" + message.toJSONString());
         MessageManager.getInstance().onMessage(message, conversation, client);
-        LogUtil.i("=====",mMessageListeners.size()+"");
         for (int i = 0; i < mMessageListeners.size(); i++) {
             mMessageListeners.get(i).onMessage(message, conversation, client);
         }

@@ -46,15 +46,15 @@ public class MyApp extends LitePalApplication {
         super.onCreate();
         myApp = this;
         LogUtil.i(getProcessName(this, android.os.Process.myPid()));
-        if(!getProcessName(this, android.os.Process.myPid()).equals("com.matrix.yukun.matrix")){
-            return;
-        }
-        AVOSCloud.initialize(this,AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY,AppConstant.LEANCLOUDURL);
-        AVOSCloud.setLogLevel(AVLogger.Level.DEBUG);
-        AVIMOptions.getGlobalOptions().setUnreadNotificationEnabled(true);
+//        if(!getProcessName(this, android.os.Process.myPid()).equals("com.matrix.yukun.matrix")){
+//            return;
+//        }
         Beta.autoCheckUpgrade = false;//设置不自动检查
         Bugly.init(getApplicationContext(), AppConstant.BUGLYID, false);
         Bmob.initialize(this, AppConstant.BMOBAPPID);
+        AVOSCloud.initialize(this,AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY,AppConstant.LEANCLOUDURL);
+//        AVOSCloud.setLogLevel(AVLogger.Level.DEBUG);
+        AVIMOptions.getGlobalOptions().setUnreadNotificationEnabled(true);
 
         // android 7.0系统解决拍照的问题
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();

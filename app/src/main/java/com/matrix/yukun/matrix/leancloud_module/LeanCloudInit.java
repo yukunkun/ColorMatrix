@@ -17,6 +17,7 @@ import cn.leancloud.im.v2.AVIMConversation;
 import cn.leancloud.im.v2.AVIMConversationsQuery;
 import cn.leancloud.im.v2.AVIMException;
 import cn.leancloud.im.v2.callback.AVIMClientCallback;
+import cn.leancloud.im.v2.callback.AVIMClientStatusCallback;
 import cn.leancloud.im.v2.callback.AVIMConversationCallback;
 import cn.leancloud.im.v2.callback.AVIMConversationCreatedCallback;
 import cn.leancloud.im.v2.callback.AVIMConversationQueryCallback;
@@ -41,8 +42,8 @@ public class LeanCloudInit {
     }
 
     public void init(String userId, LoginListenerImpl loginListener) {
-        LogUtil.i("leancloud 登录");
         mAvimClient = AVIMClient.getInstance(userId);
+        LogUtil.i("leancloud 登录 "+userId);
         mAvimClient.open(new AVIMClientCallback() {
             @Override
             public void done(AVIMClient client, AVIMException e) {
@@ -60,10 +61,16 @@ public class LeanCloudInit {
                 }
             }
         });
+        mAvimClient.getClientStatus(new AVIMClientStatusCallback() {
+            @Override
+            public void done(AVIMClient.AVIMClientStatus client) {
+                LogUtil.i("登录leancloud "+client.getCode());
+            }
+        });
     }
 
     public void init(String userId) {
-        LogUtil.i("leancloud 登录");
+        LogUtil.i("leancloud 登录 "+userId);
         mAvimClient = AVIMClient.getInstance(userId);
         mAvimClient.open(new AVIMClientCallback() {
             @Override
@@ -161,16 +168,16 @@ public class LeanCloudInit {
     }
 
     public void logout() {
-//        if (mAvimClient != null) {
-//            mAvimClient.close(new AVIMClientCallback() {
-//                @Override
-//                public void done(AVIMClient client, AVIMException e) {
-//                    if (e == null) {
-//                        mAvimClient = null;
-//                        isLogionleanCloud = false;
-//                    }
-//                }
-//            });
-//        }
+        if (mAvimClient != null) {
+            mAvimClient.close(new AVIMClientCallback() {
+                @Override
+                public void done(AVIMClient client, AVIMException e) {
+                    if (e == null) {
+                        mAvimClient = null;
+                        isLogionleanCloud = false;
+                    }
+                }
+            });
+        }
     }
 }
