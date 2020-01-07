@@ -89,11 +89,12 @@ public class AvatarChoiceActivity extends BaseActivity {
                             }.getType());
                             mImageDatas.addAll(imageDatas);
                             mRvVerticalAdapter.notifyDataSetChanged();
-                            mSwipeRefreshLayout.finishLoadMore();
-                            mSwipeRefreshLayout.finishRefresh();
+
                         } else {
                             ToastUtils.showToast("error");
                         }
+                        mSwipeRefreshLayout.finishLoadMore();
+                        mSwipeRefreshLayout.finishRefresh();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -132,6 +133,16 @@ public class AvatarChoiceActivity extends BaseActivity {
                 intent.putExtra("url", url);
                 setResult(1002, intent);
                 finish();
+            }
+
+            @Override
+            public void onLoadError(int pos, ImageData imageData) {
+                synchronized (this){
+                    if(pos<mImageDatas.size()){
+                        mImageDatas.remove(pos);
+                        mRvVerticalAdapter.notifyDataSetChanged();
+                    }
+                }
             }
         });
     }
