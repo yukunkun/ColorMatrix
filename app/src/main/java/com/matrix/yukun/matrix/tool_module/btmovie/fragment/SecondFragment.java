@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -14,9 +16,11 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
+import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.tool_module.btmovie.Constant;
 import com.matrix.yukun.matrix.util.AdvUtil;
 import com.qq.e.ads.banner.BannerView;
@@ -55,7 +59,7 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
         mWebView = (WebView) inflate.findViewById(R.id.webview);
         progressBar= new ProgressDialog(getContext());
         progressBar.setMessage("加载中");
-        progressBar.show();
+//        progressBar.show();
 
         UnifiedBannerView banner = AdvUtil.getBanner(getActivity(), mRlBanner, Constant.APPID, Constant.BANNER_ADID, this);
         banner.loadAD();
@@ -103,12 +107,23 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
 
         if(id== R.id.bt_add_conference){
             String url = mWebView.getUrl();
-            //代码实现跳转
-            Intent intent = new Intent();
-            intent.setAction("android.intent.action.VIEW");
-            //此处填链接
-            intent.setData(Uri.parse(url));
-            startActivity(intent);
+            if(!TextUtils.isEmpty(url)&& url.startsWith("thunder:")){
+                try{
+                    String link = url;
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                    intent.addCategory("android.intent.category.DEFAULT");
+                    startActivity(intent);
+                }catch(Exception e){
+                    ToastUtils.showToast( "没有安装迅雷，请安装迅雷下载");
+                }
+            }else {
+                //代码实现跳转
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                //此处填链接
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
         }
     }
 
