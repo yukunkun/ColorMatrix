@@ -53,7 +53,7 @@ public class MyApp extends LitePalApplication {
         Bugly.init(getApplicationContext(), AppConstant.BUGLYID, false);
         Bmob.initialize(this, AppConstant.BMOBAPPID);
         AVOSCloud.initialize(this,AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY,AppConstant.LEANCLOUDURL);
-//        AVOSCloud.setLogLevel(AVLogger.Level.DEBUG);
+        AVOSCloud.setLogLevel(AVLogger.Level.DEBUG);
         AVIMOptions.getGlobalOptions().setUnreadNotificationEnabled(true);
 
         // android 7.0系统解决拍照的问题

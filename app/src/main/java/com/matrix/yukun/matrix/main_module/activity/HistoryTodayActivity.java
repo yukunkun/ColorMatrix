@@ -1,5 +1,6 @@
 package com.matrix.yukun.matrix.main_module.activity;
 
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -9,7 +10,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.matrix.yukun.matrix.BaseActivity;
-import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.adapter.LVAdapter;
 import com.matrix.yukun.matrix.main_module.entity.HistoryInfo;
@@ -139,9 +139,11 @@ public class HistoryTodayActivity extends BaseActivity {
     private List<SortModel> getSortModule() {
         List<SortModel> filterDateList = new ArrayList<>();
         for (int i = 0; i < mList.size(); i++) {
-            String pinYinFirstLetter = Cn2Spell.getPinYinFirstLetter(mList.get(i).getTitle());
-            SortModel sortModel = new SortModel(mList.get(i).getTitle(), pinYinFirstLetter.toUpperCase().charAt(0) + "", mList.get(i).getYear(), mList.get(i).getMonth(), mList.get(i).getDay());
-            filterDateList.add(sortModel);
+            if(!TextUtils.isEmpty(mList.get(i).getTitle())){
+                String pinYinFirstLetter = Cn2Spell.getPinYinFirstLetter(mList.get(i).getTitle());
+                SortModel sortModel = new SortModel(mList.get(i).getTitle(), pinYinFirstLetter.toUpperCase().charAt(0) + "", mList.get(i).getYear(), mList.get(i).getMonth(), mList.get(i).getDay());
+                filterDateList.add(sortModel);
+            }
         }
         Collections.sort(filterDateList, new PinyinComparator());
         return filterDateList;

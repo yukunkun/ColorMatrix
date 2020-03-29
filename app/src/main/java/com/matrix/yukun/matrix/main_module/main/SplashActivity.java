@@ -80,6 +80,9 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
         }
         animation();
         isAutoLogin();
+        Log.i("---ads", "onADTick");
+        Log.e("---ads", "onADTick");
+        LogUtil.i("---ads", "onADTick");
     }
 
     private void animation() {
