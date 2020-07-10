@@ -36,6 +36,3 @@
             implementation project(path: ':Photoeditor')
             implementation project(path: ':videocompressor')
             implementation project(path: ':jiaozivideoplayer')
-
-#### [下载](http://www.paopaoche.net/android/282471.html)
-![应用宝下载地址](http://www.paopaoche.net/android/282471.html)
