@@ -51,18 +51,6 @@
             android:gravity="center"
             android:text="gaia"
             android:textColor="@drawable/selector_main_text" />
-        <RadioButton
-            android:id="@+id/chat"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="@dimen/sp_12"
-
-            android:button="@null"
-            android:drawableTop="@drawable/live_section_message"
-            android:gravity="center"
-            android:text="@string/secret_circle"
-            android:textColor="@drawable/selector_main_text" />
 
         <RadioButton
             android:id="@+id/collect"

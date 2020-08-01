@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
@@ -17,33 +15,30 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.view.ViewCompat;
+
 import com.google.gson.Gson;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.leancloud_module.LeanCloudInit;
 import com.matrix.yukun.matrix.main_module.activity.BriefVersionActivity;
 import com.matrix.yukun.matrix.main_module.activity.LoginActivity;
-import com.matrix.yukun.matrix.main_module.activity.PlayMainActivity;
+import com.matrix.yukun.matrix.main_module.activity.MainActivity;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
 import com.matrix.yukun.matrix.main_module.search.DBSearchInfo;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.util.PermissionUtils;
 import com.matrix.yukun.matrix.util.log.LogUtil;
-import com.qq.e.ads.splash.SplashAD;
-import com.qq.e.ads.splash.SplashADListener;
-import com.qq.e.comm.util.AdError;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.view.ViewCompat;
 import butterknife.BindView;
 
-public class SplashActivity extends BaseActivity implements SplashADListener/* implements SplashADListener */ {
+public class SplashActivity extends BaseActivity {
 
     @BindView(R.id.container)
     FrameLayout container;
@@ -53,12 +48,6 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
     ImageView icon;
     @BindView(R.id.title)
     TextView title;
-    private ViewGroup mLayout;
-    private String appId = "1105962710"; //1105962710
-    private String adId = "6000411838414184"; //1070070284914535
-    private boolean conJump;
-    private TextView mSkipView;
-    private SplashAD splashAD;
 
     @Override
     public int getLayout() {
@@ -70,8 +59,6 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
 
     @Override
     public void initView() {
-        mLayout = (ViewGroup) findViewById(R.id.container);
-        mSkipView = findViewById(R.id.skip_view);
         getPermiss();
         //删除100天以前的历史数据
         DataSupport.deleteAllAsync(DBSearchInfo.class, "timeStamp < ? ", System.currentTimeMillis() - 100 * 24 * 60 * 60 * 1000 + "");
@@ -80,9 +67,6 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
         }
         animation();
         isAutoLogin();
-        Log.i("---ads", "onADTick");
-        Log.e("---ads", "onADTick");
-        LogUtil.i("---ads", "onADTick");
     }
 
     private void animation() {
@@ -106,7 +90,7 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
         permissionUtils.setContext(this);
         List<String> list = permissionUtils.setPermission(permissingList);
         if (list.size() == 0) {
-            requestAds();
+            forward();
         } else {
             permissionUtils.start();
         }
@@ -147,67 +131,14 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    //广告接入
-//    private void requestAds() {
-//        //获取到userinfo
-//        List<UserInfo> all = DataSupport.findAll(UserInfo.class);
-//        if(all.size()>0){
-//            MyApp.setUserInfo(all.get(0));
-//        }
-//        Map<String, String> tags = new HashMap<>();
-//        SplashAD splashAD = new SplashAD(this, mSkipView, appId, adId, new AdListener(),
-//                5000, tags);
-////        LoadAdParams params = new LoadAdParams();
-////        splashAD.setLoadAdParams(params);
-//        splashAD.fetchAndShowIn(relativeLayout);
-//    }
 
     private void requestAds() {
-        splashAD = new SplashAD(this, mSkipView, appId, adId, this, 5000);
-        splashAD.fetchAndShowIn(mLayout);
-    }
 
-    @Override
-    public void onADDismissed() {
-        //显示完毕
-        LogUtil.i("---ads", "onADDismissed");
-        conJump = true;
-        forward();
-    }
-
-    @Override
-    public void onNoAD(AdError adError) {
-        //加载失败
-        LogUtil.i("---adError", adError.getErrorCode() + " " + adError.getErrorMsg());
-        conJump = true;
-        forward();
-    }
-
-    @Override
-    public void onADPresent() {
-        LogUtil.i("---ads", "onADPresent");
-    }
-
-    @Override
-    public void onADClicked() {
-        LogUtil.i("---ads", "onADClicked");
-    }
-
-    @Override
-    public void onADTick(long l) {
-        mSkipView.setText(String.format("点击跳过 %d", Math.round(l / 1000f)));
-        Log.i("---ads", "onADTick");
-    }
-
-    @Override
-    public void onADExposure() {
-        LogUtil.i("---ads", "onADExposure");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        conJump = false;
     }
 
     @Override
@@ -216,23 +147,21 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
     }
 
     private void forward() {
-        if (conJump) {
-            Intent intent =null;
-            if(!SPUtils.getInstance().getBoolean("first")&&TextUtils.isEmpty(SPUtils.getInstance().getString("user"))){
-                intent = new Intent(this, LoginActivity.class);
-            }
-            else if (istrue()) {
-                intent = new Intent(this, LockActivity.class);
+        Intent intent = null;
+        if (!SPUtils.getInstance().getBoolean("first") && TextUtils.isEmpty(SPUtils.getInstance().getString("user"))) {
+            intent = new Intent(this, LoginActivity.class);
+        } else if (istrue()) {
+            intent = new Intent(this, LockActivity.class);
+        } else {
+            if (SPUtils.getInstance().getBoolean("isbrief")) {
+                intent = new Intent(this, BriefVersionActivity.class);
             } else {
-                if (SPUtils.getInstance().getBoolean("isbrief")) {
-                    intent = new Intent(this, BriefVersionActivity.class);
-                } else {
-                    intent = new Intent(this, PlayMainActivity.class);
-                }
+                intent = new Intent(this, MainActivity.class);
             }
-            startActivity(intent);
-            finish();
         }
+        startActivity(intent);
+        finish();
+
     }
 
     private boolean istrue() {
@@ -249,9 +178,7 @@ public class SplashActivity extends BaseActivity implements SplashADListener/* i
             if(userInfoBMob!=null){
                 LogUtil.i(userInfoBMob.toString());
                 MyApp.setUserInfo(userInfoBMob);
-                LeanCloudInit.getInstance().init(userInfoBMob.getId());
             }
-
         }
     }
 

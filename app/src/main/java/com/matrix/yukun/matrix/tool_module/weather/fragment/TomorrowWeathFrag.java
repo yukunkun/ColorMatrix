@@ -3,10 +3,6 @@ package com.matrix.yukun.matrix.tool_module.weather.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import com.matrix.yukun.matrix.AppConstant;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.WaterLoadView;
@@ -28,10 +28,6 @@ import com.matrix.yukun.matrix.tool_module.weather.bean.WeaTomorrow;
 import com.matrix.yukun.matrix.tool_module.weather.present.TomorrowFragmentImpl;
 import com.matrix.yukun.matrix.tool_module.weather.present.TomorrowPresent;
 import com.matrix.yukun.matrix.util.AnimUtils;
-import com.qq.e.ads.banner.ADSize;
-import com.qq.e.ads.banner.AbstractBannerADListener;
-import com.qq.e.ads.banner.BannerView;
-import com.qq.e.comm.util.AdError;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -95,7 +91,6 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
     private String city;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerTomorrowAdapter recyclerTomorrowAdapter;
-    private BannerView mBannerView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -125,28 +120,7 @@ public class TomorrowWeathFrag extends BaseFrag implements TomorrowFragmentImpl 
         OverScrollDecoratorHelper.setUpOverScroll(scrollView);
         mWaterload.setVisibility(View.VISIBLE);
         setListener();
-        getBanner();
         return inflate;
-    }
-
-    private void getBanner() {
-        mBannerView = new BannerView(getActivity(), ADSize.BANNER, AppConstant.ADAPPID,
-                AppConstant.BANNER_ADID);
-        mBannerView.setRefresh(30);
-        mBannerView.setADListener(new AbstractBannerADListener() {
-
-            @Override
-            public void onNoAD(AdError adError) {
-
-            }
-
-            @Override
-            public void onADReceiv() {
-                Log.i("---onNoAD", "onNoAD");
-            }
-        });
-        mBanner.addView(mBannerView);// 把banner加载到容器
-        mBannerView.loadAD();
     }
 
     private boolean animTag = true;

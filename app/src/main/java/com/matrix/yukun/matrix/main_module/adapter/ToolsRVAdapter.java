@@ -1,16 +1,18 @@
 package com.matrix.yukun.matrix.main_module.adapter;
 
 import android.content.Context;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.gaia_module.adapter.create_person.SpaceReDecoration;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.selfview.NoScrollListView;
+import com.matrix.yukun.matrix.util.ToolItemDecoration;
 
 import java.util.Collections;
 import java.util.List;
@@ -57,7 +59,7 @@ public class ToolsRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             ((MHolderTool) holder).mRecyclerView.setLayoutManager(gridLayoutManager);
             mToolsItemAdapter = new ToolsItemAdapter(context, imageList, mListName);
             ((MHolderTool) holder).mRecyclerView.setAdapter(mToolsItemAdapter);
-            ((MHolderTool) holder).mRecyclerView.addItemDecoration(new SpaceReDecoration(8));
+            ((MHolderTool) holder).mRecyclerView.addItemDecoration(new ToolItemDecoration(8));
             ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemDragCallBack());
             itemTouchHelper.attachToRecyclerView(((MHolderTool) holder).mRecyclerView);
         }

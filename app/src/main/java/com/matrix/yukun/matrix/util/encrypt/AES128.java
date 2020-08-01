@@ -1,10 +1,7 @@
 package com.matrix.yukun.matrix.util.encrypt;
 
-import com.qq.e.comm.util.StringUtil;
-
 import org.apache.commons.codec.Charsets;
 import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.codec.binary.StringUtils;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;

@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
@@ -30,7 +32,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-import androidx.cardview.widget.CardView;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
@@ -127,7 +128,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         int id = v.getId();
         if(id== R.id.iv_back){
             if(!SPUtils.getInstance().getBoolean("first")){
-                PlayMainActivity.start(this);
+                MainActivity.start(this);
                 finish();
             }else {
                 finish();
@@ -188,7 +189,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
         if(id== R.id.tv_back){
             if(!SPUtils.getInstance().getBoolean("first")){
-                PlayMainActivity.start(this);
+                MainActivity.start(this);
                 finish();
             }else {
                 finish();
@@ -237,7 +238,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         MyApp.setUserInfo(userInfoBMob);
                         EventBus.getDefault().post(new EventUpdateHeader());
                         if(!SPUtils.getInstance().getBoolean("first")) {
-                            PlayMainActivity.start(LoginActivity.this);
+                            MainActivity.start(LoginActivity.this);
                         }
                         finish();
                     }else {

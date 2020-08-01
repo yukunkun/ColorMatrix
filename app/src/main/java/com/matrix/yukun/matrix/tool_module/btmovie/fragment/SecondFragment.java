@@ -6,8 +6,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,27 +14,21 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.matrix.yukun.matrix.BaseFragment;
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.tool_module.btmovie.Constant;
-import com.matrix.yukun.matrix.util.AdvUtil;
-import com.qq.e.ads.banner.BannerView;
-import com.qq.e.ads.banner2.UnifiedBannerADListener;
-import com.qq.e.ads.banner2.UnifiedBannerView;
-import com.qq.e.comm.util.AdError;
 
 /**
  * author: kun .
  * date:   On 2018/9/25
  */
-public class SecondFragment extends BaseFragment implements View.OnClickListener, UnifiedBannerADListener {
+public class SecondFragment extends BaseFragment implements View.OnClickListener {
     private RelativeLayout mRlBanner;
     private ImageView mIvClose;
     private WebView mWebView;
-    private BannerView mBannerView;
     private RelativeLayout mRlBannerLayout;
     private ProgressDialog progressBar;
     private FloatingActionButton mFloatingActionButton;
@@ -60,10 +52,6 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
         progressBar= new ProgressDialog(getContext());
         progressBar.setMessage("加载中");
 //        progressBar.show();
-
-        UnifiedBannerView banner = AdvUtil.getBanner(getActivity(), mRlBanner, Constant.APPID, Constant.BANNER_ADID, this);
-        banner.loadAD();
-
         mWebView.getSettings().setJavaScriptEnabled(true);//启用js
         mWebView.getSettings().setBlockNetworkImage(false);//解决图片不显示
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
@@ -141,44 +129,4 @@ public class SecondFragment extends BaseFragment implements View.OnClickListener
             return false;
         }
     };
-
-    @Override
-    public void onNoAD(AdError adError) {
-
-    }
-
-    @Override
-    public void onADReceive() {
-
-    }
-
-    @Override
-    public void onADExposure() {
-
-    }
-
-    @Override
-    public void onADClosed() {
-
-    }
-
-    @Override
-    public void onADClicked() {
-
-    }
-
-    @Override
-    public void onADLeftApplication() {
-
-    }
-
-    @Override
-    public void onADOpenOverlay() {
-
-    }
-
-    @Override
-    public void onADCloseOverlay() {
-
-    }
 }

@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
-import com.matrix.yukun.matrix.main_module.activity.PlayMainActivity;
+import com.matrix.yukun.matrix.main_module.activity.MainActivity;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.mine_module.entity.EventClose;
@@ -105,7 +105,7 @@ public class SettingActivity extends BaseActivity {
     private void goBack() {
         if (lastModule!=currentModule) {  //  如果改变了夜间模式，则重启MainActivity
             EventBus.getDefault().post(new EventClose(currentModule));
-            PlayMainActivity.start(this);
+            MainActivity.start(this);
         }
         finish();
     }

@@ -276,7 +276,7 @@
             android:name=".main_module.activity.HistoryTodayActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main_module.activity.PlayMainActivity"
+            android:name=".main_module.activity.MainActivity"
             android:screenOrientation="portrait" /> <!-- android:launchMode="singleTop" -->
         <activity
             android:name=".main_module.activity.ToolsActivity"

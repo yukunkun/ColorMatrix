@@ -9,12 +9,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import androidx.annotation.IdRes;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.appcompat.app.AppCompatDelegate;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +23,13 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
+import androidx.annotation.IdRes;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.matrix.yukun.matrix.BaseActivity;
 import com.matrix.yukun.matrix.MyApp;
 import com.matrix.yukun.matrix.R;
@@ -36,8 +37,6 @@ import com.matrix.yukun.matrix.main_module.dialog.GestureDialog;
 import com.matrix.yukun.matrix.main_module.entity.EventVideo;
 import com.matrix.yukun.matrix.main_module.entity.EyesInfo;
 import com.matrix.yukun.matrix.main_module.fragment.AboutUsFragment;
-import com.matrix.yukun.matrix.main_module.fragment.CircleFragment;
-import com.matrix.yukun.matrix.main_module.fragment.GaiaFragment;
 import com.matrix.yukun.matrix.main_module.fragment.PlayFragment;
 import com.matrix.yukun.matrix.main_module.fragment.ToolFragment;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
@@ -58,7 +57,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class PlayMainActivity extends BaseActivity implements View.OnClickListener, MediaPlayer.OnPreparedListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, MediaPlayer.OnPreparedListener {
 
     @BindView(R.id.rg)
     RadioGroup mRg;
@@ -77,13 +76,11 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
     private String mNextUrl;
     private EyesInfo mEyesInfo;
     private RelativeLayout mLayout;
-    private GaiaFragment mGaiaFragment;
     private PlayFragment mPlayFragment;
     private AboutUsFragment mAboutUsFragment;
-    private CircleFragment mCircleFragment;
 
     public static void start(Context context) {
-        Intent intent = new Intent(context, PlayMainActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
 
@@ -112,21 +109,15 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
             //不为空说明缓存视图中有fragment实例，通过tag取出来
             FragmentManager supportFragmentManager = getSupportFragmentManager();
             mPlayFragment = (PlayFragment) supportFragmentManager.findFragmentByTag("0");
-            mGaiaFragment = (GaiaFragment) supportFragmentManager.findFragmentByTag("1");
-            mCircleFragment = (CircleFragment) supportFragmentManager.findFragmentByTag("2");
             mToolFragment = (ToolFragment) supportFragmentManager.findFragmentByTag("3");
             mAboutUsFragment = (AboutUsFragment) supportFragmentManager.findFragmentByTag("4");
         }else{
             mPlayFragment = PlayFragment.getInstance();
-            mGaiaFragment = GaiaFragment.getInstance();
-            mCircleFragment = CircleFragment.getInstance();
             mToolFragment = ToolFragment.getInstance();
             mAboutUsFragment = AboutUsFragment.getInstance();
         }
 
         mFragments.add(mPlayFragment);
-        mFragments.add(mGaiaFragment);
-        mFragments.add(mCircleFragment);
         mFragments.add(mToolFragment);
         mFragments.add(mAboutUsFragment);
 
@@ -160,25 +151,15 @@ public class PlayMainActivity extends BaseActivity implements View.OnClickListen
                     ((RadioButton) (mRg.getChildAt(0))).setChecked(true);
                     bottomViewAnimation(mRg.getChildAt(0));
                     show(0);
-                } else if (checkedId == R.id.gaia) {
+                } else if (checkedId == R.id.collect) {
                     ((RadioButton) (mRg.getChildAt(1))).setChecked(true);
                     bottomViewAnimation(mRg.getChildAt(1));
                     show(1);
 
-                } else if (checkedId == R.id.chat) {
+                } else if (checkedId == R.id.me) {
                     ((RadioButton) (mRg.getChildAt(2))).setChecked(true);
                     bottomViewAnimation(mRg.getChildAt(2));
                     show(2);
-
-                } else if (checkedId == R.id.collect) {
-                    ((RadioButton) (mRg.getChildAt(3))).setChecked(true);
-                    bottomViewAnimation(mRg.getChildAt(3));
-                    show(3);
-
-                } else if (checkedId == R.id.me) {
-                    ((RadioButton) (mRg.getChildAt(4))).setChecked(true);
-                    bottomViewAnimation(mRg.getChildAt(4));
-                    show(4);
                 }
             }
         });

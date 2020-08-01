@@ -3,8 +3,6 @@ package com.matrix.yukun.matrix.tool_module.weather.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -25,7 +26,6 @@ import com.matrix.yukun.matrix.selfview.SunriseView;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.ConfAdapter;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.RVFutureAdapter;
 import com.matrix.yukun.matrix.tool_module.weather.adapter.RVPosizonAdapter;
-import com.matrix.yukun.matrix.tool_module.map.activity.AMapActivity;
 import com.matrix.yukun.matrix.tool_module.weather.bean.OnEventpos;
 import com.matrix.yukun.matrix.util.AnimUtils;
 import com.matrix.yukun.matrix.util.DataUtils;
@@ -171,6 +171,7 @@ public class HeWeatherActivity extends BaseActivity {
         recyclerNeber.setAdapter(mRvPosizonAdapter);
         recyclerNeber.setHasFixedSize(true);
         recyclerNeber.setNestedScrollingEnabled(false);
+        ivMain.setVisibility(View.GONE);
         OverScrollDecoratorHelper.setUpOverScroll(mRVFuture, LinearLayoutManager.VERTICAL);
         ivBg.post(new Runnable() {
             @Override
@@ -428,9 +429,6 @@ public class HeWeatherActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.iv_back:
                 finish();
-                break;
-            case R.id.iv_main:
-                AMapActivity.start(this);
                 break;
             case R.id.iv_future:
             case R.id.tv_future:

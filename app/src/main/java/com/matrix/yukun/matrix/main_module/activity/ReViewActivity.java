@@ -45,8 +45,6 @@ public class ReViewActivity extends BaseActivity implements View.OnClickListener
     private TextView mTvGender;
     private TextView mTvCompl;
     private String headerPath;
-    private String url="https://bing.ioliu.cn/v1/rand?type=json";
-    private int REQUEST_CODE_FROM_GALLERY=1001;
     private CircleImageView mCircleImageView;
     private ImageView mMIvBack;
 
@@ -97,7 +95,7 @@ public class ReViewActivity extends BaseActivity implements View.OnClickListener
         switch (v.getId()){
             case R.id.iv_back:
                 if(!SPUtils.getInstance().getBoolean("first")){
-                    PlayMainActivity.start(this);
+                    MainActivity.start(this);
                     finish();
                 }else {
                     finish();
@@ -176,7 +174,7 @@ public class ReViewActivity extends BaseActivity implements View.OnClickListener
                 MyApp.setUserInfo(userInfoBMob);
                 EventBus.getDefault().post(new EventUpdateHeader());
                 if(!SPUtils.getInstance().getBoolean("first")){
-                    PlayMainActivity.start(ReViewActivity.this);
+                    MainActivity.start(ReViewActivity.this);
                     finish();
                 }else {
                     finish();

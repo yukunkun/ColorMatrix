@@ -11,11 +11,6 @@ import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.matrix.yukun.matrix.leancloud_module.CustomMessageHandler;
-import com.matrix.yukun.matrix.leancloud_module.LeanCloudMessageHandler;
-import com.qq.e.comm.DownloadService;
-import cn.leancloud.im.v2.AVIMMessageManager;
-
 /**
  * author: kun .
  * date:   On 2019/1/22
@@ -23,7 +18,7 @@ import cn.leancloud.im.v2.AVIMMessageManager;
 public class DownLoadService extends Service {
     private static final int FORE_SERVICE_ID = 1;
     static DownLoadService mDownLoadService;
-    String TAG=DownloadService.class.getSimpleName();
+    String TAG=DownLoadService.class.getSimpleName();
     String CHANNEL_ONE_ID = "com.primedu.cn";
     String CHANNEL_ONE_NAME = "matrix";
 
@@ -86,8 +81,6 @@ public class DownLoadService extends Service {
     //初始化数值
     private void initListener() {
         DownLoadEngine.getInstance().startDownLoadServiceImpl();
-        AVIMMessageManager.setConversationEventHandler(new LeanCloudMessageHandler());
-        AVIMMessageManager.registerDefaultMessageHandler(new CustomMessageHandler());
     }
 
     //释放数值
@@ -117,7 +110,7 @@ public class DownLoadService extends Service {
         boolean ret = false;
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceInfo.service.getPackageName().equals(context.getPackageName()) && DownloadService.class.getName().equals(serviceInfo.service.getClassName())) {
+            if (serviceInfo.service.getPackageName().equals(context.getPackageName()) && DownLoadService.class.getName().equals(serviceInfo.service.getClassName())) {
                 ret = true;
                 break;
             }

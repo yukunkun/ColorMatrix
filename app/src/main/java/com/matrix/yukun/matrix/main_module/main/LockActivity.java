@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.matrix.yukun.matrix.R;
 import com.matrix.yukun.matrix.main_module.activity.BriefVersionActivity;
-import com.matrix.yukun.matrix.main_module.activity.PlayMainActivity;
+import com.matrix.yukun.matrix.main_module.activity.MainActivity;
 import com.matrix.yukun.matrix.main_module.utils.SPUtils;
 import com.matrix.yukun.matrix.main_module.utils.ToastUtils;
 import com.matrix.yukun.matrix.selfview.GestureLockViewGroup;
@@ -69,7 +69,7 @@ public class LockActivity extends AppCompatActivity {
                                 if(SPUtils.getInstance().getBoolean("isbrief")){
                                     intent=new Intent(LockActivity.this, BriefVersionActivity.class);
                                 }else {
-                                    intent=new Intent(LockActivity.this,PlayMainActivity.class);
+                                    intent=new Intent(LockActivity.this, MainActivity.class);
                                 }
                                 startActivity(intent);
                                 finish();
@@ -134,7 +134,7 @@ public class LockActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (istrueLock(mEditText.getText().toString())) {
-                            Intent intent = new Intent(LockActivity.this, PlayMainActivity.class);
+                            Intent intent = new Intent(LockActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         } else {
@@ -157,7 +157,7 @@ public class LockActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(istrueLock(mEditText.getText().toString())){
-                            Intent intent = new Intent(LockActivity.this, PlayMainActivity.class);
+                            Intent intent = new Intent(LockActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         }

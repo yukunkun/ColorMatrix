@@ -4,9 +4,7 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
-import android.text.TextUtils;
 
-import com.amap.api.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.matrix.yukun.matrix.download_module.service.DownLoadService;
 import com.matrix.yukun.matrix.main_module.entity.UserInfoBMob;
@@ -24,12 +22,12 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
+
 import org.litepal.LitePalApplication;
+
 import java.util.List;
+
 import cn.bmob.v3.Bmob;
-import cn.leancloud.AVLogger;
-import cn.leancloud.AVOSCloud;
-import cn.leancloud.im.AVIMOptions;
 import interfaces.heweather.com.interfacesmodule.view.HeConfig;
 
 /**
@@ -52,9 +50,6 @@ public class MyApp extends LitePalApplication {
         Beta.autoCheckUpgrade = false;//设置不自动检查
         Bugly.init(getApplicationContext(), AppConstant.BUGLYID, false);
         Bmob.initialize(this, AppConstant.BMOBAPPID);
-        AVOSCloud.initialize(this,AppConstant.LEANCLOUDID, AppConstant.LEANCLOUDKEY,AppConstant.LEANCLOUDURL);
-        AVOSCloud.setLogLevel(AVLogger.Level.DEBUG);
-        AVIMOptions.getGlobalOptions().setUnreadNotificationEnabled(true);
 
         // android 7.0系统解决拍照的问题
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -105,16 +100,16 @@ public class MyApp extends LitePalApplication {
     }
 
 
-    public static LatLng getLatLng() {
-        String latitude = SPUtils.getInstance().getString("latitude");
-        String longitude = SPUtils.getInstance().getString("longitude");
-        if (!TextUtils.isEmpty(latitude)) {
-            LatLng latLng = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
-            return latLng;
-        } else {
-            return null;
-        }
-    }
+//    public static LatLng getLatLng() {
+//        String latitude = SPUtils.getInstance().getString("latitude");
+//        String longitude = SPUtils.getInstance().getString("longitude");
+//        if (!TextUtils.isEmpty(latitude)) {
+//            LatLng latLng = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
+//            return latLng;
+//        } else {
+//            return null;
+//        }
+//    }
 
     public static void setUserInfo(UserInfoBMob user) {
         userInfo = new UserInfoBMob();
